@@ -4,14 +4,6 @@
 ![](http://ww3.sinaimg.cn/large/006tNc79ly1g3cckd0xxhj30i7050gm1.jpg)
 
 # 协作信息
-## 服务器
-- IP: 
-- User: 
-- Password: 
-
-## 数据库
-- User: 
-- Password: 
 
 ## Jenkins
 [Jenkins]()
