@@ -164,19 +164,232 @@ java导出Excel实现
 ## 2.1 现场挂号
 ### 2.1.1 挂号
 
-### 2.1.2 情空
+Q1. 对于挂号操作来说，是否应该是先缴费才会在数据库registration表中插入记录 
+
+
+
+- 检查患者是否已在本系统中 
+
+  - [ ] 从前端得到患者的身份证号
+
+  - [ ] select patient_id from **patient** where id_card = #{id_card}
+
+    - Field/Object
+
+    如返回值不为空，传patient_id到前端
+
+    如返回值为空
+
+    - [ ] insert into **patient** values (值1, 值2,....) 
+
+- 从前端得到姓名(必填）、性别(必填)、身份证号、出生日期（通过身份证号得到）、年龄、结算类别（必填）、家庭住址、挂号级别（必填）、挂号科室（必填）、<u>看诊医生（必填）</u>、是否要病历本
+
+  - [ ] 对看诊医生挂号限额的判断
+
+  - [ ] 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
+
+- 向缴费表中添加新的缴费记录  --已缴费
+  - [ ] insert into **transaction_log** (...type, status...) values (...挂号费, 2...)
+
+- 向挂号表中添加新的挂号记录 --默认正常
+  - [ ] insert into **registration** values (值1, 值2,....) 
+
+- 向病历表中添加新的病历记录 --默认待诊
+  - [ ] insert into **case** (registration_id, patient_id, user_id) values (值1, 值2,....)  
+
+Note: 1.病历号自动递增
+
+​	   2.通过指定挂号科室，返回看科室所有当天看诊医生列表 （排班表）
+
+​	   3.看诊医生：若患者未指定，应由收费人员从该科室当前空闲看诊医生中随意选择一个
+
+​				  若患者有指定，应先在某个与**医生及其限号人数有关的表**中查询他当前的余号数量
+
+​						若该医生已满，则询问患者更换医生/由收费人员指定
+
+### 2.1.2 清空
 
 ### 2.1.3 更新发票号
 
 ## 2.2 退号
 
+- 通过患者病历号，显示患者挂号信息
+
+  select * from **registration** where registration_id = #{registration_id} 
+
+  - Object
+
+- 通过患者病历号，确定患者挂号状态是否是待诊状态
+
+  - [ ] select * from **case** where registration_id = #{registration_id} and status = 1 
+
+    - Field/Object
+
+    如返回值不为空，可以执行退号操作，此操作可以得到原缴费记录的流水号和金额
+
+    - [ ] select * from **transaction_log** where registration_id = #{registration_id} and type = “挂号费”
+    - Object (id, invoice_code, total_money)
+
+    如返回值为空，不可以执行退号操作
+
+- 向缴费表中添加新的缴费记录  --冲正，并且返回该记录的发票号
+
+  - [ ] insert into **transaction_log** (...type, total_money, status...) values (..., 挂号费, -#{total_money}, 4...)  
+    - Field (invoice_code)
+
+- 将原有缴费记录状态更改为已退费 --已退费
+
+  - [ ] update **transaction_log** set status = 3 where id = #{id}  
+
+- 向异常表中添加新的记录
+
+  - [ ] insert into **transaction_exception_log** (original_invoice_code, new_invoice_code, reverse_invoice_code, user_id, reason) values (#{original_invoice_code}, null, #{reverse_invoice_code}, #{user_id}, ‘挂号退费’)
+
+- 在挂号表中更新该病历号的状态 --已退号
+
+  - [ ] update **registration** set status = 0 where registration_id = #{registration_id} 
+
+- 从门诊病历首页移除该病历号，删除医生端的病历记录
+
+  - [ ] delete from **case** where registration_id = #{registration_id}  
+
 ## 2.3 收费
+
+Pre-condition: 医生开完检查/检验/处置/处方后，会首先加入一条相关的待缴费记录到 **transaction_log**
+
+Q1. 从实际情况来看，transaction_log存的应该就是具体的每个条目的价钱
+
+Q2. transaction_log需不需要录入结算方式？
+
+
+
+- 通过患者病历号，显示患者挂号信息
+  - [ ] select *  from **registration** where registration_id = #{registration_id} 
+    - Object
+- 查询未缴费状态的收费项目
+  - [ ] select * from **transaction_log** where registration_id = #{registration_id} and status = 1 
+    - List
+- 更新收费项目的缴费状态 --已缴费
+  - [ ] update **transaction_log** set status = 2 where registration_id = #{registration_id} and collection_id = #{collection_id} and project_id = #{project_id} and item_id = #{item_id}
 
 ## 2.4 退费
 
+情景假设：一个病历号下有分别有检查单A（内含3个project)，检验单B\C （每张各内含3个project），处置单D （内含3个project)，处方E\F\G （每张各内含5个project）
+
+假设想退掉 检验单B中的项目1 和 处方F中的药品2总量的3/5
+
+
+
+Note: 1. 只有已开立的项目才会在**transaction_log**表中有对应记录
+
+​	   2. 只有处方类项目允许退掉部分数量
+
+​	   3. 在同一张检验单/检查单/处置单/处方上的项目如果有一个退了，都需要给患者新的发票
+
+​           4. 属于同一张检查/检验/处置/处方单上的项目对应流水号/发票号相同
+
+
+
+- 通过患者病历号，显示患者信息
+
+  - [ ] select *  from **registration** where registration_id = #{registration_id} 
+    - Object
+
+- 通过患者病历号，显示所有已开立的项目及当前状态 （这里的状态指的是未缴费/已缴费/已退/冲正）
+
+  - [ ] select * from **transaction_log**  where registration_id = #{registration_id} and type <> '挂号费'
+
+    - List (包含流水号、第一层级id、第二层级id、第三层级id)
+
+    只有当前状态为已缴费的项目可以执行下一步操作
+
+- 1.对于检查/检验/处置项目来说，只有缴费了但未登记的项目才可以退费
+
+  - 1.1 在检查/检验/处置表中查找想要退费的项目状态
+
+    - [ ] select * from  **examination/inspection/treatment** where id = #{collection_id} and project_id = #{project_id} 
+
+      - Object (status, collection_id, project_id)
+
+      只有处当前状态为开立的项目可以执行下一步操作
+
+  - 1.2 在检查/检验/处置表中更改想要退费的项目状态 （即检验单B项目1）--已作废
+
+    - [ ] update  **examination/inspection/treatment**  set status = 3 where id = #{collection_id} and project_id = #{project_id} 
+
+  - 1.3 更改 退费的项目所在第一层级的 相关缴费记录状态（即检验单B中的所有项目）--已退费
+
+    - [ ] update **transaction_log** set status = 3 where id = #{id} and collection_id = #{collection_id} 
+
+  - 1.4 向缴费表中添加 退费的项目所在第一层级的 冲正记录（即检验单B中的所有项目） --冲正，并且返回该记录的发票号
+
+    - [ ] insert into **transaction_log** (...status...) values (...4...)  
+      - Field (invoice_code)
+
+  - 1.5 新增与 退费的项目所在相同第一层级的未退费项目 的缴费记录（即检验单B中的项目1、3）--已缴费
+
+    - [ ] insert into **transaction_log** values (值1, 值2,....) 
+
+  - 1.6 向异常表中添加新的记录
+
+    - [ ] insert into **transaction_exception_log** (original_invoice_code, new_invoice_code, reverse_invoice_code, user_id, reason) values (#{original_invoice_code}, #{new_invoice_code}, #{reverse_invoice_code}, #{user_id}, ‘退费’)
+
+    注：如果退掉检验单B中的所有项目，则不需要1.5操作，且1.6中 new_invoice_code = null
+
+- 2.对于处方来说，只要是已缴费的药品都可以退费
+
+  - 2.1 在处方表中查询想要退费的药品状态 （开立/已取药）
+
+    - [ ] select * from **recipe** where id = #{collection_id} and medicine_code = #{project_id} 
+
+      只有当前状态为开立或已退药才可以执行下一步操作
+
+      - Object (return_amount)
+
+  - 2.2 在处方表中更改想要退费的药品状态 （即处方F药品2）--已作废
+    - [ ] update  **recipe** set status = 3 where id = #{collection_id} and medicine_code = #{project_id} 
+  - 2.3 更改 退费的药品所在处方的 相关缴费记录状态（即处方F中的所有药品）--已退费
+    - [ ] update **transaction_log** set status = 3 where id = #{id} and collection_id = #{collection_id} 
+
+  - 2.4 向缴费表中添加 退费的药品所在处方的 冲正记录（即处方F中的所有药品） --冲正，并且返回该记录的发票号
+
+    - [ ] insert into **transaction_log** (...status...) values (...4...)  
+      - Field (invoice_code)
+
+  - 2.5 新增与 退费的药品所在相同处方的的未退费药品 的缴费记录（即处方F中的药1,2(未退部分）, 3,4,5）--已缴费
+
+    - [ ] insert into **transaction_log** values (值1, 值2,....) 
+
+  - 2.6 向异常表中添加新的记录
+
+    - [ ] insert into **transaction_exception_log** (original_invoice_code, new_invoice_code, reverse_invoice_code, user_id, reason) values (#{original_invoice_code}, #{new_invoice_code}, #{reverse_invoice_code}, #{user_id}, ‘退费’)
+
+    注：如果退掉处方F中的所有药品，则不需要2.5操作，且2.6中 new_invoice_code = null
+
 ## 2.5 发票补打
 
+Note: 由于打印机没有正常走纸，用原有发票进行补打
+
+- 根据原发票号，查询缴费信息
+  - [ ] select * from **transaction_log** where invoice_code = #{invoice_code}
+    - List
+
 ## 2.6 发票重打
+
+Note: 由于发票上的信息可能有误或者模糊不清，用新的发票号进行重打
+
+Q1.重打发票时，原发票要收回并作废，流水号用重新分配吗？
+
+- 根据原发票号，查询缴费信息
+  - [ ] select * from **transaction_log** where invoice_code = #{invoice_code}
+    - List
+
+- 分配新的发票号，但流水号与原有的相同
+  - [ ] insert into  **transaction_log** values (值1, 值2,....) 
+- 更改原有的发票号对应的缴费状态
+  - [ ] update  **transaction_log**  set status = 5 where id = #{id}
+- 在异常表里进行记录
+  - [ ] insert into  **transaction_exception_log **(original_invoice_code, new_invoice_code, user_id, reason) values (#{original_invoice_code}, #{new_invoice_code}, #{user_id}, "重打") 
 
 ## 2.7 患者费用查询
 
@@ -357,14 +570,40 @@ java导出Excel实现
 
 # 5. 门诊药房工作站
 ## 5.1 门诊发药
+
 ### 5.1.1 查询
+
+根据患者的病历号，查询相应的已缴费尚未发放的药品信息
+
+- [ ] select * from **transaction_log** T, **recipe** R where T.collection_id = R.id and T.status = 2 and R.status = 2
+  - List 
 
 ### 5.1.2 发药
 
+更新对应药品状态
+
+- [ ] update recipe set status = 4 where id = #{id} and medicine_code = #{medicine_code}
+
 ## 5.2 门诊退药
+
 ### 5.2.1 查询
 
+根据患者的病历号，查询想要退药的药品信息
+
+- [ ] select * from **recipe** where case_id = #{case_id} and medicine_code = #{medicine_code}
+
+  - Object 
+
+  如果药品状态为已取药，则可执行下一步
+
 ### 5.2.2 退药
+
+输入退药的数量 return_amount		
+
+- 更新对应的recipe记录
+  - [ ] update **recipe** set status = 5,  return_amount = #{return_amount} where case_id = #{case_id} and medicine_code = #{medicine_code}
+- 更新对应药品的库存
+  - [ ] update **inventory** set remaining_amount = remaining_amount + #{return_amount} where medicine_code = #{medicine_code}
 
 ## 5.3 药品管理（基础信息管理）
 ### 5.3.1 查询
