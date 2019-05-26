@@ -1,5 +1,6 @@
 const HelloWorld = r => require.ensure([], () => r(require('@/components/common/HelloWorld')), 'HelloWorld')
-const Raven = r => require.ensure([], () => r(require('@/components/common/Raven')), 'Raven')
+const Login = r => require.ensure([], () => r(require('@/pages/Login/Login')), 'Login')
+
 
 export default [
   {
@@ -8,8 +9,8 @@ export default [
     component: HelloWorld
   },
   {
-    path: '/raven',
-    name: 'Raven',
-    component: Raven
+    path: '/login',
+    name: 'Login',
+    component: Login
   }
 ]
