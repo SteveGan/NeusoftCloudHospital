@@ -252,6 +252,9 @@ Note: 1.病历号自动递增
 
   - [ ] update **registration** set status = 0 where registration_id = #{registration_id} 
 
+- 更改所选医生的剩余号额
+
+
 - 从门诊病历首页移除该病历号，删除医生端的病历记录
 
   - [ ] delete from **case** where registration_id = #{registration_id}  

@@ -2,26 +2,31 @@ package com.neuedu.hospitalbackend.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.constant.ResponseCode;
-import com.neuedu.hospitalbackend.model.po.Department;
-import com.neuedu.hospitalbackend.service.BasicInformationManagement;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.DepartmentManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * controller路径名 == controller方法名 ==
+ */
 @RestController
 @RequestMapping("/his")
 public class MainController {
     @Resource
-    private BasicInformationManagement basicInformationManagement;
+    private DepartmentManagement departmentManagement;
 
     @RequestMapping("/selectDepartmentById")
     public JSONObject selectDepartmentById(String id)
     {
-        Department department = new Department();
-        department.setId(Integer.valueOf(id));
-        return response(basicInformationManagement.selectDepartmentById(department), ResponseCode.RESPONSE_CODE_OK, ResponseCode.RESPONSE_MSG_OK);
+        return response(departmentManagement.selectDepartmentById(id), ResponseCode.RESPONSE_CODE_OK, ResponseCode.RESPONSE_MSG_OK);
+    }
+
+    @RequestMapping("/selectDepartmentByNameAndCode")
+    public JSONObject selectDepartmentByNameAndCode(JSONObject obj)
+    {
+        return response(departmentManagement.selectDepartmentByNameAndCode(obj), ResponseCode.RESPONSE_CODE_OK, ResponseCode.RESPONSE_MSG_OK);
     }
 
     private JSONObject response(Object data, String code, String msg) {
