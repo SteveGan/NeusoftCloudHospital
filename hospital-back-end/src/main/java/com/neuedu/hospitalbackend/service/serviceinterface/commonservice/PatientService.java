@@ -1,7 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
 import com.neuedu.hospitalbackend.model.po.Patient;
-import com.sun.tools.javac.util.List;
+
+import java.util.List;
 
 public interface PatientService {
 
@@ -18,7 +19,7 @@ public interface PatientService {
      * @param patientName of the patient
      * @return list of patient with provided patient name.
      */
-    public List<Patient> getPatientByPatientName(String patientName);
+    public List<Patient> listPatientByPatientName(String patientName);
 
 
 }
