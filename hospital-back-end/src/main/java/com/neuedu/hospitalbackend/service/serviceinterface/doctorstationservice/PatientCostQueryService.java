@@ -12,7 +12,7 @@ public interface PatientCostQueryService {
      * @param caseId 病历号id
      * @return 收费项目名称itemName和收费项目的金额itemCost
      */
-     public JSONObject listPatientCost(int caseId);
+     JSONObject listPatientCost(int caseId);
 
 
 }

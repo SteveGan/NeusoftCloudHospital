@@ -12,19 +12,19 @@ public interface ProjectService {
      * 暂存前端传来的 检查/检验 项目
      * @param obj 检查/检验 项目数据
      */
-    public void saveProject(JSONObject obj);
+    void saveProject(JSONObject obj);
 
     /**
      * 确认提交 检查/检验 项目
      * @param obj 检查/检验 项目内容
      */
-    public void submitProject(JSONObject obj);
+    void submitProject(JSONObject obj);
 
 
     /**
      * 删除还未登记的检查/检验项目：这里我还不确定传入啥参数，先写个JSONObject
      * @param obj 传入的参数
      */
-    public void deleteProject(JSONObject obj);
+    void deleteProject(JSONObject obj);
 
 }

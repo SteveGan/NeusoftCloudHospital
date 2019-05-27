@@ -16,7 +16,7 @@ public interface RecipeManagementService {
      * 查询所有药品信息
      * @return 所有药品
      */
-    public List<Medicine> listAllMedicine();
+    List<Medicine> listAllMedicine();
 
 
 
