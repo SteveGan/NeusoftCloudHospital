@@ -19,7 +19,7 @@ public interface PreliminaryDiagnoseService {
      * @param doctorId of the doctor
      * @return list of patient
      */
-    public List<Patient> getWaitedPatients(Integer doctorId);
+    public List<Patient> listWaitedPatients(Integer doctorId);
 
 
     /**
@@ -27,14 +27,34 @@ public interface PreliminaryDiagnoseService {
      * @param doctorId of the doctor
      * @return list of patient
      */
-    public List<Patient> getDiagnosedPatients(Integer doctorId);
+    public List<Patient> listDiagnosedPatients(Integer doctorId);
 
 
     /**
      * 将当前病历首页中的内容存入数据库
      * @param caseInfo 当前病历首页中的内容
      */
-    public void storeCurrentPreCase(JSONObject caseInfo);
+    public void saveCurrentPreCase(JSONObject caseInfo);
+
+
+    /**
+     * 提交最终版病历首页中的内容到数据库
+     * @param caseInfo 当前病历首页中的内容
+     */
+    public void saveFinalPreCase(JSONObject caseInfo);
+
+
+    /**
+     * 将当前页面中的内容保存到病理模版中
+     * @param caseInfo 当前模版中的内容
+     */
+    public void saveAsCaseTemplate(JSONObject caseInfo);
+
+
+    /**
+     * 
+     */
+
 
 
 
