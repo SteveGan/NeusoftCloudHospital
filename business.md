@@ -403,6 +403,7 @@ input：patientId, begineDate, endDate
 
 output：患者收费项目列表 药品信息
 
+```sql
 SELECT type, item_id
 
 FROM transaction_log t, medicine m
@@ -412,16 +413,20 @@ WHERE t.item_id = m.id
 <choose>
 
 	<when test = "begineDate != null">
-	
-			and #{begineDate} >= t.gmt_create
-	
+
+		and #{begineDate} >= t.gmt_create
+
 	<when test = "begineDate != null">
-	
-			and #{endDate} <= t.gmt_create
+
+		and #{endDate} <= t.gmt_create
 
 </choose>
 
 ORDER BY t.gmt_create DECS
+
+```
+
+
 
 ## 2.8 收费员日结
 日结表daily_junction：id, casher_id, total_money, invoice_code_begin, invoice_code_end,  date
@@ -830,38 +835,51 @@ where
 # 4. 门诊医技工作站
 ## 4.1 患者检查
 ### 4.1.1 患者查询
-输入患者病历号或姓名，可以查询到本科室的待诊患者，选择患者可以看到患者信息及申请的项目明细  （状态：1.暂存 2.开立 3.作废 4.已登记）
+输入患者病历号或姓名，可以查询到本科室的待诊患者，选择患者可以看到患者信息及申请的项目明细；亦可自动显示所有待登记患者及项目  （状态：1.暂存 2.开立 3.作废 4.已登记）
 
-   input：case_id 或 patient_name TODO, 代码要改
+   input：caseId 或 patient_name 
 
    output：患者信息（患者基本信息）, 申请项目明细
 
    SQL:
 
-SELECT p.patient_id, p.registration_id, p.patient_name, inspection.*, 
+    SELECT p.patient_id, c.case_id, p.patient_name, i.* 
+    
+    FROM patient p, case c, inspection i
+    
+    WHERE i.case_id = c.case_id AND c.patient_id = p.patient_id AND c.status = 2 AND i.status = 2 <!--case状态 已诊；检查项目状态 开立-->
+    
+     <choose>
+    
+    	<when test="caseId != null">
+    
+    		AND c.case_id = #{caseId}
+    
+    	</when>
+    
+    	<when test="patientName != null">
+    
+    		AND p.patient_name = #{patientName}
+    
+    	</when>
+    
+    </choose>
 
-FROM patient p, case c, inspection i
 
-WHERE i.case_id = c.case_id AND c.patient_id = p.patient_id
 
-	AND c.status = 2 AND i_status = 2 <!--case状态 已诊；检查项目状态 开立-->
-	
-	 <choose>
-	
-		<when test="patientId != null">
-	
-			AND p.patient_id = #{patientId}
-	
-		</when>
-	
-		<when test="patientName != null">
-	
-			AND p.patient_name = #{patientName}
-	
-		</when>
-	
-	</choose>
-建议: 在inspetcion表中存放patient_id
+   output：患者信息（患者基本信息）, 申请项目明细
+
+   SQL: 获取所有待登记用户及项目
+
+    SELECT p.patient_id, c.case_id, p.patient_name, i.* 
+    
+    FROM patient p, case c, inspection i
+    
+    WHERE i.case_id = c.case_id AND c.patient_id = p.patient_id AND c.status = 2 AND i.status = 2 <!--case状态 已诊；检查项目状态 开立-->
+
+
+
+
 
 ### 4.1.2 执行确认
  选中相应的患者，点击“执行确认”按钮，进行登记操作。注意：只有已缴费的项目，才可以进行登记
@@ -872,13 +890,15 @@ input：case_id
 
 SQL：查询出所有可登记（已缴费&未登记）项目
 
+```sql
 SELECT collection_id, project_id
 
 FROM transaction_log t, inspection i
 
 WHERE t.collection_id = i.id AND t.item_id = i.project_id
 
-	 AND t.status = 2 AND i.status = 2 AND t.case_id = #{case_id} <!--trasaction_log状态 2.已缴；检查项目状态 2.开立--> 
+AND t.status = 2 AND i.status = 2 AND t.case_id = #{case_id} <!--trasaction_log状态 2.已缴；检查项目状态 2.开立--> 
+```
 
 
 
@@ -886,11 +906,15 @@ input：collectionId，projectId，医技id
 
 SQL：更新项目申请信息：状态、医技id
 
+```sql
 UPDATE inspection
 
-SET status = 4, examinor_id = #{examinorId}<!--检查项目状态 4.已登记--> 
+SET status = 4, examinor_id = #{examinorId} <!--检查项目状态 4.已登记-->
 
 WHERE id = #{collectionId} AND project_id = #{projectId}  
+```
+
+
 
 ### 4.1.3 取消执行
 选中相应的患者，点击“取消执行”按钮，进行取消操作。注意：一般情况不会进行取消操作
@@ -901,11 +925,15 @@ input：医技医生id
 
 SQL：更新项目申请信息：状态、医技id
 
+```sql
 UPDATE inspection
 
 SET status = 3, examinor_id = #{examinorId}<!--检查项目状态 3.作废--> 
 
  WHERE id = #{collectionId} AND project_id = #{projectId}
+```
+
+
 
 ### 4.1.4 填写结果
 选中相应的患者和项目后，点击“结果录入”按钮，录入检查结果，如果检查项目有图片，上传检查结果图片
@@ -918,11 +946,13 @@ output：该病历号下已登记&未录入结果的项目清单
 
 SQL：查询需要登记结果的数据
 
+```sql
 SELECT collection_id, project_id
 
 FROM inspection
 
 WHERE caseId = #{caseId} AND status = 4 AND result_description != null<!--检查项目状态 4.已登记--> 
+```
 
 
 
@@ -930,11 +960,13 @@ input：collectionId, projectId, resultDescription, resultPicture, advice
 
 SQL：录入结果、图片（可选）、医技医生建议
 
+```sql
 UPDATE inspection
 
 SET result_description = #{resultDescription}, result_picture = #{resultPicture}, advice = #{advice}
 
 WHERE id = #{collectionId} AND project_id = #{projectId}  
+```
 
 
 
