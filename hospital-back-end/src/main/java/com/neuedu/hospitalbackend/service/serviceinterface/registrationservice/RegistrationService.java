@@ -1,4 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.registrationservice;
 
-public interface Test {
+public interface RegistrationService {
+
+    public void assignDoctor();
 }
