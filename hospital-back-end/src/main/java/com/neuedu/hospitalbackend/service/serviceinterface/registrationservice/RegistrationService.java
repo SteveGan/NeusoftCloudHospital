@@ -1,9 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.registrationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.Arrangement;
-import com.neuedu.hospitalbackend.model.po.Patient;
-import com.neuedu.hospitalbackend.model.po.User;
+import com.neuedu.hospitalbackend.model.po.*;
+import org.apache.ibatis.transaction.Transaction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public interface RegistrationService {
      * @param IdCard 患者身份证号
      * @return the patient
      */
-    Patient queryPatient(String IdCard);
+    Patient getPatient(String IdCard);
 
     /**
      * 通过挂号科室id，返回该科室在指定时间、指定号别仍有余号的看诊医生列表
@@ -38,6 +37,21 @@ public interface RegistrationService {
      */
     int calculateAmount(JSONObject object);
 
+    /**
+     * 向缴费表中添加新的缴费记录
+     * @param transactionLog
+     */
+    void insertTransactionLog(TransactionLog transactionLog);
 
+    /**
+     * 向挂号表中添加新的挂号记录 --默认正常
+     * @param registration
+     */
+    void insertRegistrationLog(Registration registration);
 
+    /**
+     * 向病历表中添加新的病历记录 --默认待诊
+     * @param patientCase
+     */
+    void insertPatientCaseLog(PatientCase patientCase);
 }

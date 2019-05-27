@@ -23,8 +23,8 @@ public interface PatientService {
 
     /**
      * get the patient by patient id_card
-     * @param patientIDCard of the patient
+     * @param patientIdCard of the patient
      * @return the patient
      */
-    public Patient getPatientByIdCard(String patientIDCard);
+    public Patient getPatientByIdCard(String patientIdCard);
 }
