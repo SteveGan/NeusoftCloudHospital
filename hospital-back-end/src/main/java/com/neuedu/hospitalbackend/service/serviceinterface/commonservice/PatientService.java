@@ -21,5 +21,10 @@ public interface PatientService {
      */
     public List<Patient> listPatientByPatientName(String patientName);
 
-
+    /**
+     * get the patient by patient id_card
+     * @param patientIDCard of the patient
+     * @return the patient
+     */
+    public Patient getPatientByIdCard(String patientIDCard);
 }
