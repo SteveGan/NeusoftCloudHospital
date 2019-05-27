@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * 3.10病历模版管理
  * 提供了了模版管理服务方法，以及查询模版的方法
+ * @author Steve
  */
 public interface PatientCaseTemplateService {
 

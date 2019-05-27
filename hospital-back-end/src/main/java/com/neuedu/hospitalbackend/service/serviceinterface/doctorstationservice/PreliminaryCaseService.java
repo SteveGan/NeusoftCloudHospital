@@ -13,7 +13,7 @@ import java.util.List;
  * 包含关于门诊病历首页的service方法
  * @author Steve
  */
-public interface PreliminaryDiagnoseService {
+public interface PreliminaryCaseService {
 
 
     /**
@@ -23,43 +23,17 @@ public interface PreliminaryDiagnoseService {
      */
     public List<Patient> listWaitedPatients(Integer doctorId);
 
-
     /**
-     * 得到该医生的所有已诊患者
-     * @param doctorId of the doctor
-     * @return list of patient
-     */
-    public List<Patient> listDiagnosedPatients(Integer doctorId);
-
-
-    /**
-     * 将当前病历首页中的内容存入数据库
+     * 将当前病历首页中的内容暂时存入数据库
      * @param caseInfo 当前病历首页中的内容
      */
-    public void saveCurrentPreCase(JSONObject caseInfo);
-
+    public void savePreCase(JSONObject caseInfo);
 
     /**
-     * 提交最终版病历首页中的内容到数据库
+     * 提交最终版病历首页中的内容保存到数据库, 注意：最终版本
      * @param caseInfo 当前病历首页中的内容
      */
-    public void saveFinalPreCase(JSONObject caseInfo);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void submitPreCase(JSONObject caseInfo);
 
 
 }
