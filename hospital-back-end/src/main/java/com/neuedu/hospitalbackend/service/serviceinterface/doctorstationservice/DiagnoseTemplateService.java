@@ -2,7 +2,8 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.DiagnoseTemplate;
-import com.sun.tools.javac.util.List;
+
+import java.util.List;
 
 
 /**
