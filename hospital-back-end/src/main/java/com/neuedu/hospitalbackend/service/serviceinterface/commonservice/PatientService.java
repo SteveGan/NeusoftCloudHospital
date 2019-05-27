@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
 import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.model.po.Registration;
 
 import java.util.List;
 
@@ -27,4 +28,11 @@ public interface PatientService {
      * @return the patient
      */
     public Patient getPatientByIdCard(String patientIdCard);
+
+    /**
+     * 通过患者病历号，显示患者挂号信息
+     * @param caseId
+     * @return
+     */
+    public Registration getPatientInfoByCaseId(Integer caseId);
 }
