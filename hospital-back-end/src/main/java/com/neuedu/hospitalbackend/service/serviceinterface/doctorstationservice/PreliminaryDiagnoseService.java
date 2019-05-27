@@ -3,11 +3,13 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.model.po.PatientCaseTemplate;
 
 import java.util.List;
 
 
 /**
+ * 5.1 门诊病历首页
  * 包含关于门诊病历首页的service方法
  * @author Steve
  */
@@ -51,7 +53,15 @@ public interface PreliminaryDiagnoseService {
     public void saveAsCaseTemplate(JSONObject caseInfo);
 
 
+    /**
+     * 查询该医生所有可用模版
+     * @param doctorId 医生的id
+     * @return 可用病历模版集合
+     */
+    public List<PatientCaseTemplate> listPatientTemplate(Integer doctorId);
 
+
+    
 
 
 
