@@ -2,6 +2,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.DailySummary;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+/**
+ * 2.1 现场挂号
+ * @author Parachute
+ */
 public interface RegistrationService {
-
-    //2.1 现场挂号
 
     /**
      * 检查患者是否已在本系统中

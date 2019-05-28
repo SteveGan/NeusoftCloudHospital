@@ -3,9 +3,11 @@ package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 import com.neuedu.hospitalbackend.model.po.*;
 import org.apache.ibatis.annotations.Case;
 
+/**
+ * 2.2 退号
+ * @author Parachute.
+ */
 public interface WithdrawRegistrationService {
-
-    //2.2退号
 
     /**
      * 对原缴费记录进行操作
