@@ -1,8 +1,7 @@
-package com.neuedu.hospitalbackend.service.serviceinterface.registrationservice;
+package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.*;
-import org.apache.ibatis.transaction.Transaction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,9 +28,9 @@ public interface RegistrationService {
 
     /**
      * 更新所选医生对应的余号数量
-     * @param user 需要更新的医生
+     * @param arrangement 需要更新的医生
      */
-    void updateRemainingAppointment(User user);
+    void updateRemainingAppointment(Arrangement arrangement);
 
     /**
      * 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
@@ -39,12 +38,6 @@ public interface RegistrationService {
      * @return total_amount of a registration
      */
     int calculateAmount(JSONObject object);
-
-    /**
-     * 向缴费表中添加新的缴费记录 --已缴费
-     * @param transactionLog
-     */
-    void insertTransactionLog(TransactionLog transactionLog);
 
     /**
      * 向挂号表中添加新的挂号记录 --默认正常
