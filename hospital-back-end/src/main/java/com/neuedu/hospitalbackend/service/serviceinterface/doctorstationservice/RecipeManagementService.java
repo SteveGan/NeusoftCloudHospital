@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Medicine;
 import com.neuedu.hospitalbackend.model.po.Recipe;
 import com.sun.tools.javac.util.List;
@@ -18,6 +19,18 @@ public interface RecipeManagementService {
      */
     List<Medicine> listAllMedicine();
 
+
+    /**
+     * Add recipe into a case
+     * @param obj recipe的信息
+     */
+    void insertRecipe(JSONObject obj);
+
+    /**
+     * Update the recipe
+     * @param obj recipe的信息
+     */
+    void updateRecipe(JSONObject obj);
 
 
 }

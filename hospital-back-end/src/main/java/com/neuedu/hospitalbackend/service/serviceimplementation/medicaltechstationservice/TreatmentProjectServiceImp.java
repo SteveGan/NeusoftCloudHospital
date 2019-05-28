@@ -1,14 +1,12 @@
-package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice;
+package com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TreatmentProjectService;
 
 import java.util.List;
 
-/**
- * 4. 检查项目医技工作站
- */
-public interface treatmentProjectService {
+public class TreatmentProjectServiceImp implements TreatmentProjectService {
 
 
     /*---- 4.3 患者处置 ----*/
@@ -19,7 +17,9 @@ public interface treatmentProjectService {
      * @param jsonObject:{caseId, patientName}
      * @return 待登记患者信息列表
      */
-    List<Patient> listPreparedPatientsByCaseIdOrName(JSONObject jsonObject);
+    public List<Patient> listPreparedPatientsByCaseIdOrName(JSONObject jsonObject){
+        return null;
+    }
 
     /**
      * 4.3.1 患者查询
@@ -29,7 +29,9 @@ public interface treatmentProjectService {
      * @param caseId
      * @return treatment清单详细信息
      */
-    List<Object> listNotCheckedInProjectsByCaseId(Integer caseId);
+    public JSONObject listNotCheckedInProjectsByCaseId(Integer caseId){
+        return null;
+    }
 
     /**
      * 4.3.2 执行确认
@@ -38,7 +40,9 @@ public interface treatmentProjectService {
      * TODO：选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
      * @param jsonObject:{treatmentId, projectId, 医技医生Id}
      */
-    void checkInProject(JSONObject jsonObject);
+    public void checkInProject(JSONObject jsonObject){
+
+    }
 
     /**
      * 4.3.3 取消执行
@@ -47,6 +51,8 @@ public interface treatmentProjectService {
      * TODO: 选择列表中项目执行取消操作，更新项目申请信息：改变状态
      * @param jsonObject：{treatmentId, projectId}
      */
-    void cancelProject(JSONObject jsonObject);
+    public void cancelProject(JSONObject jsonObject){
+
+    }
 
 }

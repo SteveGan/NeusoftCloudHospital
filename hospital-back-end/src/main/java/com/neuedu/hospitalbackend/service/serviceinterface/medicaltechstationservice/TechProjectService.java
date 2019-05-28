@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 4. 检查项目医技工作站
  */
-public interface techProjectService {
+public interface TechProjectService {
 
     /*---- 4.1 患者检查 ----*/
     /*---- 4.2 患者检验 （同检查）----*/
@@ -29,14 +29,14 @@ public interface techProjectService {
      * @param jsonObject:{caseId, type(inspection or examination)}
      * @return Inspection or Examination
      */
-    List<Object> listNotCheckedInProjectsByCaseId(JSONObject jsonObject);
+    JSONObject listNotCheckedInProjectsByCaseId(JSONObject jsonObject);
 
     /**
      * 4.1.2 执行确认
      * 选中相应的患者，选中执行的项目，点击“执行确认”按钮，进行登记操作。
      * 注意：只有已缴费的项目，才可以进行登记
      * TODO：选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
-     * @param jsonObject:{inspectionId/examinationId, projectId, 医技医生Id}
+     * @param jsonObject:{projectCollectionId, projectId, projectId, 医技医生Id}
      */
     void checkInProject(JSONObject jsonObject);
 
@@ -60,7 +60,7 @@ public interface techProjectService {
     /**
      * 4.1.4 填写结果
      * TODO: 选中项目，录入结果: 结果文字、图片（非必填）、医生建议
-     * @param jsonObject:{caseId, resultDescription, resultPicture, advice}
+     * @param jsonObject:{caseId, projectCollectionId, projectId, resultDescription, resultPicture, advice}
      */
     void recordResult(JSONObject jsonObject);
 
