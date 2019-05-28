@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 4. 检查项目医技工作站
  */
-public interface treatmentProjectService {
+public interface TreatmentProjectService {
 
 
     /*---- 4.3 患者处置 ----*/

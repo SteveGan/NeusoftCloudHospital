@@ -10,10 +10,13 @@ import java.util.List;
 @Service
 public interface RegistrationService {
 
+    //2.1 现场挂号
+
     /**
      * 检查患者是否已在本系统中
      * @param IdCard 患者身份证号
      * @return the patient
+     * TODO: 如返回值不为空，传patient_id到前端；如返回值为空，则插入新记录到patient表
      */
     Patient getPatient(String IdCard);
 
@@ -31,14 +34,14 @@ public interface RegistrationService {
     void updateRemainingAppointment(User user);
 
     /**
-     *
+     * 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
      * @param object 看诊医生职称，挂号级别
      * @return total_amount of a registration
      */
     int calculateAmount(JSONObject object);
 
     /**
-     * 向缴费表中添加新的缴费记录
+     * 向缴费表中添加新的缴费记录 --已缴费
      * @param transactionLog
      */
     void insertTransactionLog(TransactionLog transactionLog);
