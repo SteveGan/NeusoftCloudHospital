@@ -34,5 +34,6 @@ public interface PatientService {
      * @param caseId
      * @return
      */
-    public Registration getPatientInfoByCaseId(Integer caseId);
+    Registration getPatientInfoByCaseId(Integer caseId);
+
 }
