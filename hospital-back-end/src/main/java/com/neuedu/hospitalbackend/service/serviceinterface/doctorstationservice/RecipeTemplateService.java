@@ -4,6 +4,10 @@ import com.neuedu.hospitalbackend.model.po.RecipeTemplate;
 import com.sun.tools.javac.util.List;
 
 
+/**
+ * 提供了关于处方模版的服务
+ * @author Steve
+ */
 public interface RecipeTemplateService {
 
 
