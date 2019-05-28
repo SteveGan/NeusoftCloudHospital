@@ -1,7 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.registrationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.DailySummary;
+import com.neuedu.hospitalbackend.model.po.DailySummaryLog;
+import com.neuedu.hospitalbackend.model.po.TransactionLog;
 
 import java.util.List;
 
@@ -38,9 +39,9 @@ public interface DailySummaryService {
     /**
      * 插入日结信息
      * 从以上方法得到的数据统合为一个日结记录对象，插入到数据库汇总
-     * @param dailySummary
+     * @param dailySummaryLog
      */
-    void insertDailySummary(DailySummary dailySummary);
+    void insertDailySummary(DailySummaryLog dailySummaryLog);
 
 
     /*2.8.1 日结历史查询*/
@@ -50,14 +51,16 @@ public interface DailySummaryService {
      * @param jsonObject:{beginDate, endDate, casherId}
      * @return
      */
-    List<DailySummary> listDailySummaryByCasherId(JSONObject jsonObject);
+    List<DailySummaryLog> listDailySummaryByCasherId(JSONObject jsonObject);
 
     /**
      * 点击查询某一日结记录具体信息
+     * TODO: 日结对应所有缴费记录信息
      * @param dailySummaryId
-     * @return
+     * @return 缴费清单列表
      */
-    DailySummary listDailySummary(Integer dailySummaryId);
+    List<TransactionLog> listDailySummaryLog(Integer dailySummaryId);
+
 
 
 }
