@@ -29,7 +29,7 @@ public interface TreatmentProjectService {
      * @param caseId
      * @return treatment清单详细信息
      */
-    List<Object> listNotCheckedInProjectsByCaseId(Integer caseId);
+    JSONObject listNotCheckedInProjectsByCaseId(Integer caseId);
 
     /**
      * 4.3.2 执行确认

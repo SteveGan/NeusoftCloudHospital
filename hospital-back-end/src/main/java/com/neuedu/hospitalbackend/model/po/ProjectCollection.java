@@ -1,4 +1,4 @@
 package com.neuedu.hospitalbackend.model.po;
 
-public class ProjectTemplate {
+public class ProjectCollection {
 }

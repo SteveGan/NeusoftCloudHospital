@@ -29,7 +29,7 @@ public class TreatmentProjectServiceImp implements TreatmentProjectService {
      * @param caseId
      * @return treatment清单详细信息
      */
-    public List<Object> listNotCheckedInProjectsByCaseId(Integer caseId){
+    public JSONObject listNotCheckedInProjectsByCaseId(Integer caseId){
         return null;
     }
 
