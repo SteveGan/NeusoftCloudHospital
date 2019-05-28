@@ -1,16 +1,13 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.mapper.DepartmentMapper;
+import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
 import com.neuedu.hospitalbackend.model.po.Department;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-
-/**
- * service方法实参类型: Field(String, Integer...), PO(相对JSONObject优先), JSONObject
- * service方法返回值类型: Field, PO, List, JSONObject
- */
+@Service
 public class DepartmentManagement {
     @Resource
     DepartmentMapper departmentMapper;

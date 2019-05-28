@@ -3,7 +3,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.ProjectCollection;
-import com.sun.tools.javac.util.List;
+import java.util.List;
 
 /**
  * 包含检查/检验项目公共服务方法
