@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.model.po;
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 public class Role {
     @Column(name = "id")
@@ -18,6 +19,10 @@ public class Role {
     private Integer titleId;
     @Column(name = "title_name")
     private String titleName;
+    @Column(name = "gmt_create")
+    private Timestamp gmtCreate;
+    @Column(name = "gmt_modified")
+    private Timestamp gmtModified;
 
     public Integer getId() {
         return id;
@@ -81,5 +86,21 @@ public class Role {
 
     public void setTitleName(String titleName) {
         this.titleName = titleName;
+    }
+
+    public Timestamp getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Timestamp gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Timestamp getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Timestamp gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

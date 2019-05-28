@@ -3,31 +3,32 @@
     <el-card class="login-form-layout">
       <el-form autoComplete="on"
                :model="loginForm"
-               :rules="loginRules"
                ref="loginForm"
                label-position="left">
         <div style="text-align: center">
           <img src="@/assets/icons/security.svg"/>
         </div>
         <h2 class="login-title color-main">登录</h2>
-        <el-form-item prop="username">
-          <el-input name="username"
+        <el-form-item>
+          <el-input name="userId"
                     type="text"
-                    v-model="loginForm.username"
+                    v-model="loginForm.userId"
                     autoComplete="on"
-                    placeholder="请输入用户名">
+                    placeholder="请输入用户ID"
+                    clearable>
           <span slot="prefix">
             <i class="el-icon-user-solid"></i>
           </span>
           </el-input>
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item>
           <el-input name="password"
                     :type="pwdType"
                     @keyup.enter.native="handleLogin"
                     v-model="loginForm.password"
-                    autoComplete="on"
-                    placeholder="请输入密码">
+                    autoComplete="off"
+                    placeholder="请输入密码"
+                    clearable>
           <span slot="prefix">
             <i class="el-icon-key"></i>
           </span>
@@ -36,6 +37,7 @@
           </span>
           </el-input>
         </el-form-item>
+        <p class="alertInfo">{{alertInfo}}</p>
         <el-form-item style="margin-bottom: 60px">
           <el-button style="width: 100%" type="primary" :loading="loading" @click.native.prevent="handleLogin">
             登录
@@ -48,20 +50,12 @@
 </template>
 
 <script>
-  import {isvalidUsername} from '@/utils/validate';
   import login_center_bg from '@/assets/images/login_center_bg.png'
 
   export default {
     name: 'login',
     data() {
-      const validateUsername = (rule, value, callback) => {
-        if (!isvalidUsername(value)) {
-          callback(new Error('请输入正确的用户名'))
-        } else {
-          callback()
-        }
-      };
-      const validatePass = (rule, value, callback) => {
+      const validatePassword = (rule, value, callback) => {
         if (value.length < 3) {
           callback(new Error('密码不能小于3位'))
         } else {
@@ -70,15 +64,12 @@
       };
       return {
         loginForm: {
-          username: 'admin',
-          password: '123456',
-        },
-        loginRules: {
-          username: [{required: true, trigger: 'blur', validator: validateUsername}],
-          password: [{required: true, trigger: 'blur', validator: validatePass}]
+          userId: 'admin',
+          passWord: '123456',
         },
         loading: false,
         pwdType: 'password',
+        alertInfo: '',
         login_center_bg
       }
     },
@@ -91,31 +82,28 @@
         }
       },
       handleLogin() {
-        this.$refs.loginForm.validate(valid => {
-          if (valid) {
-            this.loading = true;
-            this.$store.dispatch('Login', this.loginForm).then(() => {
-              this.loading = false;
-              this.$router.push({path: '/'})
-            }).catch(() => {
-              this.loading = false
-            })
-          } else {
-            console.log('参数验证不合法！');
-            return false
+            this.loading = true
+            this.$store.dispatch('user/Login', this.loginForm).finally(
+                () => {
+                  this.loading = false
+                }
+              ).then(
+                result => {
+                  if(result === "success"){
+                    this.alertInfo = ''
+                    this.$router.push({path: '/'})
+                  } else {
+                    //tell the user that user id or password is not correct
+                    this.alertInfo = '用户ID或密码错误，请重新输入'
+                  }
+                },
+                result => {
+                  alert(result)
+                }
+              )
           }
-        })
-      },
-      dialogConfirm(){
-        this.dialogVisible =false;
-        setSupport(true);
-        window.location.href=SupportUrl;
-      },
-      dialogCancel(){
-        this.dialogVisible = false;
-        setSupport(false);
-      }
     }
+
   }
 </script>
 
@@ -140,5 +128,9 @@
     max-width: 100%;
     max-height: 100%;
     margin-top: 200px;
+  }
+
+  .alertInfo{
+
   }
 </style>

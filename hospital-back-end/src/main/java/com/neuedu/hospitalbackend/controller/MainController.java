@@ -3,6 +3,7 @@ package com.neuedu.hospitalbackend.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.constant.ResponseCode;
 import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.DepartmentManagement;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import static com.neuedu.hospitalbackend.controller.UserController.getJsonObject
  */
 @RestController
 @RequestMapping("/his")
+@CrossOrigin
 public class MainController {
     @Resource
     private DepartmentManagement departmentManagement;

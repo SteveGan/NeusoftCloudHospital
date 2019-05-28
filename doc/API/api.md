@@ -3,34 +3,41 @@ POST:
 ```json
 {
 	"userId": "20165041",
-	"pass": "1234"
+	"password": "1234"
 }
 ```
 RESPONSE：
 ```json
 {
-	"success":"true或者false",
-	"userId":"用户的id",
-	"userName": "Steve",
-	"userPic": "用户头像的地址",
-	"role": [
-		{
-			"department": {
-				"id":"部门id",
-				"name":"部门名"
-			},
-			"position":{
-				"id":"职位id",
-				"name":"职位名称"
-			},
-			"title":{
-				"id":"职称id",
-				"name":"职称名称"
-			}
-		},
-		{
-			"...": "..."
-		}
-	]
+    "roles": [
+        {
+            "id": 20000001,
+            "userId": 10000001,
+            "positionId": 2,
+            "positionName": "门诊医生",
+            "departmentId": 16,
+            "departmentName": "神经外科",
+            "titleId": 1,
+            "titleName": "主任医师",
+            "gmtCreate": null,
+            "gmtModified": null
+        },
+        {
+            "id": 20000002,
+            "userId": 10000001,
+            "positionId": 6,
+            "positionName": "医院管理员",
+            "departmentId": 137,
+            "departmentName": "设备科",
+            "titleId": 1,
+            "titleName": "主任医师",
+            "gmtCreate": null,
+            "gmtModified": null
+        }
+    ],
+    "success": true,
+    "avatar": "http://ww2.sinaimg.cn/large/006tNc79ly1g3hfng0sldj30ei0oidha.jpg",
+    "userName": "Amy",
+    "userId": 10000001
 }
 ```

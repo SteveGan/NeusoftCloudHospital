@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import routes from './router/index'
+import store from './store'
 import axios from 'axios'
 
 import ElementUI from 'element-ui'
@@ -23,6 +24,7 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

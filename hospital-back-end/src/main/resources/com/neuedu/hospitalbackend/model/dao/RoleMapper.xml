@@ -15,7 +15,7 @@
     </resultMap>
 
     <select id="listRole" resultMap="UserResultMap">
-    select * from role where user_id = #{userId}
-  </select>
+        select * from role where user_id = #{userId}
+    </select>
 
 </mapper>
