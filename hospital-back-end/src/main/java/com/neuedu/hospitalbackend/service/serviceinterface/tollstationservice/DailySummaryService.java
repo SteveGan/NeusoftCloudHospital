@@ -1,4 +1,4 @@
-package com.neuedu.hospitalbackend.service.serviceinterface.registrationservice;
+package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.DailySummaryLog;
