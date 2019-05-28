@@ -9,10 +9,10 @@ public interface PaymentService {
      * @param object 病历号，status
      * @return 收费项目
      */
-    JSONObject listUnpaidItems(JSONObject object);
+    JSONObject listItems(JSONObject object);
 
     /**
-     *  查找想要退费的项目状态
+     *  在检查/检验/处置/药品表查找想要退费的项目状态
      * @param object 退费项目的collection_id, project_id
      * @return 退费的项目
      */
