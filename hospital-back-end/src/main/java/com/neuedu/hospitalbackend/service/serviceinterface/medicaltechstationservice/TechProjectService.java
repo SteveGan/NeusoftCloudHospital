@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 4. 检查项目医技工作站
  */
-public interface techProjectService {
+public interface TechProjectService {
 
     /*---- 4.1 患者检查 ----*/
     /*---- 4.2 患者检验 （同检查）----*/
