@@ -10,31 +10,33 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import static com.neuedu.hospitalbackend.controller.UserController.getJsonObject;
-
-/**
- * controller路径名 == controller方法名 ==
- * @author all
- */
 @RestController
-@RequestMapping("/his")
-public class MainController {
+@RequestMapping("/user")
+public class UserController {
     @Resource
     private DepartmentManagement departmentManagement;
 
-    @RequestMapping("/selectDepartmentById")
-    public JSONObject selectDepartmentById(String id)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public JSONObject register(HttpServletRequest request)
     {
-        return response(departmentManagement.selectDepartmentById(id), ResponseCode.RESPONSE_CODE_OK, ResponseCode.RESPONSE_MSG_OK);
+        return null;
     }
 
-    @RequestMapping("/selectDepartmentByNameAndCode")
-    public JSONObject selectDepartmentByNameAndCode(JSONObject obj)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public JSONObject login(HttpServletRequest request)
     {
-        return response(departmentManagement.selectDepartmentByNameAndCode(obj), ResponseCode.RESPONSE_CODE_OK, ResponseCode.RESPONSE_MSG_OK);
+        return null;
     }
 
     private JSONObject response(Object data, String code, String msg) {
         return getJsonObject(data, code, msg);
+    }
+
+    static JSONObject getJsonObject(Object data, String code, String msg) {
+        JSONObject result = new JSONObject();
+        result.put("data", data);
+        result.put("code", code);
+        result.put("msg", msg);
+        return result;
     }
 }
