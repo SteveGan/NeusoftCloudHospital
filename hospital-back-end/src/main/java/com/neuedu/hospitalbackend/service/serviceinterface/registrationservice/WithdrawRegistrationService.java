@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.registrationservice;
 
+import com.neuedu.hospitalbackend.model.po.ExceptionLog;
 import com.neuedu.hospitalbackend.model.po.Registration;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
 
@@ -22,7 +23,11 @@ public interface WithdrawRegistrationService {
      */
     Integer insertReverseTransactionLog(TransactionLog transactionLog);
 
-    
+    /**
+     * 向异常表中添加新的记录
+     * @param exceptionLog
+     */
+    void insertExceptionLog(ExceptionLog exceptionLog);
 
 
 
