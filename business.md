@@ -164,9 +164,9 @@ java导出Excel实现
 ## 2.1 现场挂号
 ### 2.1.1 挂号
 
-Note: 1.病历号自动递增
+Q1. 对于挂号操作来说，是否应该是先缴费才会在数据库registration表中插入记录 
 
-​	   2.对于挂号来说，应该是先有缴费记录才会将挂号信息存入数据库
+
 
 - 检查患者是否已在本系统中 
 
@@ -184,16 +184,9 @@ Note: 1.病历号自动递增
 
 - 从前端得到姓名(必填）、性别(必填)、身份证号、出生日期（通过身份证号得到）、年龄、结算类别（必填）、家庭住址、挂号级别（必填）、挂号科室（必填）、<u>看诊医生（必填）</u>、是否要病历本
 
-  - 通过挂号科室id，返回该科室 <u>在指定时间 指定号别</u> 仍有余号的看诊医生列表
-    - [ ] select * from **arrangement** where department_id = #{department_id } and time_slot = #{time_slot} and is_valid = 1 and registration_level_id = #{registration_level_id} and appointment_left>0
-      - List
+  - [ ] 对看诊医生挂号限额的判断
 
-  - 患者指定/挂号人员指定
-  - 更新所选医生对应的余号数量
-    - [ ] update **arrangement** set appointment_left = appointment_left - 1 where user_id =  #{user_id} and registration_level_id = #{registration_level_id} and department_id = #{department_id}
-
-  - 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
-    - [ ] select cost from **registration_level** where id = #{registration_level_id}
+  - [ ] 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
 
 - 向缴费表中添加新的缴费记录  --已缴费
 
@@ -207,9 +200,17 @@ Note: 1.病历号自动递增
 
   - [ ] insert into **case** (registration_id, patient_id, user_id) values (值1, 值2,....)  
 
-### 2.1.2 清空
+Note: 1.病历号自动递增
 
-前端操作
+​	   2.通过指定挂号科室，返回看科室所有当天看诊医生列表 （排班表）
+
+​	   3.看诊医生：若患者未指定，应由收费人员从该科室当前空闲看诊医生中随意选择一个
+
+​				  若患者有指定，应先在某个与**医生及其限号人数有关的表**中查询他当前的余号数量
+
+​						若该医生已满，则询问患者更换医生/由收费人员指定
+
+### 2.1.2 清空
 
 ### 2.1.3 更新发票号
 
@@ -219,7 +220,7 @@ Note: 1.病历号自动递增
 
   select * from **registration** where registration_id = #{registration_id} 
 
-  - Object (user_id, registration_level_id, department_id)
+  - Object
 
 - 通过患者病历号，确定患者挂号状态是否是待诊状态
 
@@ -254,10 +255,6 @@ Note: 1.病历号自动递增
 - 从门诊病历首页移除该病历号，删除医生端的病历记录
 
   - [ ] delete from **case** where registration_id = #{registration_id}  
-
-- 增加该医生的剩余号额
-
-  - [ ] update **arrangement** set appointment_left = appointment_left + 1 where user_id =  #{user_id} and registration_level_id = #{registration_level_id} and department_id = #{department_id}
 
 ## 2.3 收费
 
@@ -402,20 +399,23 @@ Q1.重打发票时，原发票要收回并作废，流水号用重新分配吗�
 ## 2.7 患者费用查询
  输入患者病历号（必输）、开始时间和结束时间选填。查询该患者的所有收费项目列表，默认按收费时间降序排序。
 
-input：registration_id, beginDate, endDate
+input：patientId, begineDate, endDate
 
-output：患者收费项目列表 
+output：患者收费项目列表 药品信息
 
-- 列出药品信息
-  - [ ] select * from **transaction_log** where case_id = #{case_id}
+SELECT type, item_id
+
+FROM transaction_log t, medicine m
+
+WHERE t.item_id = m.id
 
 <choose>
 
-	<when test = "beginDate != null">
+	<when test = "begineDate != null">
 	
 			and #{begineDate} >= t.gmt_create
 	
-	<when test = "endDate != null">
+	<when test = "begineDate != null">
 	
 			and #{endDate} <= t.gmt_create
 
@@ -832,80 +832,110 @@ where
 ### 4.1.1 患者查询
 输入患者病历号或姓名，可以查询到本科室的待诊患者，选择患者可以看到患者信息及申请的项目明细  （状态：1.暂存 2.开立 3.作废 4.已登记）
 
-   input：case_id 或 patient_name TODO, 代码要改
+   input：caseId 或 patientName 
 
-   output：患者信息（患者基本信息）, 申请项目明细
+   output：患者信息（患者基本信息）
 
    SQL:
 
-SELECT p.patient_id, p.registration_id, p.patient_name, inspection.*, 
+```
+SELECT p.patient_id, p.registration_id, p.patient_name, p.patient_age
 
 FROM patient p, case c, inspection i
 
 WHERE i.case_id = c.case_id AND c.patient_id = p.patient_id
 
 	AND c.status = 2 AND i_status = 2 <!--case状态 已诊；检查项目状态 开立-->
-	
-	 <choose>
-	
-		<when test="patientId != null">
-	
-			AND p.patient_id = #{patientId}
-	
-		</when>
-	
-		<when test="patientName != null">
-	
-			AND p.patient_name = #{patientName}
-	
-		</when>
-	
-	</choose>
-建议: 在inspetcion表中存放patient_id
+
+ <choose>
+
+	<when test="patientId != null">
+
+		AND p.patient_id = #{patientId}
+
+	</when>
+
+	<when test="patientName != null">
+
+		AND p.patient_name = #{patientName}
+
+	</when>
+
+</choose>
+```
+
+
+ input：caseId
+
+ output：相应患者申请项目明细
+
+ SQL:
+
+```sql
+SELECT i.case_id, i.id, i.project_id
+
+FROM transaction_log t, inspection i
+
+WHERE t.collection_id = i.id AND t.item_id = i.project_id
+
+	AND t.status = 2 AND i.status = 2 AND t.case_id = #{case_id} <!--trasaction_log状态 2.已缴；检查项目状态 2.开立--> 
+```
+
+
+
+ input：projectId
+
+ output：根据项目id查询具体信息
+
+ SQL:
+
+```sql
+SELECT *
+
+FROM inspection_project
+
+WHERE id = #{projectId} 
+```
+
+
 
 ### 4.1.2 执行确认
  选中相应的患者，点击“执行确认”按钮，进行登记操作。注意：只有已缴费的项目，才可以进行登记
 
 业务逻辑：上一操作后，从页面获取用户caseId，传至后端，根据caseId查询出所有目前可以登记的项目列表; 选中列表中项目开始登记，登记时后端更新项目申请信息。
 
-input：case_id 
-
-SQL：查询出所有可登记（已缴费&未登记）项目
-
-SELECT collection_id, project_id
-
-FROM transaction_log t, inspection i
-
-WHERE t.collection_id = i.id AND t.item_id = i.project_id
-
-	 AND t.status = 2 AND i.status = 2 AND t.case_id = #{case_id} <!--trasaction_log状态 2.已缴；检查项目状态 2.开立--> 
-
-
-
-input：collectionId，projectId，医技id 
+input：inspectionId，projectId，医技id 
 
 SQL：更新项目申请信息：状态、医技id
 
+```sql
 UPDATE inspection
 
 SET status = 4, examinor_id = #{examinorId}<!--检查项目状态 4.已登记--> 
 
-WHERE id = #{collectionId} AND project_id = #{projectId}  
+WHERE id = #{inspectionId} AND project_id = #{projectId}  
+```
+
+
 
 ### 4.1.3 取消执行
 选中相应的患者，点击“取消执行”按钮，进行取消操作。注意：一般情况不会进行取消操作
 
 业务逻辑：根据页面上显示该患者的所有可登记项目，点击选择取消执行的项目，取消时后端更新项目申请信息
 
-input：医技医生id
+input：projectId, inspectionId
 
 SQL：更新项目申请信息：状态、医技id
 
+```sql
 UPDATE inspection
 
 SET status = 3, examinor_id = #{examinorId}<!--检查项目状态 3.作废--> 
 
- WHERE id = #{collectionId} AND project_id = #{projectId}
+WHERE id = #{inspectionId} AND project_id = #{projectId}
+```
+
+
 
 ### 4.1.4 填写结果
 选中相应的患者和项目后，点击“结果录入”按钮，录入检查结果，如果检查项目有图片，上传检查结果图片
@@ -918,11 +948,13 @@ output：该病历号下已登记&未录入结果的项目清单
 
 SQL：查询需要登记结果的数据
 
+```
 SELECT collection_id, project_id
 
 FROM inspection
 
 WHERE caseId = #{caseId} AND status = 4 AND result_description != null<!--检查项目状态 4.已登记--> 
+```
 
 
 
@@ -930,11 +962,13 @@ input：collectionId, projectId, resultDescription, resultPicture, advice
 
 SQL：录入结果、图片（可选）、医技医生建议
 
+```
 UPDATE inspection
 
 SET result_description = #{resultDescription}, result_picture = #{resultPicture}, advice = #{advice}
 
 WHERE id = #{collectionId} AND project_id = #{projectId}  
+```
 
 
 
@@ -991,15 +1025,14 @@ DELETE语句
 
 根据患者的病历号，查询相应的已缴费尚未发放的药品信息
 
-- [ ] select * from **transaction_log** T, **recipe** R where T.registration_id =#{registration_id} and T.status = 2 and R.status = 2
+- [ ] select * from **transaction_log** T, **recipe** R where T.collection_id = R.id and T.status = 2 and R.status = 2
   - List 
 
 ### 5.1.2 发药
 
-- 更新对应的recipe记录
-  - [ ] update **recipe** set status = 4 where id = #{id} and medicine_code = #{medicine_code}
-- 更新对应药品的库存
-  - [ ] update **inventory** set remaining_amount = remaining_amount - #{return_amount} where medicine_code = #{medicine_code}
+更新对应药品状态
+
+- [ ] update recipe set status = 4 where id = #{id} and medicine_code = #{medicine_code}
 
 ## 5.2 门诊退药
 
@@ -1018,7 +1051,7 @@ DELETE语句
 输入退药的数量 return_amount		
 
 - 更新对应的recipe记录
-  - [ ] update **recipe** set status = 5,  return_amount = #{return_amount} where  id = #{id} and medicine_code = #{medicine_code}
+  - [ ] update **recipe** set status = 5,  return_amount = #{return_amount} where case_id = #{case_id} and medicine_code = #{medicine_code}
 - 更新对应药品的库存
   - [ ] update **inventory** set remaining_amount = remaining_amount + #{return_amount} where medicine_code = #{medicine_code}
 
