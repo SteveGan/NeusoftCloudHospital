@@ -9,8 +9,8 @@ import com.neuedu.hospitalbackend.model.po.Department;
 public interface DepartmentManagementService {
 
     /**
-     * 1.2.1 根据部门id查询科室
-     * @param id 部门id
+     * 1.2.1 根据科室id查询科室
+     * @param id 科室id
      * @return 查询结果
      */
     public Department getDepartmentById(String id);
@@ -32,4 +32,5 @@ public interface DepartmentManagementService {
      * @param id
      */
     public void deleteDepartmentById(String id);
+
 }

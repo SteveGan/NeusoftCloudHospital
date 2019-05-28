@@ -2,7 +2,8 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.DiagnoseTemplate;
-import com.sun.tools.javac.util.List;
+
+import java.util.List;
 
 
 /**
@@ -16,28 +17,28 @@ public interface DiagnoseTemplateService {
      * @param doctorId 医生的id
      * @return 诊断模版的列表
      */
-    public List<DiagnoseTemplate> listDiagnoseTemplate(int doctorId);
+   List<DiagnoseTemplate> listDiagnoseTemplate(int doctorId);
 
 
     /**
      * 删除相应的诊断模版
      * @param diagnoseTemplateId id of the diagnose template
      */
-    public void removeDiagnoseTemplate(int diagnoseTemplateId);
+    void removeDiagnoseTemplate(int diagnoseTemplateId);
 
 
     /**
      * 将诊断模版内容存入数据库
      * @param obj 诊断模版的内容
      */
-    public void insertDiagnoseTemplate(JSONObject obj);
+    void insertDiagnoseTemplate(JSONObject obj);
 
 
     /**
      * 更新当前诊断模版内容
      * @param obj 诊断模版的内容
      */
-    public void updateDiagnoseTemplate(JSONObject obj);
+    void updateDiagnoseTemplate(JSONObject obj);
 
 
 }

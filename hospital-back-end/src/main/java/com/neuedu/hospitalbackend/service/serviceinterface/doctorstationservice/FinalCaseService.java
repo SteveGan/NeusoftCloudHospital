@@ -19,9 +19,22 @@ public interface FinalCaseService {
      * @param doctorId of the doctor
      * @return list of patient
      */
-    public List<Patient> listDiagnosedPatients(Integer doctorId);
+    List<Patient> listDiagnosedPatients(Integer doctorId);
 
 
-    public void saveFinalCase(JSONObject obj);
+    /**
+     * 暂存当前最终诊断结果
+     * @param obj 当前最终诊断的内容
+     */
+    void saveFinalCase(JSONObject obj);
+
+
+    /**
+     * 提交当前最终诊断结果，注意：这是最终版本
+     * @param obj 当前最终诊断的内容
+     */
+    void submitFinalCase(JSONObject obj);
+
+
 
 }

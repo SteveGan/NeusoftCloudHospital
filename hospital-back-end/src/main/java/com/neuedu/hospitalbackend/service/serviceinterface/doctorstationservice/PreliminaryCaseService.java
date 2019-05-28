@@ -21,19 +21,19 @@ public interface PreliminaryCaseService {
      * @param doctorId of the doctor
      * @return list of patient
      */
-    public List<Patient> listWaitedPatients(Integer doctorId);
+    List<Patient> listWaitedPatients(Integer doctorId);
 
     /**
      * 将当前病历首页中的内容暂时存入数据库
      * @param caseInfo 当前病历首页中的内容
      */
-    public void savePreCase(JSONObject caseInfo);
+    void savePreCase(JSONObject caseInfo);
 
     /**
      * 提交最终版病历首页中的内容保存到数据库, 注意：最终版本
      * @param caseInfo 当前病历首页中的内容
      */
-    public void submitPreCase(JSONObject caseInfo);
+    void submitPreCase(JSONObject caseInfo);
 
 
 }
