@@ -17,15 +17,15 @@ public interface DepartmentManagementService {
 
     /**
      * 1.2.2 新增科室
-     * @param department
+     * @param department PO
      */
     public void insertDepartment(Department department);
 
     /**
      * 1.2.3 修改科室
-     * @param department
+     * @param department PO
      */
-    public void updateDepartmentBy(Department department);
+    public void updateDepartmentById(Department department);
 
     /**
      * 1.2.4 删除科室
