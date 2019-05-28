@@ -41,5 +41,5 @@ public interface ProjectCollectionManagementService {
      * @param projectCollectionId 检查/检验组 id
      */
     void deleteProjectCollection(Integer projectCollectionId);
-    
+
 }
