@@ -21,10 +21,10 @@ public interface RegistrationService {
 
     /**
      * 通过挂号科室id，返回该科室在指定时间、指定号别仍有余号的看诊医生列表
-     * @param object 挂号科室id 指定时间 指定号别
+     * @param jsonObject 挂号科室id 指定时间 指定号别
      * @return 有余号的看诊医生列表
      */
-    List<User> listAvailableDoctors(JSONObject object);
+    List<User> listAvailableDoctors(JSONObject jsonObject);
 
     /**
      * 更新所选医生对应的余号数量
@@ -34,10 +34,10 @@ public interface RegistrationService {
 
     /**
      * 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
-     * @param object 看诊医生职称，挂号级别
+     * @param jsonObject 看诊医生职称，挂号级别
      * @return total_amount of a registration
      */
-    int calculateAmount(JSONObject object);
+    int calculateAmount(JSONObject jsonObject);
 
     /**
      * 向挂号表中添加新的挂号记录 --默认正常
