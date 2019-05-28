@@ -2,11 +2,20 @@ package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.model.po.Project;
+import com.sun.tools.javac.util.List;
 
 /**
  * 包含检查/检验项目公共服务方法
  */
 public interface ProjectService {
+
+
+    /**
+     * 查找所有的检查/检验项目
+     * @return 所有的检查/检验项目
+     */
+    List<Project> listExaminationProject();
 
     /**
      * 暂存前端传来的 检查/检验 项目

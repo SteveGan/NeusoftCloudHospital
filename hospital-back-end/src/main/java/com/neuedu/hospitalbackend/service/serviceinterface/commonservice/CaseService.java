@@ -4,4 +4,6 @@ import org.apache.ibatis.annotations.Case;
 
 public interface CaseService {
 
+
+
 }
