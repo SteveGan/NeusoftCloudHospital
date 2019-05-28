@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.neuedu.hospitalbackend.model.mapper")
+@MapperScan("com.neuedu.hospitalbackend.model.com")
 public class HospitalBackEndApplication {
 
     public static void main(String[] args) {
