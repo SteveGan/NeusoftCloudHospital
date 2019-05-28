@@ -12,7 +12,7 @@ public interface RecipeTemplateService {
      * @param doctorId of the doctor
      * @return list of available recipes
      */
-    public List<RecipeTemplate> listRecipeTemplate(int doctorId);
+    List<RecipeTemplate> listRecipeTemplate(int doctorId);
 
 
 }
