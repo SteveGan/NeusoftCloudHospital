@@ -2,6 +2,9 @@ package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
 
+/**
+ * 2.3 收费 & 2.4 退费
+ */
 public interface PaymentService {
 
     /**
