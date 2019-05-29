@@ -5,7 +5,7 @@ import com.neuedu.hospitalbackend.model.po.*;
 
 import java.util.List;
 
-public class RegistrationService implements com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService {
+public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService {
 
     public Patient getPatient(String IdCard){
         //TODO: 通过身份证号查询是否有此患者，用String接受
