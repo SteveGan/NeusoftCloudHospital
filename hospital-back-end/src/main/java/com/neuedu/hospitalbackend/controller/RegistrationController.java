@@ -17,8 +17,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/availabledoctors", method = RequestMethod.POST)
     public JSONObject listAvailableDoctors (@RequestBody RegistrationParam registrationParam){
-        registrationParam.setAppointmentDate(Date.valueOf(registrationParam.getAppointmentDateStr()));
-        System.out.println("controller" + registrationParam.getAppointmentDate());
+        //registrationParam.setAppointmentDate(Date.valueOf(registrationParam.getAppointmentDateStr()));
         return registrationServiceImpl.listAvailableDoctors(registrationParam);
     }
 

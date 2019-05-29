@@ -48,6 +48,14 @@ public class Registration {
         this.patientId = patientId;
     }
 
+    public Date getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
     public Integer getUserId() {
         return userId;
     }

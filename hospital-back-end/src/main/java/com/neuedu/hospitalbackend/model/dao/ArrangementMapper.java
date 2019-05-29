@@ -10,5 +10,5 @@ import java.util.List;
 @Component
 public interface ArrangementMapper {
 
-    List<Arrangement> listAvailableDoctors(@Param("appointmentDate") Date appointmentDate, @Param("registrationLevelId") Integer registrationLevelId, @Param("departmentId") Integer departmentId);
+    List<Arrangement> listAvailableDoctors(@Param("appointmentDateStr") String appointmentDateStr, @Param("registrationLevelId") Integer registrationLevelId, @Param("departmentId") Integer departmentId);
 }

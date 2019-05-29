@@ -25,8 +25,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     public JSONObject listAvailableDoctors(RegistrationParam registrationParam){
-        System.out.println("service" + registrationParam.getAppointmentDate());
-        List<Arrangement> availableDoctors = arrangementMapper.listAvailableDoctors(registrationParam.getAppointmentDate(), registrationParam.getRegistrationLevelId(), registrationParam.getDepartmentId());
+        List<Arrangement> availableDoctors = arrangementMapper.listAvailableDoctors(registrationParam.getAppointmentDateStr(), registrationParam.getRegistrationLevelId(), registrationParam.getDepartmentId());
         for(Arrangement a: availableDoctors){
             System.out.println(a.getUserName());
         }

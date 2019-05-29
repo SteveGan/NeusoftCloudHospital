@@ -23,7 +23,7 @@
     <select id="listAvailableDoctors" resultMap="ArrangementMatchMap">
         select time_slot, user_name from arrangement
         where department_id = #{departmentId} and registration_level_id = #{registrationLevelId}
-        and time = #{appointmentDate}
+        and time = #{appointmentDateStr}
         and is_valid = 1 and appointment_left > 0
     </select>
 </mapper>
