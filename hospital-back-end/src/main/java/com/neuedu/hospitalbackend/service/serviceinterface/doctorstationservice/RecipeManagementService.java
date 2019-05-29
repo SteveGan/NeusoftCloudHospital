@@ -4,7 +4,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Medicine;
 import com.neuedu.hospitalbackend.model.po.Recipe;
-import com.sun.tools.javac.util.List;
+import java.util.List;
 
 /**
  * 提供医生端的药方管理服务方法

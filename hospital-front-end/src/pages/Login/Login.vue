@@ -1,97 +1,136 @@
 <template>
-  <a-form
-    layout="vertical"
-    :form="form"
-    @submit="handleSubmit"
-  >
-    <a-form-item
-      :validate-status="userNameError() ? 'error' : ''"
-      :help="userNameError() || ''"
-    >
-      <a-input
-        v-decorator="[
-          'userName',
-          {rules: [{ required: true, message: 'Please input your username!' }]}
-        ]"
-        placeholder="Username"
-      >
-        <a-icon
-          slot="prefix"
-          type="user"
-          style="color:rgba(0,0,0,.25)"
-        />
-      </a-input>
-    </a-form-item>
-    <a-form-item
-      :validate-status="passwordError() ? 'error' : ''"
-      :help="passwordError() || ''"
-    >
-      <a-input
-        v-decorator="[
-          'password',
-          {rules: [{ required: true, message: 'Please input your Password!' }]}
-        ]"
-        type="password"
-        placeholder="Password"
-      >
-        <a-icon
-          slot="prefix"
-          type="lock"
-          style="color:rgba(0,0,0,.25)"
-        />
-      </a-input>
-    </a-form-item>
-    <a-form-item>
-      <a-button
-        type="primary"
-        html-type="submit"
-        :disabled="hasErrors(form.getFieldsError())"
-      >
-        Log in
-      </a-button>
-    </a-form-item>
-  </a-form>
+  <div>
+    <el-card class="login-form-layout">
+      <el-form autoComplete="on"
+               :model="loginForm"
+               ref="loginForm"
+               label-position="left">
+        <div style="text-align: center">
+          <img src="@/assets/icons/security.svg"/>
+        </div>
+        <h2 class="login-title color-main">登录</h2>
+        <el-form-item>
+          <el-input name="userId"
+                    type="text"
+                    v-model="loginForm.userId"
+                    autoComplete="on"
+                    placeholder="请输入用户ID"
+                    clearable>
+          <span slot="prefix">
+            <i class="el-icon-user-solid"></i>
+          </span>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input name="password"
+                    :type="pwdType"
+                    @keyup.enter.native="handleLogin"
+                    v-model="loginForm.password"
+                    autoComplete="off"
+                    placeholder="请输入密码"
+                    clearable>
+          <span slot="prefix">
+            <i class="el-icon-key"></i>
+          </span>
+            <span slot="suffix" @click="showPwd">
+            <i class="el-icon-view"></i>
+          </span>
+          </el-input>
+        </el-form-item>
+        <p class="alertInfo">{{alertInfo}}</p>
+        <el-form-item style="margin-bottom: 60px">
+          <el-button style="width: 100%" type="primary" :loading="loading" @click.native.prevent="handleLogin">
+            登录
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+    <img :src="login_center_bg" class="login-center-layout">
+  </div>
 </template>
 
 <script>
-  import { Form } from 'ant-design-vue'
-  function hasErrors (fieldsError) {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
-  }
+  import login_center_bg from '@/assets/images/login_center_bg.png'
+
   export default {
-    data () {
-      return {
-        hasErrors,
-        form: this.$form.createForm(this),
+    name: 'login',
+    data() {
+      const validatePassword = (rule, value, callback) => {
+        if (value.length < 3) {
+          callback(new Error('密码不能小于3位'))
+        } else {
+          callback()
+        }
       };
-    },
-    mounted () {
-      this.$nextTick(() => {
-        // To disabled submit button at the beginning.
-        this.form.validateFields();
-      });
+      return {
+        loginForm: {
+          userId: 'admin',
+          passWord: '123456',
+        },
+        loading: false,
+        pwdType: 'password',
+        alertInfo: '',
+        login_center_bg
+      }
     },
     methods: {
-      // Only show error after a field is touched.
-      userNameError () {
-        const { getFieldError, isFieldTouched } = this.form;
-        return isFieldTouched('userName') && getFieldError('userName');
+      showPwd() {
+        if (this.pwdType === 'password') {
+          this.pwdType = ''
+        } else {
+          this.pwdType = 'password'
+        }
       },
-      // Only show error after a field is touched.
-      passwordError () {
-        const { getFieldError, isFieldTouched } = this.form;
-        return isFieldTouched('password') && getFieldError('password');
-      },
-      handleSubmit  (e) {
-        e.preventDefault();
-        this.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
+      handleLogin() {
+            this.loading = true
+            this.$store.dispatch('user/Login', this.loginForm).finally(
+                () => {
+                  this.loading = false
+                }
+              ).then(
+                result => {
+                  if(result === "success"){
+                    this.alertInfo = ''
+                    this.$router.push({path: '/'})
+                  } else {
+                    //tell the user that user id or password is not correct
+                    this.alertInfo = '用户ID或密码错误，请重新输入'
+                  }
+                },
+                result => {
+                  alert(result)
+                }
+              )
           }
-        });
-      },
-    },
-  };
+    }
+
+  }
 </script>
-<style>
+
+<style scoped>
+  .login-form-layout {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 360px;
+    margin: 140px auto;
+    border-top: 10px solid #1890ff;
+  }
+
+  .login-title {
+    text-align: center;
+  }
+
+  .login-center-layout {
+    background: #1890ff;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: 200px;
+  }
+
+  .alertInfo{
+
+  }
 </style>

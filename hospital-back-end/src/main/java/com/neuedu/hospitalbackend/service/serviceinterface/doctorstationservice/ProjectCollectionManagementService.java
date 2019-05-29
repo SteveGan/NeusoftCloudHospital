@@ -3,7 +3,8 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Project;
-import com.sun.tools.javac.util.List;
+
+import java.util.List;
 
 /**
  * 包含了医生开 检查/检验 需要用到的service方法
@@ -41,5 +42,5 @@ public interface ProjectCollectionManagementService {
      * @param projectCollectionId 检查/检验组 id
      */
     void deleteProjectCollection(Integer projectCollectionId);
-    
+
 }

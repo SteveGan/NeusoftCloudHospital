@@ -1,20 +1,24 @@
 package com.neuedu.hospitalbackend.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.constant.ResponseCode;
+import com.neuedu.hospitalbackend.model.dto.LoginParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.DepartmentManagement;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.OauthServiceImpl;
+
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Resource
     private DepartmentManagement departmentManagement;
+    @Resource
+    private OauthServiceImpl oauthServiceImpl;
+
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public JSONObject register(HttpServletRequest request)
@@ -23,9 +27,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public JSONObject login(HttpServletRequest request)
+    public JSONObject login(@RequestBody LoginParam loginParam)
     {
-        return null;
+        return oauthServiceImpl.login(loginParam);
     }
 
     private JSONObject response(Object data, String code, String msg) {
