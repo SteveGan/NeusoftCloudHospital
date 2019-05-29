@@ -6,7 +6,7 @@
                ref="loginForm"
                label-position="left">
         <div style="text-align: center">
-          <img src="@/assets/icons/security.svg"/>
+          <img src="@/assets/icons/project_logo.png"/>
         </div>
         <h2 class="login-title color-main">登录</h2>
         <el-form-item>
@@ -91,7 +91,7 @@
                 result => {
                   if(result === "success"){
                     this.alertInfo = ''
-                    this.$router.push({path: '/'})
+                    this.$router.push({path: 'home/main'})
                   } else {
                     //tell the user that user id or password is not correct
                     this.alertInfo = '用户ID或密码错误，请重新输入'
