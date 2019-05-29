@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.testDAO.MedicineMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.testPO.Medicine">
+    <result column="id" jdbcType="SMALLINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="specification" jdbcType="VARCHAR" property="specification" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="factory" jdbcType="VARCHAR" property="factory" />
+    <result column="formulation" jdbcType="VARCHAR" property="formulation" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="unit_prize" jdbcType="DECIMAL" property="unitPrize" />
+    <result column="pinyin_code" jdbcType="VARCHAR" property="pinyinCode" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.testPO.Medicine">
+    insert into medicine (id, code, name, 
+      specification, unit, factory, 
+      formulation, type, unit_prize, 
+      pinyin_code)
+    values (#{id,jdbcType=SMALLINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{factory,jdbcType=VARCHAR}, 
+      #{formulation,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{unitPrize,jdbcType=DECIMAL}, 
+      #{pinyinCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.testPO.Medicine">
+    insert into medicine
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="specification != null">
+        specification,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="factory != null">
+        factory,
+      </if>
+      <if test="formulation != null">
+        formulation,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="unitPrize != null">
+        unit_prize,
+      </if>
+      <if test="pinyinCode != null">
+        pinyin_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=SMALLINT},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null">
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="factory != null">
+        #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="formulation != null">
+        #{formulation,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrize != null">
+        #{unitPrize,jdbcType=DECIMAL},
+      </if>
+      <if test="pinyinCode != null">
+        #{pinyinCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.testPO.Medicine">
+    <result column="id" jdbcType="SMALLINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="specification" jdbcType="VARCHAR" property="specification" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="factory" jdbcType="VARCHAR" property="factory" />
+    <result column="formulation" jdbcType="VARCHAR" property="formulation" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="unit_prize" jdbcType="DECIMAL" property="unitPrize" />
+    <result column="pinyin_code" jdbcType="VARCHAR" property="pinyinCode" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.testPO.Medicine">
+    insert into medicine (id, code, name, 
+      specification, unit, factory, 
+      formulation, type, unit_prize, 
+      pinyin_code)
+    values (#{id,jdbcType=SMALLINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{factory,jdbcType=VARCHAR}, 
+      #{formulation,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{unitPrize,jdbcType=DECIMAL}, 
+      #{pinyinCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.testPO.Medicine">
+    insert into medicine
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="specification != null">
+        specification,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="factory != null">
+        factory,
+      </if>
+      <if test="formulation != null">
+        formulation,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="unitPrize != null">
+        unit_prize,
+      </if>
+      <if test="pinyinCode != null">
+        pinyin_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=SMALLINT},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null">
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="factory != null">
+        #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="formulation != null">
+        #{formulation,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrize != null">
+        #{unitPrize,jdbcType=DECIMAL},
+      </if>
+      <if test="pinyinCode != null">
+        #{pinyinCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
