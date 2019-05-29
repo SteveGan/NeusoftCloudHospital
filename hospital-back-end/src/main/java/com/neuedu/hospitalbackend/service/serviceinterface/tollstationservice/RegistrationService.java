@@ -1,9 +1,12 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -22,10 +25,10 @@ public interface RegistrationService {
 
     /**
      * 通过挂号科室id，返回该科室在指定时间、指定号别仍有余号的看诊医生列表
-     * @param jsonObject 挂号科室id 指定时间 指定号别
+     * @param registrationParam 指定时间 指定号别 挂号科室id
      * @return 有余号的看诊医生列表
      */
-    List<User> listAvailableDoctors(JSONObject jsonObject);
+    JSONObject listAvailableDoctors(RegistrationParam registrationParam);
 
     /**
      * 更新所选医生对应的余号数量

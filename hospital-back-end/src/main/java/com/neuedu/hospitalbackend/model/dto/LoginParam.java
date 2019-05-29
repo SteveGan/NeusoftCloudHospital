@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.model.dto;
 
 public class LoginParam {
+
     private Integer userId;
     private String password;
 

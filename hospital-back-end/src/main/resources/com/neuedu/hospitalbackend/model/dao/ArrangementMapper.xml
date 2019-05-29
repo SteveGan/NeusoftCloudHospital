@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.ArrangementMapper">
+    <resultMap id="ArrangementMatchMap" type="Arrangement">
+        <id column="id" property="id"/>
+        <result column="time" property="time"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="user_name" property="userName"/>
+        <result column="registration_level_id" property="registrationLevelId"/>
+        <result column="is_valid" property="isValid"/>
+        <result column="time_slot" property="timeSlot"/>
+        <result column="max_appointment" property="maxAppointment"/>
+        <result column="appointment_left" property="appointmentLeft"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+
+    <!--通过挂号科室id，返回该科室 在指定时间 指定号别 仍有余号的看诊医生列表-->
+    <select id="listAvailableDoctors" resultMap="ArrangementMatchMap">
+        select time_slot, user_name from arrangement
+        where department_id = #{departmentId} and registration_level_id = #{registrationLevelId}
+        and time = #{appointmentDate}
+        and is_valid = 1 and appointment_left > 0
+    </select>
+</mapper>
