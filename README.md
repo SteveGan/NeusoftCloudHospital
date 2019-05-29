@@ -3,45 +3,57 @@
 
 ![](http://ww3.sinaimg.cn/large/006tNc79ly1g3cckd0xxhj30i7050gm1.jpg)
 
-# 协作信息
+## 前言
+`熙康云医院`项目致力于打造一个完整的医院信息服务系统，采用现阶段流行技术实现。
 
-## Jenkins
-[Jenkins]()
+## 项目介绍
 
-## ProcessOn
-- [ER图]()
+### 项目演示
 
-# 前端规范
-## UI组件库
-- [Ant Design Vue](https://vue.ant.design/docs/vue/introduce/)
-- [Echarts](https://echarts.baidu.com/)
+### 组织结构
 
-# 数据库规约
-## 建表规约
-1. 参考《阿里巴巴Java开发手册》
-2. 字段命名规则：自己表内字段不能重复表名，使用外键字段加上其他表名作为前缀。
+### 技术选型
+#### 后端技术
 
-## 长度限制
-1. varchar长度设置为预估长度乘2向上取整。
-2. 金钱设置为decimal(11,2)
-3. id根据实际情况来，但必须加上unsigned无符号，tinyint（0 到 255）, smallint（0 到 65535）, int（0 到约 42.9 亿）
+技术 | 状态 | 说明 | 官网 |
+----|----|----|----
+Spring Boot | ✔️ | 容器+MVC框架 | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
+Spring Security | 认证和授权框架 | [https://spring.io/projects/spring-security](https://spring.io/projects/spring-security)
+MyBatis | ✔️ |ORM框架  | [http://www.mybatis.org/mybatis-3/zh/index.html](http://www.mybatis.org/mybatis-3/zh/index.html)
+MyBatisGenerator | 数据层代码生成 | [http://www.mybatis.org/generator/index.html](http://www.mybatis.org/generator/index.html)
+PageHelper | MyBatis物理分页插件 | [http://git.oschina.net/free/Mybatis_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper)
+Swagger-UI | 文档生产工具 | [https://github.com/swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui)
+Hibernator-Validator | 验证框架 | [http://hibernate.org/validator/](http://hibernate.org/validator/)
+Elasticsearch | 搜索引擎 | [https://github.com/elastic/elasticsearch](https://github.com/elastic/elasticsearch)
+RabbitMq | 消息队列 | [https://www.rabbitmq.com/](https://www.rabbitmq.com/)
+Redis | 分布式缓存 | [https://redis.io/](https://redis.io/)
+MySQL | ✔️ |MySQL数据库 | [https://www.mongodb.com/](https://www.mysql.com/)
+Docker | 应用容器引擎 | [https://www.docker.com/](https://www.docker.com/)
+Druid | 数据库连接池 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
+OSS | 对象存储 | [https://github.com/aliyun/aliyun-oss-java-sdk](https://github.com/aliyun/aliyun-oss-java-sdk)
+JWT | JWT登录支持 | [https://github.com/jwtk/jjwt](https://github.com/jwtk/jjwt)
+LogStash | 日志收集 | [https://github.com/logstash/logstash-logback-encoder](https://github.com/logstash/logstash-logback-encoder)
+Lombok | 简化对象封装工具 | [https://github.com/rzwitserloot/lombok](https://github.com/rzwitserloot/lombok)
 
-# 后端规范
-- [POJO与Java bean](https://blog.csdn.net/u012393192/article/details/80808237)
+#### 前端技术
 
-## 包名规则及含义
-- controller：控制层接口
-- service：服务层
-- model：数据模型类(参数模型，数据传输模型等）
-  - mapper：mybatis接口
-- util：公共类，定义常量类，组件
-- exception：自定义异常
+技术 | 说明 | 官网
+----|----|----
+Vue | ✔️ 前端框架 | [https://vuejs.org/](https://vuejs.org/)
+Vue-router | ✔️ 路由框架 | [https://router.vuejs.org/](https://router.vuejs.org/)
+Vuex | ✔️ 全局状态管理框架 | [https://vuex.vuejs.org/](https://vuex.vuejs.org/)
+Element | ✔️ 前端UI框架 | [https://element.eleme.io/](https://element.eleme.io/)
+Axios | ✔️ 前端HTTP框架 | [https://github.com/axios/axios](https://github.com/axios/axios)
+v-charts | 基于Echarts的图表框架 | [https://v-charts.js.org/](https://v-charts.js.org/)
+Js-cookie | cookie管理工具 | [https://github.com/js-cookie/js-cookie](https://github.com/js-cookie/js-cookie)
+nprogress | 进度条控件 | [https://github.com/rstacruz/nprogress](https://github.com/rstacruz/nprogress)
 
-## 分层领域模型规约
-- DO(Data Object):此对象与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。
-- DTO(Data Transfer Object):数据传输对象，Service 或 Manager 向外传输的对象。
-- BO(Business Object):业务对象，由 Service 层输出的封装业务逻辑的对象。
-- AO(ApplicationObject):应用对象，在Web层与Service层之间抽象的复用对象模型， 极为贴近展示层，复用度不高。
-- VO(View Object):显示层对象，通常是 Web 向模板渲染引擎层传输的对象。
-- Query:数据查询对象，各层接收上层的查询请求。注意超过 2 个参数的查询封装，禁止
-使用 Map 类来传输。
+#### 架构图
+
+##### 系统架构图
+
+##### 业务架构图
+
+#### 模块介绍
+
+## 环境搭建
