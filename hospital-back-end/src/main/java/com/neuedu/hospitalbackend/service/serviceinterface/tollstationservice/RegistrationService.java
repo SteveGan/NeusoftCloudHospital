@@ -1,13 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
-import com.neuedu.hospitalbackend.model.po.*;
-import org.springframework.stereotype.Service;
-
-import java.sql.Date;
-import java.util.List;
+import com.neuedu.hospitalbackend.model.poback.*;
 
 /**
  * 2.1 现场挂号

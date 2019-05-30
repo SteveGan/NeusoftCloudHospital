@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.DiagnoseTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="disease_id" jdbcType="INTEGER" property="diseaseId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="scope" jdbcType="BIT" property="scope" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    insert into diagnose_template (id, name, disease_id, 
+      user_id, scope, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{diseaseId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{scope,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    insert into diagnose_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="diseaseId != null">
+        disease_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="diseaseId != null">
+        #{diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="disease_id" jdbcType="INTEGER" property="diseaseId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="scope" jdbcType="BIT" property="scope" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    insert into diagnose_template (id, name, disease_id, 
+      user_id, scope, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{diseaseId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{scope,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    insert into diagnose_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="diseaseId != null">
+        disease_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="diseaseId != null">
+        #{diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="disease_id" jdbcType="INTEGER" property="diseaseId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="scope" jdbcType="BIT" property="scope" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    insert into diagnose_template (id, name, disease_id, 
+      user_id, scope, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{diseaseId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{scope,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate">
+    insert into diagnose_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="diseaseId != null">
+        disease_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="diseaseId != null">
+        #{diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

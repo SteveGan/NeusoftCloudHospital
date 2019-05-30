@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice;
 
-import com.neuedu.hospitalbackend.model.po.Department;
+import com.neuedu.hospitalbackend.model.poback.Department;
 
 /**
  * 1.2 科室管理

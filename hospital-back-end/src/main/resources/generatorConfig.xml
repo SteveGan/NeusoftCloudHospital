@@ -10,6 +10,7 @@
             <property name="suppressDate" value="true"/>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true"/>
+            <property name="forceAnnotation" value="true"/>
         </commentGenerator>
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://www.stevegan.com:3306/cloud_hospital" userId="stevegan" password="SteveGan=1st">
@@ -18,7 +19,7 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.neuedu.hospitalbackend.model.testPO" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.neuedu.hospitalbackend.model.po" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -27,7 +28,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成Dao类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.neuedu.hospitalbackend.model.testDAO" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.neuedu.hospitalbackend.model.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->

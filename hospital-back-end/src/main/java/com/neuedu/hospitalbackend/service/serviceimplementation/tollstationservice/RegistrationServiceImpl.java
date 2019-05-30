@@ -1,16 +1,12 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dao.ArrangementMapper;
-import com.neuedu.hospitalbackend.model.dao.PatientMapper;
+import com.neuedu.hospitalbackend.model.daoback.ArrangementMapper;
 import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
-import com.neuedu.hospitalbackend.model.po.*;
+import com.neuedu.hospitalbackend.model.poback.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.sql.Date;
 import java.util.List;
 
 @Service

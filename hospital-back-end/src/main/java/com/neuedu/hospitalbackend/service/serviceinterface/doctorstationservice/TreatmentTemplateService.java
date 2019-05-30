@@ -1,8 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.TreatmentTemplate;
+import com.neuedu.hospitalbackend.model.poback.TreatmentTemplate;
 import java.util.List;
 
 public interface TreatmentTemplateService {

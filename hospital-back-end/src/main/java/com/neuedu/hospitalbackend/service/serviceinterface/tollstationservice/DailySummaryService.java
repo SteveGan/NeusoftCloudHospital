@@ -1,8 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.DailySummaryLog;
-import com.neuedu.hospitalbackend.model.po.TransactionLog;
+import com.neuedu.hospitalbackend.model.poback.DailySummaryLog;
+import com.neuedu.hospitalbackend.model.poback.TransactionLog;
 
 import java.util.List;
 
