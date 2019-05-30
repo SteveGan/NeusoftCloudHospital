@@ -7,6 +7,7 @@ import com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservi
 import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.sql.Date;
 
 @RestController
 @RequestMapping("/tollstation")
@@ -29,4 +30,7 @@ public class RegistrationController {
         }
         return CommonResult.failed();
     }
+
+
+
 }
