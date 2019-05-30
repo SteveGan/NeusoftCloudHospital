@@ -3,7 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.hospitalbackend.model.dao.UserMapper">
+    <resultMap id="UserAndRoleResultMap" type="User">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="avatar" property="avatar"/>
+        <result column="gmt_created" property="gmtCreated"/>
+        <collection property="roles" ofType="Role">
+            <id column="id" property="id"/>
+            <result column="user_id" property="userId"/>
+            <result column="position_id" property="positionId"/>
+            <result column="position_name" property="positionName"/>
+            <result column="department_id" property="departmentId"/>
+            <result column="department_name" property="departmentName"/>
+            <result column="title_id" property="titleId"/>
+            <result column="title_name" property="titleName"/>
+        </collection>
+    </resultMap>
+
     <select id="userAuthentication" resultType="com.neuedu.hospitalbackend.model.po.User">
         select * from user where id = #{id} and password = #{password}
+    </select>
+
+    <select id="listAllUsersAndRoles" resultMap="UserAndRoleResultMap">
+        select *
+        from user u, role r
+        where u.id = r.user_id
     </select>
 </mapper>
