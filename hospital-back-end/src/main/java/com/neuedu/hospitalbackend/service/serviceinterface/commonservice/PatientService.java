@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
-import com.neuedu.hospitalbackend.model.po.Patient;
-import com.neuedu.hospitalbackend.model.po.Registration;
+import com.neuedu.hospitalbackend.model.poback.Patient;
+import com.neuedu.hospitalbackend.model.poback.Registration;
 
 import java.util.List;
 

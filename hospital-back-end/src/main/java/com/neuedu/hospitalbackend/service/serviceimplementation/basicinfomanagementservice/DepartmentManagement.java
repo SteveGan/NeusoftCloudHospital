@@ -1,8 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
-import com.neuedu.hospitalbackend.model.po.Department;
+import com.neuedu.hospitalbackend.model.daoback.DepartmentMapper;
+import com.neuedu.hospitalbackend.model.poback.Department;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
