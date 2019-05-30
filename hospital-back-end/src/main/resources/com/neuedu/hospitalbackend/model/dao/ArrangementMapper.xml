@@ -4,7 +4,7 @@
 
     <resultMap id="BaseResultMap" type="Arrangement">
         <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="time" jdbcType="DATE" property="time" />
+        <result column="arrangement_date" jdbcType="DATE" property="arrangementDate" />
         <result column="department_id" jdbcType="INTEGER" property="departmentId" />
         <result column="role_id" jdbcType="INTEGER" property="roleId" />
         <result column="user_name" jdbcType="VARCHAR" property="userName" />
@@ -16,11 +16,11 @@
     </resultMap>
 
     <insert id="insert" parameterType="Arrangement">
-    insert into arrangement (id, time, department_id,
+    insert into arrangement (id, arrangement_date, department_id,
       role_id, user_name, registration_level_id,
       is_valid, time_slot, max_appointment,
       appointment_left)
-    values (#{id,jdbcType=INTEGER}, #{time,jdbcType=DATE}, #{departmentId,jdbcType=INTEGER},
+    values (#{id,jdbcType=INTEGER}, #{arrangement_date,jdbcType=DATE}, #{departmentId,jdbcType=INTEGER},
       #{roleId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{registrationLevelId,jdbcType=BIT},
       #{isValid,jdbcType=TINYINT}, #{timeSlot,jdbcType=VARCHAR}, #{maxAppointment,jdbcType=INTEGER},
       #{appointmentLeft,jdbcType=INTEGER})
@@ -32,8 +32,8 @@
             <if test="id != null">
                 id,
             </if>
-            <if test="time != null">
-                time,
+            <if test="arrangementDate != null">
+                arrangement_date,
             </if>
             <if test="departmentId != null">
                 department_id,
@@ -64,8 +64,8 @@
             <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="time != null">
-                #{time,jdbcType=DATE},
+            <if test="arrangementDate != null">
+                #{arrangement_date,jdbcType=DATE},
             </if>
             <if test="departmentId != null">
                 #{departmentId,jdbcType=INTEGER},
@@ -99,12 +99,12 @@
     <select id="listAvailableDoctors" resultMap="BaseResultMap">
         select time_slot, user_name from arrangement
         where department_id = #{departmentId} and registration_level_id = #{registrationLevelId}
-        and appointment_time = #{appointmentDateStr}
+        and arrangement_date = #{appointmentDateStr}
         and is_valid = 1 and appointment_left > 0
     </select>
 
     <update id="updateRemainingAppointment">
         update arrangement set appointment_left = appointment_left - 1
-        where role_id = #{roleId} and appointment_time = #{appointmentDateStr}
+        where role_id = #{roleId} and arrangement_date = #{appointmentDateStr}
     </update>
 </mapper>
