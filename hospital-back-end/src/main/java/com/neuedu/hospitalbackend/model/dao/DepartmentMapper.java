@@ -5,5 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface DepartmentMapper {
-    public Department selectDepartmentById(String id);
+    Department selectDepartmentById(Integer id);
+
+    int addDepartment(Department department);
 }

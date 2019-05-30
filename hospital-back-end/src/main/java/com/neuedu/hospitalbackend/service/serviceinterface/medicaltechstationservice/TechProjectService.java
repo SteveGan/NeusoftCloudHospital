@@ -1,11 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.Patient;
-import com.neuedu.hospitalbackend.model.dto.ProjectPatientParam;
-
-
-import java.util.List;
+import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 
 /**
  * 4. 检查项目医技工作站
