@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend;
 
-import com.neuedu.hospitalbackend.controller.MainController;
+import com.neuedu.hospitalbackend.controller.DepartmentManagementController;
 import com.neuedu.hospitalbackend.controller.UserController;
 import com.neuedu.hospitalbackend.model.dto.LoginParam;
 import org.junit.Test;
@@ -16,6 +16,6 @@ public class UserMapperTest {
 
     @Test
     public void testDemo() {
-        System.out.println(new MainController().selectDepartmentById("1"));
+        System.out.println(new DepartmentManagementController().selectDepartmentById("1"));
     }
 }
