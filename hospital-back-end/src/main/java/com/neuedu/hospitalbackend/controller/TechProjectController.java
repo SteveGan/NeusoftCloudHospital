@@ -23,11 +23,7 @@ public class TechProjectController {
     @RequestMapping(value = "/patients", method = RequestMethod.POST)
     public CommonResult<JSONObject> listPatientByCaseIdOrName(@RequestBody ProjectPatientParam projectPatientParam)
     {
-        try {
-            return CommonResult.success(techProjectServiceImpl.listPreparedPatientsByCaseIdOrName(projectPatientParam));
-        } catch (Exception e) {
-            return CommonResult.failed();
-        }
+        return CommonResult.success(techProjectServiceImpl.listPreparedPatientsByCaseIdOrName(projectPatientParam));
     }
 
 }

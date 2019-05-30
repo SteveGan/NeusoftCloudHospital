@@ -17,8 +17,8 @@ public class RegistrationController {
     private RegistrationServiceImpl registrationServiceImpl;
 
     @RequestMapping(value = "/arrangement-doctors", method = RequestMethod.GET)
-    public JSONObject listAvailableDoctors (@RequestBody RegistrationParam registrationParam){
-        return registrationServiceImpl.listAvailableDoctors(registrationParam);
+    public CommonResult<JSONObject> listAvailableDoctors (@RequestBody RegistrationParam registrationParam){
+        return CommonResult.success(registrationServiceImpl.listAvailableDoctors(registrationParam));
     }
 
     @RequestMapping(value = "/arrangement-appointment", method = RequestMethod.PATCH)
@@ -28,9 +28,5 @@ public class RegistrationController {
             return CommonResult.success(count);
         }
         return CommonResult.failed();
-        return null;
     }
-
-
-
 }
