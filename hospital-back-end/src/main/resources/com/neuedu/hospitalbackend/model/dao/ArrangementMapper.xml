@@ -105,6 +105,6 @@
 
     <update id="updateRemainingAppointment">
         update arrangement set appointment_left = appointment_left - 1
-        where role_id = #{roleId} and appointment_time = #{appointmentTime}
+        where role_id = #{roleId} and appointment_time = #{appointmentDateStr}
     </update>
 </mapper>

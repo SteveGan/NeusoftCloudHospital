@@ -34,7 +34,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
     @Override
     public void updateRemainingAppointment(DoctorParam doctorParam){
-        arrangementMapper.updateRemainingAppointment(doctorParam.getTime(), doctorParam.getRoleId());
+        arrangementMapper.updateRemainingAppointment(doctorParam.getAppointmentTimeStr(), doctorParam.getRoleId());
     }
 
     @Override

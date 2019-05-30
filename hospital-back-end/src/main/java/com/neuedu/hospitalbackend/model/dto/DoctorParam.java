@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class DoctorParam {
     private Integer roleId;
-    private Date time; //看诊时间
+    private String appointmentTimeStr; //看诊时间
     private Integer appointmentLeft;
     private Integer departmentId;
 
@@ -16,12 +16,12 @@ public class DoctorParam {
         this.roleId = roleId;
     }
 
-    public Date getTime() {
-        return time;
+    public String getAppointmentTimeStr() {
+        return appointmentTimeStr;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setAppointmentTimeStr(String appointmentTimeStr) {
+        this.appointmentTimeStr = appointmentTimeStr;
     }
 
     public Integer getAppointmentLeft() {

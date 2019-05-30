@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 
 @RestController
-@RequestMapping("/tollstation")
+@RequestMapping("/registration")
 @CrossOrigin
 public class RegistrationController {
     
     @Autowired
     private RegistrationServiceImpl registrationServiceImpl;
 
-    @RequestMapping(value = "/arrangement-doctors", method = RequestMethod.GET)
-    public JSONObject listAvailableDoctors (@RequestBody RegistrationParam registrationParam){
+    @RequestMapping(value = "/doctors", method = RequestMethod.GET)
+    public JSONObject listAvailableDoctors (RegistrationParam registrationParam){
         return registrationServiceImpl.listAvailableDoctors(registrationParam);
     }
 
-    @RequestMapping(value = "/arrangement-appointment", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/appointment", method = RequestMethod.PATCH)
     public JSONObject updateRemainingAppointment(@RequestBody DoctorParam doctorParam){
         registrationServiceImpl.updateRemainingAppointment(doctorParam);
         return null;
