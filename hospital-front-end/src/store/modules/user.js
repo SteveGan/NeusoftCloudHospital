@@ -27,6 +27,7 @@ const actions = {
           setToken(tokenStr)
           commit('setToken', tokenStr)
           commit('setName', data.userName)
+          commit('setId', data.userId)
           commit('setAvatar', data.avatar)
           commit('setRoles', data.roles)
           resolve('success')
@@ -53,16 +54,19 @@ const actions = {
 }
 
 const mutations = {
-  setToken: (state, {token}) => {
+  setToken: (state, token) => {
     state.token = token
   },
-  setName: (state, {name}) => {
+  setName: (state, name) => {
     state.name = name
   },
-  setAvatar: (state, {avatar}) => {
+  setId: (state, id) => {
+    state.id = id
+  },
+  setAvatar: (state, avatar) => {
     state.avatar = avatar
   },
-  setRoles: (state, {roles}) => {
+  setRoles: (state, roles) => {
     state.roles = roles
   }
 }
