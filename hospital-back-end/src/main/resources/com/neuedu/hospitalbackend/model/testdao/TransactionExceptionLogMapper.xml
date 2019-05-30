@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.dao.TransactionExceptionLogMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="original_invoice_code" property="originalInvoiceCode" jdbcType="INTEGER" />
-    <result column="new_invoice_code" property="newInvoiceCode" jdbcType="INTEGER" />
-    <result column="reverse_invoice_code" property="reverseInvoiceCode" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="reason" property="reason" jdbcType="VARCHAR" />
-    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
-    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.TransactionExceptionLogMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="original_invoice_code" jdbcType="INTEGER" property="originalInvoiceCode" />
+    <result column="new_invoice_code" jdbcType="INTEGER" property="newInvoiceCode" />
+    <result column="reverse_invoice_code" jdbcType="INTEGER" property="reverseInvoiceCode" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog" >
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog">
     insert into transaction_exception_log (id, original_invoice_code, new_invoice_code, 
       reverse_invoice_code, user_id, reason, 
       gmt_create, gmt_modified)
@@ -19,57 +19,130 @@
       #{reverseInvoiceCode,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog" >
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog">
     insert into transaction_exception_log
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="originalInvoiceCode != null" >
+      <if test="originalInvoiceCode != null">
         original_invoice_code,
       </if>
-      <if test="newInvoiceCode != null" >
+      <if test="newInvoiceCode != null">
         new_invoice_code,
       </if>
-      <if test="reverseInvoiceCode != null" >
+      <if test="reverseInvoiceCode != null">
         reverse_invoice_code,
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="reason != null" >
+      <if test="reason != null">
         reason,
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         gmt_create,
       </if>
-      <if test="gmtModified != null" >
+      <if test="gmtModified != null">
         gmt_modified,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="originalInvoiceCode != null" >
+      <if test="originalInvoiceCode != null">
         #{originalInvoiceCode,jdbcType=INTEGER},
       </if>
-      <if test="newInvoiceCode != null" >
+      <if test="newInvoiceCode != null">
         #{newInvoiceCode,jdbcType=INTEGER},
       </if>
-      <if test="reverseInvoiceCode != null" >
+      <if test="reverseInvoiceCode != null">
         #{reverseInvoiceCode,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="reason != null" >
+      <if test="reason != null">
         #{reason,jdbcType=VARCHAR},
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModified != null" >
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="original_invoice_code" jdbcType="INTEGER" property="originalInvoiceCode" />
+    <result column="new_invoice_code" jdbcType="INTEGER" property="newInvoiceCode" />
+    <result column="reverse_invoice_code" jdbcType="INTEGER" property="reverseInvoiceCode" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog">
+    insert into transaction_exception_log (id, original_invoice_code, new_invoice_code, 
+      reverse_invoice_code, user_id, reason, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{originalInvoiceCode,jdbcType=INTEGER}, #{newInvoiceCode,jdbcType=INTEGER}, 
+      #{reverseInvoiceCode,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.TransactionExceptionLog">
+    insert into transaction_exception_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="originalInvoiceCode != null">
+        original_invoice_code,
+      </if>
+      <if test="newInvoiceCode != null">
+        new_invoice_code,
+      </if>
+      <if test="reverseInvoiceCode != null">
+        reverse_invoice_code,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="originalInvoiceCode != null">
+        #{originalInvoiceCode,jdbcType=INTEGER},
+      </if>
+      <if test="newInvoiceCode != null">
+        #{newInvoiceCode,jdbcType=INTEGER},
+      </if>
+      <if test="reverseInvoiceCode != null">
+        #{reverseInvoiceCode,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </trim>

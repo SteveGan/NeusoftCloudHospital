@@ -9,7 +9,7 @@ public class Examination {
 
     private Integer projectId;
 
-    private Boolean status;
+    private Byte status;
 
     private Integer creatorRoleId;
 
@@ -53,11 +53,11 @@ public class Examination {
         this.projectId = projectId;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 

@@ -9,9 +9,9 @@ public class Diagnose {
 
     private Integer diseaseId;
 
-    private Boolean startTime;
+    private Byte startTime;
 
-    private Boolean type;
+    private Byte type;
 
     private Date gmtCreate;
 
@@ -41,19 +41,19 @@ public class Diagnose {
         this.diseaseId = diseaseId;
     }
 
-    public Boolean getStartTime() {
+    public Byte getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Boolean startTime) {
+    public void setStartTime(Byte startTime) {
         this.startTime = startTime;
     }
 
-    public Boolean getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Byte type) {
         this.type = type;
     }
 

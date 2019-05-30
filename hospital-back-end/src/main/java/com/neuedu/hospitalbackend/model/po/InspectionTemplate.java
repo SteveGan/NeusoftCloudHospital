@@ -17,7 +17,7 @@ public class InspectionTemplate {
 
     private String requirement;
 
-    private Boolean scope;
+    private Byte scope;
 
     private Date gmtCreate;
 
@@ -79,11 +79,11 @@ public class InspectionTemplate {
         this.requirement = requirement == null ? null : requirement.trim();
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 

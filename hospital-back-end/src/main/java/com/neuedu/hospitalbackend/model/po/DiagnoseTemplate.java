@@ -11,7 +11,7 @@ public class DiagnoseTemplate {
 
     private Integer userId;
 
-    private Boolean scope;
+    private Byte scope;
 
     private Date gmtCreate;
 
@@ -49,11 +49,11 @@ public class DiagnoseTemplate {
         this.userId = userId;
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 

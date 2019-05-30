@@ -1,38 +1,74 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.dao.InventoryMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Inventory" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="medicine_code" property="medicineCode" jdbcType="VARCHAR" />
-    <result column="remaining_amount" property="remainingAmount" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.InventoryMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Inventory">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="medicine_code" jdbcType="VARCHAR" property="medicineCode" />
+    <result column="remaining_amount" jdbcType="INTEGER" property="remainingAmount" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Inventory" >
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Inventory">
     insert into inventory (id, medicine_code, remaining_amount
       )
     values (#{id,jdbcType=INTEGER}, #{medicineCode,jdbcType=VARCHAR}, #{remainingAmount,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Inventory" >
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Inventory">
     insert into inventory
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="medicineCode != null" >
+      <if test="medicineCode != null">
         medicine_code,
       </if>
-      <if test="remainingAmount != null" >
+      <if test="remainingAmount != null">
         remaining_amount,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="medicineCode != null" >
+      <if test="medicineCode != null">
         #{medicineCode,jdbcType=VARCHAR},
       </if>
-      <if test="remainingAmount != null" >
+      <if test="remainingAmount != null">
+        #{remainingAmount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Inventory">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="medicine_code" jdbcType="VARCHAR" property="medicineCode" />
+    <result column="remaining_amount" jdbcType="INTEGER" property="remainingAmount" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Inventory">
+    insert into inventory (id, medicine_code, remaining_amount
+      )
+    values (#{id,jdbcType=INTEGER}, #{medicineCode,jdbcType=VARCHAR}, #{remainingAmount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Inventory">
+    insert into inventory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="medicineCode != null">
+        medicine_code,
+      </if>
+      <if test="remainingAmount != null">
+        remaining_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="medicineCode != null">
+        #{medicineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingAmount != null">
         #{remainingAmount,jdbcType=INTEGER},
       </if>
     </trim>

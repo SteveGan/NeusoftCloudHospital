@@ -10,10 +10,10 @@
             <property name="suppressDate" value="true"/>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true"/>
-            <property name="forceAnnotation" value="true"/>
+            <!--<property name="forceAnnotation" value="true"/>-->
         </commentGenerator>
         <!--数据库链接地址账号密码-->
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://www.stevegan.com:3306/cloud_hospital" userId="stevegan" password="SteveGan=1st">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://www.stevegan.com:3306/cloud_hospital?tinyInt1isBit=false" userId="stevegan" password="SteveGan=1st">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>

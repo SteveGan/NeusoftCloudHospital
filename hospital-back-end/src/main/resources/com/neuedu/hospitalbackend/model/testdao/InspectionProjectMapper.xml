@@ -1,45 +1,88 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.dao.InspectionProjectMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.InspectionProject" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="item_id" property="itemId" jdbcType="INTEGER" />
-    <result column="amount" property="amount" jdbcType="SMALLINT" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.InspectionProjectMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.InspectionProject">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="amount" jdbcType="SMALLINT" property="amount" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.InspectionProject" >
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.InspectionProject">
     insert into inspection_project (id, name, item_id, 
       amount)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, 
       #{amount,jdbcType=SMALLINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.InspectionProject" >
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.InspectionProject">
     insert into inspection_project
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name,
       </if>
-      <if test="itemId != null" >
+      <if test="itemId != null">
         item_id,
       </if>
-      <if test="amount != null" >
+      <if test="amount != null">
         amount,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="itemId != null" >
+      <if test="itemId != null">
         #{itemId,jdbcType=INTEGER},
       </if>
-      <if test="amount != null" >
+      <if test="amount != null">
+        #{amount,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.InspectionProject">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="amount" jdbcType="SMALLINT" property="amount" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.InspectionProject">
+    insert into inspection_project (id, name, item_id, 
+      amount)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.InspectionProject">
+    insert into inspection_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
         #{amount,jdbcType=SMALLINT},
       </if>
     </trim>

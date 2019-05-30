@@ -13,7 +13,7 @@ public class ExaminationTemplate {
 
     private Integer departmentId;
 
-    private Boolean scope;
+    private Byte scope;
 
     private String goal;
 
@@ -63,11 +63,11 @@ public class ExaminationTemplate {
         this.departmentId = departmentId;
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 

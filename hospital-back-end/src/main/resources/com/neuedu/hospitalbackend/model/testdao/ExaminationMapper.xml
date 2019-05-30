@@ -1,22 +1,134 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.dao.ExaminationMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Examination" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="case_id" property="caseId" jdbcType="INTEGER" />
-    <result column="project_id" property="projectId" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="BIT" />
-    <result column="creator_role_id" property="creatorRoleId" jdbcType="INTEGER" />
-    <result column="examiner_role_id" property="examinerRoleId" jdbcType="INTEGER" />
-    <result column="advice" property="advice" jdbcType="VARCHAR" />
-    <result column="result_description" property="resultDescription" jdbcType="VARCHAR" />
-    <result column="result_image" property="resultImage" jdbcType="VARCHAR" />
-    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
-    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
-    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
-    <result column="goal" property="goal" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.ExaminationMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Examination">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="case_id" jdbcType="INTEGER" property="caseId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creator_role_id" jdbcType="INTEGER" property="creatorRoleId" />
+    <result column="examiner_role_id" jdbcType="INTEGER" property="examinerRoleId" />
+    <result column="advice" jdbcType="VARCHAR" property="advice" />
+    <result column="result_description" jdbcType="VARCHAR" property="resultDescription" />
+    <result column="result_image" jdbcType="VARCHAR" property="resultImage" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
+    <result column="goal" jdbcType="VARCHAR" property="goal" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Examination" >
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Examination">
+    insert into examination (id, case_id, project_id, 
+      status, creator_role_id, examiner_role_id, 
+      advice, result_description, result_image, 
+      gmt_create, gmt_modified, requirement, 
+      goal)
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{creatorRoleId,jdbcType=INTEGER}, #{examinerRoleId,jdbcType=INTEGER}, 
+      #{advice,jdbcType=VARCHAR}, #{resultDescription,jdbcType=VARCHAR}, #{resultImage,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{requirement,jdbcType=VARCHAR}, 
+      #{goal,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Examination">
+    insert into examination
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="caseId != null">
+        case_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creatorRoleId != null">
+        creator_role_id,
+      </if>
+      <if test="examinerRoleId != null">
+        examiner_role_id,
+      </if>
+      <if test="advice != null">
+        advice,
+      </if>
+      <if test="resultDescription != null">
+        result_description,
+      </if>
+      <if test="resultImage != null">
+        result_image,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="requirement != null">
+        requirement,
+      </if>
+      <if test="goal != null">
+        goal,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null">
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creatorRoleId != null">
+        #{creatorRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="examinerRoleId != null">
+        #{examinerRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="advice != null">
+        #{advice,jdbcType=VARCHAR},
+      </if>
+      <if test="resultDescription != null">
+        #{resultDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="resultImage != null">
+        #{resultImage,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requirement != null">
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="goal != null">
+        #{goal,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Examination">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="case_id" jdbcType="INTEGER" property="caseId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="creator_role_id" jdbcType="INTEGER" property="creatorRoleId" />
+    <result column="examiner_role_id" jdbcType="INTEGER" property="examinerRoleId" />
+    <result column="advice" jdbcType="VARCHAR" property="advice" />
+    <result column="result_description" jdbcType="VARCHAR" property="resultDescription" />
+    <result column="result_image" jdbcType="VARCHAR" property="resultImage" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
+    <result column="goal" jdbcType="VARCHAR" property="goal" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Examination">
     insert into examination (id, case_id, project_id, 
       status, creator_role_id, examiner_role_id, 
       advice, result_description, result_image, 
@@ -28,87 +140,87 @@
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{requirement,jdbcType=VARCHAR}, 
       #{goal,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Examination" >
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Examination">
     insert into examination
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="caseId != null" >
+      <if test="caseId != null">
         case_id,
       </if>
-      <if test="projectId != null" >
+      <if test="projectId != null">
         project_id,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
-      <if test="creatorRoleId != null" >
+      <if test="creatorRoleId != null">
         creator_role_id,
       </if>
-      <if test="examinerRoleId != null" >
+      <if test="examinerRoleId != null">
         examiner_role_id,
       </if>
-      <if test="advice != null" >
+      <if test="advice != null">
         advice,
       </if>
-      <if test="resultDescription != null" >
+      <if test="resultDescription != null">
         result_description,
       </if>
-      <if test="resultImage != null" >
+      <if test="resultImage != null">
         result_image,
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         gmt_create,
       </if>
-      <if test="gmtModified != null" >
+      <if test="gmtModified != null">
         gmt_modified,
       </if>
-      <if test="requirement != null" >
+      <if test="requirement != null">
         requirement,
       </if>
-      <if test="goal != null" >
+      <if test="goal != null">
         goal,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="caseId != null" >
+      <if test="caseId != null">
         #{caseId,jdbcType=INTEGER},
       </if>
-      <if test="projectId != null" >
+      <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=BIT},
       </if>
-      <if test="creatorRoleId != null" >
+      <if test="creatorRoleId != null">
         #{creatorRoleId,jdbcType=INTEGER},
       </if>
-      <if test="examinerRoleId != null" >
+      <if test="examinerRoleId != null">
         #{examinerRoleId,jdbcType=INTEGER},
       </if>
-      <if test="advice != null" >
+      <if test="advice != null">
         #{advice,jdbcType=VARCHAR},
       </if>
-      <if test="resultDescription != null" >
+      <if test="resultDescription != null">
         #{resultDescription,jdbcType=VARCHAR},
       </if>
-      <if test="resultImage != null" >
+      <if test="resultImage != null">
         #{resultImage,jdbcType=VARCHAR},
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModified != null" >
+      <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="requirement != null" >
+      <if test="requirement != null">
         #{requirement,jdbcType=VARCHAR},
       </if>
-      <if test="goal != null" >
+      <if test="goal != null">
         #{goal,jdbcType=VARCHAR},
       </if>
     </trim>

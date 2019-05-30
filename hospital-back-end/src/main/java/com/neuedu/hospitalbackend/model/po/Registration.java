@@ -24,7 +24,7 @@ public class Registration {
 
     private Byte payType;
 
-    private Boolean isBuyCaseBook;
+    private Byte isBuyCaseBook;
 
     private Date gmtCreate;
 
@@ -110,11 +110,11 @@ public class Registration {
         this.payType = payType;
     }
 
-    public Boolean getIsBuyCaseBook() {
+    public Byte getIsBuyCaseBook() {
         return isBuyCaseBook;
     }
 
-    public void setIsBuyCaseBook(Boolean isBuyCaseBook) {
+    public void setIsBuyCaseBook(Byte isBuyCaseBook) {
         this.isBuyCaseBook = isBuyCaseBook;
     }
 

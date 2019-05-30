@@ -15,7 +15,7 @@ public class Arrangement {
 
     private Byte registrationLevelId;
 
-    private Boolean isValid;
+    private Byte isValid;
 
     private String timeSlot;
 
@@ -71,11 +71,11 @@ public class Arrangement {
         this.registrationLevelId = registrationLevelId;
     }
 
-    public Boolean getIsValid() {
+    public Byte getIsValid() {
         return isValid;
     }
 
-    public void setIsValid(Boolean isValid) {
+    public void setIsValid(Byte isValid) {
         this.isValid = isValid;
     }
 
