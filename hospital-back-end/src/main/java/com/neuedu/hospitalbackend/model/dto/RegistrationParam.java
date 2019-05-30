@@ -5,7 +5,7 @@ import java.sql.Date;
 public class RegistrationParam {
 
     private String appointmentDateStr; //患者看诊日期
-    private Date appointmentDate;
+    //private Date appointmentDate;
     private Integer registrationLevelId; //号别
     private Integer departmentId; //科室
     private String idCard; //身份证号
@@ -18,13 +18,13 @@ public class RegistrationParam {
         this.appointmentDateStr = appointmentDateStr;
     }
 
-    public Date getAppointmentDate() {
+   /* public Date getAppointmentDate() {
         return appointmentDate;
     }
 
     public void setAppointmentDate(Date appointmentDate) {
         this.appointmentDate = appointmentDate;
-    }
+    }*/
 
     public Integer getRegistrationLevelId() {
         return registrationLevelId;

@@ -11,21 +11,13 @@ import java.sql.Date;
 @RequestMapping("/tollstation")
 @CrossOrigin
 public class RegistrationController {
-
+    
     @Autowired
     private RegistrationServiceImpl registrationServiceImpl;
 
     @RequestMapping(value = "/availabledoctors", method = RequestMethod.POST)
     public JSONObject listAvailableDoctors (@RequestBody RegistrationParam registrationParam){
-        registrationParam.setAppointmentDate(Date.valueOf(registrationParam.getAppointmentDateStr()));
-        System.out.println("controller" + registrationParam.getAppointmentDate());
         return registrationServiceImpl.listAvailableDoctors(registrationParam);
     }
-
-
-
-
-
-
 
 }

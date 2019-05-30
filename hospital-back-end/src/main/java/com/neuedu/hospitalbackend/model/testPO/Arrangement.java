@@ -13,9 +13,9 @@ public class Arrangement {
 
     private String userName;
 
-    private Boolean registrationLevelId;
+    private Byte registrationLevelId;
 
-    private Byte isValid;
+    private Boolean isValid;
 
     private String timeSlot;
 
@@ -63,19 +63,19 @@ public class Arrangement {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public Boolean getRegistrationLevelId() {
+    public Byte getRegistrationLevelId() {
         return registrationLevelId;
     }
 
-    public void setRegistrationLevelId(Boolean registrationLevelId) {
+    public void setRegistrationLevelId(Byte registrationLevelId) {
         this.registrationLevelId = registrationLevelId;
     }
 
-    public Byte getIsValid() {
+    public Boolean getIsValid() {
         return isValid;
     }
 
-    public void setIsValid(Byte isValid) {
+    public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
     }
 

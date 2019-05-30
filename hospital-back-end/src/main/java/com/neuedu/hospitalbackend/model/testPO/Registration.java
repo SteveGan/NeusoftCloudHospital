@@ -18,11 +18,11 @@ public class Registration {
 
     private BigDecimal totalFee;
 
-    private Boolean status;
+    private Byte status;
 
     private Integer cashierId;
 
-    private Boolean payType;
+    private Byte payType;
 
     private Boolean isBuyCaseBook;
 
@@ -86,11 +86,11 @@ public class Registration {
         this.totalFee = totalFee;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -102,11 +102,11 @@ public class Registration {
         this.cashierId = cashierId;
     }
 
-    public Boolean getPayType() {
+    public Byte getPayType() {
         return payType;
     }
 
-    public void setPayType(Boolean payType) {
+    public void setPayType(Byte payType) {
         this.payType = payType;
     }
 

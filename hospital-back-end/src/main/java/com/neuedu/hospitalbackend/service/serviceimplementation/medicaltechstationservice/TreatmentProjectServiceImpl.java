@@ -6,7 +6,7 @@ import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationser
 
 import java.util.List;
 
-public class TreatmentProjectServiceImp implements TreatmentProjectService {
+public class TreatmentProjectServiceImpl implements TreatmentProjectService {
 
 
     /*---- 4.3 患者处置 ----*/
