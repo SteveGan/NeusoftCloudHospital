@@ -3,6 +3,7 @@ package com.neuedu.hospitalbackend.model.po;
 import javax.persistence.Column;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     @Column(name = "id")
@@ -18,13 +19,13 @@ public class User {
     @Column(name = "gmt_modified")
     private Timestamp gmtModified;
 
-    private ArrayList<Role> roles;
+    private List<Role> roles;
 
-    public ArrayList<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

@@ -7,9 +7,9 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="avatar" property="avatar"/>
-        <result column="gmt_created" property="gmtCreated"/>
-        <collection property="roles" ofType="Role">
-            <id column="id" property="id"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <collection property="roles"  javaType="java.util.List" ofType="Role">
+            <id column="r_id" property="id"/>
             <result column="user_id" property="userId"/>
             <result column="position_id" property="positionId"/>
             <result column="position_name" property="positionName"/>
@@ -25,8 +25,9 @@
     </select>
 
     <select id="listAllUsersAndRoles" resultMap="UserAndRoleResultMap">
-        select *
+        select u.*, r.id as r_id, r.user_id, r.position_id, r.position_name, r.department_id, r.department_name, r.title_id, r.title_name
         from user u, role r
         where u.id = r.user_id
     </select>
+
 </mapper>
