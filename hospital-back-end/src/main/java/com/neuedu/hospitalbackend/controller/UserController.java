@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dto.LoginParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.DepartmentManagement;
@@ -30,6 +31,16 @@ public class UserController {
     public JSONObject login(@RequestBody LoginParam loginParam)
     {
         return oauthServiceImpl.login(loginParam);
+    }
+
+    /**
+     * 返回所有用户，包括role信息
+     * @return
+     */
+    @RequestMapping(value = "/alluers", method = RequestMethod.GET)
+    public JSONArray listAllUsersAndRoles()
+    {
+        return oauthServiceImpl.listAllUsersAndRoles();
     }
 
     private JSONObject response(Object data, String code, String msg) {
