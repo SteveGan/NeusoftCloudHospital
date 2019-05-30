@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dto.ProjectPatientParam;
+import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice.TechProjectServiceImpl;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;

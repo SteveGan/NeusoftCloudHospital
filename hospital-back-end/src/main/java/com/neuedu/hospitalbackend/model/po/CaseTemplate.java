@@ -2,18 +2,22 @@ package com.neuedu.hospitalbackend.model.po;
 
 import java.util.Date;
 
-public class TreatmentTemplate {
+public class CaseTemplate {
     private Integer id;
-
-    private String name;
-
-    private Integer itemId;
 
     private Integer userId;
 
     private Integer departmentId;
 
+    private String name;
+
     private Boolean scope;
+
+    private String narrate;
+
+    private String curDisease;
+
+    private String physicalCondition;
 
     private Date gmtCreate;
 
@@ -25,22 +29,6 @@ public class TreatmentTemplate {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public Integer getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
     }
 
     public Integer getUserId() {
@@ -59,12 +47,44 @@ public class TreatmentTemplate {
         this.departmentId = departmentId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
     public Boolean getScope() {
         return scope;
     }
 
     public void setScope(Boolean scope) {
         this.scope = scope;
+    }
+
+    public String getNarrate() {
+        return narrate;
+    }
+
+    public void setNarrate(String narrate) {
+        this.narrate = narrate == null ? null : narrate.trim();
+    }
+
+    public String getCurDisease() {
+        return curDisease;
+    }
+
+    public void setCurDisease(String curDisease) {
+        this.curDisease = curDisease == null ? null : curDisease.trim();
+    }
+
+    public String getPhysicalCondition() {
+        return physicalCondition;
+    }
+
+    public void setPhysicalCondition(String physicalCondition) {
+        this.physicalCondition = physicalCondition == null ? null : physicalCondition.trim();
     }
 
     public Date getGmtCreate() {

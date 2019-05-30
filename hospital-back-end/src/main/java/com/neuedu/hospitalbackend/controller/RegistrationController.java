@@ -1,14 +1,13 @@
 package com.neuedu.hospitalbackend.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dto.DoctorParam;
-import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
+import com.neuedu.hospitalbackend.model.vo.DoctorParam;
+import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice.RegistrationServiceImpl;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.sql.Date;
 
 @RestController
 @RequestMapping("/registration")

@@ -2,16 +2,22 @@ package com.neuedu.hospitalbackend.model.po;
 
 import java.util.Date;
 
-public class DiagnoseTemplate {
+public class ExaminationTemplate {
     private Integer id;
 
     private String name;
 
-    private Integer diseaseId;
+    private Integer itemId;
 
     private Integer userId;
 
+    private Integer departmentId;
+
     private Boolean scope;
+
+    private String goal;
+
+    private String requirement;
 
     private Date gmtCreate;
 
@@ -33,12 +39,12 @@ public class DiagnoseTemplate {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getDiseaseId() {
-        return diseaseId;
+    public Integer getItemId() {
+        return itemId;
     }
 
-    public void setDiseaseId(Integer diseaseId) {
-        this.diseaseId = diseaseId;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
     public Integer getUserId() {
@@ -49,12 +55,36 @@ public class DiagnoseTemplate {
         this.userId = userId;
     }
 
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
     public Boolean getScope() {
         return scope;
     }
 
     public void setScope(Boolean scope) {
         this.scope = scope;
+    }
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal == null ? null : goal.trim();
+    }
+
+    public String getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(String requirement) {
+        this.requirement = requirement == null ? null : requirement.trim();
     }
 
     public Date getGmtCreate() {

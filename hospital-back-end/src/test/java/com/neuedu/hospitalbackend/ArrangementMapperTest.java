@@ -1,10 +1,8 @@
 package com.neuedu.hospitalbackend;
 
 import com.neuedu.hospitalbackend.controller.RegistrationController;
-import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
+import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import org.junit.Test;
-
-import java.sql.Date;
 
 public class ArrangementMapperTest {
 

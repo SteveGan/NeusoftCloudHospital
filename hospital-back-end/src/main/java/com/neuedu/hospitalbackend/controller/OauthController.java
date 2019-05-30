@@ -1,8 +1,7 @@
 package com.neuedu.hospitalbackend.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dto.LoginParam;
-import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.DepartmentManagement;
+import com.neuedu.hospitalbackend.model.vo.LoginParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.OauthServiceImpl;
 
 import com.neuedu.hospitalbackend.util.CommonResult;
