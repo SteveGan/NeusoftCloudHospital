@@ -1,16 +1,30 @@
-const HelloWorld = r => require.ensure([], () => r(require('@/components/common/HelloWorld')), 'HelloWorld')
-const Login = r => require.ensure([], () => r(require('@/pages/Login/Login')), 'Login')
-
+const login = r => require.ensure([], () => r(require('@/pages/Login/Login')), 'login')
+const Home = r => require.ensure([], () => r(require('@/pages/Home/Home')), 'Home')
+const Main = r => require.ensure([], () => r(require('@/pages/Main/Main')), 'Main')
+const Admin = r => require.ensure([], () => r(require('@/pages/Admin/Admin')), 'Admin')
 
 export default [
   {
-    path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    redirect: '/home/main',
+    children: [
+      {
+        path: 'main',
+        name: 'Main',
+        component: Main
+      },
+      {
+        path: 'admin',
+        name: 'Admin',
+        component: Admin
+      }
+    ]
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: login
   }
 ]
