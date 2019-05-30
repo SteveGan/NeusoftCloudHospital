@@ -6,7 +6,4 @@ public interface DepartmentMapper {
     int insert(Department record);
 
     int insertSelective(Department record);
-
-    public Department selectDepartmentById(String id);
-
 }
