@@ -21,4 +21,8 @@ public class DepartmentManagement {
         return departmentMapper.selectDepartmentById(id);
     }
 
+    public int addDepartment(Department department) {
+        return departmentMapper.addDepartment(department);
+    }
+
 }

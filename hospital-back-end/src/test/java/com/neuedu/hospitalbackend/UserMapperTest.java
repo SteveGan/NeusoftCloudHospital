@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend;
 
 import com.neuedu.hospitalbackend.controller.DepartmentManagementController;
-import com.neuedu.hospitalbackend.controller.UserController;
+import com.neuedu.hospitalbackend.controller.OauthController;
 import com.neuedu.hospitalbackend.model.dto.LoginParam;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ public class UserMapperTest {
         LoginParam loginParam = new LoginParam();
         loginParam.setUserId(10000001);
         loginParam.setPassword("password");
-        System.out.println(new UserController().login(loginParam));
+        System.out.println(new OauthController().login(loginParam));
     }
 
 /*    @Test

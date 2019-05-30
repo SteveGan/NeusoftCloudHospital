@@ -48,7 +48,7 @@ public class OauthServiceImpl implements OauthService {
      * @return jsonArray:[user:{ id,role:[] }, ]
      */
     @Override
-    public JSONArray listAllUsersAndRoles(){
+    public JSONObject listAllUsersAndRoles(){
         JSONArray returnArray = new JSONArray();
 
         List<User> users = userMapper.listAllUsersAndRoles();
@@ -62,6 +62,9 @@ public class OauthServiceImpl implements OauthService {
             jsonObject.put("roles",user.getRoles());
             returnArray.add(jsonObject);
         }
-        return returnArray;
+
+        JSONObject roles = new JSONObject();
+        roles.put("roles", returnArray);
+        return roles;
     }
 }
