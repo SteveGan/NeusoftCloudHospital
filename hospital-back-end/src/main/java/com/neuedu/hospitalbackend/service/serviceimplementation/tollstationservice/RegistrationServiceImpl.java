@@ -33,7 +33,14 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     @Override
+    public void makeRegistration(Registration registration){
+        //根据看诊医生和挂号级别，是否需要病历本，算出应收金额
+
+    }
+
+    @Override
     public int updateRemainingAppointment(DoctorParam doctorParam){
+        System.out.println("service-roleId" + doctorParam.getRoleId());
         int count = arrangementMapper.updateRemainingAppointment(doctorParam.getAppointmentDateStr(), doctorParam.getRoleId());
         return count;
     }

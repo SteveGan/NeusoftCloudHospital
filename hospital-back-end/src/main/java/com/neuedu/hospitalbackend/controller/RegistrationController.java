@@ -8,7 +8,6 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.sql.Date;
 
 @RestController
 @RequestMapping("/registration")
@@ -19,15 +18,16 @@ public class RegistrationController {
     private RegistrationServiceImpl registrationServiceImpl;
 
     @ApiOperation("查看所有可选医生")
-    @RequestMapping(value = "/arrangement-doctors", method = RequestMethod.GET)
-    public CommonResult<JSONObject> listAvailableDoctors (@RequestBody RegistrationParam registrationParam) {
+    @RequestMapping(value = "/doctors", method = RequestMethod.GET)
+    public CommonResult<JSONObject> listAvailableDoctors (RegistrationParam registrationParam) {
         JSONObject availableDoctors = registrationServiceImpl.listAvailableDoctors(registrationParam);
         return CommonResult.success(availableDoctors);
     }
 
     @ApiOperation("更新医生剩余号码数量")
-    @RequestMapping(value = "/arrangement-appointment", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/appointment", method = RequestMethod.PATCH)
     public CommonResult<Integer> updateRemainingAppointment(@RequestBody DoctorParam doctorParam){
+        System.out.println("controller-roleId" + doctorParam.getRoleId());
         int count = registrationServiceImpl.updateRemainingAppointment(doctorParam);
         if (count > 0) {
             return CommonResult.success(count);

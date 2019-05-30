@@ -11,8 +11,6 @@ public class RegistrationLevel {
 
     private Short limit;
 
-    private Byte order;
-
     private BigDecimal cost;
 
     public Byte getId() {
@@ -45,14 +43,6 @@ public class RegistrationLevel {
 
     public void setLimit(Short limit) {
         this.limit = limit;
-    }
-
-    public Byte getOrder() {
-        return order;
-    }
-
-    public void setOrder(Byte order) {
-        this.order = order;
     }
 
     public BigDecimal getCost() {
