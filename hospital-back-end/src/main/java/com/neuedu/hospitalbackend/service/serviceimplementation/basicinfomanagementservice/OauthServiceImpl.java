@@ -2,10 +2,10 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanage
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dto.LoginParam;
-import com.neuedu.hospitalbackend.model.daoback.RoleMapper;
-import com.neuedu.hospitalbackend.model.daoback.UserMapper;
-import com.neuedu.hospitalbackend.model.poback.Role;
-import com.neuedu.hospitalbackend.model.poback.User;
+import com.neuedu.hospitalbackend.model.dao.RoleMapper;
+import com.neuedu.hospitalbackend.model.dao.UserMapper;
+import com.neuedu.hospitalbackend.model.po.Role;
+import com.neuedu.hospitalbackend.model.po.User;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.OauthService;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
-import com.neuedu.hospitalbackend.model.poback.*;
+import com.neuedu.hospitalbackend.model.po.*;
 import org.apache.ibatis.annotations.Case;
 
 /**

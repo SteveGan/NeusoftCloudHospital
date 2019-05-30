@@ -1,21 +1,31 @@
 package com.neuedu.hospitalbackend.model.po;
 
+/**
+ *
+ */
 public class Department {
-    private Byte id;
-
+    private int id;
     private String code;
-
     private String name;
-
     private String classification;
-
     private String type;
 
-    public Byte getId() {
+    public Department() {
+    }
+
+    public Department(int id, String code, String name, String classification, String type) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.classification = classification;
+        this.type = type;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Byte id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -24,7 +34,7 @@ public class Department {
     }
 
     public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+        this.code = code;
     }
 
     public String getName() {
@@ -32,7 +42,7 @@ public class Department {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getClassification() {
@@ -40,7 +50,7 @@ public class Department {
     }
 
     public void setClassification(String classification) {
-        this.classification = classification == null ? null : classification.trim();
+        this.classification = classification;
     }
 
     public String getType() {
@@ -48,6 +58,6 @@ public class Department {
     }
 
     public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+        this.type = type;
     }
 }

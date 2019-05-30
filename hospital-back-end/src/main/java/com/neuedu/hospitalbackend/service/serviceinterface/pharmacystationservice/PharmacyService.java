@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.pharmacystationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.poback.Recipe;
+import com.neuedu.hospitalbackend.model.po.Recipe;
 
 import java.util.List;
 

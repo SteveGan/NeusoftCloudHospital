@@ -1,23 +1,30 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
+import java.sql.Date;
+import java.sql.Timestamp;
+
+@Component
 public class Patient {
+
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "id_card")
     private String idCard;
-
+    @Column(name = "address")
     private String address;
-
-    private Byte gender;
-
+    @Column(name = "gender")
+    private Integer gender;
+    @Column(name = "name")
     private String name;
-
+    @Column(name = "birthday")
     private Date birthday;
-
-    private Date gmtCreate;
-
-    private Date gmtModified;
+    @Column(name = "gmt_create")
+    private Timestamp gmtCreate;
+    @Column(name = "gmt_modified")
+    private Timestamp gmtModified;
 
     public Integer getId() {
         return id;
@@ -32,7 +39,7 @@ public class Patient {
     }
 
     public void setIdCard(String idCard) {
-        this.idCard = idCard == null ? null : idCard.trim();
+        this.idCard = idCard;
     }
 
     public String getAddress() {
@@ -40,14 +47,14 @@ public class Patient {
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
-    public Byte getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Byte gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -56,7 +63,7 @@ public class Patient {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Date getBirthday() {
@@ -67,19 +74,19 @@ public class Patient {
         this.birthday = birthday;
     }
 
-    public Date getGmtCreate() {
+    public Timestamp getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(Timestamp gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public Date getGmtModified() {
+    public Timestamp getGmtModified() {
         return gmtModified;
     }
 
-    public void setGmtModified(Date gmtModified) {
+    public void setGmtModified(Timestamp gmtModified) {
         this.gmtModified = gmtModified;
     }
 }

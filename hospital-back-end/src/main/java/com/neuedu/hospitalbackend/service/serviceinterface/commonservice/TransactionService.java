@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
-import com.neuedu.hospitalbackend.model.poback.ExceptionLog;
-import com.neuedu.hospitalbackend.model.poback.TransactionLog;
+import com.neuedu.hospitalbackend.model.po.ExceptionLog;
+import com.neuedu.hospitalbackend.model.po.TransactionLog;
 
 import java.util.List;
 

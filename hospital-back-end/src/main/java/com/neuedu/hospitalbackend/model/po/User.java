@@ -1,19 +1,21 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import java.util.Date;
+import javax.persistence.Column;
+import java.sql.Timestamp;
 
 public class User {
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "password")
     private String password;
-
+    @Column(name = "name")
     private String name;
-
+    @Column(name = "avatar")
     private String avatar;
-
-    private Date gmtCreate;
-
-    private Date gmtModified;
+    @Column(name = "gmt_create")
+    private Timestamp gmtCreate;
+    @Column(name = "gmt_modified")
+    private Timestamp gmtModified;
 
     public Integer getId() {
         return id;
@@ -28,7 +30,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public String getName() {
@@ -36,7 +38,7 @@ public class User {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getAvatar() {
@@ -44,22 +46,22 @@ public class User {
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar == null ? null : avatar.trim();
+        this.avatar = avatar;
     }
 
-    public Date getGmtCreate() {
+    public Timestamp getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(Timestamp gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public Date getGmtModified() {
+    public Timestamp getGmtModified() {
         return gmtModified;
     }
 
-    public void setGmtModified(Date gmtModified) {
+    public void setGmtModified(Timestamp gmtModified) {
         this.gmtModified = gmtModified;
     }
 }

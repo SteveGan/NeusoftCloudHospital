@@ -1,34 +1,36 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import javax.persistence.Column;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Registration {
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "patient_id")
     private Integer patientId;
-
+    @Column(name = "appointment_date")
     private Date appointmentDate;
-
+    @Column(name = "user_id")
     private Integer userId;
-
+    @Column(name = "registration_level_id")
     private Integer registrationLevelId;
-
+    @Column(name = "department_id")
     private Integer departmentId;
-
-    private BigDecimal totalFee;
-
-    private Byte status;
-
+    @Column(name = "total_fee")
+    private double totalFee;
+    @Column(name = "status")
+    private Integer status;
+    @Column(name = "cashier_id")
     private Integer cashierId;
-
-    private Byte payType;
-
-    private Byte isBuyCaseBook;
-
-    private Date gmtCreate;
-
-    private Date gmtModified;
+    @Column(name = "pay_type")
+    private Integer payType;
+    @Column(name = "is_buy_case_book")
+    private Integer isBuyCaseBook;
+    @Column(name = "gmt_create")
+    private Timestamp gmtCreate;
+    @Column(name = "gmt_modified")
+    private Timestamp gmtModified;
 
     public Integer getId() {
         return id;
@@ -44,14 +46,6 @@ public class Registration {
 
     public void setPatientId(Integer patientId) {
         this.patientId = patientId;
-    }
-
-    public Date getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(Date appointmentDate) {
-        this.appointmentDate = appointmentDate;
     }
 
     public Integer getUserId() {
@@ -78,19 +72,19 @@ public class Registration {
         this.departmentId = departmentId;
     }
 
-    public BigDecimal getTotalFee() {
+    public double getTotalFee() {
         return totalFee;
     }
 
-    public void setTotalFee(BigDecimal totalFee) {
+    public void setTotalFee(double totalFee) {
         this.totalFee = totalFee;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -102,35 +96,35 @@ public class Registration {
         this.cashierId = cashierId;
     }
 
-    public Byte getPayType() {
+    public Integer getPayType() {
         return payType;
     }
 
-    public void setPayType(Byte payType) {
+    public void setPayType(Integer payType) {
         this.payType = payType;
     }
 
-    public Byte getIsBuyCaseBook() {
+    public Integer getIsBuyCaseBook() {
         return isBuyCaseBook;
     }
 
-    public void setIsBuyCaseBook(Byte isBuyCaseBook) {
+    public void setIsBuyCaseBook(Integer isBuyCaseBook) {
         this.isBuyCaseBook = isBuyCaseBook;
     }
 
-    public Date getGmtCreate() {
+    public Timestamp getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(Timestamp gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public Date getGmtModified() {
+    public Timestamp getGmtModified() {
         return gmtModified;
     }
 
-    public void setGmtModified(Date gmtModified) {
+    public void setGmtModified(Timestamp gmtModified) {
         this.gmtModified = gmtModified;
     }
 }

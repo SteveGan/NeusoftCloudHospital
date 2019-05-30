@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice;
 
-import com.neuedu.hospitalbackend.model.poback.RecipeTemplate;
+import com.neuedu.hospitalbackend.model.po.RecipeTemplate;
 
 import java.util.List;
 

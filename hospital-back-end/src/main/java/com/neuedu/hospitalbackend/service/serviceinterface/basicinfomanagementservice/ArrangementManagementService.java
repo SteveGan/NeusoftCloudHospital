@@ -1,8 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.poback.Arrangement;
-import com.neuedu.hospitalbackend.model.poback.ArrangementRule;
+import com.neuedu.hospitalbackend.model.po.Arrangement;
+import com.neuedu.hospitalbackend.model.po.ArrangementRule;
 
 import java.util.List;
 

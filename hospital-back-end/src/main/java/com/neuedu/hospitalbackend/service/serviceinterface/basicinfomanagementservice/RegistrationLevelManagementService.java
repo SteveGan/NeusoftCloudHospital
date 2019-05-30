@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice;
 
-import com.neuedu.hospitalbackend.model.poback.RegistrationLevel;
+import com.neuedu.hospitalbackend.model.po.RegistrationLevel;
 
 /**
  * 1.4 挂号级别管理

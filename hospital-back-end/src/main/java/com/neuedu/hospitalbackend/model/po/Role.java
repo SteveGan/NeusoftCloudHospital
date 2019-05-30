@@ -1,27 +1,28 @@
 package com.neuedu.hospitalbackend.model.po;
-
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 public class Role {
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "user_id")
     private Integer userId;
-
+    @Column(name = "position_id")
     private Integer positionId;
-
+    @Column(name = "position_name")
     private String positionName;
-
+    @Column(name = "department_id")
     private Integer departmentId;
-
+    @Column(name = "department_name")
     private String departmentName;
-
+    @Column(name = "title_id")
     private Integer titleId;
-
+    @Column(name = "title_name")
     private String titleName;
-
-    private Date gmtCreate;
-
-    private Date gmtModified;
+    @Column(name = "gmt_create")
+    private Timestamp gmtCreate;
+    @Column(name = "gmt_modified")
+    private Timestamp gmtModified;
 
     public Integer getId() {
         return id;
@@ -52,7 +53,7 @@ public class Role {
     }
 
     public void setPositionName(String positionName) {
-        this.positionName = positionName == null ? null : positionName.trim();
+        this.positionName = positionName;
     }
 
     public Integer getDepartmentId() {
@@ -68,7 +69,7 @@ public class Role {
     }
 
     public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName == null ? null : departmentName.trim();
+        this.departmentName = departmentName;
     }
 
     public Integer getTitleId() {
@@ -84,22 +85,22 @@ public class Role {
     }
 
     public void setTitleName(String titleName) {
-        this.titleName = titleName == null ? null : titleName.trim();
+        this.titleName = titleName;
     }
 
-    public Date getGmtCreate() {
+    public Timestamp getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(Timestamp gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public Date getGmtModified() {
+    public Timestamp getGmtModified() {
         return gmtModified;
     }
 
-    public void setGmtModified(Date gmtModified) {
+    public void setGmtModified(Timestamp gmtModified) {
         this.gmtModified = gmtModified;
     }
 }

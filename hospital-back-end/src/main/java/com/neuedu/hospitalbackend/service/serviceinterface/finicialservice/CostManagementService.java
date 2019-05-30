@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.finicialservice;
 
-import com.neuedu.hospitalbackend.model.poback.Cost;
+import com.neuedu.hospitalbackend.model.po.Cost;
 
 /**
  * 6.1 费用科目管理(基础信息查询)
