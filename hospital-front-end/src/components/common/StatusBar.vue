@@ -57,7 +57,7 @@ export default {
 <style lang="css" scoped>
   .project-logo{
     widows: 100px;
-    height: 35px;
+    height: 40px;
   }
   .avatar{
     width: 35px;

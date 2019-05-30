@@ -3,53 +3,66 @@
     <!--  侧边栏  -->
     <el-aside width="200px">
       <el-menu
-        default-active="2"
+        default-active="1"
         class="el-menu-vertical-demo"
+        :router="activeRouter"
         @open="handleOpen"
         @close="handleClose">
-        <el-submenu index="1">
+        <el-menu-item index="/home/admin/user">
+          <i class="el-icon-s-custom"></i>
+          <span slot="title">用户管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/admin/department">
+          <i class="el-icon-s-home"></i>
+          <span slot="title">科室管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/admin/registrationlevel">
+          <i class="el-icon-s-operation"></i>
+          <span slot="title">挂号级别管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/admin/paymethod">
+          <i class="el-icon-s-check"></i>
+          <span slot="title">结算类别管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/admin/diagnoselist">
+          <i class="el-icon-s-order"></i>
+          <span slot="title">诊断目录管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/admin/nonmedicineproject">
+          <i class="el-icon-first-aid-kit"></i>
+          <span slot="title">非药品收费项目管理</span>
+        </el-menu-item>
+        <el-submenu index="7">
           <template slot="title">
             <i class="el-icon-location"></i>
-            <span>导航一</span>
+            <span>医生排班管理</span>
           </template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
+          <el-menu-item index="arrangementrule">
+            <i class="el-icon-edit"></i>
+            <span slot="title">排班规则</span>
+          </el-menu-item>
+          <el-menu-item index="schedule">
+            <i class="el-icon-document-checked"></i>
+            <span slot="title">排班计划</span>
+          </el-menu-item>
         </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
       </el-menu>
     </el-aside>
     <!--  主页部分  -->
-    <el-main class="container">
-      Main
+    <el-main class="main-container">
+      <router-view/>
     </el-main>
   </el-container>
 </template>
 
 <script>
-
   export default {
     name: "Admin",
+    data: () =>{
+      return {
+        activeRouter: true
+      }
+    },
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
@@ -64,8 +77,14 @@
 
 <style lang="css" scoped>
   .container {
-    padding: 0;
     margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  .main-container{
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
     height: 100%;
   }
 </style>
