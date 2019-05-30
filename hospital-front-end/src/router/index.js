@@ -2,6 +2,14 @@ const login = r => require.ensure([], () => r(require('@/pages/Login/Login')), '
 const Home = r => require.ensure([], () => r(require('@/pages/Home/Home')), 'Home')
 const Main = r => require.ensure([], () => r(require('@/pages/Main/Main')), 'Main')
 const Admin = r => require.ensure([], () => r(require('@/pages/Admin/Admin')), 'Admin')
+const UserAdmin = r => require.ensure([], () => r(require('@/components/admin/UserAdmin/UserAdmin')), 'UserAdmin')
+const ScheduleAdmin = r => require.ensure([], () => r(require('@/components/admin/ScheduleAdmin/ScheduleAdmin')), 'ScheduleAdmin')
+const RegistrationLevelAdmin = r => require.ensure([], () => r(require('@/components/admin/RegistrationLevelAdmin/RegistrationLevelAdmin')), 'RegistrationLevelAdmin')
+const PayMethodAdmin = r => require.ensure([], () => r(require('@/components/admin/PayMethodAdmin/PayMethodAdmin')), 'PayMethodAdmin')
+const NonMedicineProjectAdmin = r => require.ensure([], () => r(require('@/components/admin/NonMedicineProjectAdmin/NonMedicineProjectAdmin')), 'NonMedicineProjectAdmin')
+const DiagnoseListAdmin = r => require.ensure([], () => r(require('@/components/admin/DiagnoseListAdmin/DiagnoseListAdmin')), 'DiagnoseListAdmin')
+const DepartmentAdmin = r => require.ensure([], () => r(require('@/components/admin/DepartmentAdmin/DepartmentAdmin')), 'DepartmentAdmin')
+const ArrangementRuleAdmin = r => require.ensure([], () => r(require('@/components/admin/ArrangementRuleAdmin/ArrangementRuleAdmin')), 'ArrangementRuleAdmin')
 
 export default [
   {
@@ -18,7 +26,49 @@ export default [
       {
         path: 'admin',
         name: 'Admin',
-        component: Admin
+        component: Admin,
+        children: [
+          {
+            path: 'user',
+            name: 'User',
+            component: UserAdmin
+          },
+          {
+            path: 'schedule',
+            name: 'ScheduleAdmin',
+            component: ScheduleAdmin
+          },
+          {
+            path: 'registrationlevel',
+            name: 'RegistrationLevelAdmin',
+            component: RegistrationLevelAdmin
+          },
+          {
+            path: 'paymethod',
+            name: 'PayMethodAdmin',
+            component: PayMethodAdmin
+          },
+          {
+            path: 'nonmedicineproject',
+            name: 'NonMedicineProjectAdmin',
+            component: NonMedicineProjectAdmin
+          },
+          {
+            path: 'diagnoselist',
+            name: 'DiagnoseListAdmin',
+            component: DiagnoseListAdmin
+          },
+          {
+            path: 'department',
+            name: 'DepartmentAdmin',
+            component: DepartmentAdmin
+          },
+          {
+            path: 'arrangementrule',
+            name: 'ArrangementRuleAdmin',
+            component: ArrangementRuleAdmin
+          }
+        ]
       }
     ]
   },

@@ -8,7 +8,7 @@
       </div>
       <!--   内容：一堆卡片    -->
       <div class="card-container">
-        <role-card v-for="roleObj in this.$store.state.user.roles" v-bind:role="roleObj"></role-card>
+        <role-card v-for="roleObj in this.$store.state.user.roles" :key="roleObj.id" :role="roleObj"></role-card>
       </div>
     </div>
     <!--  统计数据部分    -->
@@ -36,8 +36,8 @@
 
 <style lang="css" scoped>
   .container{
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
   .container div{
     padding-left: 20px;
