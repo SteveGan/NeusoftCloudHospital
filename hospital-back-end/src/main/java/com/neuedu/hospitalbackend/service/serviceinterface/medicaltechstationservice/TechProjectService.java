@@ -2,6 +2,8 @@ package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationse
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.model.dto.ProjectPatientParam;
+
 
 import java.util.List;
 
@@ -12,17 +14,17 @@ public interface TechProjectService {
 
     /*---- 4.1 患者检查 ----*/
     /*---- 4.2 患者检验 （同检查）----*/
+
     /**
      * 4.1.1 患者查询
      * 输入患者病历号或姓名，可以查询到本科室（检查/检验）的待诊患者列表
      * 动态查询
-     * @param jsonObject:{caseId, patientName, type(inspection or examination)}
+     * @param projectPatientParam: projectType, caseId, patientName
      * @return 待登记患者信息列表
      */
-    List<Patient> listPreparedPatientsByCaseIdOrName(JSONObject jsonObject);
+    JSONObject listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
 
     /**
-     * 4.1.1 患者查询
      * 选择患者可以相应申请的项目明细
      * TODO: 根据前端传来的caseId(/patientId),查询该患者检查/检验项目清单id，项目id
      * TODO：根据项目id查找具体信息
@@ -65,4 +67,3 @@ public interface TechProjectService {
     void recordResult(JSONObject jsonObject);
 
 }
-

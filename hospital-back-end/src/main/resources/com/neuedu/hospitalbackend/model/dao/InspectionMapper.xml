@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.InspectionMapper">
+
+    <resultMap id="InspectionResultMap" type="Inspection">
+        <id column="id" property="id"/>
+        <result column="case_id" property="caseId"/>
+        <result column="project_id" property="projectId"/>
+        <result column="status" property="status"/>
+        <result column="goal" property="goal"/>
+        <result column="result_description" property="resultDescription"/>
+        <result column="result_image" property="resultImage"/>
+        <result column="creator_role_id" property="creatorRoleId"/>
+        <result column="inspection_role_id" property="inspectionRoleId"/>
+        <result column="advice" property="advice"/>
+        <result column="requirement" property="requirement"/>
+    </resultMap>
+
+    <select id="listPreparedInspectionPatientsByCaseIdOrName" resultType="HashMap">
+        select c.registration_id, c.patient_name
+        from patient_case c, inspection i, transaction_log t
+        where i.id = t.collection_id and i.project_id = t.project_id
+        and i.status = 2 and t.status = 2
+        and i.case_id = c.registration_id
+        <choose>
+            <when test = "caseId != null">
+                and c.registration_id = #{caseId}
+            </when>
+            <when test="patientName != null and patientName != ''">
+                and c.patient_name = #{patientName}
+            </when>
+        </choose>
+    </select>
+</mapper>

@@ -16,17 +16,12 @@ import java.util.List;
 @Service
 public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService {
 
+
     @Autowired
     private ArrangementMapper arrangementMapper;
-
-    //TODO: 通过身份证号查询是否有此患者，用String接受
-    public Patient getPatient(String idCard){
-        return null;
-    }
-
+    @Override
     public JSONObject listAvailableDoctors(RegistrationParam registrationParam){
-        System.out.println("service" + registrationParam.getAppointmentDate());
-        List<Arrangement> availableDoctors = arrangementMapper.listAvailableDoctors(registrationParam.getAppointmentDate(), registrationParam.getRegistrationLevelId(), registrationParam.getDepartmentId());
+        List<Arrangement> availableDoctors = arrangementMapper.listAvailableDoctors(registrationParam.getAppointmentDateStr(), registrationParam.getRegistrationLevelId(), registrationParam.getDepartmentId());
         for(Arrangement a: availableDoctors){
             System.out.println(a.getUserName());
         }
@@ -35,18 +30,19 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         return result;
     }
 
+    @Override
     public void updateRemainingAppointment(Arrangement arrangement){
 
     }
-
+    @Override
     public int calculateAmount(JSONObject jsonObject){
         return 0;
     }
-
+    @Override
     public void insertRegistrationLog(Registration registration){
 
     }
-
+    @Override
     public void insertPatientCaseLog(PatientCase patientCase){
 
     }
