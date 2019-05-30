@@ -1,9 +1,12 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.daoback.ArrangementMapper;
+import com.neuedu.hospitalbackend.model.dao.ArrangementMapper;
 import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
-import com.neuedu.hospitalbackend.model.poback.*;
+import com.neuedu.hospitalbackend.model.po.Arrangement;
+import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.model.po.PatientCase;
+import com.neuedu.hospitalbackend.model.po.Registration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +17,6 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
     @Autowired
     private ArrangementMapper arrangementMapper;
-
-    //TODO: 通过身份证号查询是否有此患者，用String接受
-    public Patient getPatient(String idCard){
-        return null;
-    }
 
     public JSONObject listAvailableDoctors(RegistrationParam registrationParam){
         List<Arrangement> availableDoctors = arrangementMapper.listAvailableDoctors(registrationParam.getAppointmentDateStr(), registrationParam.getRegistrationLevelId(), registrationParam.getDepartmentId());

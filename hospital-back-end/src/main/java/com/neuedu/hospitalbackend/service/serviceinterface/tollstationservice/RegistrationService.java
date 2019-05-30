@@ -2,21 +2,16 @@ package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
-import com.neuedu.hospitalbackend.model.poback.*;
+import com.neuedu.hospitalbackend.model.po.Arrangement;
+import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.model.po.PatientCase;
+import com.neuedu.hospitalbackend.model.po.Registration;
 
 /**
  * 2.1 现场挂号
  * @author Parachute
  */
 public interface RegistrationService {
-
-    /**
-     * 检查患者是否已在本系统中
-     * @param IdCard 患者身份证号
-     * @return the patient
-     * TODO: 如返回值不为空，传patient_id到前端；如返回值为空，则插入新记录到patient表
-     */
-    Patient getPatient(String IdCard);
 
     /**
      * 通过挂号科室id，返回该科室在指定时间、指定号别仍有余号的看诊医生列表

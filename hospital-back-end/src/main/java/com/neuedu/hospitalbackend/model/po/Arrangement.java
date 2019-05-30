@@ -3,6 +3,7 @@ package com.neuedu.hospitalbackend.model.po;
 import java.util.Date;
 
 public class Arrangement {
+
     private Integer id;
 
     private Date time;
