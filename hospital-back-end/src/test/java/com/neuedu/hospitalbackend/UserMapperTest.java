@@ -13,4 +13,9 @@ public class UserMapperTest {
         loginParam.setPassword("password");
         System.out.println(new OauthController().login(loginParam));
     }
+
+/*    @Test
+    public void testDemo() {
+        System.out.println(new DepartmentManagementController().selectDepartmentById("1"));
+    }*/
 }
