@@ -7,8 +7,8 @@ public class Arrangement {
 
     @Column(name = "id")
     private Integer id;
-    @Column(name = "time")
-    private Date time;
+    @Column(name = "appointment_time")
+    private Date appointmentTime;
     @Column(name = "department_id")
     private Integer departmentId;
     @Column(name = "role_id")
@@ -34,12 +34,12 @@ public class Arrangement {
         this.id = id;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getAppointmentTime() {
+        return appointmentTime;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setAppointmentTime(Date appointmentTime) {
+        this.appointmentTime = appointmentTime;
     }
 
     public Integer getDepartmentId() {

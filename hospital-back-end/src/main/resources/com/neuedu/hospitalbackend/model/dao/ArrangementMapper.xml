@@ -99,7 +99,12 @@
     <select id="listAvailableDoctors" resultMap="BaseResultMap">
         select time_slot, user_name from arrangement
         where department_id = #{departmentId} and registration_level_id = #{registrationLevelId}
-        and time = #{appointmentDateStr}
+        and appointment_time = #{appointmentDateStr}
         and is_valid = 1 and appointment_left > 0
     </select>
+
+    <update id="updateRemainingAppointment">
+        update arrangement set appointment_left = appointment_left - 1
+        where role_id = #{roleId} and appointment_time = #{appointmentTime}
+    </update>
 </mapper>

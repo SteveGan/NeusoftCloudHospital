@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.model.dto.DoctorParam;
 import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.Arrangement;
 import com.neuedu.hospitalbackend.model.po.PatientCase;
@@ -21,9 +22,9 @@ public interface RegistrationService {
 
     /**
      * 更新所选医生对应的余号数量
-     * @param arrangement 需要更新的医生
+     * @param doctorParam 需要更新的医生role_id appointment_time
      */
-    void updateRemainingAppointment(Arrangement arrangement);
+    void updateRemainingAppointment(DoctorParam doctorParam);
 
     /**
      * 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
