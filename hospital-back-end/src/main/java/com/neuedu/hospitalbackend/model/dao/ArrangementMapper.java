@@ -7,8 +7,10 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.util.List;
 
-@Component
 public interface ArrangementMapper {
+    int insert(Arrangement record);
+
+    int insertSelective(Arrangement record);
 
     List<Arrangement> listAvailableDoctors(@Param("appointmentDateStr") String appointmentDateStr, @Param("registrationLevelId") Integer registrationLevelId, @Param("departmentId") Integer departmentId);
 }
