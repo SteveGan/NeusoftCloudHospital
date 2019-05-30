@@ -14,8 +14,8 @@ public class UserMapperTest {
         System.out.println(new UserController().login(loginParam));
     }
 
-    @Test
+/*    @Test
     public void testDemo() {
         System.out.println(new DepartmentManagementController().selectDepartmentById("1"));
-    }
+    }*/
 }
