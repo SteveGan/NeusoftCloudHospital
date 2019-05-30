@@ -35,8 +35,4 @@ public class MainController {
     {
         return response(departmentManagement.selectDepartmentByNameAndCode(obj), ResponseCode.RESPONSE_CODE_OK, ResponseCode.RESPONSE_MSG_OK);
     }
-
-    private JSONObject response(Object data, String code, String msg) {
-        return getJsonObject(data, code, msg);
-    }
 }

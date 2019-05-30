@@ -4,9 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dto.DoctorParam;
 import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice.RegistrationServiceImpl;
+import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.sql.Date;
 
 @RestController
 @RequestMapping("/tollstation")
@@ -22,8 +22,12 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/arrangement-appointment", method = RequestMethod.PATCH)
-    public JSONObject updateRemainingAppointment(@RequestBody DoctorParam doctorParam){
-        registrationServiceImpl.updateRemainingAppointment(doctorParam);
+    public CommonResult<Integer> updateRemainingAppointment(@RequestBody DoctorParam doctorParam){
+        int count = registrationServiceImpl.updateRemainingAppointment(doctorParam);
+        if (count > 0) {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
         return null;
     }
 
