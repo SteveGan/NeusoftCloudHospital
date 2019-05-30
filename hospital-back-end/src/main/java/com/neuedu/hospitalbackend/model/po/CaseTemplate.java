@@ -11,7 +11,7 @@ public class CaseTemplate {
 
     private String name;
 
-    private Boolean scope;
+    private Byte scope;
 
     private String narrate;
 
@@ -55,11 +55,11 @@ public class CaseTemplate {
         this.name = name == null ? null : name.trim();
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 

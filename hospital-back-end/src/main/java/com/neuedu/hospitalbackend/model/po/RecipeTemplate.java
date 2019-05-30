@@ -12,11 +12,11 @@ public class RecipeTemplate {
 
     private Integer departmentId;
 
-    private Boolean scope;
+    private Byte scope;
 
     private String medicineCode;
 
-    private Boolean type;
+    private Byte type;
 
     private BigDecimal dosage;
 
@@ -62,11 +62,11 @@ public class RecipeTemplate {
         this.departmentId = departmentId;
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 
@@ -78,11 +78,11 @@ public class RecipeTemplate {
         this.medicineCode = medicineCode == null ? null : medicineCode.trim();
     }
 
-    public Boolean getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Byte type) {
         this.type = type;
     }
 

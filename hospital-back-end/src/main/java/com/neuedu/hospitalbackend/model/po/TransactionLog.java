@@ -26,11 +26,11 @@ public class TransactionLog {
 
     private Integer amount;
 
-    private Boolean payType;
+    private Byte payType;
 
     private BigDecimal totalMoney;
 
-    private Boolean status;
+    private Byte status;
 
     private Date gmtCreate;
 
@@ -124,11 +124,11 @@ public class TransactionLog {
         this.amount = amount;
     }
 
-    public Boolean getPayType() {
+    public Byte getPayType() {
         return payType;
     }
 
-    public void setPayType(Boolean payType) {
+    public void setPayType(Byte payType) {
         this.payType = payType;
     }
 
@@ -140,11 +140,11 @@ public class TransactionLog {
         this.totalMoney = totalMoney;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 

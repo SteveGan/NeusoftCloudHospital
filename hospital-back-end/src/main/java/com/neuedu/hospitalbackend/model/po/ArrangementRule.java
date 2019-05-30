@@ -5,7 +5,7 @@ public class ArrangementRule {
 
     private Integer roleId;
 
-    private Boolean isValid;
+    private Byte isValid;
 
     private Integer departmentId;
 
@@ -17,33 +17,33 @@ public class ArrangementRule {
 
     private Integer adminId;
 
-    private Boolean monAm;
+    private Byte monAm;
 
-    private Boolean monPm;
+    private Byte monPm;
 
-    private Boolean tueAm;
+    private Byte tueAm;
 
-    private Boolean tuePm;
+    private Byte tuePm;
 
-    private Boolean wedAm;
+    private Byte wedAm;
 
-    private Boolean wedPm;
+    private Byte wedPm;
 
-    private Boolean thuAm;
+    private Byte thuAm;
 
-    private Boolean thuPm;
+    private Byte thuPm;
 
-    private Boolean friAm;
+    private Byte friAm;
 
-    private Boolean friPm;
+    private Byte friPm;
 
-    private Boolean satAm;
+    private Byte satAm;
 
-    private Boolean satPm;
+    private Byte satPm;
 
-    private Boolean sunAm;
+    private Byte sunAm;
 
-    private Boolean sunPm;
+    private Byte sunPm;
 
     public Integer getId() {
         return id;
@@ -61,11 +61,11 @@ public class ArrangementRule {
         this.roleId = roleId;
     }
 
-    public Boolean getIsValid() {
+    public Byte getIsValid() {
         return isValid;
     }
 
-    public void setIsValid(Boolean isValid) {
+    public void setIsValid(Byte isValid) {
         this.isValid = isValid;
     }
 
@@ -109,115 +109,115 @@ public class ArrangementRule {
         this.adminId = adminId;
     }
 
-    public Boolean getMonAm() {
+    public Byte getMonAm() {
         return monAm;
     }
 
-    public void setMonAm(Boolean monAm) {
+    public void setMonAm(Byte monAm) {
         this.monAm = monAm;
     }
 
-    public Boolean getMonPm() {
+    public Byte getMonPm() {
         return monPm;
     }
 
-    public void setMonPm(Boolean monPm) {
+    public void setMonPm(Byte monPm) {
         this.monPm = monPm;
     }
 
-    public Boolean getTueAm() {
+    public Byte getTueAm() {
         return tueAm;
     }
 
-    public void setTueAm(Boolean tueAm) {
+    public void setTueAm(Byte tueAm) {
         this.tueAm = tueAm;
     }
 
-    public Boolean getTuePm() {
+    public Byte getTuePm() {
         return tuePm;
     }
 
-    public void setTuePm(Boolean tuePm) {
+    public void setTuePm(Byte tuePm) {
         this.tuePm = tuePm;
     }
 
-    public Boolean getWedAm() {
+    public Byte getWedAm() {
         return wedAm;
     }
 
-    public void setWedAm(Boolean wedAm) {
+    public void setWedAm(Byte wedAm) {
         this.wedAm = wedAm;
     }
 
-    public Boolean getWedPm() {
+    public Byte getWedPm() {
         return wedPm;
     }
 
-    public void setWedPm(Boolean wedPm) {
+    public void setWedPm(Byte wedPm) {
         this.wedPm = wedPm;
     }
 
-    public Boolean getThuAm() {
+    public Byte getThuAm() {
         return thuAm;
     }
 
-    public void setThuAm(Boolean thuAm) {
+    public void setThuAm(Byte thuAm) {
         this.thuAm = thuAm;
     }
 
-    public Boolean getThuPm() {
+    public Byte getThuPm() {
         return thuPm;
     }
 
-    public void setThuPm(Boolean thuPm) {
+    public void setThuPm(Byte thuPm) {
         this.thuPm = thuPm;
     }
 
-    public Boolean getFriAm() {
+    public Byte getFriAm() {
         return friAm;
     }
 
-    public void setFriAm(Boolean friAm) {
+    public void setFriAm(Byte friAm) {
         this.friAm = friAm;
     }
 
-    public Boolean getFriPm() {
+    public Byte getFriPm() {
         return friPm;
     }
 
-    public void setFriPm(Boolean friPm) {
+    public void setFriPm(Byte friPm) {
         this.friPm = friPm;
     }
 
-    public Boolean getSatAm() {
+    public Byte getSatAm() {
         return satAm;
     }
 
-    public void setSatAm(Boolean satAm) {
+    public void setSatAm(Byte satAm) {
         this.satAm = satAm;
     }
 
-    public Boolean getSatPm() {
+    public Byte getSatPm() {
         return satPm;
     }
 
-    public void setSatPm(Boolean satPm) {
+    public void setSatPm(Byte satPm) {
         this.satPm = satPm;
     }
 
-    public Boolean getSunAm() {
+    public Byte getSunAm() {
         return sunAm;
     }
 
-    public void setSunAm(Boolean sunAm) {
+    public void setSunAm(Byte sunAm) {
         this.sunAm = sunAm;
     }
 
-    public Boolean getSunPm() {
+    public Byte getSunPm() {
         return sunPm;
     }
 
-    public void setSunPm(Boolean sunPm) {
+    public void setSunPm(Byte sunPm) {
         this.sunPm = sunPm;
     }
 }

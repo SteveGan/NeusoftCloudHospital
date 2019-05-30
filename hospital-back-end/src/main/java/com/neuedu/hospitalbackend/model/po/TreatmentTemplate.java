@@ -13,7 +13,7 @@ public class TreatmentTemplate {
 
     private Integer departmentId;
 
-    private Boolean scope;
+    private Byte scope;
 
     private Date gmtCreate;
 
@@ -59,11 +59,11 @@ public class TreatmentTemplate {
         this.departmentId = departmentId;
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 

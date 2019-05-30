@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.DailySummaryLogMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.DailySummaryLog">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="casher_id" jdbcType="INTEGER" property="casherId" />
+    <result column="total_money" jdbcType="DECIMAL" property="totalMoney" />
+    <result column="invoice_code_begine" jdbcType="INTEGER" property="invoiceCodeBegine" />
+    <result column="invoice_code_end" jdbcType="INTEGER" property="invoiceCodeEnd" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.DailySummaryLog">
+    insert into daily_summary_log (id, casher_id, total_money, 
+      invoice_code_begine, invoice_code_end, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{casherId,jdbcType=INTEGER}, #{totalMoney,jdbcType=DECIMAL}, 
+      #{invoiceCodeBegine,jdbcType=INTEGER}, #{invoiceCodeEnd,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.DailySummaryLog">
+    insert into daily_summary_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="casherId != null">
+        casher_id,
+      </if>
+      <if test="totalMoney != null">
+        total_money,
+      </if>
+      <if test="invoiceCodeBegine != null">
+        invoice_code_begine,
+      </if>
+      <if test="invoiceCodeEnd != null">
+        invoice_code_end,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="casherId != null">
+        #{casherId,jdbcType=INTEGER},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceCodeBegine != null">
+        #{invoiceCodeBegine,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceCodeEnd != null">
+        #{invoiceCodeEnd,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.DailySummaryLog">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="casher_id" jdbcType="INTEGER" property="casherId" />
+    <result column="total_money" jdbcType="DECIMAL" property="totalMoney" />
+    <result column="invoice_code_begine" jdbcType="INTEGER" property="invoiceCodeBegine" />
+    <result column="invoice_code_end" jdbcType="INTEGER" property="invoiceCodeEnd" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.DailySummaryLog">
+    insert into daily_summary_log (id, casher_id, total_money, 
+      invoice_code_begine, invoice_code_end, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{casherId,jdbcType=INTEGER}, #{totalMoney,jdbcType=DECIMAL}, 
+      #{invoiceCodeBegine,jdbcType=INTEGER}, #{invoiceCodeEnd,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.DailySummaryLog">
+    insert into daily_summary_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="casherId != null">
+        casher_id,
+      </if>
+      <if test="totalMoney != null">
+        total_money,
+      </if>
+      <if test="invoiceCodeBegine != null">
+        invoice_code_begine,
+      </if>
+      <if test="invoiceCodeEnd != null">
+        invoice_code_end,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="casherId != null">
+        #{casherId,jdbcType=INTEGER},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceCodeBegine != null">
+        #{invoiceCodeBegine,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceCodeEnd != null">
+        #{invoiceCodeEnd,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

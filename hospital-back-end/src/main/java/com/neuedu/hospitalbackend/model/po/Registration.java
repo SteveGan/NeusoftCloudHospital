@@ -18,13 +18,13 @@ public class Registration {
 
     private BigDecimal totalFee;
 
-    private Boolean status;
+    private Byte status;
 
     private Integer cashierId;
 
-    private Boolean payType;
+    private Byte payType;
 
-    private Boolean isBuyCaseBook;
+    private Byte isBuyCaseBook;
 
     private Date gmtCreate;
 
@@ -86,11 +86,11 @@ public class Registration {
         this.totalFee = totalFee;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -102,19 +102,19 @@ public class Registration {
         this.cashierId = cashierId;
     }
 
-    public Boolean getPayType() {
+    public Byte getPayType() {
         return payType;
     }
 
-    public void setPayType(Boolean payType) {
+    public void setPayType(Byte payType) {
         this.payType = payType;
     }
 
-    public Boolean getIsBuyCaseBook() {
+    public Byte getIsBuyCaseBook() {
         return isBuyCaseBook;
     }
 
-    public void setIsBuyCaseBook(Boolean isBuyCaseBook) {
+    public void setIsBuyCaseBook(Byte isBuyCaseBook) {
         this.isBuyCaseBook = isBuyCaseBook;
     }
 

@@ -9,7 +9,7 @@ public class PatientCase {
 
     private Integer userId;
 
-    private Boolean status;
+    private Byte status;
 
     private String narrate;
 
@@ -53,11 +53,11 @@ public class PatientCase {
         this.userId = userId;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
