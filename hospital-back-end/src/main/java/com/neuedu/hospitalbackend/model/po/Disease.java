@@ -1,24 +1,30 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import java.math.BigDecimal;
+public class Disease {
+    private Short id;
 
-public class RegistrationLevel {
-    private Byte id;
+    private String icdCode;
 
     private String code;
 
     private String name;
 
-    private Short limit;
+    private String type;
 
-    private BigDecimal cost;
-
-    public Byte getId() {
+    public Short getId() {
         return id;
     }
 
-    public void setId(Byte id) {
+    public void setId(Short id) {
         this.id = id;
+    }
+
+    public String getIcdCode() {
+        return icdCode;
+    }
+
+    public void setIcdCode(String icdCode) {
+        this.icdCode = icdCode == null ? null : icdCode.trim();
     }
 
     public String getCode() {
@@ -37,19 +43,11 @@ public class RegistrationLevel {
         this.name = name == null ? null : name.trim();
     }
 
-    public Short getLimit() {
-        return limit;
+    public String getType() {
+        return type;
     }
 
-    public void setLimit(Short limit) {
-        this.limit = limit;
-    }
-
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 }

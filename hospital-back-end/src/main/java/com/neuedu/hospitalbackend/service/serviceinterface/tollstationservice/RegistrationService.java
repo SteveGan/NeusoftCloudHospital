@@ -1,9 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dto.DoctorParam;
-import com.neuedu.hospitalbackend.model.dto.RegistrationParam;
-import com.neuedu.hospitalbackend.model.po.Arrangement;
+import com.neuedu.hospitalbackend.model.vo.DoctorParam;
+import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.PatientCase;
 import com.neuedu.hospitalbackend.model.po.Registration;
 

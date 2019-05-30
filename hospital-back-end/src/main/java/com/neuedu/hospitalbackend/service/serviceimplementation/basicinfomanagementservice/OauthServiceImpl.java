@@ -2,7 +2,7 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanage
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dto.LoginParam;
+import com.neuedu.hospitalbackend.model.vo.LoginParam;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
 import com.neuedu.hospitalbackend.model.dao.UserMapper;
 import com.neuedu.hospitalbackend.model.po.Role;

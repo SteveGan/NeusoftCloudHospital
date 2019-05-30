@@ -9,7 +9,7 @@ public class Inspection {
 
     private Integer projectId;
 
-    private Byte status;
+    private Boolean status;
 
     private Date gmtModified;
 
@@ -53,11 +53,11 @@ public class Inspection {
         this.projectId = projectId;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

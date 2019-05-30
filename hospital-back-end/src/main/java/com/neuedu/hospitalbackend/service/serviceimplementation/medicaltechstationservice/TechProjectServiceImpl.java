@@ -1,13 +1,9 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ExaminationMapper;
 import com.neuedu.hospitalbackend.model.dao.InspectionMapper;
-import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
-import com.neuedu.hospitalbackend.model.dto.ProjectPatientParam;
-import com.neuedu.hospitalbackend.model.po.Examination;
-import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TechProjectService;
 import org.springframework.stereotype.Service;
 

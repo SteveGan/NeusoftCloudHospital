@@ -2,14 +2,20 @@ package com.neuedu.hospitalbackend.model.po;
 
 import java.util.Date;
 
-public class DiagnoseTemplate {
+public class InspectionTemplate {
     private Integer id;
 
     private String name;
 
-    private Integer diseaseId;
+    private Integer itemId;
 
     private Integer userId;
+
+    private Integer departmentId;
+
+    private String goal;
+
+    private String requirement;
 
     private Boolean scope;
 
@@ -33,12 +39,12 @@ public class DiagnoseTemplate {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getDiseaseId() {
-        return diseaseId;
+    public Integer getItemId() {
+        return itemId;
     }
 
-    public void setDiseaseId(Integer diseaseId) {
-        this.diseaseId = diseaseId;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
     public Integer getUserId() {
@@ -47,6 +53,30 @@ public class DiagnoseTemplate {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal == null ? null : goal.trim();
+    }
+
+    public String getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(String requirement) {
+        this.requirement = requirement == null ? null : requirement.trim();
     }
 
     public Boolean getScope() {

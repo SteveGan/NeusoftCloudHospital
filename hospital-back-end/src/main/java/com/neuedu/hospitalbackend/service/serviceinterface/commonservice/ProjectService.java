@@ -2,7 +2,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.ProjectCollection;
+import com.neuedu.hospitalbackend.model.bo.ProjectCollection;
 import java.util.List;
 
 /**

@@ -18,7 +18,7 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.neuedu.hospitalbackend.model.testPO" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.neuedu.hospitalbackend.model.po" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>

@@ -1,29 +1,26 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import javax.persistence.Column;
-import java.sql.Date;
+import java.util.Date;
 
 public class Arrangement {
-
-    @Column(name = "id")
     private Integer id;
-    @Column(name = "appointment_date")
+
     private Date appointmentDate;
-    @Column(name = "department_id")
+
     private Integer departmentId;
-    @Column(name = "role_id")
+
     private Integer roleId;
-    @Column(name = "user_name")
+
     private String userName;
-    @Column(name = "registration_level_id")
-    private Integer registrationLevelId;
-    @Column(name = "is_valid")
-    private Integer isValid;
-    @Column(name = "time_slot")
+
+    private Byte registrationLevelId;
+
+    private Boolean isValid;
+
     private String timeSlot;
-    @Column(name = "max_appointment")
+
     private Integer maxAppointment;
-    @Column(name = "appointment_left")
+
     private Integer appointmentLeft;
 
     public Integer getId() {
@@ -63,22 +60,22 @@ public class Arrangement {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName == null ? null : userName.trim();
     }
 
-    public Integer getRegistrationLevelId() {
+    public Byte getRegistrationLevelId() {
         return registrationLevelId;
     }
 
-    public void setRegistrationLevelId(Integer registrationLevelId) {
+    public void setRegistrationLevelId(Byte registrationLevelId) {
         this.registrationLevelId = registrationLevelId;
     }
 
-    public Integer getIsValid() {
+    public Boolean getIsValid() {
         return isValid;
     }
 
-    public void setIsValid(Integer isValid) {
+    public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
     }
 
@@ -87,7 +84,7 @@ public class Arrangement {
     }
 
     public void setTimeSlot(String timeSlot) {
-        this.timeSlot = timeSlot;
+        this.timeSlot = timeSlot == null ? null : timeSlot.trim();
     }
 
     public Integer getMaxAppointment() {

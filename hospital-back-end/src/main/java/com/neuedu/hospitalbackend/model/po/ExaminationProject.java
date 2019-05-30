@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend.model.po;
 
-public class InspectionProject {
+public class ExaminationProject {
     private Integer id;
 
     private String name;

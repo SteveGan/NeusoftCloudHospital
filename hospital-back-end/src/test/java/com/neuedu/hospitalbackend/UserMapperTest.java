@@ -1,8 +1,7 @@
 package com.neuedu.hospitalbackend;
 
-import com.neuedu.hospitalbackend.controller.DepartmentManagementController;
 import com.neuedu.hospitalbackend.controller.OauthController;
-import com.neuedu.hospitalbackend.model.dto.LoginParam;
+import com.neuedu.hospitalbackend.model.vo.LoginParam;
 import org.junit.Test;
 
 public class UserMapperTest {

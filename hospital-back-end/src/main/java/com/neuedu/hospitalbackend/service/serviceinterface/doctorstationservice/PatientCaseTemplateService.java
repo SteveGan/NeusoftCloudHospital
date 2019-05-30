@@ -3,7 +3,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.PatientCase;
-import com.neuedu.hospitalbackend.model.po.PatientCaseTemplate;
+import com.neuedu.hospitalbackend.model.po.CaseTemplate;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public interface PatientCaseTemplateService {
      * @param doctorId 医生的id
      * @return 可用病历模版集合
      */
-    List<PatientCaseTemplate> listCaseTemplate(Integer doctorId);
+    List<CaseTemplate> listCaseTemplate(Integer doctorId);
 
 
     /**
