@@ -37,7 +37,7 @@ public class UserController {
      * 返回所有用户，包括role信息
      * @return
      */
-    @RequestMapping(value = "/alluers", method = RequestMethod.GET)
+    @RequestMapping(value = "/listall", method = RequestMethod.GET)
     public JSONArray listAllUsersAndRoles()
     {
         return oauthServiceImpl.listAllUsersAndRoles();
