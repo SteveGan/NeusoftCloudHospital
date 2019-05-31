@@ -7,4 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface RegistrationMapper {
+
+    int insert(Registration registration);
 }
