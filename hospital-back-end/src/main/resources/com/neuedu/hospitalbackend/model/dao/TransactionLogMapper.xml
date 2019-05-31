@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.TransactionLogMapper">
+
+    <resultMap id="MatchMap" type="TransactionLog">
+        <id column="id" property="id"/>
+        <result column="serial_no" property="serialNo"/>
+        <result column="invoice_code" property="invoiceCode"/>
+        <result column="registration_id" property="registrationId"/>
+        <result column="patient_id" property="patientId"/>
+        <result column="user_id" property="userId"/>
+        <result column="type" property="type"/>
+        <result column="collection_id" property="collectionId"/>
+        <result column="project_id" property="projectId"/>
+        <result column="item_id" property="itemId"/>
+        <result column="amount" property="amount"/>
+        <result column="pay_type" property="payType"/>
+        <result column="total_money" property="totalMoney"/>
+        <result column="status" property="status"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Arrangement">
+        insert into transaction_log (serial_no, invoice_code,
+          registration_id, patient_id, user_id, type,
+          collection_id, project_id, item_id, amount,
+          pay_type, total_money, status, gmt_create)
+        values (#{serialNo}, #{invoiceCode}, #{registrationId}, #{patientId}, #{userId},
+        #{type}, #{collectionId}, #{projectId}, #{itemId}, #{amount},
+        #{payType}, #{totalMoney}, #{status}, #{gmtCreate})
+    </insert>
+
+
+</mapper>

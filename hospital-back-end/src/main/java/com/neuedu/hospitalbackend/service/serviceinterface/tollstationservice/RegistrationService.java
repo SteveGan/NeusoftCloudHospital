@@ -30,7 +30,7 @@ public interface RegistrationService {
      * @param registration 挂号记录
      * @return
      */
-    void makeRegistration(Registration registration);
+    JSONObject makeRegistration(Registration registration);
     /**
      * 更新所选医生对应的余号数量
      * @param doctorParam 需要更新的医生role_id appointment_time

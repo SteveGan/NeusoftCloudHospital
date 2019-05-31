@@ -2,12 +2,15 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationserv
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ArrangementMapper;
+import com.neuedu.hospitalbackend.model.dao.RegistrationLevelMapper;
+import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -15,6 +18,12 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
     @Autowired
     private ArrangementMapper arrangementMapper;
+
+    @Autowired
+    private RegistrationLevelMapper registrationLevelMapper;
+
+    @Autowired
+    private TransactionLogMapper transactionLogMapper;
 
     @Override
     public JSONObject listAvailableDoctors(RegistrationParam registrationParam){
@@ -28,9 +37,16 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     @Override
-    public void makeRegistration(Registration registration){
+    public JSONObject makeRegistration(Registration registration){
+        JSONObject jsonObject = new JSONObject();
         //根据看诊医生和挂号级别，是否需要病历本，算出应收金额
+        BigDecimal cost = registrationLevelMapper.getRegistrationLevelCostById(registration.getRegistrationLevelId());
+        jsonObject.put("cost", cost);
+        //向缴费表中添加新的缴费记录  --已缴费
+        int count = transactionLogMapper.insert();
 
+
+        return jsonObject;
     }
 
     @Override

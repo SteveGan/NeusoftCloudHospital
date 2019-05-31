@@ -1,7 +1,10 @@
 package com.neuedu.hospitalbackend.model.dao;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 
+@Component
 public interface RegistrationLevelMapper {
-    BigDecimal getRegistrationLevelCostByCode(int )
+    BigDecimal getRegistrationLevelCostById(int id);
 }
