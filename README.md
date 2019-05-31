@@ -24,6 +24,11 @@ MyBatisGenerator | ✔️ | 数据层代码生成 | [http://www.mybatis.org/gene
 MySQL | ✔️ |MySQL数据库 | [https://www.mongodb.com/](https://www.mysql.com/)
 Docker | 应用容器引擎 | [https://www.docker.com/](https://www.docker.com/)
 Druid | ✔️ | 数据库连接池 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
+Swagger-UI |  | Documentation production tool|
+Elasticsearch | | Search engine |
+Redis| | Distributed cache |
+Qiniuyun OSS| |Object storage |
+JWT| |Login support of JWT|
 Log4j | ✔️ | 日志 | []()
 
 #### 前端技术
