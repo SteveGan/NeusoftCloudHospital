@@ -6,5 +6,5 @@ import java.math.BigDecimal;
 
 @Component
 public interface RegistrationLevelMapper {
-    BigDecimal getRegistrationLevelCostById(int id);
+    BigDecimal getRegistrationLevelCostById(Short id);
 }

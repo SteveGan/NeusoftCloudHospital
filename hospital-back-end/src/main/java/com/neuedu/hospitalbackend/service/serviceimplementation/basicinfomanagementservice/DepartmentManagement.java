@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * @author Raven
+ */
 @Service
 public class DepartmentManagement implements DepartmentManagementService {
     @Resource
@@ -18,31 +21,27 @@ public class DepartmentManagement implements DepartmentManagementService {
      * @param id 部门id
      * @return
      */
-    public Department selectDepartmentById(Integer id) {
-        return departmentMapper.selectDepartmentById(id);
-    }
-
-    public int addDepartment(Department department) {
-        return departmentMapper.addDepartment(department);
+    @Override
+    public Department getDepartmentById(Integer id) {
+        Department department = departmentMapper.get(id);
+        return department;
     }
 
     @Override
-    public Department getDepartmentById(String id) {
-        return null;
+    public int insertDepartment(Department department) {
+        int count = departmentMapper.insert(department);
+        return count;
     }
 
     @Override
-    public void insertDepartment(Department department) {
-
+    public int updateDepartmentById(Department department) {
+        int count = departmentMapper.update(department);
+        return count;
     }
 
     @Override
-    public void updateDepartmentById(Department department) {
-
-    }
-
-    @Override
-    public void deleteDepartmentById(String id) {
-
+    public int deleteDepartmentById(Integer id) {
+        int count = departmentMapper.delete(id);
+        return count;
     }
 }

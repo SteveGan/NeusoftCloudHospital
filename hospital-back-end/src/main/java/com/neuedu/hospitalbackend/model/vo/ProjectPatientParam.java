@@ -7,8 +7,7 @@ package com.neuedu.hospitalbackend.model.vo;
 public class ProjectPatientParam {
 
     /**
-     * 检查
-     * 检验
+     * 检查 检验
      */
     private String projectType;
     private Integer caseId;
