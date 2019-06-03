@@ -13,4 +13,6 @@ public interface InspectionMapper {
      * @return 待登记的caseId, patientName
      */
     List<HashMap> listPreparedInspectionPatientsByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName);
+
+    List<HashMap> listAppliedProjectsByCaseId(Integer caseId);
 }

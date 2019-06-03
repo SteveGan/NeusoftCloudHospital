@@ -6,9 +6,7 @@ import java.util.Date;
 public class TransactionLog {
     private Integer id;
 
-    private Integer serialNo;
-
-    private String invoiceCode;
+    private String invoiceId;
 
     private Integer registrationId;
 
@@ -26,11 +24,11 @@ public class TransactionLog {
 
     private Integer amount;
 
-    private Boolean payType;
+    private Byte payType;
 
     private BigDecimal totalMoney;
 
-    private Boolean status;
+    private Byte status;
 
     private Date gmtCreate;
 
@@ -44,20 +42,12 @@ public class TransactionLog {
         this.id = id;
     }
 
-    public Integer getSerialNo() {
-        return serialNo;
+    public String getInvoiceId() {
+        return invoiceId;
     }
 
-    public void setSerialNo(Integer serialNo) {
-        this.serialNo = serialNo;
-    }
-
-    public String getInvoiceCode() {
-        return invoiceCode;
-    }
-
-    public void setInvoiceCode(String invoiceCode) {
-        this.invoiceCode = invoiceCode == null ? null : invoiceCode.trim();
+    public void setInvoiceId(String invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
     public Integer getRegistrationId() {
@@ -124,11 +114,11 @@ public class TransactionLog {
         this.amount = amount;
     }
 
-    public Boolean getPayType() {
+    public Byte getPayType() {
         return payType;
     }
 
-    public void setPayType(Boolean payType) {
+    public void setPayType(Byte payType) {
         this.payType = payType;
     }
 
@@ -140,11 +130,11 @@ public class TransactionLog {
         this.totalMoney = totalMoney;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 

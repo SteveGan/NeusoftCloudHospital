@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.TransactionLogMapper">
+
+    <resultMap id="MatchMap" type="TransactionLog">
+        <id column="id" property="id"/>
+        <result column="invoice_id" property="invoiceId"/>
+        <result column="registration_id" property="registrationId"/>
+        <result column="patient_id" property="patientId"/>
+        <result column="user_id" property="userId"/>
+        <result column="type" property="type"/>
+        <result column="collection_id" property="collectionId"/>
+        <result column="project_id" property="projectId"/>
+        <result column="item_id" property="itemId"/>
+        <result column="amount" property="amount"/>
+        <result column="pay_type" property="payType"/>
+        <result column="total_money" property="totalMoney"/>
+        <result column="status" property="status"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="TransactionLog">
+        insert into transaction_log (invoice_id,
+          registration_id, patient_id, user_id, type,
+          collection_id, project_id, item_id, amount,
+          pay_type, total_money, status)
+        values (#{invoiceId}, #{registrationId}, #{patientId}, #{userId},
+        #{type}, #{collectionId}, #{projectId}, #{itemId}, #{amount},
+        #{payType}, #{totalMoney}, #{status})
+    </insert>
+
+    <insert id="insertSelective" parameterType="TransactionLog">
+        insert into arrangement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="invoiceId != null">
+                invoice_id,
+            </if>
+            <if test="registrationId != null">
+                registration_id,
+            </if>
+            <if test="patientId != null">
+                patient_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="collectionId != null">
+                collection_id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="itemId != null">
+                item_id,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="totalMoney != null">
+                total_money,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="invoiceId != null">
+                #{invoiceId,jdbcType=CHAR},
+            </if>
+            <if test="registrationId != null">
+                #{registrationId,jdbcType=INTEGER},
+            </if>
+            <if test="patientId != null">
+                #{patientId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="collectionId != null">
+                #{collectionId,jdbcType=INTEGER},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="itemId != null">
+                #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=TINYINT},
+            </if>
+            <if test="totalMoney != null">
+                #{totalMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+
+</mapper>

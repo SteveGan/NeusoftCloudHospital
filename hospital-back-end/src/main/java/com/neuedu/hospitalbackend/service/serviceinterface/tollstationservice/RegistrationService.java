@@ -20,27 +20,16 @@ public interface RegistrationService {
     JSONObject listAvailableDoctors(RegistrationParam registrationParam);
 
     /**
-     * 更新所选医生对应的余号数量
-     * @param doctorParam 需要更新的医生role_id appointment_time
+     * 执行挂号操作
+     * TODO：1.根据看诊医生和挂号级别，是否需要病历本，算出应收金额
+     * TODO：2.向缴费表中添加新的缴费记录  --已缴费
+     * TODO: 3.向挂号表中添加新的挂号记录 --默认正常
+     * TODO: 4.更新 所选医生 对应的余号数量
+     * TODO: 5.检查患者是否已在本系统中
+     * TODO: 6.向病历表中添加新的病历记录 --默认待诊
+     * @param registration 挂号记录
+     * @return
      */
-    int updateRemainingAppointment(DoctorParam doctorParam);
+    JSONObject makeRegistration(Registration registration, DoctorParam doctorParam, String idCard);
 
-    /**
-     * 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
-     * @param jsonObject 看诊医生职称，挂号级别
-     * @return total_amount of a registration
-     */
-    int calculateAmount(JSONObject jsonObject);
-
-    /**
-     * 向挂号表中添加新的挂号记录 --默认正常
-     * @param registration
-     */
-    void insertRegistrationLog(Registration registration);
-
-    /**
-     * 向病历表中添加新的病历记录 --默认待诊
-     * @param patientCase
-     */
-    void insertPatientCaseLog(PatientCase patientCase);
 }

@@ -1,16 +1,7 @@
 <template>
   <div class="container">
     <!--  部门与职位部分    -->
-    <div>
-      <!--  标题："部门与职位"      -->
-      <div>
-        <p class="title">部门与职位</p>
-      </div>
-      <!--   内容：一堆卡片    -->
-      <div class="card-container">
-        <role-card v-for="roleObj in this.$store.state.user.roles" :key="roleObj.id" :role="roleObj"></role-card>
-      </div>
-    </div>
+    <user-roles :roles="this.$store.state.user.roles"></user-roles>
     <!--  统计数据部分    -->
     <div>
       <!--  标题："数据统计"      -->
@@ -23,12 +14,12 @@
 
 <script>
 
-  import RoleCard from './Child/RoleCard'
+  import UserRoles from '@/components/user/UserRoles/UserRoles'
 
   export default {
     name: 'Main',
     components: {
-      'role-card': RoleCard
+      'user-roles': UserRoles
     }
   }
 </script>
@@ -38,17 +29,5 @@
   .container{
     padding-left: 40px;
     padding-right: 40px;
-  }
-  .container div{
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .card-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-  .title{
-    font-size: 27px;
   }
 </style>

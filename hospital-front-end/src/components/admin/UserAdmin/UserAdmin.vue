@@ -13,11 +13,13 @@
       <div class="tool-bar">
         <!-- 搜索区 -->
         <div class="search-region">
-          <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
-            <el-select v-model="select" slot="prepend" placeholder="请选择">
-              <el-option label="餐厅名" value="1"></el-option>
-              <el-option label="订单号" value="2"></el-option>
-              <el-option label="用户电话" value="3"></el-option>
+          <el-input placeholder="搜索内容" v-model="userInput" class="input-with-select">
+            <el-select v-model="chosenOption" slot="prepend" placeholder="通过用户ID搜索" class="select-box">
+              <el-option  v-for="item in searchOptions"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+              </el-option>
             </el-select>
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
@@ -26,7 +28,7 @@
         <div class="button-group">
           <!-- 添加按钮 -->
           <div>
-            <el-button type="primary">新增用户</el-button>
+            <el-button type="primary"  @click="addUserDialogVisible = true">新增用户</el-button>
           </div>
           <!-- 批量管理按钮 -->
           <div>
@@ -36,51 +38,25 @@
       </div>
       <!-- 列表，展示所有用户或搜索到的用户，后面带有修改/删除按钮-->
       <div class="table-region">
-        <el-table :data="tableData" style="width: 100%" max-height="500">
+        <el-table :data="this.usersDisplayed" style="width: 100%">
           <el-table-column
             type="selection"
             width="55">
           </el-table-column>
           <el-table-column type="expand">
             <template slot-scope="props">
-              <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item label="商品名称">
-                  <span>{{ props.row.name }}</span>
-                </el-form-item>
-                <el-form-item label="所属店铺">
-                  <span>{{ props.row.shop }}</span>
-                </el-form-item>
-                <el-form-item label="商品 ID">
-                  <span>{{ props.row.id }}</span>
-                </el-form-item>
-                <el-form-item label="店铺 ID">
-                  <span>{{ props.row.shopId }}</span>
-                </el-form-item>
-                <el-form-item label="商品分类">
-                  <span>{{ props.row.category }}</span>
-                </el-form-item>
-                <el-form-item label="店铺地址">
-                  <span>{{ props.row.address }}</span>
-                </el-form-item>
-                <el-form-item label="商品描述">
-                  <span>{{ props.row.desc }}</span>
-                </el-form-item>
-              </el-form>
+              <user-basic-info :userInfo="props.row"></user-basic-info>
             </template>
           </el-table-column>
           <el-table-column
             label="用户ID"
-            prop="id">
+            prop="userId">
           </el-table-column>
           <el-table-column
             label="用户名"
-            prop="name">
+            prop="userName">
           </el-table-column>
-          <el-table-column
-            label="部门及职位"
-            prop="">
-          </el-table-column>
-          <el-table-column label="操作">
+          <el-table-column>
             <template slot-scope="scope">
               <el-button
                 size="mini"
@@ -95,56 +71,150 @@
       </div>
     </div>
   </el-card>
+
+  <el-dialog
+    :visible.sync="addUserDialogVisible"
+    width="60%"
+    :before-close="handleClose">
+    <user-info-editor>添加用户</user-info-editor>
+  </el-dialog>
+  <el-dialog
+    :visible.sync="editUserDialogVisible"
+    width="60%"
+    :before-close="handleClose">
+    <user-info-editor :user="currentUser">编辑用户信息</user-info-editor>
+  </el-dialog>
 </div>
 </template>
 
 <script>
+import UserBasicInfo from '@/components/common/UserbasicInfo'
+import UserInfoEditor from './Child/UserInfoEditor'
+
 export default {
   name: 'UserAdmin',
-  data() {
+  components:{
+    'user-basic-info': UserBasicInfo,
+    'user-info-editor': UserInfoEditor
+  },
+  computed: {
+    usersDisplayed () {
+      return this.users.filter(
+          data => {
+            var isInclude = false
+            if(this.chosenOption === 'userId'){
+              isInclude = data.userId.toString().toLowerCase().includes(
+                this.userInput.toLowerCase()
+              )
+            }else if(this.chosenOption === 'userName'){
+              isInclude = data.userName.toString().toLowerCase().includes(
+                this.userInput.toLowerCase()
+              )
+            }else{
+              isInclude = true;
+            }
+            return !this.userInput || isInclude
+          }
+        )
+    }
+  },
+  data () {
       return {
-        tableData: [{
-          id: '12987122',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987123',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987125',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }],
-        users:[]
+        userInput:'',
+        chosenOption:'userId',
+        addUserDialogVisible: false,
+        editUserDialogVisible: false,
+        searchOptions: [
+          {
+            value: 'userId',
+            label: '通过用户ID搜索'
+          },
+          {
+            value: 'userName',
+            label: '通过用户名搜索'
+          }
+        ],
+        currentUser: {},
+        users:[
+          {
+            "avatar": "http://ww4.sinaimg.cn/large/006tNc79ly1g3hfk9foouj30ho0heqoj.jpg",
+            "userName": "帅哥",
+            "userId": 10000001,
+            "roles":[
+              {
+                "id": 20000001,
+                "userId": 10000001,
+                "positionId": 2,
+                "positionName": "门诊医生",
+                "departmentId": 16,
+                "departmentName": "神经外科",
+                "titleId": 1,
+                "titleName": "主任医师",
+                "gmtCreate": null,
+                "gmtModified": null
+              },
+              {
+                "id": 20000002,
+                "userId": 10000001,
+                "positionId": 2,
+                "positionName": "医技医生",
+                "departmentId": 19,
+                "departmentName": "某某科室",
+                "titleId": 7,
+                "titleName": "大佬",
+                "gmtCreate": null,
+                "gmtModified": null
+              }
+            ]
+          },
+          {
+            "avatar": "http://ww4.sinaimg.cn/large/006tNc79ly1g3j7rgt3mnj30u0140hav.jpg",
+            "userName": "儿子",
+            "userId": 10000002,
+            "roles":[
+              {
+                "id": 20000001,
+                "userId": 10000001,
+                "positionId": 2,
+                "positionName": "门诊医生",
+                "departmentId": 16,
+                "departmentName": "神经外科",
+                "titleId": 1,
+                "titleName": "主任医师",
+                "gmtCreate": null,
+                "gmtModified": null
+              },
+              {
+                "id": 20000002,
+                "userId": 10000001,
+                "positionId": 2,
+                "positionName": "医技医生",
+                "departmentId": 19,
+                "departmentName": "某某科室",
+                "titleId": 7,
+                "titleName": "我的儿子",
+                "gmtCreate": null,
+                "gmtModified": null
+              }
+            ]
+          }
+        ]
       }
     },
     methods: {
       handleEdit(index, row) {
-        console.log(index, row);
+        this.currentUser = row
+        this.editUserDialogVisible = true
       },
       handleDelete(index, row) {
         console.log(index, row);
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
       }
     }
 }
@@ -189,13 +259,25 @@ export default {
 .demo-table-expand {
     font-size: 0;
   }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
+.avatar{
+  border: 1px solid #91d5ff;
+  width: 120px;
+  height: 120px;
+}
+
+.select-box{
+  width: 140px;
+}
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
 </style>

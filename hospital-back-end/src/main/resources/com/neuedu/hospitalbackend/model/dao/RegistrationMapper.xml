@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.RegistrationMapper">
+
+    <resultMap id="MatchMap" type="Registration">
+        <id column="id" property="id"/>
+        <result column="patient_id" property="patientId"/>
+        <result column="appointment_date" property="appointmentDate"/>
+        <result column="user_id" property="userId"/>
+        <result column="registration_level_id" property="registrationLevelId"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="total_fee" property="totalFee"/>
+        <result column="status" property="status"/>
+        <result column="cashier_id" property="cashierId"/>
+        <result column="pay_type" property="payType"/>
+        <result column="is_buy_case_book" property="isBuyCaseBook"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="Registration">
+       insert into registration (patient_id, appointment_date, user_id,
+       registration_level_id, department_id, total_fee, status,
+       cashier_id, pay_type, is_buy_case_book)
+       values (#{patientId}, #{appointmentDate}, #{userId}, #{registrationLevelId},
+       #{departmentId}, #{totalFee}, #{status}, #{cashierId}, #{payType}, #{isBuyCaseBook})
+    </insert>
+
+
+</mapper>
