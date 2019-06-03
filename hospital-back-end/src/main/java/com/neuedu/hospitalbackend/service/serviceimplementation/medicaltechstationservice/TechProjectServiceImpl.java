@@ -8,7 +8,10 @@ import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationser
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,12 +34,10 @@ public class TechProjectServiceImpl implements TechProjectService {
     @Override
     public JSONObject listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam){
         JSONObject returnObject = new JSONObject();
-
+        List<HashMap> patients = new ArrayList<>();
         String projectType = projectPatientParam.getProjectType();
         Integer caseId = projectPatientParam.getCaseId();
         String patientName = projectPatientParam.getPatientName();
-
-        List<HashMap> patients = new ArrayList<>();
 
         if(projectType.equals("检查"))
             patients = inspectionMapper.listPreparedInspectionPatientsByCaseIdOrName(caseId, patientName);
@@ -52,15 +53,32 @@ public class TechProjectServiceImpl implements TechProjectService {
     /**
      * 4.1.1 患者查询
      * 选择患者可以相应申请的项目明细
-     * TODO: 根据前端传来的caseId(/patientId),查询该患者检查/检验项目清单id，项目id
-     * TODO：根据项目id查找具体信息
-     * @param jsonObject:{caseId, type(inspection or examination)}
-     * @return Inspection or Examination
+     * @param projectPatientParam: projectType, caseId, patientName
+     * @return inspectionId, inspectionName, inspectionGMTCreate
      */
     @Override
-    public JSONObject listNotCheckedInProjectsByCaseId(JSONObject jsonObject){
-        return null;
+    public JSONObject listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam){
+        //无该病历号
+        JSONObject returnObject = new JSONObject();
+        List<HashMap> projects = new ArrayList<>();
+        String projectType = projectPatientParam.getProjectType();
+        Integer caseId = projectPatientParam.getCaseId();
+
+        if(projectType.equals("检查"))
+            projects = inspectionMapper.listAppliedProjectsByCaseId(caseId);
+        else if(projectType.equals("检验"))
+            projects = examinationMapper.listAppliedProjectsByCaseId(caseId);
+
+        //timestamp格式转换为datetime
+        for(HashMap project: projects) {
+            project.put("gmt_create", String.valueOf(project.get("gmt_create")).substring(0, 19)); //yyyy-MM-dd HH:mm:ss
+            //status转换成文字
+        }
+
+        returnObject.put("projects", projects);
+        return returnObject;
     }
+
 
     /**
      * 4.1.2 执行确认
@@ -68,7 +86,7 @@ public class TechProjectServiceImpl implements TechProjectService {
      * 注意：只有已缴费的项目，才可以进行登记
      * TODO：选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
      * @param jsonObject:{inspectionId/examinationId, projectId, 医技医生Id}
-     */
+     * */
     @Override
     public void checkInProject(JSONObject jsonObject){
 

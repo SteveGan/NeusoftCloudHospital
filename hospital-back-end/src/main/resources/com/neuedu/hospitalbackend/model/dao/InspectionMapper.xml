@@ -22,8 +22,8 @@
         select c.registration_id, c.patient_name
         from patient_case c, inspection i, transaction_log t
         where i.id = t.collection_id and i.project_id = t.project_id
-        and i.status = 2 and t.status = 2
-        and i.case_id = c.registration_id
+            and i.status = 2
+            and i.case_id = c.registration_id
         <choose>
             <when test = "caseId != null">
                 and c.registration_id = #{caseId}
@@ -33,4 +33,14 @@
             </when>
         </choose>
     </select>
+
+    <select id="listAppliedProjectsByCaseId" resultType="HashMap">
+      select n.id, n.name, i.gmt_create, t.status
+      from inspection i, non_medicine n, transaction_log t
+      where t.registration_id = #{caseId}  and t.collection_id = i.id  and t.project_id = i.project_id
+          and i.status = 2
+          and n.id = i.project_id
+    </select>
+
+
 </mapper>
