@@ -18,16 +18,8 @@ public class DepartmentManagement implements DepartmentManagementService {
      * @param id 部门id
      * @return
      */
-    public Department selectDepartmentById(Integer id) {
-        return departmentMapper.selectDepartmentById(id);
-    }
-
-    public int addDepartment(Department department) {
-        return departmentMapper.addDepartment(department);
-    }
-
     @Override
-    public Department getDepartmentById(String id) {
+    public Department getDepartmentById(Integer id) {
         return null;
     }
 
@@ -42,7 +34,7 @@ public class DepartmentManagement implements DepartmentManagementService {
     }
 
     @Override
-    public void deleteDepartmentById(String id) {
+    public void deleteDepartmentById(Integer id) {
 
     }
 }

@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.ArrangementRuleMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.ArrangementRule" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="role_id" property="roleId" jdbcType="INTEGER" />
-    <result column="is_valid" property="isValid" jdbcType="BIT" />
-    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
-    <result column="title_id" property="titleId" jdbcType="INTEGER" />
-    <result column="registration_level_id" property="registrationLevelId" jdbcType="TINYINT" />
-    <result column="max_appointment" property="maxAppointment" jdbcType="TINYINT" />
-    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
-    <result column="mon_am" property="monAm" jdbcType="BIT" />
-    <result column="mon_pm" property="monPm" jdbcType="BIT" />
-    <result column="tue_am" property="tueAm" jdbcType="BIT" />
-    <result column="tue_pm" property="tuePm" jdbcType="BIT" />
-    <result column="wed_am" property="wedAm" jdbcType="BIT" />
-    <result column="wed_pm" property="wedPm" jdbcType="BIT" />
-    <result column="thu_am" property="thuAm" jdbcType="BIT" />
-    <result column="thu_pm" property="thuPm" jdbcType="BIT" />
-    <result column="fri_am" property="friAm" jdbcType="BIT" />
-    <result column="fri_pm" property="friPm" jdbcType="BIT" />
-    <result column="sat_am" property="satAm" jdbcType="BIT" />
-    <result column="sat_pm" property="satPm" jdbcType="BIT" />
-    <result column="sun_am" property="sunAm" jdbcType="BIT" />
-    <result column="sun_pm" property="sunPm" jdbcType="BIT" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.ArrangementRuleMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.ArrangementRule">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="registration_level_id" jdbcType="TINYINT" property="registrationLevelId" />
+    <result column="max_appointment" jdbcType="TINYINT" property="maxAppointment" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="mon_am" jdbcType="BIT" property="monAm" />
+    <result column="mon_pm" jdbcType="BIT" property="monPm" />
+    <result column="tue_am" jdbcType="BIT" property="tueAm" />
+    <result column="tue_pm" jdbcType="BIT" property="tuePm" />
+    <result column="wed_am" jdbcType="BIT" property="wedAm" />
+    <result column="wed_pm" jdbcType="BIT" property="wedPm" />
+    <result column="thu_am" jdbcType="BIT" property="thuAm" />
+    <result column="thu_pm" jdbcType="BIT" property="thuPm" />
+    <result column="fri_am" jdbcType="BIT" property="friAm" />
+    <result column="fri_pm" jdbcType="BIT" property="friPm" />
+    <result column="sat_am" jdbcType="BIT" property="satAm" />
+    <result column="sat_pm" jdbcType="BIT" property="satPm" />
+    <result column="sun_am" jdbcType="BIT" property="sunAm" />
+    <result column="sun_pm" jdbcType="BIT" property="sunPm" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.ArrangementRule" >
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.ArrangementRule">
     insert into arrangement_rule (id, role_id, is_valid, 
       department_id, title_id, registration_level_id, 
       max_appointment, admin_id, mon_am, 
@@ -41,141 +41,320 @@
       #{friPm,jdbcType=BIT}, #{satAm,jdbcType=BIT}, #{satPm,jdbcType=BIT}, #{sunAm,jdbcType=BIT}, 
       #{sunPm,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.ArrangementRule" >
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.ArrangementRule">
     insert into arrangement_rule
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="roleId != null" >
+      <if test="roleId != null">
         role_id,
       </if>
-      <if test="isValid != null" >
+      <if test="isValid != null">
         is_valid,
       </if>
-      <if test="departmentId != null" >
+      <if test="departmentId != null">
         department_id,
       </if>
-      <if test="titleId != null" >
+      <if test="titleId != null">
         title_id,
       </if>
-      <if test="registrationLevelId != null" >
+      <if test="registrationLevelId != null">
         registration_level_id,
       </if>
-      <if test="maxAppointment != null" >
+      <if test="maxAppointment != null">
         max_appointment,
       </if>
-      <if test="adminId != null" >
+      <if test="adminId != null">
         admin_id,
       </if>
-      <if test="monAm != null" >
+      <if test="monAm != null">
         mon_am,
       </if>
-      <if test="monPm != null" >
+      <if test="monPm != null">
         mon_pm,
       </if>
-      <if test="tueAm != null" >
+      <if test="tueAm != null">
         tue_am,
       </if>
-      <if test="tuePm != null" >
+      <if test="tuePm != null">
         tue_pm,
       </if>
-      <if test="wedAm != null" >
+      <if test="wedAm != null">
         wed_am,
       </if>
-      <if test="wedPm != null" >
+      <if test="wedPm != null">
         wed_pm,
       </if>
-      <if test="thuAm != null" >
+      <if test="thuAm != null">
         thu_am,
       </if>
-      <if test="thuPm != null" >
+      <if test="thuPm != null">
         thu_pm,
       </if>
-      <if test="friAm != null" >
+      <if test="friAm != null">
         fri_am,
       </if>
-      <if test="friPm != null" >
+      <if test="friPm != null">
         fri_pm,
       </if>
-      <if test="satAm != null" >
+      <if test="satAm != null">
         sat_am,
       </if>
-      <if test="satPm != null" >
+      <if test="satPm != null">
         sat_pm,
       </if>
-      <if test="sunAm != null" >
+      <if test="sunAm != null">
         sun_am,
       </if>
-      <if test="sunPm != null" >
+      <if test="sunPm != null">
         sun_pm,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="roleId != null" >
+      <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="isValid != null" >
+      <if test="isValid != null">
         #{isValid,jdbcType=BIT},
       </if>
-      <if test="departmentId != null" >
+      <if test="departmentId != null">
         #{departmentId,jdbcType=INTEGER},
       </if>
-      <if test="titleId != null" >
+      <if test="titleId != null">
         #{titleId,jdbcType=INTEGER},
       </if>
-      <if test="registrationLevelId != null" >
+      <if test="registrationLevelId != null">
         #{registrationLevelId,jdbcType=TINYINT},
       </if>
-      <if test="maxAppointment != null" >
+      <if test="maxAppointment != null">
         #{maxAppointment,jdbcType=TINYINT},
       </if>
-      <if test="adminId != null" >
+      <if test="adminId != null">
         #{adminId,jdbcType=INTEGER},
       </if>
-      <if test="monAm != null" >
+      <if test="monAm != null">
         #{monAm,jdbcType=BIT},
       </if>
-      <if test="monPm != null" >
+      <if test="monPm != null">
         #{monPm,jdbcType=BIT},
       </if>
-      <if test="tueAm != null" >
+      <if test="tueAm != null">
         #{tueAm,jdbcType=BIT},
       </if>
-      <if test="tuePm != null" >
+      <if test="tuePm != null">
         #{tuePm,jdbcType=BIT},
       </if>
-      <if test="wedAm != null" >
+      <if test="wedAm != null">
         #{wedAm,jdbcType=BIT},
       </if>
-      <if test="wedPm != null" >
+      <if test="wedPm != null">
         #{wedPm,jdbcType=BIT},
       </if>
-      <if test="thuAm != null" >
+      <if test="thuAm != null">
         #{thuAm,jdbcType=BIT},
       </if>
-      <if test="thuPm != null" >
+      <if test="thuPm != null">
         #{thuPm,jdbcType=BIT},
       </if>
-      <if test="friAm != null" >
+      <if test="friAm != null">
         #{friAm,jdbcType=BIT},
       </if>
-      <if test="friPm != null" >
+      <if test="friPm != null">
         #{friPm,jdbcType=BIT},
       </if>
-      <if test="satAm != null" >
+      <if test="satAm != null">
         #{satAm,jdbcType=BIT},
       </if>
-      <if test="satPm != null" >
+      <if test="satPm != null">
         #{satPm,jdbcType=BIT},
       </if>
-      <if test="sunAm != null" >
+      <if test="sunAm != null">
         #{sunAm,jdbcType=BIT},
       </if>
-      <if test="sunPm != null" >
+      <if test="sunPm != null">
+        #{sunPm,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.ArrangementRule">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="registration_level_id" jdbcType="TINYINT" property="registrationLevelId" />
+    <result column="max_appointment" jdbcType="TINYINT" property="maxAppointment" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="mon_am" jdbcType="BIT" property="monAm" />
+    <result column="mon_pm" jdbcType="BIT" property="monPm" />
+    <result column="tue_am" jdbcType="BIT" property="tueAm" />
+    <result column="tue_pm" jdbcType="BIT" property="tuePm" />
+    <result column="wed_am" jdbcType="BIT" property="wedAm" />
+    <result column="wed_pm" jdbcType="BIT" property="wedPm" />
+    <result column="thu_am" jdbcType="BIT" property="thuAm" />
+    <result column="thu_pm" jdbcType="BIT" property="thuPm" />
+    <result column="fri_am" jdbcType="BIT" property="friAm" />
+    <result column="fri_pm" jdbcType="BIT" property="friPm" />
+    <result column="sat_am" jdbcType="BIT" property="satAm" />
+    <result column="sat_pm" jdbcType="BIT" property="satPm" />
+    <result column="sun_am" jdbcType="BIT" property="sunAm" />
+    <result column="sun_pm" jdbcType="BIT" property="sunPm" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.ArrangementRule">
+    insert into arrangement_rule (id, role_id, is_valid, 
+      department_id, title_id, registration_level_id, 
+      max_appointment, admin_id, mon_am, 
+      mon_pm, tue_am, tue_pm, wed_am, 
+      wed_pm, thu_am, thu_pm, fri_am, 
+      fri_pm, sat_am, sat_pm, sun_am, 
+      sun_pm)
+    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{isValid,jdbcType=BIT}, 
+      #{departmentId,jdbcType=INTEGER}, #{titleId,jdbcType=INTEGER}, #{registrationLevelId,jdbcType=TINYINT}, 
+      #{maxAppointment,jdbcType=TINYINT}, #{adminId,jdbcType=INTEGER}, #{monAm,jdbcType=BIT}, 
+      #{monPm,jdbcType=BIT}, #{tueAm,jdbcType=BIT}, #{tuePm,jdbcType=BIT}, #{wedAm,jdbcType=BIT}, 
+      #{wedPm,jdbcType=BIT}, #{thuAm,jdbcType=BIT}, #{thuPm,jdbcType=BIT}, #{friAm,jdbcType=BIT}, 
+      #{friPm,jdbcType=BIT}, #{satAm,jdbcType=BIT}, #{satPm,jdbcType=BIT}, #{sunAm,jdbcType=BIT}, 
+      #{sunPm,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.ArrangementRule">
+    insert into arrangement_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="titleId != null">
+        title_id,
+      </if>
+      <if test="registrationLevelId != null">
+        registration_level_id,
+      </if>
+      <if test="maxAppointment != null">
+        max_appointment,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="monAm != null">
+        mon_am,
+      </if>
+      <if test="monPm != null">
+        mon_pm,
+      </if>
+      <if test="tueAm != null">
+        tue_am,
+      </if>
+      <if test="tuePm != null">
+        tue_pm,
+      </if>
+      <if test="wedAm != null">
+        wed_am,
+      </if>
+      <if test="wedPm != null">
+        wed_pm,
+      </if>
+      <if test="thuAm != null">
+        thu_am,
+      </if>
+      <if test="thuPm != null">
+        thu_pm,
+      </if>
+      <if test="friAm != null">
+        fri_am,
+      </if>
+      <if test="friPm != null">
+        fri_pm,
+      </if>
+      <if test="satAm != null">
+        sat_am,
+      </if>
+      <if test="satPm != null">
+        sat_pm,
+      </if>
+      <if test="sunAm != null">
+        sun_am,
+      </if>
+      <if test="sunPm != null">
+        sun_pm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="registrationLevelId != null">
+        #{registrationLevelId,jdbcType=TINYINT},
+      </if>
+      <if test="maxAppointment != null">
+        #{maxAppointment,jdbcType=TINYINT},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="monAm != null">
+        #{monAm,jdbcType=BIT},
+      </if>
+      <if test="monPm != null">
+        #{monPm,jdbcType=BIT},
+      </if>
+      <if test="tueAm != null">
+        #{tueAm,jdbcType=BIT},
+      </if>
+      <if test="tuePm != null">
+        #{tuePm,jdbcType=BIT},
+      </if>
+      <if test="wedAm != null">
+        #{wedAm,jdbcType=BIT},
+      </if>
+      <if test="wedPm != null">
+        #{wedPm,jdbcType=BIT},
+      </if>
+      <if test="thuAm != null">
+        #{thuAm,jdbcType=BIT},
+      </if>
+      <if test="thuPm != null">
+        #{thuPm,jdbcType=BIT},
+      </if>
+      <if test="friAm != null">
+        #{friAm,jdbcType=BIT},
+      </if>
+      <if test="friPm != null">
+        #{friPm,jdbcType=BIT},
+      </if>
+      <if test="satAm != null">
+        #{satAm,jdbcType=BIT},
+      </if>
+      <if test="satPm != null">
+        #{satPm,jdbcType=BIT},
+      </if>
+      <if test="sunAm != null">
+        #{sunAm,jdbcType=BIT},
+      </if>
+      <if test="sunPm != null">
         #{sunPm,jdbcType=BIT},
       </if>
     </trim>

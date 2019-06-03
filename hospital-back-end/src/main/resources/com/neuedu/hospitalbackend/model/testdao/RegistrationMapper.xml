@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.RegistrationMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Registration" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="patient_id" property="patientId" jdbcType="INTEGER" />
-    <result column="appointment_date" property="appointmentDate" jdbcType="DATE" />
-    <result column="role_id" property="roleId" jdbcType="INTEGER" />
-    <result column="registration_level_id" property="registrationLevelId" jdbcType="SMALLINT" />
-    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
-    <result column="total_fee" property="totalFee" jdbcType="DECIMAL" />
-    <result column="is_normal" property="isNormal" jdbcType="BIT" />
-    <result column="cashier_id" property="cashierId" jdbcType="INTEGER" />
-    <result column="pay_type" property="payType" jdbcType="TINYINT" />
-    <result column="is_buy_case_book" property="isBuyCaseBook" jdbcType="BIT" />
-    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
-    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.RegistrationMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Registration">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="patient_id" jdbcType="INTEGER" property="patientId" />
+    <result column="appointment_date" jdbcType="DATE" property="appointmentDate" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="registration_level_id" jdbcType="SMALLINT" property="registrationLevelId" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="total_fee" jdbcType="DECIMAL" property="totalFee" />
+    <result column="is_normal" jdbcType="BIT" property="isNormal" />
+    <result column="cashier_id" jdbcType="INTEGER" property="cashierId" />
+    <result column="pay_type" jdbcType="TINYINT" property="payType" />
+    <result column="is_buy_case_book" jdbcType="BIT" property="isBuyCaseBook" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Registration" >
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Registration">
     insert into registration (id, patient_id, appointment_date, 
       role_id, registration_level_id, department_id, 
       total_fee, is_normal, cashier_id, 
@@ -28,87 +28,199 @@
       #{payType,jdbcType=TINYINT}, #{isBuyCaseBook,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Registration" >
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Registration">
     insert into registration
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="patientId != null" >
+      <if test="patientId != null">
         patient_id,
       </if>
-      <if test="appointmentDate != null" >
+      <if test="appointmentDate != null">
         appointment_date,
       </if>
-      <if test="roleId != null" >
+      <if test="roleId != null">
         role_id,
       </if>
-      <if test="registrationLevelId != null" >
+      <if test="registrationLevelId != null">
         registration_level_id,
       </if>
-      <if test="departmentId != null" >
+      <if test="departmentId != null">
         department_id,
       </if>
-      <if test="totalFee != null" >
+      <if test="totalFee != null">
         total_fee,
       </if>
-      <if test="isNormal != null" >
+      <if test="isNormal != null">
         is_normal,
       </if>
-      <if test="cashierId != null" >
+      <if test="cashierId != null">
         cashier_id,
       </if>
-      <if test="payType != null" >
+      <if test="payType != null">
         pay_type,
       </if>
-      <if test="isBuyCaseBook != null" >
+      <if test="isBuyCaseBook != null">
         is_buy_case_book,
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         gmt_create,
       </if>
-      <if test="gmtModified != null" >
+      <if test="gmtModified != null">
         gmt_modified,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="patientId != null" >
+      <if test="patientId != null">
         #{patientId,jdbcType=INTEGER},
       </if>
-      <if test="appointmentDate != null" >
+      <if test="appointmentDate != null">
         #{appointmentDate,jdbcType=DATE},
       </if>
-      <if test="roleId != null" >
+      <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="registrationLevelId != null" >
+      <if test="registrationLevelId != null">
         #{registrationLevelId,jdbcType=SMALLINT},
       </if>
-      <if test="departmentId != null" >
+      <if test="departmentId != null">
         #{departmentId,jdbcType=INTEGER},
       </if>
-      <if test="totalFee != null" >
+      <if test="totalFee != null">
         #{totalFee,jdbcType=DECIMAL},
       </if>
-      <if test="isNormal != null" >
+      <if test="isNormal != null">
         #{isNormal,jdbcType=BIT},
       </if>
-      <if test="cashierId != null" >
+      <if test="cashierId != null">
         #{cashierId,jdbcType=INTEGER},
       </if>
-      <if test="payType != null" >
+      <if test="payType != null">
         #{payType,jdbcType=TINYINT},
       </if>
-      <if test="isBuyCaseBook != null" >
+      <if test="isBuyCaseBook != null">
         #{isBuyCaseBook,jdbcType=BIT},
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModified != null" >
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Registration">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="patient_id" jdbcType="INTEGER" property="patientId" />
+    <result column="appointment_date" jdbcType="DATE" property="appointmentDate" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="registration_level_id" jdbcType="SMALLINT" property="registrationLevelId" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="total_fee" jdbcType="DECIMAL" property="totalFee" />
+    <result column="is_normal" jdbcType="BIT" property="isNormal" />
+    <result column="cashier_id" jdbcType="INTEGER" property="cashierId" />
+    <result column="pay_type" jdbcType="TINYINT" property="payType" />
+    <result column="is_buy_case_book" jdbcType="BIT" property="isBuyCaseBook" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Registration">
+    insert into registration (id, patient_id, appointment_date, 
+      role_id, registration_level_id, department_id, 
+      total_fee, is_normal, cashier_id, 
+      pay_type, is_buy_case_book, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, #{appointmentDate,jdbcType=DATE}, 
+      #{roleId,jdbcType=INTEGER}, #{registrationLevelId,jdbcType=SMALLINT}, #{departmentId,jdbcType=INTEGER}, 
+      #{totalFee,jdbcType=DECIMAL}, #{isNormal,jdbcType=BIT}, #{cashierId,jdbcType=INTEGER}, 
+      #{payType,jdbcType=TINYINT}, #{isBuyCaseBook,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Registration">
+    insert into registration
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patientId != null">
+        patient_id,
+      </if>
+      <if test="appointmentDate != null">
+        appointment_date,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="registrationLevelId != null">
+        registration_level_id,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="totalFee != null">
+        total_fee,
+      </if>
+      <if test="isNormal != null">
+        is_normal,
+      </if>
+      <if test="cashierId != null">
+        cashier_id,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="isBuyCaseBook != null">
+        is_buy_case_book,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=INTEGER},
+      </if>
+      <if test="appointmentDate != null">
+        #{appointmentDate,jdbcType=DATE},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="registrationLevelId != null">
+        #{registrationLevelId,jdbcType=SMALLINT},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="totalFee != null">
+        #{totalFee,jdbcType=DECIMAL},
+      </if>
+      <if test="isNormal != null">
+        #{isNormal,jdbcType=BIT},
+      </if>
+      <if test="cashierId != null">
+        #{cashierId,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="isBuyCaseBook != null">
+        #{isBuyCaseBook,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </trim>
