@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.model.dao;
 
+import com.neuedu.hospitalbackend.model.po.Inspection;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
@@ -13,4 +14,6 @@ public interface ExaminationMapper {
      * @return 待登记的caseId, patientName
      */
     List<HashMap> listPreparedExaminationPatientsByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName);
+
+    List<HashMap> listAppliedProjectsByCaseId(Integer caseId);
 }
