@@ -28,7 +28,8 @@ public class RegistrationController {
     @RequestMapping(value = "/appointment", method = RequestMethod.PATCH)
     public CommonResult<Integer> updateRemainingAppointment(@RequestBody DoctorParam doctorParam){
         System.out.println("controller-roleId" + doctorParam.getRoleId());
-        int count = registrationServiceImpl.updateRemainingAppointment(doctorParam);
+        int count = 0;
+//        int count = registrationServiceImpl.updateRemainingAppointment(doctorParam);
         if (count > 0) {
             return CommonResult.success(count);
         }

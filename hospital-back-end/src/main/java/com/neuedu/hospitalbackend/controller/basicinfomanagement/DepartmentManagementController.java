@@ -1,4 +1,4 @@
-package com.neuedu.hospitalbackend.controller;
+package com.neuedu.hospitalbackend.controller.basicinfomanagement;
 
 import com.neuedu.hospitalbackend.model.po.Department;
 import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.DepartmentManagement;
@@ -26,7 +26,7 @@ public class DepartmentManagementController {
     }
 
     @ApiOperation("新增部门信息")
-    @RequestMapping(value = "/department", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public CommonResult<Integer> addDepartment(@RequestBody Department department) {
         int count = departmentManagement.insertDepartment(department);
         if (count > 0) {

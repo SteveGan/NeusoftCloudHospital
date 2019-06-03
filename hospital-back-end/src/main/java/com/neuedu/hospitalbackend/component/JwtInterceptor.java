@@ -1,4 +1,4 @@
-package com.neuedu.hospitalbackend.configuration;
+package com.neuedu.hospitalbackend.component;
 
 import com.neuedu.hospitalbackend.exception.UserLoginException;
 import com.neuedu.hospitalbackend.util.JwtUtil;
@@ -18,23 +18,16 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer:")) {
-
             throw new UserLoginException("用户未登录");
 
         }
-
-//取得token
-
+        //取得token
         String token = authHeader.substring(7);
 
-//验证token
-
+        //验证token
         Claims claims = JwtUtil.checkToken(token);
-
         request.setAttribute("username", claims.getSubject());
-
         return true;
-
     }
 
 }

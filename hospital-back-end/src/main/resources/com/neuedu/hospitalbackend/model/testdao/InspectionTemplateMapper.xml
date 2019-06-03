@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.InspectionTemplateMapper">
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.InspectionTemplate">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="item_id" jdbcType="INTEGER" property="itemId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
-    <result column="goal" jdbcType="VARCHAR" property="goal" />
-    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
-    <result column="scope" jdbcType="TINYINT" property="scope" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.InspectionTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.InspectionTemplate" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="goal" property="goal" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="scope" property="scope" jdbcType="TINYINT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.InspectionTemplate">
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.InspectionTemplate" >
     insert into inspection_template (id, name, item_id, 
       role_id, department_id, goal, 
       requirement, scope, gmt_create, 
@@ -23,158 +23,69 @@
       #{requirement,jdbcType=VARCHAR}, #{scope,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.InspectionTemplate">
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.InspectionTemplate" >
     insert into inspection_template
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name,
       </if>
-      <if test="itemId != null">
+      <if test="itemId != null" >
         item_id,
       </if>
-      <if test="roleId != null">
+      <if test="roleId != null" >
         role_id,
       </if>
-      <if test="departmentId != null">
+      <if test="departmentId != null" >
         department_id,
       </if>
-      <if test="goal != null">
+      <if test="goal != null" >
         goal,
       </if>
-      <if test="requirement != null">
+      <if test="requirement != null" >
         requirement,
       </if>
-      <if test="scope != null">
+      <if test="scope != null" >
         scope,
       </if>
-      <if test="gmtCreate != null">
+      <if test="gmtCreate != null" >
         gmt_create,
       </if>
-      <if test="gmtModified != null">
+      <if test="gmtModified != null" >
         gmt_modified,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="itemId != null">
+      <if test="itemId != null" >
         #{itemId,jdbcType=INTEGER},
       </if>
-      <if test="roleId != null">
+      <if test="roleId != null" >
         #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="departmentId != null">
+      <if test="departmentId != null" >
         #{departmentId,jdbcType=INTEGER},
       </if>
-      <if test="goal != null">
+      <if test="goal != null" >
         #{goal,jdbcType=VARCHAR},
       </if>
-      <if test="requirement != null">
+      <if test="requirement != null" >
         #{requirement,jdbcType=VARCHAR},
       </if>
-      <if test="scope != null">
+      <if test="scope != null" >
         #{scope,jdbcType=TINYINT},
       </if>
-      <if test="gmtCreate != null">
+      <if test="gmtCreate != null" >
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.InspectionTemplate">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="item_id" jdbcType="INTEGER" property="itemId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
-    <result column="goal" jdbcType="VARCHAR" property="goal" />
-    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
-    <result column="scope" jdbcType="TINYINT" property="scope" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-  </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.InspectionTemplate">
-    insert into inspection_template (id, name, item_id, 
-      role_id, department_id, goal, 
-      requirement, scope, gmt_create, 
-      gmt_modified)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, 
-      #{roleId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{goal,jdbcType=VARCHAR}, 
-      #{requirement,jdbcType=VARCHAR}, #{scope,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModified,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.InspectionTemplate">
-    insert into inspection_template
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="itemId != null">
-        item_id,
-      </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
-      <if test="departmentId != null">
-        department_id,
-      </if>
-      <if test="goal != null">
-        goal,
-      </if>
-      <if test="requirement != null">
-        requirement,
-      </if>
-      <if test="scope != null">
-        scope,
-      </if>
-      <if test="gmtCreate != null">
-        gmt_create,
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="itemId != null">
-        #{itemId,jdbcType=INTEGER},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
-      </if>
-      <if test="departmentId != null">
-        #{departmentId,jdbcType=INTEGER},
-      </if>
-      <if test="goal != null">
-        #{goal,jdbcType=VARCHAR},
-      </if>
-      <if test="requirement != null">
-        #{requirement,jdbcType=VARCHAR},
-      </if>
-      <if test="scope != null">
-        #{scope,jdbcType=TINYINT},
-      </if>
-      <if test="gmtCreate != null">
-        #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
+      <if test="gmtModified != null" >
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </trim>

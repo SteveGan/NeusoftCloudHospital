@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.PatientCaseMapper">
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.PatientCase">
-    <result column="registration_id" jdbcType="INTEGER" property="registrationId" />
-    <result column="patient_id" jdbcType="INTEGER" property="patientId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="narrate" jdbcType="VARCHAR" property="narrate" />
-    <result column="cur_disease" jdbcType="VARCHAR" property="curDisease" />
-    <result column="cur_treat_condition" jdbcType="VARCHAR" property="curTreatCondition" />
-    <result column="past_disease" jdbcType="VARCHAR" property="pastDisease" />
-    <result column="allergy" jdbcType="VARCHAR" property="allergy" />
-    <result column="physical_condition" jdbcType="VARCHAR" property="physicalCondition" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-    <result column="patient_name" jdbcType="VARCHAR" property="patientName" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.PatientCaseMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.PatientCase" >
+    <result column="registration_id" property="registrationId" jdbcType="INTEGER" />
+    <result column="patient_id" property="patientId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="narrate" property="narrate" jdbcType="VARCHAR" />
+    <result column="cur_disease" property="curDisease" jdbcType="VARCHAR" />
+    <result column="cur_treat_condition" property="curTreatCondition" jdbcType="VARCHAR" />
+    <result column="past_disease" property="pastDisease" jdbcType="VARCHAR" />
+    <result column="allergy" property="allergy" jdbcType="VARCHAR" />
+    <result column="physical_condition" property="physicalCondition" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="patient_name" property="patientName" jdbcType="VARCHAR" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.PatientCase">
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.PatientCase" >
     insert into patient_case (registration_id, patient_id, role_id, 
       status, narrate, cur_disease, 
       cur_treat_condition, past_disease, allergy, 
@@ -28,199 +28,87 @@
       #{physicalCondition,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{patientName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.PatientCase">
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.PatientCase" >
     insert into patient_case
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="registrationId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="registrationId != null" >
         registration_id,
       </if>
-      <if test="patientId != null">
+      <if test="patientId != null" >
         patient_id,
       </if>
-      <if test="roleId != null">
+      <if test="roleId != null" >
         role_id,
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status,
       </if>
-      <if test="narrate != null">
+      <if test="narrate != null" >
         narrate,
       </if>
-      <if test="curDisease != null">
+      <if test="curDisease != null" >
         cur_disease,
       </if>
-      <if test="curTreatCondition != null">
+      <if test="curTreatCondition != null" >
         cur_treat_condition,
       </if>
-      <if test="pastDisease != null">
+      <if test="pastDisease != null" >
         past_disease,
       </if>
-      <if test="allergy != null">
+      <if test="allergy != null" >
         allergy,
       </if>
-      <if test="physicalCondition != null">
+      <if test="physicalCondition != null" >
         physical_condition,
       </if>
-      <if test="gmtCreate != null">
+      <if test="gmtCreate != null" >
         gmt_create,
       </if>
-      <if test="gmtModified != null">
+      <if test="gmtModified != null" >
         gmt_modified,
       </if>
-      <if test="patientName != null">
+      <if test="patientName != null" >
         patient_name,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="registrationId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="registrationId != null" >
         #{registrationId,jdbcType=INTEGER},
       </if>
-      <if test="patientId != null">
+      <if test="patientId != null" >
         #{patientId,jdbcType=INTEGER},
       </if>
-      <if test="roleId != null">
+      <if test="roleId != null" >
         #{roleId,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="narrate != null">
+      <if test="narrate != null" >
         #{narrate,jdbcType=VARCHAR},
       </if>
-      <if test="curDisease != null">
+      <if test="curDisease != null" >
         #{curDisease,jdbcType=VARCHAR},
       </if>
-      <if test="curTreatCondition != null">
+      <if test="curTreatCondition != null" >
         #{curTreatCondition,jdbcType=VARCHAR},
       </if>
-      <if test="pastDisease != null">
+      <if test="pastDisease != null" >
         #{pastDisease,jdbcType=VARCHAR},
       </if>
-      <if test="allergy != null">
+      <if test="allergy != null" >
         #{allergy,jdbcType=VARCHAR},
       </if>
-      <if test="physicalCondition != null">
+      <if test="physicalCondition != null" >
         #{physicalCondition,jdbcType=VARCHAR},
       </if>
-      <if test="gmtCreate != null">
+      <if test="gmtCreate != null" >
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModified != null">
+      <if test="gmtModified != null" >
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="patientName != null">
-        #{patientName,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.PatientCase">
-    <result column="registration_id" jdbcType="INTEGER" property="registrationId" />
-    <result column="patient_id" jdbcType="INTEGER" property="patientId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="narrate" jdbcType="VARCHAR" property="narrate" />
-    <result column="cur_disease" jdbcType="VARCHAR" property="curDisease" />
-    <result column="cur_treat_condition" jdbcType="VARCHAR" property="curTreatCondition" />
-    <result column="past_disease" jdbcType="VARCHAR" property="pastDisease" />
-    <result column="allergy" jdbcType="VARCHAR" property="allergy" />
-    <result column="physical_condition" jdbcType="VARCHAR" property="physicalCondition" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-    <result column="patient_name" jdbcType="VARCHAR" property="patientName" />
-  </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.PatientCase">
-    insert into patient_case (registration_id, patient_id, role_id, 
-      status, narrate, cur_disease, 
-      cur_treat_condition, past_disease, allergy, 
-      physical_condition, gmt_create, gmt_modified, 
-      patient_name)
-    values (#{registrationId,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
-      #{status,jdbcType=TINYINT}, #{narrate,jdbcType=VARCHAR}, #{curDisease,jdbcType=VARCHAR}, 
-      #{curTreatCondition,jdbcType=VARCHAR}, #{pastDisease,jdbcType=VARCHAR}, #{allergy,jdbcType=VARCHAR}, 
-      #{physicalCondition,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{patientName,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.PatientCase">
-    insert into patient_case
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="registrationId != null">
-        registration_id,
-      </if>
-      <if test="patientId != null">
-        patient_id,
-      </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="narrate != null">
-        narrate,
-      </if>
-      <if test="curDisease != null">
-        cur_disease,
-      </if>
-      <if test="curTreatCondition != null">
-        cur_treat_condition,
-      </if>
-      <if test="pastDisease != null">
-        past_disease,
-      </if>
-      <if test="allergy != null">
-        allergy,
-      </if>
-      <if test="physicalCondition != null">
-        physical_condition,
-      </if>
-      <if test="gmtCreate != null">
-        gmt_create,
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified,
-      </if>
-      <if test="patientName != null">
-        patient_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="registrationId != null">
-        #{registrationId,jdbcType=INTEGER},
-      </if>
-      <if test="patientId != null">
-        #{patientId,jdbcType=INTEGER},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="narrate != null">
-        #{narrate,jdbcType=VARCHAR},
-      </if>
-      <if test="curDisease != null">
-        #{curDisease,jdbcType=VARCHAR},
-      </if>
-      <if test="curTreatCondition != null">
-        #{curTreatCondition,jdbcType=VARCHAR},
-      </if>
-      <if test="pastDisease != null">
-        #{pastDisease,jdbcType=VARCHAR},
-      </if>
-      <if test="allergy != null">
-        #{allergy,jdbcType=VARCHAR},
-      </if>
-      <if test="physicalCondition != null">
-        #{physicalCondition,jdbcType=VARCHAR},
-      </if>
-      <if test="gmtCreate != null">
-        #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-      <if test="patientName != null">
+      <if test="patientName != null" >
         #{patientName,jdbcType=VARCHAR},
       </if>
     </trim>

@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.configuration;
 
+import com.neuedu.hospitalbackend.component.JwtInterceptor;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

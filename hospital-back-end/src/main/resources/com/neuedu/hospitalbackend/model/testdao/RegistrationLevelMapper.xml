@@ -1,102 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.RegistrationLevelMapper">
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.RegistrationLevel">
-    <result column="id" jdbcType="SMALLINT" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="limit" jdbcType="SMALLINT" property="limit" />
-    <result column="cost" jdbcType="DECIMAL" property="cost" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.RegistrationLevelMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.RegistrationLevel" >
+    <result column="id" property="id" jdbcType="SMALLINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="limit" property="limit" jdbcType="SMALLINT" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel">
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel" >
     insert into registration_level (id, code, name, 
       limit, cost)
     values (#{id,jdbcType=SMALLINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{limit,jdbcType=SMALLINT}, #{cost,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel">
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel" >
     insert into registration_level
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="code != null">
+      <if test="code != null" >
         code,
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name,
       </if>
-      <if test="limit != null">
+      <if test="limit != null" >
         limit,
       </if>
-      <if test="cost != null">
+      <if test="cost != null" >
         cost,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=SMALLINT},
       </if>
-      <if test="code != null">
+      <if test="code != null" >
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="limit != null">
+      <if test="limit != null" >
         #{limit,jdbcType=SMALLINT},
       </if>
-      <if test="cost != null">
-        #{cost,jdbcType=DECIMAL},
-      </if>
-    </trim>
-  </insert>
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.RegistrationLevel">
-    <result column="id" jdbcType="SMALLINT" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="limit" jdbcType="SMALLINT" property="limit" />
-    <result column="cost" jdbcType="DECIMAL" property="cost" />
-  </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel">
-    insert into registration_level (id, code, name, 
-      limit, cost)
-    values (#{id,jdbcType=SMALLINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{limit,jdbcType=SMALLINT}, #{cost,jdbcType=DECIMAL})
-  </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel">
-    insert into registration_level
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="code != null">
-        code,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="limit != null">
-        limit,
-      </if>
-      <if test="cost != null">
-        cost,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=SMALLINT},
-      </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="limit != null">
-        #{limit,jdbcType=SMALLINT},
-      </if>
-      <if test="cost != null">
+      <if test="cost != null" >
         #{cost,jdbcType=DECIMAL},
       </if>
     </trim>
