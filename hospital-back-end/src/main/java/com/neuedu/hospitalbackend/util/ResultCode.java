@@ -7,21 +7,32 @@ package com.neuedu.hospitalbackend.util;
 public enum ResultCode implements IErrorCode {
     SUCCESS(200, "操作成功"),
     FAILED(500, "操作失败"),
-    VALIDATE_FAILED(404, "参数检验失败"),
-    UNAUTHORIZED(401, "暂未登录或token已经过期"),
-    FORBIDDEN(403, "没有相关权限");
+    // Raven
+    E_600(600, "用户不存在"),
+    E_601(601, "密码错误"),
+    E_602(602, "查询失败"),
+    E_603(603, "插入失败"),
+    E_604(604, "更新项不存在");
+
+    // Polaris
+
+    // Amy
+
+
     private long code;
     private String message;
 
-    private ResultCode(long code, String message) {
+    ResultCode(long code, String message) {
         this.code = code;
         this.message = message;
     }
 
+    @Override
     public long getCode() {
         return code;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }

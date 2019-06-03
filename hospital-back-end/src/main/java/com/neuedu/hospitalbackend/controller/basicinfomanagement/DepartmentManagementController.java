@@ -20,9 +20,9 @@ public class DepartmentManagementController {
 
     @ApiOperation("根据id获取部门信息")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public CommonResult<Department> selectDepartmentById(@PathVariable Integer id) {
-        Department department = departmentManagement.getDepartmentById(id);
-        return CommonResult.success(department);
+    public CommonResult selectDepartmentById(@PathVariable Integer id) {
+        CommonResult result = departmentManagement.getDepartmentById(id);
+        return result;
     }
 
     @ApiOperation("新增部门信息")
