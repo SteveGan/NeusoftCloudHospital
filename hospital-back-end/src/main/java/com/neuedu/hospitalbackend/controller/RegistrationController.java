@@ -27,7 +27,7 @@ public class RegistrationController {
 
     @ApiOperation("计算总金额")
     @RequestMapping(value = "/totalFee", method = RequestMethod.PATCH)
-    public CommonResult<JSONObject> calculateTotalFee(@RequestBody RegistrationParam registrationParam){
+    public CommonResult calculateTotalFee(@RequestBody RegistrationParam registrationParam){
         JSONObject totalFee = registrationServiceImpl.calculateTotalFee(registrationParam);
         return CommonResult.success(totalFee);
     }

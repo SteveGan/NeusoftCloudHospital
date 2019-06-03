@@ -38,6 +38,25 @@ public class TransactionLog {
         return id;
     }
 
+    public TransactionLog(){
+
+    }
+
+    public TransactionLog(String invoiceCode, Integer registrationId, Integer patientId, Integer roleId, String type, Integer collectionId, Integer projectId, Integer itemId, Short amount, Byte payType, BigDecimal totalMoney, Byte status) {
+        this.invoiceCode = invoiceCode;
+        this.registrationId = registrationId;
+        this.patientId = patientId;
+        this.roleId = roleId;
+        this.type = type;
+        this.collectionId = collectionId;
+        this.projectId = projectId;
+        this.itemId = itemId;
+        this.amount = amount;
+        this.payType = payType;
+        this.totalMoney = totalMoney;
+        this.status = status;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
