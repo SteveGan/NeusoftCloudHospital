@@ -1,0 +1,59 @@
+package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
+
+import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
+import com.neuedu.hospitalbackend.model.po.Department;
+import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.DepartmentManagementService;
+import com.neuedu.hospitalbackend.util.CommonResult;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+import static com.neuedu.hospitalbackend.util.ResultCode.*;
+
+/**
+ * @author Raven
+ */
+@Service
+public class DepartmentManagementImpl implements DepartmentManagementService {
+    @Resource
+    DepartmentMapper departmentMapper;
+
+    @Override
+    public CommonResult getDepartmentById(Integer id) {
+        Department department = departmentMapper.get(id);
+        return CommonResult.success(department);
+    }
+
+    @Override
+    public CommonResult insertDepartment(Department department) {
+        int count = departmentMapper.insert(department);
+        if (count == 0) {
+            return CommonResult.fail();
+        }
+        return CommonResult.success(count);
+    }
+
+    @Override
+    public CommonResult updateDepartmentById(Department department) {
+        if (departmentMapper.get(department.getId()) == null) {
+            return CommonResult.fail(E_602);
+        }
+        int count = departmentMapper.update(department);
+        if (count == 0) {
+            return CommonResult.fail();
+        }
+        return CommonResult.success(count);
+    }
+
+    @Override
+    public CommonResult deleteDepartmentById(Integer id) {
+        if (departmentMapper.get(id) == null) {
+            return CommonResult.fail(E_602);
+        }
+        int count = departmentMapper.delete(id);
+        if (count == 0) {
+            return CommonResult.fail();
+        }
+        return CommonResult.success(count);
+    }
+}
