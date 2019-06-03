@@ -15,7 +15,7 @@
         <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     </resultMap>
 
-    <insert id="insert" parameterType="Patient">
+    <insert id="insert" parameterType="Patient" useGeneratedKeys="true" keyProperty="id">
         insert into patient (id, id_card, address,
           gender, name, birthday,
           gmt_create, gmt_modified)
@@ -24,7 +24,7 @@
           #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
     </insert>
 
-    <insert id="insertSelective" parameterType="Patient">
+    <insert id="insertSelective" parameterType="Patient" useGeneratedKeys="true" keyProperty="id">
         insert into patient
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

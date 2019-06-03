@@ -18,7 +18,7 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
 
-  <insert id="insert" parameterType="Registration">
+  <insert id="insert" parameterType="Registration" useGeneratedKeys="true" keyProperty="id">
     insert into registration (id, patient_id, appointment_date, 
       role_id, registration_level_id, department_id, 
       total_fee, is_normal, cashier_id, 
@@ -31,7 +31,7 @@
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
 
-  <insert id="insertSelective" parameterType="Registration">
+  <insert id="insertSelective" parameterType="Registration" useGeneratedKeys="true" keyProperty="id">
     insert into registration
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -118,7 +118,24 @@
   </insert>
 
   <select id="getNextId" resultType="integer">
-    select select id +1 from registration order by id desc limit 1
+    select id +1 from  registration order by id desc limit 1
   </select>
+
+  <update id="updateSelective" parameterType="Registration">
+    update registration
+    <trim prefix="set" suffixOverrides=",">
+      <if test="patientId != null"> patient_id = #{patientId}, </if>
+      <if test="appointmentDate != null"> appointment_date = #{appointmentDate}, </if>
+      <if test="roleId != null"> role_id = #{roleId}, </if>
+      <if test="registrationLevelId != null"> registration_level_id = {registrationLevelId}, </if>
+      <if test="departmentId != null"> department_id = #{departmentId}, </if>
+      <if test="totalFee != null"> total_fee = #{totalFee}, </if>
+      <if test="isNormal != null"> is_normal = #{isNormal}, </if>
+      <if test="cashierId != null"> cashier_id = #{cashierId}, </if>
+      <if test="payType != null"> pay_type = #{payType}, </if>
+      <if test="isBuyCaseBook != null"> is_buy_case_book = #{isBuyCaseBook}, </if>
+    </trim>
+    where id = #{id}
+  </update>
 
 </mapper>
