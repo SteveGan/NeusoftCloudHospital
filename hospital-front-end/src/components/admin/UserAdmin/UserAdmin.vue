@@ -144,8 +144,11 @@ export default {
               {
                 "id": 20000001,
                 "userId": 10000001,
+                "positionId": 2,
                 "positionName": "门诊医生",
+                "departmentId": 16,
                 "departmentName": "神经外科",
+                "titleId": 1,
                 "titleName": "主任医师",
                 "gmtCreate": null,
                 "gmtModified": null
@@ -153,8 +156,11 @@ export default {
               {
                 "id": 20000002,
                 "userId": 10000001,
+                "positionId": 2,
                 "positionName": "医技医生",
+                "departmentId": 19,
                 "departmentName": "某某科室",
+                "titleId": 7,
                 "titleName": "大佬",
                 "gmtCreate": null,
                 "gmtModified": null
@@ -169,8 +175,11 @@ export default {
               {
                 "id": 20000001,
                 "userId": 10000001,
+                "positionId": 2,
                 "positionName": "门诊医生",
+                "departmentId": 16,
                 "departmentName": "神经外科",
+                "titleId": 1,
                 "titleName": "主任医师",
                 "gmtCreate": null,
                 "gmtModified": null
@@ -178,8 +187,11 @@ export default {
               {
                 "id": 20000002,
                 "userId": 10000001,
+                "positionId": 2,
                 "positionName": "医技医生",
+                "departmentId": 19,
                 "departmentName": "某某科室",
+                "titleId": 7,
                 "titleName": "我的儿子",
                 "gmtCreate": null,
                 "gmtModified": null

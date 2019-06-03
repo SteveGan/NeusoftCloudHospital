@@ -61,8 +61,13 @@ export default {
           id: '',
           roles: [
             {
-              departmentName: '',
+              id: '',
+              userId: '',
+              positionId: '',
               positionName: '',
+              departmentId: '',
+              departmentName: '',
+              titleId:'',
               titleName:''
             }
           ]
