@@ -33,6 +33,9 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     @Autowired
     private InvoiceMapper invoiceMapper;
 
+    @Autowired
+    private PatientCaseMapper patientCaseMapper;
+
     @Override
     public synchronized JSONObject getNextRegistrationId(){
         Integer nextId = registrationMapper.getNextId();
@@ -73,10 +76,11 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         JSONObject jsonObject = new JSONObject();
         //向缴费表中添加新的缴费记录  --已缴费
         TransactionLog transactionLog = new TransactionLog();
-        int count;
+        int count = 0;
         synchronized (this) {
             //通过查询invoice表得到新的缴费记录的发票号
             String invoice_id = invoiceMapper.getAvailableInvoiceCode();
+            //向缴费表中添加新的缴费记录  --已缴费
             transactionLog.setInvoiceCode(invoice_id);
             transactionLog.setRegistrationId(registrationParam.getRegistrationId());
             transactionLog.setPatientId(registrationParam.getPatientId());
@@ -86,7 +90,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             transactionLog.setPayType(registrationParam.getPayType());
             transactionLog.setTotalMoney(registrationParam.getTotalFee());
             transactionLog.setStatus((byte)2);
-            count = transactionLogMapper.insertSelective(transactionLog);
+            count += transactionLogMapper.insertSelective(transactionLog);
         }
 
         if (count > 0){
@@ -101,10 +105,10 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             registration.setCashierId(registrationParam.getCashierId());
             registration.setPayType(registrationParam.getPayType());
             registration.setIsBuyCaseBook(registrationParam.getBuyCaseBook());
-            count = registrationMapper.insertSelective(registration);
+            count += registrationMapper.insertSelective(registration);
             if (count > 0) {
                 //更新 所选医生 对应的余号数量
-                count = arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(), registrationParam.getRoleId(), registrationParam.getRegistrationLevelId());
+                count += arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(), registrationParam.getRoleId(), registrationParam.getRegistrationLevelId());
                 if (count > 0) {
                     //检查患者是否已在本系统中
                     Integer patientId = patientMapper.getPatientByIdCard(registrationParam.getIdCard());
@@ -117,17 +121,18 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                         patient.setGender(registrationParam.getGender());
                         patient.setName(registrationParam.getName());
                         patient.setBirthday(Date.valueOf(registrationParam.getBirthdayStr()));
-                        count = patientMapper.insertSelective(patient);
+                        count += patientMapper.insertSelective(patient);
                         jsonObject.put("result", "success");
                     }
+                    //向病历表中添加新的病历记录 --默认待诊
                     PatientCase patientCase = new PatientCase();
+                    patientCase.setRegistrationId(registrationParam.getRegistrationId());
+                    patientCase.setPatientId(registrationParam.getPatientId());
+                    patientCase.setRoleId(registration.getRoleId());
+                    count += patientCaseMapper.insertSelective(patientCase);
                 }
-
             }
         }
-
-        //向病历表中添加新的病历记录 --默认待诊
-
         return jsonObject;
     }
 
