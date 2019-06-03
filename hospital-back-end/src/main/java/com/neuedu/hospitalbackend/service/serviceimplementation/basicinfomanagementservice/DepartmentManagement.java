@@ -24,17 +24,17 @@ public class DepartmentManagement implements DepartmentManagementService {
     }
 
     @Override
-    public void insertDepartment(Department department) {
-
+    public int insertDepartment(Department department) {
+        return 0;
     }
 
     @Override
-    public void updateDepartmentById(Department department) {
-
+    public int updateDepartmentById(Department department) {
+        return 0;
     }
 
     @Override
-    public void deleteDepartmentById(Integer id) {
-
+    public int deleteDepartmentById(Integer id) {
+        return 0;
     }
 }

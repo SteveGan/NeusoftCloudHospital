@@ -55,9 +55,9 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         TransactionLog transactionLog = new TransactionLog();
         transactionLog.setRegistrationId(registration.getId());
         transactionLog.setPatientId(registration.getPatientId());
-        transactionLog.setUserId(registration.getCashierId());
+        transactionLog.setRoleId(registration.getCashierId());
         transactionLog.setType("挂号费");
-        transactionLog.setAmount(1);
+        transactionLog.setAmount((short) 1);
         transactionLog.setPayType(registration.getPayType());
         transactionLog.setTotalMoney(totalCost);
         transactionLog.setStatus(new Byte((byte)2));
