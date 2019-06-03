@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.RecipeMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Recipe" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="case_id" property="caseId" jdbcType="INTEGER" />
+    <result column="medicine_code" property="medicineCode" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="dosage" property="dosage" jdbcType="DECIMAL" />
+    <result column="frequency" property="frequency" jdbcType="VARCHAR" />
+    <result column="dosage_unit" property="dosageUnit" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="SMALLINT" />
+    <result column="return_amount" property="returnAmount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="creator_role_id" property="creatorRoleId" jdbcType="INTEGER" />
+    <result column="deliver_role_id" property="deliverRoleId" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Recipe" >
+    insert into recipe (id, case_id, medicine_code, 
+      type, dosage, frequency, 
+      dosage_unit, amount, return_amount, 
+      status, creator_role_id, deliver_role_id, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{medicineCode,jdbcType=VARCHAR}, 
+      #{type,jdbcType=TINYINT}, #{dosage,jdbcType=DECIMAL}, #{frequency,jdbcType=VARCHAR}, 
+      #{dosageUnit,jdbcType=VARCHAR}, #{amount,jdbcType=SMALLINT}, #{returnAmount,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{creatorRoleId,jdbcType=INTEGER}, #{deliverRoleId,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Recipe" >
+    insert into recipe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="caseId != null" >
+        case_id,
+      </if>
+      <if test="medicineCode != null" >
+        medicine_code,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="dosage != null" >
+        dosage,
+      </if>
+      <if test="frequency != null" >
+        frequency,
+      </if>
+      <if test="dosageUnit != null" >
+        dosage_unit,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="returnAmount != null" >
+        return_amount,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creatorRoleId != null" >
+        creator_role_id,
+      </if>
+      <if test="deliverRoleId != null" >
+        deliver_role_id,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null" >
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="medicineCode != null" >
+        #{medicineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="dosage != null" >
+        #{dosage,jdbcType=DECIMAL},
+      </if>
+      <if test="frequency != null" >
+        #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="dosageUnit != null" >
+        #{dosageUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=SMALLINT},
+      </if>
+      <if test="returnAmount != null" >
+        #{returnAmount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creatorRoleId != null" >
+        #{creatorRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="deliverRoleId != null" >
+        #{deliverRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

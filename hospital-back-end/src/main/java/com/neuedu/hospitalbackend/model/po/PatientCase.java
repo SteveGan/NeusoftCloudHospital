@@ -7,9 +7,9 @@ public class PatientCase {
 
     private Integer patientId;
 
-    private Integer userId;
+    private Integer roleId;
 
-    private Boolean status;
+    private Byte status;
 
     private String narrate;
 
@@ -45,19 +45,19 @@ public class PatientCase {
         this.patientId = patientId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 

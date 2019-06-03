@@ -1,7 +1,6 @@
 package com.neuedu.hospitalbackend.model.po;
 
 import java.util.Date;
-import java.util.List;
 
 public class User {
     private Integer id;
@@ -15,16 +14,6 @@ public class User {
     private Date gmtCreate;
 
     private Date gmtModified;
-
-    private List<Role> roles;
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public Integer getId() {
         return id;

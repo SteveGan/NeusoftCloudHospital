@@ -8,15 +8,15 @@ public class RecipeTemplate {
 
     private String name;
 
-    private Integer userId;
+    private Integer roleId;
 
     private Integer departmentId;
 
-    private Boolean scope;
+    private Byte scope;
 
     private String medicineCode;
 
-    private Boolean type;
+    private Byte type;
 
     private BigDecimal dosage;
 
@@ -24,7 +24,7 @@ public class RecipeTemplate {
 
     private String frequency;
 
-    private Integer amount;
+    private Short amount;
 
     private Date gmtCreate;
 
@@ -46,12 +46,12 @@ public class RecipeTemplate {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public Integer getDepartmentId() {
@@ -62,11 +62,11 @@ public class RecipeTemplate {
         this.departmentId = departmentId;
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 
@@ -78,11 +78,11 @@ public class RecipeTemplate {
         this.medicineCode = medicineCode == null ? null : medicineCode.trim();
     }
 
-    public Boolean getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Byte type) {
         this.type = type;
     }
 
@@ -110,11 +110,11 @@ public class RecipeTemplate {
         this.frequency = frequency == null ? null : frequency.trim();
     }
 
-    public Integer getAmount() {
+    public Short getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Short amount) {
         this.amount = amount;
     }
 

@@ -6,13 +6,13 @@ import java.util.Date;
 public class DailySummaryLog {
     private Integer id;
 
-    private Integer casherId;
+    private Integer cashierRoleId;
 
     private BigDecimal totalMoney;
 
-    private Integer invoiceCodeBegine;
+    private String invoiceCodeBegin;
 
-    private Integer invoiceCodeEnd;
+    private String invoiceCodeEnd;
 
     private Date gmtCreate;
 
@@ -26,12 +26,12 @@ public class DailySummaryLog {
         this.id = id;
     }
 
-    public Integer getCasherId() {
-        return casherId;
+    public Integer getCashierRoleId() {
+        return cashierRoleId;
     }
 
-    public void setCasherId(Integer casherId) {
-        this.casherId = casherId;
+    public void setCashierRoleId(Integer cashierRoleId) {
+        this.cashierRoleId = cashierRoleId;
     }
 
     public BigDecimal getTotalMoney() {
@@ -42,20 +42,20 @@ public class DailySummaryLog {
         this.totalMoney = totalMoney;
     }
 
-    public Integer getInvoiceCodeBegine() {
-        return invoiceCodeBegine;
+    public String getInvoiceCodeBegin() {
+        return invoiceCodeBegin;
     }
 
-    public void setInvoiceCodeBegine(Integer invoiceCodeBegine) {
-        this.invoiceCodeBegine = invoiceCodeBegine;
+    public void setInvoiceCodeBegin(String invoiceCodeBegin) {
+        this.invoiceCodeBegin = invoiceCodeBegin == null ? null : invoiceCodeBegin.trim();
     }
 
-    public Integer getInvoiceCodeEnd() {
+    public String getInvoiceCodeEnd() {
         return invoiceCodeEnd;
     }
 
-    public void setInvoiceCodeEnd(Integer invoiceCodeEnd) {
-        this.invoiceCodeEnd = invoiceCodeEnd;
+    public void setInvoiceCodeEnd(String invoiceCodeEnd) {
+        this.invoiceCodeEnd = invoiceCodeEnd == null ? null : invoiceCodeEnd.trim();
     }
 
     public Date getGmtCreate() {

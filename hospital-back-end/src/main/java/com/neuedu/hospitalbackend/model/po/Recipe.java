@@ -10,7 +10,7 @@ public class Recipe {
 
     private String medicineCode;
 
-    private Boolean type;
+    private Byte type;
 
     private BigDecimal dosage;
 
@@ -18,11 +18,11 @@ public class Recipe {
 
     private String dosageUnit;
 
-    private Integer amount;
+    private Short amount;
 
     private Integer returnAmount;
 
-    private Boolean status;
+    private Byte status;
 
     private Integer creatorRoleId;
 
@@ -56,11 +56,11 @@ public class Recipe {
         this.medicineCode = medicineCode == null ? null : medicineCode.trim();
     }
 
-    public Boolean getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Byte type) {
         this.type = type;
     }
 
@@ -88,11 +88,11 @@ public class Recipe {
         this.dosageUnit = dosageUnit == null ? null : dosageUnit.trim();
     }
 
-    public Integer getAmount() {
+    public Short getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Short amount) {
         this.amount = amount;
     }
 
@@ -104,11 +104,11 @@ public class Recipe {
         this.returnAmount = returnAmount;
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 

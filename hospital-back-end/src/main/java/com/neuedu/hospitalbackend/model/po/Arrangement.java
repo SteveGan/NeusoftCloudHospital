@@ -19,9 +19,9 @@ public class Arrangement {
 
     private String timeSlot;
 
-    private Integer maxAppointment;
+    private Byte maxAppointment;
 
-    private Integer appointmentLeft;
+    private Byte appointmentLeft;
 
     public Integer getId() {
         return id;
@@ -87,19 +87,19 @@ public class Arrangement {
         this.timeSlot = timeSlot == null ? null : timeSlot.trim();
     }
 
-    public Integer getMaxAppointment() {
+    public Byte getMaxAppointment() {
         return maxAppointment;
     }
 
-    public void setMaxAppointment(Integer maxAppointment) {
+    public void setMaxAppointment(Byte maxAppointment) {
         this.maxAppointment = maxAppointment;
     }
 
-    public Integer getAppointmentLeft() {
+    public Byte getAppointmentLeft() {
         return appointmentLeft;
     }
 
-    public void setAppointmentLeft(Integer appointmentLeft) {
+    public void setAppointmentLeft(Byte appointmentLeft) {
         this.appointmentLeft = appointmentLeft;
     }
 }
