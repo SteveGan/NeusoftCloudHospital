@@ -1,10 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dao.ArrangementMapper;
-import com.neuedu.hospitalbackend.model.dao.RegistrationLevelMapper;
-import com.neuedu.hospitalbackend.model.dao.RegistrationMapper;
-import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
+import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
@@ -29,6 +26,9 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     @Autowired
     private RegistrationMapper registrationMapper;
 
+    @Autowired
+    private PatientMapper patientMapper;
+
     @Override
     public JSONObject listAvailableDoctors(RegistrationParam registrationParam){
         List<Arrangement> availableDoctors = arrangementMapper.listAvailableDoctors(registrationParam.getAppointmentDateStr(), registrationParam.getRegistrationLevelId(), registrationParam.getDepartmentId());
@@ -41,7 +41,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     @Override
-    public JSONObject makeRegistration(Registration registration){
+    public JSONObject makeRegistration(Registration registration, DoctorParam doctorParam, String idCard){
         JSONObject jsonObject = new JSONObject();
         //根据看诊医生和挂号级别，是否需要病历本，算出应收金额
         BigDecimal cost = registrationLevelMapper.getRegistrationLevelCostById(registration.getRegistrationLevelId());
@@ -63,33 +63,30 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         transactionLog.setStatus(new Byte((byte)2));
         int count = transactionLogMapper.insertSelective(transactionLog);
         if (count > 0){
+            //向挂号表中添加新的挂号记录 --默认正常
             count = registrationMapper.insert(registration);
+            if (count > 0) {
+                //更新 所选医生 对应的余号数量
+                count = arrangementMapper.updateRemainingAppointment(doctorParam.getAppointmentDateStr(), doctorParam.getRoleId());
+                if (count > 0) {
+                    Integer patientId = patientMapper.getPatientByIdCard(idCard);
+                    if (patientId != null)
+                        jsonObject.put("patientId", patientId);
+                    else {
+
+                    }
+
+                }
+
+            }
         }
-        //向挂号表中添加新的挂号记录 --默认正常
-        //更新 所选医生 对应的余号数量
+
+
         //检查患者是否已在本系统中
         //向病历表中添加新的病历记录 --默认待诊
 
         return jsonObject;
     }
 
-    @Override
-    public int updateRemainingAppointment(DoctorParam doctorParam){
-        System.out.println("service-roleId" + doctorParam.getRoleId());
-        int count = arrangementMapper.updateRemainingAppointment(doctorParam.getAppointmentDateStr(), doctorParam.getRoleId());
-        return count;
-    }
 
-    @Override
-    public int calculateAmount(JSONObject jsonObject){
-        return 0;
-    }
-    @Override
-    public void insertRegistrationLog(Registration registration){
-
-    }
-    @Override
-    public void insertPatientCaseLog(PatientCase patientCase){
-
-    }
 }

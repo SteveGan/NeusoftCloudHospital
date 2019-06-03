@@ -16,15 +16,15 @@
     </resultMap>
 
     <insert id="insert" parameterType="Arrangement">
-    insert into arrangement (id, appointment_date, department_id,
-      role_id, user_name, registration_level_id,
-      is_valid, time_slot, max_appointment,
-      appointment_left)
-    values (#{id,jdbcType=INTEGER}, #{appointmentDate,jdbcType=DATE}, #{departmentId,jdbcType=INTEGER},
-      #{roleId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{registrationLevelId,jdbcType=BIT},
-      #{isValid,jdbcType=TINYINT}, #{timeSlot,jdbcType=VARCHAR}, #{maxAppointment,jdbcType=INTEGER},
-      #{appointmentLeft,jdbcType=INTEGER})
-  </insert>
+        insert into arrangement (id, appointment_date, department_id,
+          role_id, user_name, registration_level_id,
+          is_valid, time_slot, max_appointment,
+          appointment_left)
+        values (#{id,jdbcType=INTEGER}, #{appointmentDate,jdbcType=DATE}, #{departmentId,jdbcType=INTEGER},
+          #{roleId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{registrationLevelId,jdbcType=BIT},
+          #{isValid,jdbcType=TINYINT}, #{timeSlot,jdbcType=VARCHAR}, #{maxAppointment,jdbcType=INTEGER},
+          #{appointmentLeft,jdbcType=INTEGER})
+   </insert>
 
     <insert id="insertSelective" parameterType="Arrangement">
         insert into arrangement

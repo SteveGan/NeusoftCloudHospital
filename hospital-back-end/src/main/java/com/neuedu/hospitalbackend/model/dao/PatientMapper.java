@@ -5,4 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface PatientMapper {
+    int insert(Patient patient);
+    Integer getPatientByIdCard(String idCard);
 }

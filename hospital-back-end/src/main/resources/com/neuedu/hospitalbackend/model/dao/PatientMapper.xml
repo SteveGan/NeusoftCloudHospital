@@ -3,7 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.hospitalbackend.model.dao.PatientMapper">
-    <select id="getPatientByIdCard" resultType="Patient">
-        select * from patient where id_card = #{idCard}
+
+    <resultMap id="BaseResultMap" type="Patient">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="id_card" jdbcType="CHAR" property="idCard" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="gender" jdbcType="TINYINT" property="gender" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="birthday" jdbcType="Date" property="birthday" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmt_modified" />
+    </resultMap>
+
+    <insert id="insert" parameterType="Arrangement">
+        insert into patient (id, id_card, address,
+          gender, name, birthday)
+        values (#{id,jdbcType=INTEGER}, #{id_card,jdbcType=CHAR}, #{address,jdbcType=VARCHAR},
+          #{gender,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, #{birthday,jdbcType=Date},
+          #{isValid,jdbcType=TINYINT}, #{timeSlot,jdbcType=VARCHAR}, #{maxAppointment,jdbcType=INTEGER},
+          #{appointmentLeft,jdbcType=INTEGER})
+  </insert>
+    <select id="getPatientByIdCard" resultType="integer">
+        select id_card from patient where id_card = #{idCard}
     </select>
+    <insert id="insert" parameterType="Patient">
+        
+    </insert>
 </mapper>
