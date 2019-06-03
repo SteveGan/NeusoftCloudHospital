@@ -25,6 +25,7 @@ MySQL | ✔️ |MySQL数据库 | [https://www.mongodb.com/](https://www.mysql.co
 Docker | 应用容器引擎 | [https://www.docker.com/](https://www.docker.com/)
 Druid | ✔️ | 数据库连接池 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
 Log4j | ✔️ | 日志 | []()
+Springboot 热部署
 
 #### 前端技术
 
