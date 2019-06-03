@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice;
 
 import com.neuedu.hospitalbackend.model.po.Department;
-import io.swagger.models.auth.In;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
  * 1.2 科室管理
@@ -14,24 +14,24 @@ public interface DepartmentManagementService {
      * @param id 科室id
      * @return 查询结果
      */
-    Department getDepartmentById(Integer id);
+    CommonResult getDepartmentById(Integer id);
 
     /**
      * 1.2.2 新增科室
      * @param department PO
      */
-    int insertDepartment(Department department);
+    CommonResult<Department> insertDepartment(Department department);
 
     /**
      * 1.2.3 修改科室
      * @param department PO
      */
-    int updateDepartmentById(Department department);
+    CommonResult updateDepartmentById(Department department);
 
     /**
      * 1.2.4 删除科室
      * @param id
      */
-    int deleteDepartmentById(Integer id);
+    CommonResult deleteDepartmentById(Integer id);
 
 }
