@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.InvoiceMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Invoice" >
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.InvoiceMapper" >
+
+  <resultMap id="BaseResultMap" type="Invoice" >
     <result column="id" property="id" jdbcType="CHAR" />
     <result column="status" property="status" jdbcType="TINYINT" />
     <result column="version" property="version" jdbcType="INTEGER" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Invoice" >
-    insert into invoice (id, status, version
-      )
-    values (#{id,jdbcType=CHAR}, #{status,jdbcType=TINYINT}, #{version,jdbcType=INTEGER}
-      )
+
+  <insert id="insert" parameterType="Invoice" >
+    insert into invoice (id, status, version)
+    values (#{id,jdbcType=CHAR}, #{status,jdbcType=TINYINT}, #{version,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Invoice" >
+
+  <insert id="insertSelective" parameterType="Invoice" >
     insert into invoice
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -37,4 +38,8 @@
       </if>
     </trim>
   </insert>
+
+  <select id="getAvailableInvoiceCode" resultMap="string">
+      select id from invoice where status = 1 order by id limit 1
+  </select>
 </mapper>

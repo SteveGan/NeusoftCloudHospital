@@ -24,15 +24,12 @@ public class RegistrationController {
         return CommonResult.success(availableDoctors);
     }
 
-    @ApiOperation("更新医生剩余号码数量")
+
+    @ApiOperation("计算总金额")
     @RequestMapping(value = "/appointment", method = RequestMethod.PATCH)
-    public CommonResult<Integer> updateRemainingAppointment(@RequestBody DoctorParam doctorParam){
-        System.out.println("controller-roleId" + doctorParam.getRoleId());
-        int count = registrationServiceImpl.updateRemainingAppointment(doctorParam);
-        if (count > 0) {
-            return CommonResult.success(count);
-        }
-        return CommonResult.failed();
+    public CommonResult<JSONObject> calculateTotalFee(@RequestBody RegistrationParam registrationParam){
+        JSONObject totalFee = registrationServiceImpl.calculateTotalFee(registrationParam);
+        return CommonResult.success(totalFee);
     }
 
 
