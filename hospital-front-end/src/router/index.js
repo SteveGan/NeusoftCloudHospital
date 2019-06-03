@@ -10,6 +10,7 @@ const NonMedicineProjectAdmin = r => require.ensure([], () => r(require('@/compo
 const DiagnoseListAdmin = r => require.ensure([], () => r(require('@/components/admin/DiagnoseListAdmin/DiagnoseListAdmin')), 'DiagnoseListAdmin')
 const DepartmentAdmin = r => require.ensure([], () => r(require('@/components/admin/DepartmentAdmin/DepartmentAdmin')), 'DepartmentAdmin')
 const ArrangementRuleAdmin = r => require.ensure([], () => r(require('@/components/admin/ArrangementRuleAdmin/ArrangementRuleAdmin')), 'ArrangementRuleAdmin')
+const OutPatientDoctor = r => require.ensure([], () => r(require('@/pages/OutPatientDoctor/OutPatientDoctor')), 'OutPatientDoctor')
 
 export default [
   {
@@ -69,6 +70,11 @@ export default [
             component: ArrangementRuleAdmin
           }
         ]
+      },
+      {
+        path: 'outpatientdoctor',
+        name: 'OutPatientDoctor',
+        component: OutPatientDoctor
       }
     ]
   },
