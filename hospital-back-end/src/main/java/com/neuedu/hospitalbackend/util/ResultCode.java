@@ -10,9 +10,7 @@ public enum ResultCode implements IErrorCode {
     // Raven
     E_600(600, "用户不存在"),
     E_601(601, "密码错误"),
-    E_602(602, "查询失败"),
-    E_603(603, "插入失败"),
-    E_604(604, "更新项不存在");
+    E_602(602, "操作项不存在");
 
     // Polaris
 

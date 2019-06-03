@@ -8,22 +8,16 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-import static com.neuedu.hospitalbackend.util.ResultCode.E_601;
-import static com.neuedu.hospitalbackend.util.ResultCode.E_604;
+import static com.neuedu.hospitalbackend.util.ResultCode.*;
 
 /**
  * @author Raven
  */
 @Service
-public class DepartmentManagement implements DepartmentManagementService {
+public class DepartmentManagementImpl implements DepartmentManagementService {
     @Resource
     DepartmentMapper departmentMapper;
 
-    /**
-     * 根据部门id查询部分全部信息
-     * @param id 部门id
-     * @return
-     */
     @Override
     public CommonResult getDepartmentById(Integer id) {
         Department department = departmentMapper.get(id);
@@ -34,7 +28,7 @@ public class DepartmentManagement implements DepartmentManagementService {
     public CommonResult insertDepartment(Department department) {
         int count = departmentMapper.insert(department);
         if (count == 0) {
-            return CommonResult.fail(E_601);
+            return CommonResult.fail();
         }
         return CommonResult.success(count);
     }
@@ -42,20 +36,23 @@ public class DepartmentManagement implements DepartmentManagementService {
     @Override
     public CommonResult updateDepartmentById(Department department) {
         if (departmentMapper.get(department.getId()) == null) {
-            return CommonResult.fail(E_604);
+            return CommonResult.fail(E_602);
         }
         int count = departmentMapper.update(department);
+        if (count == 0) {
+            return CommonResult.fail();
+        }
         return CommonResult.success(count);
     }
 
     @Override
     public CommonResult deleteDepartmentById(Integer id) {
         if (departmentMapper.get(id) == null) {
-            return CommonResult.fail(E_604);
+            return CommonResult.fail(E_602);
         }
         int count = departmentMapper.delete(id);
         if (count == 0) {
-            return CommonResult.fail(E_601);
+            return CommonResult.fail();
         }
         return CommonResult.success(count);
     }
