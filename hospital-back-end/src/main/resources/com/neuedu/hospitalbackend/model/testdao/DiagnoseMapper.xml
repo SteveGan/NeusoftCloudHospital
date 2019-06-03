@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.DiagnoseMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Diagnose" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="case_id" property="caseId" jdbcType="INTEGER" />
+    <result column="disease_id" property="diseaseId" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="is_first_diagnosed" property="isFirstDiagnosed" jdbcType="BIT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Diagnose" >
+    insert into diagnose (id, case_id, disease_id, 
+      start_time, is_first_diagnosed, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{diseaseId,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=DATE}, #{isFirstDiagnosed,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Diagnose" >
+    insert into diagnose
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="caseId != null" >
+        case_id,
+      </if>
+      <if test="diseaseId != null" >
+        disease_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="isFirstDiagnosed != null" >
+        is_first_diagnosed,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null" >
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="diseaseId != null" >
+        #{diseaseId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="isFirstDiagnosed != null" >
+        #{isFirstDiagnosed,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

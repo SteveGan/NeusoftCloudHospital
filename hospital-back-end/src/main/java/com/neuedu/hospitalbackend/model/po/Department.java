@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.model.po;
 
 public class Department {
-    private Byte id;
+    private Integer id;
 
     private String code;
 
@@ -11,11 +11,11 @@ public class Department {
 
     private String type;
 
-    public Byte getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Byte id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -9,7 +9,7 @@ public class InspectionTemplate {
 
     private Integer itemId;
 
-    private Integer userId;
+    private Integer roleId;
 
     private Integer departmentId;
 
@@ -17,7 +17,7 @@ public class InspectionTemplate {
 
     private String requirement;
 
-    private Boolean scope;
+    private Byte scope;
 
     private Date gmtCreate;
 
@@ -47,12 +47,12 @@ public class InspectionTemplate {
         this.itemId = itemId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public Integer getDepartmentId() {
@@ -79,11 +79,11 @@ public class InspectionTemplate {
         this.requirement = requirement == null ? null : requirement.trim();
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 

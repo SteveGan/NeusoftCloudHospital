@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class NonMedicine {
-    private Short id;
+    private Integer id;
 
     private String code;
 
@@ -22,11 +22,11 @@ public class NonMedicine {
 
     private Date gmtModified;
 
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

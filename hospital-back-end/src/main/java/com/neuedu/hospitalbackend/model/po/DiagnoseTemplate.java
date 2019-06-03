@@ -9,9 +9,9 @@ public class DiagnoseTemplate {
 
     private Integer diseaseId;
 
-    private Integer userId;
+    private Integer roleId;
 
-    private Boolean scope;
+    private Byte scope;
 
     private Date gmtCreate;
 
@@ -41,19 +41,19 @@ public class DiagnoseTemplate {
         this.diseaseId = diseaseId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Boolean getScope() {
+    public Byte getScope() {
         return scope;
     }
 
-    public void setScope(Boolean scope) {
+    public void setScope(Byte scope) {
         this.scope = scope;
     }
 

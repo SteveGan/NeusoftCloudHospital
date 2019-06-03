@@ -3,7 +3,7 @@ package com.neuedu.hospitalbackend.model.po;
 import java.math.BigDecimal;
 
 public class RegistrationLevel {
-    private Byte id;
+    private Short id;
 
     private String code;
 
@@ -13,11 +13,11 @@ public class RegistrationLevel {
 
     private BigDecimal cost;
 
-    public Byte getId() {
+    public Short getId() {
         return id;
     }
 
-    public void setId(Byte id) {
+    public void setId(Short id) {
         this.id = id;
     }
 

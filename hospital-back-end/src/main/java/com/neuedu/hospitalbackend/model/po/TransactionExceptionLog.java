@@ -5,13 +5,13 @@ import java.util.Date;
 public class TransactionExceptionLog {
     private Integer id;
 
-    private Integer originalInvoiceCode;
+    private String originalInvoiceCode;
 
-    private Integer newInvoiceCode;
+    private String newInvoiceCode;
 
-    private Integer reverseInvoiceCode;
+    private String reverseInvoiceCode;
 
-    private Integer userId;
+    private Integer roleId;
 
     private String reason;
 
@@ -27,36 +27,36 @@ public class TransactionExceptionLog {
         this.id = id;
     }
 
-    public Integer getOriginalInvoiceCode() {
+    public String getOriginalInvoiceCode() {
         return originalInvoiceCode;
     }
 
-    public void setOriginalInvoiceCode(Integer originalInvoiceCode) {
-        this.originalInvoiceCode = originalInvoiceCode;
+    public void setOriginalInvoiceCode(String originalInvoiceCode) {
+        this.originalInvoiceCode = originalInvoiceCode == null ? null : originalInvoiceCode.trim();
     }
 
-    public Integer getNewInvoiceCode() {
+    public String getNewInvoiceCode() {
         return newInvoiceCode;
     }
 
-    public void setNewInvoiceCode(Integer newInvoiceCode) {
-        this.newInvoiceCode = newInvoiceCode;
+    public void setNewInvoiceCode(String newInvoiceCode) {
+        this.newInvoiceCode = newInvoiceCode == null ? null : newInvoiceCode.trim();
     }
 
-    public Integer getReverseInvoiceCode() {
+    public String getReverseInvoiceCode() {
         return reverseInvoiceCode;
     }
 
-    public void setReverseInvoiceCode(Integer reverseInvoiceCode) {
-        this.reverseInvoiceCode = reverseInvoiceCode;
+    public void setReverseInvoiceCode(String reverseInvoiceCode) {
+        this.reverseInvoiceCode = reverseInvoiceCode == null ? null : reverseInvoiceCode.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public String getReason() {

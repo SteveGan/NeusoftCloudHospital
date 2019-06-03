@@ -5,7 +5,7 @@ public class Inventory {
 
     private String medicineCode;
 
-    private Integer remainingAmount;
+    private Short remainingAmount;
 
     public Integer getId() {
         return id;
@@ -23,11 +23,11 @@ public class Inventory {
         this.medicineCode = medicineCode == null ? null : medicineCode.trim();
     }
 
-    public Integer getRemainingAmount() {
+    public Short getRemainingAmount() {
         return remainingAmount;
     }
 
-    public void setRemainingAmount(Integer remainingAmount) {
+    public void setRemainingAmount(Short remainingAmount) {
         this.remainingAmount = remainingAmount;
     }
 }

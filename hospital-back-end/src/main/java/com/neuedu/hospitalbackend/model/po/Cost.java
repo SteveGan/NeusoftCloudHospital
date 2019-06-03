@@ -1,17 +1,17 @@
 package com.neuedu.hospitalbackend.model.po;
 
 public class Cost {
-    private Byte id;
+    private Integer id;
 
     private String code;
 
     private String name;
 
-    public Byte getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Byte id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
