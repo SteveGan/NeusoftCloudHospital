@@ -54,10 +54,13 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
-    <!--<select id="listCheckedInButNotRecordedProject" resultType="HashMap">-->
-      <!--select -->
-      <!--from -->
-      <!--where -->
-    <!--</select>-->
+    <select id="listCheckedInButNotRecordedProject" resultType="HashMap">
+      select n.id, n.name, i.id, i.gmt_create, t.status, i.requirement
+      from inspection i, non_medicine n, transaction_log t
+      where t.registration_id = #{caseId}  and t.collection_id = i.id  and t.project_id = i.project_id
+          and i.status = 4
+          and result_description = null and result_image = null and advice = null
+          and n.id = i.project_id
+    </select>
 
 </mapper>

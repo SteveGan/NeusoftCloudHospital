@@ -39,7 +39,7 @@
     </trim>
   </insert>
 
-  <select id="getAvailableInvoiceCode" resultMap="string">
+  <select id="getAvailableInvoiceCode" resultType="string">
       select id from invoice where status = 1 order by id limit 1
   </select>
 </mapper>
