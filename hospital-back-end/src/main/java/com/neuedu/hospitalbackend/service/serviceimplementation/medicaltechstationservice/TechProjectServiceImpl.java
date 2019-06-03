@@ -111,11 +111,8 @@ public class TechProjectServiceImpl implements TechProjectService {
         Integer collectionId = projectParam.getCollectionId();
         Integer projectId = projectParam.getProjectId();
         int count = 0;
-        if(projectType.equals("检查")) {
-            System.out.println("1111111111");
+        if(projectType.equals("检查"))
             count = inspectionMapper.cancelProject(collectionId, projectId);
-            System.out.println("2222222222");
-        }
         else if(projectType.equals("检验"))
             count = examinationMapper.cancelProject(collectionId, projectId);
         return count;
