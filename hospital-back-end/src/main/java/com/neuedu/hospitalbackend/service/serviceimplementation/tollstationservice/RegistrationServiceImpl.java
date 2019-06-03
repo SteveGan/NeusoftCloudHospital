@@ -2,12 +2,16 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationserv
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ArrangementMapper;
+import com.neuedu.hospitalbackend.model.dao.RegistrationLevelMapper;
+import com.neuedu.hospitalbackend.model.dao.RegistrationMapper;
+import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -15,6 +19,15 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
     @Autowired
     private ArrangementMapper arrangementMapper;
+
+    @Autowired
+    private RegistrationLevelMapper registrationLevelMapper;
+
+    @Autowired
+    private TransactionLogMapper transactionLogMapper;
+
+    @Autowired
+    private RegistrationMapper registrationMapper;
 
     @Override
     public JSONObject listAvailableDoctors(RegistrationParam registrationParam){
@@ -28,7 +41,41 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     @Override
+    public JSONObject makeRegistration(Registration registration){
+        JSONObject jsonObject = new JSONObject();
+        //根据看诊医生和挂号级别，是否需要病历本，算出应收金额
+        BigDecimal cost = registrationLevelMapper.getRegistrationLevelCostById(registration.getRegistrationLevelId());
+        BigDecimal bookCost = new BigDecimal(1);
+        BigDecimal totalCost = new BigDecimal(0);
+        if (registration.getIsBuyCaseBook() == true)
+            totalCost = cost.add(bookCost);
+        else
+            totalCost = cost;
+        //向缴费表中添加新的缴费记录  --已缴费
+        TransactionLog transactionLog = new TransactionLog();
+        transactionLog.setRegistrationId(registration.getId());
+        transactionLog.setPatientId(registration.getPatientId());
+        transactionLog.setUserId(registration.getCashierId());
+        transactionLog.setType("挂号费");
+        transactionLog.setAmount(1);
+        transactionLog.setPayType(registration.getPayType());
+        transactionLog.setTotalMoney(totalCost);
+        transactionLog.setStatus(new Byte((byte)2));
+        int count = transactionLogMapper.insertSelective(transactionLog);
+        if (count > 0){
+            count = registrationMapper.insert(registration);
+        }
+        //向挂号表中添加新的挂号记录 --默认正常
+        //更新 所选医生 对应的余号数量
+        //检查患者是否已在本系统中
+        //向病历表中添加新的病历记录 --默认待诊
+
+        return jsonObject;
+    }
+
+    @Override
     public int updateRemainingAppointment(DoctorParam doctorParam){
+        System.out.println("service-roleId" + doctorParam.getRoleId());
         int count = arrangementMapper.updateRemainingAppointment(doctorParam.getAppointmentDateStr(), doctorParam.getRoleId());
         return count;
     }

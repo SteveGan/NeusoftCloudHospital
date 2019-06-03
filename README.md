@@ -24,18 +24,23 @@ MyBatisGenerator | ✔️ | 数据层代码生成 | [http://www.mybatis.org/gene
 MySQL | ✔️ |MySQL数据库 | [https://www.mongodb.com/](https://www.mysql.com/)
 Docker | 应用容器引擎 | [https://www.docker.com/](https://www.docker.com/)
 Druid | ✔️ | 数据库连接池 | [https://github.com/alibaba/druid](https://github.com/alibaba/druid)
+Swagger-UI |  | Documentation production tool|
+Elasticsearch | | Search engine |
+Redis| | Distributed cache |
+Qiniuyun OSS| |Object storage |
+JWT| |Login support of JWT|
 Log4j | ✔️ | 日志 | []()
 
 #### 前端技术
 
 技术 | 说明 | 官网
 ----|----|----
-Vue | ✔️ 前端框架 | [https://vuejs.org/](https://vuejs.org/)
-Vue-router | ✔️ 路由框架 | [https://router.vuejs.org/](https://router.vuejs.org/)
+Vue.js | ✔️ 前端框架 | [https://vuejs.org/](https://vuejs.org/)
+Vue Router | ✔️ 路由框架 | [https://router.vuejs.org/](https://router.vuejs.org/)
 Vuex | ✔️ 全局状态管理框架 | [https://vuex.vuejs.org/](https://vuex.vuejs.org/)
-Element | ✔️ 前端UI框架 | [https://element.eleme.io/](https://element.eleme.io/)
+ElementUI | ✔️ 前端UI框架 | [https://element.eleme.io/](https://element.eleme.io/)
 Axios | ✔️ 前端HTTP框架 | [https://github.com/axios/axios](https://github.com/axios/axios)
-
+js-cookie | ✔️ A simple, lightweight JavaScript API for handling browser cookies| [https://github.com/js-cookie/js-cookie]
 #### 开发规范
 - 《阿里巴巴Java开发手册》
 - 《Google Java Style》
