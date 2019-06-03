@@ -4,7 +4,7 @@ import com.neuedu.hospitalbackend.model.po.Patient;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
-@Mapper
+@Component
 public interface PatientMapper {
     int insert(Patient patient);
     int insertSelective(Patient patient);

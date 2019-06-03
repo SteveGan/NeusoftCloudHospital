@@ -126,8 +126,6 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             }
         }
 
-
-        //检查患者是否已在本系统中
         //向病历表中添加新的病历记录 --默认待诊
 
         return jsonObject;
