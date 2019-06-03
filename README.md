@@ -30,6 +30,7 @@ Redis| | Distributed cache |
 Qiniuyun OSS| |Object storage |
 JWT| |Login support of JWT|
 Log4j | ✔️ | 日志 | []()
+Springboot 热部署
 
 #### 前端技术
 

@@ -91,9 +91,6 @@
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
-            <if test="registrationLevelId != null">
-                #{registrationLevelId,jdbcType=INTEGER},
-            </if>
             <if test="type != null">
                 #{type,jdbcType=VARCHAR},
             </if>

@@ -9,7 +9,7 @@ public class Patient {
 
     private String address;
 
-    private Boolean gender;
+    private Byte gender;
 
     private String name;
 
@@ -43,11 +43,11 @@ public class Patient {
         this.address = address == null ? null : address.trim();
     }
 
-    public Boolean getGender() {
+    public Byte getGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(Byte gender) {
         this.gender = gender;
     }
 

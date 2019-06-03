@@ -23,13 +23,13 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!--生成映射文件存放位置-->
-        <!--<sqlMapGenerator targetPackage="com.neuedu.hospitalbackend.model.testdao" targetProject="src/main/resources">-->
-            <!--<property name="enableSubPackages" value="true"/>-->
-        <!--</sqlMapGenerator>-->
+        <sqlMapGenerator targetPackage="com.neuedu.hospitalbackend.model.testdao" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
         <!--生成Dao类存放位置-->
-        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="com.neuedu.hospitalbackend.model.testDAO" targetProject="src/main/java">-->
-            <!--<property name="enableSubPackages" value="true"/>-->
-        <!--</javaClientGenerator>-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.neuedu.hospitalbackend.model.testdao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
         <!--生成对应表及类名-->
         <table tableName="arrangement" domainObjectName="Arrangement" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
         <table tableName="arrangement_rule" domainObjectName="ArrangementRule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
@@ -48,6 +48,7 @@
         <table tableName="inspection_project" domainObjectName="InspectionProject" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
         <table tableName="inspection_template" domainObjectName="InspectionTemplate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
         <table tableName="inventory" domainObjectName="Inventory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
+        <table tableName="invoice" domainObjectName="I nvoice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
         <table tableName="login_log" domainObjectName="LoginLog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
         <table tableName="medicine" domainObjectName="Medicine" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
         <table tableName="non_medicine" domainObjectName="NonMedicine" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
@@ -62,6 +63,6 @@
         <table tableName="transaction_log" domainObjectName="TransactionLog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
         <table tableName="treatment" domainObjectName="Treatment" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
         <table tableName="treatment_template" domainObjectName="TreatmentTemplate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
-        <table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
+        <!--<table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>-->
     </context>
 </generatorConfiguration>

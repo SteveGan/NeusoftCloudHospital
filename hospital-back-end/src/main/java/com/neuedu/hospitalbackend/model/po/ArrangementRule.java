@@ -11,9 +11,9 @@ public class ArrangementRule {
 
     private Integer titleId;
 
-    private Integer registrationLevelId;
+    private Byte registrationLevelId;
 
-    private String maxAppointment;
+    private Byte maxAppointment;
 
     private Integer adminId;
 
@@ -85,20 +85,20 @@ public class ArrangementRule {
         this.titleId = titleId;
     }
 
-    public Integer getRegistrationLevelId() {
+    public Byte getRegistrationLevelId() {
         return registrationLevelId;
     }
 
-    public void setRegistrationLevelId(Integer registrationLevelId) {
+    public void setRegistrationLevelId(Byte registrationLevelId) {
         this.registrationLevelId = registrationLevelId;
     }
 
-    public String getMaxAppointment() {
+    public Byte getMaxAppointment() {
         return maxAppointment;
     }
 
-    public void setMaxAppointment(String maxAppointment) {
-        this.maxAppointment = maxAppointment == null ? null : maxAppointment.trim();
+    public void setMaxAppointment(Byte maxAppointment) {
+        this.maxAppointment = maxAppointment;
     }
 
     public Integer getAdminId() {

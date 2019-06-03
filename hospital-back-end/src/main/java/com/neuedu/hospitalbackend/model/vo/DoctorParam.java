@@ -3,7 +3,7 @@ package com.neuedu.hospitalbackend.model.vo;
 public class DoctorParam {
     private Integer roleId;
     private String appointmentDateStr; //看诊时间
-    private Integer appointmentLeft;
+    private Integer appointmentLeft; //余号数量
     private Integer departmentId;
 
     public Integer getRoleId() {

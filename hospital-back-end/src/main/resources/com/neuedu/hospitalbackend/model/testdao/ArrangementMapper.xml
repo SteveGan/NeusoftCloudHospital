@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.ArrangementMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Arrangement">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="appointment_date" jdbcType="DATE" property="appointmentDate" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="registration_level_id" jdbcType="TINYINT" property="registrationLevelId" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="time_slot" jdbcType="VARCHAR" property="timeSlot" />
+    <result column="max_appointment" jdbcType="TINYINT" property="maxAppointment" />
+    <result column="appointment_left" jdbcType="TINYINT" property="appointmentLeft" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Arrangement">
+    insert into arrangement (id, appointment_date, department_id, 
+      role_id, user_name, registration_level_id, 
+      is_valid, time_slot, max_appointment, 
+      appointment_left)
+    values (#{id,jdbcType=INTEGER}, #{appointmentDate,jdbcType=DATE}, #{departmentId,jdbcType=INTEGER}, 
+      #{roleId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{registrationLevelId,jdbcType=TINYINT}, 
+      #{isValid,jdbcType=BIT}, #{timeSlot,jdbcType=VARCHAR}, #{maxAppointment,jdbcType=TINYINT}, 
+      #{appointmentLeft,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Arrangement">
+    insert into arrangement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appointmentDate != null">
+        appointment_date,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="registrationLevelId != null">
+        registration_level_id,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="timeSlot != null">
+        time_slot,
+      </if>
+      <if test="maxAppointment != null">
+        max_appointment,
+      </if>
+      <if test="appointmentLeft != null">
+        appointment_left,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appointmentDate != null">
+        #{appointmentDate,jdbcType=DATE},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationLevelId != null">
+        #{registrationLevelId,jdbcType=TINYINT},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
+      </if>
+      <if test="timeSlot != null">
+        #{timeSlot,jdbcType=VARCHAR},
+      </if>
+      <if test="maxAppointment != null">
+        #{maxAppointment,jdbcType=TINYINT},
+      </if>
+      <if test="appointmentLeft != null">
+        #{appointmentLeft,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Arrangement">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="appointment_date" jdbcType="DATE" property="appointmentDate" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="registration_level_id" jdbcType="TINYINT" property="registrationLevelId" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="time_slot" jdbcType="VARCHAR" property="timeSlot" />
+    <result column="max_appointment" jdbcType="TINYINT" property="maxAppointment" />
+    <result column="appointment_left" jdbcType="TINYINT" property="appointmentLeft" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Arrangement">
+    insert into arrangement (id, appointment_date, department_id, 
+      role_id, user_name, registration_level_id, 
+      is_valid, time_slot, max_appointment, 
+      appointment_left)
+    values (#{id,jdbcType=INTEGER}, #{appointmentDate,jdbcType=DATE}, #{departmentId,jdbcType=INTEGER}, 
+      #{roleId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{registrationLevelId,jdbcType=TINYINT}, 
+      #{isValid,jdbcType=BIT}, #{timeSlot,jdbcType=VARCHAR}, #{maxAppointment,jdbcType=TINYINT}, 
+      #{appointmentLeft,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Arrangement">
+    insert into arrangement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appointmentDate != null">
+        appointment_date,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="registrationLevelId != null">
+        registration_level_id,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="timeSlot != null">
+        time_slot,
+      </if>
+      <if test="maxAppointment != null">
+        max_appointment,
+      </if>
+      <if test="appointmentLeft != null">
+        appointment_left,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appointmentDate != null">
+        #{appointmentDate,jdbcType=DATE},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationLevelId != null">
+        #{registrationLevelId,jdbcType=TINYINT},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
+      </if>
+      <if test="timeSlot != null">
+        #{timeSlot,jdbcType=VARCHAR},
+      </if>
+      <if test="maxAppointment != null">
+        #{maxAppointment,jdbcType=TINYINT},
+      </if>
+      <if test="appointmentLeft != null">
+        #{appointmentLeft,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

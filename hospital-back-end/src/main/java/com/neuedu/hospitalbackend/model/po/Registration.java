@@ -10,15 +10,15 @@ public class Registration {
 
     private Date appointmentDate;
 
-    private Integer userId;
+    private Integer roleId;
 
-    private Integer registrationLevelId;
+    private Short registrationLevelId;
 
     private Integer departmentId;
 
     private BigDecimal totalFee;
 
-    private Byte status;
+    private Boolean isNormal;
 
     private Integer cashierId;
 
@@ -54,19 +54,19 @@ public class Registration {
         this.appointmentDate = appointmentDate;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Integer getRegistrationLevelId() {
+    public Short getRegistrationLevelId() {
         return registrationLevelId;
     }
 
-    public void setRegistrationLevelId(Integer registrationLevelId) {
+    public void setRegistrationLevelId(Short registrationLevelId) {
         this.registrationLevelId = registrationLevelId;
     }
 
@@ -86,12 +86,12 @@ public class Registration {
         this.totalFee = totalFee;
     }
 
-    public Byte getStatus() {
-        return status;
+    public Boolean getIsNormal() {
+        return isNormal;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setIsNormal(Boolean isNormal) {
+        this.isNormal = isNormal;
     }
 
     public Integer getCashierId() {

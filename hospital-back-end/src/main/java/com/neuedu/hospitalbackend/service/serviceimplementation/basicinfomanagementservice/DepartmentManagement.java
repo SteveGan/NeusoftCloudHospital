@@ -3,12 +3,13 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanage
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
 import com.neuedu.hospitalbackend.model.po.Department;
+import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.DepartmentManagementService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
 @Service
-public class DepartmentManagement {
+public class DepartmentManagement implements DepartmentManagementService {
     @Resource
     DepartmentMapper departmentMapper;
 
@@ -17,12 +18,23 @@ public class DepartmentManagement {
      * @param id 部门id
      * @return
      */
-    public Department selectDepartmentById(Integer id) {
-        return departmentMapper.selectDepartmentById(id);
+    @Override
+    public Department getDepartmentById(Integer id) {
+        return null;
     }
 
-    public int addDepartment(Department department) {
-        return departmentMapper.addDepartment(department);
+    @Override
+    public int insertDepartment(Department department) {
+        return 0;
     }
 
+    @Override
+    public int updateDepartmentById(Department department) {
+        return 0;
+    }
+
+    @Override
+    public int deleteDepartmentById(Integer id) {
+        return 0;
+    }
 }

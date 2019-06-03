@@ -6,13 +6,13 @@ import java.util.Date;
 public class TransactionLog {
     private Integer id;
 
-    private String invoiceId;
+    private String invoiceCode;
 
     private Integer registrationId;
 
     private Integer patientId;
 
-    private Integer userId;
+    private Integer roleId;
 
     private String type;
 
@@ -22,7 +22,7 @@ public class TransactionLog {
 
     private Integer itemId;
 
-    private Integer amount;
+    private Short amount;
 
     private Byte payType;
 
@@ -42,12 +42,12 @@ public class TransactionLog {
         this.id = id;
     }
 
-    public String getInvoiceId() {
-        return invoiceId;
+    public String getInvoiceCode() {
+        return invoiceCode;
     }
 
-    public void setInvoiceId(String invoiceId) {
-        this.invoiceId = invoiceId;
+    public void setInvoiceCode(String invoiceCode) {
+        this.invoiceCode = invoiceCode == null ? null : invoiceCode.trim();
     }
 
     public Integer getRegistrationId() {
@@ -66,12 +66,12 @@ public class TransactionLog {
         this.patientId = patientId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public String getType() {
@@ -106,11 +106,11 @@ public class TransactionLog {
         this.itemId = itemId;
     }
 
-    public Integer getAmount() {
+    public Short getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Short amount) {
         this.amount = amount;
     }
 

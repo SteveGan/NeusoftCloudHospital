@@ -5,10 +5,12 @@ import com.neuedu.hospitalbackend.model.vo.LoginParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.OauthServiceImpl;
 
 import com.neuedu.hospitalbackend.util.CommonResult;
+import com.neuedu.hospitalbackend.util.SHAUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/oauth")
@@ -21,6 +23,7 @@ public class OauthController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public CommonResult<JSONObject> login(@RequestBody LoginParam loginParam)
     {
+        String pwd = SHAUtils.encodeData(loginParam.getPassword());
         JSONObject login = oauthServiceImpl.login(loginParam);
         return CommonResult.success(login) ;
     }

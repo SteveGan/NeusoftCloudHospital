@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.TreatmentMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Treatment">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="case_id" jdbcType="INTEGER" property="caseId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creator_role_id" jdbcType="INTEGER" property="creatorRoleId" />
+    <result column="inspector_role_id" jdbcType="INTEGER" property="inspectorRoleId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Treatment">
+    insert into treatment (id, case_id, project_id, 
+      status, creator_role_id, inspector_role_id, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{creatorRoleId,jdbcType=INTEGER}, #{inspectorRoleId,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Treatment">
+    insert into treatment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="caseId != null">
+        case_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creatorRoleId != null">
+        creator_role_id,
+      </if>
+      <if test="inspectorRoleId != null">
+        inspector_role_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null">
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creatorRoleId != null">
+        #{creatorRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="inspectorRoleId != null">
+        #{inspectorRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Treatment">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="case_id" jdbcType="INTEGER" property="caseId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="creator_role_id" jdbcType="INTEGER" property="creatorRoleId" />
+    <result column="inspector_role_id" jdbcType="INTEGER" property="inspectorRoleId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Treatment">
+    insert into treatment (id, case_id, project_id, 
+      status, creator_role_id, inspector_role_id, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{creatorRoleId,jdbcType=INTEGER}, #{inspectorRoleId,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Treatment">
+    insert into treatment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="caseId != null">
+        case_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="creatorRoleId != null">
+        creator_role_id,
+      </if>
+      <if test="inspectorRoleId != null">
+        inspector_role_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null">
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="creatorRoleId != null">
+        #{creatorRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="inspectorRoleId != null">
+        #{inspectorRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
