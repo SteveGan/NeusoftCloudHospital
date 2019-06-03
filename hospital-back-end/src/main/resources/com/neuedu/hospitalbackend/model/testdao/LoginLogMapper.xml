@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.LoginLogMapper">
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.LoginLog">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="time" jdbcType="TIMESTAMP" property="time" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
-    <result column="os" jdbcType="VARCHAR" property="os" />
-    <result column="browser" jdbcType="VARCHAR" property="browser" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="location" jdbcType="VARCHAR" property="location" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.LoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.LoginLog" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="os" property="os" jdbcType="VARCHAR" />
+    <result column="browser" property="browser" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.LoginLog">
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.LoginLog" >
     insert into login_log (id, user_id, time, 
       ip, os, browser, type, 
       url, location)
@@ -20,143 +20,63 @@
       #{ip,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.LoginLog">
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.LoginLog" >
     insert into login_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         user_id,
       </if>
-      <if test="time != null">
+      <if test="time != null" >
         time,
       </if>
-      <if test="ip != null">
+      <if test="ip != null" >
         ip,
       </if>
-      <if test="os != null">
+      <if test="os != null" >
         os,
       </if>
-      <if test="browser != null">
+      <if test="browser != null" >
         browser,
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type,
       </if>
-      <if test="url != null">
+      <if test="url != null" >
         url,
       </if>
-      <if test="location != null">
+      <if test="location != null" >
         location,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="time != null">
+      <if test="time != null" >
         #{time,jdbcType=TIMESTAMP},
       </if>
-      <if test="ip != null">
+      <if test="ip != null" >
         #{ip,jdbcType=VARCHAR},
       </if>
-      <if test="os != null">
+      <if test="os != null" >
         #{os,jdbcType=VARCHAR},
       </if>
-      <if test="browser != null">
+      <if test="browser != null" >
         #{browser,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="url != null">
+      <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="location != null">
-        #{location,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.LoginLog">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="time" jdbcType="TIMESTAMP" property="time" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
-    <result column="os" jdbcType="VARCHAR" property="os" />
-    <result column="browser" jdbcType="VARCHAR" property="browser" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="location" jdbcType="VARCHAR" property="location" />
-  </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.LoginLog">
-    insert into login_log (id, user_id, time, 
-      ip, os, browser, type, 
-      url, location)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
-      #{ip,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.LoginLog">
-    insert into login_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="time != null">
-        time,
-      </if>
-      <if test="ip != null">
-        ip,
-      </if>
-      <if test="os != null">
-        os,
-      </if>
-      <if test="browser != null">
-        browser,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="location != null">
-        location,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="time != null">
-        #{time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ip != null">
-        #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="os != null">
-        #{os,jdbcType=VARCHAR},
-      </if>
-      <if test="browser != null">
-        #{browser,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="location != null">
+      <if test="location != null" >
         #{location,jdbcType=VARCHAR},
       </if>
     </trim>

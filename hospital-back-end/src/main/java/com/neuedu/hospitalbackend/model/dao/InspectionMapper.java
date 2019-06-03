@@ -15,4 +15,10 @@ public interface InspectionMapper {
     List<HashMap> listPreparedInspectionPatientsByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName);
 
     List<HashMap> listAppliedProjectsByCaseId(Integer caseId);
+
+    int checkInProject(Integer collectionId, Integer projectId, Integer inspectorRoleId);
+
+    int cancelProject(Integer collectionId, Integer projectId);
+
+    List<HashMap> listCheckedInButNotRecordedProject(Integer caseId);
 }

@@ -59,7 +59,6 @@ public class OauthServiceImpl implements OauthService {
             jsonObject.put("userName", user.getName());
             jsonObject.put("userAvatar", user.getAvatar());
             jsonObject.put("userCreateTime",user.getGmtCreate());
-            jsonObject.put("roles",user.getRoles());
             returnArray.add(jsonObject);
         }
 
