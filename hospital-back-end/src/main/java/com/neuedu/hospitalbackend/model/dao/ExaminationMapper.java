@@ -18,4 +18,8 @@ public interface ExaminationMapper {
     List<HashMap> listAppliedProjectsByCaseId(Integer caseId);
 
     int checkInProject(Integer collectionId, Integer projectId, Integer examinerRoleId);
+
+    int cancelProject(Integer collectionId, Integer projectId);
+
+    List<HashMap> listCheckedInButNotRecordedProject(Integer caseId);
 }

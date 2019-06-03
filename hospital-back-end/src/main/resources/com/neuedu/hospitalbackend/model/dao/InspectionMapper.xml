@@ -48,4 +48,16 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
+    <update id="cancelProject">
+        update inspection
+        set status = 3
+        where id = #{collectionId} and project_id = #{projectId}
+    </update>
+
+    <!--<select id="listCheckedInButNotRecordedProject" resultType="HashMap">-->
+      <!--select -->
+      <!--from -->
+      <!--where -->
+    <!--</select>-->
+
 </mapper>

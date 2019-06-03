@@ -17,4 +17,8 @@ public interface InspectionMapper {
     List<HashMap> listAppliedProjectsByCaseId(Integer caseId);
 
     int checkInProject(Integer collectionId, Integer projectId, Integer inspectorRoleId);
+
+    int cancelProject(Integer collectionId, Integer projectId);
+
+    List<HashMap> listCheckedInButNotRecordedProject(Integer caseId);
 }
