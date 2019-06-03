@@ -3,15 +3,13 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstat
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ExaminationMapper;
 import com.neuedu.hospitalbackend.model.dao.InspectionMapper;
+import com.neuedu.hospitalbackend.model.vo.ProjectCheckInParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TechProjectService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,7 +52,7 @@ public class TechProjectServiceImpl implements TechProjectService {
      * 4.1.1 患者查询
      * 选择患者可以相应申请的项目明细
      * @param projectPatientParam: projectType, caseId, patientName
-     * @return inspectionId, inspectionName, inspectionGMTCreate
+     * @return inspectionId, inspectionName, inspectionGMTCreate, t.status(是否已缴费), requirement
      */
     @Override
     public JSONObject listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam){
@@ -68,6 +66,7 @@ public class TechProjectServiceImpl implements TechProjectService {
             projects = inspectionMapper.listAppliedProjectsByCaseId(caseId);
         else if(projectType.equals("检验"))
             projects = examinationMapper.listAppliedProjectsByCaseId(caseId);
+        //TODO： else 报错
 
         //timestamp格式转换为datetime
         for(HashMap project: projects) {
@@ -84,12 +83,25 @@ public class TechProjectServiceImpl implements TechProjectService {
      * 4.1.2 执行确认
      * 选中相应的患者，选中执行的项目，点击“执行确认”按钮，进行登记操作。
      * 注意：只有已缴费的项目，才可以进行登记
-     * TODO：选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
-     * @param jsonObject:{inspectionId/examinationId, projectId, 医技医生Id}
+     * 选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
+     * @param projectCheckInParam: projectType,collectionId,projectId,doctorRoleId
+     * @return 改动数据库行数
      * */
     @Override
-    public void checkInProject(JSONObject jsonObject){
-
+    public int checkInProject(ProjectCheckInParam projectCheckInParam){
+        Integer collectionId = projectCheckInParam.getCollectionId();
+        Integer projectId = projectCheckInParam.getProjectId();
+        Integer doctorRoleId = projectCheckInParam.getDoctorRoleId();
+        String projectType = projectCheckInParam.getProjectType();
+        System.out.println("projectType" + projectType);
+        int count = 0;
+        //TODO：安全：检查用户权限
+        if(projectType.equals("检查"))
+            count = inspectionMapper.checkInProject(collectionId, projectId, doctorRoleId);
+        else if(projectType.equals("检验"))
+            count = examinationMapper.checkInProject(collectionId, projectId, doctorRoleId);
+        //TODO： else 报错
+        return count;
     }
 
     /**

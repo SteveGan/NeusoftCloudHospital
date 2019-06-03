@@ -16,4 +16,6 @@ public interface ExaminationMapper {
     List<HashMap> listPreparedExaminationPatientsByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName);
 
     List<HashMap> listAppliedProjectsByCaseId(Integer caseId);
+
+    int checkInProject(Integer collectionId, Integer projectId, Integer examinerRoleId);
 }

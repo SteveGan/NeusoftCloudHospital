@@ -35,11 +35,17 @@
     </select>
 
     <select id="listAppliedProjectsByCaseId" resultType="HashMap">
-      select n.id, n.name, e.gmt_create, t.status
+      select n.id, n.name, e.id, e.gmt_create, t.status
       from examination e, non_medicine n, transaction_log t
       where t.registration_id = #{caseId}  and t.collection_id = e.id  and t.project_id = e.project_id
           and e.status = 2
           and n.id = e.project_id
     </select>
+
+    <update id="checkInProject">
+        update examination
+        set status = 4, examiner_role_id = #{examinerRoleId}
+        where id = #{collectionId} and project_id = #{projectId}
+    </update>
 
 </mapper>

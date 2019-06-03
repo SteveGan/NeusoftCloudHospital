@@ -26,7 +26,7 @@ public class OauthController {
     }
 
     @ApiOperation("返回用户所有角色信息")
-    @RequestMapping(value = "/roles", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public CommonResult<JSONObject> listAllUsersAndRoles()
     {
         JSONObject roles = oauthServiceImpl.listAllUsersAndRoles();

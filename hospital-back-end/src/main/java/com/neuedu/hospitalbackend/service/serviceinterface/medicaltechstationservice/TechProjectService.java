@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.model.vo.ProjectCheckInParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 
 /**
@@ -20,18 +21,19 @@ public interface TechProjectService {
     /**
      * 选择患者可以相应申请的项目明细
      * @param projectPatientParam: projectType, caseId, patientName
-     * @return projectId, projectName, projectCollectionGMTCreate
+     * @return projectId, projectName, projectCollectionGMTCreate, t.status(是否已缴费), requirement
      */
     JSONObject listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam);
 
     /**
      * 4.1.2 执行确认
      * 选中相应的患者，选中执行的项目，点击“执行确认”按钮，进行登记操作。
-     * 注意：只有已缴费的项目，才可以进行登记
-     * TODO：选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
-     * @param jsonObject:{projectCollectionId, projectId, projectId, 医技医生Id}
+     * 只有已缴费的项目，才可以进行登记
+     * 选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
+     * @param projectCheckInParam：projectType, collectionId, projectId, inspectorRoleId
+     * @return 改动数据库行数
      */
-    void checkInProject(JSONObject jsonObject);
+    int checkInProject(ProjectCheckInParam projectCheckInParam);
 
     /**
      * 4.1.3 取消执行
