@@ -26,7 +26,4 @@
     <select id="getPatientByIdCard" resultType="integer">
         select id_card from patient where id_card = #{idCard}
     </select>
-    <insert id="insert" parameterType="Patient">
-        
-    </insert>
 </mapper>
