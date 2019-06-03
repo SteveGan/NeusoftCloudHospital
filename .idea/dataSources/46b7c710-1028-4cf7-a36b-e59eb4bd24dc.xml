@@ -2006,13 +2006,15 @@ item_id</ColNames>
     <column id="419" parent="246" name="status">
       <Position>2</Position>
       <Comment>1. 可用 2.暂用 3.已用</Comment>
-      <DataType>tinyint(4)|0s</DataType>
+      <DataType>tinyint(4) unsigned|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="420" parent="246" name="version">
       <Position>3</Position>
       <Comment>基于mysql乐观锁，解决并发访问</Comment>
-      <DataType>int(3)|0s</DataType>
+      <DataType>int(3) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="421" parent="246" name="PRIMARY">
@@ -2838,15 +2840,14 @@ medicine_code</ColNames>
     <column id="547" parent="258" name="registration_id">
       <Position>3</Position>
       <Comment>病历号</Comment>
-      <DataType>int(11) unsigned|0s</DataType>
+      <DataType>int(11) unsigned zerofill|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="548" parent="258" name="patient_id">
       <Position>4</Position>
       <Comment>患者在本医院的id</Comment>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="549" parent="258" name="role_id">

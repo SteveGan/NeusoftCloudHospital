@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class JwtInterceptor extends HandlerInterceptorAdapter {
 
-    @Override
+   /* @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String authHeader = request.getHeader("Authorization");
@@ -28,6 +28,6 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
         Claims claims = JwtUtil.checkToken(token);
         request.setAttribute("username", claims.getSubject());
         return true;
-    }
+    }*/
 
 }
