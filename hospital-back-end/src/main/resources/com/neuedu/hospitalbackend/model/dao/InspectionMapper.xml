@@ -18,7 +18,7 @@
         <result column="requirement" property="requirement"/>
     </resultMap>
 
-    <select id="listPreparedInspectionPatientsByCaseIdOrName" resultType="HashMap">
+    <select id="listPreparedPatientsByCaseIdOrName" resultType="HashMap">
         select c.registration_id, c.patient_name
         from patient_case c, inspection i, transaction_log t
         where i.id = t.collection_id and i.project_id = t.project_id
@@ -59,8 +59,16 @@
       from inspection i, non_medicine n, transaction_log t
       where t.registration_id = #{caseId}  and t.collection_id = i.id  and t.project_id = i.project_id
           and i.status = 4
-          and result_description = null and result_image = null and advice = null
+          and (result_description = null or result_description = '')
+          and (result_image = null or result_image = '')
+          and (advice = null or advice = '')
           and n.id = i.project_id
     </select>
+
+    <update id="recordResult">
+        update inspection
+        set result_description = #{resultDescription}, result_image = #{resultImage}, advice = #{advice}
+        where id = #{collectionId} and project_id = #{projectId}
+    </update>
 
 </mapper>

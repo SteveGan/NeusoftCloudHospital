@@ -55,9 +55,9 @@ public interface TechProjectService {
     /**
      * 填写结果
      * 选中相应的患者和项目后，点击“结果录入”按钮，录入检查结果，如果检查项目有图片，上传检查结果图片
-     * TODO: 选中项目，录入结果: 结果文字、图片（非必填）、医生建议
-     * @param jsonObject:{caseId, projectCollectionId, projectId, resultDescription, resultPicture, advice}
+     * 录入结果: 结果文字、图片（非必填）、医生建议
+     * @param projectParam:projectCollectionId, projectId, resultDescription, resultImage, advice
      */
-    void recordResult(JSONObject jsonObject);
+    int recordResult(ProjectParam projectParam);
 
 }

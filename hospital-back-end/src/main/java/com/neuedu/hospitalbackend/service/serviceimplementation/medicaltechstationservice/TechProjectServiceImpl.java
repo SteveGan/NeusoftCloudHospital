@@ -36,10 +36,11 @@ public class TechProjectServiceImpl implements TechProjectService {
         String projectType = projectPatientParam.getProjectType();
         Integer caseId = projectPatientParam.getCaseId();
         String patientName = projectPatientParam.getPatientName();
+        //TODO: 检查状态为 已登记
         if(projectType.equals("检查"))
-            patients = inspectionMapper.listPreparedInspectionPatientsByCaseIdOrName(caseId, patientName);
+            patients = inspectionMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName);
         else if(projectType.equals("检验"))
-            patients = examinationMapper.listPreparedExaminationPatientsByCaseIdOrName(caseId, patientName);
+            patients = examinationMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName);
         //TODO： else 报错
         returnObject.put("patients", patients);
         return returnObject;
@@ -99,6 +100,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         return count;
     }
 
+
     /**
      * 取消执行
      * 选中相应的患者，选中项目，点击“取消执行”按钮，进行取消操作。
@@ -110,6 +112,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         String projectType = projectParam.getProjectType();
         Integer collectionId = projectParam.getCollectionId();
         Integer projectId = projectParam.getProjectId();
+        //TODO：安全：检查用户权限
         int count = 0;
         if(projectType.equals("检查"))
             count = inspectionMapper.cancelProject(collectionId, projectId);
@@ -117,6 +120,7 @@ public class TechProjectServiceImpl implements TechProjectService {
             count = examinationMapper.cancelProject(collectionId, projectId);
         return count;
     }
+
 
     /**
      * 填写结果
@@ -129,24 +133,38 @@ public class TechProjectServiceImpl implements TechProjectService {
         List<HashMap> projects = new ArrayList<>();
         Integer caseId = projectPatientParam.getCaseId();
         String projectType = projectPatientParam.getProjectType();
-
+        //TODO：权限检查
         if (projectType.equals("检查"))
             projects = inspectionMapper.listCheckedInButNotRecordedProject(caseId);
         else if (projectType.equals("检验"))
             projects = examinationMapper.listCheckedInButNotRecordedProject(caseId);
-
+        //TODO： else 报错
         returnJson.put("projects", projects);
         return returnJson;
     }
 
+
     /**
-     * 4.1.4 填写结果
-     * TODO: 选中项目，录入结果: 结果文字、图片（非必填）、医生建议
-     * @param jsonObject:{caseId, resultDescription, resultPicture, advice}
+     * 填写结果
+     * 选中相应的患者和项目后，点击“结果录入”按钮，录入检查结果，如果检查项目有图片，上传检查结果图片
+     * 录入结果: 结果文字、图片（非必填）、医生建议
+     * @param projectParam:projectType, collectionId, projectId, resultDescription, resultImage, advice
      */
     @Override
-    public void recordResult(JSONObject jsonObject){
-
+    public int recordResult(ProjectParam projectParam){
+        String projectType = projectParam.getProjectType();
+        Integer collectionId = projectParam.getCollectionId();
+        Integer projectId = projectParam.getProjectId();
+        String resultDescription = projectParam.getResultDescription();
+        String resultImage = projectParam.getResultImage();
+        String advice = projectParam.getAdvice();
+        int count = 0;
+        if (projectType.equals("检查"))
+            count = inspectionMapper.recordResult(collectionId, projectId, resultDescription, resultImage, advice);
+        else if (projectType.equals("检验"))
+            count = examinationMapper.recordResult(collectionId, projectId, resultDescription, resultImage, advice);
+        //TODO： else 报错
+        return count;
     }
 
 }
