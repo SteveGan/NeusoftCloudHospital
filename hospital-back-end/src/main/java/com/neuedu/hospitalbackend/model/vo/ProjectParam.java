@@ -11,24 +11,24 @@ public class ProjectParam {
     /**
      * 结果
      */
-    private String result_image;
-    private String result_description;
+    private String resultImage;
+    private String resultDescription;
     private String advice;
 
-    public String getResult_image() {
-        return result_image;
+    public String getResultImage() {
+        return resultImage;
     }
 
-    public void setResult_image(String result_image) {
-        this.result_image = result_image;
+    public void setResultImage(String resultImage) {
+        this.resultImage = resultImage;
     }
 
-    public String getResult_description() {
-        return result_description;
+    public String getResultDescription() {
+        return resultDescription;
     }
 
-    public void setResult_description(String result_description) {
-        this.result_description = result_description;
+    public void setResultDescription(String resultDescription) {
+        this.resultDescription = resultDescription;
     }
 
     public String getAdvice() {
