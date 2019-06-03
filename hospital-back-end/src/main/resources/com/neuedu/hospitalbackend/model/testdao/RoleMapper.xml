@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.RoleMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Role" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="position_id" property="positionId" jdbcType="INTEGER" />
-    <result column="position_name" property="positionName" jdbcType="VARCHAR" />
-    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
-    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
-    <result column="title_id" property="titleId" jdbcType="INTEGER" />
-    <result column="title_name" property="titleName" jdbcType="VARCHAR" />
-    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
-    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.testdao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Role">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="position_id" jdbcType="INTEGER" property="positionId" />
+    <result column="position_name" jdbcType="VARCHAR" property="positionName" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="title_name" jdbcType="VARCHAR" property="titleName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Role" >
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Role">
     insert into role (id, user_id, position_id, 
       position_name, department_id, department_name, 
       title_id, title_name, gmt_create, 
@@ -23,69 +23,158 @@
       #{titleId,jdbcType=INTEGER}, #{titleName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Role" >
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Role">
     insert into role
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="positionId != null" >
+      <if test="positionId != null">
         position_id,
       </if>
-      <if test="positionName != null" >
+      <if test="positionName != null">
         position_name,
       </if>
-      <if test="departmentId != null" >
+      <if test="departmentId != null">
         department_id,
       </if>
-      <if test="departmentName != null" >
+      <if test="departmentName != null">
         department_name,
       </if>
-      <if test="titleId != null" >
+      <if test="titleId != null">
         title_id,
       </if>
-      <if test="titleName != null" >
+      <if test="titleName != null">
         title_name,
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         gmt_create,
       </if>
-      <if test="gmtModified != null" >
+      <if test="gmtModified != null">
         gmt_modified,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="positionId != null" >
+      <if test="positionId != null">
         #{positionId,jdbcType=INTEGER},
       </if>
-      <if test="positionName != null" >
+      <if test="positionName != null">
         #{positionName,jdbcType=VARCHAR},
       </if>
-      <if test="departmentId != null" >
+      <if test="departmentId != null">
         #{departmentId,jdbcType=INTEGER},
       </if>
-      <if test="departmentName != null" >
+      <if test="departmentName != null">
         #{departmentName,jdbcType=VARCHAR},
       </if>
-      <if test="titleId != null" >
+      <if test="titleId != null">
         #{titleId,jdbcType=INTEGER},
       </if>
-      <if test="titleName != null" >
+      <if test="titleName != null">
         #{titleName,jdbcType=VARCHAR},
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModified != null" >
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Role">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="position_id" jdbcType="INTEGER" property="positionId" />
+    <result column="position_name" jdbcType="VARCHAR" property="positionName" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="title_name" jdbcType="VARCHAR" property="titleName" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Role">
+    insert into role (id, user_id, position_id, 
+      position_name, department_id, department_name, 
+      title_id, title_name, gmt_create, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{positionId,jdbcType=INTEGER}, 
+      #{positionName,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, 
+      #{titleId,jdbcType=INTEGER}, #{titleName,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="positionId != null">
+        position_id,
+      </if>
+      <if test="positionName != null">
+        position_name,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="departmentName != null">
+        department_name,
+      </if>
+      <if test="titleId != null">
+        title_id,
+      </if>
+      <if test="titleName != null">
+        title_name,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="positionId != null">
+        #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="positionName != null">
+        #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="titleName != null">
+        #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </trim>

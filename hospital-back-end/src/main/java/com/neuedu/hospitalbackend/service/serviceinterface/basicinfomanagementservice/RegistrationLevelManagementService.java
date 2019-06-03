@@ -15,7 +15,7 @@ public interface RegistrationLevelManagementService {
      * @param id 挂号级别id
      * @return 查询结果
      */
-    RegistrationLevel getRegistrationLevel(String id);
+    RegistrationLevel getRegistrationLevel(Integer id);
 
     /**
      * 1.4.2 新增挂号级别
@@ -33,6 +33,6 @@ public interface RegistrationLevelManagementService {
      * 1.4.4 删除挂号级别
      * @param id
      */
-    void deleteDRegistrationLevelById(String id);
+    void deleteDRegistrationLevelById(Integer id);
 
 }
