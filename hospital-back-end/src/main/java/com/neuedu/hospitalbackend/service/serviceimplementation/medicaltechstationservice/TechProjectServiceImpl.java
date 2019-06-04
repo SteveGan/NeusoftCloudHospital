@@ -46,7 +46,7 @@ public class TechProjectServiceImpl implements TechProjectService {
 
         //参数检查
         if (departmentId == null)
-            CommonResult.fail(ResultCode.E_801);//部门参数异常
+            return CommonResult.fail(ResultCode.E_801);//部门参数异常
 
         //查询患者列表
         List<HashMap> patients = new ArrayList<>();
@@ -55,7 +55,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if(2 == projectType)
             patients = examinationMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName, departmentId);
         else
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_800);//科室类型异常
         returnObject.put("patients", patients);
         return CommonResult.success(returnObject);
     }
@@ -77,9 +77,9 @@ public class TechProjectServiceImpl implements TechProjectService {
 
         //参数检查
         if(caseId == null)
-            CommonResult.fail(ResultCode.E_801);//病历号参数异常
+            return CommonResult.fail(ResultCode.E_801);//病历号参数异常
         if (departmentId == null)
-            CommonResult.fail(ResultCode.E_801);//部门参数异常
+            return CommonResult.fail(ResultCode.E_801);//部门参数异常
 
         //查询项目列表
         if(1 == projectType)
@@ -87,7 +87,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if(2 == projectType)
             projects = examinationMapper.listAppliedProjectsByCaseId(caseId, departmentId);
         else
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_800);//科室类型异常
 
         //timestamp格式转换为datetime
         for(HashMap project: projects)
@@ -117,22 +117,26 @@ public class TechProjectServiceImpl implements TechProjectService {
         if (collectionId == null)
             CommonResult.fail(ResultCode.E_807);//申请参数异常
         if(projectId == null)
-            CommonResult.fail(ResultCode.E_806);//项目参数异常
+            return CommonResult.fail(ResultCode.E_806);//项目参数异常
         if(doctorRoleId == null)
-            CommonResult.fail(ResultCode.E_803);//医技医生参数异常
+            return CommonResult.fail(ResultCode.E_803);//医技医生参数异常
         //确认已缴费
-        if(4 != transactionLogMapper.selectStatusOfProject(collectionId, projectId))
-            CommonResult.fail(ResultCode.E_804);//项目操作权限异常
+        if(2 != transactionLogMapper.selectStatusOfProject(collectionId, projectId))
+            return CommonResult.fail(ResultCode.E_804);//项目操作权限异常
 
-        int count = 0;
+        //登记项目
+        int count;
         if(1 == projectType)
             count = inspectionMapper.checkInProject(collectionId, projectId, doctorRoleId);
         else if(2 == projectType)
             count = examinationMapper.checkInProject(collectionId, projectId, doctorRoleId);
         else
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_800);//科室类型异常
 
-        return CommonResult.success(count);
+        if(count > 0)
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
     }
 
 
@@ -150,23 +154,26 @@ public class TechProjectServiceImpl implements TechProjectService {
 
         //参数验证
         if (collectionId == null)
-            CommonResult.fail(ResultCode.E_807);//申请参数异常
+            return CommonResult.fail(ResultCode.E_807);//申请参数异常
         if(projectId == null)
-            CommonResult.fail(ResultCode.E_806);//项目参数异常
-        //确认开立
-        if(2 != inspectionMapper.selectStatusOfProject(collectionId, projectId))
-            CommonResult.fail(ResultCode.E_804);//项目操作权限异常
+            return CommonResult.fail(ResultCode.E_806);//项目参数异常
+        //确认已缴费
+        if(2 != transactionLogMapper.selectStatusOfProject(collectionId, projectId))
+            return CommonResult.fail(ResultCode.E_804);//项目操作权限异常
 
         //取消执行
-        int count = 0;
+        int count;
         if(1 == projectType)
             count = inspectionMapper.cancelProject(collectionId, projectId);
         else if(2 == projectType)
             count = examinationMapper.cancelProject(collectionId, projectId);
         else
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_800);//科室类型异常
 
-        return CommonResult.success(count);
+        if(count > 0)
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
     }
 
 
@@ -184,9 +191,9 @@ public class TechProjectServiceImpl implements TechProjectService {
 
         //参数检查
         if(caseId == null)
-            CommonResult.fail(ResultCode.E_801);//病历号参数异常
+            return CommonResult.fail(ResultCode.E_801);//病历号参数异常
         if (departmentId == null)
-            CommonResult.fail(ResultCode.E_801);//部门参数异常
+            return CommonResult.fail(ResultCode.E_801);//部门参数异常
 
         //未录入结果项目列表
         List<HashMap> projects = new ArrayList<>();
@@ -195,7 +202,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if (2 == projectType)
             projects = examinationMapper.listCheckedInButNotRecordedProject(caseId, departmentId);
         else
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_800);//科室类型异常
 
         returnJson.put("projects", projects);
         return CommonResult.success(returnJson);
@@ -219,19 +226,19 @@ public class TechProjectServiceImpl implements TechProjectService {
 
         //参数验证
         if (collectionId == null)
-            CommonResult.fail(ResultCode.E_807);//申请参数异常
+            return CommonResult.fail(ResultCode.E_807);//申请参数异常
         if(projectId == null)
-            CommonResult.fail(ResultCode.E_806);//项目参数异常
+            return CommonResult.fail(ResultCode.E_806);//项目参数异常
         if(resultDescription == null || advice == null)
-            CommonResult.fail(ResultCode.E_805);//缺少必填参数
+            return CommonResult.fail(ResultCode.E_805);//缺少必填参数
 
-        int count = 0;
-        if (projectType.equals("检查"))
+        int count;
+        if (1 == projectType)
             count = inspectionMapper.recordResult(collectionId, projectId, resultDescription, resultImage, advice);
-        else if (projectType.equals("检验"))
+        else if (2 == projectType)
             count = examinationMapper.recordResult(collectionId, projectId, resultDescription, resultImage, advice);
         else
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_800);//科室类型异常
 
         return CommonResult.success(count);
     }
