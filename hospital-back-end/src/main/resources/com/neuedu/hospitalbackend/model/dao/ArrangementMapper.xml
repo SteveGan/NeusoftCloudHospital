@@ -97,7 +97,7 @@
   <select id="listAvailableDoctors" resultMap="BaseResultMap">
         select * from arrangement
         where department_id = #{departmentId} and registration_level_id = #{registrationLevelId}
-        and appointment_date = #{appointmentDateStr}
+        and appointment_date = #{appointmentDateStr} and time_slot = #{timeSlot}
         and is_valid = 1 and appointment_left > 0
    </select>
 

@@ -25,7 +25,7 @@ public interface TechProjectService {
      * @param projectPatientParam: projectType, caseId, patientName
      * @return projectId, projectName, projectCollectionGMTCreate, t.status(是否已缴费), requirement
      */
-    JSONObject listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam);
+    CommonResult listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam);
 
     /**
      * 执行确认
@@ -35,7 +35,7 @@ public interface TechProjectService {
      * @param projectParam：projectType, collectionId, projectId, doctorRoleId
      * @return 改动数据库行数
      */
-    int checkInProject(ProjectParam projectParam);
+    CommonResult checkInProject(ProjectParam projectParam);
 
     /**
      * 取消执行
@@ -43,14 +43,14 @@ public interface TechProjectService {
      * 更新项目申请信息：改变状态
      * @param projectParam：projectType, collectionId, projectId
      */
-    int cancelProject(ProjectParam projectParam);
+    CommonResult cancelProject(ProjectParam projectParam);
 
     /**
      * 填写结果
      * 显示所有已登记但未录入结果的项目
      * @param projectPatientParam: projectType, caseId
      */
-    JSONObject listCheckedInButNotRecordedProject(ProjectPatientParam projectPatientParam);
+    CommonResult listCheckedInButNotRecordedProject(ProjectPatientParam projectPatientParam);
 
     /**
      * 填写结果
@@ -58,6 +58,6 @@ public interface TechProjectService {
      * 录入结果: 结果文字、图片（非必填）、医生建议
      * @param projectParam:projectCollectionId, projectId, resultDescription, resultImage, advice
      */
-    int recordResult(ProjectParam projectParam);
+    CommonResult recordResult(ProjectParam projectParam);
 
 }

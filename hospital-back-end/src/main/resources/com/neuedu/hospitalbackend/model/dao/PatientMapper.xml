@@ -13,6 +13,9 @@
         <result column="birthday" jdbcType="DATE" property="birthday" />
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
         <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+        <!--<collection property="registrations" ofType="Registration">-->
+            <!--<id property="registrationId" column="registration_id"/>-->
+        <!--</collection>-->
     </resultMap>
 
     <insert id="insert" parameterType="Patient" useGeneratedKeys="true" keyProperty="id">
@@ -87,5 +90,11 @@
     <select id="getNextId" resultType="integer">
         select MAX(id)+ 1 from patient
     </select>
+
+    <select id="getPatientByRegistrationId" resultMap="BaseResultMap">
+        select id_card, address, name from patient p, registration r
+        where r.id = #{registrationId} and p.id = r.patient_id
+    </select>
+
 
 </mapper>

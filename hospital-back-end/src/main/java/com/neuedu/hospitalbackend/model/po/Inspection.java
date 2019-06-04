@@ -31,6 +31,16 @@ public class Inspection {
 
     private String requirement;
 
+    private Integer departmentId;
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
     public Integer getId() {
         return id;
     }

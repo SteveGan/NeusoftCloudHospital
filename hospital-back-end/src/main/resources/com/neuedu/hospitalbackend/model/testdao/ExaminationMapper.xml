@@ -15,6 +15,7 @@
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     <result column="requirement" property="requirement" jdbcType="VARCHAR" />
     <result column="goal" property="goal" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
   </resultMap>
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Examination" >
     insert into examination (id, case_id, project_id, 

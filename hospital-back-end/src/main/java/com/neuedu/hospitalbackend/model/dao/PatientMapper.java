@@ -9,4 +9,5 @@ public interface PatientMapper {
     int insertSelective(Patient patient);
     Integer getPatientByIdCard(String idCard);
     Integer getNextId();
+    Patient getPatientByRegistrationId(Integer registrationId);
 }
