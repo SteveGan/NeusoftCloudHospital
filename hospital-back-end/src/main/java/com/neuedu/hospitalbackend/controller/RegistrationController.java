@@ -36,8 +36,8 @@ public class RegistrationController {
     }
 
     @ApiOperation("挂号操作")
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public CommonResult makeRegistration(RegistrationParam registrationParam){
+    @RequestMapping(value = "/confirmation", method = RequestMethod.POST)
+    public CommonResult makeRegistration(@RequestBody RegistrationParam registrationParam){
         return registrationServiceImpl.makeRegistration(registrationParam);
     }
 

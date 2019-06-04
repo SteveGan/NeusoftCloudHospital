@@ -12,33 +12,33 @@ import javax.annotation.Resource;
  * @author Raven
  */
 @RestController
-@RequestMapping("/department-management")
+@RequestMapping("/basicinfo")
 @CrossOrigin
 public class DepartmentManagementController {
     @Resource
     private DepartmentManagementImpl departmentManagement;
 
-    @ApiOperation("根据id获取部门信息")
-    @RequestMapping(value = "/department", method = RequestMethod.GET)
-    public CommonResult selectDepartmentById(@RequestParam Integer id) {
+    @ApiOperation("1.2.1 根据id获取部门信息")
+    @RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
+    public CommonResult selectDepartmentById(@PathVariable Integer id) {
         return departmentManagement.getDepartmentById(id);
     }
 
-    @ApiOperation("新增部门信息")
+    @ApiOperation("1.2.2 新增部门信息")
     @RequestMapping(value = "/department", method = RequestMethod.POST)
     public CommonResult addDepartment(@RequestBody Department department) {
         return departmentManagement.insertDepartment(department);
     }
 
-    @ApiOperation("修改部门信息")
+    @ApiOperation("1.2.3 修改部门信息")
     @RequestMapping(value = "/department", method = RequestMethod.PUT)
     public CommonResult updateDepartment(@RequestBody Department department) {
         return departmentManagement.updateDepartmentById(department);
     }
 
-    @ApiOperation("删除部门信息")
-    @RequestMapping(value = "/department", method = RequestMethod.DELETE)
-    public CommonResult deleteDepartment(@RequestBody Integer id) {
+    @ApiOperation("1.2.4 删除部门信息")
+    @RequestMapping(value = "/department/{id}", method = RequestMethod.DELETE)
+    public CommonResult deleteDepartment(@PathVariable Integer id) {
         return departmentManagement.deleteDepartmentById(id);
     }
 
