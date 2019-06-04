@@ -1,24 +1,28 @@
 package com.neuedu.hospitalbackend.model.vo;
 
-
 /**
  * 检查检验项目
  */
 public class ProjectPatientParam {
 
-    /**
-     * 检查 检验
-     */
-    private String projectType;
+    private Integer projectType; //1.检查 2.检验 3.处置
+    private Integer departmentId; //部门id
     private Integer caseId;
     private String patientName;
 
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
 
-    public String getProjectType() {
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public Integer getProjectType() {
         return projectType;
     }
 
-    public void setProjectType(String projectType) {
+    public void setProjectType(Integer projectType) {
         this.projectType = projectType;
     }
 
