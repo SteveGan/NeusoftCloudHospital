@@ -3,6 +3,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationse
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
  * 4. 检查项目医技工作站
@@ -16,7 +17,7 @@ public interface TechProjectService {
      * @param projectPatientParam: projectType, caseId, patientName
      * @return 待登记患者信息列表
      */
-    JSONObject listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
+    CommonResult listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
 
     /**
      * 患者查询
@@ -40,7 +41,6 @@ public interface TechProjectService {
      * 取消执行
      * 选中相应的患者，选中项目，点击“取消执行”按钮，进行取消操作。
      * 更新项目申请信息：改变状态
-     * //TODO: 测试
      * @param projectParam：projectType, collectionId, projectId
      */
     int cancelProject(ProjectParam projectParam);
