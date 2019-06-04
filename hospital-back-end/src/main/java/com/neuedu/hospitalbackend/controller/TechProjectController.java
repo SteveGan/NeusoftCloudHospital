@@ -19,10 +19,9 @@ public class TechProjectController {
 
     @ApiOperation("根据病历号或患者姓名，获取所有待登记患者列表")
     @RequestMapping(value = "/patient", method = RequestMethod.GET)
-    public CommonResult<JSONObject> listPatientByCaseIdOrName(@RequestBody ProjectPatientParam projectPatientParam)
+    public CommonResult listPatientByCaseIdOrName(@RequestBody ProjectPatientParam projectPatientParam)
     {
-        JSONObject patient = techProjectServiceImpl.listPreparedPatientsByCaseIdOrName(projectPatientParam);
-        return CommonResult.success(patient);
+        return techProjectServiceImpl.listPreparedPatientsByCaseIdOrName(projectPatientParam);
     }
 
     @ApiOperation("选中患者，查看已申请的检查/检验项目详情")

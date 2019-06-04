@@ -6,6 +6,7 @@ import com.neuedu.hospitalbackend.model.dao.InspectionMapper;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TechProjectService;
+import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +31,7 @@ public class TechProjectServiceImpl implements TechProjectService {
      * @return 待登记患者信息列表
      */
     @Override
-    public JSONObject listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam){
+    public CommonResult listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam){
         JSONObject returnObject = new JSONObject();
         List<HashMap> patients = new ArrayList<>();
         String projectType = projectPatientParam.getProjectType();
@@ -43,7 +44,7 @@ public class TechProjectServiceImpl implements TechProjectService {
             patients = examinationMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName);
         //TODO： else 报错
         returnObject.put("patients", patients);
-        return returnObject;
+        return CommonResult.success(returnObject);
     }
 
 

@@ -3,6 +3,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationse
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
  * 4. 检查项目医技工作站
@@ -16,7 +17,7 @@ public interface TechProjectService {
      * @param projectPatientParam: projectType, caseId, patientName
      * @return 待登记患者信息列表
      */
-    JSONObject listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
+    CommonResult listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
 
     /**
      * 患者查询
