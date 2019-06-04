@@ -17,7 +17,7 @@ public class Arrangement {
 
     private Boolean isValid;
 
-    private String timeSlot;
+    private Byte timeSlot;
 
     private Byte maxAppointment;
 
@@ -79,12 +79,12 @@ public class Arrangement {
         this.isValid = isValid;
     }
 
-    public String getTimeSlot() {
+    public Byte getTimeSlot() {
         return timeSlot;
     }
 
-    public void setTimeSlot(String timeSlot) {
-        this.timeSlot = timeSlot == null ? null : timeSlot.trim();
+    public void setTimeSlot(Byte timeSlot) {
+        this.timeSlot = timeSlot;
     }
 
     public Byte getMaxAppointment() {

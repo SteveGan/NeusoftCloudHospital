@@ -12,5 +12,5 @@ public interface RegistrationMapper {
     int insertSelective(Registration registration);
     Integer getNextId();
     int updateSelective(Registration registration);
-    Registration getRegistrationInfoById(Integer registrationId);
+    Registration getRegistrationById(Integer registrationId);
 }

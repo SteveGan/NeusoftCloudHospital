@@ -10,6 +10,8 @@ public class Registration {
 
     private Date appointmentDate;
 
+    private Byte timeSlot;
+
     private Integer roleId;
 
     private Short registrationLevelId;
@@ -29,6 +31,10 @@ public class Registration {
     private Date gmtCreate;
 
     private Date gmtModified;
+
+    private PatientCase patientCase;
+
+    //private Patient patient;
 
     public Integer getId() {
         return id;
@@ -52,6 +58,14 @@ public class Registration {
 
     public void setAppointmentDate(Date appointmentDate) {
         this.appointmentDate = appointmentDate;
+    }
+
+    public Byte getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(Byte timeSlot) {
+        this.timeSlot = timeSlot;
     }
 
     public Integer getRoleId() {
@@ -86,14 +100,6 @@ public class Registration {
         this.totalFee = totalFee;
     }
 
-    public Boolean getIsNormal() {
-        return isNormal;
-    }
-
-    public void setIsNormal(Boolean isNormal) {
-        this.isNormal = isNormal;
-    }
-
     public Integer getCashierId() {
         return cashierId;
     }
@@ -108,14 +114,6 @@ public class Registration {
 
     public void setPayType(Byte payType) {
         this.payType = payType;
-    }
-
-    public Boolean getIsBuyCaseBook() {
-        return isBuyCaseBook;
-    }
-
-    public void setIsBuyCaseBook(Boolean isBuyCaseBook) {
-        this.isBuyCaseBook = isBuyCaseBook;
     }
 
     public Date getGmtCreate() {
@@ -133,4 +131,37 @@ public class Registration {
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
     }
+
+    public Boolean getNormal() {
+        return isNormal;
+    }
+
+    public void setNormal(Boolean normal) {
+        isNormal = normal;
+    }
+
+    public Boolean getBuyCaseBook() {
+        return isBuyCaseBook;
+    }
+
+    public void setBuyCaseBook(Boolean buyCaseBook) {
+        isBuyCaseBook = buyCaseBook;
+    }
+/*
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }*/
+
+    public PatientCase getPatientCase() {
+        return patientCase;
+    }
+
+    public void setPatientCase(PatientCase patientCase) {
+        this.patientCase = patientCase;
+    }
+
 }

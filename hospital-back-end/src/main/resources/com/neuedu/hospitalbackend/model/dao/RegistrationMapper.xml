@@ -16,15 +16,19 @@
     <result column="is_buy_case_book" jdbcType="BIT" property="isBuyCaseBook" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+      <association property="patientCase" javaType="PatientCase">
+          <id column="registration_id" property="registrationId" ></id>
+          <result column="status" property="status"/>
+      </association>
   </resultMap>
 
   <insert id="insert" parameterType="Registration" useGeneratedKeys="true" keyProperty="id">
-    insert into registration (id, patient_id, appointment_date, 
+    insert into registration (id, patient_id, appointment_date, time_slot,
       role_id, registration_level_id, department_id, 
       total_fee, is_normal, cashier_id, 
       pay_type, is_buy_case_book, gmt_create, 
       gmt_modified)
-    values (#{id,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, #{appointmentDate,jdbcType=DATE}, 
+    values (#{id,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, #{appointmentDate,jdbcType=DATE}, #{timeSlot,jdbcType=TINYINT},
       #{roleId,jdbcType=INTEGER}, #{registrationLevelId,jdbcType=SMALLINT}, #{departmentId,jdbcType=INTEGER}, 
       #{totalFee,jdbcType=DECIMAL}, #{isNormal,jdbcType=BIT}, #{cashierId,jdbcType=INTEGER}, 
       #{payType,jdbcType=TINYINT}, #{isBuyCaseBook,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
@@ -43,6 +47,9 @@
       <if test="appointmentDate != null">
         appointment_date,
       </if>
+        <if test="timeSlot != null">
+            time_slot,
+        </if>
       <if test="roleId != null">
         role_id,
       </if>
@@ -84,6 +91,9 @@
       <if test="appointmentDate != null">
         #{appointmentDate,jdbcType=DATE},
       </if>
+        <if test="timeSlot != null">
+            #{timeSlot,jdbcType=TINYINT},
+        </if>
       <if test="roleId != null">
         #{roleId,jdbcType=INTEGER},
       </if>
@@ -127,6 +137,7 @@
     <trim prefix="set" suffixOverrides=",">
       <if test="patientId != null"> patient_id = #{patientId}, </if>
       <if test="appointmentDate != null"> appointment_date = #{appointmentDate}, </if>
+        <if test="timeSlot != null"> time_slot = #{timeSlot}, </if>
       <if test="roleId != null"> role_id = #{roleId}, </if>
       <if test="registrationLevelId != null"> registration_level_id = #{registrationLevelId}, </if>
       <if test="departmentId != null"> department_id = #{departmentId}, </if>
@@ -139,7 +150,9 @@
     where id = #{id}
   </update>
 
-  <select id="getRegistrationInfoById" resultMap="BaseResultMap">
-    select * from registration where registration_id = #{registration_id}
-  </select>
+    <select id="getRegistrationInfo" resultMap="BaseResultMap">
+        select r.*, status from registration r, patient_case pc
+
+    </select>
+
 </mapper>

@@ -13,7 +13,7 @@ public class RegistrationParam {
     private String idCard; //患者身份证号
     private String address; //家庭地址
     private String appointmentDateStr; //患者看诊日期
-    private String timeSlot; //患者看诊时间段 （上午，下午）
+    private Byte timeSlot; //患者看诊时间段 （1.上午，2.下午）
     private Short registrationLevelId; //号别
     private Integer departmentId; //科室
     private String doctorName; //看诊医生姓名
@@ -87,11 +87,11 @@ public class RegistrationParam {
         this.appointmentDateStr = appointmentDateStr;
     }
 
-    public String getTimeSlot() {
+    public Byte getTimeSlot() {
         return timeSlot;
     }
 
-    public void setTimeSlot(String timeSlot) {
+    public void setTimeSlot(Byte timeSlot) {
         this.timeSlot = timeSlot;
     }
 

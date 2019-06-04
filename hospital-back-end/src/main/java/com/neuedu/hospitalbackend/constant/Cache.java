@@ -1,7 +1,6 @@
 package com.neuedu.hospitalbackend.constant;
 
 import com.neuedu.hospitalbackend.model.dao.RegistrationMapper;
-import com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice.RegistrationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
