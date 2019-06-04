@@ -1,13 +1,14 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.constant.Cache;
 import com.neuedu.hospitalbackend.model.dao.*;
-import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Service
 public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService {
+
 
     @Autowired
     private ArrangementMapper arrangementMapper;
@@ -38,8 +40,10 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     private PatientCaseMapper patientCaseMapper;
 
     @Override
-    public synchronized CommonResult getNextRegistrationId(){
-        Integer nextId = registrationMapper.getNextId();
+    public synchronized CommonResult getNextRegistrationId() {
+        Integer nextId = Cache.getNextRegistrationId();
+        System.out.println("[INFO]正在使用: " + nextId);
+        Cache.setNextRegistrationId(nextId + 1);
         return CommonResult.success(nextId);
     }
 
@@ -71,14 +75,17 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     @Override
+    @Transactional
     public CommonResult makeRegistration(RegistrationParam registrationParam){
-        //JSONObject jsonObject = new JSONObject();
+        System.out.println("病历号" + registrationParam.getRegistrationId());
+        JSONObject jsonObject = new JSONObject();
         //向缴费表中添加新的缴费记录  --已缴费
         TransactionLog transactionLog = new TransactionLog();
         int count = 0;
         synchronized (this) {
-            //通过查询invoice表得到新的缴费记录的发票号
+            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为暂用
             String invoice_code = invoiceMapper.getAvailableInvoiceCode();
+            count += invoiceMapper.updateInvoiceStatusById(invoice_code);
             //向缴费表中添加新的缴费记录  --已缴费
             transactionLog.setInvoiceCode(invoice_code);
             transactionLog.setRegistrationId(registrationParam.getRegistrationId());
@@ -89,12 +96,16 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             transactionLog.setTotalMoney(registrationParam.getTotalFee());
             transactionLog.setStatus((byte)2);
             count += transactionLogMapper.insertSelective(transactionLog);
+            jsonObject.put("insertTransactionLog", count);
         }
 
         if (count > 0){
+            //System.out.println("appointmentDate" + Date.valueOf(registrationParam.getAppointmentDateStr()));
             //向挂号表中添加新的挂号记录 --默认正常
             Registration registration = new Registration();
+            registration.setId(registrationParam.getRegistrationId());
             registration.setAppointmentDate(Date.valueOf(registrationParam.getAppointmentDateStr()));
+            //System.out.println("转换后"+ Date.valueOf(registrationParam.getAppointmentDateStr()) );
             registration.setRoleId(registrationParam.getRoleId());
             registration.setRegistrationLevelId(registrationParam.getRegistrationLevelId());
             registration.setDepartmentId(registrationParam.getDepartmentId());
@@ -103,10 +114,13 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             registration.setPayType(registrationParam.getPayType());
             registration.setIsBuyCaseBook(registrationParam.getBuyCaseBook());
             count += registrationMapper.insertSelective(registration);
+            jsonObject.put("insertRegistrationLog", count);
 
             if (count > 0) {
                 //更新 所选医生 对应的余号数量
                 count += arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(), registrationParam.getRoleId(), registrationParam.getRegistrationLevelId());
+                jsonObject.put("updateRemainingAppointment", count);
+
                 if (count > 0) {
                     //检查患者是否已在本系统中
                     Integer patientId = patientMapper.getPatientByIdCard(registrationParam.getIdCard());
@@ -118,18 +132,26 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                         patient.setName(registrationParam.getName());
                         patient.setBirthday(Date.valueOf(registrationParam.getBirthdayStr()));
                         count += patientMapper.insertSelective(patient);
+                        jsonObject.put("insertPatient", count);
                         patientId = patient.getId();
+                        System.out.println("patientId: " + patientId);
                     }
+
                     transactionLog.setPatientId(patientId);
                     registration.setPatientId(patientId);
                     count += transactionLogMapper.updateSelective(transactionLog);
+                    jsonObject.put("updateTransactionLog", count);
                     count += registrationMapper.updateSelective(registration);
+                    jsonObject.put("updateRegistration", count);
+
                     //向病历表中添加新的病历记录 --默认待诊
                     PatientCase patientCase = new PatientCase();
                     patientCase.setRegistrationId(registrationParam.getRegistrationId());
-                    patientCase.setPatientId(registrationParam.getPatientId());
-                    patientCase.setRoleId(registration.getRoleId());
+                    patientCase.setPatientId(patientId);
+                    patientCase.setPatientName(registrationParam.getName());
+                    patientCase.setRoleId(registrationParam.getRoleId());
                     count += patientCaseMapper.insertSelective(patientCase);
+                    jsonObject.put("insertPatientCase", count);
                 }
             }
             return CommonResult.success(count);

@@ -38,7 +38,7 @@ public class TransactionLog {
         return id;
     }
 
-    public TransactionLog(){
+/*    public TransactionLog(){
 
     }
 
@@ -55,7 +55,7 @@ public class TransactionLog {
         this.payType = payType;
         this.totalMoney = totalMoney;
         this.status = status;
-    }
+    }*/
 
     public void setId(Integer id) {
         this.id = id;

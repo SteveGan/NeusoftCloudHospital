@@ -118,7 +118,8 @@
   </insert>
 
   <select id="getNextId" resultType="integer">
-    select id +1 from  registration order by id desc limit 1
+    select MAX(id)+ 1 from registration
+    <!--select id +1 from  registration order by id desc limit 1-->
   </select>
 
   <update id="updateSelective" parameterType="Registration">
@@ -127,7 +128,7 @@
       <if test="patientId != null"> patient_id = #{patientId}, </if>
       <if test="appointmentDate != null"> appointment_date = #{appointmentDate}, </if>
       <if test="roleId != null"> role_id = #{roleId}, </if>
-      <if test="registrationLevelId != null"> registration_level_id = {registrationLevelId}, </if>
+      <if test="registrationLevelId != null"> registration_level_id = #{registrationLevelId}, </if>
       <if test="departmentId != null"> department_id = #{departmentId}, </if>
       <if test="totalFee != null"> total_fee = #{totalFee}, </if>
       <if test="isNormal != null"> is_normal = #{isNormal}, </if>
@@ -138,4 +139,7 @@
     where id = #{id}
   </update>
 
+  <select id="getRegistrationInfoById" resultMap="BaseResultMap">
+    select * from registration where registration_id = #{registration_id}
+  </select>
 </mapper>

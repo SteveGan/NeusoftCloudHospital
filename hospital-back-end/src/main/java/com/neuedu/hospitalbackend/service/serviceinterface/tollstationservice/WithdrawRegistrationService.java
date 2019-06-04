@@ -1,6 +1,9 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.neuedu.hospitalbackend.model.po.*;
+import com.neuedu.hospitalbackend.model.vo.DoctorParam;
+import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 import org.apache.ibatis.annotations.Case;
 
 /**
@@ -11,11 +14,11 @@ public interface WithdrawRegistrationService {
 
     /**
      * 对原缴费记录进行操作
-     * @param registration
+     * @param registrationParam
      * @return 原缴费记录
      * TODO: 得到原缴费记录的流水号和金额, 将原有缴费记录状态更改为已退费
      */
-    TransactionLog operateOriginalTransactionLog(Registration registration);
+    CommonResult operateOriginalTransactionLog(RegistrationParam registrationParam);
 
     /**
      * 向缴费表中添加新的缴费记录 -冲正
@@ -26,14 +29,14 @@ public interface WithdrawRegistrationService {
 
     /**
      * 从门诊病历首页移除该病历号，删除医生端的病历记录
-     * @param c 需要移除的病历号
+     * @param patientCase 需要移除的病历号
      */
-    void deleteCaseLog(Case c);
+    CommonResult deleteCaseLog(PatientCase patientCase);
 
     /**
      * 更新所选医生对应的余号数量
-     * @param arrangement 需要更新的医生
+     * @param doctorParam 需要更新的医生
      */
-    void updateRemainingAppointment(Arrangement arrangement);
+    CommonResult updateRemainingAppointment(DoctorParam doctorParam);
 
 }

@@ -95,7 +95,7 @@
 
   <!--通过挂号科室id，返回该科室 在指定时间 指定号别 仍有余号的看诊医生列表-->
   <select id="listAvailableDoctors" resultMap="BaseResultMap">
-        select time_slot, role_id, user_name from arrangement
+        select * from arrangement
         where department_id = #{departmentId} and registration_level_id = #{registrationLevelId}
         and appointment_date = #{appointmentDateStr}
         and is_valid = 1 and appointment_left > 0
