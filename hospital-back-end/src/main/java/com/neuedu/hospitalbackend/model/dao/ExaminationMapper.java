@@ -1,6 +1,5 @@
 package com.neuedu.hospitalbackend.model.dao;
 
-import com.neuedu.hospitalbackend.model.po.Inspection;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;

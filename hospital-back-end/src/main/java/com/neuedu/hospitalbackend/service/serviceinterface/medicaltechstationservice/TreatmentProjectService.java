@@ -1,18 +1,14 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice;
 
-import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.Patient;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
-import java.util.List;
 
 /**
  * 处置项目医技工作站
  */
 public interface TreatmentProjectService {
-
 
     /**
      * 患者查询
