@@ -31,12 +31,12 @@
     </select>
 
     <select id="get" resultType="User" parameterType="Integer">
-    select id, name, avatar from user where id = #{id}
+    select id, name, avatar, gmt_create, gmt_modified from user where id = #{id}
   </select>
 
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.User" >
-    insert into user (id, name, password, avatar)
-    values (#{id}, #{name}, #{password}, {avatar})
+    insert into user (name, password, avatar)
+    values (#{name}, #{password}, #{avatar})
   </insert>
 
     <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.User">

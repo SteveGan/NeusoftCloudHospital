@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice;
 
 import com.neuedu.hospitalbackend.model.po.RegistrationLevel;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
  * 1.4 挂号级别管理
@@ -15,24 +16,24 @@ public interface RegistrationLevelManagementService {
      * @param id 挂号级别id
      * @return 查询结果
      */
-    RegistrationLevel getRegistrationLevel(Integer id);
+    CommonResult getRegistrationLevelById(Short id);
 
     /**
      * 1.4.2 新增挂号级别
      * @param registrationLevel PO
      */
-    void insertRegistrationLevel(RegistrationLevel registrationLevel);
+    CommonResult insertRegistrationLevel(RegistrationLevel registrationLevel);
 
     /**
      * 1.4.3 修改挂号级别
      * @param registrationLevel PO
      */
-    void updateRegistrationLevelBy(RegistrationLevel registrationLevel);
+    CommonResult updateRegistrationLevelById(RegistrationLevel registrationLevel);
 
     /**
      * 1.4.4 删除挂号级别
      * @param id
      */
-    void deleteDRegistrationLevelById(Integer id);
+    CommonResult deleteRegistrationLevelById(Short id);
 
 }

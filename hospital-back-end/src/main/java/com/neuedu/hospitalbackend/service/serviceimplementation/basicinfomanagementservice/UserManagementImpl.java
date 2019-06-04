@@ -1,17 +1,18 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
 import com.neuedu.hospitalbackend.model.dao.UserMapper;
-import com.neuedu.hospitalbackend.model.po.Department;
 import com.neuedu.hospitalbackend.model.po.User;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.UserManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_602;
 
+/**
+ * @author Raven
+ */
 @Service
 public class UserManagementImpl implements UserManagementService {
     @Resource

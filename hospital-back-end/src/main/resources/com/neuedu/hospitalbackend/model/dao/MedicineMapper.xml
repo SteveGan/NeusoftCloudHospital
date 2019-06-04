@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.MedicineMapper">
+    <select id="get" resultType="Medicine" parameterType="Short">
+    select id, code, name, specification, unit, factory, formulation, type, unit_prize, pinyin_code from medicine where id = #{id}
+  </select>
+
+    <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Medicine" >
+    insert into medicine (code, name, specification, unit, factory, formulation, type, unit_prize, pinyin_code)
+    values (#{code}, #{name}, #{specification}, #{unit}, #{factory}, #{formulation}, #{type}, #{unit_prize}, #{pinyin_code})
+  </insert>
+
+    <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.Medicine">
+        update medicine set code = #{code}, name = #{name}, specification = #{specification}, unit = #{unit},
+         factory = #{factory}, formulation = #{formulation}, type = #{type}, unit_prize = #{unit_prize}, pinyin_code = #{pinyin_code} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Short">
+        delete from medicine where id = #{id}
+    </delete>
+
+</mapper>
