@@ -5,6 +5,7 @@ import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.PatientCase;
 import com.neuedu.hospitalbackend.model.po.Registration;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
  * 2.1 现场挂号
@@ -16,21 +17,21 @@ public interface RegistrationService {
      * 列出当前的病历号
      * @return
      */
-    JSONObject getNextRegistrationId();
+    CommonResult getNextRegistrationId();
 
     /**
      * 通过挂号科室id，返回该科室在指定时间、指定号别仍有余号的看诊医生列表
      * @param registrationParam 指定时间 指定号别 挂号科室id
      * @return 有余号的看诊医生列表
      */
-    JSONObject listAvailableDoctors(RegistrationParam registrationParam);
+    CommonResult listAvailableDoctors(RegistrationParam registrationParam);
 
     /**
      * 根据看诊医生和挂号级别，是否需要病历本，算出应收金额
      * @param registrationParam 号别  是否购买病历本
      * @return
      */
-    JSONObject calculateTotalFee(RegistrationParam registrationParam);
+    CommonResult calculateTotalFee(RegistrationParam registrationParam);
 
     /**
      * 执行挂号操作
@@ -42,6 +43,6 @@ public interface RegistrationService {
      * @param registrationParam 挂号记录
      * @return
      */
-    JSONObject makeRegistration(RegistrationParam registrationParam);
+    CommonResult makeRegistration(RegistrationParam registrationParam);
 
 }

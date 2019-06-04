@@ -40,6 +40,6 @@
   </insert>
 
   <select id="getAvailableInvoiceCode" resultType="string">
-      select id from invoice where status = 1 order by id limit 1
+      select id from invoice where status = 1 order by id desc limit 1
   </select>
 </mapper>

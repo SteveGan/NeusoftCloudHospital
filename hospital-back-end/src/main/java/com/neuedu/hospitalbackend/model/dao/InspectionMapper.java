@@ -12,13 +12,20 @@ public interface InspectionMapper {
      * @param patientName
      * @return 待登记的caseId, patientName
      */
-    List<HashMap> listPreparedInspectionPatientsByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName);
+    List<HashMap> listPreparedPatientsByCaseIdOrName(@Param("caseId") Integer caseId,
+                                                               @Param("patientName") String patientName);
 
     List<HashMap> listAppliedProjectsByCaseId(Integer caseId);
 
-    int checkInProject(Integer collectionId, Integer projectId, Integer inspectorRoleId);
+    int checkInProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
+                       @Param("inspectorRoleId")Integer inspectorRoleId);
 
-    int cancelProject(Integer collectionId, Integer projectId);
+    int cancelProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId);
 
     List<HashMap> listCheckedInButNotRecordedProject(Integer caseId);
+
+    int recordResult(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
+                     @Param("resultDescription")String resultDescription, @Param("resultImage")String resultImage,
+                     @Param("advice")String advice);
+
 }

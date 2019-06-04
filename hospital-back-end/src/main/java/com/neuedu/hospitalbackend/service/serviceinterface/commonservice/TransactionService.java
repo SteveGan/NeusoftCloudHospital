@@ -31,5 +31,5 @@ public interface TransactionService {
      * @param invoiceCode
      * @return 发票号一致的项目列表
      */
-    List<Object> listTransacitionLogsByInvoiceCode(Integer invoiceCode);
+    List<Object> listTransactionLogsByInvoiceCode(String invoiceCode);
 }

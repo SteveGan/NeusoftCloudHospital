@@ -18,7 +18,7 @@
         <result column="requirement" property="requirement"/>
     </resultMap>
 
-    <select id="listPreparedExaminationPatientsByCaseIdOrName" resultType="HashMap">
+    <select id="listPreparedPatientsByCaseIdOrName" resultType="HashMap">
         select c.registration_id, c.patient_name
         from patient_ase c, examination e, transaction_log t
         where e.id = t.collection_id and e.project_id = t.project_id
@@ -51,6 +51,23 @@
     <update id="cancelProject">
         update examination
         set status = 3
+        where id = #{collectionId} and project_id = #{projectId}
+    </update>
+
+    <select id="listCheckedInButNotRecordedProject" resultType="HashMap">
+      select n.id, n.name, e.id, e.gmt_create, e.status, e.requirement
+      from examination e, non_medicine n, transaction_log t
+      where t.registration_id = #{caseId}  and t.collection_id = e.id  and t.project_id = e.project_id
+          and e.status = 4
+          and (result_description = null or result_description = '')
+          and (result_image = null or result_image = '')
+          and (advice = null or advice = '')
+          and n.id = e.project_id
+    </select>
+
+    <update id="recordResult">
+        update inspection
+        set result_description = #{resultDescription}, result_image = #{resultImage}, advice = #{advice}
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 

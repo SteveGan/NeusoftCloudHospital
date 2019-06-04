@@ -2,51 +2,50 @@ package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationse
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.model.vo.ProjectParam;
+import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 
 import java.util.List;
 
 /**
- * 4. 检查项目医技工作站
+ * 处置项目医技工作站
  */
 public interface TreatmentProjectService {
 
 
-    /*---- 4.3 患者处置 ----*/
     /**
-     * 4.3.1 患者查询
-     * 输入患者病历号或姓名，可以查询到本科室（处置）的待诊患者列表
-     * 动态查询
-     * @param jsonObject:{caseId, patientName}
+     * 患者查询
+     * 输入患者病历号或姓名，可以查询到本科室（检查/检验）的待诊患者列表
+     * @param projectPatientParam: caseId, patientName
      * @return 待登记患者信息列表
      */
-    List<Patient> listPreparedPatientsByCaseIdOrName(JSONObject jsonObject);
+    JSONObject listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
 
     /**
-     * 4.3.1 患者查询
+     * 患者查询
      * 选择患者可以相应申请的项目明细
-     * TODO: 根据前端传来的caseId(/patientId),查询该患者检查/检验项目清单id，项目id
-     * TODO：根据项目id查找具体信息
-     * @param caseId
-     * @return treatment清单详细信息
+     * @param projectPatientParam: caseId, patientName
+     * @return projectId, projectName, projectCollectionGMTCreate, t.status(是否已缴费), requirement
      */
-    JSONObject listNotCheckedInProjectsByCaseId(Integer caseId);
+    JSONObject listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam);
 
     /**
-     * 4.3.2 执行确认
+     * 执行确认
      * 选中相应的患者，选中执行的项目，点击“执行确认”按钮，进行登记操作。
-     * 注意：只有已缴费的项目，才可以进行登记
-     * TODO：选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
-     * @param jsonObject:{treatmentId, projectId, 医技医生Id}
+     * 只有已缴费的项目，才可以进行登记
+     * 更新项目申请信息：状态更新、填写医技医生id
+     * @param projectParam：collectionId, projectId, doctorRoleId
+     * @return 改动数据库行数
      */
-    void checkInProject(JSONObject jsonObject);
+    int checkInProject(ProjectParam projectParam);
 
     /**
-     * 4.3.3 取消执行
+     * 取消执行
      * 选中相应的患者，选中项目，点击“取消执行”按钮，进行取消操作。
-     * 注意：一般情况不会进行取消操作
-     * TODO: 选择列表中项目执行取消操作，更新项目申请信息：改变状态
-     * @param jsonObject：{treatmentId, projectId}
+     * 更新项目申请信息：改变状态
+     * @param projectParam：collectionId, projectId
      */
-    void cancelProject(JSONObject jsonObject);
+    int cancelProject(ProjectParam projectParam);
+
 
 }
