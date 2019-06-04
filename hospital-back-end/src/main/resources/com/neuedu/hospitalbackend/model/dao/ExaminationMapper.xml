@@ -23,8 +23,8 @@
         select c.registration_id, c.patient_name
         from patient_ase c, examination e, transaction_log t
         where e.id = t.collection_id and e.project_id = t.project_id
-        and e.status = 2
         and e.case_id = c.registration_id
+        and e.status = 2 and e.department_id = #{departmentId}
         <choose>
             <when test = "caseId != null">
                 and c.registration_id = #{caseId}
@@ -39,8 +39,8 @@
       select n.id, n.name, e.id, e.gmt_create, t.status
       from examination e, non_medicine n, transaction_log t
       where t.registration_id = #{caseId}  and t.collection_id = e.id  and t.project_id = e.project_id
-          and e.status = 2
           and n.id = e.project_id
+          and e.status = 2 and e.department_id = #{departmentId}
     </select>
 
     <update id="checkInProject">
@@ -59,7 +59,7 @@
       select n.id, n.name, e.id, e.gmt_create, e.status, e.requirement
       from examination e, non_medicine n, transaction_log t
       where t.registration_id = #{caseId}  and t.collection_id = e.id  and t.project_id = e.project_id
-          and e.status = 4
+          and e.status = 4 and e.department_id = #{departmentId}
           and (result_description = null or result_description = '')
           and (result_image = null or result_image = '')
           and (advice = null or advice = '')
@@ -71,5 +71,11 @@
         set result_description = #{resultDescription}, result_image = #{resultImage}, advice = #{advice}
         where id = #{collectionId} and project_id = #{projectId}
     </update>
+
+    <select id="selectStatusOfProject" resultType="Integer">
+        select status
+        from examination
+        where id = #{collectionId} and project_id = #{projectId}
+    </select>
 
 </mapper>

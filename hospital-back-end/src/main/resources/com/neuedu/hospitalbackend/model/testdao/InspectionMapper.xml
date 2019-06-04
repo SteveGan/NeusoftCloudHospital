@@ -15,6 +15,7 @@
     <result column="advice" property="advice" jdbcType="VARCHAR" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
   </resultMap>
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Inspection" >
     insert into inspection (id, case_id, project_id, 

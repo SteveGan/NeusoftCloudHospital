@@ -12,7 +12,6 @@ public interface DepartmentManagementService {
     /**
      * 1.2.1 根据科室id查询科室
      * @param id 科室id
-     * @return 查询结果
      */
     CommonResult getDepartmentById(Integer id);
 
@@ -20,7 +19,7 @@ public interface DepartmentManagementService {
      * 1.2.2 新增科室
      * @param department PO
      */
-    CommonResult<Department> insertDepartment(Department department);
+    CommonResult insertDepartment(Department department);
 
     /**
      * 1.2.3 修改科室
@@ -30,7 +29,7 @@ public interface DepartmentManagementService {
 
     /**
      * 1.2.4 删除科室
-     * @param id
+     * @param id 科室id
      */
     CommonResult deleteDepartmentById(Integer id);
 

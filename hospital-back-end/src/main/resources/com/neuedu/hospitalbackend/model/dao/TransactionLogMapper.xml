@@ -142,5 +142,11 @@
         where id = #{id}
     </update>
 
+    <select id="selectStatusOfProject" resultType="Integer">
+        select status
+        from transaction_log
+        where collection_id = #{collectionId} and project_id = #{projectId}
+        limit 1
+    </select>
 
 </mapper>

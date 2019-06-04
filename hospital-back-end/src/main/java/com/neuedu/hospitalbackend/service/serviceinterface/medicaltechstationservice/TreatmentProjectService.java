@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Patient;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface TreatmentProjectService {
      * @param projectPatientParam: caseId, patientName
      * @return 待登记患者信息列表
      */
-    JSONObject listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
+    CommonResult listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
 
     /**
      * 患者查询
@@ -27,7 +28,7 @@ public interface TreatmentProjectService {
      * @param projectPatientParam: caseId, patientName
      * @return projectId, projectName, projectCollectionGMTCreate, t.status(是否已缴费), requirement
      */
-    JSONObject listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam);
+    CommonResult listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam);
 
     /**
      * 执行确认
@@ -37,7 +38,7 @@ public interface TreatmentProjectService {
      * @param projectParam：collectionId, projectId, doctorRoleId
      * @return 改动数据库行数
      */
-    int checkInProject(ProjectParam projectParam);
+    CommonResult checkInProject(ProjectParam projectParam);
 
     /**
      * 取消执行
@@ -45,7 +46,7 @@ public interface TreatmentProjectService {
      * 更新项目申请信息：改变状态
      * @param projectParam：collectionId, projectId
      */
-    int cancelProject(ProjectParam projectParam);
+    CommonResult cancelProject(ProjectParam projectParam);
 
 
 }

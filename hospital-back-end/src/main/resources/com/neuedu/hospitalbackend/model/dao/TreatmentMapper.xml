@@ -51,4 +51,10 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
+    <select id="selectStatusOfProject" resultType="Integer">
+        select status
+        from treatment
+        where id = #{collectionId} and project_id = #{projectId}
+    </select>
+
 </mapper>

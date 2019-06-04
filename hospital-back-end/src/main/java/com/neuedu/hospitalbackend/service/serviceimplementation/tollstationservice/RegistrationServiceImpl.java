@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.constant.Cache;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
@@ -39,8 +40,10 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     private PatientCaseMapper patientCaseMapper;
 
     @Override
-    public synchronized CommonResult getNextRegistrationId(){
-        Integer nextId = registrationMapper.getNextId();
+    public synchronized CommonResult getNextRegistrationId() {
+        Integer nextId = Cache.getNextRegistrationId();
+        System.out.println("[INFO]正在使用: " + nextId);
+        Cache.setNextRegistrationId(nextId + 1);
         return CommonResult.success(nextId);
     }
 

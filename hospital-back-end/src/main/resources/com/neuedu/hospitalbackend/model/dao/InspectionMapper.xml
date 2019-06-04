@@ -23,43 +23,43 @@
         select c.registration_id, c.patient_name
         from patient_case c, inspection i, transaction_log t
         where i.id = t.collection_id and i.project_id = t.project_id
-            and i.status = 2
             and i.case_id = c.registration_id
-        <choose>
-            <when test = "caseId != null">
+            and i.status = 2 and i.department_id = #{departmentId}
+            <if test = "caseId != null">
                 and c.registration_id = #{caseId}
-            </when>
-            <when test="patientName != null and patientName != ''">
+            </if>
+            <if test="patientName != null and patientName != ''">
                 and c.patient_name = #{patientName}
-            </when>
-        </choose>
+            </if>
     </select>
 
     <select id="listAppliedProjectsByCaseId" resultType="HashMap">
       select n.id, n.name, i.id, i.gmt_create, t.status, i.requirement
       from inspection i, non_medicine n, transaction_log t
       where t.registration_id = #{caseId}  and t.collection_id = i.id  and t.project_id = i.project_id
-          and i.status = 2
           and n.id = i.project_id
+          and i.status = 2 and i.department_id = #{departmentId}
     </select>
 
     <update id="checkInProject">
         update inspection
         set status = 4, inspector_role_id = #{inspectorRoleId}
         where id = #{collectionId} and project_id = #{projectId}
+            and n.id = i.project_id
     </update>
 
     <update id="cancelProject">
         update inspection
         set status = 3
         where id = #{collectionId} and project_id = #{projectId}
+            and n.id = i.project_id
     </update>
 
     <select id="listCheckedInButNotRecordedProject" resultType="HashMap">
       select n.id, n.name, i.id, i.gmt_create, t.status, i.requirement
       from inspection i, non_medicine n, transaction_log t
       where t.registration_id = #{caseId}  and t.collection_id = i.id  and t.project_id = i.project_id
-          and i.status = 4
+          and i.status = 4 and i.department_id = #{departmentId}
           and (result_description = null or result_description = '')
           and (result_image = null or result_image = '')
           and (advice = null or advice = '')
@@ -71,5 +71,11 @@
         set result_description = #{resultDescription}, result_image = #{resultImage}, advice = #{advice}
         where id = #{collectionId} and project_id = #{projectId}
     </update>
+
+    <select id="selectStatusOfProject" resultType="Integer">
+        select status
+        from inspection
+        where id = #{collectionId} and project_id = #{projectId}
+    </select>
 
 </mapper>
