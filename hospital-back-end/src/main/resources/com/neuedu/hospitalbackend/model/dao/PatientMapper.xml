@@ -85,7 +85,7 @@
     </select>
 
     <select id="getNextId" resultType="integer">
-        select id +1 from patient order by id desc limit 1
+        select MAX(id)+ 1 from patient
     </select>
 
 </mapper>

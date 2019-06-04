@@ -2,12 +2,12 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationserv
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.*;
-import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService {
+
 
     @Autowired
     private ArrangementMapper arrangementMapper;
@@ -71,6 +72,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     @Override
+    @Transactional
     public CommonResult makeRegistration(RegistrationParam registrationParam){
         System.out.println("病历号" + registrationParam.getRegistrationId());
         JSONObject jsonObject = new JSONObject();
@@ -78,8 +80,9 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         TransactionLog transactionLog = new TransactionLog();
         int count = 0;
         synchronized (this) {
-            //通过查询invoice表得到新的缴费记录的发票号
+            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为暂用
             String invoice_code = invoiceMapper.getAvailableInvoiceCode();
+            count += invoiceMapper.updateInvoiceStatusById(invoice_code);
             //向缴费表中添加新的缴费记录  --已缴费
             transactionLog.setInvoiceCode(invoice_code);
             transactionLog.setRegistrationId(registrationParam.getRegistrationId());
@@ -94,10 +97,12 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         }
 
         if (count > 0){
+            //System.out.println("appointmentDate" + Date.valueOf(registrationParam.getAppointmentDateStr()));
             //向挂号表中添加新的挂号记录 --默认正常
             Registration registration = new Registration();
             registration.setId(registrationParam.getRegistrationId());
             registration.setAppointmentDate(Date.valueOf(registrationParam.getAppointmentDateStr()));
+            //System.out.println("转换后"+ Date.valueOf(registrationParam.getAppointmentDateStr()) );
             registration.setRoleId(registrationParam.getRoleId());
             registration.setRegistrationLevelId(registrationParam.getRegistrationLevelId());
             registration.setDepartmentId(registrationParam.getDepartmentId());
@@ -140,7 +145,8 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                     PatientCase patientCase = new PatientCase();
                     patientCase.setRegistrationId(registrationParam.getRegistrationId());
                     patientCase.setPatientId(patientId);
-                    patientCase.setRoleId(registration.getRoleId());
+                    patientCase.setPatientName(registrationParam.getName());
+                    patientCase.setRoleId(registrationParam.getRoleId());
                     count += patientCaseMapper.insertSelective(patientCase);
                     jsonObject.put("insertPatientCase", count);
                 }
