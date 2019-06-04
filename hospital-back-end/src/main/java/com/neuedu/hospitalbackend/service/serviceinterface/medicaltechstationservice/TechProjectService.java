@@ -40,7 +40,6 @@ public interface TechProjectService {
      * 取消执行
      * 选中相应的患者，选中项目，点击“取消执行”按钮，进行取消操作。
      * 更新项目申请信息：改变状态
-     * //TODO: 测试
      * @param projectParam：projectType, collectionId, projectId
      */
     int cancelProject(ProjectParam projectParam);
