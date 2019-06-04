@@ -17,21 +17,29 @@ public class RegistrationController {
     @Autowired
     private RegistrationServiceImpl registrationServiceImpl;
 
+    @ApiOperation("得到当前挂号单的病历号")
+    @RequestMapping(value = "/registrationId", method = RequestMethod.GET)
+    public CommonResult getNextRegistrationId(){
+        return registrationServiceImpl.getNextRegistrationId();
+    }
+
     @ApiOperation("查看所有可选医生")
     @RequestMapping(value = "/doctors", method = RequestMethod.GET)
-    public CommonResult<JSONObject> listAvailableDoctors (RegistrationParam registrationParam) {
-        JSONObject availableDoctors = registrationServiceImpl.listAvailableDoctors(registrationParam);
-        return CommonResult.success(availableDoctors);
+    public CommonResult listAvailableDoctors (RegistrationParam registrationParam) {
+        return registrationServiceImpl.listAvailableDoctors(registrationParam);
     }
 
-
-    @ApiOperation("计算总金额")
-    @RequestMapping(value = "/totalFee", method = RequestMethod.PATCH)
-    public CommonResult<JSONObject> calculateTotalFee(@RequestBody RegistrationParam registrationParam){
-        JSONObject totalFee = registrationServiceImpl.calculateTotalFee(registrationParam);
-        return CommonResult.success(totalFee);
+    @ApiOperation("根据挂号级别，是否购买病历本，计算应收金额")
+    @RequestMapping(value = "/totalFee", method = RequestMethod.GET)
+    public CommonResult calculateTotalFee(RegistrationParam registrationParam){
+        return registrationServiceImpl.calculateTotalFee(registrationParam);
     }
 
+    @ApiOperation("挂号操作")
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public CommonResult makeRegistration(RegistrationParam registrationParam){
+        return registrationServiceImpl.makeRegistration(registrationParam);
+    }
 
 
 }

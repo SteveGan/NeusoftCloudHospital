@@ -6,7 +6,7 @@
 
     <resultMap id="MatchMap" type="TransactionLog">
         <id column="id" property="id"/>
-        <result column="invoice_id" property="invoiceId"/>
+        <result column="invoice_code" property="invoiceCode"/>
         <result column="registration_id" property="registrationId"/>
         <result column="patient_id" property="patientId"/>
         <result column="user_id" property="userId"/>
@@ -22,24 +22,24 @@
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
-    <insert id="insert" parameterType="TransactionLog">
-        insert into transaction_log (invoice_id,
+    <insert id="insert" parameterType="TransactionLog" useGeneratedKeys="true" keyProperty="id">
+        insert into transaction_log (invoice_code,
           registration_id, patient_id, user_id, type,
           collection_id, project_id, item_id, amount,
           pay_type, total_money, status)
-        values (#{invoiceId}, #{registrationId}, #{patientId}, #{userId},
+        values (#{invoiceCode}, #{registrationId}, #{patientId}, #{userId},
         #{type}, #{collectionId}, #{projectId}, #{itemId}, #{amount},
         #{payType}, #{totalMoney}, #{status})
     </insert>
 
-    <insert id="insertSelective" parameterType="TransactionLog">
+    <insert id="insertSelective" parameterType="TransactionLog" useGeneratedKeys="true" keyProperty="id">
         insert into arrangement
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
             </if>
-            <if test="invoiceId != null">
-                invoice_id,
+            <if test="invoiceCode != null">
+                invoice_code,
             </if>
             <if test="registrationId != null">
                 registration_id,
@@ -79,8 +79,8 @@
             <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="invoiceId != null">
-                #{invoiceId,jdbcType=CHAR},
+            <if test="invoiceCode != null">
+                #{invoiceCode,jdbcType=CHAR},
             </if>
             <if test="registrationId != null">
                 #{registrationId,jdbcType=INTEGER},
@@ -117,6 +117,25 @@
             </if>
         </trim>
     </insert>
+
+    <update id="updateSelective" parameterType="TransactionLog">
+        update transaction_log
+        <trim prefix="set" suffixOverrides=",">
+            <if test="invoiceId != null"> invoice_code = #{invoiceCode}, </if>
+            <if test="registrationId != null"> registration_id = #{registrationId}, </if>
+            <if test="patientId != null"> patient_id = #{patientId}, </if>
+            <if test="userId != null"> user_id = {userId}, </if>
+            <if test="type != null"> type = #{type}, </if>
+            <if test="collectionId != null"> collection_id = #{collectionId}, </if>
+            <if test="projectId != null"> project_id = #{projectId}, </if>
+            <if test="itemId != null"> item_id = #{itemId}, </if>
+            <if test="amount != null"> amount = #{amount}, </if>
+            <if test="payType != null"> pay_type = #{payType}, </if>
+            <if test="totalMoney != null"> total_money = #{totalMoney}, </if>
+            <if test="status != null"> status = #{status}, </if>
+        </trim>
+        where id = #{id}
+    </update>
 
 
 </mapper>

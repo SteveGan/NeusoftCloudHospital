@@ -8,4 +8,5 @@ import org.springframework.stereotype.Component;
 public interface TransactionLogMapper {
     int insert(TransactionLog transactionLog);
     int insertSelective(TransactionLog transactionLog);
+    int updateSelective(TransactionLog transactionLog);
 }

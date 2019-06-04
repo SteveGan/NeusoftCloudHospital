@@ -5,6 +5,7 @@ import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
+import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,26 +38,24 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     private PatientCaseMapper patientCaseMapper;
 
     @Override
-    public synchronized JSONObject getNextRegistrationId(){
+    public synchronized CommonResult getNextRegistrationId(){
         Integer nextId = registrationMapper.getNextId();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("nextId", nextId);
-        return jsonObject;
+        return CommonResult.success(nextId);
     }
 
     @Override
-    public JSONObject listAvailableDoctors(RegistrationParam registrationParam){
+    public CommonResult listAvailableDoctors(RegistrationParam registrationParam){
         List<Arrangement> availableDoctors = arrangementMapper.listAvailableDoctors(registrationParam.getAppointmentDateStr(), registrationParam.getRegistrationLevelId(), registrationParam.getDepartmentId());
         for(Arrangement a: availableDoctors){
             System.out.println(a.getUserName());
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("availableDoctors", availableDoctors);
-        return jsonObject;
+        return CommonResult.success(jsonObject);
     }
 
     @Override
-    public JSONObject calculateTotalFee(RegistrationParam registrationParam){
+    public CommonResult calculateTotalFee(RegistrationParam registrationParam){
         //根据看诊医生和挂号级别，是否需要病历本，算出应收金额
         Short registrationLevelId = registrationParam.getRegistrationLevelId();
         BigDecimal cost = registrationLevelMapper.getRegistrationLevelCostById(registrationLevelId);
@@ -68,22 +67,21 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             totalCost = cost;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("totalFee", totalCost);
-        return jsonObject;
+        return CommonResult.success(jsonObject);
     }
 
     @Override
-    public JSONObject makeRegistration(RegistrationParam registrationParam){
-        JSONObject jsonObject = new JSONObject();
+    public CommonResult makeRegistration(RegistrationParam registrationParam){
+        //JSONObject jsonObject = new JSONObject();
         //向缴费表中添加新的缴费记录  --已缴费
         TransactionLog transactionLog = new TransactionLog();
         int count = 0;
         synchronized (this) {
             //通过查询invoice表得到新的缴费记录的发票号
-            String invoice_id = invoiceMapper.getAvailableInvoiceCode();
+            String invoice_code = invoiceMapper.getAvailableInvoiceCode();
             //向缴费表中添加新的缴费记录  --已缴费
-            transactionLog.setInvoiceCode(invoice_id);
+            transactionLog.setInvoiceCode(invoice_code);
             transactionLog.setRegistrationId(registrationParam.getRegistrationId());
-            transactionLog.setPatientId(registrationParam.getPatientId());
             transactionLog.setRoleId(registrationParam.getCashierId());
             transactionLog.setType("挂号费");
             transactionLog.setAmount((short)(1));
@@ -96,7 +94,6 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         if (count > 0){
             //向挂号表中添加新的挂号记录 --默认正常
             Registration registration = new Registration();
-            registration.setPatientId(registrationParam.getPatientId());
             registration.setAppointmentDate(Date.valueOf(registrationParam.getAppointmentDateStr()));
             registration.setRoleId(registrationParam.getRoleId());
             registration.setRegistrationLevelId(registrationParam.getRegistrationLevelId());
@@ -106,15 +103,14 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             registration.setPayType(registrationParam.getPayType());
             registration.setIsBuyCaseBook(registrationParam.getBuyCaseBook());
             count += registrationMapper.insertSelective(registration);
+
             if (count > 0) {
                 //更新 所选医生 对应的余号数量
                 count += arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(), registrationParam.getRoleId(), registrationParam.getRegistrationLevelId());
                 if (count > 0) {
                     //检查患者是否已在本系统中
                     Integer patientId = patientMapper.getPatientByIdCard(registrationParam.getIdCard());
-                    if (patientId != null)
-                        jsonObject.put("patientId", patientId);
-                    else {
+                    if (patientId == null) {
                         Patient patient = new Patient();
                         patient.setIdCard(registrationParam.getIdCard());
                         patient.setAddress(registrationParam.getAddress());
@@ -122,8 +118,12 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                         patient.setName(registrationParam.getName());
                         patient.setBirthday(Date.valueOf(registrationParam.getBirthdayStr()));
                         count += patientMapper.insertSelective(patient);
-                        jsonObject.put("result", "success");
+                        patientId = patient.getId();
                     }
+                    transactionLog.setPatientId(patientId);
+                    registration.setPatientId(patientId);
+                    count += transactionLogMapper.updateSelective(transactionLog);
+                    count += registrationMapper.updateSelective(registration);
                     //向病历表中添加新的病历记录 --默认待诊
                     PatientCase patientCase = new PatientCase();
                     patientCase.setRegistrationId(registrationParam.getRegistrationId());
@@ -132,8 +132,9 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                     count += patientCaseMapper.insertSelective(patientCase);
                 }
             }
+            return CommonResult.success(count);
         }
-        return jsonObject;
+        return CommonResult.fail();
     }
 
 
