@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.constant;
 
+import com.neuedu.hospitalbackend.model.dao.RegistrationMapper;
 import com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice.RegistrationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,23 +15,31 @@ import javax.annotation.PostConstruct;
 @Component
 public class Cache {
     // 可用病历id
-    private Integer nextRegistrationId;
+    private static Integer nextRegistrationId;
     // 可用患者id
     private Integer nextPatientId;
 
     @Autowired
-    private RegistrationServiceImpl registrationServiceImpl;
+    private RegistrationMapper registrationMapper;
     private static Cache cache;
 
     @PostConstruct
     public void init() {
         cache = this;
-        cache.registrationServiceImpl = this.registrationServiceImpl;
+        cache.registrationMapper = this.registrationMapper;
     }
 
     public void initialize() {
-        Integer id = (Integer) cache.registrationServiceImpl.getNextRegistrationId().getData();
+        Integer id = cache.registrationMapper.getNextId();
         nextRegistrationId = id;
         System.out.println("[INFO]初始化可用病历id: "+ nextRegistrationId);
+    }
+
+    public static Integer getNextRegistrationId() {
+        return nextRegistrationId;
+    }
+
+    public static void setNextRegistrationId(Integer nextRegistrationId) {
+        Cache.nextRegistrationId = nextRegistrationId;
     }
 }

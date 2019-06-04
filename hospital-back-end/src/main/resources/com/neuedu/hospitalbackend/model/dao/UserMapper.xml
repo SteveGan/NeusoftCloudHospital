@@ -31,7 +31,7 @@
     </select>
 
     <select id="get" resultType="User" parameterType="Integer">
-    select id, name, avatar user where id = #{id}
+    select id, name, avatar from user where id = #{id}
   </select>
 
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.User" >
