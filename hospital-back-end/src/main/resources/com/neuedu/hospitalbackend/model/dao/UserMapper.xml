@@ -30,4 +30,21 @@
         where u.id = r.user_id
     </select>
 
+    <select id="get" resultType="User" parameterType="Integer">
+    select id, name, avatar user where id = #{id}
+  </select>
+
+    <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.User" >
+    insert into user (id, name, password, avatar)
+    values (#{id}, #{name}, #{password}, {avatar})
+  </insert>
+
+    <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.User">
+        update user set name = #{name}, password = #{password}, avatar = #{avatar} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from user where id = #{id}
+    </delete>
+
 </mapper>
