@@ -4,13 +4,13 @@
 
   <resultMap id="BaseResultMap" type="Invoice" >
     <result column="id" property="id" jdbcType="CHAR" />
-    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="is_available" property="isAvailable" jdbcType="TINYINT" />
     <result column="version" property="version" jdbcType="INTEGER" />
   </resultMap>
 
   <insert id="insert" parameterType="Invoice" >
-    insert into invoice (id, status, version)
-    values (#{id,jdbcType=CHAR}, #{status,jdbcType=TINYINT}, #{version,jdbcType=INTEGER})
+    insert into invoice (id, is_available, version)
+    values (#{id,jdbcType=CHAR}, #{isAvailable,jdbcType=TINYINT}, #{version,jdbcType=INTEGER})
   </insert>
 
   <insert id="insertSelective" parameterType="Invoice" >
@@ -19,8 +19,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="status != null" >
-        status,
+      <if test="isAvailable != null" >
+        is_available,
       </if>
       <if test="version != null" >
         version,
@@ -30,8 +30,8 @@
       <if test="id != null" >
         #{id,jdbcType=CHAR},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=TINYINT},
+      <if test="isAvailable != null" >
+        #{isAvailable,jdbcType=TINYINT},
       </if>
       <if test="version != null" >
         #{version,jdbcType=INTEGER},
@@ -40,6 +40,10 @@
   </insert>
 
   <select id="getAvailableInvoiceCode" resultType="string">
-      select id from invoice where status = 1 order by id desc limit 1
+      select min(id) from invoice where is_available = true
   </select>
+
+  <update id="updateInvoiceStatusById" parameterType="Invoice">
+    update invoice set is_available = false where id = #{id}
+  </update>
 </mapper>

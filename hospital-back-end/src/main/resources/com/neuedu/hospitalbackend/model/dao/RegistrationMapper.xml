@@ -118,7 +118,8 @@
   </insert>
 
   <select id="getNextId" resultType="integer">
-    select id +1 from  registration order by id desc limit 1
+    select MAX(id)+ 1 from registration
+    <!--select id +1 from  registration order by id desc limit 1-->
   </select>
 
   <update id="updateSelective" parameterType="Registration">
@@ -138,4 +139,7 @@
     where id = #{id}
   </update>
 
+  <select id="getRegistrationInfoById" resultMap="BaseResultMap">
+    select * from registration where registration_id = #{registration_id}
+  </select>
 </mapper>

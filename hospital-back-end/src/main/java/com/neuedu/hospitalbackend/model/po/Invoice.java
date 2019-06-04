@@ -3,7 +3,7 @@ package com.neuedu.hospitalbackend.model.po;
 public class Invoice {
     private String id;
 
-    private Byte status;
+    private boolean isAvailable;
 
     private Integer version;
 
@@ -15,12 +15,12 @@ public class Invoice {
         this.id = id == null ? null : id.trim();
     }
 
-    public Byte getStatus() {
-        return status;
+    public boolean isAvailable() {
+        return isAvailable;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public Integer getVersion() {
