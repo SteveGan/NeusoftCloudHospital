@@ -7,6 +7,8 @@ public class Examination {
 
     private Integer caseId;
 
+    private Integer departmentId;
+
     private Integer projectId;
 
     private Byte status;
@@ -43,6 +45,14 @@ public class Examination {
 
     public void setCaseId(Integer caseId) {
         this.caseId = caseId;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     public Integer getProjectId() {

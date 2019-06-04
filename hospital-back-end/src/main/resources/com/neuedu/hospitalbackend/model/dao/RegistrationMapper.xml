@@ -127,7 +127,7 @@
       <if test="patientId != null"> patient_id = #{patientId}, </if>
       <if test="appointmentDate != null"> appointment_date = #{appointmentDate}, </if>
       <if test="roleId != null"> role_id = #{roleId}, </if>
-      <if test="registrationLevelId != null"> registration_level_id = {registrationLevelId}, </if>
+      <if test="registrationLevelId != null"> registration_level_id = #{registrationLevelId}, </if>
       <if test="departmentId != null"> department_id = #{departmentId}, </if>
       <if test="totalFee != null"> total_fee = #{totalFee}, </if>
       <if test="isNormal != null"> is_normal = #{isNormal}, </if>
