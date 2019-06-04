@@ -12,9 +12,9 @@ public interface ArrangementMapper {
 
     int insertSelective(Arrangement record);
 
-    List<Arrangement> listAvailableDoctors(@Param("appointmentDateStr") String appointmentDateStr, @Param("registrationLevelId") Short registrationLevelId, @Param("departmentId") Integer departmentId);
+    List<Arrangement> listAvailableDoctors(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") Byte timeSlot, @Param("registrationLevelId") Short registrationLevelId, @Param("departmentId") Integer departmentId);
 
-    int updateRemainingAppointment(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") String timeSlot, @Param("roleId") Integer roleId, @Param("registrationLevelId") Short registrationLevelId);
+    int updateRemainingAppointment(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") Byte timeSlot, @Param("roleId") Integer roleId, @Param("registrationLevelId") Short registrationLevelId);
 
 
 }

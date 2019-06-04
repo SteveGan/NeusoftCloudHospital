@@ -29,6 +29,8 @@ public class PatientCase {
 
     private String patientName;
 
+    private Registration registration;
+
     public Integer getRegistrationId() {
         return registrationId;
     }
@@ -131,5 +133,13 @@ public class PatientCase {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName == null ? null : patientName.trim();
+    }
+
+    public Registration getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(Registration registration) {
+        this.registration = registration;
     }
 }

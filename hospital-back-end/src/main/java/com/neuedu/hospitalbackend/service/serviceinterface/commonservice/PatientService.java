@@ -14,6 +14,6 @@ public interface PatientService{
      * @param patientCaseId
      * @return
      */
-    CommonResult getRegistrationInfoByPatientCaseId(Integer patientCaseId);
+    CommonResult getPatientInfo(Integer patientCaseId);
 
 }
