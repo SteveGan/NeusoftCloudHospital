@@ -30,7 +30,7 @@ public class TransactionServiceImpl implements TransactionService {
         transactionExceptionLog.setReason(reason);
         int count = transactionExceptionLogMapper.insertSelective(transactionExceptionLog);
         if(count == 0)
-            return CommonResult.fail();
+            return CommonResult.fail(E_605);
         return CommonResult.success(transactionExceptionLog);
     }
 

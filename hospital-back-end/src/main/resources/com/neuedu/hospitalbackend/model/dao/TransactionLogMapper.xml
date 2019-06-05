@@ -151,7 +151,7 @@
 
     <select id="getLogByRegistrationIdAndType" resultMap="BaseResultMap">
         select * from transaction_log
-        where registration_id = #{registration_id} and type = #{type}
+        where registration_id = #{registrationId} and type = #{type}
     </select>
 
     <select id="getSelective"  resultMap="BaseResultMap">

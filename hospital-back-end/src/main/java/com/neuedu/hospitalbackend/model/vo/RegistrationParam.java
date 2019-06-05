@@ -23,6 +23,7 @@ public class RegistrationParam {
     private Integer cashierId; //收银员id
     private Integer patientId; //病人在本医院的id
     private String invoiceCode; //当前挂号单对应的发票号
+    private Byte patientCaseStatus; //患者病历状态
 
     public Integer getRegistrationId() {
         return registrationId;
@@ -168,4 +169,11 @@ public class RegistrationParam {
         this.invoiceCode = invoiceCode;
     }
 
+    public Byte getPatientCaseStatus() {
+        return patientCaseStatus;
+    }
+
+    public void setPatientCaseStatus(Byte patientCaseStatus) {
+        this.patientCaseStatus = patientCaseStatus;
+    }
 }
