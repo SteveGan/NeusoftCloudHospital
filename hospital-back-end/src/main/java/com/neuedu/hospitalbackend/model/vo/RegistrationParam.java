@@ -22,6 +22,7 @@ public class RegistrationParam {
     private Boolean isBuyCaseBook;
     private Integer cashierId; //收银员id
     private Integer patientId; //病人在本医院的id
+    private String invoiceCode; //当前挂号单对应的发票号
 
     public Integer getRegistrationId() {
         return registrationId;
@@ -157,5 +158,13 @@ public class RegistrationParam {
 
     public void setPatientId(Integer patientId) {
         this.patientId = patientId;
+    }
+
+    public String getInvoiceCode() {
+        return invoiceCode;
+    }
+
+    public void setInvoiceCode(String invoiceCode) {
+        this.invoiceCode = invoiceCode;
     }
 }

@@ -44,10 +44,12 @@ public class WithdrawRegistrationController {
     }
 
     @ApiOperation("执行退号操作")
-    @RequestMapping(value = "withdrawal", method = RequestMethod.POST)
+    @RequestMapping(value = "/withdrawal", method = RequestMethod.POST)
     public CommonResult makeRegistrationWithdrawal(RegistrationParam registrationParam, Byte patientCaseStatus){
-        withdrawRegistrationService.operateOriginalTransactionLog(registrationParam, patientCaseStatus);
-        return null;
+        CommonResult result = withdrawRegistrationService.operateTransactionLog(registrationParam, patientCaseStatus);
+        if(result.getCode() == 500)
+            return CommonResult.fail();
+        return result;
     }
 
 }

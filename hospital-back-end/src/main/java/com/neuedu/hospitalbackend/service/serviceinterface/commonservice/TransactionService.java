@@ -4,40 +4,40 @@ import com.neuedu.hospitalbackend.model.bo.ExceptionLog;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface TransactionService {
 
     /**
-     * 更新指定项目的缴费状态
-     * @param transactionLog
-     */
-    //CommonResult updateTransactionLog(TransactionLog transactionLog);
-
-    /**
-     * 向缴费表中添加新的缴费记录 缴费/冲正
-     * @param transactionLog 新的缴费记录
-     * @return 新的发票号
-     */
-    //CommonResult insertTransactionLog(TransactionLog transactionLog);
-
-    /**
-     * 向异常表中添加新的记录
-     * @param exceptionLog
-     */
-    //CommonResult insertExceptionLog(ExceptionLog exceptionLog);
-
-    /**
-     * 根据原发票号，查询缴费信息
-     * @param invoiceCode
-     * @return 发票号一致的项目列表
-     */
-    //List<Object> listTransactionLogsByInvoiceCode(String invoiceCode);
-
-    /**
-     *
-     * @param transactionLog
+     * 向缴费异常表里添加记录
+     * @param originalCode 原缴费记录发票号
+     * @param newCode 新发票号 (如果有新发票产生）
+     * @param reverseCode 冲正发票号
+     * @param roleId 收银员ID
+     * @param reason 异常原因
      * @return
      */
-    CommonResult getTransactionLogSelective(TransactionLog transactionLog);
+    CommonResult insertTransactionExceptionLog(String originalCode, String newCode, String reverseCode,
+                                               Integer roleId, String reason);
+
+    /**
+     * 向缴费表里添加记录
+     * @param invoiceCode
+     * @param registrationId
+     * @param patientId
+     * @param roleId
+     * @param type
+     * @param collectionId
+     * @param projectId
+     * @param itemId
+     * @param amount
+     * @param payType
+     * @param totalMoney
+     * @param status
+     * @return
+     */
+    CommonResult insertTransactionLog(String invoiceCode, Integer registrationId, Integer patientId, Integer roleId,
+                                      String type, Integer collectionId, Integer projectId, Integer itemId,
+                                      Short amount, Byte payType, BigDecimal totalMoney, Byte status);
 }

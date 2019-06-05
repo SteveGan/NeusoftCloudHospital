@@ -19,6 +19,8 @@ public enum ResultCode implements IErrorCode {
     E_605(605, "插入失败"),
 
     // Polaris
+    E_700(700, "更新医生余号失败"),
+    E_701(701, "更新病历表状态失败"),
 
     // Amy
     E_800(800, "科室类型异常"),

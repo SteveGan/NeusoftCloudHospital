@@ -20,6 +20,12 @@ public interface RegistrationService {
     CommonResult getNextRegistrationId();
 
     /**
+     * 返回可用的发票号
+     * @return
+     */
+    CommonResult getNextInvoiceCode();
+
+    /**
      * 通过挂号科室id，返回该科室在指定时间、指定号别仍有余号的看诊医生列表
      * @param registrationParam 指定时间 指定号别 挂号科室id
      * @return 有余号的看诊医生列表(role_id, user_name, time_slot)
