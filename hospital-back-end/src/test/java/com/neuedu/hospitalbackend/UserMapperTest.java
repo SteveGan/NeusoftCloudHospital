@@ -1,10 +1,5 @@
 package com.neuedu.hospitalbackend;
 
-import com.neuedu.hospitalbackend.controller.OauthController;
-import com.neuedu.hospitalbackend.model.vo.LoginParam;
-import com.neuedu.hospitalbackend.util.SHAUtils;
-import org.junit.Test;
-
 public class UserMapperTest {
 //    @Test
 //    public void testLogin() {

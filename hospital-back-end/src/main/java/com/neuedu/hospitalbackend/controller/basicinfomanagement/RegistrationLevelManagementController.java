@@ -42,5 +42,4 @@ public class RegistrationLevelManagementController {
     public CommonResult deleteDisease(@PathVariable Short id) {
         return registrationLevelManagementImpl.deleteRegistrationLevelById(id);
     }
-
 }

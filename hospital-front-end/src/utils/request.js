@@ -33,7 +33,7 @@ service.interceptors.response.use(
   /**
   * if response code is not 200, do something
   */
-    const status = response.status
+    const status = response.data.code
     if (status !== 200) {
       Message({
         message: res.message,
