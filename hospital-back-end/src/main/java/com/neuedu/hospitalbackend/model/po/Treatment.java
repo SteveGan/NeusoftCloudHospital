@@ -9,6 +9,8 @@ public class Treatment {
 
     private Integer projectId;
 
+    private Integer departmentId;
+
     private Byte status;
 
     private Integer creatorRoleId;
@@ -18,6 +20,14 @@ public class Treatment {
     private Date gmtCreate;
 
     private Date gmtModified;
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public Integer getId() {
         return id;

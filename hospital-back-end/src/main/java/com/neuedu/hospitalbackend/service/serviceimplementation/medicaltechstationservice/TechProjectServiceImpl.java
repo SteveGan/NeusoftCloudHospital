@@ -3,7 +3,6 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstat
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ExaminationMapper;
 import com.neuedu.hospitalbackend.model.dao.InspectionMapper;
-import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
 import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;

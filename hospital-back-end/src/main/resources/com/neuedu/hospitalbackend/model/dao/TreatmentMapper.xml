@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Treatment" >
         <result column="id" property="id" jdbcType="INTEGER" />
         <result column="case_id" property="caseId" jdbcType="INTEGER" />
+        <result column="department_id" property="departmentId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
         <result column="status" property="status" jdbcType="TINYINT" />
         <result column="creator_role_id" property="creatorRoleId" jdbcType="INTEGER" />
@@ -19,42 +20,34 @@
         select c.registration_id, c.patient_name
         from patient_case c, treatment tr, transaction_log t
         where tr.id = t.collection_id and tr.project_id = t.project_id
-        and tr.status = 2
-        and tr.case_id = c.registration_id
-        <choose>
-            <when test = "caseId != null">
+            and tr.case_id = c.registration_id
+            and tr.status = 2 and tr.department_id = #{departmentId}
+            <if test = "caseId != null">
                 and c.registration_id = #{caseId}
-            </when>
-            <when test="patientName != null and patientName != ''">
+            </if>
+            <if test="patientName != null and patientName != ''">
                 and c.patient_name = #{patientName}
-            </when>
-        </choose>
+            </if>
     </select>
 
     <select id="listAppliedProjectsByCaseId" resultType="HashMap">
         select n.id, n.name, tr.id, tr.gmt_create, t.status, tr.requirement
         from treatment tr, non_medicine n, transaction_log t
         where t.registration_id = #{caseId}  and t.collection_id = tr.id  and t.project_id = tr.project_id
-        and tr.status = 2
         and n.id = tr.project_id
+        and tr.status = 2 and tr.department_id = #{departmentId}
     </select>
 
     <update id="checkInProject">
         update treatment
         set status = 4, treater_role_id = #{treaterRoleId}
-        where id = #{collectionId} and project_id = #{projectId}
+        where id = #{collectionId} and project_id = #{projectId} and status = 2
     </update>
 
     <update id="cancelProject">
         update treatment
         set status = 3
-        where id = #{collectionId} and project_id = #{projectId}
+        where id = #{collectionId} and project_id = #{projectId} and status = 2
     </update>
-
-    <select id="selectStatusOfProject" resultType="Integer">
-        select status
-        from treatment
-        where id = #{collectionId} and project_id = #{projectId}
-    </select>
 
 </mapper>

@@ -1,6 +1,5 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice;
 
-import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
