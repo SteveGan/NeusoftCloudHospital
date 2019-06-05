@@ -4,7 +4,7 @@ import request from '@/utils/request'
 
 export function login(userId, password){
   return request({
-    url: '/user/login',
+    url: '/oauth/login',
     method: 'post',
     data: {
       userId,
