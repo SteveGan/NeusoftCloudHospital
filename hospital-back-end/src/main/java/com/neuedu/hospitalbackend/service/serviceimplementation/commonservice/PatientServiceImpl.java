@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PatientService implements com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService {
-
-    @Autowired
-    private RegistrationMapper registrationMapper;
+public class PatientServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService {
 
     @Autowired
     private PatientMapper patientMapper;

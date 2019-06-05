@@ -13,12 +13,19 @@ import org.apache.ibatis.annotations.Case;
 public interface WithdrawRegistrationService {
 
     /**
-     * 对原缴费记录进行操作
-     * @param registrationParam
-     * @return 原缴费记录
-     * TODO: 得到原缴费记录的流水号和金额, 将原有缴费记录状态更改为已退费
+     * 通过患者病历号，显示患者挂号信息
+     * @param registrationId
+     * @return
      */
-    CommonResult operateOriginalTransactionLog(RegistrationParam registrationParam);
+    public CommonResult getRegistrationInfo(Integer registrationId);
+
+    /**
+     *
+     * @param registrationParam 挂号相关变量
+     * @param patientCaseStatus 病历状态
+     * @return
+     */
+    CommonResult operateOriginalTransactionLog(RegistrationParam registrationParam, Byte patientCaseStatus);
 
     /**
      * 向缴费表中添加新的缴费记录 -冲正

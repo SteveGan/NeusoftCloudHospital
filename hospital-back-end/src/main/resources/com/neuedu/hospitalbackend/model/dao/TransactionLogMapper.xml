@@ -149,4 +149,24 @@
         limit 1
     </select>
 
+    <select id="getLogByRegistrationIdAndType" resultMap="BaseResultMap">
+        select * from transaction_log
+        where registration_id = #{registration_id} and type = #{type}
+    </select>
+
+    <select id="getSelective"  resultMap="BaseResultMap">
+        select * from transaction_log where 1=1
+        <if test="invoiceCode != null"> and invoice_code = #{invoiceCode} </if>
+        <if test="registrationId != null"> and registration_id = #{registrationId} </if>
+        <if test="patientId != null"> and patient_id = #{patientId} </if>
+        <if test="roleId != null"> and role_id = #{roleId} </if>
+        <if test="type != null"> and type = #{type} </if>
+        <if test="collectionId != null"> and collection_id = #{collectionId} </if>
+        <if test="projectId != null"> and project_id = #{projectId} </if>
+        <if test="itemId != null"> and item_id = #{itemId} </if>
+        <if test="amount != null"> and amount = #{amount} </if>
+        <if test="payType != null"> and pay_type = #{payType} </if>
+        <if test="totalMoney != null"> and total_money = #{totalMoney} </if>
+        <if test="status != null"> and status = #{status} </if>
+    </select>
 </mapper>

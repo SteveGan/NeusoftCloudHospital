@@ -6,6 +6,7 @@
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="patient_id" jdbcType="INTEGER" property="patientId" />
     <result column="appointment_date" jdbcType="DATE" property="appointmentDate" />
+    <result column="time_slot" jdbcType="TINYINT" property="timeSlot"/>
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="registration_level_id" jdbcType="SMALLINT" property="registrationLevelId" />
     <result column="department_id" jdbcType="INTEGER" property="departmentId" />
@@ -150,9 +151,15 @@
     where id = #{id}
   </update>
 
-    <select id="getRegistrationInfo" resultMap="BaseResultMap">
-        select r.*, status from registration r, patient_case pc
-
-    </select>
+  <select id="getRegistrationInfo" resultMap="BaseResultMap">
+        select r.*, pc.status from registration r, patient_case pc
+        where r.id = #{registrationId} and pc.registration_id = #{registrationId}
+  </select>
+  
+  <update id="updateStatusById" parameterType="Registration">
+    update registration
+    set status = #{status}
+    where registration_id = #{registration_id}
+  </update>
 
 </mapper>

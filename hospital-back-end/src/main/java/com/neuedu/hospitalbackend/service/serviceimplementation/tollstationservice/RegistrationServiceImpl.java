@@ -103,6 +103,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             Registration registration = new Registration();
             registration.setId(registrationParam.getRegistrationId());
             registration.setAppointmentDate(Date.valueOf(registrationParam.getAppointmentDateStr()));
+            registration.setTimeSlot(registrationParam.getTimeSlot());
             registration.setRoleId(registrationParam.getRoleId());
             registration.setRegistrationLevelId(registrationParam.getRegistrationLevelId());
             registration.setDepartmentId(registrationParam.getDepartmentId());
