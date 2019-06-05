@@ -12,6 +12,8 @@ const DepartmentAdmin = r => require.ensure([], () => r(require('@/components/ad
 const ArrangementRuleAdmin = r => require.ensure([], () => r(require('@/components/admin/ArrangementRuleAdmin/ArrangementRuleAdmin')), 'ArrangementRuleAdmin')
 const OutPatientDoctor = r => require.ensure([], () => r(require('@/pages/OutPatientDoctor/OutPatientDoctor')), 'OutPatientDoctor')
 const Cashier = r => require.ensure([], () => r(require('@/pages/Cashier/Cashier')), 'Cashier')
+const TechDoctor = r => require.ensure([], () => r(require('@/pages/TechDoctor/TechDoctor')), 'TechDoctor')
+
 
 export default [
   {
@@ -76,6 +78,11 @@ export default [
         path: 'outpatientdoctor',
         name: 'OutPatientDoctor',
         component: OutPatientDoctor
+      },
+      {
+        path: 'techdoctor',
+        name:'TechDoctor',
+        component: TechDoctor
       },
       {
         path: 'cashier',
