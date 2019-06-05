@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.*;
 
@@ -72,5 +75,26 @@ public class DepartmentManagementImpl implements DepartmentManagementService {
         PageHelper.startPage(pageNum, pageSize);
         Page<Department> list = departmentMapper.listByPage();
         return CommonResult.success(list);
+    }
+
+    @Override
+    public CommonResult listDepartmentsTree() {
+        List<Department> list = departmentMapper.list();
+        Map<String, Map<String, List<String>>> map = new HashMap<>();
+
+        // 三层判断，没有则插入
+        for (Department department : list) {
+            if (!map.containsKey(department.getType())) {
+                map.put(department.getType(), new HashMap<>());
+            }
+            if (!map.get(department.getType()).containsKey(department.getClassification())) {
+                map.get(department.getType()).put(department.getClassification(), new ArrayList<>());
+            }
+            if (!map.get(department.getType()).get(department.getClassification()).contains(department.getName())) {
+                map.get(department.getType()).get(department.getClassification()).add(department.getName());
+            }
+        }
+
+        return CommonResult.success(map);
     }
 }

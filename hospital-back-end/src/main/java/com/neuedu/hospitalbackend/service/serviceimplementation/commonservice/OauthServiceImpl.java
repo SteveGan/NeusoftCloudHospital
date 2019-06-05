@@ -1,4 +1,4 @@
-package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
+package com.neuedu.hospitalbackend.service.serviceimplementation.commonservice;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -7,7 +7,7 @@ import com.neuedu.hospitalbackend.model.dao.RoleMapper;
 import com.neuedu.hospitalbackend.model.dao.UserMapper;
 import com.neuedu.hospitalbackend.model.po.Role;
 import com.neuedu.hospitalbackend.model.po.User;
-import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.OauthService;
+import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.OauthService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.JwtUtil;
 import com.neuedu.hospitalbackend.util.SHAUtils;
