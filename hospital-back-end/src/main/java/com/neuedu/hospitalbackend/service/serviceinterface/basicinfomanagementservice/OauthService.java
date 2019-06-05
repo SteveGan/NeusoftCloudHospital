@@ -2,8 +2,9 @@ package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagements
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.LoginParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 public interface OauthService {
-    Object login(LoginParam loginParam);
+    CommonResult login(LoginParam loginParam);
     JSONObject listAllUsersAndRoles();
 }
