@@ -35,7 +35,7 @@
             </exclusions>
         </dependency>
 
-        <!-- spring boot start -->
+        <!-- Springboot starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -48,7 +48,7 @@
             </exclusions>
         </dependency>
 
-        <!-- springboot-log4j -->
+        <!-- Springboot log4j -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j</artifactId>
@@ -60,12 +60,20 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Springboot Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <!-- Springboot热部署 -->
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-devtools</artifactId>-->
             <!--<optional>true</optional>-->
         <!--</dependency>-->
+
 
         <!-- mysql -->
         <dependency>
@@ -106,13 +114,6 @@
             <version>1.1.10</version>
         </dependency>
 
-        <!-- log4j -->
-        <!--<dependency>-->
-            <!--<groupId>log4j</groupId>-->
-            <!--<artifactId>log4j</artifactId>-->
-            <!--<version>1.2.17</version>-->
-        <!--</dependency>-->
-
         <!--MyBatis分页插件-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -144,6 +145,7 @@
             <version>5.1.9</version>
         </dependency>
 
+        <!-- 部分JDKb版本 xml bind缺失补全 -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -176,7 +178,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.3</version><!--$NO-MVN-MAN-VER$ -->
+            <version>4.5.3</version>
         </dependency>
 
     </dependencies>
