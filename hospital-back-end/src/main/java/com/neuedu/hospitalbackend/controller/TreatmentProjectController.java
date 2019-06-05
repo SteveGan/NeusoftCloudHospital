@@ -2,7 +2,7 @@ package com.neuedu.hospitalbackend.controller;
 
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
-import com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice.TreatmentProjectServiceImpl;
+import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TreatmentProjectService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 @CrossOrigin
 public class TreatmentProjectController {
     @Resource
-    private TreatmentProjectServiceImpl treatmentProjectServiceImpl;
+    private TreatmentProjectService treatmentProjectServiceImpl;
 
     @ApiOperation("根据病历号或患者姓名，获取所有待登记患者列表")
     @RequestMapping(value = "/patient", method = RequestMethod.GET)

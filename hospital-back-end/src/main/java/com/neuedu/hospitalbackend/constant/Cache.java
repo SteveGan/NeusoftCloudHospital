@@ -50,6 +50,8 @@ public class Cache {
     public void initialize() {
         // 初始化可用病历id
         Integer id = cache.registrationMapper.getNextId();
+        if (id == null)
+            id = 1000001;
         nextRegistrationId = id;
         System.out.println("[INFO]初始化可用病历id: "+ nextRegistrationId);
 

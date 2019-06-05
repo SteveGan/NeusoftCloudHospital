@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
+import static com.neuedu.hospitalbackend.util.ResultCode.E_700;
+
 @Service
 public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService {
 
@@ -42,7 +44,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     private InvoiceMapper invoiceMapper;
 
     @Autowired
-    private TransactionService transactionService = new TransactionServiceImpl();
+    private TransactionService transactionService;
 
     @Override
     public synchronized CommonResult getNextRegistrationId() {
@@ -55,9 +57,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     @Override
     public synchronized CommonResult getNextInvoiceCode() {
         String nextInvoiceCode = Cache.getNextInvoiceCode();
-        //invoiceMapper.updateInvoiceStatusById(nextInvoiceCode);
         System.out.println("[INFO]正在使用: " + nextInvoiceCode);
-        Cache.setNextInvoiceCode(nextInvoiceCode + 1);
         return CommonResult.success(nextInvoiceCode);
     }
 
@@ -92,10 +92,6 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     @Transactional
     public CommonResult makeRegistration(RegistrationParam registrationParam){
         JSONObject jsonObject = new JSONObject();
-
-        //通过查询invoice表得到新的缴费记录的发票号并将其状态改为暂用
-       /* String invoice_code = invoiceMapper.getAvailableInvoiceCode();
-        count += invoiceMapper.updateInvoiceStatusById(invoice_code);*/
 
         //向缴费表中添加新的缴费记录  --已缴费
         CommonResult insertResult = transactionService.insertTransactionLog(
@@ -157,8 +153,12 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                 transactionLog.setPatientId(patientId);
                 registration.setPatientId(patientId);
                 count = transactionLogMapper.updateSelective(transactionLog);
+                if (count == 0)
+                    return CommonResult.fail(E_700);
                 jsonObject.put("updateTransactionLog", count);
                 count = registrationMapper.updateSelective(registration);
+                if (count == 0)
+                    return CommonResult.fail(E_700);
                 jsonObject.put("updateRegistration", count);
 
                 //向病历表中添加新的病历记录 --默认待诊

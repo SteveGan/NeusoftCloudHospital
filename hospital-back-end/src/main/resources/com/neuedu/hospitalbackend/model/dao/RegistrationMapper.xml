@@ -129,7 +129,7 @@
   </insert>
 
   <select id="getNextId" resultType="integer">
-    select MAX(id)+ 1 from registration
+    select MAX(id) + 1 from registration
     <!--select id +1 from  registration order by id desc limit 1-->
   </select>
 
