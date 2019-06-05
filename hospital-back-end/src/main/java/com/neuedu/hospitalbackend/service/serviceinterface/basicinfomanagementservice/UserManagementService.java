@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.User;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
@@ -31,4 +32,9 @@ public interface UserManagementService {
      * @param id 用户id
      */
     CommonResult deleteUserById(Integer id);
+
+    /**
+     * 1.3.5 返回所有用户以及角色信息
+     */
+    JSONObject listAllUsersAndRoles();
 }
