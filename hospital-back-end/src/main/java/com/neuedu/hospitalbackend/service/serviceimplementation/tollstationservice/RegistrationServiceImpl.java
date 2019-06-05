@@ -55,14 +55,6 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     @Override
-    public synchronized CommonResult getNextInvoiceCode() {
-        String nextInvoiceCode = invoiceMapper.getAvailableInvoiceCode();
-        invoiceMapper.updateInvoiceStatusById(nextInvoiceCode);
-        System.out.println("[INFO]正在使用: " + nextInvoiceCode);
-        return CommonResult.success(nextInvoiceCode);
-    }
-
-    @Override
     public CommonResult listAvailableDoctors(RegistrationParam registrationParam){
         List<Arrangement> availableDoctors = arrangementMapper.listAvailableDoctors(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(), registrationParam.getRegistrationLevelId(), registrationParam.getDepartmentId());
         /*for(Arrangement a: availableDoctors){
@@ -78,12 +70,9 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         //根据看诊医生和挂号级别，是否需要病历本，算出应收金额
         Short registrationLevelId = registrationParam.getRegistrationLevelId();
         double cost = registrationLevelMapper.getRegistrationLevelCostById(registrationLevelId).doubleValue();
-        System.out.println(cost);
         double bookCost = 1;
         double totalCost = 0;
-        System.out.println("before" + totalCost);
-        if (registrationParam.getBuyCaseBook() == true){
-            System.out.println (registrationParam.getBuyCaseBook());
+        if (registrationParam.getIsBuyCaseBook() == true){
             totalCost = cost + bookCost;
         }
         else
@@ -129,7 +118,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         registration.setTotalFee(registrationParam.getTotalFee());
         registration.setCashierId(registrationParam.getCashierId());
         registration.setPayType(registrationParam.getPayType());
-        registration.setBuyCaseBook(registrationParam.getBuyCaseBook());
+        registration.setBuyCaseBook(registrationParam.getIsBuyCaseBook());
         count = registrationMapper.insertSelective(registration);
         jsonObject.put("insertRegistrationLog", count);
 

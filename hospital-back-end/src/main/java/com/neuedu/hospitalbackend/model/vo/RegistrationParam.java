@@ -136,12 +136,12 @@ public class RegistrationParam {
         this.totalFee = totalFee;
     }
 
-    public Boolean getBuyCaseBook() {
+    public Boolean getIsBuyCaseBook() {
         return isBuyCaseBook;
     }
 
-    public void setBuyCaseBook(Boolean buyCaseBook) {
-        isBuyCaseBook = buyCaseBook;
+    public void setIsBuyCaseBook(Boolean isBuyCaseBook) {
+        this.isBuyCaseBook = isBuyCaseBook;
     }
 
     public Integer getCashierId() {
@@ -167,4 +167,5 @@ public class RegistrationParam {
     public void setInvoiceCode(String invoiceCode) {
         this.invoiceCode = invoiceCode;
     }
+
 }

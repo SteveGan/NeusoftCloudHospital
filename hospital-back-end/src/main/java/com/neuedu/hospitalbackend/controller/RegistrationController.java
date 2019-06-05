@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice.RegistrationServiceImpl;
+import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.InvoiceService;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +19,9 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registrationServiceImpl;
 
+    @Autowired
+    private InvoiceService invoiceService;
+
     @ApiOperation("得到当前挂号单的病历号")
     @RequestMapping(value = "/registrationId", method = RequestMethod.GET)
     public CommonResult getNextRegistrationId(){
@@ -27,7 +31,7 @@ public class RegistrationController {
     @ApiOperation("得到当前挂号单的发票号")
     @RequestMapping(value = "/invoiceId", method = RequestMethod.GET)
     public CommonResult getNextInvoiceCode(){
-        return registrationServiceImpl.getNextInvoiceCode();
+        return invoiceService.getNextInvoiceCode();
     }
 
     @ApiOperation("查看所有可选医生")
@@ -47,7 +51,6 @@ public class RegistrationController {
     public CommonResult makeRegistration(@RequestBody RegistrationParam registrationParam){
         return registrationServiceImpl.makeRegistration(registrationParam);
     }
-
 
 
 }

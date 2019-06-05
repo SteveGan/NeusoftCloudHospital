@@ -3,13 +3,11 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationserv
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.*;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
-import com.neuedu.hospitalbackend.service.serviceimplementation.commonservice.TransactionServiceImpl;
+import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.InvoiceService;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.TransactionService;
-import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.WithdrawRegistrationService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import com.neuedu.hospitalbackend.util.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +22,11 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
     @Autowired
     private TransactionService transactionService;
     @Autowired
-    private RegistrationService registrationService;
+    private InvoiceService invoiceService;
     @Autowired
     private RegistrationMapper registrationMapper;
     @Autowired
     private TransactionLogMapper transactionLogMapper;
-    @Autowired
-    private InvoiceMapper invoiceMapper;
-    @Autowired
-    private TransactionExceptionLogMapper transactionExceptionLogMapper;
     @Autowired
     private PatientCaseMapper patientCaseMapper;
     @Autowired
@@ -60,7 +54,7 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
             synchronized (this) {
 
                 //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
-                CommonResult result = registrationService.getNextInvoiceCode();
+                CommonResult result = invoiceService.getNextInvoiceCode();
                 String invoice_code = (String) result.getData();
 
                /* String invoice_code = invoiceMapper.getAvailableInvoiceCode();
@@ -82,8 +76,9 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
             count += transactionLogMapper.updateSelective(originalTransactionLog);
 
             //向异常表中添加新的记录
-            CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(originalTransactionLog.getInvoiceCode(),
-                    null, newTransactionLog.getInvoiceCode(), registrationParam.getCashierId(), "挂号退费" );
+            CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
+                    originalTransactionLog.getInvoiceCode(),null, newTransactionLog.getInvoiceCode(),
+                    registrationParam.getCashierId(), "挂号退费" );
             if (insertExceptionResult.getCode() == 500)
                 return insertExceptionResult;
 
@@ -99,22 +94,6 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
             return CommonResult.success(count);
         }
         else
-            return CommonResult.fail();
+            return CommonResult.fail(E_701);
     }
-
-    /*public CommonResult updateRemainingAppointment(RegistrationParam registrationParam){
-        int count = arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(), registrationParam.getRoleId(), registrationParam.getRegistrationLevelId(), 1);
-        if (count > 0)
-            return CommonResult.success(count);
-        else
-            return CommonResult.fail(E_700);
-    }
-*/
-   /* public CommonResult deletePatientCase(RegistrationParam registrationParam){
-        int count = patientCaseMapper.deletePatientCaseById(registrationParam.getRegistrationId());
-        if (count > 0)
-            return CommonResult.success(count);
-        else
-            return CommonResult.fail();
-    }*/
 }
