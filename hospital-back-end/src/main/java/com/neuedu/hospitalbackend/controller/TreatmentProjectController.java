@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.controller;
 
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
-import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
+import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice.TreatmentProjectServiceImpl;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
@@ -18,15 +18,15 @@ public class TreatmentProjectController {
 
     @ApiOperation("根据病历号或患者姓名，获取所有待登记患者列表")
     @RequestMapping(value = "/patient", method = RequestMethod.GET)
-    public CommonResult listPatientByCaseIdOrName(@RequestBody ProjectPatientParam projectPatientParam)
+    public CommonResult listPatientByCaseIdOrName(@RequestBody PatientParam patientParam)
     {
-        return treatmentProjectServiceImpl.listPreparedPatientsByCaseIdOrName(projectPatientParam);
+        return treatmentProjectServiceImpl.listPreparedPatientsByCaseIdOrName(patientParam);
     }
 
     @ApiOperation("选中患者，查看已申请的检查/检验项目详情")
     @RequestMapping(value = "/patient-projects", method = RequestMethod.POST)
-    public CommonResult listAppliedProjectsByCaseId(@RequestBody ProjectPatientParam projectPatientParam){
-        return treatmentProjectServiceImpl.listAppliedProjectsByCaseId(projectPatientParam);
+    public CommonResult listAppliedProjectsByCaseId(@RequestBody PatientParam patientParam){
+        return treatmentProjectServiceImpl.listAppliedProjectsByCaseId(patientParam);
     }
 
     @ApiOperation("选中项目登记")

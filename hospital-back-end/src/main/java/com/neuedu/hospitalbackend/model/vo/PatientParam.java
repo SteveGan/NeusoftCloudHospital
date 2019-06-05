@@ -3,7 +3,7 @@ package com.neuedu.hospitalbackend.model.vo;
 /**
  * 检查检验项目
  */
-public class ProjectPatientParam {
+public class PatientParam {
 
     private Integer projectType; //1.检查 2.检验 3.处置
     private Integer departmentId; //部门id

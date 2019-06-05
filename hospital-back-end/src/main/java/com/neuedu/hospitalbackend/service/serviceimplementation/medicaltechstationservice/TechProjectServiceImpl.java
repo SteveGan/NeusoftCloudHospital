@@ -5,7 +5,7 @@ import com.neuedu.hospitalbackend.model.dao.ExaminationMapper;
 import com.neuedu.hospitalbackend.model.dao.InspectionMapper;
 import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
-import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
+import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TechProjectService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
@@ -32,16 +32,16 @@ public class TechProjectServiceImpl implements TechProjectService {
      * 1.输入患者病历号或姓名，可以查询到本科室（检查/检验）的待登记患者列表
      * 无输入时 输出所有待登记患者列表
      * 动态查询
-     * @param projectPatientParam: projectType, caseId, patientName
+     * @param patientParam: projectType, caseId, patientName
      * @return 待登记患者信息列表
      */
     @Override
-    public CommonResult listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam){
+    public CommonResult listPreparedPatientsByCaseIdOrName(PatientParam patientParam){
         JSONObject returnObject = new JSONObject();
-        Integer projectType = projectPatientParam.getProjectType();
-        Integer caseId = projectPatientParam.getCaseId();
-        String patientName = projectPatientParam.getPatientName();
-        Integer departmentId = projectPatientParam.getDepartmentId();
+        Integer projectType = patientParam.getProjectType();
+        Integer caseId = patientParam.getCaseId();
+        String patientName = patientParam.getPatientName();
+        Integer departmentId = patientParam.getDepartmentId();
 
         //参数检查
         if (departmentId == null)
@@ -63,16 +63,16 @@ public class TechProjectServiceImpl implements TechProjectService {
     /**
      * 患者查询
      * 2.选择患者可以相应申请的项目明细
-     * @param projectPatientParam: projectType, caseId, patientName
+     * @param patientParam: projectType, caseId, patientName
      * @return inspectionId, inspectionName, inspectionGMTCreate, t.status(是否已缴费), requirement
      */
     @Override
-    public CommonResult listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam){
+    public CommonResult listAppliedProjectsByCaseId(PatientParam patientParam){
         JSONObject returnObject = new JSONObject();
         List<HashMap> projects = new ArrayList<>();
-        Integer projectType = projectPatientParam.getProjectType();
-        Integer caseId = projectPatientParam.getCaseId();
-        Integer departmentId = projectPatientParam.getDepartmentId();
+        Integer projectType = patientParam.getProjectType();
+        Integer caseId = patientParam.getCaseId();
+        Integer departmentId = patientParam.getDepartmentId();
 
         //参数检查
         if(caseId == null)
@@ -179,14 +179,14 @@ public class TechProjectServiceImpl implements TechProjectService {
     /**
      * 填写结果
      * 1.显示所有已登记但未录入结果的项目
-     * @param projectPatientParam: projectType, caseId
+     * @param patientParam: projectType, caseId
      */
     @Override
-    public CommonResult listCheckedInButNotRecordedProject(ProjectPatientParam projectPatientParam){
+    public CommonResult listCheckedInButNotRecordedProject(PatientParam patientParam){
         JSONObject returnJson = new JSONObject();
-        Integer caseId = projectPatientParam.getCaseId();
-        Integer projectType = projectPatientParam.getProjectType();
-        Integer departmentId = projectPatientParam.getDepartmentId();
+        Integer caseId = patientParam.getCaseId();
+        Integer projectType = patientParam.getProjectType();
+        Integer departmentId = patientParam.getDepartmentId();
 
         //参数检查
         if(caseId == null)

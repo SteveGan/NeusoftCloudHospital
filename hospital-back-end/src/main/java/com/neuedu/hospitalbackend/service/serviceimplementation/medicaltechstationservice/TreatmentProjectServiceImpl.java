@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.model.dao.TreatmentMapper;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
-import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
+import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TreatmentProjectService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
@@ -28,16 +28,16 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
      * 1.输入患者病历号或姓名，可以查询到本科室（处置）的待登记患者列表
      * 无输入时 输出所有待登记患者列表
      * 动态查询
-     * @param projectPatientParam: projectType, caseId, patientName
+     * @param patientParam: projectType, caseId, patientName
      * @return 待登记患者信息列表
      */
     @Override
-    public CommonResult listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam){
+    public CommonResult listPreparedPatientsByCaseIdOrName(PatientParam patientParam){
         JSONObject returnObject = new JSONObject();
-        Integer caseId = projectPatientParam.getCaseId();
-        String patientName = projectPatientParam.getPatientName();
-        Integer departmentId = projectPatientParam.getDepartmentId();
-        Integer projectType = projectPatientParam.getProjectType();
+        Integer caseId = patientParam.getCaseId();
+        String patientName = patientParam.getPatientName();
+        Integer departmentId = patientParam.getDepartmentId();
+        Integer projectType = patientParam.getProjectType();
 
         //参数检查
         if (departmentId == null)
@@ -55,16 +55,16 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
     /**
      * 患者查询
      * 2.选择患者可以相应申请的项目明细
-     * @param projectPatientParam: projectType, caseId, patientName
+     * @param patientParam: projectType, caseId, patientName
      * @return inspectionId, inspectionName, inspectionGMTCreate, t.status(是否已缴费), requirement
      */
     @Override
-    public CommonResult listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam){
+    public CommonResult listAppliedProjectsByCaseId(PatientParam patientParam){
         //无该病历号
         JSONObject returnObject = new JSONObject();
-        Integer caseId = projectPatientParam.getCaseId();
-        Integer projectType = projectPatientParam.getProjectType();
-        Integer departmentId = projectPatientParam.getDepartmentId();
+        Integer caseId = patientParam.getCaseId();
+        Integer projectType = patientParam.getProjectType();
+        Integer departmentId = patientParam.getDepartmentId();
 
         //参数检查
         if(caseId == null)

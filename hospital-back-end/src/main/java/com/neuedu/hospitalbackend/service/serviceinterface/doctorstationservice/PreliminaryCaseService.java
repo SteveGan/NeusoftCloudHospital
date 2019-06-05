@@ -20,7 +20,7 @@ public interface PreliminaryCaseService {
      * @param doctorId of the doctor
      * @return list of patient
      */
-    List<Patient> listWaitedPatients(Integer doctorId);
+    List<Patient> listWaitingPatients(Integer doctorId);
 
     /**
      * 将当前病历首页中的内容暂时存入数据库
