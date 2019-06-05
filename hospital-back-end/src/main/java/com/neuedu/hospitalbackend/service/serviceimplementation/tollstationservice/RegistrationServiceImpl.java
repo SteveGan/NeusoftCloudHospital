@@ -56,7 +56,8 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
     @Override
     public synchronized CommonResult getNextInvoiceCode() {
-        String nextInvoiceCode = Cache.getNextInvoiceCode();
+        String nextInvoiceCode = invoiceMapper.getAvailableInvoiceCode();
+        invoiceMapper.updateInvoiceStatusById(nextInvoiceCode);
         System.out.println("[INFO]正在使用: " + nextInvoiceCode);
         return CommonResult.success(nextInvoiceCode);
     }
@@ -76,16 +77,19 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     public CommonResult calculateTotalFee(RegistrationParam registrationParam){
         //根据看诊医生和挂号级别，是否需要病历本，算出应收金额
         Short registrationLevelId = registrationParam.getRegistrationLevelId();
-        BigDecimal cost = registrationLevelMapper.getRegistrationLevelCostById(registrationLevelId);
-        BigDecimal bookCost = new BigDecimal(1);
-        BigDecimal totalCost;
-        if (registrationParam.getBuyCaseBook() == true)
-            totalCost = cost.add(bookCost);
+        double cost = registrationLevelMapper.getRegistrationLevelCostById(registrationLevelId).doubleValue();
+        System.out.println(cost);
+        double bookCost = 1;
+        double totalCost = 0;
+        System.out.println("before" + totalCost);
+        if (registrationParam.getBuyCaseBook() == true){
+            System.out.println (registrationParam.getBuyCaseBook());
+            totalCost = cost + bookCost;
+        }
         else
             totalCost = cost;
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("totalFee", totalCost);
-        return CommonResult.success(jsonObject);
+        System.out.println("after" + totalCost);
+        return CommonResult.success(totalCost);
     }
 
     @Override
@@ -126,7 +130,6 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         registration.setCashierId(registrationParam.getCashierId());
         registration.setPayType(registrationParam.getPayType());
         registration.setBuyCaseBook(registrationParam.getBuyCaseBook());
-
         count = registrationMapper.insertSelective(registration);
         jsonObject.put("insertRegistrationLog", count);
 

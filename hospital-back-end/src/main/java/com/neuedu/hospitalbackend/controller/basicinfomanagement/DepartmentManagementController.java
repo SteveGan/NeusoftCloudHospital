@@ -54,4 +54,10 @@ public class DepartmentManagementController {
     public CommonResult listAllDepartments(@PathVariable Integer num, @PathVariable Integer size) {
         return departmentManagement.listPage(num, size);
     }
+
+    @ApiOperation("1.2.7 树状图列出科室")
+    @RequestMapping(value = "/departments/tree", method = RequestMethod.GET)
+    public CommonResult listDepartmentsTree() {
+        return departmentManagement.listDepartmentsTree();
+    }
 }

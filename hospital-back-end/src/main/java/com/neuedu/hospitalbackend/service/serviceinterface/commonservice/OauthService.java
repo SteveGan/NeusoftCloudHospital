@@ -1,4 +1,4 @@
-package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice;
+package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.LoginParam;
