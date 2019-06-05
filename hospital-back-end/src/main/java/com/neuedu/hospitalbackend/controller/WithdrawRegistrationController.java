@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WithdrawRegistrationController {
 
     @Autowired
-    private WithdrawRegistrationService withdrawRegistrationService = new WithdrawRegistrationServiceImpl();
+    private WithdrawRegistrationService withdrawRegistrationService;
 
     @Autowired
     private PatientService patientService = new PatientServiceImpl();

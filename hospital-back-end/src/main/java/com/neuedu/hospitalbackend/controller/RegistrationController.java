@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
     
     @Autowired
-    private RegistrationService registrationServiceImpl = new RegistrationServiceImpl();
+    private RegistrationService registrationServiceImpl;
 
     @ApiOperation("得到当前挂号单的病历号")
     @RequestMapping(value = "/registrationId", method = RequestMethod.GET)

@@ -22,9 +22,9 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
     @Autowired
     private PatientService patientService;
     @Autowired
-    private TransactionService transactionService = new TransactionServiceImpl();
+    private TransactionService transactionService;
     @Autowired
-    private RegistrationService registrationService = new RegistrationServiceImpl();
+    private RegistrationService registrationService;
     @Autowired
     private RegistrationMapper registrationMapper;
     @Autowired
