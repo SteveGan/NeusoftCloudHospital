@@ -3,20 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.hospitalbackend.model.dao.RegistrationLevelMapper">
-    <select id="get" resultType="RegistrationLevel" parameterType="Integer">
-    select id, code, name, limit, cost from registration_level where id = #{id}
+    <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.RegistrationLevel" >
+        <result column="id" property="id" jdbcType="SMALLINT" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="limit" property="limit" jdbcType="SMALLINT" />
+        <result column="cost" property="cost" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <select id="get" resultMap="BaseResultMap" parameterType="Short">
+    select id, code, name, quota, cost from registration_level where id = #{id}
   </select>
 
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel" >
-    insert into registration_level (code, name, limit, cost)
-    values (#{code}, #{name}, #{limit}, #{cost})
+    insert into registration_level (code, name, quota, cost)
+    values (#{code}, #{name}, #{quota}, #{cost})
   </insert>
 
     <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel">
-        update registration_level set code = #{code}, name = #{name}, limit = #{limit}, cost = #{cost} where id = #{id}
+        update registration_level set code = #{code}, name = #{name}, quota = #{quota}, cost = #{cost} where id = #{id}
     </update>
 
-    <delete id="delete" parameterType="Integer">
+    <delete id="delete" parameterType="Short">
         delete from registration_level where id = #{id}
     </delete>
 
@@ -24,7 +32,7 @@
         <id column="id" property="id"/>
         <result column="code" property="code"/>
         <result column="name" property="name"/>
-        <result column="limit" property="limit"/>
+        <result column="quota" property="quota"/>
         <result column="cost" property="cost"/>
     </resultMap>
 

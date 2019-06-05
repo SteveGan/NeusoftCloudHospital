@@ -17,6 +17,8 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_603;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_604;
 
 /**
+ * JWT配置
+ * 参考资料: https://blog.csdn.net/weixin_41835866/article/details/82119017
  * @author Raven
  */
 public class JwtUtil {

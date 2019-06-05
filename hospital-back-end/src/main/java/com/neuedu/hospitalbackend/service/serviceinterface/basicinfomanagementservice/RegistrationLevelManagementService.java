@@ -7,7 +7,7 @@ import com.neuedu.hospitalbackend.util.CommonResult;
  * 1.4 挂号级别管理
  * 应用场景：用于医院管理员维护医院所使用的挂号级别，以及每种挂号级别的相应挂号费。如普通号、专家号、急诊号等。
  * 挂号级别信息包括：号别编码、号别名称、挂号限额、显示顺序号、挂号费。
- * @author <a href="https://ravenxu.top/">Raven</a>
+ * @author Raven
  */
 public interface RegistrationLevelManagementService {
 

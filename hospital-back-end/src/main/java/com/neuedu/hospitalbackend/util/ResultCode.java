@@ -16,6 +16,7 @@ public enum ResultCode implements IErrorCode {
     E_602(602, "操作项不存在"),
     E_603(603, "用户未登录，请重新登录"),
     E_604(604, "登录信息过期，请重新登录"),
+    E_605(605, "插入失败"),
 
     // Polaris
 
