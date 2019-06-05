@@ -27,14 +27,14 @@ public class MedicineController {
 
     @ApiOperation("1.8.2 新增药品信息")
     @RequestMapping(value = "/medicine", method = RequestMethod.POST)
-    public CommonResult addMedicine(@RequestBody Medicine nonMedicine) {
-        return medicineManagementImpl.insertMedicine(nonMedicine);
+    public CommonResult addMedicine(@RequestBody Medicine medicine) {
+        return medicineManagementImpl.insertMedicine(medicine);
     }
 
     @ApiOperation("1.8.3 修改药品信息")
     @RequestMapping(value = "/medicine", method = RequestMethod.PUT)
-    public CommonResult updateMedicine(@RequestBody Medicine nonMedicine) {
-        return medicineManagementImpl.updateMedicineById(nonMedicine);
+    public CommonResult updateMedicine(@RequestBody Medicine medicine) {
+        return medicineManagementImpl.updateMedicineById(medicine);
     }
 
     @ApiOperation("1.8.4 删除药品信息")

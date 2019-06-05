@@ -1,4 +1,4 @@
-package com.neuedu.hospitalbackend.configuration;
+package com.neuedu.hospitalbackend.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

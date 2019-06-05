@@ -2,6 +2,9 @@ package com.neuedu.hospitalbackend.model.po;
 
 import java.math.BigDecimal;
 
+/**
+ * @author Raven
+ */
 public class Medicine {
     private Short id;
 

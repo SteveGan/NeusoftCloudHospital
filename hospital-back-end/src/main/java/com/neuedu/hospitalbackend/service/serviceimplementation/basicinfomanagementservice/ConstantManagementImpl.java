@@ -7,6 +7,9 @@ import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementse
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author Raven
+ */
 public class ConstantManagementImpl implements ConstantManagementService {
     @Resource
     ConstantMapper constantMapper;
