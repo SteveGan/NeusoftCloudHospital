@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
     
     @Autowired
-    private RegistrationService registrationServiceImpl = new RegistrationServiceImpl();
+    private RegistrationService registrationServiceImpl;
 
     @ApiOperation("得到当前挂号单的病历号")
     @RequestMapping(value = "/registrationId", method = RequestMethod.GET)
@@ -25,7 +25,7 @@ public class RegistrationController {
     }
 
     @ApiOperation("得到当前挂号单的发票号")
-    @RequestMapping(value = "/registrationId", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoiceId", method = RequestMethod.GET)
     public CommonResult getNextInvoiceCode(){
         return registrationServiceImpl.getNextInvoiceCode();
     }
