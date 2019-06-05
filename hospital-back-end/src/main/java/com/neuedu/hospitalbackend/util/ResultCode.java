@@ -20,6 +20,7 @@ public enum ResultCode implements IErrorCode {
 
     // Polaris
     E_700(700, "更新失败"),
+    E_701(701, "不是待诊状态，无法退号" ),
 
     // Amy
     E_800(800, "科室类型异常"),

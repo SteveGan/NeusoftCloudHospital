@@ -9,7 +9,7 @@
         <module name="hospital-back-end" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="5">
       <module name="hospital-back-end" target="1.8" />
     </bytecodeTargetLevel>
   </component>

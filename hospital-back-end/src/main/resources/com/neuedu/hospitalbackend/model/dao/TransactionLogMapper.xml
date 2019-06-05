@@ -169,4 +169,9 @@
         <if test="totalMoney != null"> and total_money = #{totalMoney} </if>
         <if test="status != null"> and status = #{status} </if>
     </select>
+
+    <select id="listTransactionLogs" resultMap="BaseResultMap">
+        select * from transaction_log
+        where registration_id = #{registrationId} and type != "挂号费"
+    </select>
 </mapper>
