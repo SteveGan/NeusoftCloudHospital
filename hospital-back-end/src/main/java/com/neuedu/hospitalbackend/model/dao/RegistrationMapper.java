@@ -2,6 +2,7 @@ package com.neuedu.hospitalbackend.model.dao;
 
 import com.neuedu.hospitalbackend.model.po.Registration;
 import com.neuedu.hospitalbackend.model.po.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,5 +13,6 @@ public interface RegistrationMapper {
     int insertSelective(Registration registration);
     Integer getNextId();
     int updateSelective(Registration registration);
-    Registration getRegistrationById(Integer registrationId);
+    Registration getRegistrationInfo(Integer registrationId);
+    int updateStatusById(@Param("status") Byte status, @Param("registrationId") Integer registrationId);
 }

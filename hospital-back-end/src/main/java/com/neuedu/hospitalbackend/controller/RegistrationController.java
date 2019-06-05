@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice.RegistrationServiceImpl;
+import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
     
     @Autowired
-    private RegistrationServiceImpl registrationServiceImpl;
+    private RegistrationService registrationServiceImpl = new RegistrationServiceImpl();
 
     @ApiOperation("得到当前挂号单的病历号")
     @RequestMapping(value = "/registrationId", method = RequestMethod.GET)

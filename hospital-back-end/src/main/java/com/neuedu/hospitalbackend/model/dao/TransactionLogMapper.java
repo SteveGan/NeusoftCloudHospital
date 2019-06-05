@@ -11,5 +11,6 @@ public interface TransactionLogMapper {
     int insertSelective(TransactionLog transactionLog);
     int updateSelective(TransactionLog transactionLog);
     int selectStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
-
+    TransactionLog getLogByRegistrationIdAndType(@Param("registrationId") Integer registrationId, @Param("type") String type);
+    TransactionLog getSelective(TransactionLog transactionLog);
 }

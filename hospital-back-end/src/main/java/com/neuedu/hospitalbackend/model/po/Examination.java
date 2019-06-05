@@ -31,6 +31,14 @@ public class Examination {
 
     private String goal;
 
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -45,14 +53,6 @@ public class Examination {
 
     public void setCaseId(Integer caseId) {
         this.caseId = caseId;
-    }
-
-    public Integer getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
     }
 
     public Integer getProjectId() {
