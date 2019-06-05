@@ -26,7 +26,7 @@ public class Cache {
     // 常量表
     private static Map<String, Map<Byte, String>> constant = new HashMap<>();
     //可用发票号
-    private static String nextInvoiceCode;
+    //private static String nextInvoiceCode;
 
     @Autowired
     private RegistrationMapper registrationMapper;
@@ -34,8 +34,8 @@ public class Cache {
     @Autowired
     private ConstantMapper constantMapper;
 
-    @Autowired
-    private InvoiceMapper invoiceMapper;
+//    @Autowired
+//    private InvoiceMapper invoiceMapper;
 
     private static Cache cache;
 
@@ -44,7 +44,7 @@ public class Cache {
         cache = this;
         cache.registrationMapper = this.registrationMapper;
         cache.constantMapper = this.constantMapper;
-        cache.invoiceMapper = this.invoiceMapper;
+        //cache.invoiceMapper = this.invoiceMapper;
     }
 
     public void initialize() {
@@ -69,10 +69,9 @@ public class Cache {
         }
 
         // 初始化可用发票号
-        String invoiceCode = cache.invoiceMapper.getAvailableInvoiceCode();
-        cache.invoiceMapper.updateInvoiceStatusById(invoiceCode);
-        nextInvoiceCode = invoiceCode;
-        System.out.println("[INFO]初始化可用发票号: "+ nextInvoiceCode);
+//        String invoiceCode = cache.invoiceMapper.getAvailableInvoiceCode();
+//        nextInvoiceCode = invoiceCode;
+//        System.out.println("[INFO]初始化可用发票号: "+ nextInvoiceCode);
     }
 
     public static Integer getNextRegistrationId() {
@@ -91,11 +90,11 @@ public class Cache {
         Cache.constant = constant;
     }
 
-    public static String getNextInvoiceCode() {
-        return nextInvoiceCode;
-    }
-
-    public static void setNextInvoiceCode(String nextInvoiceCode) {
-        Cache.nextInvoiceCode = nextInvoiceCode;
-    }
+//    public static String getNextInvoiceCode() {
+//        return nextInvoiceCode;
+//    }
+//
+//    public static void setNextInvoiceCode(String nextInvoiceCode) {
+//        Cache.nextInvoiceCode = nextInvoiceCode;
+//    }
 }
