@@ -12,8 +12,16 @@
     </resultMap>
 
     <select id="get" resultMap="BaseResultMap" parameterType="Integer">
-    select id, classification, code, name, type from department where id = #{id}
-  </select>
+      select id, classification, code, name, type from department where id = #{id}
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+      select id, classification, code, name, type from department
+    </select>
+
+    <select id="listByPage" resultMap="BaseResultMap">
+      select id, classification, code, name, type from department
+    </select>
 
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Department" >
     insert into department (id, code, name,

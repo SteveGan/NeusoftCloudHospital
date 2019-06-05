@@ -33,4 +33,13 @@ public interface DepartmentManagementService {
      */
     CommonResult deleteDepartmentById(Integer id);
 
+    /**
+     * 1.2.5 列出全部科室
+     */
+    CommonResult listAllDepartments();
+
+    /**
+     * 1.2.6 分页列出k科室
+     */
+    CommonResult listPage(Integer pageNum, Integer pageSize);
 }
