@@ -9,7 +9,6 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     User userAuthentication(@Param("id") Integer userId, @Param("password") String password);
-    List<User> listAllUsersAndRoles();
 
     User get(Integer id);
 
@@ -18,4 +17,6 @@ public interface UserMapper {
     int update(User user);
 
     int delete(Integer id);
+
+    List<User> listAllUsersAndRoles();
 }

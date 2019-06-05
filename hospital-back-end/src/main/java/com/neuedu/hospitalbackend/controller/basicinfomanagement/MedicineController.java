@@ -21,7 +21,7 @@ public class MedicineController {
 
     @ApiOperation("1.8.1 根据id获取药品信息")
     @RequestMapping(value = "/medicine/{id}", method = RequestMethod.GET)
-    public CommonResult selectMedicineById(@PathVariable Short id) {
+    public CommonResult getMedicineById(@PathVariable Short id) {
         return medicineManagementImpl.getMedicineById(id);
     }
 
