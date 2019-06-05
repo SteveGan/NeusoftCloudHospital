@@ -21,7 +21,7 @@ public class DepartmentManagementController {
 
     @ApiOperation("1.2.1 根据id获取科室信息")
     @RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
-    public CommonResult selectDepartmentById(@PathVariable Integer id) {
+    public CommonResult getDepartmentById(@PathVariable Integer id) {
         return departmentManagement.getDepartmentById(id);
     }
 
@@ -43,4 +43,15 @@ public class DepartmentManagementController {
         return departmentManagement.deleteDepartmentById(id);
     }
 
+    @ApiOperation("1.2.5 列出全部科室")
+    @RequestMapping(value = "/departments", method = RequestMethod.GET)
+    public CommonResult listAllDepartments() {
+        return departmentManagement.listAllDepartments();
+    }
+
+    @ApiOperation("1.2.6 分页列出科室")
+    @RequestMapping(value = "/departments/{num}/{size}", method = RequestMethod.GET)
+    public CommonResult listAllDepartments(@PathVariable Integer num, @PathVariable Integer size) {
+        return departmentManagement.listPage(num, size);
+    }
 }

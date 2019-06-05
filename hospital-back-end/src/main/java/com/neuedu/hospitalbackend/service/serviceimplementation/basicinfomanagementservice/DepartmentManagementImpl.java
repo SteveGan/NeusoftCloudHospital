@@ -1,5 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
 import com.neuedu.hospitalbackend.model.po.Department;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.DepartmentManagementService;
@@ -7,6 +9,8 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
+import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.*;
 
@@ -55,5 +59,18 @@ public class DepartmentManagementImpl implements DepartmentManagementService {
             return CommonResult.fail();
         }
         return CommonResult.success(count);
+    }
+
+    @Override
+    public CommonResult listAllDepartments() {
+        List<Department> list = departmentMapper.list();
+        return CommonResult.success(list);
+    }
+
+    @Override
+    public CommonResult listPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        Page<Department> list = departmentMapper.listByPage();
+        return CommonResult.success(list);
     }
 }
