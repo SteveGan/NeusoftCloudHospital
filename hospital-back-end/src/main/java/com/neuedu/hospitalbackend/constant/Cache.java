@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.constant;
 
 import com.neuedu.hospitalbackend.model.dao.ConstantMapper;
+import com.neuedu.hospitalbackend.model.dao.InvoiceMapper;
 import com.neuedu.hospitalbackend.model.dao.RegistrationMapper;
 import com.neuedu.hospitalbackend.model.po.Constant;
 import com.neuedu.hospitalbackend.util.ConstantMap;
@@ -25,12 +26,18 @@ public class Cache {
     private static Integer nextPatientId;
     // 常量表
     private static Map<String, Map<Byte, String>> constant = new HashMap<>();
+    //可用发票号
+    private static String nextInvoiceCode;
 
     @Autowired
     private RegistrationMapper registrationMapper;
 
     @Autowired
     private ConstantMapper constantMapper;
+
+    @Autowired
+    private InvoiceMapper invoiceMapper;
+
     private static Cache cache;
 
     @PostConstruct
@@ -38,6 +45,7 @@ public class Cache {
         cache = this;
         cache.registrationMapper = this.registrationMapper;
         cache.constantMapper = this.constantMapper;
+        cache.invoiceMapper = this.invoiceMapper;
     }
 
     public void initialize() {
@@ -58,6 +66,12 @@ public class Cache {
                 constant.put(item.getType(), hashMap);
             }
         }
+
+        // 初始化可用发票号
+        String invoiceCode = cache.invoiceMapper.getAvailableInvoiceCode();
+        cache.invoiceMapper.updateInvoiceStatusById(invoiceCode);
+        nextInvoiceCode = invoiceCode;
+        System.out.println("[INFO]初始化可用发票号: "+ nextInvoiceCode);
     }
 
     public static Integer getNextRegistrationId() {
@@ -74,5 +88,13 @@ public class Cache {
 
     public static void setConstant(Map<String, Map<Byte, String>> constant) {
         Cache.constant = constant;
+    }
+
+    public static String getNextInvoiceCode() {
+        return nextInvoiceCode;
+    }
+
+    public static void setNextInvoiceCode(String nextInvoiceCode) {
+        Cache.nextInvoiceCode = nextInvoiceCode;
     }
 }

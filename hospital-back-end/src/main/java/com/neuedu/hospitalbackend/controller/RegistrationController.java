@@ -24,6 +24,12 @@ public class RegistrationController {
         return registrationServiceImpl.getNextRegistrationId();
     }
 
+    @ApiOperation("得到当前挂号单的发票号")
+    @RequestMapping(value = "/registrationId", method = RequestMethod.GET)
+    public CommonResult getNextInvoiceCode(){
+        return registrationServiceImpl.getNextInvoiceCode();
+    }
+
     @ApiOperation("查看所有可选医生")
     @RequestMapping(value = "/doctors", method = RequestMethod.GET)
     public CommonResult listAvailableDoctors (RegistrationParam registrationParam) {

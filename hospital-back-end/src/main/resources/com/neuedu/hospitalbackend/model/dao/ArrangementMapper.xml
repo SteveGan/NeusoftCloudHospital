@@ -102,7 +102,7 @@
    </select>
 
   <update id="updateRemainingAppointment">
-        update arrangement set appointment_left = appointment_left - 1
+        update arrangement set appointment_left = appointment_left + #{amount}
         where role_id = #{roleId} and appointment_date = #{appointmentDateStr}
         and time_slot = #{timeSlot} and registration_level_id = #{registrationLevelId}
   </update>

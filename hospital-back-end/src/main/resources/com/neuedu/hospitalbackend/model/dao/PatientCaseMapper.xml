@@ -117,7 +117,7 @@
   </insert>
 
   <delete id="deletePatientCaseById">
-
+      delete from patient_case where registration_id = #{registrationId}
   </delete>
 
 </mapper>

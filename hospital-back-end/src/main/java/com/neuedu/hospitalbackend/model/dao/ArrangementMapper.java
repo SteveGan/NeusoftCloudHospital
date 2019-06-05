@@ -14,7 +14,7 @@ public interface ArrangementMapper {
 
     List<Arrangement> listAvailableDoctors(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") Byte timeSlot, @Param("registrationLevelId") Short registrationLevelId, @Param("departmentId") Integer departmentId);
 
-    int updateRemainingAppointment(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") Byte timeSlot, @Param("roleId") Integer roleId, @Param("registrationLevelId") Short registrationLevelId);
+    int updateRemainingAppointment(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") Byte timeSlot, @Param("roleId") Integer roleId, @Param("registrationLevelId") Short registrationLevelId, @Param("amount") int amount);
 
 
 }

@@ -14,4 +14,5 @@ public interface PatientCaseMapper {
     int insertSelective(PatientCase patientCase);
     List<PatientCase> selectByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName);
     List<PatientCase> selectById(@Param("caseId")Integer caseId, @Param("departmentId") Integer departmentId);
+    int deletePatientCaseById(Integer registrationId);
 }
