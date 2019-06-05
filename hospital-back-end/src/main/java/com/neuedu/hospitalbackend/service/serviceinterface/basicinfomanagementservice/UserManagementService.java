@@ -9,26 +9,26 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 public interface UserManagementService {
 
     /**
-     * 1.2.1 根据用户id查询用户
+     * 1.3.1 根据用户id查询用户
      * @param id 用户id
      */
     CommonResult getUserById(Integer id);
 
     /**
-     * 1.2.2 新增科室
+     * 1.3.2 新增用户
      * @param user PO
      */
     CommonResult insertUser(User user);
 
     /**
-     * 1.2.3 修改用户
+     * 1.3.3 修改用户
      * @param user PO
      */
     CommonResult updateUserById(User user);
 
     /**
-     * 1.2.4 删除用户
-     * @param id 科室id
+     * 1.3.4 删除用户
+     * @param id 用户id
      */
     CommonResult deleteUserById(Integer id);
 }

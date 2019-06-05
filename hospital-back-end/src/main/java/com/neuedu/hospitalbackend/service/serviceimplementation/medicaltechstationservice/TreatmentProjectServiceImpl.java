@@ -1,11 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
 import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.model.dao.TreatmentMapper;
-import com.neuedu.hospitalbackend.model.po.Patient;
-import com.neuedu.hospitalbackend.model.po.PatientCase;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TreatmentProjectService;
@@ -14,7 +11,6 @@ import com.neuedu.hospitalbackend.util.ResultCode;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,7 +46,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
             CommonResult.fail(ResultCode.E_800);//科室类型异常
 
         //查询患者列表
-        List<HashMap> patients = treatmentMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName);
+        List<HashMap> patients = treatmentMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName,departmentId);
         returnObject.put("patients", patients);
         return CommonResult.success(returnObject);
     }
@@ -79,7 +75,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
             CommonResult.fail(ResultCode.E_800);//科室类型异常
 
         //查询项目列表
-        List<HashMap> projects = treatmentMapper.listAppliedProjectsByCaseId(caseId);
+        List<HashMap> projects = treatmentMapper.listAppliedProjectsByCaseId(caseId,departmentId);
 
         //timestamp格式转换为datetime
         for(HashMap project: projects)
@@ -119,7 +115,10 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
 
         int count = treatmentMapper.checkInProject(collectionId, projectId, doctorRoleId);
 
-        return CommonResult.success(count);
+        if(count > 0)
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
     }
 
     /**
@@ -141,14 +140,14 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
             CommonResult.fail(ResultCode.E_807);//申请参数异常
         if(projectId == null)
             CommonResult.fail(ResultCode.E_806);//项目参数异常
-        //确认开立
-        if(2 != treatmentMapper.selectStatusOfProject(collectionId, projectId))
-            CommonResult.fail(ResultCode.E_804);//项目操作权限异常
 
         //取消执行
         int count = treatmentMapper.cancelProject(collectionId, projectId);
 
-        return CommonResult.success(count);
+        if(count > 0)
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
     }
 
 }

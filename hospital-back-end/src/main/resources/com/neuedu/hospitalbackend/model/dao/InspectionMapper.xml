@@ -44,19 +44,17 @@
     <update id="checkInProject">
         update inspection
         set status = 4, inspector_role_id = #{inspectorRoleId}
-        where id = #{collectionId} and project_id = #{projectId}
-            and n.id = i.project_id
+        where id = #{collectionId} and project_id = #{projectId} and status = 2
     </update>
 
     <update id="cancelProject">
         update inspection
         set status = 3
-        where id = #{collectionId} and project_id = #{projectId}
-            and n.id = i.project_id
+        where id = #{collectionId} and project_id = #{projectId} and status = 2
     </update>
 
     <select id="listCheckedInButNotRecordedProject" resultType="HashMap">
-      select n.id, n.name, i.id, i.gmt_create, t.status, i.requirement
+      select n.id, n.name, i.id, i.gmt_create, i.status as i_status, t.status as t_status, i.requirement
       from inspection i, non_medicine n, transaction_log t
       where t.registration_id = #{caseId}  and t.collection_id = i.id  and t.project_id = i.project_id
           and i.status = 4 and i.department_id = #{departmentId}

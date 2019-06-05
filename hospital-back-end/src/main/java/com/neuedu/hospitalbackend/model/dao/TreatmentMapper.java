@@ -12,16 +12,15 @@ public interface TreatmentMapper {
      * @param patientName
      * @return 待登记的caseId, patientName
      */
-    List<HashMap> listPreparedPatientsByCaseIdOrName(@Param("caseId") Integer caseId,
-                                                     @Param("patientName") String patientName);
+    List<HashMap> listPreparedPatientsByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName,
+                                                     @Param("departmentId") Integer departmentId);
 
-    List<HashMap> listAppliedProjectsByCaseId(Integer caseId);
+    List<HashMap> listAppliedProjectsByCaseId(@Param("caseId") Integer caseId, @Param("departmentId") Integer departmentId);
 
     int checkInProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
                        @Param("treaterRoleId")Integer treaterRoleId);
 
     int cancelProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId);
 
-    int selectStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
 }

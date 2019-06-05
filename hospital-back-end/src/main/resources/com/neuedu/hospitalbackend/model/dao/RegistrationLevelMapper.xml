@@ -3,6 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.hospitalbackend.model.dao.RegistrationLevelMapper">
+    <select id="get" resultType="RegistrationLevel" parameterType="Integer">
+    select id, code, name, limit, cost from registration_level where id = #{id}
+  </select>
+
+    <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel" >
+    insert into registration_level (code, name, limit, cost)
+    values (#{code}, #{name}, #{limit}, #{cost})
+  </insert>
+
+    <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.RegistrationLevel">
+        update registration_level set code = #{code}, name = #{name}, limit = #{limit}, cost = #{cost} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from registration_level where id = #{id}
+    </delete>
+
     <resultMap id="MatchMap" type="RegistrationLevel">
         <id column="id" property="id"/>
         <result column="code" property="code"/>

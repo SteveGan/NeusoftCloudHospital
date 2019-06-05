@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.NonMedicineMapper">
+    <select id="get" resultType="NonMedicine" parameterType="Integer">
+    select id, code, name, specification, unit_price, cost_type, executive_department from non_medicine where id = #{id}
+  </select>
+
+    <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.NonMedicine" >
+    insert into non_medicine (code, name, specification, unit_price, cost_type, executive_department)
+    values (#{code}, #{name}, #{specification}, #{unit_price}, #{cost_type}, #{executive_department})
+  </insert>
+
+    <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.NonMedicine">
+        update non_medicine set icd_code = #{icd_code}, code = #{code}, name = #{name}, type = #{type} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from non_medicine where id = #{id}
+    </delete>
+
+</mapper>

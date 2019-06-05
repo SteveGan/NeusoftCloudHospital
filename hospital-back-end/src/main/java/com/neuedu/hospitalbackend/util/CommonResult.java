@@ -1,5 +1,7 @@
 package com.neuedu.hospitalbackend.util;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 通用返回对象
  * Created by Raven on 2019/5/30.
@@ -24,7 +26,7 @@ public class CommonResult<T> {
      * @param data 获取的数据
      */
     public static <T> CommonResult<T> success(T data) {
-        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+        return new CommonResult<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
     }
 
     /**
@@ -34,7 +36,7 @@ public class CommonResult<T> {
      * @param  message 提示信息
      */
     public static <T> CommonResult<T> success(T data, String message) {
-        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), message, data);
+        return new CommonResult<>(ResultCode.SUCCESS.getCode(), message, data);
     }
 
     /**
@@ -42,7 +44,10 @@ public class CommonResult<T> {
      * @param errorCode 错误码
      */
     public static <T> CommonResult<T> fail(IErrorCode errorCode) {
-        return new CommonResult<T>(errorCode.getCode(), errorCode.getMessage(), null);
+        JSONObject data = new JSONObject();
+        data.put("code", errorCode.getCode());
+        data.put("message", errorCode.getMessage());
+        return new CommonResult<T>(ResultCode.FAILED.getCode(), ResultCode.FAILED.getMessage(), (T) data);
     }
 
     /**
@@ -50,10 +55,6 @@ public class CommonResult<T> {
      */
     public static <T> CommonResult<T> fail() {
         return fail(ResultCode.FAILED);
-    }
-
-    public static <T> CommonResult<T> fail(IErrorCode code, T data) {
-        return new CommonResult<T>(code.getCode(), code.getMessage(), data);
     }
 
     public long getCode() {

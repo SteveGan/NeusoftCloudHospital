@@ -5,12 +5,17 @@ package com.neuedu.hospitalbackend.util;
  * Created by Raven on 2019/5/30.
  */
 public enum ResultCode implements IErrorCode {
+    // 外层code
     SUCCESS(200, "操作成功"),
     FAILED(500, "操作失败"),
+
+    // 内层error data
     // Raven
     E_600(600, "用户不存在"),
     E_601(601, "密码错误"),
     E_602(602, "操作项不存在"),
+    E_603(603, "用户未登录，请重新登录"),
+    E_604(604, "登录信息过期，请重新登录"),
 
     // Polaris
 
