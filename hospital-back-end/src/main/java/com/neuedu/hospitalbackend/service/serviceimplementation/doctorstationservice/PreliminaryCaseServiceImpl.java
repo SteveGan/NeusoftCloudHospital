@@ -5,7 +5,6 @@ import com.neuedu.hospitalbackend.model.dao.DiagnoseMapper;
 import com.neuedu.hospitalbackend.model.dao.DiseaseMapper;
 import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
 import com.neuedu.hospitalbackend.model.po.Diagnose;
-import com.neuedu.hospitalbackend.model.po.Disease;
 import com.neuedu.hospitalbackend.model.po.PatientCase;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
@@ -65,7 +64,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
      * @return patientCase
      */
     @Override
-    public CommonResult getPatientCaseContents(Integer doctorRoleId, Integer caseId){
+    public CommonResult getPatientCaseInfo(Integer doctorRoleId, Integer caseId){
         JSONObject returnJson = new JSONObject();
 
         if(caseId == null)
@@ -122,6 +121,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         String pastDisease = patientCaseParam.getPastDisease();
         String allergy = patientCaseParam.getAllergy();
         String physicalCondition = patientCaseParam.getPhysicalCondition();
+        String assistDiagnose = patientCaseParam.getAssistantInspection();
         List<DiagnoseParam> diagnoses = patientCaseParam.getDiagnoses();
 
         //参数检查
@@ -133,7 +133,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
 
         //暂存或提交 病历
         int count = patientCaseMapper.savePatientCase(narrate, curDisease, curTreatCondition, pastDisease,
-                allergy, physicalCondition, status);// 暂存状态status：2     已诊状态status：3
+                allergy, physicalCondition, assistDiagnose, status);// 暂存状态status：2     已诊状态status：3
         if(count <= 0)
             return CommonResult.fail(ResultCode.E_802);//保存失败
 
@@ -181,7 +181,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
 
         //辅助检查
         int count = patientCaseMapper.savePatientCase(null, null, null,
-                null, null,null, 1);//状态：待诊
+                null, null,null, null,1);//状态：待诊
         if(count <= 0)
             return CommonResult.fail(ResultCode.E_802);//保存失败
 

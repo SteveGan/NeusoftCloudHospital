@@ -26,10 +26,21 @@
         delete from disease where id = #{id}
     </delete>
 
-    <select id="getTypeOfDiseaseById">
+    <select id="getTypeOfDiseaseById" resultType="Integer">
         select type
         from disease
         where id = #{id}
     </select>
 
+    <select id="ListChineseDisease" resultMap = "BaseResultMap">
+        select *
+        from disease
+        where type = '中医疾病'
+    </select>
+
+    <select id="ListWesternDisease" resultMap = "BaseResultMap">
+        select *
+        from disease
+        where type = '西医疾病'
+    </select>
 </mapper>

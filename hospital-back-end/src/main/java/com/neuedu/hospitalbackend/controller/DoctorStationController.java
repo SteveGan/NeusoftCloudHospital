@@ -25,15 +25,15 @@ public class DoctorStationController {
 
     //TODO 测试
     @ApiOperation("点击患者，查看病历首页")
-    @RequestMapping(value = "/patientcase/{doctorRoleId}/{caseId}", method = RequestMethod.GET)
-    public CommonResult getPatientCaseContents(@PathVariable(value = "doctorRoleId") Integer doctorRoleId, @PathVariable(value = "caseId") Integer caseId)
+    @RequestMapping(value = "/patientcaseinfo/{doctorRoleId}/{caseId}", method = RequestMethod.GET)
+    public CommonResult getPatientCaseInfo(@PathVariable(value = "doctorRoleId") Integer doctorRoleId, @PathVariable(value = "caseId") Integer caseId)
     {
-        return preliminaryCaseService.getPatientCaseContents(doctorRoleId, caseId);
+        return preliminaryCaseService.getPatientCaseInfo(doctorRoleId, caseId);
     }
 
     //TODO 测试
     @ApiOperation("暂存病历")
-    @RequestMapping(value = "/save", method = RequestMethod.PUT)
+    @RequestMapping(value = "/preservation", method = RequestMethod.PUT)
     public CommonResult savePresentPatientCase(PatientCaseParam patientCaseParam)
     {
         return preliminaryCaseService.savePresentPatientCase(patientCaseParam);
@@ -41,16 +41,8 @@ public class DoctorStationController {
 
     //TODO 测试
     @ApiOperation("提交病历")
-    @RequestMapping(value = "/submit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/submission", method = RequestMethod.PUT)
     public CommonResult submitPresentPatientCase(PatientCaseParam patientCaseParam)
-    {
-        return preliminaryCaseService.submitPresentPatientCase(patientCaseParam);
-    }
-
-    //TODO 测试
-    @ApiOperation("病历存为模板")
-    @RequestMapping(value = "/savecasetemplate", method = RequestMethod.POST)
-    public CommonResult savePatientCaseTemplate(PatientCaseParam patientCaseParam)
     {
         return preliminaryCaseService.submitPresentPatientCase(patientCaseParam);
     }
@@ -62,5 +54,12 @@ public class DoctorStationController {
         return preliminaryCaseService.clearPatientCase(caseId);
     }
 
+    //TODO 测试
+    @ApiOperation("病历存为模板")
+    @RequestMapping(value = "/casetemplate/preservation", method = RequestMethod.POST)
+    public CommonResult savePatientCaseTemplate(PatientCaseParam patientCaseParam)
+    {
+        return preliminaryCaseService.submitPresentPatientCase(patientCaseParam);
+    }
 
 }

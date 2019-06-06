@@ -43,4 +43,10 @@ public class DiseaseManagementController {
         return diseaseManagementImpl.deleteDiseaseById(id);
     }
 
+    //TODO 测试
+    @ApiOperation("获取中医或者疾病")
+    @RequestMapping(value = "/diseasetype/{type}", method = RequestMethod.GET)
+    public CommonResult listDiseaseByType(@PathVariable Integer type) {
+        return diseaseManagementImpl.listDiseaseByType(type);
+    }
 }
