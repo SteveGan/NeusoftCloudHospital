@@ -17,9 +17,20 @@
 </template>
 
 <script>
+import request from '@/utils/request'
+
 export default {
-  name: 'InvoiceCode'
+  name: 'InvoiceCode',
+
+  mounted() {
+    request({
+    url: '/registration/invoiceId',
+    method: 'get'
+  })
+  }
 }
+
+
 </script>
 
 <style lang="css" scoped>
