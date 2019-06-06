@@ -6,10 +6,14 @@ const state = {
   name: '',
   id: '',
   avatar: '',
-  roles: []
+  roles: [],
+  currentRole: {}
 }
 
 const getters = {
+  currentRoleId : state => {
+    return state.currentRole.id
+  }
 }
 
 const actions = {
@@ -67,6 +71,9 @@ const mutations = {
   },
   setRoles: (state, roles) => {
     state.roles = roles
+  },
+  setCurrentRole : (state, role) => {
+    state.role = role
   }
 }
 
