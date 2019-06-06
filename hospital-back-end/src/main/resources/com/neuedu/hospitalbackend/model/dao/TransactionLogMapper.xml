@@ -151,7 +151,7 @@
 
     <select id="getLogByRegistrationIdAndType" resultMap="BaseResultMap">
         select * from transaction_log
-        where registration_id = #{registration_id} and type = #{type}
+        where registration_id = #{registrationId} and type = #{type}
     </select>
 
     <select id="getSelective"  resultMap="BaseResultMap">
@@ -168,5 +168,10 @@
         <if test="payType != null"> and pay_type = #{payType} </if>
         <if test="totalMoney != null"> and total_money = #{totalMoney} </if>
         <if test="status != null"> and status = #{status} </if>
+    </select>
+
+    <select id="listTransactionLogs" resultMap="BaseResultMap">
+        select * from transaction_log
+        where registration_id = #{registrationId} and type != "挂号费"
     </select>
 </mapper>

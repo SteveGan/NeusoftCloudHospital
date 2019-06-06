@@ -22,6 +22,8 @@ public class RegistrationParam {
     private Boolean isBuyCaseBook;
     private Integer cashierId; //收银员id
     private Integer patientId; //病人在本医院的id
+    private String invoiceCode; //当前挂号单对应的发票号
+    private Byte patientCaseStatus; //患者病历状态
 
     public Integer getRegistrationId() {
         return registrationId;
@@ -135,12 +137,12 @@ public class RegistrationParam {
         this.totalFee = totalFee;
     }
 
-    public Boolean getBuyCaseBook() {
+    public Boolean getIsBuyCaseBook() {
         return isBuyCaseBook;
     }
 
-    public void setBuyCaseBook(Boolean buyCaseBook) {
-        isBuyCaseBook = buyCaseBook;
+    public void setIsBuyCaseBook(Boolean isBuyCaseBook) {
+        this.isBuyCaseBook = isBuyCaseBook;
     }
 
     public Integer getCashierId() {
@@ -157,5 +159,21 @@ public class RegistrationParam {
 
     public void setPatientId(Integer patientId) {
         this.patientId = patientId;
+    }
+
+    public String getInvoiceCode() {
+        return invoiceCode;
+    }
+
+    public void setInvoiceCode(String invoiceCode) {
+        this.invoiceCode = invoiceCode;
+    }
+
+    public Byte getPatientCaseStatus() {
+        return patientCaseStatus;
+    }
+
+    public void setPatientCaseStatus(Byte patientCaseStatus) {
+        this.patientCaseStatus = patientCaseStatus;
     }
 }

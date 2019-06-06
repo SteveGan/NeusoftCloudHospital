@@ -22,28 +22,7 @@ public interface WithdrawRegistrationService {
     /**
      *
      * @param registrationParam 挂号相关变量
-     * @param patientCaseStatus 病历状态
      * @return
      */
-    CommonResult operateOriginalTransactionLog(RegistrationParam registrationParam, Byte patientCaseStatus);
-
-    /**
-     * 向缴费表中添加新的缴费记录 -冲正
-     * @param transactionLog 新的缴费记录
-     * @return 冲正记录的发票号
-     */
-
-
-    /**
-     * 从门诊病历首页移除该病历号，删除医生端的病历记录
-     * @param patientCase 需要移除的病历号
-     */
-    CommonResult deleteCaseLog(PatientCase patientCase);
-
-    /**
-     * 更新所选医生对应的余号数量
-     * @param doctorParam 需要更新的医生
-     */
-    CommonResult updateRemainingAppointment(DoctorParam doctorParam);
-
+    CommonResult operateTransactionLog(RegistrationParam registrationParam);
 }

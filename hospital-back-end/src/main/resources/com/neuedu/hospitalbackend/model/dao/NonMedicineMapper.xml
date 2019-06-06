@@ -3,17 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.hospitalbackend.model.dao.NonMedicineMapper">
-    <select id="get" resultType="NonMedicine" parameterType="Integer">
+    <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.NonMedicine" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="specification" property="specification" jdbcType="VARCHAR" />
+        <result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
+        <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+        <result column="executive_department" property="executiveDepartment" jdbcType="VARCHAR" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="get" resultMap="BaseResultMap" parameterType="Integer">
     select id, code, name, specification, unit_price, cost_type, executive_department from non_medicine where id = #{id}
   </select>
 
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.NonMedicine" >
     insert into non_medicine (code, name, specification, unit_price, cost_type, executive_department)
-    values (#{code}, #{name}, #{specification}, #{unit_price}, #{cost_type}, #{executive_department})
+    values (#{code}, #{name}, #{specification}, #{unitPrice}, #{costType}, #{executiveDepartment})
   </insert>
 
     <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.NonMedicine">
-        update non_medicine set icd_code = #{icd_code}, code = #{code}, name = #{name}, type = #{type} where id = #{id}
+        update non_medicine set code = #{code}, name = #{name}, specification = #{specification}, unit_price = #{unitPrice},
+         cost_type = #{costType}, executive_department = #{executiveDepartment} where id = #{id}
     </update>
 
     <delete id="delete" parameterType="Integer">

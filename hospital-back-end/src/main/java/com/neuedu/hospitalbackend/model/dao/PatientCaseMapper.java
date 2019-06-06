@@ -27,4 +27,5 @@ public interface PatientCaseMapper {
     int savePatientCase(@Param("narrate") String narrate, @Param("curDisease") String curDisease,
                                @Param("curTreatCondition") String curTreatCondition, @Param("pastDisease") String pastDisease,
                                @Param("allergy") String allergy, @Param("physicalCondition") String physicalCondition, @Param("status") Integer status);
+    int deletePatientCaseById(Integer registrationId);
 }

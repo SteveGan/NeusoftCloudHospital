@@ -96,5 +96,16 @@
         where r.id = #{registrationId} and p.id = r.patient_id
     </select>
 
+    <update id="updatePatientInfo" parameterType="Patient">
+        update patient
+        <trim prefix="set" suffixOverrides=",">
+            <if test="address != null"> address = #{address}, </if>
+            <if test="gender != null"> gender = #{gender}, </if>
+            <if test="name != null"> name = #{name}, </if>
+            <if test="birthday != null"> birthday = #{birthday}, </if>
+        </trim>
+        where id = #{id}
+    </update>
+
 
 </mapper>

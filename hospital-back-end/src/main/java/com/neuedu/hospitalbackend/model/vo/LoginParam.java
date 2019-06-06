@@ -1,5 +1,7 @@
 package com.neuedu.hospitalbackend.model.vo;
 
+import org.springframework.context.annotation.Bean;
+
 public class LoginParam {
 
     private Integer userId;

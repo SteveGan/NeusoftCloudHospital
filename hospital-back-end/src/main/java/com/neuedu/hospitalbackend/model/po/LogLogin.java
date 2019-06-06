@@ -2,7 +2,7 @@ package com.neuedu.hospitalbackend.model.po;
 
 import java.util.Date;
 
-public class LoginLog {
+public class LogLogin {
     private Integer id;
 
     private Integer userId;

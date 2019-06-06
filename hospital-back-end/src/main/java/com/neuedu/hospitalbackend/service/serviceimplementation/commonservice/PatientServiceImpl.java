@@ -7,6 +7,8 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.neuedu.hospitalbackend.util.ResultCode.E_702;
+
 @Service
 public class PatientServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService {
 
@@ -18,7 +20,7 @@ public class PatientServiceImpl implements com.neuedu.hospitalbackend.service.se
         if(patient != null)
             return CommonResult.success(patient);
         else
-            return CommonResult.fail();
+            return CommonResult.fail(E_702);
     }
 }
 

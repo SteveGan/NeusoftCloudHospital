@@ -9,7 +9,7 @@ public class RegistrationLevel {
 
     private String name;
 
-    private Short limit;
+    private Short quota;
 
     private BigDecimal cost;
 
@@ -37,12 +37,12 @@ public class RegistrationLevel {
         this.name = name == null ? null : name.trim();
     }
 
-    public Short getLimit() {
-        return limit;
+    public Short getQuota() {
+        return quota;
     }
 
-    public void setLimit(Short limit) {
-        this.limit = limit;
+    public void setQuota(Short quota) {
+        this.quota = quota;
     }
 
     public BigDecimal getCost() {

@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.controller.basicinfomanagement;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.User;
 import com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice.UserManagementImpl;
 import com.neuedu.hospitalbackend.util.CommonResult;
@@ -19,28 +20,35 @@ public class UserManagementController {
     @Resource
     private UserManagementImpl userManagementImpl;
 
-    @ApiOperation("根据id获取部门信息")
+    @ApiOperation("1.3.1 根据id获取用户信息")
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public CommonResult selectDepartmentById(@PathVariable Integer id) {
+    public CommonResult getUserById(@PathVariable Integer id) {
         return userManagementImpl.getUserById(id);
     }
 
-    @ApiOperation("新增部门信息")
+    @ApiOperation("1.3.2 新增用户信息")
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public CommonResult addDepartment(@RequestBody User user) {
+    public CommonResult addUser(@RequestBody User user) {
         return userManagementImpl.insertUser(user);
     }
 
-    @ApiOperation("修改部门信息")
+    @ApiOperation("1.3.3 修改用户信息")
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public CommonResult updateDepartment(@RequestBody User user) {
+    public CommonResult updateUser(@RequestBody User user) {
         return userManagementImpl.updateUserById(user);
     }
 
-    @ApiOperation("删除部门信息")
+    @ApiOperation("1.3.4 删除用户信息")
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    public CommonResult deleteDepartment(@PathVariable Integer id) {
+    public CommonResult deleteUser(@PathVariable Integer id) {
         return userManagementImpl.deleteUserById(id);
     }
 
+    @ApiOperation("1.3.5 返回用户所有角色信息")
+    @RequestMapping(value = "/users-with-roles", method = RequestMethod.GET)
+    public CommonResult<JSONObject> listAllUsersAndRoles()
+    {
+        JSONObject roles = userManagementImpl.listAllUsersAndRoles();
+        return CommonResult.success(roles);
+    }
 }

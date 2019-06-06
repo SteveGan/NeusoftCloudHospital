@@ -3,16 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.hospitalbackend.model.dao.DiseaseMapper">
-    <select id="get" resultType="Disease" parameterType="Short">
+    <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Disease" >
+        <result column="id" property="id" jdbcType="SMALLINT" />
+        <result column="icd_code" property="icdCode" jdbcType="VARCHAR" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="get" resultMap="BaseResultMap" parameterType="Short">
         select id, icd_code, code, name, type from disease where id = #{id}
     </select>
 
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Disease">
-        insert into disease (icd_code, code, name, type) values (#{icd_code}, #{code}, #{name}, #{type})
+        insert into disease (icd_code, code, name, type) values (#{icdCode}, #{code}, #{name}, #{type})
     </insert>
 
     <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.Disease">
-        update disease set icd_code = #{icd_code}, code = #{code}, name = #{name}, type = #{type} where id = #{id}
+        update disease set icd_code = #{icdCode}, code = #{code}, name = #{name}, type = #{type} where id = #{id}
     </update>
 
     <delete id="delete" parameterType="Short">

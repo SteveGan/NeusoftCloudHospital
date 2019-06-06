@@ -12,6 +12,14 @@ const DepartmentAdmin = r => require.ensure([], () => r(require('@/components/ad
 const ArrangementRuleAdmin = r => require.ensure([], () => r(require('@/components/admin/ArrangementRuleAdmin/ArrangementRuleAdmin')), 'ArrangementRuleAdmin')
 const OutPatientDoctor = r => require.ensure([], () => r(require('@/pages/OutPatientDoctor/OutPatientDoctor')), 'OutPatientDoctor')
 const Cashier = r => require.ensure([], () => r(require('@/pages/Cashier/Cashier')), 'Cashier')
+const TechDoctor = r => require.ensure([], () => r(require('@/pages/TechDoctor/TechDoctor')), 'TechDoctor')
+
+const FinicialAdmin = r => require.ensure([], () => r(require('@/pages/FinicialAdmin/FinicialAdmin')), 'FinicialAdmin')
+const Dailycheck = r => require.ensure([], () => r(require('@/components/finicialadmin/DailyCheck/DailyCheck')), 'DailyCheck')
+const DepartmentWorkloadAnalysis = r => require.ensure([], () => r(require('@/components/finicialadmin/DepartmentWorkloadAnalysis/DepartmentWorkloadAnalysis')), 'DepartmentWorkloadAnalysis')
+const PriceAdmin = r => require.ensure([], () => r(require('@/components/finicialadmin/PriceAdmin/PriceAdmin')), 'PriceAdmin')
+const UserWorkloadAnalysis = r => require.ensure([], () => r(require('@/components/finicialadmin/UserWorkloadAnalysis/UserWorkloadAnalysis')), 'UserWorkloadAnalysis')
+
 
 export default [
   {
@@ -78,9 +86,40 @@ export default [
         component: OutPatientDoctor
       },
       {
+        path: 'techdoctor',
+        name:'TechDoctor',
+        component: TechDoctor
+      },
+      {
         path: 'cashier',
         name: 'Cashier',
         component: Cashier
+      },
+      {
+        path: 'finicialadmin',
+        name: 'FinicialAdmin',
+        component: FinicialAdmin,
+        children: [
+          {
+            path: 'dailycheck',
+            name: 'Dailycheck',
+            component: Dailycheck
+          },
+          {
+            path: 'departmentworkloadanalysis',
+            name: 'DepartmentWorkloadanalysis',
+            component: DepartmentWorkloadAnalysis
+          },
+          {
+            path: 'priceadmin',
+            name: 'PriceAdmin',
+            component: PriceAdmin
+          },{
+            path: 'userworkloadanalysis',
+            name: 'UserWorkloadAnalysis',
+            component: UserWorkloadAnalysis
+          }
+        ]
       }
     ]
   },

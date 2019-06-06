@@ -3,7 +3,8 @@ package com.neuedu.hospitalbackend.constant;
 import com.neuedu.hospitalbackend.model.dao.ConstantMapper;
 import com.neuedu.hospitalbackend.model.dao.RegistrationMapper;
 import com.neuedu.hospitalbackend.model.po.Constant;
-import com.neuedu.hospitalbackend.util.ConstantMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +20,10 @@ import java.util.Map;
  */
 @Component
 public class Cache {
+    // 全局日志记录工具
+    public static final Logger hospitalLogger = LoggerFactory.getLogger(Cache.class);
     // 可用病历id
     private static Integer nextRegistrationId;
-    // 可用患者id
-    private static Integer nextPatientId;
     // 常量表
     private static Map<String, Map<Byte, String>> constant = new HashMap<>();
 
@@ -31,24 +32,26 @@ public class Cache {
 
     @Autowired
     private ConstantMapper constantMapper;
+
     private static Cache cache;
 
     @PostConstruct
     public void init() {
         cache = this;
-        cache.registrationMapper = this.registrationMapper;
-        cache.constantMapper = this.constantMapper;
     }
 
     public void initialize() {
         // 初始化可用病历id
         Integer id = cache.registrationMapper.getNextId();
+        if (id == null) {
+            id = 1000001;
+        }
         nextRegistrationId = id;
-        System.out.println("[INFO]初始化可用病历id: "+ nextRegistrationId);
+        hospitalLogger.info("初始化可用病历id: " + nextRegistrationId);
 
         // 初始化常量表
         List<Constant> list = cache.constantMapper.list();
-        System.out.println("[INFO]常量表记录数: " + list.size());
+        hospitalLogger.info("常量表记录数: " + list.size());
         for (Constant item : list) {
             if (constant.containsKey(item.getType())) {
                 constant.get(item.getType()).put(item.getChildId(), item.getName());

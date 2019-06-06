@@ -20,6 +20,12 @@
         </collection>
     </resultMap>
 
+    <resultMap id="BaseResultMap" type="User">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="avatar" property="avatar"/>
+    </resultMap>
+
     <select id="userAuthentication" resultType="com.neuedu.hospitalbackend.model.po.User">
         select * from user where id = #{id} and password = #{password}
     </select>
@@ -30,7 +36,7 @@
         where u.id = r.user_id
     </select>
 
-    <select id="get" resultType="User" parameterType="Integer">
+    <select id="get" resultMap="BaseResultMap" parameterType="Integer">
     select id, name, avatar, gmt_create, gmt_modified from user where id = #{id}
   </select>
 
