@@ -26,7 +26,7 @@
                 label="病历号">
               </el-table-column>
               <el-table-column
-                prop="patientName"
+                prop="name"
                 label="患者姓名">
               </el-table-column>
             </el-table>
@@ -67,9 +67,9 @@
             <!-- 就诊状态 -->
             <span>就诊状态: {{this.status}} </span>
             <!-- 病历号 -->
-            <span>病历号: {{this.case.caseId}} </span>
+            <span>病历号: {{this.selectedCase.caseId}} </span>
             <!-- 姓名 -->
-            <span>姓名: {{this.selectedPatient.name}} </span>
+            <span>姓名: {{selectedPatient.name}}</span>
             <!-- 性别 -->
             <span>性别: {{this.gender}} </span>
             <!-- 年龄 -->
@@ -87,171 +87,7 @@
         <!-- 门诊首页tab-->
         <el-tab-pane label="门诊首页">
           <!-- 门诊病历首页内容 -->
-          <div class="outpatient-service-container">
-            <!-- 左侧操作区 -->
-            <div class="service-main-container">
-              <!-- 工具栏 -->
-              <!-- 工具栏 -->
-              <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px">
-                <el-button type="text" icon="el-icon-refresh-right" round>清屏</el-button>
-                <el-button type="text" icon="el-icon-folder-checked" round>暂存</el-button>
-                <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-                <el-button type="text" icon="el-icon-upload" round>提交</el-button>
-              </el-card>
-              <!-- 操作 -->
-              <div class="">
-                <!-- 病史病历 -->
-                <el-card class="input-card" shadow="hover">
-                  <div slot="header">
-                    <span>病史病历</span>
-                  </div>
-                  <el-form label-position='left'>
-                    <el-form-item label="主诉">
-                      <el-input type="textarea" autosize placeholder="请输入内容" v-model="zhusu">
-                      </el-input>
-                    </el-form-item>
-                    <el-form-item label="现病史">
-                      <el-input type="textarea" autosize placeholder="请输入内容" v-model="zhusu">
-                      </el-input>
-                    </el-form-item>
-                    <el-form-item label="既往史">
-                      <el-input type="textarea" autosize placeholder="请输入内容" v-model="zhusu">
-                      </el-input>
-                    </el-form-item>
-                    <el-form-item label="个人史">
-                      <el-input type="textarea" autosize placeholder="请输入内容" v-model="zhusu">
-                      </el-input>
-                    </el-form-item>
-                  </el-form>
-                </el-card>
-                <el-card class="input-card" shadow="hover">
-                  <div slot="header">
-                    <span>检查及结果</span>
-                  </div>
-                  <el-form label-position='left'>
-                    <el-form-item label="体格检查">
-                      <el-input type="textarea" autosize placeholder="请输入内容" v-model="zhusu">
-                      </el-input>
-                    </el-form-item>
-                    <el-form-item label="辅助检查">
-                      <el-input type="textarea" autosize placeholder="请输入内容" v-model="zhusu">
-                      </el-input>
-                    </el-form-item>
-                  </el-form>
-                </el-card>
-              </el-card>
-              <el-card class="input-card" shadow="hover">
-                <div slot="header">
-                  <span>评估诊断</span>
-                </div>
-                <!-- 中医诊断 -->
-                <div class="">
-                  <!-- 标题以及 + - 按钮 -->
-                  <div class="diagnose-header">
-                    <!-- 标题：中医诊断 -->
-                    <div class="">
-                      <p>中医诊断</p>
-                    </div>
-                    <!-- 按钮组 -->
-                    <div style="margin-left: 10px;">
-                      <!-- 增加按钮 -->
-                      <el-button type="primary" icon="el-icon-plus" size="mini" circle></el-button>
-                      <!-- 减少按钮 -->
-                      <el-button type="primary" icon="el-icon-minus" size="mini" circle></el-button>
-                    </div>
-                  </div>
-                  <!-- 表格 -->
-                  <div>
-                    <el-table
-                      ref="multipleTable"
-                      tooltip-effect="dark"
-                      style="width: 100%">
-                      <el-table-column
-                        type="selection"
-                        width="55">
-                      </el-table-column>
-                      <el-table-column
-                        label="ICD编码">
-                        <template slot-scope="scope"></template>
-                      </el-table-column>
-                      <el-table-column
-                        label="主诊"
-                        width="120">
-                      </el-table-column>
-                      <el-table-column
-                        label="疑似">
-                      </el-table-column>
-                      <el-table-column
-                        label="发病日期">
-                      </el-table-column>
-                    </el-table>
-                  </div>
-                </div>
-                <!-- 西医诊断 -->
-                <div class="">
-                  <!-- 标题以及 + - 按钮 -->
-                  <div class="diagnose-header">
-                    <!-- 标题：中医诊断 -->
-                    <div class="">
-                      <p>中医诊断</p>
-                    </div>
-                    <!-- 按钮组 -->
-                    <div style="margin-left: 10px;">
-                      <!-- 增加按钮 -->
-                      <el-button type="primary" icon="el-icon-plus" size="mini" circle></el-button>
-                      <!-- 减少按钮 -->
-                      <el-button type="primary" icon="el-icon-minus" size="mini" circle></el-button>
-                    </div>
-                  </div>
-                  <!-- 表格 -->
-                  <div>
-                    <el-table
-                      ref="multipleTable"
-                      tooltip-effect="dark"
-                      style="width: 100%">
-                      <el-table-column
-                        type="selection"
-                        width="55">
-                      </el-table-column>
-                      <el-table-column
-                        label="ICD编码">
-                        <template slot-scope="scope"></template>
-                      </el-table-column>
-                      <el-table-column
-                        label="主诊"
-                        width="120">
-                      </el-table-column>
-                      <el-table-column
-                        label="疑似">
-                      </el-table-column>
-                      <el-table-column
-                        label="发病日期">
-                      </el-table-column>
-                    </el-table>
-                  </div>
-                </div>
-              </el-card>
-              </div>
-            </div>
-            <!-- 右侧模版区域 -->
-            <div class="service-side-container">
-              <!-- 导航栏(也就是一个标签页) -->
-              <el-tabs type="border-card" class="template-tabs">
-                <!-- 门诊首页tab-->
-                <el-tab-pane label="病历模版">
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                </el-tab-pane>
-                <el-tab-pane label="常用诊断"></el-tab-pane>
-                <el-tab-pane label="历史病历"></el-tab-pane>
-              </el-tabs>
-            </div>
-          </div>
+          <outpatient-prediagnose :patientCase.sync="selectedCase"></outpatient-prediagnose>
         </el-tab-pane>
         <el-tab-pane label="检验申请">
           <div class="outpatient-service-container">
@@ -740,43 +576,25 @@
 </template>
 
 <script>
-// import {listAllPatients} from '@/api/patients'
-
+import {listAllPatients} from '@/api/patient'
+import OutPatientPreDiagnose from '@/components/outpatientdoctor/OutPatientPreDiagnose'
 import {caseStatusCodeToString, genderCodeToString} from '@/utils/interpreter'
 
 export default {
   name: 'OutPatientDoctor',
   data () {
     return {
-      waitingPatients:[
-        {
-          caseId: '12313',
-          patientName: 'Gangan',
-          age: 5
-        },
-        {
-          caseId: '123213',
-          patientName: 'Linlin',
-          age: 5
-        }
-      ],
-      diagnosedPatients:[
-        {
-          caseId: '121e12',
-          patientName: 'Jiajia',
-          age: 5
-        }
-      ],
+      waitingPatients:[],
+      diagnosedPatients:[],
       selectedPatient:{},
+      selectedCase:{},
       modernDisease: [],
-      traditionalDisease: [],
-      zhusu: '',
-      case: {}
+      traditionalDisease: []
     }
   },
   computed: {
     status: function() {
-      return caseStatusCodeToString(this.case.status)
+      return caseStatusCodeToString(this.selectedCase.status)
     },
     gender: function() {
       return genderCodeToString(this.selectedPatient.gender)
@@ -784,28 +602,38 @@ export default {
   },
   methods: {
     handlePatientTableClick: row => {
+      //set the selected patient info
       this.selectedPatient = row
       console.log(row)
+      console.log(this.selectedPatient.name)
+
+      //request for the patientCase info by case id
+      let caseId = row.caseId
+
     }
+  },
+  components: {
+    'outpatient-prediagnose': OutPatientPreDiagnose
+  },
+  mounted: function () {
+      //请求所有待诊病人和已诊病人
+      listAllPatients(this.$store.getters['user/currentRoleId']).then( response => {
+        const data = response.data.data
+        this.waitingPatients = data.waitingPatients
+        this.diagnosedPatients = data.diagnosedPatients
+        console.log(this.waitingPatients)
+      }, error => {
+        //暂时不做处理
+      })
+      // //请求所有中医疾病和西医疾病
+      // listAllDisease().then( response => {
+      //   const data = response.data.data
+      //   this.modernDisease = data.modernDisease
+      //   this.traditionalDisease = data.traditionalDisease
+      // }, error => {
+      //   //暂时不做处理
+      // })
   }
-  // mounted: function () {
-  //     //请求所有待诊病人和已诊病人
-  //     listAllPatients(this.$store.getters.currentRoleId).then( response => {
-  //       const data = response.data.data
-  //       this.waitingPatients = data.waitingPatient
-  //       this.diagnosedPatient = data.diagnosedPatient
-  //     }, error => {
-  //       //暂时不做处理
-  //     })
-  //     //请求所有中医疾病和西医疾病
-  //     listAllDisease().then( response => {
-  //       const data = response.data.data
-  //       this.modernDisease = data.modernDisease
-  //       this.traditionalDisease = data.traditionalDisease
-  //     }, error => {
-  //       //暂时不做处理
-  //     })
-  // }
 }
 </script>
 
