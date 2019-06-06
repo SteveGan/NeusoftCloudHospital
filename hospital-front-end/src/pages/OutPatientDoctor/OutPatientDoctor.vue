@@ -19,7 +19,8 @@
             <!-- 表格 -->
             <el-table
               :data="waitingPatients"
-              style="width: 100%">
+              style="width: 100%"
+              @row-click="handlePatientTableClick">
               <el-table-column
                 prop="caseId"
                 label="病历号">
@@ -42,7 +43,8 @@
             <!-- 表格 -->
             <el-table
               :data="diagnosedPatients"
-              style="width: 100%">
+              style="width: 100%"
+              @row-click="handlePatientTableClick">
               <el-table-column
                 prop="caseId"
                 label="病历号">
@@ -63,17 +65,17 @@
           <!-- 基本信息 -->
           <div class="basic-info">
             <!-- 就诊状态 -->
-            <span>就诊状态: 待诊 </span>
+            <span>就诊状态: {{this.status}} </span>
             <!-- 病历号 -->
-            <span>病历号: 31231 </span>
+            <span>病历号: {{this.case.caseId}} </span>
             <!-- 姓名 -->
-            <span>姓名: Gangan </span>
+            <span>姓名: {{this.selectedPatient.name}} </span>
             <!-- 性别 -->
-            <span>性别: 男 </span>
+            <span>性别: {{this.gender}} </span>
             <!-- 年龄 -->
-            <span>年龄: 5 </span>
+            <span>年龄: {{this.selectedPatient.age}} </span>
             <!-- 结算类别 -->
-            <span>结算类别: 免费 </span>
+            <span>结算类别: TODO </span>
           </div>
           <!-- 诊毕 -->
           <el-button type="primary">诊毕</el-button>
@@ -103,7 +105,7 @@
                   <div slot="header">
                     <span>病史病历</span>
                   </div>
-                  <el-form model="form" label-position='left'>
+                  <el-form label-position='left'>
                     <el-form-item label="主诉">
                       <el-input type="textarea" autosize placeholder="请输入内容" v-model="zhusu">
                       </el-input>
@@ -126,7 +128,7 @@
                   <div slot="header">
                     <span>检查及结果</span>
                   </div>
-                  <el-form model="form" label-position='left'>
+                  <el-form label-position='left'>
                     <el-form-item label="体格检查">
                       <el-input type="textarea" autosize placeholder="请输入内容" v-model="zhusu">
                       </el-input>
@@ -275,7 +277,6 @@
                 <!-- 项目列表 -->
                 <div class="">
                   <el-table
-                    :data="tableData"
                     style="width: 100%">
                     <el-table-column
                       type="selection"
@@ -342,7 +343,6 @@
                 <!-- 项目列表 -->
                 <div class="">
                   <el-table
-                    :data="tableData"
                     style="width: 100%">
                     <el-table-column
                       type="selection"
@@ -408,7 +408,6 @@
                 <!-- 项目列表 -->
                 <div class="">
                   <el-table
-                    :data="tableData"
                     style="width: 100%">
                     <el-table-column
                       type="selection"
@@ -516,7 +515,6 @@
                 <!-- 项目列表 -->
                 <div class="">
                   <el-table
-                    :data="tableData"
                     style="width: 100%">
                     <el-table-column
                       type="selection"
@@ -625,7 +623,6 @@
                 <!-- 项目列表 -->
                 <div class="">
                   <el-table
-                    :data="tableData"
                     style="width: 100%">
                     <el-table-column
                       type="selection"
@@ -662,7 +659,6 @@
                 <!-- 项目列表 -->
                 <div class="">
                   <el-table
-                    :data="tableData"
                     style="width: 100%">
                     <el-table-column
                       type="selection"
@@ -710,7 +706,6 @@
             <!-- 项目列表 -->
             <div class="">
               <el-table
-                :data="tableData"
                 style="width: 100%">
                 <el-table-column
                   type="selection"
@@ -745,6 +740,10 @@
 </template>
 
 <script>
+// import {listAllPatients} from '@/api/patients'
+
+import {caseStatusCodeToString, genderCodeToString} from '@/utils/interpreter'
+
 export default {
   name: 'OutPatientDoctor',
   data () {
@@ -752,23 +751,61 @@ export default {
       waitingPatients:[
         {
           caseId: '12313',
-          patientName: 'Gangan'
+          patientName: 'Gangan',
+          age: 5
         },
         {
           caseId: '123213',
-          patientName: 'Linlin'
+          patientName: 'Linlin',
+          age: 5
         }
       ],
       diagnosedPatients:[
         {
           caseId: '121e12',
-          patientName: 'Jiajia'
+          patientName: 'Jiajia',
+          age: 5
         }
       ],
+      selectedPatient:{},
+      modernDisease: [],
+      traditionalDisease: [],
       zhusu: '',
-      form: {}
+      case: {}
+    }
+  },
+  computed: {
+    status: function() {
+      return caseStatusCodeToString(this.case.status)
+    },
+    gender: function() {
+      return genderCodeToString(this.selectedPatient.gender)
+    }
+  },
+  methods: {
+    handlePatientTableClick: row => {
+      this.selectedPatient = row
+      console.log(row)
     }
   }
+  // mounted: function () {
+  //     //请求所有待诊病人和已诊病人
+  //     listAllPatients(this.$store.getters.currentRoleId).then( response => {
+  //       const data = response.data.data
+  //       this.waitingPatients = data.waitingPatient
+  //       this.diagnosedPatient = data.diagnosedPatient
+  //     }, error => {
+  //       //暂时不做处理
+  //     })
+  //     //请求所有中医疾病和西医疾病
+  //     listAllDisease().then( response => {
+  //       const data = response.data.data
+  //       this.modernDisease = data.modernDisease
+  //       this.traditionalDisease = data.traditionalDisease
+  //     }, error => {
+  //       //暂时不做处理
+  //     })
+  // }
 }
 </script>
 
