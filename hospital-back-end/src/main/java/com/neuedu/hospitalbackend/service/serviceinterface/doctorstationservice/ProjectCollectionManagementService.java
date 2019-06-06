@@ -15,6 +15,15 @@ import java.util.List;
  */
 public interface ProjectCollectionManagementService {
 
+    /**
+     * 加入新的检查/检验组
+     * @param projectParam
+     */
+    CommonResult insertProjectCollection(ProjectParam projectParam);
+
+
+
+
 
     /**
      * 得到所有的检查/检验项目
@@ -23,14 +32,6 @@ public interface ProjectCollectionManagementService {
      * @return 所有的检查/检验项目
      */
     List<Project> listAllProject(JSONObject obj);
-
-
-    /**
-     * 加入新的检查/检验组
-     * @param projectParam
-     */
-    CommonResult insertProjectCollection(ProjectParam projectParam);
-
 
     /**
      * 更新 检查/检验 组

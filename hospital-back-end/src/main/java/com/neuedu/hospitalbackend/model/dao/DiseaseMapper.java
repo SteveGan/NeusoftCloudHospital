@@ -17,6 +17,8 @@ public interface DiseaseMapper {
 
     String getTypeOfDiseaseById(Integer id);
 
+    List<Disease> listDiseaseByType(Integer type);
+
     List<Disease> ListChineseDisease();
 
     List<Disease> ListWesternDisease();

@@ -26,7 +26,7 @@
         delete from disease where id = #{id}
     </delete>
 
-    <select id="getTypeOfDiseaseById" resultType="Integer">
+    <select id="getTypeOfDiseaseById" resultType="String">
         select type
         from disease
         where id = #{id}
@@ -41,6 +41,6 @@
     <select id="ListWesternDisease" resultMap = "BaseResultMap">
         select *
         from disease
-        where type = '西医疾病'
+        where type != '中医疾病'
     </select>
 </mapper>

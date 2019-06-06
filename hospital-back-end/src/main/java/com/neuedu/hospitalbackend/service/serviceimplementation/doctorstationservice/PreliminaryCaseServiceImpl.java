@@ -80,11 +80,13 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         //诊断
         List<Diagnose> diagnoses = diagnoseMapper.listDiagnosesByCaseId(caseId);
         returnJson.put("diagnoses", diagnoses);
-        String type = diseaseMapper.getTypeOfDiseaseById(diagnoses.get(0).getDiseaseId());
-        if(type.equals("中医疾病"))
-            returnJson.put("diagnoseType", "中医诊断");//中医
-        else
-            returnJson.put("diagnoseType", "西医诊断");//西医
+        if(diagnoses.size() != 0) {
+            String type = diseaseMapper.getTypeOfDiseaseById(diagnoses.get(0).getDiseaseId());
+            if (type.equals("中医疾病"))
+                returnJson.put("diagnoseType", "中医诊断");//中医
+            else
+                returnJson.put("diagnoseType", "西医诊断");//西医
+        }
 
         return CommonResult.success(returnJson);
     }

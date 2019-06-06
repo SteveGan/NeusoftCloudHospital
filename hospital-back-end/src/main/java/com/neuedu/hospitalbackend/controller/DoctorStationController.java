@@ -1,14 +1,14 @@
 package com.neuedu.hospitalbackend.controller;
 
-import com.neuedu.hospitalbackend.model.bo.ProjectCollection;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.ProjectCollectionManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 
 @RestController
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class DoctorStationController {
 
-    @Autowired
+    @Resource
     private PreliminaryCaseService preliminaryCaseService;
-    @Autowired
+    @Resource
     private ProjectCollectionManagementService projectCollectionManagementService;
 
     @ApiOperation("获取所有待诊、已诊患者列表")
@@ -28,7 +28,6 @@ public class DoctorStationController {
         return preliminaryCaseService.listPatients(doctorRoleId);
     }
 
-    //TODO 测试
     @ApiOperation("点击患者，查看病历首页")
     @RequestMapping(value = "/patientcaseinfo/{doctorRoleId}/{caseId}", method = RequestMethod.GET)
     public CommonResult getPatientCaseInfo(@PathVariable(value = "doctorRoleId") Integer doctorRoleId, @PathVariable(value = "caseId") Integer caseId)
