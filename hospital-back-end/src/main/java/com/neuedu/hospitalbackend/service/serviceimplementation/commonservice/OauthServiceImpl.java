@@ -36,6 +36,7 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_601;
 @Service
 public class OauthServiceImpl implements OauthService {
 
+
     @Resource
     private UserMapper userMapper;
     @Resource

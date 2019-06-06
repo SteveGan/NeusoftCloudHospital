@@ -33,4 +33,10 @@ public interface DiseaseManagementService {
      * @param id 用户id
      */
     CommonResult deleteDiseaseById(Short id);
+
+
+    /**
+     * 获取西医或者疾病
+     */
+    CommonResult listDiseaseByType(Integer type);
 }

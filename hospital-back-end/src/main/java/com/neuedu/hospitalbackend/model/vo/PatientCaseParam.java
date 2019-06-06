@@ -13,8 +13,16 @@ public class PatientCaseParam {
     private String pastDisease; //既往史
     private String allergy; //过敏史
     private String physicalCondition; //体格检查
-//    private String assistantInspection;//辅助检查
+    private String assistantInspection;//辅助检查
     private List<DiagnoseParam> diagnoses; //诊断
+
+    public String getAssistantInspection() {
+        return assistantInspection;
+    }
+
+    public void setAssistantInspection(String assistantInspection) {
+        this.assistantInspection = assistantInspection;
+    }
 
     public String getPastDisease() {
         return pastDisease;

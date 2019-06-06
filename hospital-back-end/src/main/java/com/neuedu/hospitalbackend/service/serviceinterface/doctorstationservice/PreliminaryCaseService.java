@@ -26,7 +26,7 @@ public interface PreliminaryCaseService {
      * @param doctorRoleId,caseId
      * @return list of patient
      */
-    CommonResult getPatientCaseContents(Integer doctorRoleId, Integer caseId);
+    CommonResult getPatientCaseInfo(Integer doctorRoleId, Integer caseId);
 
     /**
      *  暂存

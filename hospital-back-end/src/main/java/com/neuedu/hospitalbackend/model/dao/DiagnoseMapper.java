@@ -9,10 +9,10 @@ import java.util.List;
 @Component
 public interface DiagnoseMapper {
 
-    List<Integer> listDiseaseIdsByCaseId(Integer caseId);
     int insertSelective(Diagnose diagnose);
-    int deleteByDiseaseId(Integer diseaseId);
-    int updateExisted(@Param("diseaseId") Integer diseaseId, @Param("startTime") String startTime,
+    int deleteByDiseaseIcdCode(String diseaseIcdCoded);
+    int updateExisted(@Param("diseaseIcdCode") String diseaseIcdCode, @Param("startTime") String startTime,
                       @Param("isFirstDiagnosed") Boolean isFirstDiagnosed);
+    List<String> listDiseaseIcdCodesByCaseId(Integer caseId);
     List<Diagnose> listDiagnosesByCaseId(Integer caseId);
 }

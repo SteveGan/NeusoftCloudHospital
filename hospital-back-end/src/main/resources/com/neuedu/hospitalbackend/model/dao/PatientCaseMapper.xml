@@ -15,6 +15,7 @@
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     <result column="patient_name" property="patientName" jdbcType="VARCHAR" />
+    <result column="assist_diagnose" property="assistDiagnose" jdbcType="VARCHAR" />
   </resultMap>
 
   <insert id="insert" parameterType="PatientCase" >
@@ -22,12 +23,12 @@
       status, narrate, cur_disease, 
       cur_treat_condition, past_disease, allergy, 
       physical_condition, gmt_create, gmt_modified, 
-      patient_name)
+      patient_name, assist_diagnose)
     values (#{registrationId,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
       #{status,jdbcType=TINYINT}, #{narrate,jdbcType=VARCHAR}, #{curDisease,jdbcType=VARCHAR}, 
       #{curTreatCondition,jdbcType=VARCHAR}, #{pastDisease,jdbcType=VARCHAR}, #{allergy,jdbcType=VARCHAR}, 
       #{physicalCondition,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{patientName,jdbcType=VARCHAR})
+      #{patientName,jdbcType=VARCHAR}, #{assistDiagnose,jdbcType=VARCHAR})
   </insert>
 
   <insert id="insertSelective" parameterType="PatientCase" >
@@ -72,6 +73,9 @@
       <if test="patientName != null" >
         patient_name,
       </if>
+      <if test="assistDiagnose != null" >
+        assist_diagnose,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="registrationId != null" >
@@ -112,6 +116,9 @@
       </if>
       <if test="patientName != null" >
         #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="assistDiagnose != null" >
+        #{assistDiagnose,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -161,7 +168,7 @@
       update patient_case
       set narrate = #{narrate}, cur_disease = #{curDisease}, cur_treat_condition = #{curTreatCondition},
           past_disease = #{pastDisease}, allergy = #{allergy}, physical_condition = #{physicalCondition},
-          status = #{status}
+          status = #{status}, assist_diagnose = #{assistDiagnose}
       where registration_id = #{caseId}
   </update>
 
