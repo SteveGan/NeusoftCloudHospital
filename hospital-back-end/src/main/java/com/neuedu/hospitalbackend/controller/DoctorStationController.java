@@ -6,6 +6,7 @@ import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.ProjectCollectionManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -35,7 +36,6 @@ public class DoctorStationController {
         return preliminaryCaseService.getPatientCaseInfo(doctorRoleId, caseId);
     }
 
-    //TODO 测试
     @ApiOperation("暂存病历")
     @RequestMapping(value = "/preservation", method = RequestMethod.PUT)
     public CommonResult savePresentPatientCase(@RequestBody PatientCaseParam patientCaseParam)
@@ -43,7 +43,6 @@ public class DoctorStationController {
         return preliminaryCaseService.savePresentPatientCase(patientCaseParam);
     }
 
-    //TODO 测试
     @ApiOperation("提交病历")
     @RequestMapping(value = "/submission", method = RequestMethod.PUT)
     public CommonResult submitPresentPatientCase(@RequestBody PatientCaseParam patientCaseParam)
@@ -51,10 +50,9 @@ public class DoctorStationController {
         return preliminaryCaseService.submitPresentPatientCase(patientCaseParam);
     }
 
-    //TODO 测试
     @ApiOperation("清屏")
-    @RequestMapping(value = "/clear", method = RequestMethod.DELETE)
-    public CommonResult clearPatientCase(Integer caseId){
+    @RequestMapping(value = "/clear/{id}", method = RequestMethod.DELETE)
+    public CommonResult clearPatientCase(@PathVariable(value = "id") Integer caseId){
         return preliminaryCaseService.clearPatientCase(caseId);
     }
 
