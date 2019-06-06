@@ -114,11 +114,11 @@ public class TechProjectServiceImpl implements TechProjectService {
 
         //参数验证
         if (collectionId == null)
-            CommonResult.fail(ResultCode.E_807);//申请参数异常
+            CommonResult.fail(ResultCode.E_801);//申请参数异常
         if(projectId == null)
-            return CommonResult.fail(ResultCode.E_806);//项目参数异常
+            return CommonResult.fail(ResultCode.E_801);//项目参数异常
         if(doctorRoleId == null)
-            return CommonResult.fail(ResultCode.E_803);//医技医生参数异常
+            return CommonResult.fail(ResultCode.E_801);//医技医生参数异常
         //确认已缴费
         if(2 != transactionLogMapper.selectStatusOfProject(collectionId, projectId))
             return CommonResult.fail(ResultCode.E_804);//项目操作权限异常
@@ -153,9 +153,9 @@ public class TechProjectServiceImpl implements TechProjectService {
 
         //参数验证
         if (collectionId == null)
-            return CommonResult.fail(ResultCode.E_807);//申请参数异常
+            return CommonResult.fail(ResultCode.E_801);//申请参数异常
         if(projectId == null)
-            return CommonResult.fail(ResultCode.E_806);//项目参数异常
+            return CommonResult.fail(ResultCode.E_801);//项目参数异常
         //确认已缴费
         if(2 != transactionLogMapper.selectStatusOfProject(collectionId, projectId))
             return CommonResult.fail(ResultCode.E_804);//项目操作权限异常
@@ -225,9 +225,9 @@ public class TechProjectServiceImpl implements TechProjectService {
 
         //参数验证
         if (collectionId == null)
-            return CommonResult.fail(ResultCode.E_807);//申请参数异常
+            return CommonResult.fail(ResultCode.E_801);//申请参数异常
         if(projectId == null)
-            return CommonResult.fail(ResultCode.E_806);//项目参数异常
+            return CommonResult.fail(ResultCode.E_801);//项目参数异常
         if(resultDescription == null || advice == null)
             return CommonResult.fail(ResultCode.E_805);//缺少必填参数
 

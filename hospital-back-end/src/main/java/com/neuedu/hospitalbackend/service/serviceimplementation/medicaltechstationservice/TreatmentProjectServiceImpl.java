@@ -102,11 +102,11 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
 
         //参数验证
         if (collectionId == null)
-            CommonResult.fail(ResultCode.E_807);//申请参数异常
+            CommonResult.fail(ResultCode.E_801);//申请参数异常
         if(projectId == null)
-            CommonResult.fail(ResultCode.E_806);//项目参数异常
+            CommonResult.fail(ResultCode.E_801);//项目参数异常
         if(doctorRoleId == null)
-            CommonResult.fail(ResultCode.E_803);//医技医生参数异常
+            CommonResult.fail(ResultCode.E_801);//医技医生参数异常
         if(3 != projectType)
             CommonResult.fail(ResultCode.E_800);//科室类型异常
         //确认已缴费
@@ -137,9 +137,9 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
         if(3 != projectType)
             CommonResult.fail(ResultCode.E_800);//科室类型异常
         if (collectionId == null)
-            CommonResult.fail(ResultCode.E_807);//申请参数异常
+            CommonResult.fail(ResultCode.E_801);//申请参数异常
         if(projectId == null)
-            CommonResult.fail(ResultCode.E_806);//项目参数异常
+            CommonResult.fail(ResultCode.E_801);//项目参数异常
 
         //取消执行
         int count = treatmentMapper.cancelProject(collectionId, projectId);
