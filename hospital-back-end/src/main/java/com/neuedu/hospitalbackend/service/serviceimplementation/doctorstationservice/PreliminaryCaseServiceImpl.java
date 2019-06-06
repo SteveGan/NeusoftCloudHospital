@@ -74,6 +74,8 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
 
         //病历
         PatientCase patientCase = patientCaseMapper.getPatientCase(caseId);
+        if(patientCase == null)
+            return CommonResult.fail(ResultCode.E_801);//参数异常
         if(doctorRoleId.compareTo(patientCase.getRoleId()) == 1)
             return CommonResult.fail(ResultCode.E_804);//权限异常
         returnJson.put("patientCase", patientCase);
@@ -81,7 +83,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         List<Diagnose> diagnoses = diagnoseMapper.listDiagnosesByCaseId(caseId);
         returnJson.put("diagnoses", diagnoses);
         if(diagnoses.size() != 0) {
-            String type = diseaseMapper.getTypeOfDiseaseById(diagnoses.get(0).getDiseaseId());
+            String type = diseaseMapper.getTypeOfDiseaseByIcdCode(diagnoses.get(0).getDiseaseId());
             if (type.equals("中医疾病"))
                 returnJson.put("diagnoseType", "中医诊断");//中医
             else
@@ -140,20 +142,20 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             return CommonResult.fail(ResultCode.E_802);//保存失败
 
         //暂存或提交 诊断
-        List<Integer> existedDiseaseIds = diagnoseMapper.listDiseaseIdsByCaseId(caseId); //所有数据库暂存诊断
+        List<String> existedDiseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId); //所有数据库暂存诊断
         for(DiagnoseParam diagnoseParam: diagnoses){
             //若数据库已存该诊断，且再次要求暂存/提交，则更新该诊断
-            if(existedDiseaseIds.contains(diagnoseParam.getDiseaseId())){
-                count = diagnoseMapper.updateExisted(diagnoseParam.getDiseaseId(), diagnoseParam.getStartTimeStr(), isFirstDiagnosed);
+            if(existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())){
+                count = diagnoseMapper.updateExisted(diagnoseParam.getIcdCode(), diagnoseParam.getStartTimeStr(), isFirstDiagnosed);
                 if(count <= 0)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
-                existedDiseaseIds.remove(diagnoseParam.getDiseaseId());
+                existedDiseaseIcdCodes.remove(diagnoseParam.getIcdCode());
             }
             //若数据库不存在该诊断，要求暂存/提交，则增加该诊断
-            else if (!existedDiseaseIds.contains(diagnoseParam.getDiseaseId())){
+            else if (!existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())){
                 Diagnose diagnose = new Diagnose();
                 diagnose.setCaseId(caseId);
-                diagnose.setDiseaseId(diagnoseParam.getDiseaseId());
+                diagnose.setDiseaseId(diagnoseParam.getIcdCode());
                 diagnose.setStartTime(Date.valueOf(diagnoseParam.getStartTimeStr()));
                 diagnose.setIsFirstDiagnosed(isFirstDiagnosed);
                 //插入数据库
@@ -163,8 +165,8 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             }
             //若数据库已存该诊断，但不再暂存/提交，则删除该诊断
             else{
-                for(Integer leftDiseaseId: existedDiseaseIds){
-                    count = diagnoseMapper.deleteByDiseaseId(leftDiseaseId);
+                for(String leftDiseaseIcdCode: existedDiseaseIcdCodes){
+                    count = diagnoseMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
                     if(count <= 0)
                         return CommonResult.fail(ResultCode.E_803);//删除失败
                 }
@@ -187,9 +189,9 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         if(count <= 0)
             return CommonResult.fail(ResultCode.E_802);//保存失败
 
-        List<Integer> diseaseIds = diagnoseMapper.listDiseaseIdsByCaseId(caseId);
-        for(Integer diseaseId : diseaseIds) {
-            count = diagnoseMapper.deleteByDiseaseId(diseaseId);
+        List<String> diseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId);
+        for(String diseaseIcdCode : diseaseIcdCodes) {
+            count = diagnoseMapper.deleteByDiseaseIcdCode(diseaseIcdCode);
             if(count <= 0)
                 return CommonResult.fail(ResultCode.E_803);//删除失败
         }

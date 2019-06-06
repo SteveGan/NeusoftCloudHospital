@@ -26,10 +26,10 @@
         delete from disease where id = #{id}
     </delete>
 
-    <select id="getTypeOfDiseaseById" resultType="String">
+    <select id="getTypeOfDiseaseByIcdCode" resultType="String">
         select type
         from disease
-        where id = #{id}
+        where icd_code = #{icdCode}
     </select>
 
     <select id="ListChineseDisease" resultMap = "BaseResultMap">

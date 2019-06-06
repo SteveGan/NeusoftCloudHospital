@@ -15,9 +15,7 @@ public interface DiseaseMapper {
 
     int delete(Short id);
 
-    String getTypeOfDiseaseById(Integer id);
-
-    List<Disease> listDiseaseByType(Integer type);
+    String getTypeOfDiseaseByIcdCode(String icdCode);
 
     List<Disease> ListChineseDisease();
 

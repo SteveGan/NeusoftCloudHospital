@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Diagnose" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="case_id" property="caseId" jdbcType="INTEGER" />
-    <result column="disease_id" property="diseaseId" jdbcType="INTEGER" />
+    <result column="disease_id" property="diseaseId" jdbcType="VARCHAR" />
     <result column="start_time" property="startTime" jdbcType="DATE" />
     <result column="is_first_diagnosed" property="isFirstDiagnosed" jdbcType="BIT" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
@@ -14,7 +14,7 @@
     insert into diagnose (id, case_id, disease_id, 
       start_time, is_first_diagnosed, gmt_create, 
       gmt_modified)
-    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{diseaseId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{diseaseId,jdbcType=VARCHAR},
       #{startTime,jdbcType=DATE}, #{isFirstDiagnosed,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
@@ -51,7 +51,7 @@
         #{caseId,jdbcType=INTEGER},
       </if>
       <if test="diseaseId != null" >
-        #{diseaseId,jdbcType=INTEGER},
+        #{diseaseId,jdbcType=VARCHAR},
       </if>
       <if test="startTime != null" >
         #{startTime,jdbcType=DATE},
@@ -68,9 +68,9 @@
     </trim>
   </insert>
 
-  <select id="listDiagnoseIdsByCaseId" resultType="Integer">
-    select disease_id
-    from diagnose
+  <select id="listDiseaseIcdCodesByCaseId" resultType="String">
+    select dis.icd_code
+    from diagnose dia, disease dis
     where case_id = #{caseId}
   </select>
 
@@ -83,13 +83,13 @@
   <update id="updateExisted">
     update diagnose
     set start_time = #{startTime}, is_first_diagnosed = #{isFirstDiagnosed}
-    where disease_id = #{diseaseId}
+    where disease_id = #{diseaseIcdCode}
   </update>
 
-  <delete id="deleteByDiseaseId">
+  <delete id="deleteByDiseaseIcdCode">
     delete
     from diagnose
-    where disease_id = #{diseaseId}
+    where disease_id = #{diseaseIcdCoded}
   </delete>
 
 </mapper>
