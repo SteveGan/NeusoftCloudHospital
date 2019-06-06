@@ -1,7 +1,10 @@
 package com.neuedu.hospitalbackend.controller;
 
+import com.neuedu.hospitalbackend.model.bo.ProjectCollection;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
+import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
+import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.ProjectCollectionManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ public class DoctorStationController {
 
     @Autowired
     private PreliminaryCaseService preliminaryCaseService;
+    @Autowired
+    private ProjectCollectionManagementService projectCollectionManagementService;
 
     @ApiOperation("获取所有待诊、已诊患者列表")
     @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET)
@@ -54,12 +59,20 @@ public class DoctorStationController {
         return preliminaryCaseService.clearPatientCase(caseId);
     }
 
-    //TODO 测试
+    //TODO 测试 + iml
     @ApiOperation("病历存为模板")
     @RequestMapping(value = "/casetemplate/preservation", method = RequestMethod.POST)
     public CommonResult savePatientCaseTemplate(PatientCaseParam patientCaseParam)
     {
         return preliminaryCaseService.submitPresentPatientCase(patientCaseParam);
+    }
+
+    //TODO 测试
+    @ApiOperation("申请检查项目")
+    @RequestMapping(value = "/inspection-application", method = RequestMethod.POST)
+    public CommonResult insertInspection(ProjectParam projectParam)
+    {
+        return projectCollectionManagementService.insertProjectCollection(projectParam);
     }
 
 }
