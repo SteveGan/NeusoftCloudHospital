@@ -164,7 +164,7 @@
     where registration_id = #{caseId}
   </select>
 
-  <update id="savePatientCase">
+  <update id="updatePatientCase">
       update patient_case
       set narrate = #{narrate}, cur_disease = #{curDisease}, cur_treat_condition = #{curTreatCondition},
           past_disease = #{pastDisease}, allergy = #{allergy}, physical_condition = #{physicalCondition},

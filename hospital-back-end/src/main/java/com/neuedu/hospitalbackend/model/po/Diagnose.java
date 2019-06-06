@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Diagnose {
     private Integer id;

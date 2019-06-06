@@ -10,6 +10,16 @@
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="DiagnoseDetail" type="HashMap" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="caseId" property="caseId" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="is_first_diagnosed" property="isFirstDiagnosed" jdbcType="BIT" />
+    <result column="dis_icd_code" property="DiseaseICDCode" jdbcType="VARCHAR"/>
+    <result column="dis_code" property="DiseaseCode" jdbcType="VARCHAR"/>
+    <result column="dis_name" property="DiseaseName" jdbcType="VARCHAR"/>
+    <result column="type" property="type" jdbcType="VARCHAR"/>
+  </resultMap>
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Diagnose" >
     insert into diagnose (id, case_id, disease_id, 
       start_time, is_first_diagnosed, gmt_create, 
@@ -71,13 +81,13 @@
   <select id="listDiseaseIcdCodesByCaseId" resultType="String">
     select dis.icd_code
     from diagnose dia, disease dis
-    where case_id = #{caseId}
+    where dia.disease_id = dis.icd_code and case_id = #{caseId}
   </select>
 
-  <select id="listDiagnosesByCaseId" resultMap="BaseResultMap">
-    select *
-    from diagnose
-    where case_id = #{caseId}
+  <select id="listDiagnosesDetailByCaseId" resultMap="DiagnoseDetail">
+    select dia.*, dis.icd_code as dis_icd_code,  dis.code as dis_code, dis.name as dis_name, dis.type
+    from diagnose dia, disease dis
+    where case_id = #{caseId} and dia.disease_id = dis.icd_code
   </select>
 
   <update id="updateExisted">
