@@ -21,25 +21,25 @@ public class RegistrationLevelManagementController {
 
     @ApiOperation("1.4.1 根据id获取挂号级别信息")
     @RequestMapping(value = "/registration-level/{id}", method = RequestMethod.GET)
-    public CommonResult selectDiseaseById(@PathVariable Short id) {
+    public CommonResult getRegistrationLevelById(@PathVariable Short id) {
         return registrationLevelManagementImpl.getRegistrationLevelById(id);
     }
 
     @ApiOperation("1.4.2 新增挂号级别信息")
     @RequestMapping(value = "/registration-level", method = RequestMethod.POST)
-    public CommonResult addDisease(@RequestBody RegistrationLevel registrationLevel) {
+    public CommonResult addRegistrationLevel(@RequestBody RegistrationLevel registrationLevel) {
         return registrationLevelManagementImpl.insertRegistrationLevel(registrationLevel);
     }
 
     @ApiOperation("1.4.3 修改挂号级别信息")
     @RequestMapping(value = "/registration-level", method = RequestMethod.PUT)
-    public CommonResult updateDisease(@RequestBody RegistrationLevel registrationLevel) {
+    public CommonResult updateRegistrationLevel(@RequestBody RegistrationLevel registrationLevel) {
         return registrationLevelManagementImpl.updateRegistrationLevelById(registrationLevel);
     }
 
     @ApiOperation("1.4.4 删除挂号级别信息")
     @RequestMapping(value = "/registration-level/{id}", method = RequestMethod.DELETE)
-    public CommonResult deleteDisease(@PathVariable Short id) {
+    public CommonResult deleteRegistrationLevel(@PathVariable Short id) {
         return registrationLevelManagementImpl.deleteRegistrationLevelById(id);
     }
 }

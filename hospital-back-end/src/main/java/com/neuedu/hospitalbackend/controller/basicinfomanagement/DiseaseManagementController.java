@@ -21,7 +21,7 @@ public class DiseaseManagementController {
 
     @ApiOperation("1.5.1 根据id获取疾病信息")
     @RequestMapping(value = "/disease/{id}", method = RequestMethod.GET)
-    public CommonResult selectDiseaseById(@PathVariable Short id) {
+    public CommonResult getDiseaseById(@PathVariable Short id) {
         return diseaseManagementImpl.getDiseaseById(id);
     }
 

@@ -9,10 +9,7 @@ import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.Wi
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/registration-withdrawal")
@@ -29,22 +26,23 @@ public class WithdrawRegistrationController {
     @RequestMapping(value = "/registrationInfo", method = RequestMethod.GET)
     public CommonResult getInfo(Integer registrationId){
         JSONObject jsonObject = new JSONObject();
+        CommonResult patientResult = patientService.getPatientInfo(registrationId);
+        if (patientResult.getCode() == 500)
+            return patientResult;
         Patient patientInfo = (Patient) patientService.getPatientInfo(registrationId).getData();
-        if (patientInfo != null) {
-            jsonObject.put("patientInfo", patientInfo);
-            Registration registrationInfo = (Registration) withdrawRegistrationService.getRegistrationInfo(registrationId).getData();
-            if (registrationInfo != null){
-                jsonObject.put("registrationInfo", registrationInfo);
-                return CommonResult.success(jsonObject);
-            }
-        }
-        return CommonResult.fail();
+        jsonObject.put("patientInfo", patientInfo);
+        CommonResult registrationResult = withdrawRegistrationService.getRegistrationInfo(registrationId);
+        if (registrationResult.getCode() == 500)
+            return registrationResult;
+        Registration registrationInfo = (Registration) withdrawRegistrationService.getRegistrationInfo(registrationId).getData();
+        jsonObject.put("registrationInfo", registrationInfo);
+        return CommonResult.success(jsonObject);
     }
 
     @ApiOperation("执行退号操作")
     @RequestMapping(value = "/withdrawal", method = RequestMethod.POST)
-    public CommonResult makeRegistrationWithdrawal(RegistrationParam registrationParam, Byte patientCaseStatus){
-        CommonResult result = withdrawRegistrationService.operateTransactionLog(registrationParam, patientCaseStatus);
+    public CommonResult makeRegistrationWithdrawal(@RequestBody RegistrationParam registrationParam){
+        CommonResult result = withdrawRegistrationService.operateTransactionLog(registrationParam);
         if(result.getCode() == 500)
             return CommonResult.fail();
         return result;

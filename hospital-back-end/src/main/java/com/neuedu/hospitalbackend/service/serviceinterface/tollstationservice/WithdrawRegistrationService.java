@@ -22,8 +22,7 @@ public interface WithdrawRegistrationService {
     /**
      *
      * @param registrationParam 挂号相关变量
-     * @param patientCaseStatus 病历状态
      * @return
      */
-    CommonResult operateTransactionLog(RegistrationParam registrationParam, Byte patientCaseStatus);
+    CommonResult operateTransactionLog(RegistrationParam registrationParam);
 }

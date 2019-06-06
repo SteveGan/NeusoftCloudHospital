@@ -12,4 +12,6 @@ public interface DiseaseMapper {
     int update(Disease disease);
 
     int delete(Short id);
+
+    String getTypeOfDiseaseById(Integer id);
 }

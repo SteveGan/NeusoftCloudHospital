@@ -5,7 +5,6 @@ import com.neuedu.hospitalbackend.constant.Cache;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
-import com.neuedu.hospitalbackend.service.serviceimplementation.commonservice.TransactionServiceImpl;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.TransactionService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +38,6 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
     @Autowired
     private PatientCaseMapper patientCaseMapper;
-
-    @Autowired
-    private InvoiceMapper invoiceMapper;
 
     @Autowired
     private TransactionService transactionService;
@@ -96,16 +92,6 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
             return insertResult;
         TransactionLog transactionLog = (TransactionLog) insertResult.getData();
 
-        /*transactionLog.setInvoiceCode(registrationParam.getInvoiceCode());
-        transactionLog.setRegistrationId(registrationParam.getRegistrationId());
-        transactionLog.setRoleId(registrationParam.getCashierId());
-        transactionLog.setType("挂号费");
-        transactionLog.setAmount((short)(1));
-        transactionLog.setPayType(registrationParam.getPayType());
-        transactionLog.setTotalMoney(registrationParam.getTotalFee());
-        transactionLog.setStatus((byte)2);
-        count += transactionLogMapper.insertSelective(transactionLog);*/
-
         int count = 0;
         //向挂号表中添加新的挂号记录 --默认正常
         Registration registration = new Registration();
@@ -124,7 +110,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
         if (count > 0) {
             //更新 所选医生 对应的余号数量
-            count = arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(), registrationParam.getRoleId(), registrationParam.getRegistrationLevelId(), -1);
+            count = arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(), registrationParam.getRoleId(), registrationParam.getRegistrationLevelId(), -1, registrationParam.getDepartmentId());
             jsonObject.put("updateRemainingAppointment", count);
 
             if (count > 0) {
@@ -140,6 +126,13 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                     count = patientMapper.insertSelective(patient);
                     jsonObject.put("insertPatient", count);
                     patientId = patient.getId();
+                }
+                else{
+                    Patient patient = new Patient();
+                    patient.setId(patientId);
+                    patient.setAddress(registrationParam.getAddress());
+                    patient.setName(registrationParam.getName());
+                    patientMapper.updatePatientInfo(patient);
                 }
 
                 transactionLog.setPatientId(patientId);

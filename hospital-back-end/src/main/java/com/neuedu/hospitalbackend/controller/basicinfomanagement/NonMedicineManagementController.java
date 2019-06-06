@@ -21,7 +21,7 @@ public class NonMedicineManagementController {
 
     @ApiOperation("1.6.1 根据id获取非药品项目信息")
     @RequestMapping(value = "/non-medicine/{id}", method = RequestMethod.GET)
-    public CommonResult selectNonMedicineById(@PathVariable Integer id) {
+    public CommonResult getNonMedicineById(@PathVariable Integer id) {
         return nonMedicineManagementImpl.getNonMedicineById(id);
     }
 

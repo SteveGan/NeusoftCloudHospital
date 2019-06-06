@@ -26,4 +26,10 @@
         delete from disease where id = #{id}
     </delete>
 
+    <select id="getTypeOfDiseaseById">
+        select type
+        from disease
+        where id = #{id}
+    </select>
+
 </mapper>

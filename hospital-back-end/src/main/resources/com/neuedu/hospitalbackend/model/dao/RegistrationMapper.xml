@@ -158,8 +158,8 @@
   
   <update id="updateStatusById" parameterType="Registration">
     update registration
-    set status = #{status}
-    where registration_id = #{registration_id}
+    set is_normal = false
+    where id = #{registrationId}
   </update>
 
 </mapper>

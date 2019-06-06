@@ -1,10 +1,9 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice;
 
 
-import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.Patient;
+import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
-import java.util.List;
 
 
 /**
@@ -16,23 +15,43 @@ public interface PreliminaryCaseService {
 
 
     /**
-     * get all  waited patient of the doctor
-     * @param doctorId of the doctor
+     *  该医生所有患者列表：待诊、已诊
+     * @param doctorRoleId
      * @return list of patient
      */
-    List<Patient> listWaitedPatients(Integer doctorId);
+    CommonResult listPatients(Integer doctorRoleId);
 
     /**
-     * 将当前病历首页中的内容暂时存入数据库
-     * @param caseInfo 当前病历首页中的内容
+     *  患者病历
+     * @param doctorRoleId,caseId
+     * @return list of patient
      */
-    void savePreCase(JSONObject caseInfo);
+    CommonResult getPatientCaseContents(Integer doctorRoleId, Integer caseId);
 
     /**
-     * 提交最终版病历首页中的内容保存到数据库, 注意：最终版本
-     * @param caseInfo 当前病历首页中的内容
+     *  暂存
+     *  将当前病历首页中的内容暂时存入数据库
+     * @param patientCaseParam 当前病历首页中的内容
+     * @return
      */
-    void submitPreCase(JSONObject caseInfo);
+    CommonResult savePresentPatientCase(PatientCaseParam patientCaseParam);
+
+    /**
+     *  提交
+     *  提交最终版病历首页中的内容保存到数据库, 注意：最终版本
+     * @param patientCaseParam 当前病历首页中的内容
+     * @return
+     */
+    CommonResult submitPresentPatientCase(PatientCaseParam patientCaseParam);
+
+    /**
+     * 清屏
+     * 清除本病历信息以及诊断
+     * @param caseId
+     * @return
+     */
+    CommonResult clearPatientCase(Integer caseId);
+
 
 
 }

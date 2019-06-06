@@ -14,5 +14,5 @@ public interface RegistrationMapper {
     Integer getNextId();
     int updateSelective(Registration registration);
     Registration getRegistrationInfo(Integer registrationId);
-    int updateStatusById(@Param("status") Byte status, @Param("registrationId") Integer registrationId);
+    int updateStatusById(@Param("registrationId") Integer registrationId);
 }

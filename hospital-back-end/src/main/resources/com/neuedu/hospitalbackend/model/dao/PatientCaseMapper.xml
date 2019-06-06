@@ -116,6 +116,57 @@
     </trim>
   </insert>
 
+  <select id="listWaitingPatients" resultType="HashMap">
+      select p.id, p.id_card as idCard, pc.registration_id as caseId, pc.patient_name as name, p.gender, p.birthday
+      from patient_case pc, patient p
+      where pc.patient_id = p.id
+          and pc.role_id = #{doctorRoleId}
+          and (pc.status = 1 or pc.status = 2)
+  </select>
+
+  <select id="listWaitedPatients" resultType="HashMap">
+      select p.id, p.id_card as idCard, pc.registration_id as caseId, pc.patient_name as name, p.gender, p.birthday
+      from patient_case pc, patient p
+      where pc.patient_id = p.id
+          and pc.role_id = #{doctorRoleId}
+          and (pc.status = 3 or pc.status = 4)
+  </select>
+
+  <select id="listPatientsByCaseIdOrName" resultType="HashMap">
+    select p.id, p.id_card as idCard, pc.registration_id as caseId, pc.patient_name as name, p.gender, pc.status, p.birthday
+    from patient_case pc, patient p
+    where pc.patient_id = p.id
+      and pc.role_id = #{doctorRoleId}
+      <if test = "caseId != null">
+        and pc.registration_id = #{caseId}
+      </if>
+      <if test="patientName != null and patientName != ''">
+        and pc.patient_name = #{patientName}
+      </if>
+  </select>
+
+  <select id="getPatientCase" resultMap="BaseResultMap">
+    select *
+    from patient_case
+    where registration_id = #{caseId}
+  </select>
+
+  <select id="getPatientCaseStatus" resultType="Integer">
+    select status
+    from patient_case
+    where registration_id = #{caseId}
+  </select>
+
+  <update id="savePatientCase">
+      update patient_case
+      set narrate = #{narrate}, cur_disease = #{curDisease}, cur_treat_condition = #{curTreatCondition},
+          past_disease = #{pastDisease}, allergy = #{allergy}, physical_condition = #{physicalCondition},
+          status = #{status}
+      where registration_id = #{caseId}
+  </update>
+
+
+
   <delete id="deletePatientCaseById">
       delete from patient_case where registration_id = #{registrationId}
   </delete>
