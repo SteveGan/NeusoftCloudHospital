@@ -7,7 +7,7 @@
         <p>当前发票号</p>
       </div>
       <div class="">
-        <el-input></el-input>
+        <el-input v-model="invoiceCode" :disabled="true"></el-input>
       </div>
       <div class="">
         <el-button>更新发票号</el-button>
@@ -17,19 +17,27 @@
 </template>
 
 <script>
-import request from '@/utils/request'
+import {getInvoiceCode} from '@/api/register'
 
 export default {
+  data () {
+    return {
+      invoiceCode: "0",
+    }
+  },
   name: 'InvoiceCode',
 
   mounted() {
-    request({
-    url: '/registration/invoiceId',
-    method: 'get'
-  })
+    // 获取病历号
+    getInvoiceCode().then(response => {
+      console.log(response.data)
+      const data = response.data.data
+      this.invoiceCode = data;
+    }).catch(error => {
+      // alert("get error")
+    })
   }
 }
-
 
 </script>
 

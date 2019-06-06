@@ -5,8 +5,7 @@ import request from '@/utils/request'
 //param: roleId
 export function listAllPatients(params){
   return request({
-    url: '/oauth/login',
-    method: 'get',
-    params: params
+    url: '/doctorstation/patients/' + params,
+    method: 'get'
   })
 }

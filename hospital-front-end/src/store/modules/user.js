@@ -7,7 +7,9 @@ const state = {
   id: '',
   avatar: '',
   roles: [],
-  currentRole: {}
+  currentRole: {
+    id:"3"
+  }
 }
 
 const getters = {
