@@ -8,7 +8,7 @@ POST http://localhost:1923/oauth/login
 Content-Type: application/json
 
 {
-  "userId": 10000002,
+  "userId": 100002,
   "password": "wozuishuai"
 }
 

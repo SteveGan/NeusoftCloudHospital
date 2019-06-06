@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {getInvoiceCode} from '@/api/register'
+import register from '@/api/register'
 
 export default {
   data () {
@@ -29,7 +29,7 @@ export default {
 
   mounted() {
     // 获取病历号
-    getInvoiceCode().then(response => {
+    register.getNextInvoiceCode().then(response => {
       console.log(response.data)
       const data = response.data.data
       this.invoiceCode = data;
