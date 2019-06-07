@@ -24,7 +24,7 @@ public interface PatientCaseMapper {
                                                     @Param("patientName") String patientName);
     PatientCase getPatientCase(Integer caseId);
     int getPatientCaseStatus(Integer caseId);
-    int savePatientCase(@Param("narrate") String narrate, @Param("curDisease") String curDisease,
+    int updatePatientCase(@Param("caseId") Integer caseId, @Param("narrate") String narrate, @Param("curDisease") String curDisease,
                                @Param("curTreatCondition") String curTreatCondition, @Param("pastDisease") String pastDisease,
                                @Param("allergy") String allergy, @Param("physicalCondition") String physicalCondition,
                                @Param("assistDiagnose") String assistDiagnose, @Param("status") Integer status);

@@ -11,6 +11,7 @@ import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
+import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -80,10 +81,10 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             return CommonResult.fail(ResultCode.E_804);//权限异常
         returnJson.put("patientCase", patientCase);
         //诊断
-        List<Diagnose> diagnoses = diagnoseMapper.listDiagnosesByCaseId(caseId);
+        List<HashMap> diagnoses = diagnoseMapper.listDiagnosesDetailByCaseId(caseId);
         returnJson.put("diagnoses", diagnoses);
         if(diagnoses.size() != 0) {
-            String type = diseaseMapper.getTypeOfDiseaseByIcdCode(diagnoses.get(0).getDiseaseId());
+            String type = String.valueOf(diagnoses.get(0).get("type"));
             if (type.equals("中医疾病"))
                 returnJson.put("diagnoseType", "中医诊断");//中医
             else
@@ -131,48 +132,53 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         //参数检查
         if(caseId == null)
             return CommonResult.fail(ResultCode.E_801);//病历号参数异常
+        //状态检查
         int curStatus = patientCaseMapper.getPatientCaseStatus(caseId);
-        if (4 == curStatus || 5 == curStatus)//已确诊或诊闭状态
+        if (1 != curStatus && 2 != curStatus)//待诊或暂存状态
             return CommonResult.fail(ResultCode.E_804);//操作权限异常
 
-        //暂存或提交 病历
-        int count = patientCaseMapper.savePatientCase(narrate, curDisease, curTreatCondition, pastDisease,
+        //暂存或提交
+        //病历
+        int count = patientCaseMapper.updatePatientCase(caseId, narrate, curDisease, curTreatCondition, pastDisease,
                 allergy, physicalCondition, assistDiagnose, status);// 暂存状态status：2     已诊状态status：3
         if(count <= 0)
             return CommonResult.fail(ResultCode.E_802);//保存失败
 
-        //暂存或提交 诊断
+        //诊断
         List<String> existedDiseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId); //所有数据库暂存诊断
-        for(DiagnoseParam diagnoseParam: diagnoses){
+        for(DiagnoseParam diagnoseParam: diagnoses) {
             //若数据库已存该诊断，且再次要求暂存/提交，则更新该诊断
-            if(existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())){
-                count = diagnoseMapper.updateExisted(diagnoseParam.getIcdCode(), diagnoseParam.getStartTimeStr(), isFirstDiagnosed);
-                if(count <= 0)
+            if (existedDiseaseIcdCodes.contains(diagnoseParam.getDiseaseIcdCode())) {
+                count = diagnoseMapper.updateExisted(diagnoseParam.getDiseaseIcdCode(), diagnoseParam.getStartTimeStr(), isFirstDiagnosed);
+                if (count <= 0)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
-                existedDiseaseIcdCodes.remove(diagnoseParam.getIcdCode());
+                existedDiseaseIcdCodes.remove(diagnoseParam.getDiseaseIcdCode());
             }
             //若数据库不存在该诊断，要求暂存/提交，则增加该诊断
-            else if (!existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())){
+            else if (!existedDiseaseIcdCodes.contains(diagnoseParam.getDiseaseIcdCode())) {
                 Diagnose diagnose = new Diagnose();
                 diagnose.setCaseId(caseId);
-                diagnose.setDiseaseId(diagnoseParam.getIcdCode());
+                diagnose.setDiseaseId(diagnoseParam.getDiseaseIcdCode());
                 diagnose.setStartTime(Date.valueOf(diagnoseParam.getStartTimeStr()));
                 diagnose.setIsFirstDiagnosed(isFirstDiagnosed);
                 //插入数据库
                 count = diagnoseMapper.insertSelective(diagnose);
-                if(count <= 0)
+                if (count <= 0)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
             }
-            //若数据库已存该诊断，但不再暂存/提交，则删除该诊断
-            else{
-                for(String leftDiseaseIcdCode: existedDiseaseIcdCodes){
-                    count = diagnoseMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
-                    if(count <= 0)
-                        return CommonResult.fail(ResultCode.E_803);//删除失败
-                }
+        }
+        //若数据库已存该诊断，但不再暂存/提交，则删除该诊断
+        int temp = 0;
+        while(!existedDiseaseIcdCodes.isEmpty()) {
+            System.out.println(++temp);
+            for (String leftDiseaseIcdCode : existedDiseaseIcdCodes) {
+                count = diagnoseMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
+                if (count <= 0)
+                    return CommonResult.fail(ResultCode.E_803);//删除失败
             }
         }
         return CommonResult.success(count);
+
     }
 
     /**
@@ -181,21 +187,32 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
      * @param caseId
      * @return
      */
-    public CommonResult clearPatientCase(Integer caseId){
+    public CommonResult clearPatientCase(Integer caseId) {
+        //参数检查
+        if(caseId == null)
+            return CommonResult.fail(ResultCode.E_801);//病历号参数异常
 
-        //辅助检查
-        int count = patientCaseMapper.savePatientCase(null, null, null,
-                null, null,null, null,1);//状态：待诊
-        if(count <= 0)
-            return CommonResult.fail(ResultCode.E_802);//保存失败
-
-        List<String> diseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId);
-        for(String diseaseIcdCode : diseaseIcdCodes) {
-            count = diagnoseMapper.deleteByDiseaseIcdCode(diseaseIcdCode);
+        int count = 0;
+        int curStatus = patientCaseMapper.getPatientCaseStatus(caseId);
+        //暂存状态
+        if (2 == curStatus){
+            //清除病历首页信息
+            count = patientCaseMapper.updatePatientCase(caseId, null, null, null,
+                    null, null,null, null,1);//待诊状态：1
             if(count <= 0)
-                return CommonResult.fail(ResultCode.E_803);//删除失败
+                return CommonResult.fail(ResultCode.E_802);//保存失败
+            //删除诊断
+            List<String> diseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId);
+            for(String diseaseIcdCode : diseaseIcdCodes) {
+                count = diagnoseMapper.deleteByDiseaseIcdCode(diseaseIcdCode);
+                if(count <= 0)
+                    return CommonResult.fail(ResultCode.E_803);//删除失败
+            }
         }
-        //回滚...
+        //待诊状态不操作数据库，其他状态操作异常
+        else if(1 != curStatus) {
+            return CommonResult.fail(ResultCode.E_804);//操作权限异常
+        }
 
         return CommonResult.success(count);
     }

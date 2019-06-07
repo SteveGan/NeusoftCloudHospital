@@ -6,6 +6,7 @@ import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.ProjectCollectionManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -35,33 +36,30 @@ public class DoctorStationController {
         return preliminaryCaseService.getPatientCaseInfo(doctorRoleId, caseId);
     }
 
-    //TODO 测试
     @ApiOperation("暂存病历")
     @RequestMapping(value = "/preservation", method = RequestMethod.PUT)
-    public CommonResult savePresentPatientCase(PatientCaseParam patientCaseParam)
+    public CommonResult savePresentPatientCase(@RequestBody PatientCaseParam patientCaseParam)
     {
         return preliminaryCaseService.savePresentPatientCase(patientCaseParam);
     }
 
-    //TODO 测试
     @ApiOperation("提交病历")
     @RequestMapping(value = "/submission", method = RequestMethod.PUT)
-    public CommonResult submitPresentPatientCase(PatientCaseParam patientCaseParam)
+    public CommonResult submitPresentPatientCase(@RequestBody PatientCaseParam patientCaseParam)
     {
         return preliminaryCaseService.submitPresentPatientCase(patientCaseParam);
     }
 
-    //TODO 测试
     @ApiOperation("清屏")
-    @RequestMapping(value = "/clear", method = RequestMethod.DELETE)
-    public CommonResult clearPatientCase(Integer caseId){
+    @RequestMapping(value = "/clear/{id}", method = RequestMethod.DELETE)
+    public CommonResult clearPatientCase(@PathVariable(value = "id") Integer caseId){
         return preliminaryCaseService.clearPatientCase(caseId);
     }
 
     //TODO 测试 + iml
     @ApiOperation("病历存为模板")
     @RequestMapping(value = "/casetemplate/preservation", method = RequestMethod.POST)
-    public CommonResult savePatientCaseTemplate(PatientCaseParam patientCaseParam)
+    public CommonResult savePatientCaseTemplate(@RequestBody PatientCaseParam patientCaseParam)
     {
         return preliminaryCaseService.submitPresentPatientCase(patientCaseParam);
     }
@@ -69,7 +67,7 @@ public class DoctorStationController {
     //TODO 测试
     @ApiOperation("申请检查项目")
     @RequestMapping(value = "/inspection-application", method = RequestMethod.POST)
-    public CommonResult insertInspection(ProjectParam projectParam)
+    public CommonResult insertInspection(@RequestBody ProjectParam projectParam)
     {
         return projectCollectionManagementService.insertProjectCollection(projectParam);
     }

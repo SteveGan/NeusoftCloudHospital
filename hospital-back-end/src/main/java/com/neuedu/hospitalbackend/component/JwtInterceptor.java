@@ -1,7 +1,5 @@
 package com.neuedu.hospitalbackend.component;
 
-import com.alibaba.fastjson.JSON;
-import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 
@@ -10,8 +8,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.PrintWriter;
 
 import static com.neuedu.hospitalbackend.util.JwtUtil.resetResponse;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_603;
