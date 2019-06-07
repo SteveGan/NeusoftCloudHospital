@@ -44,5 +44,7 @@ export default {
       method: 'post',
       data: registrationForm
     })
-  }
+  },
+
+  
 }
