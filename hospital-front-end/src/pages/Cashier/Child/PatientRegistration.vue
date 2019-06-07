@@ -24,7 +24,7 @@
         <el-form-item label="姓名">
           <el-input placeholder="姓名" v-model="registrationForm.name"></el-input>
         </el-form-item>
-        
+
         <el-form-item label="性别">
           <el-select placeholder="性别" v-model="registrationForm.gender">
             <el-option label="男" value="1"></el-option>
@@ -59,8 +59,8 @@
           </el-select>
         </el-form-item>
         <el-form-item label="挂号科室">
-          <el-select placeholder="挂号科室" @change="isRegistrationAvailable" v-model="registrationForm.departmentId"> 
-            <el-option v-for="department in departments" :label="department.name" :value="department.id"></el-option> 
+          <el-select placeholder="挂号科室" @change="isRegistrationAvailable" v-model="registrationForm.departmentId">
+            <el-option v-for="department in departments" :label="department.name" :value="department.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="号别">
@@ -71,8 +71,8 @@
           </el-select>
         </el-form-item>
         <el-form-item label="看诊医生">
-          <el-select placeholder="看诊医生" v-model="registrationForm.roleId" :disabled="available"> 
-            <el-option v-for="doctor in doctors" :label="doctors.name" :value="doctors.id"></el-option> 
+          <el-select placeholder="看诊医生" v-model="registrationForm.roleId" :disabled="available">
+            <el-option  :label="doctors.name" :value="doctors.id"></el-option> 
           </el-select>
         </el-form-item>
 
@@ -278,7 +278,7 @@ export default {
     // 默认设置看诊日期为今天
     this.registrationForm.appointmentDateStr=this.getNowFormatDate();
   }
-  
+
 }
 </script>
 

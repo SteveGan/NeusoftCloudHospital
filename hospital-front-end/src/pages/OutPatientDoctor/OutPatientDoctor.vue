@@ -1,7 +1,6 @@
 <template lang="html">
   <el-container style="height: 90vh;">
-    <el-aside width="250px">
-      <el-button @click="testClick">haha</el-button>
+    <el-aside width="300px">
       <!-- 侧栏区域 -->
       <div class="side-bar">
         <!-- 搜索区 -->
@@ -20,8 +19,7 @@
             <!-- 表格 -->
             <el-table
               :data="waitingPatients"
-              style="width: 100%"
-              @row-click="handlePatientTableClick">
+              style="width: 100%">
               <el-table-column
                 prop="caseId"
                 label="病历号">
@@ -29,6 +27,13 @@
               <el-table-column
                 prop="name"
                 label="患者姓名">
+              </el-table-column>
+              <el-table-column
+                fixed="right"
+                width='80px'>
+                <template slot-scope="scope">
+                  <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
+                </template>
               </el-table-column>
             </el-table>
           </div>
@@ -44,15 +49,21 @@
             <!-- 表格 -->
             <el-table
               :data="diagnosedPatients"
-              style="width: 100%"
-              @row-click="handlePatientTableClick">
+              style="width: 100%">
               <el-table-column
                 prop="caseId"
                 label="病历号">
               </el-table-column>
               <el-table-column
-                prop="patientName"
+                prop="name"
                 label="患者姓名">
+              </el-table-column>
+              <el-table-column
+                fixed="right"
+                width='50px'>
+                <template slot-scope="scope">
+                  <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
+                </template>
               </el-table-column>
             </el-table>
           </div>
@@ -70,7 +81,7 @@
             <!-- 病历号 -->
             <span>病历号: {{this.selectedCase.caseId}} </span>
             <!-- 姓名 -->
-            <span>姓名: {{selectedPatient.name}}hh</span>
+            <span>姓名: {{selectedPatient.name}} </span>
             <!-- 性别 -->
             <span>性别: {{this.gender}} </span>
             <!-- 年龄 -->
@@ -578,8 +589,10 @@
 
 <script>
 import {listAllPatients} from '@/api/patient'
-import OutPatientPreDiagnose from '@/components/outpatientdoctor/OutPatientPreDiagnose'
+import {getCaseContent} from '@/api/case'
 import {caseStatusCodeToString, genderCodeToString} from '@/utils/interpreter'
+import OutPatientPreDiagnose from '@/components/outpatientdoctor/OutPatientPreDiagnose'
+
 
 export default {
   name: 'OutPatientDoctor',
@@ -587,7 +600,7 @@ export default {
     return {
       waitingPatients:[],
       diagnosedPatients:[],
-      selectedPatient:{name:"kkk"},
+      selectedPatient:{name: 'haha'},
       selectedCase:{},
       modernDisease: [],
       traditionalDisease: []
@@ -602,15 +615,20 @@ export default {
     }
   },
   methods: {
-    handlePatientTableClick: row => {
-      // this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
-      //set the selected patient info
-      console.log($parent.selectedPatient)
-      this.$parent.selectedPatient = row
-      console.log(this.$parent.selectedPatient)
-    },
-    testClick: function(){
-      console.log(this.selectedPatient.name + "  - test")
+    handlePatientSelect(row){
+      //将当前的用户设置为被点击的用户
+      this.selectedPatient = Object.assign({},row)
+      //请求当前被点击用户的当前病历信息
+      getCaseContent({roleId:this.$store.getters['user/currentRoleId'], caseId: this.selectedPatient.caseId}).then(
+        response => {
+          const caseContent = response.data.data
+          this.selectedCase = Object.assign({}, caseContent)
+        },
+        error => {
+          //暂时不处理
+          console.alert("得到病历内容出Bug了")
+        }
+      )
     }
   },
   components: {
@@ -624,7 +642,7 @@ export default {
         this.diagnosedPatients = data.diagnosedPatients
         // console.log(this.waitingPatients)
       }, error => {
-        //暂时不做处理
+        console.alert("请求所有病人出Bug了")
       })
       // //请求所有中医疾病和西医疾病
       // listAllDisease().then( response => {
