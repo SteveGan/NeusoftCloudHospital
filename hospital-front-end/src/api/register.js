@@ -30,10 +30,11 @@ export default {
     })
   },
   
-  calculateTotalFee() {
+  calculateTotalFee(registrationForm) {
     return request({
       url: '/registration/totalFee',
-      method: 'get'
+      method: 'get',
+      params: registrationForm
     })
   },
   
@@ -41,9 +42,7 @@ export default {
     return request({
       url: '/registration/confirmation',
       method: 'post',
-      data: {
-        registrationForm
-      }
+      data: registrationForm
     })
   }
 }

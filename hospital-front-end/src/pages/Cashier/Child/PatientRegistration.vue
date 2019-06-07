@@ -1,13 +1,13 @@
 <template lang="html">
   <div>
-    <invoice-code></invoice-code>
+    <invoice-code ref="invoiceCode" v-on:listenToChildEvent="showMsgFromChild"></invoice-code>
     <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover">
       <div slot="header">
         <span>挂号</span>
-        <el-button style="float:right" type="text" icon="el-icon-document-add">挂号</el-button>
-        <el-button style="float:right" type="text" icon="el-icon-printer">补打</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-document-add" @click="registerApi">挂号</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-toilet-paper">补打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-printer">重打</el-button>
-        <el-button style="float:right" type="text" icon="el-icon-refresh-right">清屏</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-refresh-right" @click="refresh">清屏</el-button>
       </div>
       <el-form :inline="true">
         <div class="vice-title">
@@ -50,10 +50,10 @@
           <el-input placeholder="医疗证号"></el-input>
         </el-form-item> -->
         <el-form-item label="看诊日期">
-          <el-date-picker type="date" placeholder="选择看诊日期" v-model="registrationForm.appointmentDateStr" class="date-selection"></el-date-picker>
+          <el-date-picker type="date" placeholder="选择看诊日期" v-model="registrationForm.appointmentDateStr" @change="isRegistrationAvailable" class="date-selection" value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
         <el-form-item label="看诊时段">
-          <el-select placeholder="请选择看诊时段" @change="isRegistrationAvailable" v-model="registrationForm.timeSlot" value-format="yyyy-MM-dd">
+          <el-select placeholder="请选择看诊时段" @change="isRegistrationAvailable" v-model="registrationForm.timeSlot">
             <el-option label="上午" value="1"></el-option>
             <el-option label="下午" value="2"></el-option>
           </el-select>
@@ -72,7 +72,7 @@
         </el-form-item>
         <el-form-item label="看诊医生">
           <el-select placeholder="看诊医生" v-model="registrationForm.roleId" :disabled="available"> 
-            <el-option v-for="doctor in doctors" :label="doctors.name" :value="doctors.id"></el-option> 
+            <el-option v-for="doctor in doctors" :label="doctor.userName" :value="doctor.roleId"></el-option> 
           </el-select>
         </el-form-item>
 
@@ -80,13 +80,13 @@
           <span>收费信息</span>
         </div>
         <el-form-item label="结算类别">
-          <el-select placeholder="请选择结算类别" v-model="registrationForm.payType">
+          <el-select placeholder="请选择结算类别" v-model="registrationForm.payType" @change="isTotalFeeAvailable">
             <el-option label="自费" value="1"></el-option>
             <el-option label="医保卡" value="0"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="病历本">
-          <el-checkbox v-model="registrationForm.isBuyCaseBook"></el-checkbox>
+          <el-checkbox v-model="registrationForm.isBuyCaseBook" @change="isTotalFeeAvailable"></el-checkbox>
         </el-form-item>
         <el-form-item label="应收金额">
           <el-input placeholder="应收金额" :disabled="true" v-model="registrationForm.totalFee"></el-input>
@@ -186,12 +186,13 @@ export default {
         gender: "1",
         birthdayStr: "",
         payType: "",
-        idCard: "",
+        idCard: "210881199806228181",
         address: "东北大学",
         appointmentDateStr: "",
         timeSlot: "",
         registrationLevelId: "",
         departmentId: "",
+        doctorName: "",
         roleId: "",
         totalFee: "",
         isBuyCaseBook: "",
@@ -218,54 +219,126 @@ export default {
   },
 
   methods: {
-    registerApi(registrationForm) {
+    // 刷新，用于清屏按钮及挂号成功后
+    refresh() {
+      this.registrationForm.idCard="";
+      this.registrationForm.name="";
+      this.registrationForm.gender="";
+      this.registrationForm.address="";
+      this.registrationForm.birthdayStr="";
+      this.age="";
+      this.registrationForm.timeSlot="";
+      this.registrationForm.departmentId="";
+      this.registrationForm.registrationLevelId="";
+      this.registrationForm.roleId="";
+      this.registrationForm.payType="";
+      this.registrationForm.isBuyCaseBook="";
+      this.registrationForm.totalFee="";
 
+      this.getNextRegistrationId();
+      this.$refs.invoiceCode.getNextInvoiceCode();
     },
 
+    getNextRegistrationId(){
+      register.getNextRegistrationId().then(response => {
+        console.log(response.data)
+        const data = response.data.data
+        this.registrationForm.registrationId = data;
+      }).catch(error => {
+        
+      })
+    },
+
+    // 挂号成功提示
+    success() {
+      this.$message({
+        message: '挂号成功',
+        type: 'success'
+      });
+    },
+    
+    // 挂号失败提示
+    fail() {
+      this.$message.error('挂号失败');
+    },
+    
+    // 接收从子组件传过来的“当前发票号”
+    showMsgFromChild(data){
+      console.log(data);
+      this.registrationForm.invoiceCode=data;
+    },
+
+    // 挂号
+    registerApi(registrationForm) {
+      const currentRoleId = this.$store.getters['user/currentRoleId'];
+      this.registrationForm.cashierId = currentRoleId;
+      register.registerApi(this.registrationForm).then(response => {
+        console.log(response.data)
+
+        if(response.data.code===200){
+          this.refresh();
+          this.success();
+        } else {
+          this.fail();
+        }
+        }).catch(error => {
+          
+        })
+    },
+
+    // 检查是否可以向后台查询可选医生列表
     isRegistrationAvailable() {
       const result = this.registrationForm.timeSlot!==""&&this.registrationForm.departmentId!==""&&this.registrationForm.registrationLevelId!=="";
       console.log(result);
       if(result){
         register.listAvailableDoctors(this.registrationForm).then(response => {
-        console.log(response.data)
-        const data = response.data.data
+        const data = response.data.data.availableDoctors
         this.doctors = data;
+        console.log(this.docters)
 
         this.available=false;
         }).catch(error => {
-          // alert("get error")
+          
         })
       }
       return result;
     },
 
+    // 检查应收金额栏是否应该向后台请求查询数据
+    isTotalFeeAvailable() {
+      const result = this.registrationForm.payType!==""&&this.registrationForm.isBuyCaseBook!==""&&this.registrationForm.roleId!=="";
+      if(result){
+        register.calculateTotalFee(this.registrationForm).then(response => {
+        console.log("计算总金额: " + response.data.data)
+        const data = response.data.data;
+        this.registrationForm.totalFee = data;
+        }).catch(error => {
+          // alert("get error")
+        })
+      }
+    },
+
     // 计算当前日期
     getNowFormatDate() {
-        var date = new Date();
-        var seperator1 = "-";
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = year + seperator1 + month + seperator1 + strDate;
-        return currentdate;
-    }
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+          month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
+    } 
   },
 
   mounted() {
-    // 获取病历号
-    register.getNextRegistrationId().then(response => {
-      console.log(response.data)
-      const data = response.data.data
-      this.registrationForm.registrationId = data;
-    }).catch(error => {
-      // alert("get error")
-    })
+    // 获取下一个可用病历号
+    this.getNextRegistrationId();
 
     // 获取科室列表
     register.listAllDepartments().then(response => {
