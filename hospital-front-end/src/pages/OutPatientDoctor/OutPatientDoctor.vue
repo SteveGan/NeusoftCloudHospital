@@ -1,6 +1,7 @@
 <template lang="html">
   <el-container style="height: 90vh;">
     <el-aside width="250px">
+      <el-button @click="testClick">haha</el-button>
       <!-- 侧栏区域 -->
       <div class="side-bar">
         <!-- 搜索区 -->
@@ -69,7 +70,7 @@
             <!-- 病历号 -->
             <span>病历号: {{this.selectedCase.caseId}} </span>
             <!-- 姓名 -->
-            <span>姓名: {{selectedPatient.name}}</span>
+            <span>姓名: {{selectedPatient.name}}hh</span>
             <!-- 性别 -->
             <span>性别: {{this.gender}} </span>
             <!-- 年龄 -->
@@ -586,7 +587,7 @@ export default {
     return {
       waitingPatients:[],
       diagnosedPatients:[],
-      selectedPatient:{},
+      selectedPatient:{name:"kkk"},
       selectedCase:{},
       modernDisease: [],
       traditionalDisease: []
@@ -602,14 +603,14 @@ export default {
   },
   methods: {
     handlePatientTableClick: row => {
+      // this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
       //set the selected patient info
-      this.selectedPatient = row
-      console.log(row)
-      console.log(this.selectedPatient.name)
-
-      //request for the patientCase info by case id
-      let caseId = row.caseId
-
+      console.log($parent.selectedPatient)
+      this.$parent.selectedPatient = row
+      console.log(this.$parent.selectedPatient)
+    },
+    testClick: function(){
+      console.log(this.selectedPatient.name + "  - test")
     }
   },
   components: {
@@ -621,7 +622,7 @@ export default {
         const data = response.data.data
         this.waitingPatients = data.waitingPatients
         this.diagnosedPatients = data.diagnosedPatients
-        console.log(this.waitingPatients)
+        // console.log(this.waitingPatients)
       }, error => {
         //暂时不做处理
       })
