@@ -2,6 +2,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
+import com.neuedu.hospitalbackend.model.vo.TransactionParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface PaymentService {
      * @param transactionLogList
      * @return
      */
-    CommonResult updateTransactionLogs(List<TransactionLog> transactionLogList);
+    CommonResult updateTransactionLogsAsPaid(List<TransactionLog> transactionLogList);
 
 //    /**
 //     *  在检查/检验/处置/药品表查找想要退费的项目状态
@@ -31,4 +32,6 @@ public interface PaymentService {
 //     * @return 退费的项目
 //     */
 //    Object getItem(Object object);
+
+    CommonResult updateTransactionLogsAsReturned(List<TransactionParam> transactionLogParams);
 }

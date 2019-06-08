@@ -92,7 +92,7 @@
     </select>
 
     <select id="getPatientByRegistrationId" resultMap="BaseResultMap">
-        select id_card, address, name from patient p, registration r
+        select id_card, address, name, gender from patient p, registration r
         where r.id = #{registrationId} and p.id = r.patient_id
     </select>
 

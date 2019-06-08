@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
     
     @Autowired
-    private RegistrationService registrationServiceImpl;
+    private RegistrationService registrationService;
 
     @Autowired
     private InvoiceService invoiceService;
@@ -22,7 +22,7 @@ public class RegistrationController {
     @ApiOperation("得到当前挂号单的病历号")
     @RequestMapping(value = "/registrationId", method = RequestMethod.GET)
     public CommonResult getNextRegistrationId(){
-        return registrationServiceImpl.getNextRegistrationId();
+        return registrationService.getNextRegistrationId();
     }
 
     @ApiOperation("得到当前挂号单的发票号")
@@ -34,22 +34,19 @@ public class RegistrationController {
     @ApiOperation("查看所有可选医生")
     @RequestMapping(value = "/doctors", method = RequestMethod.GET)
     public CommonResult listAvailableDoctors (RegistrationParam registrationParam) {
-        System.out.println("@#%$!%#T%@#$" + registrationParam.getTimeSlot());
-        return registrationServiceImpl.listAvailableDoctors(registrationParam);
+        return registrationService.listAvailableDoctors(registrationParam);
     }
 
     @ApiOperation("根据挂号级别，是否购买病历本，计算应收金额")
     @RequestMapping(value = "/totalFee", method = RequestMethod.GET)
     public CommonResult calculateTotalFee(RegistrationParam registrationParam){
-        return registrationServiceImpl.calculateTotalFee(registrationParam);
+        return registrationService.calculateTotalFee(registrationParam);
     }
 
     @ApiOperation("挂号操作")
     @RequestMapping(value = "/confirmation", method = RequestMethod.POST)
-    public CommonResult makeRegistration(@RequestBody RegistrationParam registrationForm){
-        System.out.println("821391821");
-        System.out.println(registrationForm.getTimeSlot());
-        return registrationServiceImpl.makeRegistration(registrationForm);
+    public CommonResult makeRegistration(@RequestBody RegistrationParam registrationParam){
+        return registrationService.makeRegistration(registrationParam);
     }
 
 

@@ -45,4 +45,10 @@ public interface RegistrationService {
      */
     CommonResult makeRegistration(RegistrationParam registrationParam);
 
+    /**
+     * 列出指定收费员的挂号记录
+     * @param cashierId
+     * @return
+     */
+    CommonResult listRegistrations(Integer cashierId);
 }

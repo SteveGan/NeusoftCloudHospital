@@ -23,21 +23,8 @@ public interface TransactionService {
 
     /**
      * 向缴费表里添加记录
-     * @param invoiceCode
-     * @param registrationId
-     * @param patientId
-     * @param roleId
-     * @param type
-     * @param collectionId
-     * @param projectId
-     * @param itemId
-     * @param amount
-     * @param payType
-     * @param totalMoney
-     * @param status
+     * @param transactionLog
      * @return
      */
-    CommonResult insertTransactionLog(String invoiceCode, Integer registrationId, Integer patientId, Integer roleId,
-                                      String type, Integer collectionId, Integer projectId, Integer itemId,
-                                      Short amount, Byte payType, BigDecimal totalMoney, Byte status);
+    CommonResult insertTransactionLog(TransactionLog transactionLog);
 }
