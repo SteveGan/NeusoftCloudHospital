@@ -20,8 +20,6 @@ import static com.neuedu.hospitalbackend.util.ResultCode.*;
 public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationService {
 
     @Autowired
-    private PatientService patientService;
-    @Autowired
     private TransactionService transactionService;
     @Autowired
     private InvoiceService invoiceService;
@@ -52,57 +50,57 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
         String invoiceCode = null; //冲正发票号
         //判断患者挂号状态是否是待诊状态
         if (registrationParam.getPatientCaseStatus() == 1){
-
            //得到原缴费记录
             TransactionLog originalTransactionLog = transactionLogMapper.getLogByRegistrationIdAndType(registrationParam.getRegistrationId(), "挂号费");
-            synchronized (this) {
+            if (originalTransactionLog == null)
+                return CommonResult.fail();
 
+            synchronized (this) {
                 //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
                 CommonResult result = invoiceService.getNextInvoiceCode();
                 invoiceCode = (String) result.getData();
-
-                System.out.println("冲正发票号1" + invoiceCode);
-               /* String invoice_code = invoiceMapper.getAvailableInvoiceCode();
-                count += invoiceMapper.updateInvoiceStatusById(invoice_code);*/
+            }
+                //将原有缴费记录状态更改为已退费 --已退费
+                originalTransactionLog.setStatus((byte)3);
+                int count1 = transactionLogMapper.update(originalTransactionLog);
+                jsonObject.put("更改原有缴费记录", count1);
 
                 //向缴费表中添加新的缴费记录  --冲正
-                CommonResult insertResult = transactionService.insertTransactionLog(
-                        invoiceCode, originalTransactionLog.getRegistrationId(),
-                        originalTransactionLog.getPatientId(), originalTransactionLog.getRoleId(),
-                        originalTransactionLog.getType(), null, null, null,
-                        originalTransactionLog.getAmount(), originalTransactionLog.getPayType(),
-                        originalTransactionLog.getTotalMoney().negate(), (byte)4);
+                TransactionLog newTransactionLog = originalTransactionLog;
+                String originalInvoiceCode = originalTransactionLog.getInvoiceCode();
+                newTransactionLog.setId(null);
+                newTransactionLog.setStatus((byte)4);
+                newTransactionLog.setInvoiceCode(invoiceCode);
+                newTransactionLog.setTotalMoney(newTransactionLog.getTotalMoney().negate());
+                CommonResult insertResult = transactionService.insertTransactionLog(newTransactionLog);
                 if (insertResult.getCode() == 500)
                     return insertResult;
-            }
 
-            int count = 0;
-            //将原有缴费记录状态更改为已退费 --已退费
-            originalTransactionLog.setStatus((byte)3);
-            count = transactionLogMapper.updateSelective(originalTransactionLog);
-            jsonObject.put("更改原有缴费记录", count);
 
             //向异常表中添加新的记录
-            System.out.println("冲正发票号2" + invoiceCode);
             CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
-                    originalTransactionLog.getInvoiceCode(),null, invoiceCode,
-                    originalTransactionLog.getRoleId(), "挂号退费" );
+                    originalInvoiceCode,null, invoiceCode, originalTransactionLog.getRoleId(), "挂号退费" );
             if (insertExceptionResult.getCode() == 500)
                 return insertExceptionResult;
 
             //在挂号表中更新该病历号的状态 --已退号
-            count = registrationMapper.updateStatusById(registrationParam.getRegistrationId());
-            jsonObject.put("更改挂号状态", count);
+            int count2 = registrationMapper.updateStatusById(registrationParam.getRegistrationId());
+            jsonObject.put("更改挂号状态", count2);
+            if (count2 == 0)
+                return CommonResult.fail(E_700);
 
             //从门诊病历首页移除该病历号，删除医生端的病历记录
-            count = patientCaseMapper.deletePatientCaseById(registrationParam.getRegistrationId());
-            jsonObject.put("删除病历记录", count);
+            int count3 = patientCaseMapper.deletePatientCaseById(registrationParam.getRegistrationId());
+            jsonObject.put("删除病历记录", count3);
 
             //增加该医生的剩余号额
-            count = arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(),
+            int count4 = arrangementMapper.updateRemainingAppointment(registrationParam.getAppointmentDateStr(), registrationParam.getTimeSlot(),
                     registrationParam.getRoleId(), registrationParam.getRegistrationLevelId(), 1, registrationParam.getDepartmentId());
-            jsonObject.put("修改医生剩余号额", count);
-            return CommonResult.success(jsonObject);
+            jsonObject.put("修改医生剩余号额", count4);
+            if ((count1+count2+count3+count4) != 4)
+                return CommonResult.fail();
+            else
+                return CommonResult.success(jsonObject);
         }
         else
             return CommonResult.fail(E_701);

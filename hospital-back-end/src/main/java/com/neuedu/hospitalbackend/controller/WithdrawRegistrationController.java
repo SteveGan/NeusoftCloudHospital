@@ -23,18 +23,18 @@ public class WithdrawRegistrationController {
     private PatientService patientService;
 
     @ApiOperation("通过患者病历号，显示患者基本信息和挂号信息")
-    @RequestMapping(value = "/registrationInfo", method = RequestMethod.GET)
-    public CommonResult getInfo(Integer registrationId){
+    @RequestMapping(value = "/registrationInfo/{id}", method = RequestMethod.GET)
+    public CommonResult getInfo(@PathVariable(value = "id") Integer registrationId){
         JSONObject jsonObject = new JSONObject();
         CommonResult patientResult = patientService.getPatientInfo(registrationId);
         if (patientResult.getCode() == 500)
             return patientResult;
-        Patient patientInfo = (Patient) patientService.getPatientInfo(registrationId).getData();
+        Patient patientInfo = (Patient)patientResult.getData();
         jsonObject.put("patientInfo", patientInfo);
         CommonResult registrationResult = withdrawRegistrationService.getRegistrationInfo(registrationId);
         if (registrationResult.getCode() == 500)
             return registrationResult;
-        Registration registrationInfo = (Registration) withdrawRegistrationService.getRegistrationInfo(registrationId).getData();
+        Registration registrationInfo = (Registration) registrationResult.getData();
         jsonObject.put("registrationInfo", registrationInfo);
         return CommonResult.success(jsonObject);
     }

@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface RegistrationMapper {
 
@@ -15,4 +17,9 @@ public interface RegistrationMapper {
     int updateSelective(Registration registration);
     Registration getRegistrationInfo(Integer registrationId);
     int updateStatusById(@Param("registrationId") Integer registrationId);
+    //列出 所有未退号 信息列表
+    List<Registration> listAllNormalRegistrationsInfo();
+    //列出 所有退号 信息列表
+    List<Registration> listAllRefundedRegistrationInfo();
+
 }

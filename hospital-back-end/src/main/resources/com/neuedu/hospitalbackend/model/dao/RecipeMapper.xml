@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.RecipeMapper" >
-  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Recipe" >
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.RecipeMapper" >
+  <resultMap id="BaseResultMap" type="Recipe" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="case_id" property="caseId" jdbcType="INTEGER" />
     <result column="medicine_id" property="medicineId" jdbcType="INTEGER" />
@@ -10,26 +10,28 @@
     <result column="frequency" property="frequency" jdbcType="VARCHAR" />
     <result column="dosage_unit" property="dosageUnit" jdbcType="VARCHAR" />
     <result column="amount" property="amount" jdbcType="SMALLINT" />
-    <result column="return_amount" property="returnAmount" jdbcType="INTEGER" />
+    <result column="return_amount" property="returnAmount" jdbcType="SMALLINT" />
     <result column="status" property="status" jdbcType="TINYINT" />
     <result column="creator_role_id" property="creatorRoleId" jdbcType="INTEGER" />
     <result column="deliver_role_id" property="deliverRoleId" jdbcType="INTEGER" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
-  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Recipe" >
-    insert into recipe (id, case_id, medicine_code, 
+
+  <insert id="insert" parameterType="Recipe" >
+    insert into recipe (id, case_id, medicine_id,
       type, dosage, frequency, 
       dosage_unit, amount, return_amount, 
       status, creator_role_id, deliver_role_id, 
       gmt_create, gmt_modified)
-    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{medicineCode,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{medicineId,jdbcType=INTEGER},
       #{type,jdbcType=TINYINT}, #{dosage,jdbcType=DECIMAL}, #{frequency,jdbcType=VARCHAR}, 
-      #{dosageUnit,jdbcType=VARCHAR}, #{amount,jdbcType=SMALLINT}, #{returnAmount,jdbcType=INTEGER}, 
+      #{dosageUnit,jdbcType=VARCHAR}, #{amount,jdbcType=SMALLINT}, #{returnAmount,jdbcType=SMALLINT},
       #{status,jdbcType=TINYINT}, #{creatorRoleId,jdbcType=INTEGER}, #{deliverRoleId,jdbcType=INTEGER}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Recipe" >
+
+  <insert id="insertSelective" parameterType="Recipe" >
     insert into recipe
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -38,8 +40,8 @@
       <if test="caseId != null" >
         case_id,
       </if>
-      <if test="medicineCode != null" >
-        medicine_code,
+      <if test="medicineId != null" >
+        medicine_id,
       </if>
       <if test="type != null" >
         type,
@@ -82,8 +84,8 @@
       <if test="caseId != null" >
         #{caseId,jdbcType=INTEGER},
       </if>
-      <if test="medicineCode != null" >
-        #{medicineCode,jdbcType=VARCHAR},
+      <if test="medicineId != null" >
+        #{medicineId,jdbcType=INTEGER},
       </if>
       <if test="type != null" >
         #{type,jdbcType=TINYINT},
@@ -101,7 +103,7 @@
         #{amount,jdbcType=SMALLINT},
       </if>
       <if test="returnAmount != null" >
-        #{returnAmount,jdbcType=INTEGER},
+        #{returnAmount,jdbcType=SMALLINT},
       </if>
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
@@ -120,4 +122,14 @@
       </if>
     </trim>
   </insert>
+
+  <update id="updateStatus">
+      update recipe set status = 5
+      where id = #{collectionId} and medicine_id = #{projectId}
+  </update>
+
+  <select id="selectStatusByCollectionAndProjectId" resultType="byte">
+      select status from recipe
+      where id = #{collectionId} and medicine_id = #{projectId}
+  </select>
 </mapper>

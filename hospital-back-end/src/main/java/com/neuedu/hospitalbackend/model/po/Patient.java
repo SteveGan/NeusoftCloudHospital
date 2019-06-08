@@ -20,7 +20,7 @@ public class Patient {
 
     private Date gmtModified;
 
-    //private List<Registration> registrations;
+    private List<Registration> registrations;
 
     public Integer getId() {
         return id;
@@ -86,11 +86,11 @@ public class Patient {
         this.gmtModified = gmtModified;
     }
 
-/*    public List<Registration> getRegistrations() {
+    public List<Registration> getRegistrations() {
         return registrations;
     }
 
     public void setRegistrations(List<Registration> registrations) {
         this.registrations = registrations;
-    }*/
+    }
 }

@@ -34,7 +34,9 @@ public class Registration {
 
     private PatientCase patientCase;
 
-    //private Patient patient;
+    private Patient patient;
+
+    private TransactionLog transactionLog;
 
     public Integer getId() {
         return id;
@@ -147,14 +149,14 @@ public class Registration {
     public void setBuyCaseBook(Boolean buyCaseBook) {
         isBuyCaseBook = buyCaseBook;
     }
-/*
+
     public Patient getPatient() {
         return patient;
     }
 
     public void setPatient(Patient patient) {
         this.patient = patient;
-    }*/
+    }
 
     public PatientCase getPatientCase() {
         return patientCase;
@@ -164,4 +166,11 @@ public class Registration {
         this.patientCase = patientCase;
     }
 
+    public TransactionLog getTransactionLog() {
+        return transactionLog;
+    }
+
+    public void setTransactionLog(TransactionLog transactionLog) {
+        this.transactionLog = transactionLog;
+    }
 }
