@@ -1,9 +1,6 @@
 package com.neuedu.hospitalbackend.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.vo.DoctorParam;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
-import com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice.RegistrationServiceImpl;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.InvoiceService;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService;
 import com.neuedu.hospitalbackend.util.CommonResult;
@@ -37,6 +34,7 @@ public class RegistrationController {
     @ApiOperation("查看所有可选医生")
     @RequestMapping(value = "/doctors", method = RequestMethod.GET)
     public CommonResult listAvailableDoctors (RegistrationParam registrationParam) {
+        System.out.println("@#%$!%#T%@#$" + registrationParam.getTimeSlot());
         return registrationServiceImpl.listAvailableDoctors(registrationParam);
     }
 
@@ -48,8 +46,10 @@ public class RegistrationController {
 
     @ApiOperation("挂号操作")
     @RequestMapping(value = "/confirmation", method = RequestMethod.POST)
-    public CommonResult makeRegistration(@RequestBody RegistrationParam registrationParam){
-        return registrationServiceImpl.makeRegistration(registrationParam);
+    public CommonResult makeRegistration(@RequestBody RegistrationParam registrationForm){
+        System.out.println("821391821");
+        System.out.println(registrationForm.getTimeSlot());
+        return registrationServiceImpl.makeRegistration(registrationForm);
     }
 
 

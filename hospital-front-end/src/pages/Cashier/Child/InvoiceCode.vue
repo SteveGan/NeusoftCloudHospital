@@ -10,14 +10,14 @@
         <el-input v-model="invoiceCode" :disabled="true"></el-input>
       </div>
       <div class="">
-        <el-button>更新发票号</el-button>
+        <el-button @click="refresh">更新发票号</el-button>
       </div>
     </div>
   </el-card>
 </template>
 
 <script>
-import {getInvoiceCode} from '@/api/register'
+import register from '@/api/register'
 
 export default {
   data () {
@@ -27,16 +27,29 @@ export default {
   },
   name: 'InvoiceCode',
 
+  methods: {
+    // 刷新可用发票号
+    refresh() {
+      this.getNextInvoiceCode();
+    },
+
+    // 获取下一个可用发票号
+    getNextInvoiceCode() {
+      register.getNextInvoiceCode().then(response => {
+        console.log(response.data)
+        const data = response.data.data
+        this.invoiceCode = data;
+        this.$emit("listenToChildEvent", data);
+      }).catch(error => {
+        // alert("get error")
+      })
+    }
+  },
+
   mounted() {
-    // 获取病历号
-    getInvoiceCode().then(response => {
-      console.log(response.data)
-      const data = response.data.data
-      this.invoiceCode = data;
-    }).catch(error => {
-      // alert("get error")
-    })
-  }
+    
+    this.getNextInvoiceCode();
+  },
 }
 
 </script>

@@ -24,7 +24,7 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_604;
 public class JwtUtil {
 
     // 私钥
-    final static String base64EncodedSecretKey = "9f2unr1#@FF#@@$fqwadjkd1iodn";
+    final static String BASE64_ENCODED_SECRET_KEY = "9f2unr1#@FF#@@$fqwadjkd1iodn";
 
     // 过期时间,测试使用十分钟
     final static long TOKEN_EXP = 1000 * 60 * 10;
@@ -33,7 +33,7 @@ public class JwtUtil {
     public static String getToken(String userName) {
         return Jwts.builder().setSubject(userName).claim("roles", "user").
                 setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXP))
-                .signWith(SignatureAlgorithm.HS256, base64EncodedSecretKey).compact();
+                .signWith(SignatureAlgorithm.HS256, BASE64_ENCODED_SECRET_KEY).compact();
     }
 
     /**
@@ -42,7 +42,7 @@ public class JwtUtil {
     public static Claims checkToken(String token, HttpServletResponse response) throws UserLoginInvalidException, UserLoginException, IOException {
 
         try {
-            final Claims claims = Jwts.parser().setSigningKey(base64EncodedSecretKey).parseClaimsJws(token).getBody();
+            final Claims claims = Jwts.parser().setSigningKey(BASE64_ENCODED_SECRET_KEY).parseClaimsJws(token).getBody();
             return claims;
         } catch (ExpiredJwtException e1) {
             resetResponse(response, E_604);
