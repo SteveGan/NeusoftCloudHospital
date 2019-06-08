@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface RoleMapper {
     List<Role> listRole(Integer userId);
+    Integer getDepartmentIdByRoleId(Integer roleId);
 }

@@ -11,7 +11,6 @@ import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,8 +26,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
     private PatientCaseMapper patientCaseMapper;
     @Resource
     private DiagnoseMapper diagnoseMapper;
-    @Resource
-    private DiseaseMapper diseaseMapper;
+
 
 
     /**
@@ -126,7 +124,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         String pastDisease = patientCaseParam.getPastDisease();
         String allergy = patientCaseParam.getAllergy();
         String physicalCondition = patientCaseParam.getPhysicalCondition();
-        String assistDiagnose = patientCaseParam.getAssistantInspection();
+        String assistDiagnose = patientCaseParam.getAssistDiagnose();
         List<DiagnoseParam> diagnoses = patientCaseParam.getDiagnoses();
 
         //参数检查

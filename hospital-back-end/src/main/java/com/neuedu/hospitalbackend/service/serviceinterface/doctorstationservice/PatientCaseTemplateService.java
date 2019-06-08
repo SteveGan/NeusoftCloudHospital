@@ -1,13 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice;
 
 
-import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.PatientCase;
-import com.neuedu.hospitalbackend.model.po.CaseTemplate;
-import com.neuedu.hospitalbackend.model.vo.TemplateParam;
+import com.neuedu.hospitalbackend.model.vo.PatientCaseTemplateParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
-
-import java.util.List;
 
 /**
  * 3.10病历模版管理
@@ -18,17 +13,22 @@ public interface PatientCaseTemplateService {
 
     /**
      * 将当前页面中的内容保存到病理模版中
-     * @param templateParam 当前模版中的内容
+     * @param patientCaseTemplateParam 当前模版中的内容
      */
-    CommonResult saveAsCaseTemplate(TemplateParam templateParam);
+    CommonResult saveAsCaseTemplate(PatientCaseTemplateParam patientCaseTemplateParam);
 
+    /**
+     * 修改病历模板
+     * @param patientCaseTemplateParam 模板修改后内容
+     */
+    CommonResult modifyPatientCaseTemplate(PatientCaseTemplateParam patientCaseTemplateParam);
 
     /**
      * 查询该医生所有可用模版
-     * @param doctorId 医生的id
-     * @return 可用病历模版集合
+     * @param roleId 医生的角色id
+     * @return 可用病历模版列表
      */
-    CommonResult listCaseTemplate(Integer doctorId);
+    CommonResult listPatientCaseTemplate(Integer roleId);
 
 
     /**

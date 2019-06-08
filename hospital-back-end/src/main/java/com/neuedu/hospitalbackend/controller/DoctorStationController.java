@@ -2,8 +2,7 @@ package com.neuedu.hospitalbackend.controller;
 
 import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
-import com.neuedu.hospitalbackend.model.vo.TemplateParam;
-import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
+import com.neuedu.hospitalbackend.model.vo.PatientCaseTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PatientCaseTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.ProjectCollectionManagementService;
@@ -60,12 +59,26 @@ public class DoctorStationController {
         return preliminaryCaseService.clearPatientCase(caseId);
     }
 
-    //TODO 测试
-    @ApiOperation("病历存为模板")
+
+    @ApiOperation("存为病历模板")
     @RequestMapping(value = "/casetemplate/preservation", method = RequestMethod.POST)
-    public CommonResult savePatientCaseTemplate(@RequestBody TemplateParam templateParam)
+    public CommonResult savePatientCaseTemplate(@RequestBody PatientCaseTemplateParam patientCaseTemplateParam)
     {
-        return patientCaseTemplateService.saveAsCaseTemplate(templateParam);
+        return patientCaseTemplateService.saveAsCaseTemplate(patientCaseTemplateParam);
+    }
+
+    @ApiOperation("修改病历模板")
+    @RequestMapping(value = "/casetemplate/modification", method = RequestMethod.PUT)
+    public CommonResult modifyPatientCaseTemplate(@RequestBody PatientCaseTemplateParam patientCaseTemplateParam)
+    {
+        return patientCaseTemplateService.modifyPatientCaseTemplate(patientCaseTemplateParam);
+    }
+
+    @ApiOperation("显示病历模板")
+    @RequestMapping(value = "/casetemplate/list/{id}", method = RequestMethod.GET)
+    public CommonResult listPatientCaseTemplate(@PathVariable(value = "id") Integer roleId)
+    {
+        return patientCaseTemplateService.listPatientCaseTemplate(roleId);
     }
 
     //TODO 测试

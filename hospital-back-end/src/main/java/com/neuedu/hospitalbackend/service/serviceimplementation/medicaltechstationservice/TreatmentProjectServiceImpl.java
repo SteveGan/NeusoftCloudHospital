@@ -43,7 +43,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
         if (departmentId == null)
             CommonResult.fail(ResultCode.E_801);//部门参数异常
         if(3 != projectType)
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         //查询患者列表
         List<HashMap> patients = treatmentMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName,departmentId);
@@ -72,7 +72,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
         if (departmentId == null)
             CommonResult.fail(ResultCode.E_801);//部门参数异常
         if(3 != projectType)
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         //查询项目列表
         List<HashMap> projects = treatmentMapper.listAppliedProjectsByCaseId(caseId,departmentId);
@@ -108,7 +108,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
         if(doctorRoleId == null)
             CommonResult.fail(ResultCode.E_801);//医技医生参数异常
         if(3 != projectType)
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            CommonResult.fail(ResultCode.E_801);//科室类型异常
         //确认已缴费
         if(4 != transactionLogMapper.selectStatusOfProject(collectionId, projectId))
             CommonResult.fail(ResultCode.E_804);//项目操作权限异常
@@ -135,7 +135,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
 
         //参数验证
         if(3 != projectType)
-            CommonResult.fail(ResultCode.E_800);//科室类型异常
+            CommonResult.fail(ResultCode.E_801);//科室类型异常
         if (collectionId == null)
             CommonResult.fail(ResultCode.E_801);//申请参数异常
         if(projectId == null)

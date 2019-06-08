@@ -18,4 +18,10 @@
         select * from role where user_id = #{userId}
     </select>
 
+    <select id="getDepartmentIdByRoleId" resultType="Integer">
+        select department_id
+        from role
+        where id = #{roleId}
+    </select>
+
 </mapper>
