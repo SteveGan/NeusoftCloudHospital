@@ -17,10 +17,22 @@
     <result column="is_buy_case_book" jdbcType="BIT" property="isBuyCaseBook" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-      <association property="patientCase" javaType="PatientCase">
-          <id column="registration_id" property="registrationId" ></id>
-          <result column="status" property="status"/>
-      </association>
+    <association property="patientCase" javaType="PatientCase">
+        <id column="registration_id" property="registrationId" />
+        <result column="status" property="status"/>
+    </association>
+    <association property="patient" javaType="Patient">
+      <id column="patient_id" property="id"/>
+      <result column="id_card" jdbcType="CHAR" property="idCard" />
+      <result column="address" jdbcType="VARCHAR" property="address" />
+      <result column="gender" jdbcType="TINYINT" property="gender" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="birthday" jdbcType="DATE" property="birthday" />
+    </association>
+    <association property="transactionLog" javaType="TransactionLog">
+        <id column="transaction_id" property="id"/>
+        <result column="invoice_code" property="invoiceCode"/>
+    </association>
   </resultMap>
 
   <insert id="insert" parameterType="Registration" useGeneratedKeys="true" keyProperty="id">
@@ -161,5 +173,19 @@
     set is_normal = false
     where id = #{registrationId}
   </update>
+
+  <select id="listAllNormalRegistrationsInfo" resultMap="BaseResultMap">
+    select r.*, t.invoice_code, p.address, p.name, p.gender,p.id_card, p.birthday, pc.status
+    from registration r, patient p, transaction_log t, patient_case pc
+    where r.patient_id = p.id and r.id = pc.registration_id 
+    and t.registration_id = r.id and t.type = "挂号费" 
+  </select>
+  
+  <select id="listAllRefundedRegistrationInfo" resultMap="BaseResultMap">
+    select r.*, t.invoice_code, p.address, p.name, p.gender,p.id_card, p.birthday
+    from registration r, patient p, transaction_log t
+    where r.patient_id = p.id and t.registration_id = r.id and t.type = "挂号费" and t.total_money > 0
+  </select>
+
 
 </mapper>

@@ -49,5 +49,11 @@ public class RegistrationController {
         return registrationService.makeRegistration(registrationParam);
     }
 
+    @ApiOperation("显示所有挂号信息列表")
+    @RequestMapping(value = "/registrations", method = RequestMethod.GET)
+    public CommonResult listRegistrations(){
+        return registrationService.listRegistrations();
+    }
+
 
 }

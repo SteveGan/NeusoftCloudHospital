@@ -168,8 +168,13 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
     }
 
     @Override
-    public CommonResult listRegistrations(Integer cashierId){
-        return null;
+    public CommonResult listRegistrations(){
+        JSONObject jsonObject = new JSONObject();
+        List<Registration> normalRegistrations = registrationMapper.listAllNormalRegistrationsInfo();
+        List<Registration> refundedRegistrations = registrationMapper.listAllRefundedRegistrationInfo();
+        jsonObject.put("normalRegistrations", normalRegistrations);
+        jsonObject.put("refundedRegistrations", refundedRegistrations);
+        return CommonResult.success(jsonObject);
     }
 
 }
