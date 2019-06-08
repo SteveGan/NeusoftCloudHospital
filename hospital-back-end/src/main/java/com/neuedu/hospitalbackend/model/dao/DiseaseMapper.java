@@ -20,4 +20,6 @@ public interface DiseaseMapper {
     List<Disease> ListChineseDisease();
 
     List<Disease> ListWesternDisease();
+
+    Disease getDiseaseByIcdCode(String icdCode);
 }

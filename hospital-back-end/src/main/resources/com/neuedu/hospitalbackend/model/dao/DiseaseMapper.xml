@@ -43,4 +43,10 @@
         from disease
         where type != '中医疾病'
     </select>
+
+    <select id="getDiseaseByIcdCode" resultType="com.neuedu.hospitalbackend.model.po.Disease">
+        select *
+        from disease
+        where icd_code = #{icdCode}
+    </select>
 </mapper>

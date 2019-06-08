@@ -2,7 +2,6 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationse
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseMapper;
-import com.neuedu.hospitalbackend.model.dao.DiseaseMapper;
 import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
 import com.neuedu.hospitalbackend.model.po.Diagnose;
 import com.neuedu.hospitalbackend.model.po.PatientCase;
@@ -166,17 +165,15 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             }
         }
         //若数据库已存该诊断，但不再暂存/提交，则删除该诊断
-        int temp = 0;
         while(!existedDiseaseIcdCodes.isEmpty()) {
-            System.out.println(++temp);
             for (String leftDiseaseIcdCode : existedDiseaseIcdCodes) {
                 count = diagnoseMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
                 if (count <= 0)
                     return CommonResult.fail(ResultCode.E_803);//删除失败
             }
         }
-        return CommonResult.success(count);
 
+        return CommonResult.success(count);
     }
 
     /**

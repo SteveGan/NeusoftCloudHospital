@@ -150,5 +150,17 @@
     where role_id = #{roleId} or (scope = 2 and department_id = #{departmentId}) or scope = 3
   </select>
 
+  <select id="getRoleIdById" resultType="Integer">
+    select role_id
+    from case_template
+    where id = #{id}
+  </select>
+
+  <delete id="deleteById">
+    delete
+    from case_template
+    where id = #{id}
+  </delete>
+
 
 </mapper>

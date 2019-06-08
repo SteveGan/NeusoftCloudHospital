@@ -1,13 +1,21 @@
 package com.neuedu.hospitalbackend.model.vo;
 
 
-import java.sql.Date;
-
 public class DiagnoseParam {
 
     private String diseaseIcdCode; //疾病icd编码
     private String startTimeStr; //发病时间
 
+    private String diseaseName; //疾病名称
+
+
+    public String getDiseaseName() {
+        return diseaseName;
+    }
+
+    public void setDiseaseName(String diseaseName) {
+        this.diseaseName = diseaseName;
+    }
 
     public String getDiseaseIcdCode() {
         return diseaseIcdCode;

@@ -13,6 +13,7 @@ public interface CaseTemplateMapper {
     CaseTemplate getPatientCaseTemplateByName(String name);
     int insert(PatientCaseTemplateParam patientCaseTemplateParam);
     int update(PatientCaseTemplateParam patientCaseTemplateParam);
+    int deleteById(Integer id);
     List<PatientCaseTemplate> listAvailableByRoleId(@Param("roleId") Integer roleId, @Param("departmentId") Integer departmentId);
-
+    Integer getRoleIdById(Integer id);
 }

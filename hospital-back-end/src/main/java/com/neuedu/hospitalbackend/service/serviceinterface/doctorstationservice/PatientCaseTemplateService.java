@@ -1,6 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice;
 
 
+import com.neuedu.hospitalbackend.model.po.DiagnoseTemplate;
+import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseTemplateParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
@@ -29,6 +31,14 @@ public interface PatientCaseTemplateService {
      * @return 可用病历模版列表
      */
     CommonResult listPatientCaseTemplate(Integer roleId);
+
+    /**
+     * 删除病历模板
+     * @param roleId,caseTemplateId
+     */
+    CommonResult deletePatientCaseTemplate(Integer roleId, Integer caseTemplateId);
+
+
 
 
     /**

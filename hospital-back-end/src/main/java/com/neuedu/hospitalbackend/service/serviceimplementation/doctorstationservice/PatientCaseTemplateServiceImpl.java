@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.bo.PatientCaseTemplate;
 import com.neuedu.hospitalbackend.model.dao.CaseTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
+import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PatientCaseTemplateService;
 import com.neuedu.hospitalbackend.util.CommonResult;
@@ -106,19 +107,28 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
         return CommonResult.success(returnJson);
     }
 
-
-
-
-
-
     /**
-     * 查询该医生所有可用模版
-     * @param doctorId 医生的id
-     * @return 可用病历模版集合
+     * 删除病历模板
+     * @param roleId,caseTemplateId
      */
-    public CommonResult listCaseTemplate(Integer doctorId){
-        return null;
+    public CommonResult deletePatientCaseTemplate(Integer roleId, Integer caseTemplateId){
+        int count = 0;
+        //参数检验
+        if (roleId == null || caseTemplateId == null)
+            return CommonResult.fail(ResultCode.E_801);
+        //权限检验
+        if(roleId != caseTemplateMapper.getRoleIdById(caseTemplateId))
+            return CommonResult.fail(ResultCode.E_804);
+        //删除病历模板
+        count = caseTemplateMapper.deleteById(caseTemplateId);
+
+        if(count > 0 )
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
     }
+
+
 
 
     /**
