@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.controller;
 
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
-import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
+import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice.TechProjectServiceImpl;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
@@ -18,15 +18,15 @@ public class TechProjectController {
 
     @ApiOperation("根据病历号或患者姓名，获取所有待登记患者列表")
     @RequestMapping(value = "/patient", method = RequestMethod.GET)
-    public CommonResult listPatientByCaseIdOrName(ProjectPatientParam projectPatientParam)
+    public CommonResult listPatientByCaseIdOrName(PatientParam patientParam)
     {
-        return techProjectServiceImpl.listPreparedPatientsByCaseIdOrName(projectPatientParam);
+        return techProjectServiceImpl.listPreparedPatientsByCaseIdOrName(patientParam);
     }
 
     @ApiOperation("选中患者，查看已申请的检查/检验项目详情")
     @RequestMapping(value = "/patient-projects", method = RequestMethod.GET)
-    public CommonResult listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam){
-        return techProjectServiceImpl.listAppliedProjectsByCaseId(projectPatientParam);
+    public CommonResult listAppliedProjectsByCaseId(PatientParam patientParam){
+        return techProjectServiceImpl.listAppliedProjectsByCaseId(patientParam);
     }
 
     @ApiOperation("选中项目登记")
@@ -45,8 +45,8 @@ public class TechProjectController {
 
     @ApiOperation("根据病历号，获取所有未录入结果项目列表")
     @RequestMapping(value = "/noresult", method = RequestMethod.GET)
-    public CommonResult listCheckedInButNotRecordedProject(ProjectPatientParam projectPatientParam){
-        return techProjectServiceImpl.listCheckedInButNotRecordedProject(projectPatientParam);
+    public CommonResult listCheckedInButNotRecordedProject(PatientParam patientParam){
+        return techProjectServiceImpl.listCheckedInButNotRecordedProject(patientParam);
         // 后端再次确认项目状态 为 已缴费且未登记
     }
 

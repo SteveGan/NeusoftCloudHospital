@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice;
 
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
-import com.neuedu.hospitalbackend.model.vo.ProjectPatientParam;
+import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
 
@@ -13,18 +13,18 @@ public interface TreatmentProjectService {
     /**
      * 患者查询
      * 输入患者病历号或姓名，可以查询到本科室（检查/检验）的待诊患者列表
-     * @param projectPatientParam: caseId, patientName
+     * @param patientParam: caseId, patientName
      * @return 待登记患者信息列表
      */
-    CommonResult listPreparedPatientsByCaseIdOrName(ProjectPatientParam projectPatientParam);
+    CommonResult listPreparedPatientsByCaseIdOrName(PatientParam patientParam);
 
     /**
      * 患者查询
      * 选择患者可以相应申请的项目明细
-     * @param projectPatientParam: caseId, patientName
+     * @param patientParam: caseId, patientName
      * @return projectId, projectName, projectCollectionGMTCreate, t.status(是否已缴费), requirement
      */
-    CommonResult listAppliedProjectsByCaseId(ProjectPatientParam projectPatientParam);
+    CommonResult listAppliedProjectsByCaseId(PatientParam patientParam);
 
     /**
      * 执行确认

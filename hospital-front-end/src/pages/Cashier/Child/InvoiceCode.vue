@@ -7,19 +7,51 @@
         <p>当前发票号</p>
       </div>
       <div class="">
-        <el-input></el-input>
+        <el-input v-model="invoiceCode" :disabled="true"></el-input>
       </div>
       <div class="">
-        <el-button>更新发票号</el-button>
+        <el-button @click="refresh">更新发票号</el-button>
       </div>
     </div>
   </el-card>
 </template>
 
 <script>
+import register from '@/api/register'
+
 export default {
-  name: 'InvoiceCode'
+  data () {
+    return {
+      invoiceCode: "0",
+    }
+  },
+  name: 'InvoiceCode',
+
+  methods: {
+    // 刷新可用发票号
+    refresh() {
+      this.getNextInvoiceCode();
+    },
+
+    // 获取下一个可用发票号
+    getNextInvoiceCode() {
+      register.getNextInvoiceCode().then(response => {
+        console.log(response.data)
+        const data = response.data.data
+        this.invoiceCode = data;
+        this.$emit("listenToChildEvent", data);
+      }).catch(error => {
+        // alert("get error")
+      })
+    }
+  },
+
+  mounted() {
+    
+    this.getNextInvoiceCode();
+  },
 }
+
 </script>
 
 <style lang="css" scoped>

@@ -21,8 +21,9 @@ public class RegistrationParam {
     private BigDecimal totalFee; //应收金额
     private Boolean isBuyCaseBook;
     private Integer cashierId; //收银员id
-    private Integer patientId; //病人在本医院的id
     private String invoiceCode; //当前挂号单对应的发票号
+
+    private Integer patientId; //病人在本医院的id
     private Byte patientCaseStatus; //患者病历状态
 
     public Integer getRegistrationId() {

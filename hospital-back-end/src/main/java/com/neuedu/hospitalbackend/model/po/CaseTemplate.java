@@ -19,9 +19,49 @@ public class CaseTemplate {
 
     private String physicalCondition;
 
+    private String curTreatCondition;
+
+    private String pastDisease;
+
+    private String allergy;
+
+    private String assistDiagnose;
+
     private Date gmtCreate;
 
     private Date gmtModified;
+
+    public String getCurTreatCondition() {
+        return curTreatCondition;
+    }
+
+    public void setCurTreatCondition(String curTreatCondition) {
+        this.curTreatCondition = curTreatCondition;
+    }
+
+    public String getPastDisease() {
+        return pastDisease;
+    }
+
+    public void setPastDisease(String pastDisease) {
+        this.pastDisease = pastDisease;
+    }
+
+    public String getAllergy() {
+        return allergy;
+    }
+
+    public void setAllergy(String allergy) {
+        this.allergy = allergy;
+    }
+
+    public String getAssistDiagnose() {
+        return assistDiagnose;
+    }
+
+    public void setAssistDiagnose(String assistDiagnose) {
+        this.assistDiagnose = assistDiagnose;
+    }
 
     public Integer getId() {
         return id;

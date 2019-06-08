@@ -12,6 +12,7 @@ HELP.md
 .sts4-cache
 
 ### IntelliJ IDEA ###
+hospital-back-end/.idea
 .idea
 *.iws
 *.iml

@@ -30,8 +30,7 @@ public interface ExaminationMapper {
                      @Param("resultDescription")String resultDescription, @Param("resultImage")String resultImage,
                      @Param("advice")String advice);
 
-    int selectStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
-
     int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
+    int getStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 }

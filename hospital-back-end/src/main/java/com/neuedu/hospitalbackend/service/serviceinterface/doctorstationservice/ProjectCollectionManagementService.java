@@ -3,6 +3,8 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.bo.Project;
+import com.neuedu.hospitalbackend.model.vo.ProjectParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 import java.util.List;
 
@@ -13,6 +15,15 @@ import java.util.List;
  */
 public interface ProjectCollectionManagementService {
 
+    /**
+     * 加入新的检查/检验组
+     * @param projectParam
+     */
+    CommonResult insertProjectCollection(ProjectParam projectParam);
+
+
+
+
 
     /**
      * 得到所有的检查/检验项目
@@ -21,14 +32,6 @@ public interface ProjectCollectionManagementService {
      * @return 所有的检查/检验项目
      */
     List<Project> listAllProject(JSONObject obj);
-
-
-    /**
-     * 加入新的检查/检验组
-     * @param obj 当前检查/检验组的信息
-     */
-    void insertProjectCollection(JSONObject obj);
-
 
     /**
      * 更新 检查/检验 组

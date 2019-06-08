@@ -1,13 +1,13 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Diagnose {
     private Integer id;
 
     private Integer caseId;
 
-    private Integer diseaseId;
+    private String diseaseId;
 
     private Date startTime;
 
@@ -33,12 +33,20 @@ public class Diagnose {
         this.caseId = caseId;
     }
 
-    public Integer getDiseaseId() {
+    public String getDiseaseId() {
         return diseaseId;
     }
 
-    public void setDiseaseId(Integer diseaseId) {
+    public void setDiseaseId(String diseaseId) {
         this.diseaseId = diseaseId;
+    }
+
+    public Boolean getFirstDiagnosed() {
+        return isFirstDiagnosed;
+    }
+
+    public void setFirstDiagnosed(Boolean firstDiagnosed) {
+        isFirstDiagnosed = firstDiagnosed;
     }
 
     public Date getStartTime() {

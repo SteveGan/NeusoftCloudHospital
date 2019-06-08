@@ -49,4 +49,5 @@ public class RegistrationController {
         return registrationService.makeRegistration(registrationParam);
     }
 
+
 }

@@ -7,7 +7,7 @@ public class DiagnoseTemplate {
 
     private String name;
 
-    private Integer diseaseId;
+    private String diseaseId;
 
     private Integer roleId;
 
@@ -33,11 +33,11 @@ public class DiagnoseTemplate {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getDiseaseId() {
+    public String getDiseaseId() {
         return diseaseId;
     }
 
-    public void setDiseaseId(Integer diseaseId) {
+    public void setDiseaseId(String diseaseId) {
         this.diseaseId = diseaseId;
     }
 

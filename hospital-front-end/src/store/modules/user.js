@@ -6,10 +6,16 @@ const state = {
   name: '',
   id: '',
   avatar: '',
-  roles: []
+  roles: [],
+  currentRole: {
+    id:"3"
+  }
 }
 
 const getters = {
+  currentRoleId : state => {
+    return state.currentRole.id
+  }
 }
 
 const actions = {
@@ -17,20 +23,20 @@ const actions = {
   //登录
   Login ({commit}, {userId, password}) {
     return new Promise((resolve, reject) => {
-      // alert(userId)
-      // alert(passWord)
       login(userId, password).then(response => {
-        const data = response.data
-        if (data.success === true){
-          const tokenStr = "一个假的token"
+        console.log(response)
+        const data = response.data.data
+        if (response.data.code === 200){
+          const tokenStr = data.web_token
           setToken(tokenStr)
+          // 存储该用户相关信息
           commit('setToken', tokenStr)
-          commit('setName', data.userName)
+          commit('setName', data.datauserName)
           commit('setId', data.userId)
           commit('setAvatar', data.avatar)
           commit('setRoles', data.roles)
           resolve('success')
-        }else {
+        } else {
           commit('setToken', '')
           resolve('fail')
         }
@@ -67,6 +73,9 @@ const mutations = {
   },
   setRoles: (state, roles) => {
     state.roles = roles
+  },
+  setCurrentRole : (state, role) => {
+    state.role = role
   }
 }
 

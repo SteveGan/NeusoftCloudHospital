@@ -29,7 +29,17 @@ public class PatientCase {
 
     private String patientName;
 
+    private String assistDiagnose;
+
     private Registration registration;
+
+    public String getAssistDiagnose() {
+        return assistDiagnose;
+    }
+
+    public void setAssistDiagnose(String assistDiagnose) {
+        this.assistDiagnose = assistDiagnose;
+    }
 
     public Integer getRegistrationId() {
         return registrationId;
