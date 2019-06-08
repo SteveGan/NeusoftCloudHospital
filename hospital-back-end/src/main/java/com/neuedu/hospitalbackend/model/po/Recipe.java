@@ -8,7 +8,7 @@ public class Recipe {
 
     private Integer caseId;
 
-    private String medicineCode;
+    private Integer medicineId;
 
     private Byte type;
 
@@ -20,7 +20,7 @@ public class Recipe {
 
     private Short amount;
 
-    private Integer returnAmount;
+    private Short returnAmount;
 
     private Byte status;
 
@@ -48,12 +48,12 @@ public class Recipe {
         this.caseId = caseId;
     }
 
-    public String getMedicineCode() {
-        return medicineCode;
+    public Integer getMedicineId() {
+        return medicineId;
     }
 
-    public void setMedicineCode(String medicineCode) {
-        this.medicineCode = medicineCode == null ? null : medicineCode.trim();
+    public void setMedicineId(Integer medicineId) {
+        this.medicineId = medicineId;
     }
 
     public Byte getType() {
@@ -96,11 +96,11 @@ public class Recipe {
         this.amount = amount;
     }
 
-    public Integer getReturnAmount() {
+    public Short getReturnAmount() {
         return returnAmount;
     }
 
-    public void setReturnAmount(Integer returnAmount) {
+    public void setReturnAmount(Short returnAmount) {
         this.returnAmount = returnAmount;
     }
 

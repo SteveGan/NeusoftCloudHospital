@@ -44,7 +44,7 @@ public class Cache {
         // 初始化可用病历id
         Integer id = cache.registrationMapper.getNextId();
         if (id == null) {
-            id = 1000001;
+            id = 10000001;
         }
         nextRegistrationId = id;
         hospitalLogger.info("初始化可用病历id: " + nextRegistrationId);

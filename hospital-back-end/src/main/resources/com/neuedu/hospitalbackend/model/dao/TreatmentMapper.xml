@@ -50,4 +50,10 @@
         where id = #{collectionId} and project_id = #{projectId} and status = 2
     </update>
 
+    <update id="updateStatus">
+        update treatment set status = 3
+        where id = #{collectionId} and project_id = #{projectId}
+    </update>
+
+
 </mapper>

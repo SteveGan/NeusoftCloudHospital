@@ -169,7 +169,7 @@
         <dependency>
             <groupId>eu.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
-            <version>1.21</version>
+            <version>1.20</version>
         </dependency>
 
         <!-- Http请求工具 -->

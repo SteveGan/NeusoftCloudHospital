@@ -22,6 +22,26 @@
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
 
+    <resultMap id="ItemResultMap" type="HashMap" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="invoice_code" property="invoiceCode" jdbcType="CHAR" />
+        <result column="registration_id" property="registrationId" jdbcType="INTEGER" />
+        <result column="patient_id" property="patientId" jdbcType="INTEGER" />
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
+        <result column="project_id" property="projectId" jdbcType="INTEGER" />
+        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        <result column="amount" property="amount" jdbcType="SMALLINT" />
+        <result column="pay_type" property="payType" jdbcType="TINYINT" />
+        <result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <result column="item_status" property="itemStatus" jdbcType="TINYINT"/>
+        <result column="return_amount" property="returnAmount" jdbcType = "SMALLINT"/>
+    </resultMap>
+
     <insert id="insert" parameterType="TransactionLog" useGeneratedKeys="true" keyProperty="id">
         insert into transaction_log (id, invoice_code, registration_id,
           patient_id, role_id, type,
@@ -123,25 +143,6 @@
         </trim>
     </insert>
 
-    <update id="updateSelective" parameterType="TransactionLog">
-        update transaction_log
-        <trim prefix="set" suffixOverrides=",">
-            <if test="invoiceCode != null"> invoice_code = #{invoiceCode}, </if>
-            <if test="registrationId != null"> registration_id = #{registrationId}, </if>
-            <if test="patientId != null"> patient_id = #{patientId}, </if>
-            <if test="roleId != null"> role_id = #{roleId}, </if>
-            <if test="type != null"> type = #{type}, </if>
-            <if test="collectionId != null"> collection_id = #{collectionId}, </if>
-            <if test="projectId != null"> project_id = #{projectId}, </if>
-            <if test="itemId != null"> item_id = #{itemId}, </if>
-            <if test="amount != null"> amount = #{amount}, </if>
-            <if test="payType != null"> pay_type = #{payType}, </if>
-            <if test="totalMoney != null"> total_money = #{totalMoney}, </if>
-            <if test="status != null"> status = #{status}, </if>
-        </trim>
-        where id = #{id}
-    </update>
-
     <select id="selectStatusOfProject" resultType="Integer">
         select status
         from transaction_log
@@ -151,7 +152,7 @@
 
     <select id="getLogByRegistrationIdAndType" resultMap="BaseResultMap">
         select * from transaction_log
-        where registration_id = #{registrationId} and type = #{type}
+        where registration_id = #{registrationId} and type = #{type} and status = 2
     </select>
 
     <select id="getSelective"  resultMap="BaseResultMap">
@@ -170,8 +171,53 @@
         <if test="status != null"> and status = #{status} </if>
     </select>
 
-    <select id="listTransactionLogs" resultMap="BaseResultMap">
+    <select id="listLogsByTableName" resultMap="ItemResultMap">
+        select distinct t.*, p.status as item_status from transaction_log t, ${tableName} p
+        where t.collection_id = p.id and t.registration_id = #{registrationId}
+        and t.project_id = p.project_id and t.total_money > 0
+    </select>
+
+    <select id="getRegistrationLog" resultMap="ItemResultMap">
+        select distinct t.*, r.is_normal as item_status
+        from transaction_log t, registration r
+        where
+        t.registration_id = #{registrationId} and t.type = "挂号费"
+        and t.registration_id = r.id and t.total_money > 0
+    </select>
+
+    <select id="getRecipeLogs" resultMap="ItemResultMap">
+        select distinct t.*, r.status as item_status, r.return_amount
+        from transaction_log t, recipe r
+        where t.collection_id = r.id and t.registration_id = #{registrationId}
+        and t.project_id = r.medicine_id and t.total_money > 0
+    </select>
+
+    <update id="update" parameterType="TransactionLog">
+        update transaction_log
+        <trim prefix="set" suffixOverrides=",">
+            <if test="invoiceCode != null"> invoice_code = #{invoiceCode}, </if>
+            <if test="registrationId != null"> registration_id = #{registrationId}, </if>
+            <if test="patientId != null"> patient_id = #{patientId}, </if>
+            <if test="roleId != null"> role_id = #{roleId}, </if>
+            <if test="type != null"> type = #{type}, </if>
+            <if test="collectionId != null"> collection_id = #{collectionId}, </if>
+            <if test="projectId != null"> project_id = #{projectId}, </if>
+            <if test="itemId != null"> item_id = #{itemId}, </if>
+            <if test="amount != null"> amount = #{amount}, </if>
+            <if test="payType != null"> pay_type = #{payType}, </if>
+            <if test="totalMoney != null"> total_money = #{totalMoney}, </if>
+            <if test="status != null"> status = #{status}, </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelectiveAsReturned" parameterType="TransactionLog">
+        update transaction_log set status = 3
+        where collection_id = #{collectionId}
+    </update>
+
+    <select id="listCollectionProjectInfo" resultMap="BaseResultMap">
         select * from transaction_log
-        where registration_id = #{registrationId} and type != "挂号费"
+        where collection_id = #{collectionId}
     </select>
 </mapper>

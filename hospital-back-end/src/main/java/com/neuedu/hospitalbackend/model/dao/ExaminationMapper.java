@@ -1,10 +1,12 @@
 package com.neuedu.hospitalbackend.model.dao;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 
+@Component
 public interface ExaminationMapper {
     /**
      * 根据 病历号或者姓名 或 不输入 查找 待登记检验 用户
@@ -29,4 +31,7 @@ public interface ExaminationMapper {
                      @Param("advice")String advice);
 
     int selectStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
+    int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
 }

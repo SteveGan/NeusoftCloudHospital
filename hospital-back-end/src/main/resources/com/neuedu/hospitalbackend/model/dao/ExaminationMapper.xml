@@ -76,4 +76,8 @@
         where id = #{collectionId} and project_id = #{projectId}
     </select>
 
+    <update id="updateStatus">
+        update examination set status = 3
+        where id = #{collectionId} and project_id = #{projectId}
+    </update>
 </mapper>
