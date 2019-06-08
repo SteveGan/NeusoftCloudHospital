@@ -2,11 +2,13 @@ package com.neuedu.hospitalbackend.controller;
 
 import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
+import com.neuedu.hospitalbackend.model.vo.TemplateParam;
+import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
+import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PatientCaseTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.ProjectCollectionManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,6 +23,8 @@ public class DoctorStationController {
     private PreliminaryCaseService preliminaryCaseService;
     @Resource
     private ProjectCollectionManagementService projectCollectionManagementService;
+    @Resource
+    private PatientCaseTemplateService patientCaseTemplateService;
 
     @ApiOperation("获取所有待诊、已诊患者列表")
     @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET)
@@ -56,12 +60,12 @@ public class DoctorStationController {
         return preliminaryCaseService.clearPatientCase(caseId);
     }
 
-    //TODO 测试 + iml
+    //TODO 测试
     @ApiOperation("病历存为模板")
     @RequestMapping(value = "/casetemplate/preservation", method = RequestMethod.POST)
-    public CommonResult savePatientCaseTemplate(@RequestBody PatientCaseParam patientCaseParam)
+    public CommonResult savePatientCaseTemplate(@RequestBody TemplateParam templateParam)
     {
-        return preliminaryCaseService.submitPresentPatientCase(patientCaseParam);
+        return patientCaseTemplateService.saveAsCaseTemplate(templateParam);
     }
 
     //TODO 测试
