@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseMapper;
 import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
 import com.neuedu.hospitalbackend.model.po.Diagnose;
-import com.neuedu.hospitalbackend.model.po.PatientCase;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
@@ -100,7 +99,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
                 //西医诊断疾病
                 returnJson.put("diagnoseType", 1);
                 for(HashMap diagnose: diagnoses)
-                    traditionalDiagnose.add(diagnose);
+                    modernDiagnose.add(diagnose);
             }
         }
         returnJson.put("traditionalDiagnose", traditionalDiagnose);
@@ -184,9 +183,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         //若数据库已存该诊断，但不再暂存/提交，则删除该诊断
         while(!existedDiseaseIcdCodes.isEmpty()) {
             for (String leftDiseaseIcdCode : existedDiseaseIcdCodes) {
-                count = diagnoseMapper.deleteByCaseIdAndDiseaseIcdCode(caseId,leftDiseaseIcdCode);
-                if (count <= 0)
-                    return CommonResult.fail(ResultCode.E_803);//删除失败
+                count = diagnoseMapper.deleteByCaseIdAndDiseaseIcdCode(caseId, leftDiseaseIcdCode);
             }
         }
 
@@ -217,8 +214,6 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             List<String> diseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId);
             for(String diseaseIcdCode : diseaseIcdCodes) {
                 count = diagnoseMapper.deleteByCaseIdAndDiseaseIcdCode(caseId, diseaseIcdCode);
-                if(count <= 0)
-                    return CommonResult.fail(ResultCode.E_803);//删除失败
             }
         }
         //待诊状态不操作数据库，其他状态操作异常
