@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationservice;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.DiseaseMapper;
 import com.neuedu.hospitalbackend.model.po.Disease;
@@ -11,6 +12,7 @@ import com.neuedu.hospitalbackend.util.ResultCode;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -118,6 +120,24 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
         else
             return CommonResult.fail();
     }
+
+    /**
+     * 修改常用诊断
+     * @param roleId
+     */
+    @Override
+    public CommonResult listMyDiagnoseTemplate(Integer roleId){
+        JSONObject returnJson = new JSONObject();
+        //参数检验
+        if(roleId == null){
+            return CommonResult.fail(ResultCode.E_801);
+        }
+
+        List<HashMap> myList = diagnoseTemplateMapper.listMyDiagnoseTemplate(roleId);
+        returnJson.put("myDiagnoseTemplates", myList);
+        return CommonResult.success(returnJson);
+    }
+
 
 
 }

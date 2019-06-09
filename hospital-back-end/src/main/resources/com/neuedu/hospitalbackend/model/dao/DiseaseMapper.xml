@@ -49,4 +49,5 @@
         from disease
         where icd_code = #{icdCode}
     </select>
+
 </mapper>

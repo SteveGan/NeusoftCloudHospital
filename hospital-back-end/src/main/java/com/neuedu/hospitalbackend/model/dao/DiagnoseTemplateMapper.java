@@ -3,6 +3,7 @@ package com.neuedu.hospitalbackend.model.dao;
 import com.neuedu.hospitalbackend.model.po.DiagnoseTemplate;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface DiagnoseTemplateMapper {
@@ -17,4 +18,6 @@ public interface DiagnoseTemplateMapper {
     int updateName(@Param("pastName") String pastName, @Param("newName") String newName);
 
     int deleteByDiseaseIcdCode(String icdCode);
+
+    List<HashMap> listMyDiagnoseTemplate(Integer roleId);
 }

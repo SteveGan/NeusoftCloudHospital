@@ -11,14 +11,12 @@
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="DiagnoseTemplateInfo" type="HashMap" >
-    <result column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="disease_id" property="diseaseId" jdbcType="VARCHAR" />
+    <result column="disease_id" property="diseaseIcdCode" jdbcType="VARCHAR" />
     <result column="disease_name" property="diseaseName" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="TINYINT" />
-    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
-    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
+
   <insert id="insert">
     insert into diagnose_template (disease_id, disease_name, type, role_id, name)
     values (#{diseaseId,jdbcType=VARCHAR}, #{diseaseName,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
@@ -110,5 +108,13 @@
     from diagnose_template
     where name = #{name}
   </select>
+
+
+  <select id="listMyDiagnoseTemplate" resultMap="DiagnoseTemplateInfo">
+      select name, disease_id, disease_name, type
+      from diagnose_template
+      where role_id = #{roleId}
+  </select>
+
 
 </mapper>

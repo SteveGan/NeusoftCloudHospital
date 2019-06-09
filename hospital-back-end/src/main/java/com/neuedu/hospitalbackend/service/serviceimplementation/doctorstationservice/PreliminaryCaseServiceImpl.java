@@ -71,21 +71,27 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             return CommonResult.fail(ResultCode.E_801);//医生角色参数异常
 
         //病历
-        PatientCase patientCase = patientCaseMapper.getPatientCase(caseId);
+        HashMap patientCase = patientCaseMapper.getPatientCaseInfo(caseId);
         if(patientCase == null)
             return CommonResult.fail(ResultCode.E_801);//参数异常
-        if(doctorRoleId.compareTo(patientCase.getRoleId()) == 1)
-            return CommonResult.fail(ResultCode.E_804);//权限异常
-        returnJson.put("patientCase", patientCase);
+//        returnJson.put("patientCase", patientCase);
+        returnJson.put("narrate",  patientCase.get("narrate"));
+        returnJson.put("curTreatCondition", patientCase.get("curTreatCondition"));
+        returnJson.put("assistDiagnose",  patientCase.get("assistDiagnose"));
+        returnJson.put("curDisease",  patientCase.get("curDisease"));
+        returnJson.put("allergy",  patientCase.get("allergy"));
+        returnJson.put("pastDisease",  patientCase.get("pastDisease"));
+        returnJson.put("physicalCondition",  patientCase.get("physicalCondition"));
+
         //诊断
         List<HashMap> diagnoses = diagnoseMapper.listDiagnosesDetailByCaseId(caseId);
         returnJson.put("diagnoses", diagnoses);
         if(diagnoses.size() != 0) {
             String type = String.valueOf(diagnoses.get(0).get("type"));
             if (type.equals("中医疾病"))
-                returnJson.put("diagnoseType", "中医诊断");//中医
+                returnJson.put("diagnoseType", 0);//中医
             else
-                returnJson.put("diagnoseType", "西医诊断");//西医
+                returnJson.put("diagnoseType", 1);//西医
         }
 
         return CommonResult.success(returnJson);

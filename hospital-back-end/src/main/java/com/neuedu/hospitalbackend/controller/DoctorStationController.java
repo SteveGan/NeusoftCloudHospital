@@ -104,6 +104,13 @@ public class DoctorStationController {
         return diagnoseTemplateService.modifyDiagnoseTemplate(diagnoseTemplateParam);
     }
 
+    @ApiOperation("查询常用诊断")
+    @RequestMapping(value = "/diagnosetemplate/list/{roleId}", method = RequestMethod.GET)
+    public CommonResult listMyDiagnoseTemplate(@PathVariable Integer roleId)
+    {
+        return diagnoseTemplateService.listMyDiagnoseTemplate(roleId);
+    }
+
 
 
 
