@@ -3,6 +3,7 @@ package com.neuedu.hospitalbackend.model.dao;
 import com.neuedu.hospitalbackend.model.po.Disease;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -17,9 +18,9 @@ public interface DiseaseMapper {
 
     String getTypeOfDiseaseByIcdCode(String icdCode);
 
-    List<Disease> ListChineseDisease();
+    List<HashMap> ListChineseDisease();
 
-    List<Disease> ListWesternDisease();
+    List<HashMap> ListWesternDisease();
 
-    Disease getDiseaseByIcdCode(String icdCode);
+    HashMap getDiseaseByIcdCode(String icdCode);
 }

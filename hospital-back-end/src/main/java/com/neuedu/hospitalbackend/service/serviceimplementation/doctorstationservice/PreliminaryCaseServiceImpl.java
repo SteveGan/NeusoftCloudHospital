@@ -162,17 +162,17 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         List<String> existedDiseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId); //所有数据库暂存诊断
         for(DiagnoseParam diagnoseParam: diagnoses) {
             //若数据库已存该诊断，且再次要求暂存/提交，则更新该诊断
-            if (existedDiseaseIcdCodes.contains(diagnoseParam.getDiseaseIcdCode())) {
-                count = diagnoseMapper.updateExisted(diagnoseParam.getDiseaseIcdCode(), diagnoseParam.getStartTime(), isFirstDiagnosed);
+            if (existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())) {
+                count = diagnoseMapper.updateExisted(diagnoseParam.getIcdCode(), diagnoseParam.getStartTime(), isFirstDiagnosed);
                 if (count <= 0)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
-                existedDiseaseIcdCodes.remove(diagnoseParam.getDiseaseIcdCode());
+                existedDiseaseIcdCodes.remove(diagnoseParam.getIcdCode());
             }
             //若数据库不存在该诊断，要求暂存/提交，则增加该诊断
-            else if (!existedDiseaseIcdCodes.contains(diagnoseParam.getDiseaseIcdCode())) {
+            else if (!existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())) {
                 Diagnose diagnose = new Diagnose();
                 diagnose.setCaseId(caseId);
-                diagnose.setDiseaseId(diagnoseParam.getDiseaseIcdCode());
+                diagnose.setDiseaseId(diagnoseParam.getIcdCode());
                 diagnose.setStartTime(Date.valueOf(diagnoseParam.getStartTime()));
                 diagnose.setIsFirstDiagnosed(isFirstDiagnosed);
                 //插入数据库
