@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.DiagnoseTemplate" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="disease_id" property="diseaseId" jdbcType="VARCHAR" />
+    <result column="disease_id" property="icdCode" jdbcType="VARCHAR" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="scope" property="scope" jdbcType="TINYINT" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
@@ -12,7 +12,7 @@
   </resultMap>
   <resultMap id="DiagnoseTemplateInfo" type="HashMap" >
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="disease_id" property="diseaseIcdCode" jdbcType="VARCHAR" />
+    <result column="disease_id" property="icdCode" jdbcType="VARCHAR" />
     <result column="disease_name" property="diseaseName" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="TINYINT" />
   </resultMap>
