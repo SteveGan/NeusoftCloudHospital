@@ -18,11 +18,10 @@ public interface RegistrationMapper {
     //列出指定用户的挂号信息
     Registration getRegistrationInfo(Integer registrationId);
     int updateStatusById(@Param("registrationId") Integer registrationId);
-    /*//列出 所有未退号 信息列表
+    //列出 所有未退号 信息列表
     List<Registration> listAllNormalRegistrationsInfo();
     //列出 所有退号 信息列表
-    List<Registration> listAllRefundedRegistrationInfo();*/
-    //列出所有挂号信息列表
-    List<Registration> listAllRegistrationsInfo();
+    List<Registration> listAllRefundedRegistrationInfo();
+
 
 }

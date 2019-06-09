@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_700;
@@ -171,7 +172,9 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
     @Override
     public CommonResult listRegistrations(){
-        List<Registration> registrations = registrationMapper.listAllRegistrationsInfo();
+        List<Registration> registrations = new ArrayList<>();
+        registrations.addAll(registrationMapper.listAllNormalRegistrationsInfo());
+        registrations.addAll(registrationMapper.listAllRefundedRegistrationInfo());
         return CommonResult.success(registrations);
     }
 
