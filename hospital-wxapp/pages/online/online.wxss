@@ -1,0 +1,13 @@
+/* online.wxss */
+.online-head{width: 100%;height: 26.5%;}
+.Myfrom{width: 100%;background:#fff;display: block;margin-top: 1em;padding: 0 3%;}
+.form-text{width: 100%;height: 90rpx;border-bottom: #eeeeee 1px solid;color: #333;}
+.form-text label{float: left;height: 100%; width: 28%;font-size: 32rpx;line-height: 90rpx;}
+.form-text .from-input{width: 70%;float: left;height: 90%;font-size: 1.4em;line-height: 90rpx;margin-top: 1%;}
+.input-placeholder{font-size: 1em;line-height: 5em;color: #888;}
+.form-text .from-input .dateoption{line-height:80rpx;}
+.form-textarea{width: 100%;height: 9em;background:#fff;color: #333;margin-top: 1em;}
+.form-textarea textarea{width: 100%;height: 100%;font-size: 1.2em;line-height: 1.5em;padding: 0.5em;box-sizing:border-box;}
+.form-submit{width: 100%;height: 4em;margin: 2em auto;}
+.online-submit{width: 75%;margin: 5px auto;background-color: #39cdac;color: #fff;font-size: 1.4em;height: 90rpx;line-height:90rpx;letter-spacing: 2px;}
+.online-submit::before{content: "";display: block;width: 2em;height: 1.8em;position: absolute;top: 50%;left: 50%;background-size: auto 100%;background-repeat: no-repeat;margin-top:-0.9em;margin-left: -4.5em;background-image: url(https://xcx.yzw0525.com/images/online_04.svg);background-position: center;}

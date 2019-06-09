@@ -1,0 +1,8 @@
+<!--about.wxml-->
+<top-bar hasBack="{{true}}"></top-bar>
+
+<view class="about">
+  <view class="main">
+    <image src="http://ww1.sinaimg.cn/large/006tNc79ly1g3v1c8y046j30k03cg7wh.jpg" mode="widthFix" class="main-head"></image>
+  </view>
+</view>

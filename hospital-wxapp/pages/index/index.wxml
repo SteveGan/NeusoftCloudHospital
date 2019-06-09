@@ -1,0 +1,35 @@
+<!--index.wxml-->
+<top-bar hasBack="{{false}}"></top-bar>
+<!--天气组件-->
+<weather-card></weather-card>
+
+<view class="matrix bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.3s; margin: 0 30rpx">
+  <navigator url="/pages/online/online" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
+    <view class="matrix-btn yygh">
+      <icon class="yygh" />
+      <view class="title">预约挂号</view>
+      <view class="info">无需排队 免费挂号</view>
+    </view>
+  </navigator>
+  <button open-type="contact" class="nav-btn active" hover-class="nav-hover">
+    <view class="matrix-btn kswz">
+      <icon class="kswz" />
+      <view class="title">快速问诊</view>
+      <view class="info">足不出户 咨询专家</view>
+    </view>
+  </button>
+  <navigator url="/pages/user/user" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
+    <view class="matrix-btn user">
+      <icon class="user" />
+      <view class="title">病历查询</view>
+      <view class="info">电子病历 即用即查</view>
+    </view>
+  </navigator>
+  <navigator url="/pages/about/about" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
+    <view class="matrix-btn gtpp">
+      <icon class="gtpp" />
+      <view class="title">熙康品牌</view>
+      <view class="info">爱与健康 连接你我</view>
+    </view>
+  </navigator>
+</view>

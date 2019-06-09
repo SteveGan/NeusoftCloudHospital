@@ -1,0 +1,17 @@
+<!--components/top-bar/top-bar.wxml-->
+<view>
+  <view class="cu-custom" style="height:{{CustomBar*1.0}}px; z-index: 1001">
+    <view class="cu-bar tabbar fixed" style="height:{{CustomBar*1.0}}px; padding-top:{{StatusBar}}px; {{isTransparent?'':'background-color: #f1f1f1;'}} width: 100%">
+      <view style="padding-left: 35rpx; max-height:{{CustomBar*1.0}}px; ">
+        <view class='text-xxl radius-lg'>
+          <view style="white-space: nowrap; display:table; margin-left: 15rpx; padding-top: 20rpx; padding-left: 20rpx; padding-right: 20rpx; display:table-cell; vertical-align:middle; background-color: #f1f1f1; border-radius: 50rpx; {{isTransparent?'opacity: 0.7;':''}}"> 
+            <navigator wx:if="{{hasBack}}" open-type="navigateBack" delta="1" hover-class="none" style='z-index: 1002; display: inline; display:table-cell; vertical-align:middle; margin-right: 15rpx;'>
+              <text class='icon-back'> </text>
+            </navigator>
+            <image src='/images/top-bar-logo.png' mode='aspectFit' style='margin-left: 40rpx; max-width:180rpx; height:{{CustomBar/2.3}}px; display:table-cell; vertical-align:middle;'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

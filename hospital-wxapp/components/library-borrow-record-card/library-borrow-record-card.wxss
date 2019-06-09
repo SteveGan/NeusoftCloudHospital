@@ -1,0 +1,14 @@
+/* components/library-borrow-record-card/library-borrow-record-card.wxss */
+
+.book {
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10rpx;
+}
+
+.warn {
+  color: #f06292;
+}

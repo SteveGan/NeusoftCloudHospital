@@ -1,0 +1,50 @@
+<!--pages/user/user.wxml-->
+<import src="/pages/public.wxml"/>
+<view class="UserBody" wx:if="{{authSetting}}">
+  <view class="UserInfo">
+    <image src="{{userinfo.facelink}}" mode="widthFix" class="nickface"></image>
+    <view class="nickname">
+      {{userinfo.patients==null?userinfo.nickname : userinfo.patients}}
+      <!--<view class="Refresh" bindtap=""></view>-->
+    </view>
+    <view class="register" wx:if="{{userinfo.integral==null}}">
+      <navigator url="/pages/register/register" hover-class="none" open-type="navigate">申请入会</navigator>
+    </view>
+    <view class="integral" wx:else>我的积分<text> {{userinfo.integral}} </text></view>
+    <view class="nav_btn">
+      <navigator url="/pages/Personal/activity/activity" hover-class="none" open-type="navigate" class="nav_btn_zq">赚取积分</navigator>
+      <navigator url="/pages/shopping/shopping" hover-class="none" open-type="navigate" class="nav_btn_dh">积分兑换</navigator>
+      <navigator url="/pages/Personal/IntegrationDetails/IntegrationDetails" hover-class="none" open-type="navigate" class="nav_btn_mx">积分明细</navigator>
+      <navigator url="/pages/Personal/rule/rule" hover-class="none" open-type="navigate" class="nav_btn_gz">积分规则</navigator>
+    </view>
+    <view class="about_btn clear">
+      <navigator url="/pages/about/about/about" hover-class="none" open-type="navigate" class="about">关于我们</navigator>
+      <navigator url="/pages/about/contact/contact" hover-class="none" open-type="navigate" class="contact">联系我们</navigator>
+    </view>
+  </view>
+  <view class="Personal">
+    <navigator class="PersonalLi purl" url="/pages/Personal/appointment/appointment"  open-type="navigate">我的预约</navigator>
+    <navigator wx:if="{{userinfo.Invitationcode}}" class="PersonalLi purl" url="/pages/Personal/exchange/exchange" open-type="navigate">我的兑换</navigator>
+    <view wx:if="{{userinfo.Invitationcode}}" class="PersonalLi InvitationCode">我的邀请码：<text>{{userinfo.Invitationcode}}</text><view class="copybtn" data-InvitationCode="{{userinfo.Invitationcode}}" bindtap="onCopy">点击复制</view></view> 
+  </view>
+  <view class="HotCommodity">
+    <view class="title">热门商品兑换</view>
+    <view class="Hc_body">
+      <navigator wx:for="{{SuggestShopping}}" wx:key="{{index}}"  url="/pages/shopping/shoppinginfos?id={{SuggestShopping[index].id}}" hover-class="none" open-type="navigate">
+        <view class="Hc_b_l">
+            <view class='t'>{{SuggestShopping[index].title}}</view>
+            <view class='j'>{{SuggestShopping[index].integral}}积分</view>
+        </view>
+        <view class="Hc_b_r">
+         <image src="{{SuggestShopping[index].litpic}}" mode="widthFix"></image>
+        </view>
+      </navigator>
+    </view>
+    <navigator url='/pages/shopping/shopping' class="title">更多兑换 ></navigator>
+  </view>
+  <template is="foot" />
+</view>
+<view wx:else class="weui-loadmore">
+    <icon class="weui-loading"/> 
+    <text class="weui-loadmore__tips">正在加载</text>
+</view>

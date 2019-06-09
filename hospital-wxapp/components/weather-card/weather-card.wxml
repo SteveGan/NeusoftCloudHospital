@@ -1,0 +1,42 @@
+<!--components/weather-card/weather-card.wxml-->
+<!--天气-->
+<view class="margin shadow-md padding radius-lg animation-slide-bottom {{weatherClass == ''?'bg-white':weatherClass + '-bg'}}" bindtap="toggleShowMoreForecast">
+  <view class="main-card-item">
+    <view class='text-lg text-right'>
+      <text class="icon-location">{{weather == null?'天气加载中...':'沈阳市 | '+weather.forecast[0].type}} </text>
+    </view>
+    <view class="margin" style='display: block' wx:if="{{weather == null}}">
+      <view class='loading'>
+        <van-loading />
+      </view>
+    </view>
+    <view class="margin-top" style='display: block' wx:else>
+      <view class='margin-bottom'>
+        <view class="margin-top text-right">
+          <text class="text-xsl"> {{weather.wendu}}</text>
+          <text class="text-xl">°C  \n</text>
+          <text class='text-lg'> {{weather.forecast[0].low}} | {{weather.forecast[0].high}}</text>
+        </view>
+        <view class="weather-pic {{weatherClass}}"></view>
+      </view>
+      <view class='margin-top'>
+        <text class='icon-info'> {{weather.ganmao}} 点击{{showMoreForecast?'隐藏':'查看'}}今起五日预报。</text>
+      </view>
+      <!--七日预报-->
+      <view wx:if="{{showMoreForecast}}">
+        <view class='padding-top' wx:for="{{weather.forecast}}" wx:for-item="day" wx:key>
+          <view class='text-lg'>
+            <text class='icon-titles'>{{day.date}} | {{day.type}} \n </text>
+          </view>
+          <view class='text-lg padding-left'>
+            <text class='text-center'> {{day.high}} | {{day.low}} | {{day.fengxiang}} \n</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<demo-block title="天气" padding>
+  <van-action-sheet show="{{ show }}" actions="{{ actions }}" title="「沈阳市区」未来五日天气预报" bind:close="toggleActionSheet2" bind:cancel="toggleActionSheet2" bind:select="toggleActionSheet2" />
+</demo-block>

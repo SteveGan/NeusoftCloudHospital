@@ -13,8 +13,8 @@
           <div class="search-bar">
             <el-input placeholder="搜索内容" class="input-with-select">
               <el-select slot="prepend" placeholder="病历号" class="select-box" style="width: 100px;">
-                <el-option  label="病历号" value="0"></el-option>
-                <el-option  label="用户ID" value="1"></el-option>
+                <el-option label="病历号" value="0"></el-option>
+                <el-option label="用户ID" value="1"></el-option>
               </el-select>
               <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>

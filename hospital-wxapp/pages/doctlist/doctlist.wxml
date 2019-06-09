@@ -1,0 +1,33 @@
+<!--doctlist.wxml-->
+<view class="container">
+  <import src="/pages/public.wxml"/>
+  <view class="banner">
+    <image src="{{listinfo[diagnosisType].banner}}"  mode="widthFix"></image>
+  </view>
+  <view class="doctlist clear">
+    <view class="list-title">{{listinfo[diagnosisType].title}}</view>
+    
+    <view class="doct-li" wx:for="{{doctlist}}" wx:key="index">
+      <view class="d-l-face"><image src="{{doctlist[index].doctorface}}"></image></view>
+      <view class="d-l-body">
+        <view class="d-l-b-head">
+          <view class="d-l-b-h-name">{{doctlist[index].doctorName}}</view>
+          <view class="d-l-b-h-shorttitle">{{doctlist[index].doctorTitle}}</view>
+        </view>
+        <view class="d-l-b-content">{{doctlist[index].doctorSkill}}...</view>
+        <view class="d-l-b-btn">
+          <navigator url="/pages/doctinfo/doctinfo?doctid={{doctlist[index].id}}" class="ysxq" open-type="navigate" hover-class="navigator-hover">医生详情</navigator>
+          <navigator url="/pages/online/online?docttype={{diagnosisType}}&doctid={{index}}" class="yygh" open-type="navigate" hover-class="other-navigator-hover">预约挂号</navigator>
+        </view>
+      </view>
+    </view>
+    <!--doct-li end-->
+    
+    <view style="clear: both;"></view>
+    <view bindtap="onLoadMoreDoctList" wx:if="{{is_more}}" class="more">查看更多</view>
+    <view wx:if="{{is_loadnull}}"  class="loadnull"><text>暂无数据</text></view>
+  </view>
+  <!--doctlist end-->
+<template is="hospitalinfo" />
+<template is="foot" />
+</view>
