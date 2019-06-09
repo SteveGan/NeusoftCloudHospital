@@ -18,14 +18,15 @@
     <result column="assist_diagnose" property="assistDiagnose" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="patientCaseInfo" type="HashMap" >
-      <result column="narrate" property="narrate" jdbcType="VARCHAR" />
-      <result column="cur_disease" property="curDisease" jdbcType="VARCHAR" />
-      <result column="cur_treat_condition" property="curTreatCondition" jdbcType="VARCHAR" />
-      <result column="past_disease" property="pastDisease" jdbcType="VARCHAR" />
-      <result column="allergy" property="allergy" jdbcType="VARCHAR" />
-      <result column="physical_condition" property="physicalCondition" jdbcType="VARCHAR" />
-      <result column="assist_diagnose" property="assistDiagnose" jdbcType="VARCHAR" />
-    </resultMap>
+  <result column="narrate" property="narrate" jdbcType="VARCHAR" />
+  <result column="cur_disease" property="curDisease" jdbcType="VARCHAR" />
+  <result column="cur_treat_condition" property="curTreatCondition" jdbcType="VARCHAR" />
+  <result column="past_disease" property="pastDisease" jdbcType="VARCHAR" />
+  <result column="allergy" property="allergy" jdbcType="VARCHAR" />
+  <result column="physical_condition" property="physicalCondition" jdbcType="VARCHAR" />
+  <result column="assist_diagnose" property="assistDiagnose" jdbcType="VARCHAR" />
+</resultMap>
+  
 
 
   <insert id="insert" parameterType="PatientCase" >
@@ -181,8 +182,6 @@
           status = #{status}, assist_diagnose = #{assistDiagnose}
       where registration_id = #{caseId}
   </update>
-
-
 
   <delete id="deletePatientCaseById">
       delete from patient_case where registration_id = #{registrationId}

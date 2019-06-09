@@ -3,6 +3,7 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationse
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.DiseaseMapper;
+import com.neuedu.hospitalbackend.model.po.DiagnoseTemplate;
 import com.neuedu.hospitalbackend.model.po.Disease;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseTemplateParam;
@@ -38,17 +39,17 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
             return CommonResult.fail(ResultCode.E_806);
         //一个常用诊断下可以有多个疾病
         for(DiagnoseParam diagnoseParam: diagnoseParams){
-            String diseaseIcdCode = diagnoseParam.getDiseaseIcdCode();
-            Disease disease = diseaseMapper.getDiseaseByIcdCode(diseaseIcdCode);
+            String diseaseIcdCode = diagnoseParam.getIcdCode();
+            HashMap disease = diseaseMapper.getDiseaseByIcdCode(diseaseIcdCode);
             if(disease == null)
                 return CommonResult.fail(ResultCode.E_800);
             Byte type;
-            if(disease.getName().equals("中医疾病"))
+            if(disease.get("type").equals("中医疾病"))
                 type = 0;
             else
                 type = 1;
 
-            count = diagnoseTemplateMapper.insert(diseaseIcdCode, disease.getName(), type, roleId, name);
+            count = diagnoseTemplateMapper.insert(diseaseIcdCode, (String)disease.get("diseaseName"), type, roleId, name);
 
             if(count <= 0)
                 return CommonResult.fail(ResultCode.E_802);
@@ -88,27 +89,24 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
         List<String> existedDiseaseIcdCodes = diagnoseTemplateMapper.listDiseaseIcdCodesByTemplateName(newName); //该集合已存在的疾病
         for(DiagnoseParam diagnoseParam: diagnoseParams) {
             //若该诊断已存该疾病不更新
-            if(existedDiseaseIcdCodes.contains(diagnoseParam.getDiseaseIcdCode())) {
-                existedDiseaseIcdCodes.remove(diagnoseParam.getDiseaseIcdCode());
-                System.out.println("rrrrrrrrrrrrrrrrrrrrrr   "+existedDiseaseIcdCodes.size());
+            if(existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())) {
+                existedDiseaseIcdCodes.remove(diagnoseParam.getIcdCode());
             }
             //若该诊断不存在该诊断，要求更新，则增加该疾病
-             else if (!existedDiseaseIcdCodes.contains(diagnoseParam.getDiseaseIcdCode())) {
-                Disease disease = diseaseMapper.getDiseaseByIcdCode(diagnoseParam.getDiseaseIcdCode());
-                System.out.println("nameeeeeeeeeeeeeeeeeeeeeeeeeeeeee   "+disease.getIcdCode() +" "+disease.getName());
+             else if (!existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())) {
+                HashMap disease = diseaseMapper.getDiseaseByIcdCode(diagnoseParam.getIcdCode());
                 Byte type;
-                if(disease.getType().equals("中医疾病"))
+                if(disease.get("type").equals("中医疾病"))
                     type = 0;
                 else
                     type = 1;
                 //插入数据库
-                count = diagnoseTemplateMapper.insert(diagnoseParam.getDiseaseIcdCode(), disease.getName(), type, roleId, newName);
+                count = diagnoseTemplateMapper.insert(diagnoseParam.getIcdCode(), (String)disease.get("diseaseName"), type, roleId, newName);
                 if (count <= 0)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
             }
 
         }
-        System.out.println("lllllllllllllllllllllll   "+existedDiseaseIcdCodes.size());
         //若该诊断已存该疾病，但更新内容中无该疾病，则删除该疾病
         while(!existedDiseaseIcdCodes.isEmpty()) {
             for (String leftDiseaseIcdCode : existedDiseaseIcdCodes)
@@ -138,6 +136,31 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
         return CommonResult.success(returnJson);
     }
 
+    /**
+     * 删除
+     * 删除常用诊断
+     * @param roleId,diagnoseTemplateName
+     * @return
+     */
+    public CommonResult deleteMyDiagnoseTemplate(Integer roleId, String diagnoseTemplateName){
+        int count = 0;
+        //参数验证
+        if(roleId == null || diagnoseTemplateName == null)
+            CommonResult.fail(ResultCode.E_801);
+        DiagnoseTemplate diagnoseTemplate = diagnoseTemplateMapper.getDiagnoseTemplateByName(diagnoseTemplateName);
+        if(diagnoseTemplate == null)
+            CommonResult.fail(ResultCode.E_801);//名称不存在
+        //权限验证
+        if(roleId != diagnoseTemplate.getRoleId())
+            return CommonResult.fail(ResultCode.E_804);
 
+        //删除该名称下所有常用诊断疾病
+        count = diagnoseTemplateMapper.deleteByName(diagnoseTemplateName);
+
+        if(count > 0 )
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
+    }
 
 }

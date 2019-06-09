@@ -11,7 +11,7 @@ import java.util.List;
 public interface DiagnoseMapper {
 
     int insertSelective(Diagnose diagnose);
-    int deleteByDiseaseIcdCode(String diseaseIcdCoded);
+    int deleteByCaseIdAndDiseaseIcdCode(@Param("caseId") Integer caseId, @Param("diseaseIcdCoded") String diseaseIcdCoded);
     int updateExisted(@Param("diseaseIcdCode") String diseaseIcdCode, @Param("startTime") String startTime,
                       @Param("isFirstDiagnosed") Boolean isFirstDiagnosed);
     List<String> listDiseaseIcdCodesByCaseId(Integer caseId);

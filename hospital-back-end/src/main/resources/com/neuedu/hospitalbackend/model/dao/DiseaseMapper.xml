@@ -10,6 +10,13 @@
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="type" property="type" jdbcType="VARCHAR" />
     </resultMap>
+    <resultMap id="DiseaseInfo" type="HashMap" >
+        <result column="id" property="id" jdbcType="SMALLINT" />
+        <result column="icd_code" property="icdCode" jdbcType="VARCHAR" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="name" property="diseaseName" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+    </resultMap>
     <select id="get" resultMap="BaseResultMap" parameterType="Short">
         select id, icd_code, code, name, type from disease where id = #{id}
     </select>
@@ -32,19 +39,19 @@
         where icd_code = #{icdCode}
     </select>
 
-    <select id="ListChineseDisease" resultMap = "BaseResultMap">
+    <select id="ListChineseDisease" resultMap = "DiseaseInfo">
         select *
         from disease
         where type = '中医疾病'
     </select>
 
-    <select id="ListWesternDisease" resultMap = "BaseResultMap">
+    <select id="ListWesternDisease" resultMap = "DiseaseInfo">
         select *
         from disease
         where type != '中医疾病'
     </select>
 
-    <select id="getDiseaseByIcdCode" resultType="com.neuedu.hospitalbackend.model.po.Disease">
+    <select id="getDiseaseByIcdCode" resultType="HashMap">
         select *
         from disease
         where icd_code = #{icdCode}

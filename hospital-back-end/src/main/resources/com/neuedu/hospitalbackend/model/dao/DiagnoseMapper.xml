@@ -91,10 +91,10 @@
     where disease_id = #{diseaseIcdCode}
   </update>
 
-  <delete id="deleteByDiseaseIcdCode">
+  <delete id="deleteByCaseIdAndDiseaseIcdCode">
     delete
     from diagnose
-    where disease_id = #{diseaseIcdCoded}
+    where case_id = #{caseId} and disease_id = #{diseaseIcdCoded}
   </delete>
 
 </mapper>

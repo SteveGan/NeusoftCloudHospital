@@ -3,8 +3,8 @@ package com.neuedu.hospitalbackend.model.vo;
 
 public class DiagnoseParam {
 
-    private String diseaseIcdCode; //疾病icd编码
-    private String startTimeStr; //发病时间
+    private String icdCode; //疾病icd编码
+    private String startTime; //发病时间
 
     private String diseaseName; //疾病名称
 
@@ -17,19 +17,19 @@ public class DiagnoseParam {
         this.diseaseName = diseaseName;
     }
 
-    public String getDiseaseIcdCode() {
-        return diseaseIcdCode;
+    public String getIcdCode() {
+        return icdCode;
     }
 
-    public void setDiseaseIcdCode(String diseaseIcdCode) {
-        this.diseaseIcdCode = diseaseIcdCode;
+    public void setIcdCode(String icdCode) {
+        this.icdCode = icdCode;
     }
 
-    public String getStartTimeStr() {
-        return startTimeStr;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setStartTimeStr(String startTimeStr) {
-        this.startTimeStr = startTimeStr;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 }
