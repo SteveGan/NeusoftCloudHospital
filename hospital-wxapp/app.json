@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/about/about",
+    "pages/me/me",
+    "pages/online/online",
+    "pages/user/user",
+    "pages/doctlist/doctlist"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "color": "#404040",
+    "selectedColor": "#404040",
+    "list": [
+      {
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home@select.png",
+        "pagePath": "pages/index/index",
+        "text": "主页"
+      },
+      {
+        "iconPath": "images/tabbar/user.png",
+        "selectedIconPath": "images/tabbar/user@select.png",
+        "pagePath": "pages/me/me",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "top-bar": "components/top-bar/top-bar",
+    "card-title": "components/card-title/card-title",
+    "weather-card": "components/weather-card/weather-card",
+    "empty-state": "components/empty-state/empty-state"
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -2,7 +2,6 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationse
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseMapper;
-import com.neuedu.hospitalbackend.model.dao.DiseaseMapper;
 import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
 import com.neuedu.hospitalbackend.model.po.Diagnose;
 import com.neuedu.hospitalbackend.model.po.PatientCase;
@@ -11,7 +10,6 @@ import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,8 +25,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
     private PatientCaseMapper patientCaseMapper;
     @Resource
     private DiagnoseMapper diagnoseMapper;
-    @Resource
-    private DiseaseMapper diseaseMapper;
+
 
 
     /**
@@ -74,21 +71,27 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             return CommonResult.fail(ResultCode.E_801);//医生角色参数异常
 
         //病历
-        PatientCase patientCase = patientCaseMapper.getPatientCase(caseId);
+        HashMap patientCase = patientCaseMapper.getPatientCaseInfo(caseId);
         if(patientCase == null)
             return CommonResult.fail(ResultCode.E_801);//参数异常
-        if(doctorRoleId.compareTo(patientCase.getRoleId()) == 1)
-            return CommonResult.fail(ResultCode.E_804);//权限异常
-        returnJson.put("patientCase", patientCase);
+//        returnJson.put("patientCase", patientCase);
+        returnJson.put("narrate",  patientCase.get("narrate"));
+        returnJson.put("curTreatCondition", patientCase.get("curTreatCondition"));
+        returnJson.put("assistDiagnose",  patientCase.get("assistDiagnose"));
+        returnJson.put("curDisease",  patientCase.get("curDisease"));
+        returnJson.put("allergy",  patientCase.get("allergy"));
+        returnJson.put("pastDisease",  patientCase.get("pastDisease"));
+        returnJson.put("physicalCondition",  patientCase.get("physicalCondition"));
+
         //诊断
         List<HashMap> diagnoses = diagnoseMapper.listDiagnosesDetailByCaseId(caseId);
         returnJson.put("diagnoses", diagnoses);
         if(diagnoses.size() != 0) {
             String type = String.valueOf(diagnoses.get(0).get("type"));
             if (type.equals("中医疾病"))
-                returnJson.put("diagnoseType", "中医诊断");//中医
+                returnJson.put("diagnoseType", 0);//中医
             else
-                returnJson.put("diagnoseType", "西医诊断");//西医
+                returnJson.put("diagnoseType", 1);//西医
         }
 
         return CommonResult.success(returnJson);
@@ -126,7 +129,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         String pastDisease = patientCaseParam.getPastDisease();
         String allergy = patientCaseParam.getAllergy();
         String physicalCondition = patientCaseParam.getPhysicalCondition();
-        String assistDiagnose = patientCaseParam.getAssistantInspection();
+        String assistDiagnose = patientCaseParam.getAssistDiagnose();
         List<DiagnoseParam> diagnoses = patientCaseParam.getDiagnoses();
 
         //参数检查
@@ -168,17 +171,15 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             }
         }
         //若数据库已存该诊断，但不再暂存/提交，则删除该诊断
-        int temp = 0;
         while(!existedDiseaseIcdCodes.isEmpty()) {
-            System.out.println(++temp);
             for (String leftDiseaseIcdCode : existedDiseaseIcdCodes) {
                 count = diagnoseMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
                 if (count <= 0)
                     return CommonResult.fail(ResultCode.E_803);//删除失败
             }
         }
-        return CommonResult.success(count);
 
+        return CommonResult.success(count);
     }
 
     /**

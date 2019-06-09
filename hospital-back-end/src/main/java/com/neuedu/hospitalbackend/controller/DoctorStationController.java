@@ -1,8 +1,6 @@
 package com.neuedu.hospitalbackend.controller;
 
-import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
-import com.neuedu.hospitalbackend.model.vo.ProjectParam;
-import com.neuedu.hospitalbackend.model.vo.TemplateParam;
+import com.neuedu.hospitalbackend.model.vo.*;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PatientCaseTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
@@ -25,6 +23,9 @@ public class DoctorStationController {
     private ProjectCollectionManagementService projectCollectionManagementService;
     @Resource
     private PatientCaseTemplateService patientCaseTemplateService;
+    @Resource
+    private DiagnoseTemplateService diagnoseTemplateService;
+
 
     @ApiOperation("获取所有待诊、已诊患者列表")
     @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET)
@@ -60,13 +61,58 @@ public class DoctorStationController {
         return preliminaryCaseService.clearPatientCase(caseId);
     }
 
-    //TODO 测试
-    @ApiOperation("病历存为模板")
+
+    @ApiOperation("存为病历模板")
     @RequestMapping(value = "/casetemplate/preservation", method = RequestMethod.POST)
-    public CommonResult savePatientCaseTemplate(@RequestBody TemplateParam templateParam)
+    public CommonResult savePatientCaseTemplate(@RequestBody PatientCaseTemplateParam patientCaseTemplateParam)
     {
-        return patientCaseTemplateService.saveAsCaseTemplate(templateParam);
+        return patientCaseTemplateService.saveAsCaseTemplate(patientCaseTemplateParam);
     }
+
+    @ApiOperation("修改病历模板")
+    @RequestMapping(value = "/casetemplate/modification", method = RequestMethod.PUT)
+    public CommonResult modifyPatientCaseTemplate(@RequestBody PatientCaseTemplateParam patientCaseTemplateParam)
+    {
+        return patientCaseTemplateService.modifyPatientCaseTemplate(patientCaseTemplateParam);
+    }
+
+    @ApiOperation("显示病历模板")
+    @RequestMapping(value = "/casetemplate/list/{id}", method = RequestMethod.GET)
+    public CommonResult listPatientCaseTemplate(@PathVariable(value = "id") Integer roleId)
+    {
+        return patientCaseTemplateService.listPatientCaseTemplate(roleId);
+    }
+
+    @ApiOperation("删除病历模板")
+    @RequestMapping(value = "/casetemplate/deletion/{roleId}/{caseTemplateId}", method = RequestMethod.GET)
+    public CommonResult deletePatientCaseTemplate(@PathVariable(value = "roleId") Integer roleId, @PathVariable(value = "caseTemplateId") Integer caseTemplateId)
+    {
+        return patientCaseTemplateService.deletePatientCaseTemplate(roleId, caseTemplateId);
+    }
+
+    @ApiOperation("创建常用诊断")
+    @RequestMapping(value = "/diagnosetemplate/preservation", method = RequestMethod.POST)
+    public CommonResult saveDiagnoseTemplate(@RequestBody DiagnoseTemplateParam diagnoseTemplateParam)
+    {
+        return diagnoseTemplateService.saveDiagnoseTemplate(diagnoseTemplateParam);
+    }
+
+    @ApiOperation("修改常用诊断")
+    @RequestMapping(value = "/diagnosetemplate/modification", method = RequestMethod.PUT)
+    public CommonResult modifyDiagnoseTemplate(@RequestBody DiagnoseTemplateParam diagnoseTemplateParam)
+    {
+        return diagnoseTemplateService.modifyDiagnoseTemplate(diagnoseTemplateParam);
+    }
+
+    @ApiOperation("查询常用诊断")
+    @RequestMapping(value = "/diagnosetemplate/list/{roleId}", method = RequestMethod.GET)
+    public CommonResult listMyDiagnoseTemplate(@PathVariable Integer roleId)
+    {
+        return diagnoseTemplateService.listMyDiagnoseTemplate(roleId);
+    }
+
+
+
 
     //TODO 测试
     @ApiOperation("申请检查项目")

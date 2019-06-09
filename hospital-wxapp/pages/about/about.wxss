@@ -1,0 +1,16 @@
+/* about.wxss */
+
+.about {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 1em;
+  padding: 0 3% 1em;
+}
+
+.main .main1-head {
+  width: 100%;
+}
+
+image{
+  width: 750rpx;
+}

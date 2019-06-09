@@ -54,7 +54,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if(2 == projectType)
             patients = examinationMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName, departmentId);
         else
-            return CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_801);//科室类型异常
         returnObject.put("patients", patients);
         return CommonResult.success(returnObject);
     }
@@ -86,7 +86,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if(2 == projectType)
             projects = examinationMapper.listAppliedProjectsByCaseId(caseId, departmentId);
         else
-            return CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         //timestamp格式转换为datetime
         for(HashMap project: projects)
@@ -130,7 +130,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if(2 == projectType)
             count = examinationMapper.checkInProject(collectionId, projectId, doctorRoleId);
         else
-            return CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         if(count > 0)
             return CommonResult.success(count);
@@ -167,7 +167,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if(2 == projectType)
             count = examinationMapper.cancelProject(collectionId, projectId);
         else
-            return CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         if(count > 0)
             return CommonResult.success(count);
@@ -201,7 +201,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if (2 == projectType)
             projects = examinationMapper.listCheckedInButNotRecordedProject(caseId, departmentId);
         else
-            return CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         returnJson.put("projects", projects);
         return CommonResult.success(returnJson);
@@ -237,7 +237,7 @@ public class TechProjectServiceImpl implements TechProjectService {
         else if (2 == projectType)
             count = examinationMapper.recordResult(collectionId, projectId, resultDescription, resultImage, advice);
         else
-            return CommonResult.fail(ResultCode.E_800);//科室类型异常
+            return CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         return CommonResult.success(count);
     }

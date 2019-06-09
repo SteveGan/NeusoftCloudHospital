@@ -4,7 +4,7 @@
     <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover">
       <div slot="header">
         <span>挂号</span>
-        <el-button style="float:right" type="text" icon="el-icon-document-add" @click="registerApi">挂号</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-document-add" @click="confirmation">挂号</el-button>
         <el-button style="float:right" type="text" icon="el-icon-toilet-paper">补打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-printer">重打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-refresh-right" @click="refresh">清屏</el-button>
@@ -97,68 +97,99 @@
     <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover">
       <div slot="header">
         <span>挂号信息列表</span>
-        <el-button style="float:right" type="text" icon="el-icon-refresh">刷新</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-refresh" @click="refreshRegistration">刷新</el-button>
       </div>
       <!-- 挂号信息表 -->
       <div class="">
-        <el-table
-          :data="tableData"
-          style="width: 100%">
-          <el-table-column
-            type="selection"
-            width="55">
+        <el-table :data="registrationsInfo.refundedRegistrations" style="width: 100%" stripe 
+        :default-sort = "{prop: 'id', order: 'descending'}">
+          <el-table-column type="expand" fixed="left">
+            <template slot-scope="props">
+              <el-form label-position="left" class="demo-table-expand">
+                <el-form-item label="患者ID">
+                  <span>{{ props.row.patient.patientId }}</span>
+                </el-form-item>                
+                <el-form-item label="患者住址">
+                  <span>{{ props.row.patient.address }}</span>
+                </el-form-item>
+                <el-form-item label="出生日期">
+                  <span>{{ props.row.patient.birthday }}</span>
+                </el-form-item>
+              </el-form>
+
+              <el-form label-position="right" class="demo-table-expand">
+                <el-form-item label="看诊日期">
+                  <span>{{ props.row.appointmentDate }}</span>
+                </el-form-item>
+                <el-form-item label="看诊时段">
+                  <span>{{ props.row.timeSlot }}</span>
+                </el-form-item>                
+                <el-form-item label="看诊医生">
+                  <span>{{ props.row.roleId }}</span>
+                </el-form-item>
+                <el-form-item label="是否购买病历本">
+                  <span>{{ props.row.buyCaseBook }}</span>
+                </el-form-item>
+              </el-form>              
+            </template>
           </el-table-column>
+
           <el-table-column
-            fixed="left"
-            label="病历号">
+            fixed="left" sortable
+            label="病历号" prop="id">
           </el-table-column>
+
           <el-table-column
-            fixed="left"
-            label="姓名">
-          </el-table-column
-            label="出生日期">
-          <el-table-column
-            label="身份证号">
+            label="姓名" prop="patient.name" fixed="left">
           </el-table-column>
+
           <el-table-column
-            label="发票号">
+            label="性别" prop="patient.gender"  width="50">
           </el-table-column>
+
           <el-table-column
-            label="结算类别">
+            label="挂号员" prop="cashierId"  width="100">
           </el-table-column>
+
           <el-table-column
-            label="挂号级别">
+            label="身份证号" prop="patient.idCard" width="150">
           </el-table-column>
+
           <el-table-column
-            label="挂号日期">
+            label="发票号" prop="transactionLog.invoiceCode" width="110">
           </el-table-column>
+
           <el-table-column
-            label="看诊日期">
+            label="结算类别" prop="payType">
           </el-table-column>
+
           <el-table-column
-            label="是否已诊">
+            label="挂号级别" prop="registrationLevelId">
           </el-table-column>
-          <el-table-column
-            label="是否收取病历本">
+
+          <el-table-column sortable
+            label="挂号日期" prop="gmtCreate" width="100">
           </el-table-column>
+
           <el-table-column
-            label="状态">
+            label="是否已诊" prop="normal">
           </el-table-column>
+
           <el-table-column
-            label="实收">
+            label="看诊科室" prop="departmentId">
           </el-table-column>
+
           <el-table-column
-            label="看诊科室">
+            label="实收" prop="totalFee" width="50">
           </el-table-column>
-          <el-table-column
-            fixed="right"
-            label="操作"
-            width="120">
+
+          <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
-              <el-button
-                type="text"
-                size="small">
+              <el-button type="text" size="small" v-if="scope.row.normal">
                 退号
+              </el-button>
+              <el-button type="text" disabled size="small" v-if="!scope.row.normal">
+                已退号
               </el-button>
             </template>
           </el-table-column>
@@ -202,7 +233,8 @@ export default {
 
       departments: [],
       doctors: [],
-      available: true
+      available: true,
+      registrationsInfo: []
     }
   },
   computed: {
@@ -219,6 +251,15 @@ export default {
   },
 
   methods: {
+    // 退号
+    withdrawal() {
+
+    },
+
+    refreshRegistration() {
+      this.registrations();
+    },
+    
     // 刷新，用于清屏按钮及挂号成功后
     refresh() {
       this.registrationForm.idCard="";
@@ -269,10 +310,10 @@ export default {
     },
 
     // 挂号
-    registerApi(registrationForm) {
+    confirmation(registrationForm) {
       const currentRoleId = this.$store.getters['user/currentRoleId'];
       this.registrationForm.cashierId = currentRoleId;
-      register.registerApi(this.registrationForm).then(response => {
+      register.confirmation(this.registrationForm).then(response => {
         console.log(response.data)
 
         if(response.data.code===200){
@@ -292,6 +333,7 @@ export default {
       console.log(result);
       if(result){
         register.listAvailableDoctors(this.registrationForm).then(response => {
+        console.log("显示所有可选医生列表:")
         const data = response.data.data.availableDoctors
         this.doctors = data;
         console.log(this.docters)
@@ -333,7 +375,19 @@ export default {
       }
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
-    } 
+    },
+
+    // 显示所有挂号信息列表
+    registrations() {
+      register.registrations().then(response => {
+        console.log("显示所有挂号信息列表:")
+        console.log(response.data)
+        const data = response.data.data
+        this.registrationsInfo = data;
+      }).catch(error => {
+        // alert("get error")
+      })
+    }
   },
 
   mounted() {
@@ -350,6 +404,9 @@ export default {
     })
     // 默认设置看诊日期为今天
     this.registrationForm.appointmentDateStr=this.getNowFormatDate();
+
+    // 显示所有挂号信息列表
+    this.registrations();
   }
 
 }
@@ -361,5 +418,19 @@ export default {
 }
 .date-selection{
   width: 100%;
+}
+
+/*展开行*/
+.demo-table-expand {
+    font-size: 0;
+  }
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
 }
 </style>

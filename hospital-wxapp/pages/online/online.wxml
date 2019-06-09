@@ -1,0 +1,43 @@
+<!--online.wxml-->
+<view class="container">
+  <import src="/pages/public.wxml"/>
+  <view class="online-head">
+    <image src="https://xcx.yzw0525.com/images/online_01.jpg"></image>
+  </view>
+  <form bindsubmit="MyfromSubmit" report-submit="true">
+  <view class="Myfrom clear">
+    <view class="form-text">
+      <label>您的姓名：</label>
+      <input type="text" placeholder="仅用于预约使用" name="patients" maxlength="32" placeholder-class="input-placeholder" class="from-input" />
+    </view>
+    <view class="form-text">
+      <label>您的电话：</label>
+      <input type="text" placeholder="仅用于预约使用" name="tel" maxlength="32" placeholder-class="input-placeholder" class="from-input" />
+    </view>
+    <view class="form-text">
+      <label>预约日期：</label>
+      <picker mode="date" value="{{today}}" start="{{today}}" name="yydate"  bindchange="bindDateChange" class="from-input" >
+        <view class="dateoption">
+          {{today}}
+        </view>
+      </picker>
+    </view>
+    <view class="form-text">
+      <label>预约专家：</label>
+      <picker mode="selector" bindchange="bindDoctorChange" name="yydoctor" value="{{doctlist[index].doctorName}}" range="{{doctlist}}" range-key="doctorName" class="from-input" >
+          <view class="dateoption">
+            {{doctlist[index].doctorName}}
+          </view>
+        </picker>
+    </view>
+  </view>
+  <view class="form-textarea">
+      <textarea maxlength="200" name="content" placeholder-class="input-placeholder" placeholder="（非必填）可简单描述您的症状或者病情" />
+  </view>
+  <view class="form-submit">
+      <button size="default" loading="{{loading}}" class="online-submit" form-type="submit">加密提交</button>
+  </view>
+  </form>
+  <template is="hospitalinfo" />
+  <template is="foot" />
+</view>

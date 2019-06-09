@@ -1,0 +1,125 @@
+/**app.wxss**/
+@import 'weui.wxss';
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+@import "colorui/animation.wxss";
+@import "assets/font/bahnschrift.wxss";
+
+page {
+  font-family: 'Bahnschrift' !important;
+  font-size: 10pt;
+  line-height: 150%;
+  min-height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background-color: #f1f1f1;
+}
+
+.myContainer {
+  min-height: calc(100vh - 92rpx);
+  padding-bottom: 92rpx;
+  position: relative;
+}
+
+/* 自定义导航栏 */
+
+/* 导航栏 */
+
+.navigationBar {
+  display: flex;
+  align-items: center;
+}
+
+/* 用户头像 */
+
+.userAvatar {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 30rpx;
+}
+
+/* 搜索框 */
+
+.seach-container {
+  width: calc(100% - 30px - 166px);
+  border-radius: 30px;
+  height: 30px;
+  line-break: 30px;
+  background-color: #f0f4f7;
+  margin-left: 30rpx;
+  padding-left: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  color: #9aa0af;
+}
+
+.input-text {
+  font-size: 24rpx;
+  width: 100%;
+}
+
+.input-icon {
+  font-weight: bold;
+  position: absolute;
+  left: 16rpx;
+  margin: auto;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.card-border-view {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  border-radius: 15rpx;
+  color: #000;
+  margin-top: 0rpx;
+}
+
+.card-border-view-no-padding {
+  margin: 10rpx;
+  border-radius: 15rpx;
+}
+
+icon {
+  vertical-align: middle;
+}
+/* 下方 */
+.card-list {
+  margin: 20rpx;
+}
+
+.card {
+  box-shadow: 4rpx 4rpx 10rpx #ddd;
+  border-radius: 0.2rem;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.shadow-md {
+  box-shadow: 0rpx 0rpx 30rpx 0rpx rgba(0, 0, 0, 0.07) !important;
+}
+
+.radius-lg {
+  border-radius: 20rpx;
+}
+
+.grid.col-5>navigator {
+  width: 20%;
+}
+
+.grid.col-3>button {
+  width: 33.33%;
+}
+
+.grid.col-3>navigator {
+  width: 33.33%;
+}

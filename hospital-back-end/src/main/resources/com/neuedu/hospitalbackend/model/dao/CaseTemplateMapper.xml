@@ -10,26 +10,24 @@
     <result column="narrate" property="narrate" jdbcType="VARCHAR" />
     <result column="cur_disease" property="curDisease" jdbcType="VARCHAR" />
     <result column="physical_condition" property="physicalCondition" jdbcType="VARCHAR" />
-    <result column="curTreatCondition" property="curTreatCondition" jdbcType="VARCHAR" />
-    <result column="pastDisease" property="pastDisease" jdbcType="VARCHAR" />
+    <result column="cur_treat_condition" property="curTreatCondition" jdbcType="VARCHAR" />
+    <result column="past_disease" property="pastDisease" jdbcType="VARCHAR" />
     <result column="allergy" property="allergy" jdbcType="VARCHAR" />
-    <result column="assistDiagnose" property="assistDiagnose" jdbcType="VARCHAR" />
+    <result column="assist_diagnose" property="assistDiagnose" jdbcType="VARCHAR" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.CaseTemplate" >
-    insert into case_template (id, role_id, department_id, 
+    insert into case_template ( role_id, department_id,
       name, scope, narrate, 
       cur_disease, physical_condition,
       cur_treat_condition, past_disease,
-      allergy, assist_diagnose,
-      gmt_create, gmt_modified)
-    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, 
+      allergy, assist_diagnose)
+    values (#{roleId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER},
       #{name,jdbcType=VARCHAR}, #{scope,jdbcType=TINYINT}, #{narrate,jdbcType=VARCHAR}, 
       #{curDisease,jdbcType=VARCHAR}, #{physicalCondition,jdbcType=VARCHAR},
       #{curTreatCondition,jdbcType=VARCHAR}, #{pastDisease,jdbcType=VARCHAR},
-      #{allergy,jdbcType=VARCHAR}, #{assistDiagnose,jdbcType=VARCHAR},
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+      #{allergy,jdbcType=VARCHAR}, #{assistDiagnose,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.CaseTemplate" >
     insert into case_template
@@ -122,4 +120,47 @@
       </if>
     </trim>
   </insert>
+
+  <select id="getPatientCaseTemplateByName" resultMap = "BaseResultMap">
+      select *
+      from case_template
+      where name = #{name}
+  </select>
+
+  <select id="getNameById" resultType="String">
+    select name
+    from case_template
+    where id = #{id}
+  </select>
+
+  <update id="update" >
+    update case_template
+    set name = #{name}, scope = #{scope},
+      narrate = #{narrate}, cur_disease = #{curDisease},
+      physical_condition = #{physicalCondition},
+      cur_treat_condition = #{curTreatCondition},
+      past_disease = #{pastDisease}, allergy = #{allergy},
+      assist_diagnose = #{assistDiagnose}
+    where id = #{id}
+  </update>
+
+  <select id="listAvailableByRoleId" resultMap="BaseResultMap">
+    select *
+    from case_template
+    where role_id = #{roleId} or (scope = 2 and department_id = #{departmentId}) or scope = 3
+  </select>
+
+  <select id="getRoleIdById" resultType="Integer">
+    select role_id
+    from case_template
+    where id = #{id}
+  </select>
+
+  <delete id="deleteById">
+    delete
+    from case_template
+    where id = #{id}
+  </delete>
+
+
 </mapper>

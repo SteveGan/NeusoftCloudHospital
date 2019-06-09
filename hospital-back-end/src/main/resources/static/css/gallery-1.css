@@ -1,0 +1,231 @@
+/*	Gallery 1
+/*----------------------------------------------------*/
+
+/* Gallery Item
+ * -------------------------- */
+ 
+#isotope-gallery-container .col-md-3 {
+    margin-right: -1px;
+}
+
+.gallery-item-wrapper {
+    padding-bottom: 25px;
+}
+.gallery-item {
+    overflow: hidden;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    border-radius: 3px;
+}
+.flush .gallery-item {
+    border-radius: 0;
+}
+.gallery-item .gallery-thumb {
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-item .gallery-thumb img {
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.gallery-item:hover .gallery-thumb img {
+    transform: scale(1.1);
+}
+
+.gallery-item .gallery-thumb .image-overlay {
+    background-color: #2c3e50;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.gallery-item:hover .gallery-thumb .image-overlay {
+    opacity: 0.50;
+    filter: alpha(opacity=50);
+}
+
+.gallery-item .gallery-thumb .gallery-zoom, .gallery-item .gallery-thumb .gallery-link {
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    background-color: #2c3e50;
+    display: none;
+    line-height: 45px;
+    position: absolute;
+    top: 50%;
+    margin-top: -22px;
+    padding-top: 1px;
+    font-size: 18px;
+    color: #fff;
+    display: block;
+    border-radius: 2px;
+}
+
+.gallery-item .gallery-thumb .gallery-zoom:hover, .gallery-item .gallery-thumb .gallery-link:hover {
+    background-color: #02bcf5;
+    color: #ffffff;
+}
+
+.gallery-item .gallery-thumb .gallery-zoom:focus, .gallery-item .gallery-thumb .gallery-link:focus {
+	outline: none;
+}
+
+.gallery-item .gallery-thumb .gallery-link {
+    right: 0;
+    margin-right: -45px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.gallery-item .gallery-thumb .gallery-zoom {
+    left: 0;
+    margin-left: -45px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.gallery-item:hover .gallery-thumb .gallery-zoom {
+    display: block;
+    left: 56%;
+    margin-left: -48px;
+    border-radius: 50%;
+}
+
+.gallery-item:hover .gallery-thumb .gallery-link {
+    display: block;
+    right: 50%;
+    margin-right: -48px;
+}
+
+.gallery-item .gallery-details {
+    text-align: center;
+    padding-top: 20px;
+    background-color: #fff;
+    bor der: 2px solid #ecf0f1;
+    border-top: 0;
+    overflow: hidden;
+}
+
+.gallery-item .gallery-details h5 {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 700;
+    position: relative;
+}
+
+.gallery-item .gallery-details p {
+    font-size: .9em;
+}
+
+
+/* Gallery Filter
+ * -------------------------- */
+.filter {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 60px 0;
+    text-align: center;
+}
+.filter li {
+    display: inline-block;
+    margin: 0;
+}
+.filter li:before {
+    display: inline-block;
+    content: "/";
+    padding: 0 25px 0 19px;
+    color: rgba(0,0,0,0.20);
+}
+.filter li:first-child:before {
+    display: none;
+}
+.filter li a {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    color: #2c3e50;
+}
+.filter li a:hover,
+.filter li a:focus,
+.filter li a.active {
+    color: #10cdff;
+    text-decoration: none;
+}
+
+/* Isotope Animating
+ * -------------------------- */
+.isotope,
+.isotope .isotope-item {
+  /* change duration value to whatever you like */
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -ms-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+}
+
+.isotope {
+    -webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    -ms-transition-property: height, width;
+    -o-transition-property: height, width;
+    transition-property: height, width;
+}
+
+.isotope .isotope-item {
+    -webkit-transition-property: -webkit-transform, opacity;
+    -moz-transition-property: -moz-transform, opacity;
+    -ms-transition-property: -ms-transform, opacity;
+    -o-transition-property: -o-transform, opacity;
+    transition-property: transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+    -webkit-transition-duration: 0s;
+    -moz-transition-duration: 0s;
+    -ms-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
+}
+
+
+
+
+
+/*	Gallery 1 MEDIA QUERIES
+/*----------------------------------------------------*/
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	
+		
+	
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	
+
+	
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	
+	
+	
+}
+

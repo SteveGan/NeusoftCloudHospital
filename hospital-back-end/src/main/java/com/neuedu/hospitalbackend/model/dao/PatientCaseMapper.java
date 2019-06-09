@@ -22,7 +22,7 @@ public interface PatientCaseMapper {
     List<HashMap> listWaitedPatients(Integer doctorRoleId);
     List<HashMap> listPatientsByCaseIdOrName(@Param("doctorRoleId") Integer doctorRoleId, @Param("caseId") Integer caseId,
                                                     @Param("patientName") String patientName);
-    PatientCase getPatientCase(Integer caseId);
+    HashMap getPatientCaseInfo(Integer caseId);
     int getPatientCaseStatus(Integer caseId);
     int updatePatientCase(@Param("caseId") Integer caseId, @Param("narrate") String narrate, @Param("curDisease") String curDisease,
                                @Param("curTreatCondition") String curTreatCondition, @Param("pastDisease") String pastDisease,

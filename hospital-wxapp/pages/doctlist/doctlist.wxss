@@ -1,0 +1,21 @@
+/* doctlist.wxss */
+.doctlist{width: 100%;margin: 1em auto;background-color: #fff;padding:0% 3%;}
+.doctlist .list-title{line-height: 2.5em;font-size: 1.4em;color: #000;padding-left: 10%;position: relative;border-bottom: 1px #eeeeee solid;}
+.doctlist .list-title::before{content: "";display: block; width: 2em;height: 2em;background: url(https://xcx.yzw0525.com/images/doctlist_04.svg) no-repeat center;position: absolute;left: 0;top: 0.3em;background-size: 80%;}
+.doct-li{width: 100%; margin-top: 15px;float: left;border-bottom: #eeeeee solid 1px;}
+.doct-li .d-l-face{width: 7em;height: 7em;border-radius: 5em;overflow:hidden;border:#34ace9 1px solid;float: left;margin-top: 10px;}
+.doct-li .d-l-body{padding-left: 8em;margin-top: 5px;}
+.doct-li .d-l-body .d-l-b-head{line-height: 2em;font-size: 1.4em;color: #333;height:2em;box-sizing: border-box;}
+.doct-li .d-l-body .d-l-b-head::after{content: "";display: block; width: 0;height: 0;clear: both;}
+.d-l-b-head .d-l-b-h-name{float: left;padding: 0 5px;margin-right: 1em;}
+.d-l-b-head .d-l-b-h-shorttitle{float: left;color: #2790fb;border: 1px solid #2790fb;box-sizing: border-box;line-height: 1.6em;padding: 0 5px;border-radius: 5px;margin-top: 0.2em;font-size:0.9em;}
+.doct-li .d-l-body .d-l-b-content{font-size: 30rpx;line-height: 40rpx;color: #888;}
+.doct-li .d-l-body .d-l-b-btn{height: 2.5em;line-height: 2.5em;}
+.doct-li .d-l-body .d-l-b-btn navigator{display: block;width: 34%;margin: 1em 5%;float: left;line-height: 80rpx;text-align: center;border-radius: 5px;color: #fff;font-size: 30rpx;position: relative;padding-left: 6%;}
+.doct-li .d-l-body .d-l-b-btn navigator::before{content: ""; width: 40rpx;height: 40rpx;position: absolute;top: 20rpx;left: 7%;display: block;background-size: 100%;background-repeat: no-repeat;}
+.doct-li .d-l-body .d-l-b-btn navigator.ysxq{background-color:#f7a23c;}
+.doct-li .d-l-body .d-l-b-btn navigator.ysxq::before{background-image:url(https://xcx.yzw0525.com/images/doctlist_08.svg);}
+.doct-li .d-l-body .d-l-b-btn navigator.yygh{background-color:#39cdac;}
+.doct-li .d-l-body .d-l-b-btn navigator.yygh::before{background-image:url(https://xcx.yzw0525.com/images/doctlist_09.svg);}
+.doctlist .more{display: block; line-height: 2em;font-size: 1.3em;text-align: center;color: #bfa78b;position: relative;margin:auto;}
+.doctlist .more::after{content: ""; width: 1.2em;height: 1.2em;position: absolute;top: 0.65em;right: 50%;display: block;background-image:url(https://xcx.yzw0525.com/images/index_16.svg);background-size: 100%;background-repeat: no-repeat;margin-right:-3.5em;}
