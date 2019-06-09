@@ -12,7 +12,7 @@
   </resultMap>
   <resultMap id="DiagnoseInfo" type="HashMap" >
     <result column="start_time" property="startTime" jdbcType="DATE" />
-    <result column="dis_icd_code" property="iCDCode" jdbcType="VARCHAR"/>
+    <result column="dis_icd_code" property="icdCode" jdbcType="VARCHAR"/>
     <result column="dis_name" property="diseaseName" jdbcType="VARCHAR"/>
   </resultMap>
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Diagnose" >

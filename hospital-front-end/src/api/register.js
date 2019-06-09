@@ -62,11 +62,11 @@ export default {
   },
   
   // 退号
-  withdrawal(registrationForm) {
+  withdrawal(transferData) {
     return request({
       url: '/registration-withdrawal/withdrawal',
       method: 'post',
-      data: registrationForm
+      data: transferData
     })
   }
 }

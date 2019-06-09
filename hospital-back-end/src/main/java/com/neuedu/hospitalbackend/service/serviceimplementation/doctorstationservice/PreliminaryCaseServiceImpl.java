@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationservice;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseMapper;
 import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
@@ -64,6 +65,8 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
     @Override
     public CommonResult getPatientCaseInfo(Integer doctorRoleId, Integer caseId){
         JSONObject returnJson = new JSONObject();
+        JSONArray traditionalDiagnose = new JSONArray();
+        JSONArray modernDiagnose = new JSONArray();
 
         if(caseId == null)
             return CommonResult.fail(ResultCode.E_801);//病历号参数异常
@@ -83,17 +86,25 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         returnJson.put("pastDisease",  patientCase.get("pastDisease"));
         returnJson.put("physicalCondition",  patientCase.get("physicalCondition"));
 
-        //诊断
         List<HashMap> diagnoses = diagnoseMapper.listDiagnosesDetailByCaseId(caseId);
-        returnJson.put("diagnoses", diagnoses);
         if(diagnoses.size() != 0) {
+            //诊断类型
             String type = String.valueOf(diagnoses.get(0).get("type"));
-            if (type.equals("中医疾病"))
-                returnJson.put("diagnoseType", 0);//中医
-            else
-                returnJson.put("diagnoseType", 1);//西医
+            if (type.equals("中医疾病")) {
+                //中医诊断疾病
+                returnJson.put("diagnoseType", 0);
+                for(HashMap diagnose: diagnoses)
+                    traditionalDiagnose.add(diagnose);
+            }
+            else {
+                //西医诊断疾病
+                returnJson.put("diagnoseType", 1);
+                for(HashMap diagnose: diagnoses)
+                    traditionalDiagnose.add(diagnose);
+            }
         }
-
+        returnJson.put("traditionalDiagnose", traditionalDiagnose);
+        returnJson.put("modernDiagnose", modernDiagnose);
         return CommonResult.success(returnJson);
     }
 
