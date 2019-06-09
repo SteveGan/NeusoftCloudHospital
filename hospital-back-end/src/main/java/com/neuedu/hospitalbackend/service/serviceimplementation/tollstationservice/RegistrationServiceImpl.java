@@ -118,6 +118,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                 //检查患者是否已在本系统中
                 int count3 = 0;
                 Integer patientId = patientMapper.getPatientByIdCard(registrationParam.getIdCard());
+                System.out.println("patientId" + patientId);
                 if (patientId == null) {
                     Patient patient = new Patient();
                     patient.setIdCard(registrationParam.getIdCard());
@@ -134,7 +135,8 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
                     patient.setId(patientId);
                     patient.setAddress(registrationParam.getAddress());
                     patient.setName(registrationParam.getName());
-                    patientMapper.updatePatientInfo(patient);
+                    count3 = patientMapper.updatePatientInfo(patient);
+                    jsonObject.put("getPatient", count3);
                 }
 
                 transactionLog.setPatientId(patientId);

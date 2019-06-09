@@ -15,6 +15,7 @@ public interface RegistrationMapper {
     int insertSelective(Registration registration);
     Integer getNextId();
     int updateSelective(Registration registration);
+    //列出指定用户的挂号信息
     Registration getRegistrationInfo(Integer registrationId);
     int updateStatusById(@Param("registrationId") Integer registrationId);
     //列出 所有未退号 信息列表

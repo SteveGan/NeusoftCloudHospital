@@ -213,11 +213,17 @@
 
     <update id="updateSelectiveAsReturned" parameterType="TransactionLog">
         update transaction_log set status = 3
-        where collection_id = #{collectionId}
+        where collection_id = #{collectionId} and invoice_code = #{invoiceCode}
     </update>
 
     <select id="listCollectionProjectInfo" resultMap="BaseResultMap">
         select * from transaction_log
-        where collection_id = #{collectionId}
+        where collection_id = #{collectionId} and invoice_code = #{invoiceCode}
+    </select>
+
+    <select id="getInvoiceCodeAndStatusByRegistrationId" resultMap="ItemResultMap">
+        select distinct invoice_code, collection_id, status
+        from transaction_log
+        where registration_id = #{registrationId} and (status = 1 or status = 2 or status = 3)
     </select>
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface RecipeMapper {
 
-    int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+    int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("status") Byte status);
+    int updateAmount(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("returnAmount") Short returnAmount);
     Byte selectStatusByCollectionAndProjectId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 }

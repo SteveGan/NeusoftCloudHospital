@@ -51,7 +51,7 @@
     </update>
 
     <update id="updateStatus">
-        update treatment set status = 3
+        update treatment set status = #{status}
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 

@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
@@ -39,18 +40,30 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public CommonResult listTransactionLogs(Integer registrationId) {
+        List<HashMap> invoiceCollection = transactionLogMapper.getInvoiceCodeAndStatusByRegistrationId(registrationId);
+        Map<String, List<HashMap>> result = new HashMap<>();
+        List<HashMap> logs = new ArrayList<>();
+        logs.add(transactionLogMapper.getRegistrationLog(registrationId));
+        logs.addAll(transactionLogMapper.listLogsByTableName("inspection", registrationId));
+        logs.addAll(transactionLogMapper.listLogsByTableName("examination", registrationId));
+        logs.addAll(transactionLogMapper.listLogsByTableName("treatment", registrationId));
+        logs.addAll(transactionLogMapper.getRecipeLogs(registrationId));
+        for(HashMap log: logs){
+            System.out.println("log" + log);
+            for(HashMap t: invoiceCollection){
+                if(log.get("invoiceCode").equals(t.get("invoiceCode"))){
+                    if(result.containsKey(t.get("invoiceCode")))
+                        result.get(t.get("invoiceCode")).add(log);
+                    else{
+                        result.put((String) t.get("invoiceCode"), new ArrayList<>());
+                        result.get(t.get("invoiceCode")).add(log);
+                    }
+                }
+            }
+        }
         JSONObject jsonObject = new JSONObject();
-        //显示患者挂号的缴费记录
-        HashMap registrationLog = transactionLogMapper.getRegistrationLog(registrationId);
-        List<HashMap> examinationLogs = transactionLogMapper.listLogsByTableName("examination", registrationId);
-        List<HashMap> inspectionLogs = transactionLogMapper.listLogsByTableName("inspection", registrationId);
-        List<HashMap> treatmentLogs = transactionLogMapper.listLogsByTableName("treatment", registrationId);
-        List<HashMap> recipeLogs = transactionLogMapper.getRecipeLogs(registrationId);
-        jsonObject.put("registrationLog", registrationLog);
-        jsonObject.put("examinationLogs", examinationLogs);
-        jsonObject.put("inspectionLogs", inspectionLogs);
-        jsonObject.put("treatmentLogs", treatmentLogs);
-        jsonObject.put("recipeLogs", recipeLogs);
+        jsonObject.put("invoiceCollection", invoiceCollection);
+        jsonObject.put("transactionLogs", result);
         return CommonResult.success(jsonObject);
     }
 
@@ -93,14 +106,17 @@ public class PaymentServiceImpl implements PaymentService {
             }
             // 得到集合的类别（检验、检查、处置、药方）
             Byte itemCategory = returnedProjectList.get(0).getItemCategory();
+            //得到退费项目所在集合的发票号
+            String originalInvoiceCode = returnedProjectList.get(0).getInvoiceCode();
 
             // 先判断collection中的项目是否都为可退状态，如果有一项不可退，则返回给前端，提示重新选择
             for(TransactionParam project: returnedProjectList){
-                if (project.getStatus() == 2)
+                if (project.getStatus() == 2){
                     if ( !((project.getItemCategory() != 4 && project.getItemStatus() == 2)
                             || (project.getItemCategory() == 4 && project.getItemStatus() == 5)
                             || (project.getItemCategory() == 4 && project.getItemStatus() == 2))){
                         CommonResult.fail(E_704);
+                    }
                 }
                 else
                     CommonResult.fail(E_704);
@@ -110,26 +126,27 @@ public class PaymentServiceImpl implements PaymentService {
             for(TransactionParam project: returnedProjectList){
                 switch (itemCategory){
                     case 1:
-                        inspectionMapper.updateStatus(project.getCollectionId(), project.getProjectId());
+                        inspectionMapper.updateStatus(project.getCollectionId(), project.getProjectId(), (byte) 3);
                         break;
                     case 2:
-                        examinationMapper.updateStatus(project.getCollectionId(), project.getProjectId());
+                        examinationMapper.updateStatus(project.getCollectionId(), project.getProjectId(), (byte) 3);
                         break;
                     case 3:
-                        treatmentMapper.updateStatus(project.getCollectionId(), project.getProjectId());
+                        treatmentMapper.updateStatus(project.getCollectionId(), project.getProjectId(), (byte) 3);
                         break;
                     case 4:
-                        recipeMapper.updateStatus(project.getCollectionId(), project.getProjectId());
+                        //如果药品本身是已退药的状态,则无需更改对应药品状态
+                        //如果药品本身是开立（未取药）的状态, 则需更改对应处方中药品的return amount
+                        recipeMapper.updateAmount(project.getCollectionId(), project.getProjectId(), project.getReturnAmount());
                         break;
                 }
             }
 
-            // 得到 退费的项目所在第一层级的 缴费记录
-            List<TransactionLog> transactionLogs = transactionLogMapper.listCollectionProjectInfo(collectionId);
+            // 得到 退费的项目所在第一层级的(同一个发票号、同一个collectionId） 缴费记录
+            List<TransactionLog> transactionLogs = transactionLogMapper.listCollectionProjectInfo(collectionId, originalInvoiceCode);
             // 更改 退费的项目所在第一层级的 相关缴费记录状态（即检验单B中的所有项目）--已退费
-            transactionLogMapper.updateSelectiveAsReturned(collectionId);
+            transactionLogMapper.updateSelectiveAsReturned(collectionId,originalInvoiceCode);
 
-            String originalInvoiceCode = transactionLogs.get(0).getInvoiceCode();
             String reverseInvoiceCode = null;
             String newInvoiceCode = null;
             //向缴费表中添加 退费的项目所在第一层级的 冲正记录（即检验单B中的所有项目） --冲正，
@@ -177,36 +194,31 @@ public class PaymentServiceImpl implements PaymentService {
                         for(TransactionParam returnedProject: returnedProjectList){
                             if (returnedProject.getProjectId() == transactionLog.getProjectId()){
                                 Short returnAmount = returnedProject.getReturnAmount();
-                                BigDecimal newTotalFee = new BigDecimal(returnAmount).multiply(
-                                        medicineMapper.getUnitPrizeById(returnedProject.getProjectId()));
-                                transactionLog.setId(null);
-                                transactionLog.setInvoiceCode(newInvoiceCode);
-                                transactionLog.setAmount((short) ((short)transactionLog.getAmount() - returnAmount));
-                                transactionLog.setStatus((byte)2);
-                                transactionLog.setTotalMoney(newTotalFee);
-                                CommonResult insertNewResult = transactionService.insertTransactionLog(transactionLog);
-                                if (insertNewResult.getCode() == 500)
-                                    return insertNewResult;
+                                if(returnAmount != returnedProject.getAmount()){
+                                    BigDecimal newTotalFee = new BigDecimal(returnAmount).multiply(
+                                            medicineMapper.getUnitPrizeById(returnedProject.getProjectId()));
+                                    transactionLog.setId(null);
+                                    transactionLog.setInvoiceCode(newInvoiceCode);
+                                    transactionLog.setAmount((short) ((short)transactionLog.getAmount() - returnAmount));
+                                    transactionLog.setStatus((byte)2);
+                                    transactionLog.setTotalMoney(newTotalFee);
+                                    CommonResult insertNewResult = transactionService.insertTransactionLog(transactionLog);
+                                    if (insertNewResult.getCode() == 500)
+                                        return insertNewResult;
+                                }
                             }
                         }
                     }
                 }
-
-                //向异常表中添加新的记录
-                CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
-                        originalInvoiceCode, newInvoiceCode, reverseInvoiceCode, transactionLogs.get(0).getRoleId(), "项目退费" );
-                if (insertExceptionResult.getCode() == 500)
-                    return insertExceptionResult;
-                else
-                    return CommonResult.success(null);
             }
+
+            //向异常表中添加新的记录
+            CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
+                    originalInvoiceCode, newInvoiceCode, reverseInvoiceCode, transactionLogs.get(0).getRoleId(), "项目退费" );
+            if (insertExceptionResult.getCode() == 500)
+                return insertExceptionResult;
         }
-        return null;
+        return CommonResult.success(transactionLogParams.size());
     }
-
-
-
-
-
 
 }

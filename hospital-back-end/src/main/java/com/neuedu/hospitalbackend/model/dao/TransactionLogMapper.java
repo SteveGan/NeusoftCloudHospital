@@ -23,8 +23,10 @@ public interface TransactionLogMapper {
     ////列出 指定病历号的药方 缴费记录
     List<HashMap> getRecipeLogs(Integer registrationId);
     //更改 退费的项目所在第一层级的 相关缴费记录状态 --已退费
-    int updateSelectiveAsReturned(Integer collectionId);
+    int updateSelectiveAsReturned(Integer collectionId, @Param("invoiceCode") String invoiceCode);
     //列出 退费的项目所在第一层级的 缴费记录
-    List<TransactionLog> listCollectionProjectInfo(Integer collectionId);
+    List<TransactionLog> listCollectionProjectInfo(@Param("collectionId") Integer collectionId, @Param("invoiceCode") String invoiceCode);
+    //列出指定用户的所有发票号、项目单号、缴费状态
+    List<HashMap> getInvoiceCodeAndStatusByRegistrationId(Integer registrationId);
 
 }

@@ -84,7 +84,7 @@
     </insert>
 
     <select id="getPatientByIdCard" resultType="integer">
-        select id_card from patient where id_card = #{idCard}
+        select id from patient where id_card = #{idCard}
     </select>
 
     <select id="getNextId" resultType="integer">
