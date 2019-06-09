@@ -1,9 +1,9 @@
-package com.neuedu.hospitalbackend.model.po;
+package com.neuedu.hospitalbackend.model.vo;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 
-public class Recipe {
+public class RecipeParam {
 
     private Integer id;
 
@@ -25,13 +25,11 @@ public class Recipe {
 
     private Byte status;
 
+    private Byte transactionLogStatus;
+
     private Integer creatorRoleId;
 
     private Integer deliverRoleId;
-
-    private Date gmtCreate;
-
-    private Date gmtModified;
 
     public Integer getId() {
         return id;
@@ -78,7 +76,7 @@ public class Recipe {
     }
 
     public void setFrequency(String frequency) {
-        this.frequency = frequency == null ? null : frequency.trim();
+        this.frequency = frequency;
     }
 
     public String getDosageUnit() {
@@ -86,7 +84,7 @@ public class Recipe {
     }
 
     public void setDosageUnit(String dosageUnit) {
-        this.dosageUnit = dosageUnit == null ? null : dosageUnit.trim();
+        this.dosageUnit = dosageUnit;
     }
 
     public Short getAmount() {
@@ -113,6 +111,14 @@ public class Recipe {
         this.status = status;
     }
 
+    public Byte getTransactionLogStatus() {
+        return transactionLogStatus;
+    }
+
+    public void setTransactionLogStatus(Byte transactionLogStatus) {
+        this.transactionLogStatus = transactionLogStatus;
+    }
+
     public Integer getCreatorRoleId() {
         return creatorRoleId;
     }
@@ -127,21 +133,5 @@ public class Recipe {
 
     public void setDeliverRoleId(Integer deliverRoleId) {
         this.deliverRoleId = deliverRoleId;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 }

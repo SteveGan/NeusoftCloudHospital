@@ -26,12 +26,8 @@ public interface PaymentService {
      */
     CommonResult updateTransactionLogsAsPaid(List<TransactionLog> transactionLogList);
 
-//    /**
-//     *  在检查/检验/处置/药品表查找想要退费的项目状态
-//     * @param object 退费项目的collection_id, project_id
-//     * @return 退费的项目
-//     */
-//    Object getItem(Object object);
-
     CommonResult updateTransactionLogsAsReturned(List<TransactionParam> transactionLogParams);
+
+    CommonResult reprintTransactionLog(String invoiceCode);
+
 }

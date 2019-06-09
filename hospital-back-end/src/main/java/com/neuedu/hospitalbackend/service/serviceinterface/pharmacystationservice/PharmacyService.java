@@ -1,37 +1,30 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.pharmacystationservice;
 
-import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.Recipe;
+import com.neuedu.hospitalbackend.model.vo.RecipeParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 import java.util.List;
 
 public interface PharmacyService {
 
     /**
-     * 根据患者的病历号，查询相应的已缴费尚未发放的药品信息
-     * 两张表：transaction_log, recipe
-     * @param object 患者的病历号, T.collection_id, R.id, T.status, R.status
-     * @return 已缴费尚未发放的药品列表
-     */
-    List<Recipe> listPaidUndeliveredMedicine(JSONObject object);
-
-    /**
-     * 根据患者的病历号，查询开立的药品信息
-     * @param recipe
+     * 根据患者的病历号，查询开立的处方信息
+     * @param registrationId 病历号
      * @return
      */
-    List<Recipe> listPaidMedicine(Recipe recipe);
+    CommonResult listRecipeByRegistrationId(Integer registrationId);
 
     /**
-     * 更新对应的recipe记录
-     * @param recipe
+     * 执行发药操作
+     * @param recipeParams 需要缴费的项目列表
+     * @return
      */
-    void updateRecipe(Recipe recipe);
+    CommonResult deliverMedicine(List<RecipeParam> recipeParams);
 
     /**
-     * 更新对应药品的库存
-     * @param return_amount 退还药品的数量
-     * @param medicineCode 药品编码
+     * 执行退药操作
+     * @param recipeParams 需要退费的项目列表
+     * @return
      */
-    void updateInventory(int return_amount, String medicineCode);
+    CommonResult returnMedicine(List<RecipeParam> recipeParams);
 }

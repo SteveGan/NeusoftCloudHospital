@@ -28,5 +28,7 @@ public interface TransactionLogMapper {
     List<TransactionLog> listCollectionProjectInfo(@Param("collectionId") Integer collectionId, @Param("invoiceCode") String invoiceCode);
     //列出指定用户的所有发票号、项目单号、缴费状态
     List<HashMap> getInvoiceCodeAndStatusByRegistrationId(Integer registrationId);
+    //根据发票号得到缴费记录
+    List<TransactionLog> listLogsByInvoiceCode(String invoiceCode);
 
 }

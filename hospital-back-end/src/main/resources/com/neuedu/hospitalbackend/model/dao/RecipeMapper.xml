@@ -123,11 +123,6 @@
     </trim>
   </insert>
 
-  <update id="updateStatus">
-      update recipe set status = #{status}
-      where id = #{collectionId} and medicine_id = #{projectId}
-  </update>
-
   <update id="updateAmount">
       update recipe set return_amount = #{returnAmount}
       where id = #{collectionId} and medicine_id = #{projectId}
@@ -137,4 +132,50 @@
       select status from recipe
       where id = #{collectionId} and medicine_id = #{projectId}
   </select>
+
+
+  <resultMap id="AdditionalResultMap" type="HashMap" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="case_id" property="caseId" jdbcType="INTEGER" />
+    <result column="medicine_id" property="medicineId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="dosage" property="dosage" jdbcType="DECIMAL" />
+    <result column="frequency" property="frequency" jdbcType="VARCHAR" />
+    <result column="dosage_unit" property="dosageUnit" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="SMALLINT" />
+    <result column="return_amount" property="returnAmount" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="creator_role_id" property="creatorRoleId" jdbcType="INTEGER" />
+    <result column="deliver_role_id" property="deliverRoleId" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="transaction_log_status" property="transactionLogStatus" jdbcType="TINYINT"/>
+  </resultMap>
+
+  <select id="listRecipeByRegistrationId" resultMap="AdditionalResultMap">
+    select r.*, t1.status as transaction_log_status
+    from recipe r, transaction_log t1
+    where r.case_id = #{registrationId} and t1.registration_id = r.case_id
+    and t1.project_id = r.medicine_id and t1.collection_id = r.id and (t1.status = 1 or t1.status = 2 or t1.status = 3)
+    and t1.gmt_create >= all(SELECT t2.gmt_create
+                             from transaction_log t2
+                             where t2.project_id = r.medicine_id and t2.registration_id = r.case_id
+                             and t2.collection_id = r.id and (t2.status = 1 or t2.status = 2 or t2.status = 3))
+
+  </select>
+
+  <update id="updateStatus">
+    update recipe set status = #{status}
+    where id = #{collectionId} and medicine_id = #{medicineId}
+  </update>
+
+  <update id="updateStatusAndDeliverId">
+    update recipe set status = #{status}, deliver_role_id = #{deliverId}
+    where id = #{collectionId} and medicine_id = #{medicineId}
+  </update>
+
+  <update id="updateInventory">
+    update inventory set remaining_amount = remaining_amount - #{amount}
+    where medicine_id = #{medicineId}
+  </update>
 </mapper>

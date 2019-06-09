@@ -3,7 +3,7 @@ package com.neuedu.hospitalbackend.model.po;
 public class Inventory {
     private Integer id;
 
-    private String medicineCode;
+    private Integer medicineId;
 
     private Short remainingAmount;
 
@@ -15,12 +15,12 @@ public class Inventory {
         this.id = id;
     }
 
-    public String getMedicineCode() {
-        return medicineCode;
+    public Integer getMedicineId() {
+        return medicineId;
     }
 
-    public void setMedicineCode(String medicineCode) {
-        this.medicineCode = medicineCode == null ? null : medicineCode.trim();
+    public void setMedicineId(Integer medicineId) {
+        this.medicineId = medicineId;
     }
 
     public Short getRemainingAmount() {
