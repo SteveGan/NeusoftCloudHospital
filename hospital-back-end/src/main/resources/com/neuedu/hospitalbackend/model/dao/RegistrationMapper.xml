@@ -175,18 +175,25 @@
     where id = #{registrationId}
   </update>
 
-  <select id="listAllNormalRegistrationsInfo" resultMap="BaseResultMap">
-    select r.*, t.invoice_code, p.address, p.name, p.gender,p.id_card, p.birthday, pc.status
-    from registration r, patient p, transaction_log t, patient_case pc
-    where r.patient_id = p.id and r.id = pc.registration_id and r.id = t.registration_id
-    and  r.is_normal = 1  and t.type = "挂号费"
-  </select>
-  
-  <select id="listAllRefundedRegistrationInfo" resultMap="BaseResultMap">
+  <!--<select id="listAllNormalRegistrationsInfo" resultMap="BaseResultMap">-->
+    <!--select r.*, t.invoice_code, p.address, p.name, p.gender,p.id_card, p.birthday, pc.status-->
+    <!--from registration r, patient p, transaction_log t, patient_case pc-->
+    <!--where r.patient_id = p.id and r.id = pc.registration_id and r.id = t.registration_id-->
+    <!--and  r.is_normal = 1  and t.type = "挂号费"-->
+  <!--</select>-->
+  <!---->
+  <!--<select id="listAllRefundedRegistrationInfo" resultMap="BaseResultMap">-->
+    <!--select r.*, t.invoice_code, p.address, p.name, p.gender,p.id_card, p.birthday-->
+    <!--from registration r, patient p, transaction_log t-->
+    <!--where r.patient_id = p.id and t.registration_id = r.id-->
+    <!--and r.is_normal = 0 and t.type = "挂号费" and t.total_money > 0-->
+  <!--</select>-->
+
+  <select id="listAllRegistrationsInfo" resultMap="BaseResultMap">
     select r.*, t.invoice_code, p.address, p.name, p.gender,p.id_card, p.birthday
     from registration r, patient p, transaction_log t
     where r.patient_id = p.id and t.registration_id = r.id
-    and r.is_normal = 0 and t.type = "挂号费" and t.total_money > 0
+    and t.type = "挂号费" and t.total_money > 0
   </select>
 
 
