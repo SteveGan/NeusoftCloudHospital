@@ -172,11 +172,11 @@
           </el-table-column>
 
           <el-table-column
-            label="是否已诊" prop="normal">
+            label="是否已诊" prop="patientCase.status">
           </el-table-column>
 
           <el-table-column
-            label="看诊科室" prop="departmentId">
+            label="看诊科室" prop="patientCase.status">
           </el-table-column>
 
           <el-table-column
@@ -185,7 +185,7 @@
 
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
-              <el-button type="text" size="small" v-if="scope.row.normal">
+              <el-button type="text" size="small" v-if="scope.row.normal" @click="withdrawal(scope.row.id, scope.row.appointmentDate, scope.row.timeSlot, scope.row.roleId, scope.row.registrationLevelId, scope.row.departmentId)">
                 退号
               </el-button>
               <el-button type="text" disabled size="small" v-if="!scope.row.normal">
@@ -252,8 +252,17 @@ export default {
 
   methods: {
     // 退号
-    withdrawal() {
+    withdrawal(id) {
+      var transferData;
+      console.log(id);
 
+      // register.withdrawal(transferData).then(response => {
+      //   console.log(response.data)
+      //   const data = response.data.data
+      //   this.registrationForm.registrationId = data;
+      // }).catch(error => {
+        
+      // })
     },
 
     refreshRegistration() {
