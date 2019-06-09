@@ -101,7 +101,7 @@
       </div>
       <!-- 挂号信息表 -->
       <div class="">
-        <el-table :data="registrationsInfo.refundedRegistrations" style="width: 100%" stripe 
+        <el-table :data="registrationsInfo" style="width: 100%" stripe 
         :default-sort = "{prop: 'id', order: 'descending'}">
           <el-table-column type="expand" fixed="left">
             <template slot-scope="props">
@@ -176,7 +176,7 @@
           </el-table-column>
 
           <el-table-column
-            label="看诊科室" prop="patientCase.status">
+            label="看诊科室" prop="departmentId">
           </el-table-column>
 
           <el-table-column

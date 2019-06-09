@@ -11,34 +11,31 @@
         <div>
           <!-- 搜索栏 -->
           <div class="search-bar">
-            <el-input placeholder="搜索内容" class="input-with-select">
+            <el-input placeholder="搜索内容" class="input-with-select" v-model="input">
               <el-select slot="prepend" placeholder="病历号" class="select-box" style="width: 100px;">
                 <el-option label="病历号" value="0"></el-option>
                 <el-option label="用户ID" value="1"></el-option>
               </el-select>
-              <el-button slot="append" icon="el-icon-search"></el-button>
+              <el-button slot="append" icon="el-icon-search" @click="getpaymentInfo"></el-button>
             </el-input>
           </div>
           <!-- 患者基本信息 -->
           <div class="patient-info">
             <el-form ref="form" label-width="80px" label-position="left">
-              <el-form-item label="姓名">
-                <el-input></el-input>
+              <el-form-item label="姓名" :disabled="true">
+                <el-input v-model="patientInfo.name"></el-input>
               </el-form-item>
-              <el-form-item label="病历号">
-                <el-input></el-input>
+              <el-form-item label="身份证号">
+                <el-input v-model="patientInfo.idCard"></el-input>
               </el-form-item>
-              <el-form-item label="性别">
-                <el-input></el-input>
+              <el-form-item label="性别" :disabled="true">
+                <el-input v-model="patientInfo.gender"></el-input>
               </el-form-item>
-              <el-form-item label="年龄">
-                <el-input></el-input>
+              <el-form-item label="地址" :disabled="true">
+                <el-input v-model="patientInfo.address"></el-input>
               </el-form-item>
-              <el-form-item label="出生日期">
-                <el-input></el-input>
-              </el-form-item>
-              <el-form-item label="结算类别">
-                <el-input></el-input>
+              <el-form-item label="出生日期" :disabled="true">
+                <el-input v-model="patientInfo.birthday"></el-input>
               </el-form-item>
             </el-form>
           </div>
@@ -102,11 +99,32 @@
 </template>
 
 <script>
-import InvoiceCode from './InvoiceCode'
+import charge from '@/api/charge'
+
 export default {
   name: 'TollAdmin',
-  components: {
-    'invoice-code': InvoiceCode
+  data() {
+    return{
+      input: "",
+
+      patientInfo: "",
+      paymentInfo: ""
+    }
+  },
+
+  methods: {
+    getpaymentInfo(){
+      console.log(this.input)
+      charge.getpaymentInfo(this.input).then(response => {
+        console.log(response.data)
+        const data = response.data.data
+        this.patientInfo = data.patientInfo;
+        console.log(this.patientInfo)
+        this.paymentInfo = data.paymentInfo;
+      }).catch(error => {
+        
+      })
+    }
   }
 }
 </script>
