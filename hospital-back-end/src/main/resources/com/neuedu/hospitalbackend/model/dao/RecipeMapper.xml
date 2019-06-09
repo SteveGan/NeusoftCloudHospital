@@ -124,7 +124,12 @@
   </insert>
 
   <update id="updateStatus">
-      update recipe set status = 5
+      update recipe set status = #{status}
+      where id = #{collectionId} and medicine_id = #{projectId}
+  </update>
+
+  <update id="updateAmount">
+      update recipe set return_amount = #{returnAmount}
       where id = #{collectionId} and medicine_id = #{projectId}
   </update>
 

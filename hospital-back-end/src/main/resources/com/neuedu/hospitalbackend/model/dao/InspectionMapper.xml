@@ -77,7 +77,7 @@
     </select>
 
     <update id="updateStatus">
-        update inspection set status = 3
+        update inspection set status = #{status}
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 

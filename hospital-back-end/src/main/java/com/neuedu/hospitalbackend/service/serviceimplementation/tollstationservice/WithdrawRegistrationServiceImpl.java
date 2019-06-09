@@ -34,9 +34,7 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
 
     @Override
     public CommonResult getRegistrationInfo(Integer registrationId){
-        JSONObject jsonObject = new JSONObject();
         Registration registration = registrationMapper.getRegistrationInfo(registrationId);
-        String convert = ConstantMap.convert("看诊时间段", (byte)1);
         if (registration != null)
             return CommonResult.success(registration);
         else

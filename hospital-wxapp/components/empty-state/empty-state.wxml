@@ -1,0 +1,10 @@
+<!--components/empty-state-card/empty-state-card.wxml-->
+<view>
+  <view class="text-center text-sl padding">
+    <text class='icon-{{icon}}'></text>
+  </view>
+  <view class="text-center padding">
+    <text class='text-xl'>{{title}} \n</text>
+    <text class='text-lg'>{{description}}</text>
+  </view>
+</view>

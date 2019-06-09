@@ -1,0 +1,42 @@
+<!--components/library-borrow-record-card/library-borrow-record-card.wxml-->
+<view class="bg-white margin shadow-md radius-lg animation-slide-bottom padding" bindtap='showDetailRecord'>
+  <view class='text-lg'>
+    <text class='icon-read'> 图书借阅 </text>
+  </view>
+  <view wx:if="{{isLoading}}">
+    <view class='loading'>
+      <van-loading />
+    </view>
+  </view>
+  <view wx:else>
+    <navigator url="/pages/library_index/library_index">
+    <view wx:if="{{borrowRecordList.length!=0}}" style='margin: 30rpx'>
+      <view class="text-center padding">
+        <text class='text-lg'>共</text>
+        <text class='text-sl'>{{borrowRecordList.length}}</text>
+        <text class='text-lg'>本单册待还 \n</text>
+        <text class='text-gray'>点击{{showDetails?'收起':'展开'}}详情 \n</text>
+      </view>
+      <block wx:for="{{borrowRecordList}}" wx:key="{{index}}" wx:if="{{showDetails}}">
+        <view class="book">
+          <view class="text-lg">
+            <text class='icon-titles'> {{item.title}}</text>
+          </view>
+          <view class="text-gray">
+            <view>
+              <text class='icon-people'> {{item.author}}</text> | {{item.library}}
+            </view>
+            <view>
+              <text class='icon-time'> 到期时间 {{item.shouldDate}} </text>
+            </view>
+            <!-- <view wx:if="{{item.arrearage>0}}" class="warn">欠费: {{item.fine}}</view> -->
+          </view>
+        </view>
+      </block>
+    </view>
+    <view wx:else>
+      <empty-state title="当前没有任何在借单册" description="去图书馆借本书吧" icon="read"></empty-state>
+    </view>
+    </navigator>
+  </view>
+</view>

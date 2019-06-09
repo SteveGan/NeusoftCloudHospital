@@ -24,6 +24,6 @@ public interface TreatmentMapper {
 
     int cancelProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId);
 
-    int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+    int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("status") Byte status);
 
 }
