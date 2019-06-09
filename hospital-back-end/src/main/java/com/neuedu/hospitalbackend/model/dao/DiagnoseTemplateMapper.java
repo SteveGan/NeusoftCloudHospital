@@ -20,4 +20,6 @@ public interface DiagnoseTemplateMapper {
     int deleteByDiseaseIcdCode(String icdCode);
 
     List<HashMap> listMyDiagnoseTemplate(Integer roleId);
+
+    int deleteByName(String name);
 }

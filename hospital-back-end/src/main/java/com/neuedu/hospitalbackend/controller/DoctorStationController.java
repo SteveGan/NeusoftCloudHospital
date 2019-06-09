@@ -36,7 +36,8 @@ public class DoctorStationController {
 
     @ApiOperation("点击患者，查看病历首页")
     @RequestMapping(value = "/patientcaseinfo/{doctorRoleId}/{caseId}", method = RequestMethod.GET)
-    public CommonResult getPatientCaseInfo(@PathVariable(value = "doctorRoleId") Integer doctorRoleId, @PathVariable(value = "caseId") Integer caseId)
+    public CommonResult getPatientCaseInfo(@PathVariable(value = "doctorRoleId") Integer doctorRoleId,
+                                           @PathVariable(value = "caseId") Integer caseId)
     {
         return preliminaryCaseService.getPatientCaseInfo(doctorRoleId, caseId);
     }
@@ -85,7 +86,8 @@ public class DoctorStationController {
 
     @ApiOperation("删除病历模板")
     @RequestMapping(value = "/casetemplate/deletion/{roleId}/{caseTemplateId}", method = RequestMethod.GET)
-    public CommonResult deletePatientCaseTemplate(@PathVariable(value = "roleId") Integer roleId, @PathVariable(value = "caseTemplateId") Integer caseTemplateId)
+    public CommonResult deletePatientCaseTemplate(@PathVariable(value = "roleId") Integer roleId,
+                                                  @PathVariable(value = "caseTemplateId") Integer caseTemplateId)
     {
         return patientCaseTemplateService.deletePatientCaseTemplate(roleId, caseTemplateId);
     }
@@ -109,6 +111,15 @@ public class DoctorStationController {
     public CommonResult listMyDiagnoseTemplate(@PathVariable Integer roleId)
     {
         return diagnoseTemplateService.listMyDiagnoseTemplate(roleId);
+    }
+
+    //TODO 删除一个list
+    @ApiOperation("删除常用诊断")
+    @RequestMapping(value = "/diagnosetemplate/deletion/{roleId}/{templateId}", method = RequestMethod.DELETE)
+    public CommonResult deleteMyDiagnoseTemplate(@PathVariable(value = "roleId") Integer roleId,
+                                                 @PathVariable(value = "templateId") String diagnoseTemplateName)
+    {
+        return diagnoseTemplateService.deleteMyDiagnoseTemplate(roleId, diagnoseTemplateName);
     }
 
 

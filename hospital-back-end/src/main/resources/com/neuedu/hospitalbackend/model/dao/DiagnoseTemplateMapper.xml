@@ -116,5 +116,11 @@
       where role_id = #{roleId}
   </select>
 
+  <delete id="deleteByName">
+    delete
+    from diagnose_template
+    where name = #{name}
+  </delete>
+
 
 </mapper>

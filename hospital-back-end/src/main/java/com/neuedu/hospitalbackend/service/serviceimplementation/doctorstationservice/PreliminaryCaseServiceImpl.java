@@ -67,17 +67,17 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         JSONObject returnJson = new JSONObject();
         JSONArray traditionalDiagnose = new JSONArray();
         JSONArray modernDiagnose = new JSONArray();
-
+        //参数检验
         if(caseId == null)
             return CommonResult.fail(ResultCode.E_801);//病历号参数异常
         if(doctorRoleId == null)
             return CommonResult.fail(ResultCode.E_801);//医生角色参数异常
-
-        //病历
+        //病历信息
         HashMap patientCase = patientCaseMapper.getPatientCaseInfo(caseId);
         if(patientCase == null)
             return CommonResult.fail(ResultCode.E_801);//参数异常
 //        returnJson.put("patientCase", patientCase);
+        returnJson.put("caseId", caseId);
         returnJson.put("narrate",  patientCase.get("narrate"));
         returnJson.put("curTreatCondition", patientCase.get("curTreatCondition"));
         returnJson.put("assistDiagnose",  patientCase.get("assistDiagnose"));
@@ -85,7 +85,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         returnJson.put("allergy",  patientCase.get("allergy"));
         returnJson.put("pastDisease",  patientCase.get("pastDisease"));
         returnJson.put("physicalCondition",  patientCase.get("physicalCondition"));
-
+        //诊断信息
         List<HashMap> diagnoses = diagnoseMapper.listDiagnosesDetailByCaseId(caseId);
         if(diagnoses.size() != 0) {
             //诊断类型
@@ -163,7 +163,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         for(DiagnoseParam diagnoseParam: diagnoses) {
             //若数据库已存该诊断，且再次要求暂存/提交，则更新该诊断
             if (existedDiseaseIcdCodes.contains(diagnoseParam.getDiseaseIcdCode())) {
-                count = diagnoseMapper.updateExisted(diagnoseParam.getDiseaseIcdCode(), diagnoseParam.getStartTimeStr(), isFirstDiagnosed);
+                count = diagnoseMapper.updateExisted(diagnoseParam.getDiseaseIcdCode(), diagnoseParam.getStartTime(), isFirstDiagnosed);
                 if (count <= 0)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
                 existedDiseaseIcdCodes.remove(diagnoseParam.getDiseaseIcdCode());
@@ -173,7 +173,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
                 Diagnose diagnose = new Diagnose();
                 diagnose.setCaseId(caseId);
                 diagnose.setDiseaseId(diagnoseParam.getDiseaseIcdCode());
-                diagnose.setStartTime(Date.valueOf(diagnoseParam.getStartTimeStr()));
+                diagnose.setStartTime(Date.valueOf(diagnoseParam.getStartTime()));
                 diagnose.setIsFirstDiagnosed(isFirstDiagnosed);
                 //插入数据库
                 count = diagnoseMapper.insertSelective(diagnose);
@@ -184,7 +184,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         //若数据库已存该诊断，但不再暂存/提交，则删除该诊断
         while(!existedDiseaseIcdCodes.isEmpty()) {
             for (String leftDiseaseIcdCode : existedDiseaseIcdCodes) {
-                count = diagnoseMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
+                count = diagnoseMapper.deleteByCaseIdAndDiseaseIcdCode(caseId,leftDiseaseIcdCode);
                 if (count <= 0)
                     return CommonResult.fail(ResultCode.E_803);//删除失败
             }
@@ -216,7 +216,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             //删除诊断
             List<String> diseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId);
             for(String diseaseIcdCode : diseaseIcdCodes) {
-                count = diagnoseMapper.deleteByDiseaseIcdCode(diseaseIcdCode);
+                count = diagnoseMapper.deleteByCaseIdAndDiseaseIcdCode(caseId, diseaseIcdCode);
                 if(count <= 0)
                     return CommonResult.fail(ResultCode.E_803);//删除失败
             }
