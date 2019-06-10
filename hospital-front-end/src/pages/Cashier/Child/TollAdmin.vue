@@ -41,54 +41,96 @@
           </div>
         </div>
       </el-card>
+
+      <el-card shadow="hover">
+        <div slot="header">
+          <span>发票清单</span>
+        </div>
+
+        <el-table :data="invoiceCollection" stripe style="width: 100%">
+          <el-table-column type="index" label="序号">
+          </el-table-column>          
+          <el-table-column prop="invoiceCode" label="发票号" style="width: 100%">
+          </el-table-column>
+          <el-table-column prop="status" label="状态" style="width: 60%">
+          </el-table-column>
+        </el-table>      
+      </el-card>
     </div>
     <!-- 右侧显示列表，展示已交费和未交费项目 -->
     <div class="edit-board">
       <el-card shadow="hover">
         <div slot="header">
-          <span>查询结果</span>
+          <span>待缴费清单</span>
         </div>
         <!-- 主体区域 -->
         <div>
           <!-- 操作按钮 -->
           <div class="action-bar">
-            <el-button type="text" icon="el-icon-success">结算</el-button>
-            <el-button type="text" icon="el-icon-printer">发票重打印</el-button>
+            <el-button type="text" icon="el-icon-success" @click="charge">结算</el-button>
+          </div>
+          <!-- 缴费项目表 -->
+          <div class="列表">
+            <el-table :data="chargeItems" style="width: 100%" @selection-change="handleChargeSelectionChange">
+              <el-table-column type="selection" width="55">
+              </el-table-column>
+              <el-table-column label="发票号" prop="invoiceCode" width="110">
+              </el-table-column>
+              <el-table-column label="项目类型" prop="type">
+              </el-table-column>
+              <el-table-column label="项目名称" prop="id">
+              </el-table-column>
+              <el-table-column label="数量" prop="amount">
+              </el-table-column>
+              <el-table-column label="金额" prop="totalMoney">
+              </el-table-column>
+              <el-table-column label="开立时间" prop="usedTime(gmtCreate)">
+              </el-table-column>
+              <el-table-column label="缴费状态" prop="status">
+              </el-table-column>
+              <el-table-column label="开立状态" prop="itemStatus">
+              </el-table-column>
+              <el-table-column label="执行科室" prop="itemStatus">
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
+      </el-card>
+
+      <el-card shadow="hover">
+        <div slot="header">
+          <span>已缴费清单</span>
+        </div>
+        <!-- 主体区域 -->
+        <div>
+          <!-- 操作按钮 -->
+          <div class="action-bar">
+            <el-button type="text" icon="el-icon-success" @click="charge">退费</el-button>
+            <el-button type="text" icon="el-icon-printer">发票重印</el-button>
             <el-button type="text" icon="el-icon-printer">发票补打</el-button>
           </div>
           <!-- 缴费项目表 -->
           <div class="列表">
-            <el-table
-              ref="payItemTable"
-              style="width: 100%"
-            >
-              <el-table-column
-                type="selection"
-                width="55">
+            <el-table :data="withdrawItems" style="width: 100%" @selection-change="handleWithdrawSelectionChange">
+              <el-table-column type="selection" width="55">
               </el-table-column>
-              <el-table-column
-                label="项目名称">
+              <el-table-column label="发票号" prop="invoiceCode" width="110">
               </el-table-column>
-              <el-table-column
-                label="规格">
+              <el-table-column label="项目类型" prop="type">
               </el-table-column>
-              <el-table-column
-                label="单价">
+              <el-table-column label="项目名称" prop="id">
               </el-table-column>
-              <el-table-column
-                label="数量">
+              <el-table-column label="数量" prop="amount">
               </el-table-column>
-              <el-table-column
-                label="单位">
+              <el-table-column label="金额" prop="totalMoney">
               </el-table-column>
-              <el-table-column
-                label="付数">
+              <el-table-column label="开立时间" prop="usedTime(gmtCreate)">
               </el-table-column>
-              <el-table-column
-                label="金额">
+              <el-table-column label="缴费状态" prop="status">
               </el-table-column>
-              <el-table-column
-                label="执行科室">
+              <el-table-column label="开立状态" prop="itemStatus">
+              </el-table-column>
+              <el-table-column label="执行科室" prop="itemStatus">
               </el-table-column>
             </el-table>
           </div>
@@ -105,22 +147,73 @@ export default {
   name: 'TollAdmin',
   data() {
     return{
-      input: "",
+      input: "10000001",
 
-      patientInfo: "",
-      paymentInfo: ""
+      patientInfo: {},
+      invoiceCollection: [],
+      transactionLogs: {},
+      chargeItems: [],
+      withdrawItems: [],
+
+      chargeSelection: [],
+      withdrawSelection: []
+    }
+  },
+
+  computed: {
+    usedTime(gmtCreate){
+      return gmtCreate.substr(0,9)
     }
   },
 
   methods: {
+    charge() {
+      charge.charge(this.multipleSelection).then(response => {
+        console.log(response.data.data)
+      }).catch(error => {
+        
+      })
+    },
+
+    handleChargeSelectionChange(val) {
+      this.chargeSelection = val;
+    },
+
+    handleWithdrawSelectionChange(val) {
+      this.withdrawSelection = val;
+    },
+
     getpaymentInfo(){
       console.log(this.input)
       charge.getpaymentInfo(this.input).then(response => {
-        console.log(response.data)
-        const data = response.data.data
+        console.log(response.data.data)
+        const data = response.data.data;
         this.patientInfo = data.patientInfo;
-        console.log(this.patientInfo)
-        this.paymentInfo = data.paymentInfo;
+
+        this.invoiceCollection = data.paymentInfo.invoiceCollection;
+        this.transactionLogs = data.paymentInfo.transactionLogs;
+
+        // 选出待缴费项目用于缴费
+        for(var i=0; i<this.invoiceCollection.length;i++){
+          var temp = this.invoiceCollection[i].invoiceCode
+          if(this.invoiceCollection[i].status==1){
+            for(var j=0;j<this.transactionLogs[temp].length;j++){
+              this.chargeItems.push(this.transactionLogs[temp][j])
+            }
+          }
+        }
+        // 选出已缴费项目用于退费
+        for(var i=0; i<this.invoiceCollection.length;i++){
+          var temp = this.invoiceCollection[i].invoiceCode
+          if(this.invoiceCollection[i].status==2){
+            for(var j=0;j<this.transactionLogs[temp].length;j++){
+              if(this.transactionLogs[temp][j].type!="挂号费"){
+                this.withdrawItems.push(this.transactionLogs[temp][j])
+              }
+            }
+          }
+        }
+        console.log("end")
       }).catch(error => {
         
       })

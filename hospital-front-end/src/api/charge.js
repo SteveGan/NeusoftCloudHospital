@@ -9,4 +9,20 @@ export default {
       method: 'get'
     })
   },
+
+  charge(multipleSelection) {
+    return request({
+      url: 'payment/confirmation',
+      method: 'put',
+      data: multipleSelection
+    })
+  },
+
+  withdraw(multipleSelection) {
+    return request({
+      url: 'payment/withdrawal',
+      method: 'put',
+      data: multipleSelection
+    })
+  }
 }
