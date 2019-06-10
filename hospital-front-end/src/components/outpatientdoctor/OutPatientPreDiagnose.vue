@@ -11,9 +11,6 @@
         <el-button type="text" icon="el-icon-printer" round>打印</el-button>
         <el-button type="text" icon="el-icon-upload" @click="handleSubmit" round>提交</el-button>
       </el-card>
-      <p>traditionalDiagnose: {{currentCase.traditionalDiagnose}}</p>
-      <p>modernDiagnose: {{currentCase.modernDiagnose}}</p>
-      <p>selectedModDiagnoses:{{selectedModDiagnoses}}</p>
       <!-- 操作 -->
       <div class="">
         <!-- 病史病历 -->
@@ -361,7 +358,6 @@ export default {
       this.$emit("submitCase");
     },
     handleClear() {
-      this.currentCase = {};
       this.$emit("clearCase");
     }
   },

@@ -12,29 +12,29 @@
         <result column="factory" property="factory" jdbcType="VARCHAR" />
         <result column="formulation" property="formulation" jdbcType="VARCHAR" />
         <result column="type" property="type" jdbcType="VARCHAR" />
-        <result column="unit_prize" property="unitPrize" jdbcType="DECIMAL" />
+        <result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
         <result column="pinyin_code" property="pinyinCode" jdbcType="VARCHAR" />
     </resultMap>
 
     <select id="get" resultMap="BaseResultMap" parameterType="Short">
-    select id, code, name, specification, unit, factory, formulation, type, unit_prize, pinyin_code from medicine where id = #{id}
+    select id, code, name, specification, unit, factory, formulation, type, unit_price, pinyin_code from medicine where id = #{id}
   </select>
 
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Medicine" >
-    insert into medicine (code, name, specification, unit, factory, formulation, type, unit_prize, pinyin_code)
-    values (#{code}, #{name}, #{specification}, #{unit}, #{factory}, #{formulation}, #{type}, #{unitPrize}, #{pinyinCode})
+    insert into medicine (code, name, specification, unit, factory, formulation, type, unit_price, pinyin_code)
+    values (#{code}, #{name}, #{specification}, #{unit}, #{factory}, #{formulation}, #{type}, #{unitPrice}, #{pinyinCode})
   </insert>
 
     <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.Medicine">
         update medicine set code = #{code}, name = #{name}, specification = #{specification}, unit = #{unit},
-         factory = #{factory}, formulation = #{formulation}, type = #{type}, unit_prize = #{unitPrize}, pinyin_code = #{pinyinCode} where id = #{id}
+         factory = #{factory}, formulation = #{formulation}, type = #{type}, unit_price = #{unitPrice}, pinyin_code = #{pinyinCode} where id = #{id}
     </update>
 
     <delete id="delete" parameterType="Short">
         delete from medicine where id = #{id}
     </delete>
 
-    <select id="getUnitPrizeById" resultType="decimal">
-        select unit_prize from medicine where id = #{id}
+    <select id="getUnitPriceById" resultType="decimal">
+        select unit_price from medicine where id = #{id}
     </select>
 </mapper>
