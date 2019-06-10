@@ -87,11 +87,7 @@
         select id from patient where id_card = #{idCard}
     </select>
 
-    <select id="getNextId" resultType="integer">
-        select MAX(id)+ 1 from patient
-    </select>
-
-    <select id="getPatientByRegistrationId" resultMap="BaseResultMap">
+     <select id="getPatientByRegistrationId" resultMap="BaseResultMap">
         select id_card, address, name, gender, birthday from patient p, registration r
         where r.id = #{registrationId} and p.id = r.patient_id
     </select>

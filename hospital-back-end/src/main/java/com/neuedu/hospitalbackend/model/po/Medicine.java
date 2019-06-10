@@ -22,7 +22,7 @@ public class Medicine {
 
     private String type;
 
-    private BigDecimal unitPrize;
+    private BigDecimal unitPrice;
 
     private String pinyinCode;
 
@@ -90,12 +90,12 @@ public class Medicine {
         this.type = type == null ? null : type.trim();
     }
 
-    public BigDecimal getUnitPrize() {
-        return unitPrize;
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setUnitPrize(BigDecimal unitPrize) {
-        this.unitPrize = unitPrize;
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public String getPinyinCode() {

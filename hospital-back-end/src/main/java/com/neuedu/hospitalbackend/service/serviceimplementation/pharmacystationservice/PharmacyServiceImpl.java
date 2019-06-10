@@ -17,6 +17,18 @@ public class PharmacyServiceImpl implements PharmacyService {
     @Autowired
     private RecipeMapper recipeMapper;
 
+
+    public CommonResult listRecipesByRegistrationIdOrDate(Integer caseId, String chargeDateStr){
+        String chargeDateBeginStr = null;
+        String chargeDateEndStr = null;
+        if(chargeDateStr != null){
+            chargeDateBeginStr = chargeDateStr.concat(" 00:00:00");
+            chargeDateEndStr = chargeDateStr.concat(" 23:59:59");
+        }
+        List<HashMap> result = recipeMapper.listRecipesByRegistrationIdOrDate(caseId, chargeDateBeginStr, chargeDateEndStr);
+        return CommonResult.success(result);
+    }
+
     public CommonResult listRecipeByRegistrationId(Integer registrationId){
         List<HashMap> recipe = recipeMapper.listRecipeByRegistrationId(registrationId);
         return CommonResult.success(recipe);
@@ -46,8 +58,8 @@ public class PharmacyServiceImpl implements PharmacyService {
         for(RecipeParam r: recipeParams){
             //退药条件：已缴费 + 已取药 / 已缴费 + 已退药
             if(r.getTransactionLogStatus() == 2 && (r.getStatus() == 4 || r.getStatus() == 5)){
-                if (r.getReturnAmount() < r.getRemainAmount()){
-                    //更新对应的recipe药品数量
+                if (r.getReturnAmount() <= r.getRemainAmount()){
+                    //更新对应的药品剩余数量
                     count += recipeMapper.updateRemainAmount(r.getId(), r.getMedicineId(), r.getReturnAmount());
                     //更新对应的recipe状态和退药人
                     count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte)5, r.getDeliverRoleId());
