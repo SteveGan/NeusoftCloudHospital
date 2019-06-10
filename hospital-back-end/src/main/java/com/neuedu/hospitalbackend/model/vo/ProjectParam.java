@@ -14,7 +14,7 @@ public class ProjectParam {
     private String resultDescription;//结果描述
     private String advice;//医生建议
 
-    private List<ItemsParam> items; //小项
+    private List<ItemParam> items; //小项
 
     private Integer status;//状态
 
@@ -23,11 +23,11 @@ public class ProjectParam {
     private Integer collectionId;//申请id
     private Integer projectType;//1.检查 2.检验 3.处置
 
-    public List<ItemsParam> getItems() {
+    public List<ItemParam> getItems() {
         return items;
     }
 
-    public void setItems(List<ItemsParam> items) {
+    public void setItems(List<ItemParam> items) {
         this.items = items;
     }
 
