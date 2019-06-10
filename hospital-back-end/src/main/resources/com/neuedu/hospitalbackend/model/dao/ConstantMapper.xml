@@ -6,5 +6,4 @@
     <select id="list" resultType="Constant">
         select child_id as childId, type, name from constant
     </select>
-
 </mapper>
