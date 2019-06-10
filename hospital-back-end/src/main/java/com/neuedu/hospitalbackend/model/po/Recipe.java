@@ -11,6 +11,8 @@ public class Recipe {
 
     private Integer medicineId;
 
+    private Integer departmentId;
+
     private Byte type;
 
     private BigDecimal dosage;
@@ -55,6 +57,14 @@ public class Recipe {
 
     public void setMedicineId(Integer medicineId) {
         this.medicineId = medicineId;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     public Byte getType() {

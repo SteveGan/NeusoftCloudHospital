@@ -5,6 +5,7 @@
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="case_id" property="caseId" jdbcType="INTEGER" />
     <result column="medicine_id" property="medicineId" jdbcType="INTEGER" />
+    <result column="department_id" property="departmentId"/>
     <result column="type" property="type" jdbcType="TINYINT" />
     <result column="dosage" property="dosage" jdbcType="DECIMAL" />
     <result column="frequency" property="frequency" jdbcType="VARCHAR" />
@@ -138,6 +139,7 @@
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="case_id" property="caseId" jdbcType="INTEGER" />
     <result column="medicine_id" property="medicineId" jdbcType="INTEGER" />
+    <result column="department_id" property="departmentId"/>
     <result column="type" property="type" jdbcType="TINYINT" />
     <result column="dosage" property="dosage" jdbcType="DECIMAL" />
     <result column="frequency" property="frequency" jdbcType="VARCHAR" />

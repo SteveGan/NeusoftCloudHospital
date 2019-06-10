@@ -20,7 +20,7 @@ public class TransactionLog {
 
     private Integer projectId;
 
-    private Integer itemId;
+    private String itemId;
 
     private Short amount;
 
@@ -117,11 +117,11 @@ public class TransactionLog {
         this.projectId = projectId;
     }
 
-    public Integer getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

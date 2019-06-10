@@ -39,6 +39,7 @@
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
         <result column="item_status" property="itemStatus" jdbcType="TINYINT"/>
+        <result column="department_id" property="departmentId" jdbcType="INTEGER"/>
         <result column="return_amount" property="returnAmount" jdbcType = "SMALLINT"/>
     </resultMap>
 
@@ -172,7 +173,8 @@
     </select>
 
     <select id="listLogsByTableName" resultMap="ItemResultMap">
-        select distinct t.*, p.status as item_status from transaction_log t, ${tableName} p
+        select distinct t.*, p.department_id as department_id, p.status as item_status
+        from transaction_log t, ${tableName} p
         where t.collection_id = p.id and t.registration_id = #{registrationId}
         and t.project_id = p.project_id and t.total_money > 0
     </select>
@@ -186,7 +188,7 @@
     </select>
 
     <select id="getRecipeLogs" resultMap="ItemResultMap">
-        select distinct t.*, r.status as item_status, r.return_amount
+        select distinct t.*, r.department_id as department_id, r.status as item_status, r.return_amount
         from transaction_log t, recipe r
         where t.collection_id = r.id and t.registration_id = #{registrationId}
         and t.project_id = r.medicine_id and t.total_money > 0
