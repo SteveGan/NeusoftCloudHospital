@@ -13,28 +13,40 @@ public class RecipeParam {
 
     private Integer departmentId;
 
-    private Byte type;
+    private Short amount;
+
+    private Short remainAmount; //剩余可退的数量
+
+    private Byte medicineType;
+
+    private String medicineSpecification;
+
+    private String medicineUnit;
+
+    private String medicineFormulation;
+
+    private BigDecimal medicineUnitPrice;
 
     private BigDecimal dosage;
 
     private String frequency;
 
-    private String dosageUnit;
-
-    private Short amount;
-
-    private Short remainAmount; //剩余可退的数量
-
-    private Short returnAmount; //退药的数量
-
     private Byte status;
-
-    private Byte transactionLogStatus;
 
     private Integer creatorRoleId;
 
     private Integer deliverRoleId;
 
+    private Short returnAmount; //退药的数量
+
+    private Byte transactionLogStatus;
+
+    private String chargeDateStr; //收费日期
+
+   /* private String chargeDateBeginStr;
+
+    private String chargeDateEndStr;
+*/
     public Integer getId() {
         return id;
     }
@@ -67,12 +79,60 @@ public class RecipeParam {
         this.departmentId = departmentId;
     }
 
-    public Byte getType() {
-        return type;
+    public Short getAmount() {
+        return amount;
     }
 
-    public void setType(Byte type) {
-        this.type = type;
+    public void setAmount(Short amount) {
+        this.amount = amount;
+    }
+
+    public Short getRemainAmount() {
+        return remainAmount;
+    }
+
+    public void setRemainAmount(Short remainAmount) {
+        this.remainAmount = remainAmount;
+    }
+
+    public Byte getMedicineType() {
+        return medicineType;
+    }
+
+    public void setMedicineType(Byte medicineType) {
+        this.medicineType = medicineType;
+    }
+
+    public String getMedicineSpecification() {
+        return medicineSpecification;
+    }
+
+    public void setMedicineSpecification(String medicineSpecification) {
+        this.medicineSpecification = medicineSpecification;
+    }
+
+    public String getMedicineUnit() {
+        return medicineUnit;
+    }
+
+    public void setMedicineUnit(String medicineUnit) {
+        this.medicineUnit = medicineUnit;
+    }
+
+    public String getMedicineFormulation() {
+        return medicineFormulation;
+    }
+
+    public void setMedicineFormulation(String medicineFormulation) {
+        this.medicineFormulation = medicineFormulation;
+    }
+
+    public BigDecimal getMedicineUnitPrice() {
+        return medicineUnitPrice;
+    }
+
+    public void setMedicineUnitPrice(BigDecimal medicineUnitPrice) {
+        this.medicineUnitPrice = medicineUnitPrice;
     }
 
     public BigDecimal getDosage() {
@@ -91,52 +151,12 @@ public class RecipeParam {
         this.frequency = frequency;
     }
 
-    public String getDosageUnit() {
-        return dosageUnit;
-    }
-
-    public void setDosageUnit(String dosageUnit) {
-        this.dosageUnit = dosageUnit;
-    }
-
-    public Short getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Short amount) {
-        this.amount = amount;
-    }
-
-    public Short getRemainAmount() {
-        return remainAmount;
-    }
-
-    public void setRemainAmount(Short remainAmount) {
-        this.remainAmount = remainAmount;
-    }
-
-    public Short getReturnAmount() {
-        return returnAmount;
-    }
-
-    public void setReturnAmount(Short returnAmount) {
-        this.returnAmount = returnAmount;
-    }
-
     public Byte getStatus() {
         return status;
     }
 
     public void setStatus(Byte status) {
         this.status = status;
-    }
-
-    public Byte getTransactionLogStatus() {
-        return transactionLogStatus;
-    }
-
-    public void setTransactionLogStatus(Byte transactionLogStatus) {
-        this.transactionLogStatus = transactionLogStatus;
     }
 
     public Integer getCreatorRoleId() {
@@ -154,4 +174,44 @@ public class RecipeParam {
     public void setDeliverRoleId(Integer deliverRoleId) {
         this.deliverRoleId = deliverRoleId;
     }
+
+    public Short getReturnAmount() {
+        return returnAmount;
+    }
+
+    public void setReturnAmount(Short returnAmount) {
+        this.returnAmount = returnAmount;
+    }
+
+    public Byte getTransactionLogStatus() {
+        return transactionLogStatus;
+    }
+
+    public void setTransactionLogStatus(Byte transactionLogStatus) {
+        this.transactionLogStatus = transactionLogStatus;
+    }
+
+    public String getChargeDateStr() {
+        return chargeDateStr;
+    }
+
+    public void setChargeDateStr(String chargeDateStr) {
+        this.chargeDateStr = chargeDateStr;
+    }
+
+   /* public String getChargeDateBeginStr() {
+        return chargeDateBeginStr;
+    }
+
+    public void setChargeDateBeginStr(String chargeDateBeginStr) {
+        this.chargeDateBeginStr = chargeDateBeginStr;
+    }
+
+    public String getChargeDateEndStr() {
+        return chargeDateEndStr;
+    }
+
+    public void setChargeDateEndStr(String chargeDateEndStr) {
+        this.chargeDateEndStr = chargeDateEndStr;
+    }*/
 }

@@ -8,6 +8,7 @@
         <el-button style="float:right" type="text" icon="el-icon-toilet-paper">补打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-printer">重打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-refresh-right" @click="refresh">清屏</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-camera" @click="scan">扫描</el-button>
       </div>
       <el-form :inline="true">
         <div class="vice-title">
@@ -255,6 +256,23 @@ export default {
   },
 
   methods: {
+    // 扫描
+    scan() {
+
+    },
+
+    // 成功提示
+    success(msg) {
+      this.$message({
+        message: msg+'成功',
+        type: 'success'
+      });
+    },
+      
+    // 失败提示
+    fail(msg) {
+      this.$message.error(msg+'失败');
+    },
     // 退号
     withdrawal(id, appointmentDate, timeSlot, roleId, registrationLevelId, departmentId, patientCaseStatus) {
       var transferData={};
@@ -270,6 +288,12 @@ export default {
       register.withdrawal(transferData).then(response => {
         console.log(response.data)
         const data = response.data.data
+
+        if(response.data.code===200){
+          this.success("退号");
+        } else {
+          this.fail("退号");
+        }
       }).catch(error => {
         
       })
@@ -337,14 +361,14 @@ export default {
         console.log(response.data)
 
         if(response.data.code===200){
-          this.refresh();
-          this.success();
+          this.refresh()
+          this.success("挂号");
         } else {
-          this.fail();
+          this.fail("挂号");
         }
-        }).catch(error => {
+      }).catch(error => {
           
-        })
+      })
     },
 
     // 检查是否可以向后台查询可选医生列表
