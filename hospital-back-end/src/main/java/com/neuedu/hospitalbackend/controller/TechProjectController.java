@@ -16,7 +16,7 @@ public class TechProjectController {
     @Resource
     private TechProjectServiceImpl techProjectServiceImpl;
 
-    @ApiOperation("根据病历号或患者姓名，获取所有待登记患者列表")
+    @ApiOperation("（根据病历号或患者姓名）获取所有待登记患者列表")
     @RequestMapping(value = "/patient", method = RequestMethod.GET)
     public CommonResult listPatientByCaseIdOrName(PatientParam patientParam)
     {
