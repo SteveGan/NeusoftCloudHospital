@@ -3,15 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7042b2d9-455b-437d-877a-7fff844f2f2a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/RecipeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/RecipeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/TransactionLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/TransactionLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RecipeParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RecipeParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/TransactionParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/TransactionParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/pharmacystationservice/PharmacyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/pharmacystationservice/PharmacyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RecipeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RecipeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/hospital-back-end/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,8 +36,8 @@
       <file leaf-file-name="PharmacyServiceImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/pharmacystationservice/PharmacyServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="35" column="43" lean-forward="true" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+            <state relative-caret-position="133">
+              <caret line="19" column="37" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -58,7 +49,7 @@
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Recipe.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-499">
-              <caret line="29" column="34" lean-forward="true" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
+              <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1050#1051#0" expanded="true" />
@@ -76,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RecipeParam.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="25" column="41" lean-forward="true" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="41" />
+              <caret line="25" column="41" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1034#1035#0" expanded="true" />
@@ -95,8 +86,8 @@
       <file leaf-file-name="TransactionLogMapper.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
+            <state relative-caret-position="1252">
+              <caret line="230" column="13" lean-forward="true" selection-start-line="230" selection-start-column="13" selection-end-line="230" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -104,8 +95,8 @@
       <file leaf-file-name="PaymentServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-119">
-              <caret line="194" column="46" selection-start-line="194" selection-start-column="31" selection-end-line="194" selection-end-column="46" />
+            <state relative-caret-position="2546">
+              <caret line="227" column="91" selection-start-line="227" selection-start-column="76" selection-end-line="227" selection-end-column="91" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -116,7 +107,7 @@
       <file leaf-file-name="TransactionParam.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/TransactionParam.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
+            <state relative-caret-position="1862">
               <caret line="162" column="36" selection-start-line="162" selection-start-column="36" selection-end-line="162" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -144,7 +135,7 @@
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RecipeMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
-              <caret line="164" column="111" lean-forward="true" selection-start-line="164" selection-start-column="111" selection-end-line="164" selection-end-column="111" />
+              <caret line="164" column="111" selection-start-line="164" selection-start-column="111" selection-end-line="164" selection-end-column="111" />
             </state>
           </provider>
         </entry>
@@ -165,7 +156,7 @@
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/TransactionLog.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="522">
-              <caret line="165" column="5" lean-forward="true" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
+              <caret line="165" column="5" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
               <folding>
                 <element signature="e#2644#2645#0" expanded="true" />
                 <element signature="e#2673#2674#0" expanded="true" />
@@ -832,21 +823,7 @@
       <workItem from="1559972447968" duration="1414000" />
       <workItem from="1559975903254" duration="4794000" />
       <workItem from="1560049205419" duration="37054000" />
-      <workItem from="1560130285434" duration="17040000" />
-    </task>
-    <task id="LOCAL-00013" summary="add common service interface:&#10;getPatientByCaseId&#10;getPatientByPatientName&#10;&#10;add a new po:&#10;Patient">
-      <created>1558942971980</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1558942971980</updated>
-    </task>
-    <task id="LOCAL-00014" summary="add two new po:&#10;PatientCase&#10;PatientCaseTemplate">
-      <created>1558944309975</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1558944309975</updated>
+      <workItem from="1560130285434" duration="20877000" />
     </task>
     <task id="LOCAL-00015" summary="add two new po:&#10;PatientCase&#10;PatientCaseTemplate">
       <created>1558944495691</created>
@@ -1177,11 +1154,25 @@
       <option name="project" value="LOCAL" />
       <updated>1560137828196</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="收费逻辑修改">
+      <created>1560151222453</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1560151222453</updated>
+    </task>
+    <task id="LOCAL-00063" summary="收费逻辑修改">
+      <created>1560153454570</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1560153454570</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="213721000" />
+    <option name="totallyTimeSpent" value="217558000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -1205,10 +1196,10 @@
       <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32967034" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49698794" weight="0.10980967" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4969743" visible="true" weight="0.42313322" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4969743" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="Spring" order="11" weight="0.32967034" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.88906753" visible="true" weight="0.0730563" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.88906753" visible="true" weight="0.10120644" />
       <window_info anchor="right" id="Bean Validation" order="9" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="4" />
@@ -1302,7 +1293,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="HomePage (Sketch)" />
     <MESSAGE value="完成了首页部分数据的注入" />
     <MESSAGE value="添加管理页面框架" />
     <MESSAGE value="完成用户管理界面，正在添加各种操作功能" />
@@ -1327,7 +1317,8 @@
     <MESSAGE value="门诊药房工作站业务完成并测试完毕&#10;完善收费退费细节" />
     <MESSAGE value="修改ExaminationProject和InspectionProject相关po类和Mapper" />
     <MESSAGE value="在后端做类别判断" />
-    <option name="LAST_COMMIT_MESSAGE" value="在后端做类别判断" />
+    <MESSAGE value="收费逻辑修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="收费逻辑修改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1697,7 +1688,7 @@
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/TransactionLog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
-          <caret line="165" column="5" lean-forward="true" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
+          <caret line="165" column="5" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
           <folding>
             <element signature="e#2644#2645#0" expanded="true" />
             <element signature="e#2673#2674#0" expanded="true" />
@@ -1717,7 +1708,7 @@
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Recipe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-499">
-          <caret line="29" column="34" lean-forward="true" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
+          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1050#1051#0" expanded="true" />
@@ -1753,14 +1744,14 @@
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RecipeMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
-          <caret line="164" column="111" lean-forward="true" selection-start-line="164" selection-start-column="111" selection-end-line="164" selection-end-column="111" />
+          <caret line="164" column="111" selection-start-line="164" selection-start-column="111" selection-end-line="164" selection-end-column="111" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RecipeParam.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="25" column="41" lean-forward="true" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="41" />
+          <caret line="25" column="41" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1034#1035#0" expanded="true" />
@@ -1777,7 +1768,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/TransactionParam.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
+        <state relative-caret-position="1862">
           <caret line="162" column="36" selection-start-line="162" selection-start-column="36" selection-end-line="162" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1790,8 +1781,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
-          <caret line="194" column="46" selection-start-line="194" selection-start-column="31" selection-end-line="194" selection-end-column="46" />
+        <state relative-caret-position="2546">
+          <caret line="227" column="91" selection-start-line="227" selection-start-column="76" selection-end-line="227" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1800,15 +1791,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
+        <state relative-caret-position="1252">
+          <caret line="230" column="13" lean-forward="true" selection-start-line="230" selection-start-column="13" selection-end-line="230" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/pharmacystationservice/PharmacyServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="35" column="43" lean-forward="true" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+        <state relative-caret-position="133">
+          <caret line="19" column="37" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
