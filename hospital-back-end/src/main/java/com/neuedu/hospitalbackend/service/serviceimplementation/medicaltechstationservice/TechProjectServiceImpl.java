@@ -48,7 +48,7 @@ public class TechProjectServiceImpl implements TechProjectService {
             return CommonResult.fail(ResultCode.E_801);//部门参数异常
 
         //查询患者列表
-        List<HashMap> patients = new ArrayList<>();
+        List<HashMap> patients;
         if(1 == projectType)
             patients = inspectionMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName, departmentId);
         else if(2 == projectType)

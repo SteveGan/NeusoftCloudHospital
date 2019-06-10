@@ -125,7 +125,7 @@
 
 
     <select id="listPreparedPatientsByCaseIdOrName" resultType="HashMap">
-        select c.registration_id, c.patient_name
+        select distinct c.registration_id, c.patient_name
         from patient_case c, inspection i, transaction_log t
         where i.id = t.collection_id and i.project_id = t.project_id
             and i.case_id = c.registration_id
@@ -210,4 +210,45 @@
         from inspection
         where id = #{id} and project_id = #{projectId}
     </delete>
+
+    <resultMap id="collectionDetail" type="HashMap">
+        <id column="i_id" property="collectionId"/>
+        <result column="project_id" property="projectId"/>
+        <result column="project_name" property="projectName"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="status" property="status"/>
+        <result column="goal" property="goal"/>
+        <result column="result_description" property="resultDescription"/>
+        <result column="result_image" property="resultImage"/>
+        <result column="advice" property="advice"/>
+        <result column="requirement" property="requirement"/>
+        <collection property="items"  javaType="java.util.List" ofType="HashMap">
+            <id column="item_id" property="itemId"/>
+            <result column="item_name" property="itemName"/>
+            <result column="amount" property="amount"/>
+        </collection>
+    </resultMap>
+
+    <select id="listCollectionDetail" resultMap="collectionDetail">
+        select i.department_id, i.project_id, i.status, i.goal, i.requirement,
+                i.result_description, i.result_image, i.advice,
+                p.id as p_id, p.project_name, p.item_id, p.item_name, p.amount
+        from inspection i, inspection_project p
+        where i.case_id = #{caseId}
+              and i.id = p.collection_id and i.project_id = p.project_id
+    </select>
+
+    <select id="getCollectionInfo" resultType="HashMap">
+        select i.id as collectionId, creator_role_id as applicantRoleId
+        from inspection i
+        where case_id = #{caseId}
+        limit 1
+    </select>
+
+    <select id="listItems" resultType="HashMap">
+        select item_name as itemName, item_id as itemId, amount
+        from inspection_project
+        where collection_id = #{collectionId} and project_id = #{projectId}
+    </select>
+
 </mapper>

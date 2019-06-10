@@ -89,4 +89,11 @@
     </select>
 
 
+    <select id="getCollectionInfo" resultType="HashMap">
+        select i.id as collectionId, creator_role_id as applicantRoleId
+        from examination i
+        where case_id = #{caseId}
+        limit 1
+    </select>
+
 </mapper>

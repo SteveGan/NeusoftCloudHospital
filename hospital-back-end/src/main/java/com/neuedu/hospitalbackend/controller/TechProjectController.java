@@ -51,7 +51,7 @@ public class TechProjectController {
     }
 
     @ApiOperation("录入项目结果")
-    @RequestMapping(value = "/resultinput", method = RequestMethod.PUT)
+    @RequestMapping(value = "/resultinput/{caseId}", method = RequestMethod.PUT)
     public CommonResult recordResult(@RequestBody ProjectParam projectParam){
         return techProjectServiceImpl.recordResult(projectParam);
         // 后端再次确认项目状态 为 已缴费且未登记

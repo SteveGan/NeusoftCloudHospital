@@ -40,4 +40,6 @@ public interface ExaminationMapper {
 
     Integer getLatestId();
 
+    HashMap getCollectionInfo(Integer caseId);
+
 }

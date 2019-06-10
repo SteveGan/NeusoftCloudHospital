@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationservice;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.bo.Project;
 import com.neuedu.hospitalbackend.model.dao.*;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -41,6 +44,44 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
     @Resource
     private InvoiceService invoiceService;
 
+    /**
+     * 根据当前病历号，找到目前所有的检验申请单
+     * @param caseId
+     */
+    @Override
+    public CommonResult listCollections(Integer caseId, Integer type){
+        JSONObject returnJson = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        List<HashMap> projects = new ArrayList<>();
+        HashMap info;
+        if (type == 1) {
+            info = inspectionMapper.getCollectionInfo(caseId);
+            projects = inspectionMapper.listCollectionDetail(caseId);
+//            for (HashMap project: projects){
+//                JSONObject jsonObject = new JSONObject();
+//                Integer projectId = (Integer) project.get("projectId");
+//                jsonObject.put("projectId", projectId);
+//                jsonObject.put("projectName", project.get("projectName"));
+//                jsonObject.put("departmentId", project.get("departmentId"));
+//                jsonObject.put("status", project.get("status"));
+//                jsonObject.put("goal", project.get("goal"));
+//                jsonObject.put("requirement", project.get("requirement"));
+//                    jsonObject.put("resultDescription", project.get("resultDescription"));
+//                    jsonObject.put("resultImage", project.get("resultImage"));
+//                    jsonObject.put("advice", project.get("advice"));
+//                    jsonObject.put("items", inspectionMapper.listItems(collectionId, projectId));
+//                jsonArray.add(jsonObject);
+//            }
+        }
+        else{
+            info = examinationMapper.getCollectionInfo(caseId);
+        }
+        returnJson.put("projects", projects);
+        returnJson.put("collectionId", info.get("collectionId"));
+        returnJson.put("applicantRoleId", info.get("applicantRoleId"));
+
+        return CommonResult.success(returnJson);
+    }
 
 
     /**
@@ -97,8 +138,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     @Override
     public CommonResult savePresentCollection(CollectionParam collectionParam) {
-        Byte status = 1;
-        return chooseByType(collectionParam, status);
+        return chooseByType(collectionParam, 1);
     }
 
     /**
@@ -107,26 +147,25 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     @Override
     public CommonResult submitPresentCollection(CollectionParam collectionParam) {
-        Byte status = 2;
-        return chooseByType(collectionParam, status);
+        return chooseByType(collectionParam, 2);
     }
 
     /**
      * 根据项目选择方法
      * @param collectionParam
-     * @param status
+     * @param operation
      * @return
      */
-    public CommonResult chooseByType(CollectionParam collectionParam, Byte status){
+    public CommonResult chooseByType(CollectionParam collectionParam, int operation){
         Integer collectionType = collectionParam.getCollectionType();
         if (collectionType == null)
             return CommonResult.fail(ResultCode.E_801);
         else if (collectionType == 1)
-            return saveInspection(collectionParam, status); //暂存状态: 1
+            return saveInspection(collectionParam, operation);
         else if (collectionType == 2)
-            return saveExamination(collectionParam, status); //暂存状态: 1
+            return saveExamination(collectionParam, operation);
         else if (collectionType == 3)
-            return saveTreatment(collectionParam, status); //暂存状态: 1
+            return saveTreatment(collectionParam, operation);
         else
             return CommonResult.fail(ResultCode.E_801);
     }
@@ -136,7 +175,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      * 暂存/开立 检查清单
      * @param collectionParam
      */
-    public CommonResult saveInspection(CollectionParam collectionParam, Byte status){
+    public CommonResult saveInspection(CollectionParam collectionParam, int operation){
         int count = 0;
         Integer caseId = collectionParam.getCaseId();
         Integer collectionId = collectionParam.getCollectionId();
@@ -146,9 +185,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         //参数检查
         if(caseId == null || collectionId == null || curStatus == null || applicantRoleId == null)
             return CommonResult.fail(ResultCode.E_801);
-        //状态检验
-        if(curStatus != 1)
-            return CommonResult.fail(ResultCode.E_804);
+        //TODO 状态检查
 
         //更新清单内容
         List<ProjectParam> projectParams = collectionParam.getProjects();
@@ -161,7 +198,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             Inspection inspection = new Inspection();
             inspection.setId(collectionId);
             inspection.setProjectId(projectId);
-            inspection.setStatus(status);
+            inspection.setStatus(projectParam.getStatus());
             inspection.setGoal(projectParam.getGoal());
             inspection.setRequirement(projectParam.getRequirement());
 
@@ -194,7 +231,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                             return CommonResult.fail(ResultCode.E_802);
                     }
                     //若开立，创建缴费清单
-                    if (status == 2) {
+                    if (operation == 2) {
                         CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
@@ -226,7 +263,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     if(count <= 0)
                         return CommonResult.fail(ResultCode.E_802);
                     //若开立，创建缴费清单
-                    if (status == 2) {
+                    if (operation == 2) {
                         CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
@@ -279,7 +316,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      * 暂存/开立 检验清单
      * @param collectionParam
      */
-    public CommonResult saveExamination(CollectionParam collectionParam, Byte status){
+    public CommonResult saveExamination(CollectionParam collectionParam, int operation){
         int count = 0;
         Integer caseId = collectionParam.getCaseId();
 //        Byte status = collectionParam.getStatus();
@@ -310,7 +347,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             examination.setCaseId(caseId);
             examination.setCreatorRoleId(applicantRoleId);
             examination.setDepartmentId(departmentId);
-            examination.setStatus(status);
+            examination.setStatus(projectParam.getStatus());
             examination.setGoal(goal);
             examination.setRequirement(requirement);
             //插入数据库
@@ -353,7 +390,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      * 加入新的处置组
      * @param collectionParam
      */
-    public CommonResult saveTreatment(CollectionParam collectionParam, Byte status){
+    public CommonResult saveTreatment(CollectionParam collectionParam, int operation){
         return null;
     }
 

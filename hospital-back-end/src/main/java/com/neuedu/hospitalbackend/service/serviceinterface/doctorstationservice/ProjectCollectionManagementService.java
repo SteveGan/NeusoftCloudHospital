@@ -6,6 +6,7 @@ import com.neuedu.hospitalbackend.model.bo.Project;
 import com.neuedu.hospitalbackend.model.vo.CollectionParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
+import javax.print.attribute.IntegerSyntax;
 import java.util.List;
 
 /**
@@ -14,6 +15,12 @@ import java.util.List;
  * @author Steve
  */
 public interface ProjectCollectionManagementService {
+
+    /**
+     * 根据当前病历号，找到目前所有的检验申请单
+     * @param caseId
+     */
+    CommonResult listCollections(Integer caseId, Integer type);
 
     /**
      * 申请新的申请清单

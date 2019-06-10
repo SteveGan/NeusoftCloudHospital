@@ -125,6 +125,14 @@ public class DoctorStationController {
     }
 
 
+    @ApiOperation("根据当前病历号，找到目前所有的检验申请单")
+    @RequestMapping(value = "/collection/list/{caseId}/{type}", method = RequestMethod.GET)
+    public CommonResult listCollections(@PathVariable(value = "caseId") Integer caseId,
+                                        @PathVariable(value = "type") Integer type)
+    {
+        return projectCollectionManagementService.listCollections(caseId, type);
+    }
+
     @ApiOperation("新增申请项目")
     @RequestMapping(value = "/collection/application/{collectionType}", method = RequestMethod.POST)
     public CommonResult applyNewCollection(@PathVariable Integer collectionType)
@@ -145,6 +153,7 @@ public class DoctorStationController {
     {
         return projectCollectionManagementService.submitPresentCollection(collectionParam);
     }
+
 
 
 
