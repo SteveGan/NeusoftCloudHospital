@@ -171,17 +171,42 @@ export default {
   },
 
   methods: {
+    // 成功提示
+    success(msg) {
+      this.$message({
+        message: msg+'成功',
+        type: 'success'
+      });
+    },
+      
+    // 失败提示
+    fail(msg) {
+      this.$message.error(msg+'失败');
+    },
+    
+    // 缴费
     charge() {
       charge.charge(this.chargeSelection).then(response => {
         console.log(response.data.data)
+        if(response.data.code===200){
+          this.success("缴费");
+        } else {
+          this.fail("缴费");
+        }        
       }).catch(error => {
         
       })
     },
 
+    // 退费
     withdraw() {
       charge.withdraw(this.withdrawSelection).then(response => {
         console.log(response.data.data)
+        if(response.data.code===200){
+          this.success("退费");
+        } else {
+          this.fail("退费");
+        }        
       }).catch(error => {
         
       })
@@ -193,8 +218,9 @@ export default {
 
     handleWithdrawSelectionChange(val) {
       this.withdrawSelection = val;
-    },
-
+    },  
+    
+    // 获取病历号所对应的缴费状态
     getpaymentInfo(){
       console.log(this.input)
       charge.getpaymentInfo(this.input).then(response => {
