@@ -107,7 +107,7 @@
             <template slot-scope="props">
               <el-form label-position="left" class="demo-table-expand">
                 <el-form-item label="患者ID">
-                  <span>{{ props.row.patient.patientId }}</span>
+                  <span>{{ props.row.patient.id }}</span>
                 </el-form-item>                
                 <el-form-item label="患者住址">
                   <span>{{ props.row.patient.address }}</span>
@@ -118,9 +118,6 @@
               </el-form>
 
               <el-form label-position="right" class="demo-table-expand">
-                <el-form-item label="看诊日期">
-                  <span>{{ props.row.appointmentDate }}</span>
-                </el-form-item>
                 <el-form-item label="看诊时段">
                   <span>{{ props.row.timeSlot }}</span>
                 </el-form-item>                
@@ -129,6 +126,9 @@
                 </el-form-item>
                 <el-form-item label="是否购买病历本">
                   <span>{{ props.row.buyCaseBook }}</span>
+                </el-form-item>
+                <el-form-item label="发票号">
+                  <span>{{ props.row.transactionLog.invoiceCode }}</span>
                 </el-form-item>
               </el-form>              
             </template>
@@ -155,8 +155,12 @@
             label="身份证号" prop="patient.idCard" width="150">
           </el-table-column>
 
+          <el-table-column sortable
+            label="挂号日期" prop="gmtCreate" width="100">
+          </el-table-column>
+
           <el-table-column
-            label="发票号" prop="transactionLog.invoiceCode" width="110">
+            label="看诊日期" prop="appointmentDate" width="110">
           </el-table-column>
 
           <el-table-column
@@ -165,10 +169,6 @@
 
           <el-table-column
             label="挂号级别" prop="registrationLevelId">
-          </el-table-column>
-
-          <el-table-column sortable
-            label="挂号日期" prop="gmtCreate" width="100">
           </el-table-column>
 
           <el-table-column
@@ -185,11 +185,14 @@
 
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
-              <el-button type="text" size="small" v-if="scope.row.normal" @click="withdrawal(scope.row.id, scope.row.appointmentDate, scope.row.timeSlot, scope.row.roleId, scope.row.registrationLevelId, scope.row.departmentId)">
+              <el-button type="text" size="small" v-if="scope.row.normal&&scope.row.patientCase.status==1" @click="withdrawal(scope.row.id, scope.row.appointmentDate, scope.row.timeSlot, scope.row.roleId, scope.row.registrationLevelId, scope.row.departmentId, scope.row.patientCase.status)">
                 退号
               </el-button>
               <el-button type="text" disabled size="small" v-if="!scope.row.normal">
                 已退号
+              </el-button>
+              <el-button type="text" disabled size="small" v-if="scope.row.normal&&scope.row.patientCase.status!=1">
+                已就诊
               </el-button>
             </template>
           </el-table-column>
@@ -234,7 +237,8 @@ export default {
       departments: [],
       doctors: [],
       available: true,
-      registrationsInfo: []
+      registrationsInfo: [],
+      
     }
   },
   computed: {
@@ -252,17 +256,24 @@ export default {
 
   methods: {
     // 退号
-    withdrawal(id) {
-      var transferData;
+    withdrawal(id, appointmentDate, timeSlot, roleId, registrationLevelId, departmentId, patientCaseStatus) {
+      var transferData={};
+      transferData.registrationId=id;
+      transferData.appointmentDateStr=appointmentDate;
+      transferData.timeSlot=timeSlot;
+      transferData.roleId=roleId;
+      transferData.registrationLevelId=registrationLevelId;
+      transferData.departmentId=departmentId;
+      transferData.patientCaseStatus=patientCaseStatus;
       console.log(id);
 
-      // register.withdrawal(transferData).then(response => {
-      //   console.log(response.data)
-      //   const data = response.data.data
-      //   this.registrationForm.registrationId = data;
-      // }).catch(error => {
+      register.withdrawal(transferData).then(response => {
+        console.log(response.data)
+        const data = response.data.data
+      }).catch(error => {
         
-      // })
+      })
+
     },
 
     refreshRegistration() {
