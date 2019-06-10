@@ -1,5 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ConstantMapper;
 import com.neuedu.hospitalbackend.model.po.Constant;
 import com.neuedu.hospitalbackend.model.po.Department;
@@ -9,10 +12,7 @@ import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Raven
@@ -46,6 +46,23 @@ public class ConstantManagementImpl implements ConstantManagementService {
             }
         }
 
-        return CommonResult.success(map);
+        Map<String, JSONArray> map2 = new HashMap<>();
+
+        // 三层判断，没有则插入
+        for (Constant constant : list) {
+            if (!map2.containsKey(constant.getType())) {
+                map2.put(constant.getType(), new JSONArray());
+            }
+            JSONObject object = new JSONObject();
+            object.put("label", constant.getName());
+            object.put("value", constant.getChildId());
+            if (!map2.get(constant.getType()).contains(object)) {
+                map2.get(constant.getType()).add(object);
+            }
+//            if ("".equals(map.get(constant.getType()).get(constant.getChildId()))) {
+//                map.get(constant.getType()).put(constant.getChildId(), constant.getName());
+//            }
+        }
+        return CommonResult.success(map2);
     }
 }
