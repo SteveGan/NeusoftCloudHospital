@@ -36,7 +36,7 @@ public interface PatientCaseTemplateService {
      * 删除病历模板
      * @param roleId,caseTemplateId
      */
-    CommonResult deletePatientCaseTemplate(Integer roleId, Integer caseTemplateId);
+    CommonResult deletePatientCaseTemplate(Integer roleId, String name);
 
 
 

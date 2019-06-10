@@ -18,9 +18,7 @@
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="caseTemplateInfo" type="HashMap" >
-    <result column="id" property="id" jdbcType="INTEGER" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
-    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="scope" property="scope" jdbcType="TINYINT" />
     <result column="narrate" property="narrate" jdbcType="VARCHAR" />
@@ -158,10 +156,25 @@
     where role_id = #{roleId} and name = #{name}
   </update>
 
-  <select id="listAvailableByRoleId" resultMap="caseTemplateInfo">
-    select *
+  <select id="listMyCaseTemplates" resultMap="caseTemplateInfo">
+    select role_id, name, scope, name as newName, narrate, cur_disease, cur_treat_condition, past_disease,
+            allergy, physical_condition, assist_diagnose
     from case_template
-    where role_id = #{roleId} or (scope = 2 and department_id = #{departmentId}) or scope = 3
+    where role_id = #{roleId}
+  </select>
+
+  <select id="listDepartmentCaseTemplates" resultMap="caseTemplateInfo">
+    select role_id, name, scope, name as newName, narrate, cur_disease, cur_treat_condition, past_disease,
+            allergy, physical_condition, assist_diagnose
+    from case_template
+    where department_id = #{departmentId} and scope = 2 and role_id != #{roleId}
+  </select>
+
+  <select id="listHospitalCaseTemplates" resultMap="caseTemplateInfo">
+    select role_id, name, scope, name as newName, narrate, cur_disease, cur_treat_condition, past_disease,
+            allergy, physical_condition, assist_diagnose
+    from case_template
+    where scope = 3 and role_id != #{roleId}
   </select>
 
   <select id="getRoleIdById" resultType="Integer">
