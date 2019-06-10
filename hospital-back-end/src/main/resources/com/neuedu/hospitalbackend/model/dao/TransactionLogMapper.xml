@@ -13,7 +13,7 @@
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
-        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        <result column="item_id" property="itemId" jdbcType="String" />
         <result column="amount" property="amount" jdbcType="SMALLINT" />
         <result column="pay_type" property="payType" jdbcType="TINYINT" />
         <result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
@@ -31,7 +31,7 @@
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
-        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        <result column="item_id" property="itemId" jdbcType="String" />
         <result column="amount" property="amount" jdbcType="SMALLINT" />
         <result column="pay_type" property="payType" jdbcType="TINYINT" />
         <result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
@@ -39,6 +39,7 @@
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
         <result column="item_status" property="itemStatus" jdbcType="TINYINT"/>
+        <result column="department_id" property="departmentId" jdbcType="INTEGER"/>
         <result column="return_amount" property="returnAmount" jdbcType = "SMALLINT"/>
     </resultMap>
 
@@ -51,7 +52,7 @@
           )
         values (#{id,jdbcType=INTEGER}, #{invoiceCode,jdbcType=CHAR}, #{registrationId,jdbcType=INTEGER},
           #{patientId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},
-          #{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER},
+          #{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{itemId,jdbcType=String},
           #{amount,jdbcType=SMALLINT}, #{payType,jdbcType=TINYINT}, #{totalMoney,jdbcType=DECIMAL},
           #{status,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
           )
@@ -126,7 +127,7 @@
                 #{projectId,jdbcType=INTEGER},
             </if>
             <if test="itemId != null">
-                #{itemId,jdbcType=INTEGER},
+                #{itemId,jdbcType=String},
             </if>
             <if test="amount != null">
                 #{amount,jdbcType=INTEGER},
@@ -172,7 +173,8 @@
     </select>
 
     <select id="listLogsByTableName" resultMap="ItemResultMap">
-        select distinct t.*, p.status as item_status from transaction_log t, ${tableName} p
+        select distinct t.*, p.department_id as department_id, p.status as item_status
+        from transaction_log t, ${tableName} p
         where t.collection_id = p.id and t.registration_id = #{registrationId}
         and t.project_id = p.project_id and t.total_money > 0
     </select>
@@ -186,7 +188,7 @@
     </select>
 
     <select id="getRecipeLogs" resultMap="ItemResultMap">
-        select distinct t.*, r.status as item_status, r.return_amount
+        select distinct t.*, r.department_id as department_id, r.status as item_status, r.return_amount
         from transaction_log t, recipe r
         where t.collection_id = r.id and t.registration_id = #{registrationId}
         and t.project_id = r.medicine_id and t.total_money > 0

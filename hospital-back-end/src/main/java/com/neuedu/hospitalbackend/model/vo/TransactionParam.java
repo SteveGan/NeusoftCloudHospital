@@ -13,7 +13,7 @@ public class TransactionParam {
     private String type;
     private Integer collectionId;
     private Integer projectId;
-    private Integer itemId;
+    private String itemId;
     private Short amount;
     private Byte payType;
     private BigDecimal totalMoney;
@@ -21,6 +21,7 @@ public class TransactionParam {
     private Byte itemStatus; //对应收费项目状态: 开立，已登记...
     private Byte itemCategory; //检查项目，检验项目，处置项目，药方
     private Short returnAmount; //退费项目的数量
+    private Integer departmentId; //执行科室
 
     public Integer getId() {
         return id;
@@ -86,11 +87,11 @@ public class TransactionParam {
         this.projectId = projectId;
     }
 
-    public Integer getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
@@ -148,6 +149,14 @@ public class TransactionParam {
 
     public void setReturnAmount(Short returnAmount) {
         this.returnAmount = returnAmount;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 }
 

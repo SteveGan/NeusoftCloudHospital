@@ -3,15 +3,17 @@
 <mapper namespace="com.neuedu.hospitalbackend.model.testdao.ExaminationProjectMapper" >
   <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.ExaminationProject" >
     <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="collection_id" property="collectionId" jdbcType="INTEGER"/>
+    <result column="project_id" property="projectId" jdbcType="INTEGER"/>
+    <result column="project_name" property="projectName" jdbcType="VARCHAR"/>
+    <result column="item_id" property="itemId" jdbcType="VARCHAR"/>
+    <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
     <result column="amount" property="amount" jdbcType="SMALLINT" />
   </resultMap>
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.ExaminationProject" >
-    insert into examination_project (id, name, item_id, 
-      amount)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, 
-      #{amount,jdbcType=SMALLINT})
+    insert into examination_project (id, collection_id, project_id, project_name, item_id, item_name, amount)
+    values (#{id,jdbcType=INTEGER}, #{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER},
+      #{projectName,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{amount,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.ExaminationProject" >
     insert into examination_project
@@ -19,11 +21,20 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="collectionId != null" >
+        collection_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
       </if>
       <if test="itemId != null" >
         item_id,
+      </if>
+      <if test="itemName != null" >
+        item_name,
       </if>
       <if test="amount != null" >
         amount,
@@ -33,11 +44,20 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="collectionId != null" >
+        #{collectionId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null" >
-        #{itemId,jdbcType=INTEGER},
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
       </if>
       <if test="amount != null" >
         #{amount,jdbcType=SMALLINT},

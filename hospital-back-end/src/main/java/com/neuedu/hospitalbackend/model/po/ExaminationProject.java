@@ -3,9 +3,15 @@ package com.neuedu.hospitalbackend.model.po;
 public class ExaminationProject {
     private Integer id;
 
-    private String name;
+    private Integer collectionId;
 
-    private Integer itemId;
+    private Integer projectId;
+
+    private String projectName;
+
+    private String itemId;
+
+    private String itemName;
 
     private Short amount;
 
@@ -17,20 +23,44 @@ public class ExaminationProject {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getCollectionId() {
+        return collectionId;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setCollectionId(Integer collectionId) {
+        this.collectionId = collectionId;
     }
 
-    public Integer getItemId() {
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public Short getAmount() {
