@@ -40,7 +40,8 @@
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
         <result column="item_status" property="itemStatus" jdbcType="TINYINT"/>
         <result column="department_id" property="departmentId" jdbcType="INTEGER"/>
-        <result column="return_amount" property="returnAmount" jdbcType = "SMALLINT"/>
+        <result column="remain_amount" property="remainAmount" jdbcType = "SMALLINT"/>
+        <result column="total_amount" property="originalAmount" jdbcType="SMALLINT"/>
     </resultMap>
 
     <insert id="insert" parameterType="TransactionLog" useGeneratedKeys="true" keyProperty="id">
@@ -188,7 +189,7 @@
     </select>
 
     <select id="getRecipeLogs" resultMap="ItemResultMap">
-        select distinct t.*, r.department_id as department_id, r.status as item_status, r.return_amount
+        select distinct t.*, r.department_id as department_id, r.status as item_status, r.remain_amount as remain_amount
         from transaction_log t, recipe r
         where t.collection_id = r.id and t.registration_id = #{registrationId}
         and t.project_id = r.medicine_id and t.total_money > 0

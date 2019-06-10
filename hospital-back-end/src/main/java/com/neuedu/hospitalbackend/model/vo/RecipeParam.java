@@ -23,7 +23,9 @@ public class RecipeParam {
 
     private Short amount;
 
-    private Short returnAmount;
+    private Short remainAmount; //剩余可退的数量
+
+    private Short returnAmount; //退药的数量
 
     private Byte status;
 
@@ -103,6 +105,14 @@ public class RecipeParam {
 
     public void setAmount(Short amount) {
         this.amount = amount;
+    }
+
+    public Short getRemainAmount() {
+        return remainAmount;
+    }
+
+    public void setRemainAmount(Short remainAmount) {
+        this.remainAmount = remainAmount;
     }
 
     public Short getReturnAmount() {

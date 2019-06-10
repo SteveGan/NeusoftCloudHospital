@@ -3,7 +3,7 @@ package com.neuedu.hospitalbackend.model.po;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class TransactionLog {
+public class TransactionLog implements Cloneable {
     private Integer id;
 
     private String invoiceCode;
@@ -153,4 +153,16 @@ public class TransactionLog {
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
     }
+
+    public Object clone() {
+        Object obj=null;
+        //调用Object类的clone方法，返回一个Object实例
+        try {
+            obj= super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
 }
