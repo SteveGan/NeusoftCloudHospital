@@ -1,20 +1,43 @@
 package com.neuedu.hospitalbackend.model.vo;
 
+import java.util.List;
+
 public class ProjectParam {
 
-    private Integer projectType;//1.检查 2.检验 3.处置
-    private Integer departmentId;//部门id
-    private Integer collectionId;//申请id
     private Integer projectId;//项目id
+    private String projectName;//项目名称
+    private Integer departmentId;//部门id
     private Integer doctorRoleId;//医技医生id
+    private String goal;//目标
+    private String requirement;//需求
     private String resultImage;//结果图片
     private String resultDescription;//结果描述
     private String advice;//医生建议
 
+    private List<ItemsParam> items; //小项
+
+    private Integer status;//状态
+
     private Integer caseId;//病历号
-    private String goal;//目标
-    private String requirement;//需求
     private Integer creatorRoleId;//门诊医生id
+    private Integer collectionId;//申请id
+    private Integer projectType;//1.检查 2.检验 3.处置
+
+    public List<ItemsParam> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemsParam> items) {
+        this.items = items;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Integer getCaseId() {
         return caseId;

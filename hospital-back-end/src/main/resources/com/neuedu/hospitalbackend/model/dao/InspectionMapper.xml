@@ -81,4 +81,11 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
+    <select id="getLatestId" resultType="Integer">
+        select id
+        from inspection
+        order by id desc
+        limit 1
+    </select>
+
 </mapper>
