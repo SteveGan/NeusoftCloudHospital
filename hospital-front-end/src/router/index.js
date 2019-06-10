@@ -20,15 +20,15 @@ const DepartmentWorkloadAnalysis = r => require.ensure([], () => r(require('@/co
 const PriceAdmin = r => require.ensure([], () => r(require('@/components/finicialadmin/PriceAdmin/PriceAdmin')), 'PriceAdmin')
 const UserWorkloadAnalysis = r => require.ensure([], () => r(require('@/components/finicialadmin/UserWorkloadAnalysis/UserWorkloadAnalysis')), 'UserWorkloadAnalysis')
 
+const DrugStation = r => require.ensure([], () => r(require('@/pages/DrugStation/DrugStation')), 'DrugStation')
 
-export default [
-  {
+
+export default [{
     path: '/home',
     name: 'Home',
     component: Home,
     redirect: '/home/main',
-    children: [
-      {
+    children: [{
         path: 'main',
         name: 'Main',
         component: Main
@@ -37,8 +37,7 @@ export default [
         path: 'admin',
         name: 'Admin',
         component: Admin,
-        children: [
-          {
+        children: [{
             path: 'user',
             name: 'User',
             component: UserAdmin
@@ -87,7 +86,7 @@ export default [
       },
       {
         path: 'techdoctor',
-        name:'TechDoctor',
+        name: 'TechDoctor',
         component: TechDoctor
       },
       {
@@ -99,8 +98,7 @@ export default [
         path: 'finicialadmin',
         name: 'FinicialAdmin',
         component: FinicialAdmin,
-        children: [
-          {
+        children: [{
             path: 'dailycheck',
             name: 'Dailycheck',
             component: Dailycheck
@@ -114,12 +112,17 @@ export default [
             path: 'priceadmin',
             name: 'PriceAdmin',
             component: PriceAdmin
-          },{
+          }, {
             path: 'userworkloadanalysis',
             name: 'UserWorkloadAnalysis',
             component: UserWorkloadAnalysis
           }
         ]
+      },
+      {
+        path: 'drugstation',
+        name: 'DrugStation',
+        component: DrugStation
       }
     ]
   },
