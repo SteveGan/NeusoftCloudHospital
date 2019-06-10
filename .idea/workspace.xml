@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7042b2d9-455b-437d-877a-7fff844f2f2a" name="Default" comment="">
+    <list default="true" id="fbb61fea-5ac4-4045-90d1-ed455c8a69ab" name="Default" comment="wanttopull">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/46b7c710-1028-4cf7-a36b-e59eb4bd24dc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/46b7c710-1028-4cf7-a36b-e59eb4bd24dc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hospital-front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-front-end/package-lock.json" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/hospital-front-end/node_modules/" />
     <ignored path="$PROJECT_DIR$/hospital-back-end/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,6 +15,11 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/NeusoftCloudHospital$HospitalBackEndApplication.ic" NAME="HospitalBackEndApplication Coverage Results" MODIFIED="1560084156897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.neuedu.hospitalbackend.*</FILTER>
+    </SUITE>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -29,16 +37,48 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="cloud_hospital@www.stevegan.com" type="feb32156:DbDataSourceImpl" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cloud_hospital@www.stevegan.com" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cloud_hospital@www.stevegan.com" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cloud_hospital: schema" type="c314c289:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cloud_hospital@www.stevegan.com" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cloud_hospital: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="inspection: table" type="98d5ac3d:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cloud_hospital@www.stevegan.com" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cloud_hospital: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="inspection_project: table" type="98d5ac3d:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cloud_hospital@www.stevegan.com" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cloud_hospital: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="tech_project: table" type="98d5ac3d:MysqlImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PharmacyServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/pharmacystationservice/PharmacyServiceImpl.java">
+      <file leaf-file-name="DoctorStationController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/DoctorStationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="673">
-              <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+            <state relative-caret-position="-378">
+              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -46,74 +86,52 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PaymentServiceImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java">
+      <file leaf-file-name="ProjectCollectionManagementService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/ProjectCollectionManagementService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="107" column="36" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
+            <state relative-caret-position="206">
+              <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectCollectionManagementServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/ProjectCollectionManagementServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="202">
+              <caret line="72" column="41" lean-forward="true" selection-start-line="72" selection-start-column="41" selection-end-line="72" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3176#3177#0" expanded="true" />
+                <element signature="e#3203#3204#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransactionServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/TransactionServiceImpl.java">
+      <file leaf-file-name="TechProjectMapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TechProjectMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="132">
+              <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PatientServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/PatientServiceImpl.java">
+      <file leaf-file-name="InspectionMapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/InspectionMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+            <state relative-caret-position="330">
+              <caret line="37" column="11" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OauthServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/OauthServiceImpl.java">
+      <file leaf-file-name="InspectionMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InspectionMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InspectionProjectMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/InspectionProjectMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExaminationProjectMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/ExaminationProjectMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TransactionLog.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/TransactionLog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
-              <folding>
-                <element signature="e#2644#2645#0" expanded="true" />
-                <element signature="e#2673#2674#0" expanded="true" />
-                <element signature="e#2717#2718#0" expanded="true" />
-                <element signature="e#2753#2754#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="244">
+              <caret line="87" column="15" lean-forward="true" selection-start-line="87" selection-start-column="15" selection-end-line="87" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -130,86 +148,65 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>invoiceId</find>
-      <find>getNextId</find>
-      <find>count</find>
-      <find>sys</find>
-      <find>5.1.9</find>
-      <find>com.github</find>
-      <find>registrationServiceImpl</find>
-      <find>additional</find>
-      <find>ItemResult</find>
-      <find>ItemResultMap</find>
-      <find>item</find>
+      <find>801</find>
+      <find>800</find>
+      <find>newName</find>
+      <find>ame</find>
+      <find>name</find>
     </findStrings>
-    <replaceStrings>
-      <replace>registrationService</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
-    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
-    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/ArrangementMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/ArrangementMapper.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RegistrationParam.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/PatientMapper.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/pom.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/OauthServiceImpl.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/tollstationservice/WithdrawRegistrationService.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/constant/Cache.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/commonservice/TransactionService.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/testdao/RecipeMapper.xml" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/PatientCase.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/basicinfomanagement/MedicineController.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/basicinfomanagementservice/DiseaseManagementService.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/component/LoginLog.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/component/JwtInterceptor.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/basicinfomanagement/DiseaseManagementController.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/DiagnoseTemplate.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Diagnose.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/CaseTemplate.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/TemplateParam.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/RoleMapper.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RoleMapper.xml" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/medicaltechstationservice/TreatmentProjectServiceImpl.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/medicaltechstationservice/TechProjectServiceImpl.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/PatientCaseTemplateMapper.java" />
         <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/util/ResultCode.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/MedicineMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/MedicineMapper.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Patient.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Registration.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/tollstationservice/RegistrationService.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/RegistrationController.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/WithdrawRegistrationServiceImpl.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/WithdrawRegistrationController.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/ExaminationMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/ExaminationMapper.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/DiagnoseTemplateParam.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/PatientCaseMapper.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/PreliminaryCaseService.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/DiagnoseTemplateService.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/DiagnoseTemplateMapper.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/DiagnoseMapper.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/DiagnoseMapper.xml" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/DiagnoseTemplateMapper.xml" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/PatientCaseMapper.xml" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/DiagnoseParam.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/basicinfomanagementservice/DiseaseManagementImpl.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/DiseaseMapper.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/DiseaseMapper.xml" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/PatientCaseParam.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/PatientCaseTemplateParam.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/PreliminaryCaseServiceImpl.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/DiagnoseTemplateServiceImpl.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/CaseTemplateMapper.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/PatientCaseTemplateService.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/PatientCaseTemplateServiceImpl.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/CaseTemplateMapper.xml" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/ProjectParam.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/ItemsParam.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/ProjectCollectionManagementService.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/DoctorStationController.java" />
         <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/InspectionMapper.java" />
         <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InspectionMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TreatmentMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TreatmentMapper.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/RegistrationServiceImpl.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/RegistrationMapper.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RegistrationMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/PatientMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/tollstationservice/PaymentService.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/PaymentController.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Inventory.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/pharmacystationservice/PharmacyService.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/PharmacyController.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/pharmacystationservice/PharmacyServiceImpl.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/RecipeMapper.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Recipe.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RecipeMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RecipeParam.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/TransactionParam.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/ExaminationProject.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/InspectionProject.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/testdao/ExaminationProjectMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/testdao/InspectionProjectMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InspectionProjectMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/ExaminationProjectMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/TransactionLog.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.xml" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/TransactionServiceImpl.java" />
-        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/CollectionParam.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TechProjectMapper.java" />
+        <option value="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/ProjectCollectionManagementServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -219,38 +216,39 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="hospital-back-end" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/hospital-front-end/node_modules" />
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
       <path value="$PROJECT_DIR$/hospital-front-end/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/hospital-front-end/package.json" />
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="12" />
-    <option name="y" value="27" />
-    <option name="width" value="1943" />
-    <option name="height" value="1103" />
+    <option name="x" value="-7" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -263,6 +261,11 @@
             <path>
               <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
               <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
               <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -293,27 +296,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -323,20 +305,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="constant" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -347,21 +315,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-              <item name="basicinfomanagement" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
@@ -373,21 +326,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-              <item name="wxappcontroller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -398,8 +336,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
               <item name="dao" type="462c0819:PsiDirectoryNode" />
@@ -411,21 +347,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="po" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
               <item name="vo" type="462c0819:PsiDirectoryNode" />
@@ -437,8 +358,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -449,8 +368,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="serviceimplementation" type="462c0819:PsiDirectoryNode" />
@@ -462,12 +379,10 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="serviceimplementation" type="462c0819:PsiDirectoryNode" />
-              <item name="basicinfomanagementservice" type="462c0819:PsiDirectoryNode" />
+              <item name="doctorstationservice" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
@@ -476,50 +391,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="serviceimplementation" type="462c0819:PsiDirectoryNode" />
-              <item name="commonservice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="serviceimplementation" type="462c0819:PsiDirectoryNode" />
-              <item name="pharmacystationservice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="serviceimplementation" type="462c0819:PsiDirectoryNode" />
-              <item name="tollstationservice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="serviceinterface" type="462c0819:PsiDirectoryNode" />
@@ -530,46 +401,6 @@
               <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="serviceinterface" type="462c0819:PsiDirectoryNode" />
-              <item name="pharmacystationservice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="serviceinterface" type="462c0819:PsiDirectoryNode" />
-              <item name="tollstationservice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -579,39 +410,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -621,61 +419,32 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
               <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
-              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
-              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="testdao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="testdao&#9;FILE&#9;file://C:/Users/Lenovo/Desktop/实训/NeusoftCloudHospital/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/testdao" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.21875" />
-    <property name="project.structure.side.proportion" value="0.295" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Parachute\IdeaProject\NeusoftCloudHospital\hospital-back-end\src\main\resources\com\neuedu\hospitalbackend\model\dao" />
+      <recent name="C:\Users\Lenovo\Desktop\实训\NeusoftCloudHospital\hospital-back-end\src\main\resources\com\neuedu\hospitalbackend\model\dao" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -753,7 +522,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7042b2d9-455b-437d-877a-7fff844f2f2a" name="Default" comment="must commit" />
+      <changelist id="fbb61fea-5ac4-4045-90d1-ed455c8a69ab" name="Default" comment="" />
       <created>1558574444709</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -785,69 +554,15 @@
       <workItem from="1559185407505" duration="2063000" />
       <workItem from="1559226425072" duration="1326000" />
       <workItem from="1559310035806" duration="927000" />
-      <workItem from="1559549348836" duration="8012000" />
-      <workItem from="1559575793377" duration="4886000" />
-      <workItem from="1559610801625" duration="29780000" />
-      <workItem from="1559663221778" duration="4429000" />
-      <workItem from="1559697097504" duration="31476000" />
-      <workItem from="1559741506553" duration="12479000" />
-      <workItem from="1559783785660" duration="29327000" />
-      <workItem from="1559834317498" duration="6789000" />
-      <workItem from="1559918261087" duration="6428000" />
-      <workItem from="1559956220338" duration="13963000" />
-      <workItem from="1559972447968" duration="1414000" />
-      <workItem from="1559975903254" duration="4794000" />
-      <workItem from="1560049205419" duration="37054000" />
-      <workItem from="1560130285434" duration="5676000" />
-    </task>
-    <task id="LOCAL-00011" summary="add common service interface">
-      <created>1558941851863</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1558941851863</updated>
-    </task>
-    <task id="LOCAL-00012" summary="add common service interface:&#10;getPatientByCaseId&#10;getPatientByPatientName&#10;&#10;add a new po:&#10;Patient">
-      <created>1558942382962</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1558942382962</updated>
-    </task>
-    <task id="LOCAL-00013" summary="add common service interface:&#10;getPatientByCaseId&#10;getPatientByPatientName&#10;&#10;add a new po:&#10;Patient">
-      <created>1558942971980</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1558942971980</updated>
-    </task>
-    <task id="LOCAL-00014" summary="add two new po:&#10;PatientCase&#10;PatientCaseTemplate">
-      <created>1558944309975</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1558944309975</updated>
-    </task>
-    <task id="LOCAL-00015" summary="add two new po:&#10;PatientCase&#10;PatientCaseTemplate">
-      <created>1558944495691</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1558944495691</updated>
-    </task>
-    <task id="LOCAL-00016" summary="add two new po:&#10;Diagnose&#10;DiagnoseTemplate">
-      <created>1558945220017</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1558945220017</updated>
-    </task>
-    <task id="LOCAL-00017" summary="add some new interface about doctor station service.">
-      <created>1558950526255</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1558950526255</updated>
+      <workItem from="1559549348836" duration="491000" />
+      <workItem from="1559550458063" duration="14173000" />
+      <workItem from="1559610793917" duration="35148000" />
+      <workItem from="1559697368033" duration="36248000" />
+      <workItem from="1559783994619" duration="31220000" />
+      <workItem from="1559916625538" duration="824000" />
+      <workItem from="1559962697239" duration="39129000" />
+      <workItem from="1560046657109" duration="23813000" />
+      <workItem from="1560129862469" duration="13552000" />
     </task>
     <task id="LOCAL-00018" summary="add new common service:&#10;CaseService">
       <created>1558952033605</created>
@@ -975,258 +690,308 @@
       <option name="project" value="LOCAL" />
       <updated>1559549371085</updated>
     </task>
-    <task id="LOCAL-00036" summary="small modification">
-      <created>1559549998545</created>
+    <task id="LOCAL-00036" summary="查询未登记结果的项目1.0">
+      <created>1559556777426</created>
       <option name="number" value="00036" />
       <option name="presentableId" value="LOCAL-00036" />
       <option name="project" value="LOCAL" />
-      <updated>1559549998545</updated>
+      <updated>1559556777427</updated>
     </task>
-    <task id="LOCAL-00037" summary="挂号操作完整版1.0">
-      <created>1559556187467</created>
+    <task id="LOCAL-00037" summary="must commit">
+      <created>1559557659400</created>
       <option name="number" value="00037" />
       <option name="presentableId" value="LOCAL-00037" />
       <option name="project" value="LOCAL" />
-      <updated>1559556187467</updated>
+      <updated>1559557659401</updated>
     </task>
-    <task id="LOCAL-00038" summary="挂号操作完整版1.0">
-      <created>1559558960454</created>
+    <task id="LOCAL-00038" summary="must commit">
+      <created>1559559418118</created>
       <option name="number" value="00038" />
       <option name="presentableId" value="LOCAL-00038" />
       <option name="project" value="LOCAL" />
-      <updated>1559558960454</updated>
+      <updated>1559559418119</updated>
     </task>
-    <task id="LOCAL-00039" summary="挂号操作完整版1.1&#10;makeRegistration方法有待测试，其他测试完毕">
-      <created>1559580180338</created>
+    <task id="LOCAL-00039" summary="结果录入">
+      <created>1559574992514</created>
       <option name="number" value="00039" />
       <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1559580180338</updated>
+      <updated>1559574992515</updated>
     </task>
-    <task id="LOCAL-00040" summary="挂号操作完整版1.2&#10;测试完毕">
-      <created>1559616879012</created>
+    <task id="LOCAL-00040" summary="处置1.0">
+      <created>1559611389977</created>
       <option name="number" value="00040" />
       <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1559616879013</updated>
+      <updated>1559611389977</updated>
     </task>
-    <task id="LOCAL-00041" summary="挂号操作完整版1.3">
-      <created>1559631192636</created>
+    <task id="LOCAL-00041" summary="处置1.0">
+      <created>1559612055437</created>
       <option name="number" value="00041" />
       <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1559631192636</updated>
+      <updated>1559612055437</updated>
     </task>
-    <task id="LOCAL-00042" summary="Registration表中增加time_slot字段，且类型为tinyint&#10;Arrangement表中time_slot字段类型由VARCHAR改为tinyint">
-      <created>1559644837186</created>
+    <task id="LOCAL-00042" summary="医技完整1.0测试中">
+      <created>1559637075664</created>
       <option name="number" value="00042" />
       <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1559644837186</updated>
+      <updated>1559637075665</updated>
     </task>
-    <task id="LOCAL-00043" summary="退号1.0">
-      <created>1559699115062</created>
+    <task id="LOCAL-00043" summary="检查科室ok">
+      <created>1559657658261</created>
       <option name="number" value="00043" />
       <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1559699115062</updated>
+      <updated>1559657658261</updated>
     </task>
-    <task id="LOCAL-00044" summary="退号1.0">
-      <created>1559699211787</created>
+    <task id="LOCAL-00044" summary="检验 处置 v1.1 nottestedyet">
+      <created>1559663676562</created>
       <option name="number" value="00044" />
       <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1559699211787</updated>
+      <updated>1559663676562</updated>
     </task>
-    <task id="LOCAL-00045" summary="退号1.1">
-      <created>1559710953446</created>
+    <task id="LOCAL-00045" summary="wanttopull">
+      <created>1559699453469</created>
       <option name="number" value="00045" />
       <option name="presentableId" value="LOCAL-00045" />
       <option name="project" value="LOCAL" />
-      <updated>1559710953446</updated>
+      <updated>1559699453470</updated>
     </task>
-    <task id="LOCAL-00046" summary="退号1.1.0">
-      <created>1559711539614</created>
+    <task id="LOCAL-00046" summary="Merge branch 'master' of https://github.com/Raven98/NeusoftCloudHospital&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1559700170075</created>
       <option name="number" value="00046" />
       <option name="presentableId" value="LOCAL-00046" />
       <option name="project" value="LOCAL" />
-      <updated>1559711539614</updated>
+      <updated>1559700170075</updated>
     </task>
-    <task id="LOCAL-00047" summary="发票号存到cache&#10;挂号测试完成">
-      <created>1559715410339</created>
+    <task id="LOCAL-00047" summary="门诊首页1.0">
+      <created>1559788107660</created>
       <option name="number" value="00047" />
       <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1559715410339</updated>
+      <updated>1559788107660</updated>
     </task>
-    <task id="LOCAL-00048" summary="发票号存到cache&#10;挂号测试完成">
-      <created>1559719848737</created>
+    <task id="LOCAL-00048" summary="病历添加assistDiagnose + 中西医疾病1.0">
+      <created>1559792610120</created>
       <option name="number" value="00048" />
       <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1559719848737</updated>
+      <updated>1559792610120</updated>
     </task>
-    <task id="LOCAL-00049" summary="挂号小修改">
-      <created>1559728633842</created>
+    <task id="LOCAL-00049" summary="小改">
+      <created>1559794050969</created>
       <option name="number" value="00049" />
       <option name="presentableId" value="LOCAL-00049" />
       <option name="project" value="LOCAL" />
-      <updated>1559728633842</updated>
+      <updated>1559794050969</updated>
     </task>
-    <task id="LOCAL-00050" summary="挂号、退号功能测试完毕">
-      <created>1559747086414</created>
+    <task id="LOCAL-00050" summary="患者列表+中西疾病 v2.0">
+      <created>1559802063130</created>
       <option name="number" value="00050" />
       <option name="presentableId" value="LOCAL-00050" />
       <option name="project" value="LOCAL" />
-      <updated>1559747086415</updated>
+      <updated>1559802063150</updated>
     </task>
-    <task id="LOCAL-00051" summary="收费退费功能1.0&#10;退费有待测试">
-      <created>1559970877128</created>
+    <task id="LOCAL-00051" summary="diagnose中diseaseId为 疾病icdCode">
+      <created>1559804311041</created>
       <option name="number" value="00051" />
       <option name="presentableId" value="LOCAL-00051" />
       <option name="project" value="LOCAL" />
-      <updated>1559970877129</updated>
+      <updated>1559804311043</updated>
     </task>
-    <task id="LOCAL-00052" summary="显示所有挂号信息列表">
-      <created>1559980558008</created>
+    <task id="LOCAL-00052" summary="暂存+提交">
+      <created>1559811134365</created>
       <option name="number" value="00052" />
       <option name="presentableId" value="LOCAL-00052" />
       <option name="project" value="LOCAL" />
-      <updated>1559980558008</updated>
+      <updated>1559811134367</updated>
     </task>
-    <task id="LOCAL-00053" summary="退费功能完善且测试完毕">
-      <created>1560078983330</created>
+    <task id="LOCAL-00053" summary="病历首页2.0">
+      <created>1559817772489</created>
       <option name="number" value="00053" />
       <option name="presentableId" value="LOCAL-00053" />
       <option name="project" value="LOCAL" />
-      <updated>1560078983331</updated>
+      <updated>1559817772490</updated>
     </task>
-    <task id="LOCAL-00054" summary="返回前端挂号信息列表时不做区分">
-      <created>1560080026992</created>
+    <task id="LOCAL-00054" summary="病历模板加属性">
+      <created>1559965564820</created>
       <option name="number" value="00054" />
       <option name="presentableId" value="LOCAL-00054" />
       <option name="project" value="LOCAL" />
-      <updated>1560080026992</updated>
+      <updated>1559965564821</updated>
     </task>
-    <task id="LOCAL-00055" summary="返回前端挂号信息列表时不做区分">
-      <created>1560083784402</created>
+    <task id="LOCAL-00055" summary="病历模板">
+      <created>1559994333863</created>
       <option name="number" value="00055" />
       <option name="presentableId" value="LOCAL-00055" />
       <option name="project" value="LOCAL" />
-      <updated>1560083784402</updated>
+      <updated>1559994333865</updated>
     </task>
-    <task id="LOCAL-00056" summary="门诊药房工作站业务完成并测试完毕&#10;完善收费退费细节">
-      <created>1560106058644</created>
+    <task id="LOCAL-00056" summary="常用诊断insert+update">
+      <created>1560011929837</created>
       <option name="number" value="00056" />
       <option name="presentableId" value="LOCAL-00056" />
       <option name="project" value="LOCAL" />
-      <updated>1560106058644</updated>
+      <updated>1560011929838</updated>
     </task>
-    <task id="LOCAL-00057" summary="修改ExaminationProject和InspectionProject相关po类和Mapper">
-      <created>1560135541702</created>
+    <task id="LOCAL-00057" summary="扁平化JSON结构">
+      <created>1560050804592</created>
       <option name="number" value="00057" />
       <option name="presentableId" value="LOCAL-00057" />
       <option name="project" value="LOCAL" />
-      <updated>1560135541702</updated>
+      <updated>1560050804597</updated>
     </task>
-    <task id="LOCAL-00058" summary="修改ExaminationProject和InspectionProject相关po类和Mapper">
-      <created>1560135605529</created>
+    <task id="LOCAL-00058" summary="微调">
+      <created>1560079940544</created>
       <option name="number" value="00058" />
       <option name="presentableId" value="LOCAL-00058" />
       <option name="project" value="LOCAL" />
-      <updated>1560135605529</updated>
+      <updated>1560079940544</updated>
     </task>
-    <task id="LOCAL-00059" summary="修改ExaminationProject和InspectionProject相关po类和Mapper">
-      <created>1560135834361</created>
+    <task id="LOCAL-00059" summary="微调2.0">
+      <created>1560084426873</created>
       <option name="number" value="00059" />
       <option name="presentableId" value="LOCAL-00059" />
       <option name="project" value="LOCAL" />
-      <updated>1560135834361</updated>
+      <updated>1560084426874</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="微调3.0">
+      <created>1560084938991</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1560084938991</updated>
+    </task>
+    <task id="LOCAL-00061" summary="混乱之下的错误">
+      <created>1560089525197</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1560089525197</updated>
+    </task>
+    <task id="LOCAL-00062" summary="小错">
+      <created>1560098579239</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1560098579241</updated>
+    </task>
+    <task id="LOCAL-00063" summary="接起来好难">
+      <created>1560131417214</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1560131417214</updated>
+    </task>
+    <task id="LOCAL-00064" summary="小错">
+      <created>1560134240741</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1560134240741</updated>
+    </task>
+    <task id="LOCAL-00065" summary="病历模板2.0">
+      <created>1560137218379</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1560137218379</updated>
+    </task>
+    <task id="LOCAL-00066" summary="wanttopull">
+      <created>1560146212009</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1560146212012</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="202357000" />
+    <option name="totallyTimeSpent" value="104579000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50301206" side_tool="true" weight="0.5370879" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Database Changes" order="12" weight="0.329429" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="11" sideWeight="0.505295" side_tool="true" visible="true" weight="0.48772505" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.32980332" />
+      <window_info anchor="bottom" id="Database Changes" order="9" weight="0.3289689" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="3" weight="0.008042895" />
-      <window_info id="Structure" order="1" sideWeight="0.11093248" side_tool="true" weight="0.23793566" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" sideWeight="0.496875" weight="0.24281392" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24962178" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997253" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3391867" />
-      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.49924698" weight="0.19912152" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.33878887" />
+      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.49924698" weight="0.3289689" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="2" />
-      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32967034" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.3289689" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49698794" weight="0.10980967" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4969743" visible="true" weight="0.0" />
-      <window_info anchor="bottom" id="Spring" order="11" weight="0.32967034" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.88906753" visible="true" weight="0.20308311" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.494705" visible="true" weight="0.48772505" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49621785" weight="0.22585924" />
+      <window_info anchor="bottom" id="Spring" order="12" weight="0.3289689" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3289689" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2549168" />
       <window_info anchor="right" id="Bean Validation" order="9" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Statistic" order="15" weight="0.39109698" />
+      <window_info anchor="right" id="Coverage" order="3" sideWeight="0.503125" side_tool="true" weight="0.16414523" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.32980332" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Console" order="15" weight="0.3289689" />
       <window_info anchor="right" id="Maven" order="5" visible="true" weight="0.022590362" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32980332" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.2536825" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Maven" order="8" visible="true" weight="0.022590362" />
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Spring" order="12" weight="0.32967034" />
-      <window_info id="Image Layers" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4969743" visible="true" weight="0.14934114" />
+      <window_info anchor="bottom" id="Spring" order="12" weight="0.3289689" />
+      <window_info anchor="bottom" id="Database Console" order="15" weight="0.3289689" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49621785" visible="true" weight="0.3420622" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24962178" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="UI Designer" order="4" />
+      <window_info id="Web" order="7" side_tool="true" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3289689" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Capture Analysis" order="9" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50301206" side_tool="true" weight="0.5370879" />
-      <window_info anchor="bottom" id="Statistic" order="15" weight="0.39109698" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3391867" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50378215" side_tool="true" weight="0.20621932" />
+      <window_info anchor="bottom" id="Statistic" order="16" weight="0.39109698" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32967034" />
-      <window_info anchor="bottom" id="Database Changes" order="10" weight="0.32967034" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49698794" weight="0.10980967" />
-      <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.88906753" visible="true" weight="0.19906166" />
-      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.49924698" weight="0.1566618" />
-      <window_info anchor="right" id="Database" order="5" weight="0.008042895" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.3289689" />
+      <window_info anchor="bottom" id="Database Changes" order="10" weight="0.3289689" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49621785" weight="0.3502455" />
+      <window_info anchor="right" id="Maven Projects" order="5" weight="0.32980332" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28214827" />
+      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.49924698" weight="0.3289689" />
+      <window_info anchor="right" id="Database" order="6" visible="true" weight="0.16414523" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.33878887" />
       <window_info anchor="right" id="Palette&#9;" order="10" />
       <window_info anchor="right" id="Theme Preview" order="7" />
-      <window_info id="Structure" order="1" sideWeight="0.11093248" side_tool="true" weight="0.23793566" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Coverage" order="6" side_tool="true" weight="0.32980332" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.32980332" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.2536825" />
       <window_info anchor="right" id="Bean Validation" order="11" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997253" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1243,12 +1008,6 @@
               </option>
               <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
                 <collection />
-              </option>
-              <option name="COLUMN_WIDTH">
-                <map>
-                  <entry key="2" value="93" />
-                  <entry key="3" value="93" />
-                </map>
               </option>
               <option name="COLUMN_ORDER">
                 <list>
@@ -1268,519 +1027,470 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="我去睡啦，发现我们参照的前端代码很多地方都不规范哈哈哈" />
-    <MESSAGE value="HomePage (Sketch)" />
-    <MESSAGE value="完成了首页部分数据的注入" />
-    <MESSAGE value="添加管理页面框架" />
-    <MESSAGE value="完成用户管理界面，正在添加各种操作功能" />
-    <MESSAGE value="进一步完成管理员界面" />
-    <MESSAGE value="must commit" />
-    <MESSAGE value="small modification" />
-    <MESSAGE value="挂号操作完整版1.0" />
-    <MESSAGE value="挂号操作完整版1.1&#10;makeRegistration方法有待测试，其他测试完毕" />
-    <MESSAGE value="挂号操作完整版1.2&#10;测试完毕" />
-    <MESSAGE value="挂号操作完整版1.3" />
-    <MESSAGE value="Registration表中增加time_slot字段，且类型为tinyint&#10;Arrangement表中time_slot字段类型由VARCHAR改为tinyint" />
-    <MESSAGE value="退号1.0" />
-    <MESSAGE value="退号1.1" />
-    <MESSAGE value="退号1.1.0" />
-    <MESSAGE value="发票号存到cache&#10;挂号测试完成" />
-    <MESSAGE value="挂号小修改" />
-    <MESSAGE value="挂号、退号功能测试完毕" />
-    <MESSAGE value="收费退费功能1.0&#10;退费有待测试" />
-    <MESSAGE value="显示所有挂号信息列表" />
-    <MESSAGE value="退费功能完善且测试完毕" />
-    <MESSAGE value="返回前端挂号信息列表时不做区分" />
-    <MESSAGE value="门诊药房工作站业务完成并测试完毕&#10;完善收费退费细节" />
-    <MESSAGE value="修改ExaminationProject和InspectionProject相关po类和Mapper" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改ExaminationProject和InspectionProject相关po类和Mapper" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="2" />
-    </breakpoint-manager>
-  </component>
-  <component name="antWorkspaceConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="FILTER_TARGETS" value="false" />
+    <MESSAGE value="处置1.0" />
+    <MESSAGE value="医技完整1.0测试中" />
+    <MESSAGE value="检查科室ok" />
+    <MESSAGE value="检验 处置 v1.1 nottestedyet" />
+    <MESSAGE value="want to pull" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/Raven98/NeusoftCloudHospital&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="门诊首页1.0" />
+    <MESSAGE value="病历添加assistDiagnose + 中西医疾病1.0" />
+    <MESSAGE value="小改" />
+    <MESSAGE value="患者列表+中西疾病 v2.0" />
+    <MESSAGE value="diagnose中diseaseId为 疾病icdCode" />
+    <MESSAGE value="暂存+提交" />
+    <MESSAGE value="病历首页2.0" />
+    <MESSAGE value="病历模板加属性" />
+    <MESSAGE value="病历模板" />
+    <MESSAGE value="常用诊断insert+update" />
+    <MESSAGE value="扁平化JSON结构" />
+    <MESSAGE value="微调" />
+    <MESSAGE value="微调2.0" />
+    <MESSAGE value="微调3.0" />
+    <MESSAGE value="混乱之下的错误" />
+    <MESSAGE value="接起来好难" />
+    <MESSAGE value="小错" />
+    <MESSAGE value="病历模板2.0" />
+    <MESSAGE value="wanttopull" />
+    <option name="LAST_COMMIT_MESSAGE" value="wanttopull" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/ProjectPatientParam.java" />
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/MedicineMapper.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/PatientCostQueryService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/PreliminaryCaseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/DiagnoseTemplateMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-233">
+          <caret line="2" column="60" lean-forward="true" selection-start-line="2" selection-start-column="60" selection-end-line="2" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/DiagnoseTemplateMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="48" lean-forward="true" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/DiagnoseMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/DiagnoseMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/UserMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="19" column="21" lean-forward="true" selection-start-line="10" selection-start-column="8" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Diagnose.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="13" column="36" lean-forward="true" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/PatientCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="31" column="29" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/PatientCaseMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="21" column="39" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+          <caret line="28" column="2" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Patient.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/basicinfomanagement/DiseaseManagementController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="50" selection-end-column="5" />
+        <state relative-caret-position="112">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/DiagnoseTemplateParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
           <folding>
-            <element signature="e#1678#1679#0" expanded="true" />
-            <element signature="e#1714#1715#0" expanded="true" />
-            <element signature="e#1784#1785#0" expanded="true" />
-            <element signature="e#1834#1835#0" expanded="true" />
+            <element signature="e#292#293#0" expanded="true" />
+            <element signature="e#332#333#0" expanded="true" />
+            <element signature="e#364#365#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/tollstationservice/RegistrationService.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/DiseaseMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+        <state relative-caret-position="160">
+          <caret line="24" column="11" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/testdao/TransactionLogMapper.xml">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/DiseaseMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1061" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/WithdrawRegistrationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+        <state relative-caret-position="121">
+          <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/ExaminationMapper.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/basicinfomanagementservice/DiseaseManagementImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+        <state relative-caret-position="486">
+          <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/InspectionMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="34" column="134" selection-start-line="34" selection-start-column="134" selection-end-line="34" selection-end-column="134" />
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/disease">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InspectionMapper.xml">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/medicaltechstationservice/TechProjectService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="79" column="47" selection-start-line="79" selection-start-column="47" selection-end-line="79" selection-end-column="47" />
+        <state relative-caret-position="154">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TreatmentMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="53" column="47" lean-forward="true" selection-start-line="53" selection-start-column="38" selection-end-line="53" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TreatmentMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="26" column="133" lean-forward="true" selection-start-line="26" selection-start-column="103" selection-end-line="26" selection-end-column="133" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Registration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#3334#3335#0" expanded="true" />
-            <element signature="e#3371#3372#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/RegistrationMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RegistrationMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2370">
-          <caret line="187" column="28" selection-start-line="187" selection-start-column="28" selection-end-line="187" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/PatientMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="11" column="38" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-65">
-          <caret line="13" column="14" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/PaymentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="57" column="101" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Inventory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-          <folding>
-            <element signature="e#320#321#0" expanded="true" />
-            <element signature="e#353#354#0" expanded="true" />
-            <element signature="e#406#407#0" expanded="true" />
-            <element signature="e#450#451#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/TechProjectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/RegistrationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-52">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/WxappBindParam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/pharmacystationservice/PharmacyService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/PharmacyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/RecipeMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="14" column="32" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Examination.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/ExaminationMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="64" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/PatientMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="94" column="60" lean-forward="true" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/RecipeMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3237">
-          <caret line="172" lean-forward="true" selection-start-line="172" selection-end-line="172" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/tollstationservice/PaymentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/inspection_project">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Inspection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-380">
+        <state relative-caret-position="-176">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RecipeParam.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Examination.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+        <state relative-caret-position="154">
+          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/medicaltechstationservice/TechProjectServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-396">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/inspection_template">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/LoginParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/DiagnoseParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#557#558#0" expanded="true" />
-            <element signature="e#582#583#0" expanded="true" />
-            <element signature="e#1069#1070#0" expanded="true" />
-            <element signature="e#1126#1127#0" expanded="true" />
-            <element signature="e#1174#1175#0" expanded="true" />
+            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#473#474#0" expanded="true" />
+            <element signature="e#511#512#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Recipe.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/PatientCaseParam.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-467">
-          <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
+        <state relative-caret-position="528">
+          <caret line="40" column="52" selection-start-line="40" selection-start-column="52" selection-end-line="40" selection-end-column="52" />
+          <folding>
+            <element signature="e#1107#1108#0" expanded="true" />
+            <element signature="e#1180#1181#0" expanded="true" />
+            <element signature="e#1232#1233#0" expanded="true" />
+            <element signature="e#1291#1292#0" expanded="true" />
+            <element signature="e#1333#1334#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/non_medicine">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/PatientCaseTemplateParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+          <folding>
+            <element signature="e#570#571#0" expanded="true" />
+            <element signature="e#616#617#0" expanded="true" />
+            <element signature="e#654#655#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/DiagnoseTemplateServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="60" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/diagnose">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/patient_case">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/PreliminaryCaseServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1202">
+          <caret line="193" column="16" selection-start-line="193" selection-start-column="16" selection-end-line="193" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1089#1090#0" expanded="true" />
-            <element signature="e#1146#1147#0" expanded="true" />
-            <element signature="e#1194#1195#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/diagnose_template">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/PatientCaseTemplateService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/CaseTemplateMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/CaseTemplateMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/case_template">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/ExaminationProject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="71" column="5" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="71" selection-end-column="5" />
+        <state relative-caret-position="154">
+          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/DiagnoseTemplateService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="33" column="66" selection-start-line="33" selection-start-column="66" selection-end-line="33" selection-end-column="66" />
           <folding>
-            <element signature="e#341#342#0" expanded="true" />
-            <element signature="e#366#367#0" expanded="true" />
-            <element signature="e#403#404#0" expanded="true" />
-            <element signature="e#431#432#0" expanded="true" />
-            <element signature="e#471#472#0" expanded="true" />
-            <element signature="e#506#507#0" expanded="true" />
-            <element signature="e#563#564#0" expanded="true" />
-            <element signature="e#611#612#0" expanded="true" />
-            <element signature="e#648#649#0" expanded="true" />
-            <element signature="e#680#681#0" expanded="true" />
-            <element signature="e#731#732#0" expanded="true" />
-            <element signature="e#773#774#0" expanded="true" />
-            <element signature="e#811#812#0" expanded="true" />
-            <element signature="e#845#846#0" expanded="true" />
-            <element signature="e#899#900#0" expanded="true" />
-            <element signature="e#945#946#0" expanded="true" />
-            <element signature="e#978#979#0" expanded="true" />
-            <element signature="e#1007#1008#0" expanded="true" />
-            <element signature="e#1051#1052#0" expanded="true" />
-            <element signature="e#1087#1088#0" expanded="true" />
-            <element signature="e#1122#1123#0" expanded="true" />
-            <element signature="e#1153#1154#0" expanded="true" />
-            <element signature="e#1201#1202#0" expanded="true" />
-            <element signature="e#1241#1242#0" expanded="true" />
-            <element signature="e#1273#1274#0" expanded="true" />
-            <element signature="e#1302#1303#0" expanded="true" />
-            <element signature="e#1345#1346#0" expanded="true" />
-            <element signature="e#1381#1382#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/testdao/ExaminationProjectMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-679">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="65" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/testdao/InspectionProjectMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="55" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InspectionProjectMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-133">
-          <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/ExaminationProjectMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/InspectionProject.java">
-      <provider selected="true" editor-type-id="text-editor">
+    <entry file="das://46b7c710-1028-4cf7-a36b-e59eb4bd24dc/schema/cloud_hospital/table/inspection">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
-          <caret line="12" column="26" lean-forward="true" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/ProjectParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
           <folding>
+            <element signature="e#683#684#0" expanded="true" />
+            <element signature="e#711#712#0" expanded="true" />
+            <element signature="e#763#764#0" expanded="true" />
+            <element signature="e#797#798#0" expanded="true" />
+            <element signature="e#610#611#0" expanded="true" />
+            <element signature="e#639#640#0" expanded="true" />
+            <element signature="e#684#685#0" expanded="true" />
+            <element signature="e#720#721#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/ItemsParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+          <folding>
+            <element signature="e#201#202#0" expanded="true" />
+            <element signature="e#246#247#0" expanded="true" />
+            <element signature="e#282#283#0" expanded="true" />
             <element signature="e#316#317#0" expanded="true" />
-            <element signature="e#341#342#0" expanded="true" />
-            <element signature="e#378#379#0" expanded="true" />
-            <element signature="e#406#407#0" expanded="true" />
-            <element signature="e#446#447#0" expanded="true" />
-            <element signature="e#481#482#0" expanded="true" />
-            <element signature="e#538#539#0" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
-            <element signature="e#623#624#0" expanded="true" />
-            <element signature="e#655#656#0" expanded="true" />
-            <element signature="e#706#707#0" expanded="true" />
-            <element signature="e#748#749#0" expanded="true" />
-            <element signature="e#786#787#0" expanded="true" />
-            <element signature="e#820#821#0" expanded="true" />
-            <element signature="e#874#875#0" expanded="true" />
-            <element signature="e#920#921#0" expanded="true" />
-            <element signature="e#953#954#0" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1026#1027#0" expanded="true" />
-            <element signature="e#1062#1063#0" expanded="true" />
-            <element signature="e#1097#1098#0" expanded="true" />
-            <element signature="e#1128#1129#0" expanded="true" />
-            <element signature="e#1176#1177#0" expanded="true" />
-            <element signature="e#1216#1217#0" expanded="true" />
-            <element signature="e#638#639#0" expanded="true" />
-            <element signature="e#667#668#0" expanded="true" />
-            <element signature="e#710#711#0" expanded="true" />
-            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#345#346#0" expanded="true" />
+            <element signature="e#390#391#0" expanded="true" />
+            <element signature="e#426#427#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RegistrationParam.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/PatientCaseTemplateServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/TransactionParam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="89" column="31" lean-forward="true" selection-start-line="89" selection-start-column="31" selection-end-line="89" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2049#2050#0" expanded="true" />
-            <element signature="e#2093#2094#0" expanded="true" />
-            <element signature="e#2129#2130#0" expanded="true" />
-            <element signature="e#3061#3062#0" expanded="true" />
-            <element signature="e#3096#3097#0" expanded="true" />
-            <element signature="e#3151#3152#0" expanded="true" />
-            <element signature="e#3199#3200#0" expanded="true" />
-            <element signature="e#3280#3281#0" expanded="true" />
-            <element signature="e#3315#3316#0" expanded="true" />
-            <element signature="e#3372#3373#0" expanded="true" />
-            <element signature="e#3420#3421#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/InspectionProjectMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/ExaminationProjectMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2972">
-          <caret line="54" column="81" selection-start-line="54" selection-start-column="77" selection-end-line="54" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/TransactionLog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="e#2644#2645#0" expanded="true" />
-            <element signature="e#2673#2674#0" expanded="true" />
-            <element signature="e#2717#2718#0" expanded="true" />
-            <element signature="e#2753#2754#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/OauthServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/WithdrawRegistrationServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/RegistrationServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="177" column="49" selection-start-line="177" selection-start-column="49" selection-end-line="177" selection-end-column="49" />
+        <state relative-caret-position="202">
+          <caret line="23" column="50" lean-forward="true" selection-start-line="22" selection-start-column="3" selection-end-line="23" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/pharmacystationservice/PharmacyServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/ProjectCollectionMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="673">
-          <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+        <state relative-caret-position="44">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InspectionMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="87" column="15" lean-forward="true" selection-start-line="87" selection-start-column="15" selection-end-line="87" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/InspectionMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="37" column="11" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/DoctorStationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-378">
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/TransactionServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceinterface/doctorstationservice/ProjectCollectionManagementService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="206">
+          <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/PatientServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/CollectionParam.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+        <state relative-caret-position="198">
+          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <folding>
+            <element signature="e#382#383#0" expanded="true" />
+            <element signature="e#417#418#0" expanded="true" />
+            <element signature="e#474#475#0" expanded="true" />
+            <element signature="e#522#523#0" expanded="true" />
+            <element signature="e#556#557#0" expanded="true" />
+            <element signature="e#585#586#0" expanded="true" />
+            <element signature="e#630#631#0" expanded="true" />
+            <element signature="e#666#667#0" expanded="true" />
+            <element signature="e#723#724#0" expanded="true" />
+            <element signature="e#765#766#0" expanded="true" />
+            <element signature="e#801#802#0" expanded="true" />
+            <element signature="e#853#854#0" expanded="true" />
+            <element signature="e#891#892#0" expanded="true" />
+            <element signature="e#954#955#0" expanded="true" />
+            <element signature="e#1008#1009#0" expanded="true" />
+            <element signature="e#1050#1051#0" expanded="true" />
+            <element signature="e#1087#1088#0" expanded="true" />
+            <element signature="e#1148#1149#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+            <element signature="e#1247#1248#0" expanded="true" />
+            <element signature="e#1278#1279#0" expanded="true" />
+            <element signature="e#1338#1339#0" expanded="true" />
+            <element signature="e#1378#1379#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TechProjectMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="107" column="36" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
+        <state relative-caret-position="132">
+          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/doctorstationservice/ProjectCollectionManagementServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="72" column="41" lean-forward="true" selection-start-line="72" selection-start-column="41" selection-end-line="72" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3176#3177#0" expanded="true" />
+            <element signature="e#3203#3204#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1829,7 +1539,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.295" />
+                <option value="0.2" />
               </list>
             </option>
           </splitter-proportions>
@@ -1841,8 +1551,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.295" />
-                <option value="0.6" />
+                <option value="0.2" />
               </list>
             </option>
           </splitter-proportions>
@@ -1850,7 +1559,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: ch.qos.logback:logback-classic:1.2.3</last-edited>
+          <last-edited>Maven: com.alibaba:druid-spring-boot-starter:1.1.10</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
