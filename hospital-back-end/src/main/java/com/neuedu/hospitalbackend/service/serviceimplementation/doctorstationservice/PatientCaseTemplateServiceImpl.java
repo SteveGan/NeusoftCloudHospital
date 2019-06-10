@@ -66,17 +66,16 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
      * @param patientCaseTemplateParam 模板修改后内容
      */
     public CommonResult modifyPatientCaseTemplate(PatientCaseTemplateParam patientCaseTemplateParam){
-        Integer id = patientCaseTemplateParam.getId();
         Integer roleId = patientCaseTemplateParam.getRoleId();
-        String name = patientCaseTemplateParam.getName();
-        //TODO role权限验证
+        String pastName = patientCaseTemplateParam.getName();
+        String newName = patientCaseTemplateParam.getNewName();
+
         //模板名称是否被修改
-        String curName = caseTemplateMapper.getNameById(id);
-        if(curName == null)
+        if(pastName == null || newName == null)
             return CommonResult.fail(ResultCode.E_800);
-        if (!curName.equals(name)){ //被修改
+        if (!pastName.equals(newName)){ //被修改
             //检验名称是否已存在
-            if(caseTemplateMapper.getPatientCaseTemplateByRoleIdAndName(roleId, name) != null)
+            if(caseTemplateMapper.getPatientCaseTemplateByRoleIdAndName(roleId, newName) != null)
                 return CommonResult.fail(ResultCode.E_806);
         }
 

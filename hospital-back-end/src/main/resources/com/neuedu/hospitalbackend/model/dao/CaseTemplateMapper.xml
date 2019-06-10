@@ -149,13 +149,13 @@
 
   <update id="update" >
     update case_template
-    set name = #{name}, scope = #{scope},
+    set name = #{newName}, scope = #{scope},
       narrate = #{narrate}, cur_disease = #{curDisease},
       physical_condition = #{physicalCondition},
       cur_treat_condition = #{curTreatCondition},
       past_disease = #{pastDisease}, allergy = #{allergy},
       assist_diagnose = #{assistDiagnose}
-    where id = #{id}
+    where role_id = #{roleId} and name = #{name}
   </update>
 
   <select id="listAvailableByRoleId" resultMap="caseTemplateInfo">
