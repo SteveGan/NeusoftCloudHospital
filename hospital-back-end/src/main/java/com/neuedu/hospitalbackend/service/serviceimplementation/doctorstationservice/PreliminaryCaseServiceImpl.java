@@ -140,7 +140,8 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         String allergy = patientCaseParam.getAllergy();
         String physicalCondition = patientCaseParam.getPhysicalCondition();
         String assistDiagnose = patientCaseParam.getAssistDiagnose();
-        List<DiagnoseParam> diagnoses = patientCaseParam.getDiagnoses();
+        Integer diagnoseType = patientCaseParam.getDiagnoseType();
+        List<DiagnoseParam> diagnoses;
 
         //参数检查
         if(caseId == null)
@@ -159,6 +160,17 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
 
         //诊断
         List<String> existedDiseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId); //所有数据库暂存诊断
+        if(diagnoseType == 0) {
+            diagnoses = patientCaseParam.getTraditionalDiagnose();
+            System.out.println("0000000000000");
+        }
+        else if(diagnoseType == 1) {
+            diagnoses = patientCaseParam.getModernDiagnose();
+            System.out.println("11111111111111111");
+        }
+        else
+            return CommonResult.fail(ResultCode.E_801);
+        System.out.println(diagnoses.size());
         for(DiagnoseParam diagnoseParam: diagnoses) {
             //若数据库已存该诊断，且再次要求暂存/提交，则更新该诊断
             if (existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())) {
