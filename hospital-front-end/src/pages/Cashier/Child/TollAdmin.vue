@@ -120,7 +120,7 @@
               </el-table-column>
               <el-table-column label="项目名称" prop="id">
               </el-table-column>
-              <el-table-column label="数量" prop="amount" width="50">
+              <el-table-column label="可退数量" prop="remainAmount" width="50">
               </el-table-column>
               <el-table-column label="金额" prop="totalMoney" width="50">
               </el-table-column>
@@ -210,7 +210,9 @@ export default {
           var temp = this.invoiceCollection[i].invoiceCode
           if(this.invoiceCollection[i].status==1){
             for(var j=0;j<this.transactionLogs[temp].length;j++){
-              this.chargeItems.push(this.transactionLogs[temp][j])
+              if(this.transactionLogs[temp][j].type!="挂号费"&&this.transactionLogs[temp][j].status===1){
+                this.chargeItems.push(this.transactionLogs[temp][j])
+              }
             }
           }
         }
@@ -219,7 +221,7 @@ export default {
           var temp = this.invoiceCollection[i].invoiceCode
           if(this.invoiceCollection[i].status==2){
             for(var j=0;j<this.transactionLogs[temp].length;j++){
-              if(this.transactionLogs[temp][j].type!="挂号费"){
+              if(this.transactionLogs[temp][j].type!="挂号费"&&this.transactionLogs[temp][j].status===2){
                 this.withdrawItems.push(this.transactionLogs[temp][j])
               }
             }

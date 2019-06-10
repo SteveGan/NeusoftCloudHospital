@@ -29,4 +29,6 @@ public interface PatientCaseMapper {
                                @Param("allergy") String allergy, @Param("physicalCondition") String physicalCondition,
                                @Param("assistDiagnose") String assistDiagnose, @Param("status") Integer status);
     int deletePatientCaseById(Integer registrationId);
+
+    Integer getPatientIdByCaseId(Integer caseId);
 }

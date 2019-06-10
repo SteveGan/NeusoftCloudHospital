@@ -19,6 +19,111 @@
         <result column="requirement" property="requirement"/>
     </resultMap>
 
+    <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Inspection" >
+    insert into inspection (id, case_id, project_id,
+      status, gmt_modified, goal,
+      result_image, result_description, creator_role_id,
+      inspector_role_id, advice, gmt_create,
+      requirement, department_id)
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER},
+      #{status,jdbcType=TINYINT}, #{gmtModified,jdbcType=TIMESTAMP}, #{goal,jdbcType=VARCHAR},
+      #{resultImage,jdbcType=VARCHAR}, #{resultDescription,jdbcType=VARCHAR}, #{creatorRoleId,jdbcType=INTEGER},
+      #{inspectorRoleId,jdbcType=INTEGER}, #{advice,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
+      #{requirement,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Inspection" >
+        insert into inspection
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="caseId != null" >
+                case_id,
+            </if>
+            <if test="projectId != null" >
+                project_id,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="gmtModified != null" >
+                gmt_modified,
+            </if>
+            <if test="goal != null" >
+                goal,
+            </if>
+            <if test="resultImage != null" >
+                result_image,
+            </if>
+            <if test="resultDescription != null" >
+                result_description,
+            </if>
+            <if test="creatorRoleId != null" >
+                creator_role_id,
+            </if>
+            <if test="inspectorRoleId != null" >
+                inspector_role_id,
+            </if>
+            <if test="advice != null" >
+                advice,
+            </if>
+            <if test="gmtCreate != null" >
+                gmt_create,
+            </if>
+            <if test="requirement != null" >
+                requirement,
+            </if>
+            <if test="departmentId != null" >
+                department_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="caseId != null" >
+                #{caseId,jdbcType=INTEGER},
+            </if>
+            <if test="projectId != null" >
+                #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="gmtModified != null" >
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="goal != null" >
+                #{goal,jdbcType=VARCHAR},
+            </if>
+            <if test="resultImage != null" >
+                #{resultImage,jdbcType=VARCHAR},
+            </if>
+            <if test="resultDescription != null" >
+                #{resultDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="creatorRoleId != null" >
+                #{creatorRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="inspectorRoleId != null" >
+                #{inspectorRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="advice != null" >
+                #{advice,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null" >
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="requirement != null" >
+                #{requirement,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentId != null" >
+                #{departmentId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+
     <select id="listPreparedPatientsByCaseIdOrName" resultType="HashMap">
         select c.registration_id, c.patient_name
         from patient_case c, inspection i, transaction_log t
@@ -80,5 +185,27 @@
         update inspection set status = #{status}
         where id = #{collectionId} and project_id = #{projectId}
     </update>
+
+    <select id="getLatestId" resultType="Integer">
+        select id
+        from inspection
+        order by id desc
+        limit 1
+    </select>
+
+    <select id="getDepartmentIdByProjectId" resultType="Integer">
+    select department_id
+    from tech_project
+    where project_id = #{projectId}
+    limit 1
+  </select>
+
+    <select id="getProjectNameByProjectId" resultType="String">
+    select project_name
+    from tech_project
+    where project_id = #{projectId}
+    limit 1
+  </select>
+
 
 </mapper>

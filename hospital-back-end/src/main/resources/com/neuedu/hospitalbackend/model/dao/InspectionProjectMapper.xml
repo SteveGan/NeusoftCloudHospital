@@ -11,12 +11,12 @@
     <result column="amount" property="amount" jdbcType="SMALLINT" />
   </resultMap>
   <insert id="insert" parameterType="InspectionProject" >
-    insert into examination_project (id, collection_id, project_id, project_name, item_id, item_name, amount)
-    values (#{id,jdbcType=INTEGER}, #{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER},
+    insert into inspection_project (collection_id, project_id, project_name, item_id, item_name, amount)
+    values (#{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER},
       #{projectName,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{amount,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="InspectionProject" >
-    insert into examination_project
+    insert into inspection_project
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,

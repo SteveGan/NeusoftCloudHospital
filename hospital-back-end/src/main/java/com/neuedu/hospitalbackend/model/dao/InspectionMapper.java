@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.model.dao;
 
+import com.neuedu.hospitalbackend.model.po.Inspection;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -33,4 +34,13 @@ public interface InspectionMapper {
     int getStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
     int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("status") Byte status);
+
+
+    Integer getLatestId();
+
+    int insertSelective(Inspection inspection);
+
+    Integer getDepartmentIdByProjectId(Integer projectId);
+
+    String getProjectNameByProjectId(Integer projectId);
 }

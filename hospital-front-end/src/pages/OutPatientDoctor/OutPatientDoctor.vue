@@ -587,6 +587,9 @@
             </div>
           </el-card>
         </el-tab-pane>
+        <el-tab-pane label="病历模版管理">
+          <case-template-admin></case-template-admin>
+        </el-tab-pane>
       </el-tabs>
     </el-main>
   </el-container>
@@ -599,8 +602,9 @@ import {
   caseStatusCodeToString,
   genderCodeToString
 } from "@/utils/interpreter";
+
 import OutPatientPreDiagnose from "@/components/outpatientdoctor/OutPatientPreDiagnose";
-import { constants } from "fs";
+import CaseTemplateAdmin from "@/components/outpatientdoctor/CaseTemplateAdmin";
 
 export default {
   name: "OutPatientDoctor",
@@ -680,10 +684,12 @@ export default {
           console.log(response);
         }
       );
+      this.selectedCase = {};
     }
   },
   components: {
-    "outpatient-prediagnose": OutPatientPreDiagnose
+    "outpatient-prediagnose": OutPatientPreDiagnose,
+    "case-template-admin": CaseTemplateAdmin
   },
   mounted: function() {
     //请求所有待诊病人和已诊病人

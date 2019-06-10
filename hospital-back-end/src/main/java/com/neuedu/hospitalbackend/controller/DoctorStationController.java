@@ -1,5 +1,7 @@
 package com.neuedu.hospitalbackend.controller;
 
+import com.neuedu.hospitalbackend.model.bo.Project;
+import com.neuedu.hospitalbackend.model.po.Inspection;
 import com.neuedu.hospitalbackend.model.vo.*;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PatientCaseTemplateService;
@@ -23,6 +25,8 @@ public class DoctorStationController {
     private PatientCaseTemplateService patientCaseTemplateService;
     @Resource
     private DiagnoseTemplateService diagnoseTemplateService;
+    @Resource
+    private ProjectCollectionManagementService projectCollectionManagementService;
 
 
     @ApiOperation("获取所有待诊、已诊患者列表")
@@ -118,6 +122,14 @@ public class DoctorStationController {
                                                  @PathVariable(value = "templateId") String diagnoseTemplateName)
     {
         return diagnoseTemplateService.deleteMyDiagnoseTemplate(roleId, diagnoseTemplateName);
+    }
+
+
+    @ApiOperation("申请检查项目")
+    @RequestMapping(value = "/inspection/application", method = RequestMethod.POST)
+    public CommonResult insertInspection(@RequestBody CollectionParam collectionParam)
+    {
+        return projectCollectionManagementService.insertCollection(collectionParam);
     }
 
 

@@ -58,14 +58,9 @@
           </el-table-column>
           <el-table-column>
             <template slot-scope="scope">
-              <el-button
-                size="mini"
-                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-              <el-button
-                size="mini"
-                type="danger"
-                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-            </template>
+  <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+  <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+</template>
           </el-table-column>
         </el-table>
       </div>
@@ -88,138 +83,140 @@
 </template>
 
 <script>
-import UserBasicInfo from '@/components/common/UserbasicInfo'
-import UserInfoEditor from './Child/UserInfoEditor'
+import UserBasicInfo from "@/components/common/UserbasicInfo";
+import UserInfoEditor from "./Child/UserInfoEditor";
 
 export default {
-  name: 'UserAdmin',
-  components:{
-    'user-basic-info': UserBasicInfo,
-    'user-info-editor': UserInfoEditor
+  name: "UserAdmin",
+  components: {
+    "user-basic-info": UserBasicInfo,
+    "user-info-editor": UserInfoEditor
   },
   computed: {
-    usersDisplayed () {
-      return this.users.filter(
-          data => {
-            var isInclude = false
-            if(this.chosenOption === 'userId'){
-              isInclude = data.userId.toString().toLowerCase().includes(
-                this.userInput.toLowerCase()
-              )
-            }else if(this.chosenOption === 'userName'){
-              isInclude = data.userName.toString().toLowerCase().includes(
-                this.userInput.toLowerCase()
-              )
-            }else{
-              isInclude = true;
-            }
-            return !this.userInput || isInclude
-          }
-        )
+    usersDisplayed() {
+      return this.users.filter(data => {
+        var isInclude = false;
+        if (this.chosenOption === "userId") {
+          isInclude = data.userId
+            .toString()
+            .toLowerCase()
+            .includes(this.userInput.toLowerCase());
+        } else if (this.chosenOption === "userName") {
+          isInclude = data.userName
+            .toString()
+            .toLowerCase()
+            .includes(this.userInput.toLowerCase());
+        } else {
+          isInclude = true;
+        }
+        return !this.userInput || isInclude;
+      });
     }
   },
-  data () {
-      return {
-        userInput:'',
-        chosenOption:'userId',
-        addUserDialogVisible: false,
-        editUserDialogVisible: false,
-        searchOptions: [
-          {
-            value: 'userId',
-            label: '通过用户ID搜索'
-          },
-          {
-            value: 'userName',
-            label: '通过用户名搜索'
-          }
-        ],
-        currentUser: {},
-        users:[
-          {
-            "avatar": "http://ww4.sinaimg.cn/large/006tNc79ly1g3hfk9foouj30ho0heqoj.jpg",
-            "userName": "帅哥",
-            "userId": 10000001,
-            "roles":[
-              {
-                "id": 20000001,
-                "userId": 10000001,
-                "positionId": 2,
-                "positionName": "门诊医生",
-                "departmentId": 16,
-                "departmentName": "神经外科",
-                "titleId": 1,
-                "titleName": "主任医师",
-                "gmtCreate": null,
-                "gmtModified": null
-              },
-              {
-                "id": 20000002,
-                "userId": 10000001,
-                "positionId": 2,
-                "positionName": "医技医生",
-                "departmentId": 19,
-                "departmentName": "某某科室",
-                "titleId": 7,
-                "titleName": "大佬",
-                "gmtCreate": null,
-                "gmtModified": null
-              }
-            ]
-          },
-          {
-            "avatar": "http://ww4.sinaimg.cn/large/006tNc79ly1g3j7rgt3mnj30u0140hav.jpg",
-            "userName": "儿子",
-            "userId": 10000002,
-            "roles":[
-              {
-                "id": 20000001,
-                "userId": 10000001,
-                "positionId": 2,
-                "positionName": "门诊医生",
-                "departmentId": 16,
-                "departmentName": "神经外科",
-                "titleId": 1,
-                "titleName": "主任医师",
-                "gmtCreate": null,
-                "gmtModified": null
-              },
-              {
-                "id": 20000002,
-                "userId": 10000001,
-                "positionId": 2,
-                "positionName": "医技医生",
-                "departmentId": 19,
-                "departmentName": "某某科室",
-                "titleId": 7,
-                "titleName": "我的儿子",
-                "gmtCreate": null,
-                "gmtModified": null
-              }
-            ]
-          }
-        ]
-      }
+  data() {
+    return {
+      userInput: "",
+      chosenOption: "userId",
+      addUserDialogVisible: false,
+      editUserDialogVisible: false,
+      searchOptions: [
+        {
+          value: "userId",
+          label: "通过用户ID搜索"
+        },
+        {
+          value: "userName",
+          label: "通过用户名搜索"
+        }
+      ],
+      currentUser: {},
+      users: [
+        {
+          avatar:
+            "http://ww4.sinaimg.cn/large/006tNc79ly1g3hfk9foouj30ho0heqoj.jpg",
+          userName: "帅哥",
+          userId: 10000001,
+          roles: [
+            {
+              id: 20000001,
+              userId: 10000001,
+              positionId: 2,
+              positionName: "门诊医生",
+              departmentId: 16,
+              departmentName: "神经外科",
+              titleId: 1,
+              titleName: "主任医师",
+              gmtCreate: null,
+              gmtModified: null
+            },
+            {
+              id: 20000002,
+              userId: 10000001,
+              positionId: 2,
+              positionName: "医技医生",
+              departmentId: 19,
+              departmentName: "某某科室",
+              titleId: 7,
+              titleName: "大佬",
+              gmtCreate: null,
+              gmtModified: null
+            }
+          ]
+        },
+        {
+          avatar:
+            "http://ww4.sinaimg.cn/large/006tNc79ly1g3j7rgt3mnj30u0140hav.jpg",
+          userName: "儿子",
+          userId: 10000002,
+          roles: [
+            {
+              id: 20000001,
+              userId: 10000001,
+              positionId: 2,
+              positionName: "门诊医生",
+              departmentId: 16,
+              departmentName: "神经外科",
+              titleId: 1,
+              titleName: "主任医师",
+              gmtCreate: null,
+              gmtModified: null
+            },
+            {
+              id: 20000002,
+              userId: 10000001,
+              positionId: 2,
+              positionName: "医技医生",
+              departmentId: 19,
+              departmentName: "某某科室",
+              titleId: 7,
+              titleName: "我的儿子",
+              gmtCreate: null,
+              gmtModified: null
+            }
+          ]
+        }
+      ]
+    };
+  },
+  methods: {
+    handleEdit(index, row) {
+      this.currentUser = row;
+      this.editUserDialogVisible = true;
     },
-    methods: {
-      handleEdit(index, row) {
-        this.currentUser = row
-        this.editUserDialogVisible = true
-      },
-      handleDelete(index, row) {
-        console.log(index, row);
-      },
-      handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
-      }
+    handleDelete(index, row) {
+      console.log(index, row);
+    },
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
     }
-}
+  }
+};
 </script>
 
 <style lang="css" scoped>
-@import '../../../../static/css/admin.css';
+@import "../../../../static/css/admin.css";
 </style>
