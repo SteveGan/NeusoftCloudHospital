@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.neuedu.hospitalbackend.model.testdao.InspectionProjectMapper" >
-  <resultMap id="BaseResultMap" type="InspectionProject" >
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.ExaminationProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.ExaminationProject" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="collection_id" property="collectionId" jdbcType="INTEGER"/>
     <result column="project_id" property="projectId" jdbcType="INTEGER"/>
@@ -10,12 +10,12 @@
     <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
     <result column="amount" property="amount" jdbcType="SMALLINT" />
   </resultMap>
-  <insert id="insert" parameterType="InspectionProject" >
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.ExaminationProject" >
     insert into examination_project (id, collection_id, project_id, project_name, item_id, item_name, amount)
     values (#{id,jdbcType=INTEGER}, #{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER},
       #{projectName,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{amount,jdbcType=SMALLINT})
   </insert>
-  <insert id="insertSelective" parameterType="InspectionProject" >
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.ExaminationProject" >
     insert into examination_project
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

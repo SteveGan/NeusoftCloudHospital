@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.DiseaseMapper;
 import com.neuedu.hospitalbackend.model.po.DiagnoseTemplate;
-import com.neuedu.hospitalbackend.model.po.Disease;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
