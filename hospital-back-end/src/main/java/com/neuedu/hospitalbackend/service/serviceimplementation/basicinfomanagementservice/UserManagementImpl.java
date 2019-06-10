@@ -66,22 +66,10 @@ public class UserManagementImpl implements UserManagementService {
     }
 
     @Override
-    public JSONObject listAllUsersAndRoles(){
-        JSONArray returnArray = new JSONArray();
-
+    public CommonResult listAllUsersAndRoles(){
+        JSONObject returnJson = new JSONObject();
         List<User> users = userMapper.listAllUsersAndRoles();
-
-        for(User user : users){
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("userId", user.getId());
-            jsonObject.put("userName", user.getName());
-            jsonObject.put("userAvatar", user.getAvatar());
-            jsonObject.put("userCreateTime",user.getGmtCreate());
-            returnArray.add(jsonObject);
-        }
-
-        JSONObject roles = new JSONObject();
-        roles.put("roles", returnArray);
-        return roles;
+        returnJson.put("users", users);
+        return CommonResult.success(returnJson);
     }
 }

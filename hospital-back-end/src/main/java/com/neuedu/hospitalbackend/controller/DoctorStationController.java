@@ -125,11 +125,25 @@ public class DoctorStationController {
     }
 
 
-    @ApiOperation("申请检查项目")
-    @RequestMapping(value = "/inspection/application", method = RequestMethod.POST)
-    public CommonResult insertInspection(@RequestBody CollectionParam collectionParam)
+    @ApiOperation("新增申请项目")
+    @RequestMapping(value = "/collection/application", method = RequestMethod.POST)
+    public CommonResult applyNewCollection(@RequestBody CollectionParam collectionParam)
     {
-        return projectCollectionManagementService.insertCollection(collectionParam);
+        return projectCollectionManagementService.applyNewCollection(collectionParam);
+    }
+
+    @ApiOperation("暂存申请项目")
+    @RequestMapping(value = "/collection/preservation", method = RequestMethod.PUT)
+    public CommonResult savePresentCollection(@RequestBody CollectionParam collectionParam)
+    {
+        return projectCollectionManagementService.savePresentCollection(collectionParam);
+    }
+
+    @ApiOperation("开立申请项目")
+    @RequestMapping(value = "/collection/submission", method = RequestMethod.PUT)
+    public CommonResult submitPresentCollection(@RequestBody CollectionParam collectionParam)
+    {
+        return projectCollectionManagementService.submitPresentCollection(collectionParam);
     }
 
 

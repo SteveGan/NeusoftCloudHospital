@@ -12,4 +12,8 @@ public interface TechProjectMapper {
 
     int insertSelective(TechProject record);
 
+    Integer getDepartmentIdByProjectId(Integer projectId);
+
+    String getProjectNameByProjectId(Integer projectId);
+
 }
