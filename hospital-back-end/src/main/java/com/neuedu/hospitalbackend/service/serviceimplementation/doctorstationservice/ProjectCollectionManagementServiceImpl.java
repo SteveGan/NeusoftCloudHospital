@@ -185,6 +185,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                         count = inspectionProjectMapper.updateAmount(collectionId, projectId, itemId, amount);
                         if (count <= 0)
                             return CommonResult.fail();
+                        existedItemIds.remove(itemId);
                     }
                     //若小项不存在，插入小项
                     else {
@@ -203,6 +204,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                 for (String leftItemId : existedItemIds) {
                     inspectionProjectMapper.delete(collectionId, projectId, leftItemId);
                 }
+                existedProjectIds.remove(projectId);
             }
 
             //若检查项目不在数据库，插入
@@ -231,14 +233,13 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     }
                 }
             }
-
-            //剩余已存在检查项目，删除
-            for(Integer leftProjectId: existedProjectIds){
-                //清单中删除项目
-                inspectionMapper.delete(collectionId, leftProjectId);
-                //删除小项
-                inspectionProjectMapper.deleteItemsByCidAndPid(collectionId, leftProjectId);
-            }
+        }
+        //剩余已存在检查项目，删除
+        for(Integer leftProjectId: existedProjectIds){
+            //清单中删除项目
+            inspectionMapper.delete(collectionId, leftProjectId);
+            //删除小项
+            inspectionProjectMapper.deleteItemsByCidAndPid(collectionId, leftProjectId);
         }
 
         return CommonResult.success(count);
