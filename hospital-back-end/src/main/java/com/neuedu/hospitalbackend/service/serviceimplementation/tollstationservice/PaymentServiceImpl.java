@@ -104,8 +104,17 @@ public class PaymentServiceImpl implements PaymentService {
             for(int i=0; i < returnedProjectList.size(); i++){
                 returnedProjectIdList.add(returnedProjectList.get(i).getProjectId());
             }
-            // 得到集合的类别（检验、检查、处置、药方）
-            Byte itemCategory = returnedProjectList.get(0).getItemCategory();
+            // 判断集合的类别（检验、检查、处置、药方）
+            Byte itemCategory = null;
+            if(collectionId.toString().startsWith("2")) {
+                itemCategory = 1;
+            } else if(collectionId.toString().startsWith("3")) {
+                itemCategory = 2;
+            } else if(collectionId.toString().startsWith("4")) {
+                itemCategory = 3;
+            } else if(collectionId.toString().startsWith("5")) {
+                itemCategory = 4;
+            }
             //得到退费项目所在集合的发票号
             String originalInvoiceCode = returnedProjectList.get(0).getInvoiceCode();
 
