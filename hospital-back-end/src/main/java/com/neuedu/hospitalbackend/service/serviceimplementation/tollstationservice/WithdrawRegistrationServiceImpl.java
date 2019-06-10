@@ -5,15 +5,12 @@ import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.*;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.InvoiceService;
-import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.TransactionService;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.WithdrawRegistrationService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import com.neuedu.hospitalbackend.util.ConstantMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import static com.neuedu.hospitalbackend.util.ResultCode.*;
 
 @Service
@@ -31,15 +28,6 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
     private PatientCaseMapper patientCaseMapper;
     @Autowired
     private ArrangementMapper arrangementMapper;
-
-    @Override
-    public CommonResult getRegistrationInfo(Integer registrationId){
-        Registration registration = registrationMapper.getRegistrationInfo(registrationId);
-        if (registration != null)
-            return CommonResult.success(registration);
-        else
-            return CommonResult.fail(E_703);
-    }
 
     @Override
     @Transactional

@@ -20,7 +20,7 @@ public interface TransactionLogMapper {
     HashMap getRegistrationLog(Integer registrationId);
     //列出 指定病历号的所有医技项目(检查/检验/处置) 缴费记录
     List<HashMap> listLogsByTableName(@Param("tableName") String tableName, @Param("registrationId") Integer registrationId);
-    ////列出 指定病历号的药方 缴费记录
+    //列出 指定病历号的药方 缴费记录
     List<HashMap> getRecipeLogs(Integer registrationId);
     //更改 退费的项目所在第一层级的 相关缴费记录状态 --已退费
     int updateSelectiveAsReturned(Integer collectionId, @Param("invoiceCode") String invoiceCode);

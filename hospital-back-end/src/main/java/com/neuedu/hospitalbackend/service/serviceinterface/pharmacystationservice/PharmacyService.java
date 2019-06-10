@@ -8,7 +8,14 @@ import java.util.List;
 public interface PharmacyService {
 
     /**
-     * 根据患者的病历号，查询开立的处方信息
+     *
+     * @param caseId 病历号
+     * @param chargeDateStr 收费日期
+     * @return
+     */
+    CommonResult listRecipesByRegistrationIdOrDate(Integer caseId, String chargeDateStr);
+    /**
+     * 根据患者的病历号，列出处方信息列表
      * @param registrationId 病历号
      * @return
      */

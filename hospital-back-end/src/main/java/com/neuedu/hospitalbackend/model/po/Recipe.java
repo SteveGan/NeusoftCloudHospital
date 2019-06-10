@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend.model.po;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 
 public class Recipe {
 
@@ -13,17 +13,23 @@ public class Recipe {
 
     private Integer departmentId;
 
-    private Byte type;
+    private Short amount;
+
+    private Short remainAmount;
+
+    private Byte medicineType;
+
+    private String medicineSpecification;
+
+    private String medicineUnit;
+
+    private String medicineFormulation;
+
+    private BigDecimal medicineUnitPrice;
 
     private BigDecimal dosage;
 
     private String frequency;
-
-    private String dosageUnit;
-
-    private Short amount;
-
-    private Short remainAmount;
 
     private Byte status;
 
@@ -67,12 +73,60 @@ public class Recipe {
         this.departmentId = departmentId;
     }
 
-    public Byte getType() {
-        return type;
+    public Short getAmount() {
+        return amount;
     }
 
-    public void setType(Byte type) {
-        this.type = type;
+    public void setAmount(Short amount) {
+        this.amount = amount;
+    }
+
+    public Short getRemainAmount() {
+        return remainAmount;
+    }
+
+    public void setRemainAmount(Short remainAmount) {
+        this.remainAmount = remainAmount;
+    }
+
+    public Byte getMedicineType() {
+        return medicineType;
+    }
+
+    public void setMedicineType(Byte medicineType) {
+        this.medicineType = medicineType;
+    }
+
+    public String getMedicineSpecification() {
+        return medicineSpecification;
+    }
+
+    public void setMedicineSpecification(String medicineSpecification) {
+        this.medicineSpecification = medicineSpecification;
+    }
+
+    public String getMedicineUnit() {
+        return medicineUnit;
+    }
+
+    public void setMedicineUnit(String medicineUnit) {
+        this.medicineUnit = medicineUnit;
+    }
+
+    public String getMedicineFormulation() {
+        return medicineFormulation;
+    }
+
+    public void setMedicineFormulation(String medicineFormulation) {
+        this.medicineFormulation = medicineFormulation;
+    }
+
+    public BigDecimal getMedicineUnitPrice() {
+        return medicineUnitPrice;
+    }
+
+    public void setMedicineUnitPrice(BigDecimal medicineUnitPrice) {
+        this.medicineUnitPrice = medicineUnitPrice;
     }
 
     public BigDecimal getDosage() {
@@ -88,31 +142,7 @@ public class Recipe {
     }
 
     public void setFrequency(String frequency) {
-        this.frequency = frequency == null ? null : frequency.trim();
-    }
-
-    public String getDosageUnit() {
-        return dosageUnit;
-    }
-
-    public void setDosageUnit(String dosageUnit) {
-        this.dosageUnit = dosageUnit == null ? null : dosageUnit.trim();
-    }
-
-    public Short getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Short amount) {
-        this.amount = amount;
-    }
-
-    public Short getRemainAmount() {
-        return remainAmount;
-    }
-
-    public void setRemainAmount(Short remainAmount) {
-        this.remainAmount = remainAmount;
+        this.frequency = frequency;
     }
 
     public Byte getStatus() {

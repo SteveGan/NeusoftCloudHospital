@@ -129,7 +129,7 @@ public class PaymentServiceImpl implements PaymentService {
                             || (itemCategory == 4 && returnedProject.getItemStatus() == 2))){
                         CommonResult.fail(E_704);
                     }
-                    else if(returnedProject.getRemainAmount() == (returnedProject.getAmount() + returnedProject.getReturnAmount()))
+                    else if(returnedProject.getRemainAmount() < returnedProject.getReturnAmount())
                         CommonResult.fail(E_704);
                 }
                 else
@@ -212,7 +212,6 @@ public class PaymentServiceImpl implements PaymentService {
                         newTransactionLog.setId(null);
                         newTransactionLog.setInvoiceCode(newInvoiceCode);
                         newTransactionLog.setStatus(transactionLog.getStatus());
-                        //newTransactionLog.setTotalMoney(transactionLog.getTotalMoney().negate());
                         CommonResult insertNewResult = transactionService.insertTransactionLog(newTransactionLog);
                         if (insertNewResult.getCode() == 500)
                             return insertNewResult;
@@ -225,7 +224,7 @@ public class PaymentServiceImpl implements PaymentService {
                                 Short remainAmount = (short) (returnedProject.getRemainAmount() - returnAmount);
                                 if(remainAmount != 0){
                                     BigDecimal newTotalFee = new BigDecimal(remainAmount).multiply(
-                                            medicineMapper.getUnitPrizeById(returnedProject.getProjectId()));
+                                            medicineMapper.getUnitPriceById(returnedProject.getProjectId()));
                                     TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
                                     newTransactionLog.setId(null);
                                     newTransactionLog.setInvoiceCode(newInvoiceCode);

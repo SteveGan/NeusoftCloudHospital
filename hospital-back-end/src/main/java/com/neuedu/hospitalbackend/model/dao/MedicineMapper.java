@@ -19,5 +19,5 @@ public interface MedicineMapper {
 
     int delete(Short id);
 
-    BigDecimal getUnitPrizeById(Integer id);
+    BigDecimal getUnitPriceById(Integer id);
 }
