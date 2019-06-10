@@ -30,7 +30,7 @@
               </el-table-column>
               <el-table-column
                 fixed="right"
-                width='80px'>
+                width='50px'>
                 <template slot-scope="scope">
                   <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
                 </template>
@@ -61,9 +61,9 @@
               <el-table-column
                 fixed="right"
                 width='50px'>
-                <template slot-scope="scope">
-                  <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
-                </template>
+              <template slot-scope="scope">
+  <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
+</template>
               </el-table-column>
             </el-table>
           </div>
@@ -99,7 +99,12 @@
         <!-- 门诊首页tab-->
         <el-tab-pane label="门诊首页">
           <!-- 门诊病历首页内容 -->
-          <outpatient-prediagnose :patientCase.sync="selectedCase"></outpatient-prediagnose>
+          <outpatient-prediagnose 
+            @saveCase="onSaveSelectedCase" 
+            @submitCase="onSubmitSelectedCase" 
+            @clearCase="onClearSelectedCase"
+            v-model="selectedCase">
+          </outpatient-prediagnose>
         </el-tab-pane>
         <el-tab-pane label="检验申请">
           <div class="outpatient-service-container">
@@ -588,169 +593,210 @@
 </template>
 
 <script>
-import {listAllPatients} from '@/api/patient'
-import {getCaseContent} from '@/api/case'
-import {caseStatusCodeToString, genderCodeToString} from '@/utils/interpreter'
-import OutPatientPreDiagnose from '@/components/outpatientdoctor/OutPatientPreDiagnose'
-
+import { listAllPatients } from "@/api/patient";
+import { getCaseContent, submitCase, saveCase, clearCase } from "@/api/case";
+import {
+  caseStatusCodeToString,
+  genderCodeToString
+} from "@/utils/interpreter";
+import OutPatientPreDiagnose from "@/components/outpatientdoctor/OutPatientPreDiagnose";
+import { constants } from "fs";
 
 export default {
-  name: 'OutPatientDoctor',
-  data () {
+  name: "OutPatientDoctor",
+  data() {
     return {
-      waitingPatients:[],
-      diagnosedPatients:[],
-      selectedPatient:{name: 'haha'},
-      selectedCase:{},
+      waitingPatients: [],
+      diagnosedPatients: [],
+      selectedPatient: { name: "haha" },
+      selectedCase: {},
       modernDisease: [],
       traditionalDisease: []
-    }
+    };
   },
   computed: {
     status: function() {
-      return caseStatusCodeToString(this.selectedCase.status)
+      return caseStatusCodeToString(this.selectedCase.status);
     },
     gender: function() {
-      return genderCodeToString(this.selectedPatient.gender)
+      return genderCodeToString(this.selectedPatient.gender);
     }
   },
   methods: {
-    handlePatientSelect(row){
+    handlePatientSelect(row) {
       //将当前的用户设置为被点击的用户
-      this.selectedPatient = Object.assign({},row)
+      this.selectedPatient = Object.assign({}, row);
       //请求当前被点击用户的当前病历信息
-      getCaseContent({roleId:this.$store.getters['user/currentRoleId'], caseId: this.selectedPatient.caseId}).then(
+      getCaseContent({
+        roleId: this.$store.getters["user/currentRoleId"],
+        caseId: this.selectedPatient.caseId
+      }).then(
         response => {
-          const caseContent = response.data.data
-          this.selectedCase = Object.assign({}, caseContent)
+          const caseContent = response.data.data;
+          this.selectedCase = Object.assign({}, caseContent);
+          console.log(this.selectedCase);
         },
         error => {
           //暂时不处理
-          console.alert("得到病历内容出Bug了")
+          console.alert("得到病历内容出Bug了");
         }
-      )
+      );
+    },
+    //暂存case的内容
+    onSaveSelectedCase() {
+      console.log("save:");
+      console.log(this.selectedCase);
+      saveCase(this.selectedCase).then(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    //上传case的内容
+    onSubmitSelectedCase() {
+      console.log("submit:");
+      console.log(this.selectedCase);
+      submitCase(this.selectedCase).then(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    //清空case内容
+    onClearSelectedCase() {
+      console.log("clear:");
+      console.log(this.selectedCase);
+      clearCase(this.selectedCase.caseId).then(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(response);
+        }
+      );
     }
   },
   components: {
-    'outpatient-prediagnose': OutPatientPreDiagnose
+    "outpatient-prediagnose": OutPatientPreDiagnose
   },
-  mounted: function () {
-      //请求所有待诊病人和已诊病人
-      listAllPatients(this.$store.getters['user/currentRoleId']).then( response => {
-        const data = response.data.data
-        this.waitingPatients = data.waitingPatients
-        this.diagnosedPatients = data.diagnosedPatients
+  mounted: function() {
+    //请求所有待诊病人和已诊病人
+    listAllPatients(this.$store.getters["user/currentRoleId"]).then(
+      response => {
+        const data = response.data.data;
+        this.waitingPatients = data.waitingPatients;
+        this.diagnosedPatients = data.diagnosedPatients;
         // console.log(this.waitingPatients)
-      }, error => {
-        console.alert("请求所有病人出Bug了")
-      })
-      // //请求所有中医疾病和西医疾病
-      // listAllDisease().then( response => {
-      //   const data = response.data.data
-      //   this.modernDisease = data.modernDisease
-      //   this.traditionalDisease = data.traditionalDisease
-      // }, error => {
-      //   //暂时不做处理
-      // })
+      },
+      error => {
+        console.alert("请求所有病人出Bug了");
+      }
+    );
+    // //请求所有中医疾病和西医疾病
+    // listAllDisease().then( response => {
+    //   const data = response.data.data
+    //   this.modernDisease = data.modernDisease
+    //   this.traditionalDisease = data.traditionalDisease
+    // }, error => {
+    //   //暂时不做处理
+    // })
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
-
-.side-bar{
+.side-bar {
   height: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color:#fafafa;
+  background-color: #fafafa;
 }
 
-.search-user{
-  height: 30px;
-  margin-bottom:
-}
-
-.current-user{
+.current-user {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
 
-.basic-info{
+.basic-info {
   padding-top: 4px;
   font-size: 15px;
   margin-right: auto;
 }
 
-.info-card{
+.info-card {
   margin-bottom: 4px;
 }
 
-.outpatient-service-container{
+.outpatient-service-container {
   display: grid;
   grid-template-columns: 70% 30%;
 }
 
-.service-main-container{
+.service-main-container {
   grid-column: 1/2;
   margin-left: 2px;
 }
 
-.service-side-container{
+.service-side-container {
   grid-column: 2;
   margin-right: 2px;
   margin-top: 38px;
 }
 
-.recipe-service-container{
-  display:flex;
+.recipe-service-container {
+  display: flex;
   flex-direction: column;
 }
 
-.recipe-template{
+.recipe-template {
   display: grid;
   grid-template-columns: 40% 60%;
 }
 
-.recipe-browser{
+.recipe-browser {
   grid-column: 1/2;
   padding: 2px;
 }
 
-.recipe-detail{
+.recipe-detail {
   grid-column: 2;
   padding: 2px;
 }
 
-
-
-.template-tabs{
+.template-tabs {
   position: -webkit-sticky;
   position: sticky;
   top: 0px;
 }
 
-.tool-bar{
+.tool-bar {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin-bottom: 5px;
 }
 
-.input-card{
+.input-card {
   margin-top: 5px;
   margin-right: 10px;
 }
 
-.diagnose-header{
+.diagnose-header {
   display: flex;
   flex-direction: row;
-  align-items:center;
+  align-items: center;
 }
 
-.application-number{
+.application-number {
   background-color: #597ef7;
   border-radius: 5px;
   font-size: 15px;
@@ -758,14 +804,12 @@ export default {
   color: white;
 }
 
-.service-main-container .el-card{
+.service-main-container .el-card {
   margin-right: 5px;
 }
 
-.add-recipe-button{
+.add-recipe-button {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
-
 </style>
