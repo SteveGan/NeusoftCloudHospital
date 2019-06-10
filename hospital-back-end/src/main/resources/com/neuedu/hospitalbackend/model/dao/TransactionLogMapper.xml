@@ -13,7 +13,7 @@
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
-        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        <result column="item_id" property="itemId" jdbcType="String" />
         <result column="amount" property="amount" jdbcType="SMALLINT" />
         <result column="pay_type" property="payType" jdbcType="TINYINT" />
         <result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
@@ -31,7 +31,7 @@
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
-        <result column="item_id" property="itemId" jdbcType="INTEGER" />
+        <result column="item_id" property="itemId" jdbcType="String" />
         <result column="amount" property="amount" jdbcType="SMALLINT" />
         <result column="pay_type" property="payType" jdbcType="TINYINT" />
         <result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
@@ -52,7 +52,7 @@
           )
         values (#{id,jdbcType=INTEGER}, #{invoiceCode,jdbcType=CHAR}, #{registrationId,jdbcType=INTEGER},
           #{patientId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},
-          #{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER},
+          #{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{itemId,jdbcType=String},
           #{amount,jdbcType=SMALLINT}, #{payType,jdbcType=TINYINT}, #{totalMoney,jdbcType=DECIMAL},
           #{status,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
           )
@@ -127,7 +127,7 @@
                 #{projectId,jdbcType=INTEGER},
             </if>
             <if test="itemId != null">
-                #{itemId,jdbcType=INTEGER},
+                #{itemId,jdbcType=String},
             </if>
             <if test="amount != null">
                 #{amount,jdbcType=INTEGER},
