@@ -108,7 +108,7 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
 
         }
         //若该诊断已存该疾病，但更新内容中无该疾病，则删除该疾病
-        while(!existedDiseaseIcdCodes.isEmpty()) {
+        if(!existedDiseaseIcdCodes.isEmpty()) {
             for (String leftDiseaseIcdCode : existedDiseaseIcdCodes)
                 count = diagnoseTemplateMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
         }

@@ -193,7 +193,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             }
         }
         //若数据库已存该诊断，但不再暂存/提交，则删除该诊断
-        while(!existedDiseaseIcdCodes.isEmpty()) {
+        if(!existedDiseaseIcdCodes.isEmpty()) {
             for (String leftDiseaseIcdCode : existedDiseaseIcdCodes) {
                 count = diagnoseMapper.deleteByCaseIdAndDiseaseIcdCode(caseId, leftDiseaseIcdCode);
             }

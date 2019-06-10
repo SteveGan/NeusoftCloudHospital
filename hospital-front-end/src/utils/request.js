@@ -1,14 +1,19 @@
 import axios from 'axios'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
-import { Message, MessageBox } from 'element-ui'
+import {
+  getToken
+} from '@/utils/auth'
+import {
+  Message,
+  MessageBox
+} from 'element-ui'
 
 
 
 // create an axios object
 const service = axios.create({
   baseURL: process.env.BASE_API,
-  timeout: 15000 // 请求超时时间
+  timeout: 80000 // 请求超时时间
 })
 
 // request interceptors
@@ -19,20 +24,21 @@ service.interceptors.request.use(
       // 让每个请求携带自定义token 请根据实际情况自行修改
       config.headers['Authorization'] = getToken()
     }
+    console.log(config.data)
     return config
   },
   error => {
     // log the error
     console.log(error)
     return Promise.reject(error)
-})
+  })
 
 // response interceptors
 service.interceptors.response.use(
   response => {
-  /**
-  * if response code is not 200, do something
-  */
+    /**
+     * if response code is not 200, do something
+     */
     const status = response.data.code
     if (status !== 200) {
       Message({
@@ -42,7 +48,7 @@ service.interceptors.response.use(
       })
 
       // 401:未登录;
-      if (status === 401|| status === 403) {
+      if (status === 401 || status === 403) {
         MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
@@ -60,7 +66,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error)// for debug
+    console.log('err' + error) // for debug
     Message({
       message: error.message,
       type: 'error',
