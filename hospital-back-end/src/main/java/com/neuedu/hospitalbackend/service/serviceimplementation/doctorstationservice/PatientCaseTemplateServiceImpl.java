@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.bo.PatientCaseTemplate;
 import com.neuedu.hospitalbackend.model.dao.CaseTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
+import com.neuedu.hospitalbackend.model.po.CaseTemplate;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PatientCaseTemplateService;
 import com.neuedu.hospitalbackend.util.CommonResult;
@@ -61,6 +62,7 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
             return CommonResult.fail();
     }
 
+
     /**
      * 修改病历模板
      * @param patientCaseTemplateParam 模板修改后内容
@@ -88,6 +90,7 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
             return CommonResult.fail();
     }
 
+
     /**
      * 查询该医生所有可用模版
      * @param roleId 医生的角色id
@@ -95,14 +98,21 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
      */
     public CommonResult listPatientCaseTemplate(Integer roleId){
         JSONObject returnJson = new JSONObject();
+
         //参数检验
         if(roleId == null)
             return CommonResult.fail(ResultCode.E_801);
+
         //角色所在科室
         Integer departmentId = roleMapper.getDepartmentIdByRoleId(roleId);
         //可用模板列表
-        List<HashMap> caseTemplates= caseTemplateMapper.listAvailableByRoleId(roleId, departmentId);
-        returnJson.put("caseTemplates", caseTemplates);
+        List<HashMap> myCaseTemplates= caseTemplateMapper.listMyCaseTemplates(roleId);
+        returnJson.put("myCaseTemplates", myCaseTemplates);
+        List<HashMap> departmentCaseTemplates= caseTemplateMapper.listDepartmentCaseTemplates(roleId, departmentId);
+        returnJson.put("departmentCaseTemplates", departmentCaseTemplates);
+        List<HashMap> hospitalCaseTemplates= caseTemplateMapper.listHospitalCaseTemplates(roleId);
+        returnJson.put("hospitalCaseTemplates", hospitalCaseTemplates);
+
         return CommonResult.success(returnJson);
     }
 
@@ -110,21 +120,18 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
      * 删除病历模板
      * @param roleId,caseTemplateId
      */
-    public CommonResult deletePatientCaseTemplate(Integer roleId, Integer caseTemplateId){
-        int count = 0;
+    public CommonResult deletePatientCaseTemplate(Integer roleId, String name){
         //参数检验
-        if (roleId == null || caseTemplateId == null)
+        if (roleId == null || name == null)
             return CommonResult.fail(ResultCode.E_801);
         //权限检验
-        if(roleId != caseTemplateMapper.getRoleIdById(caseTemplateId))
+        CaseTemplate caseTemplate = caseTemplateMapper.getPatientCaseTemplateByRoleIdAndName(roleId, name);
+        if(null == caseTemplate)
             return CommonResult.fail(ResultCode.E_804);
         //删除病历模板
-        count = caseTemplateMapper.deleteById(caseTemplateId);
+        int count = caseTemplateMapper.deleteById(caseTemplate.getId());
 
-        if(count > 0 )
-            return CommonResult.success(count);
-        else
-            return CommonResult.fail();
+        return CommonResult.success(count);
     }
 
 

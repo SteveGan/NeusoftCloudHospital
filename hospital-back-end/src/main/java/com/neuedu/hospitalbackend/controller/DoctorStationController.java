@@ -83,11 +83,11 @@ public class DoctorStationController {
     }
 
     @ApiOperation("删除病历模板")
-    @RequestMapping(value = "/casetemplate/deletion/{roleId}/{caseTemplateId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/casetemplate/deletion/{roleId}/{caseTemplateName}", method = RequestMethod.DELETE)
     public CommonResult deletePatientCaseTemplate(@PathVariable(value = "roleId") Integer roleId,
-                                                  @PathVariable(value = "caseTemplateId") Integer caseTemplateId)
+                                                  @PathVariable(value = "caseTemplateName") String caseTemplateName)
     {
-        return patientCaseTemplateService.deletePatientCaseTemplate(roleId, caseTemplateId);
+        return patientCaseTemplateService.deletePatientCaseTemplate(roleId, caseTemplateName);
     }
 
     @ApiOperation("创建常用诊断")
