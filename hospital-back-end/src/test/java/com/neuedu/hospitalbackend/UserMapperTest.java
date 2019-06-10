@@ -1,7 +1,7 @@
 package com.neuedu.hospitalbackend;
 
 public class UserMapperTest {
-//    @Test
+//    @PharmacyServiceImpl
 //    public void testLogin() {
 //        LoginParam loginParam = new LoginParam();
 //        loginParam.setUserId(10000001);
@@ -9,7 +9,7 @@ public class UserMapperTest {
 //        System.out.println(new OauthController().login(loginParam));
 //    }
 //
-//    @Test
+//    @PharmacyServiceImpl
 //    public void testSha() {
 //        System.out.println(SHAUtils.encodeData("wozuishuai"));
 //    }

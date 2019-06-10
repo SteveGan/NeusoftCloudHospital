@@ -110,6 +110,8 @@ public class PaymentServiceImpl implements PaymentService {
             String originalInvoiceCode = returnedProjectList.get(0).getInvoiceCode();
 
             // 先判断collection中的项目是否都为可退状态，如果有一项不可退，则返回给前端，提示重新选择
+            //医技项目退费条件：已缴费 + 开立
+            //药方退费条件：已缴费 + 已退药 / 已缴费 + 开立
             for(TransactionParam project: returnedProjectList){
                 if (project.getStatus() == 2){
                     if ( !((project.getItemCategory() != 4 && project.getItemStatus() == 2)
@@ -138,6 +140,9 @@ public class PaymentServiceImpl implements PaymentService {
                         //如果药品本身是已退药的状态,则无需更改对应药品状态
                         //如果药品本身是开立（未取药）的状态, 则需更改对应处方中药品的return amount
                         recipeMapper.updateAmount(project.getCollectionId(), project.getProjectId(), project.getReturnAmount());
+                        //如果退药数量 = 药品可退数量，则该药品状态应改为作废
+                        if(project.getReturnAmount() == project.getAmount())
+                            recipeMapper.updateStatus(project.getCollectionId(), project.getProjectId(), (byte) 3);
                         break;
                 }
             }
@@ -169,7 +174,16 @@ public class PaymentServiceImpl implements PaymentService {
             }
 
             // 如果某个collection下的所有项目没有都被退费，则产生新的缴费记录
-            if(transactionLogs.size() != returnedProjectList.size()) {
+            // 对于医技项目来说，没有都被退费： transactionLogs.size() != returnedProjectList.size()
+            //对于药品来说，没有都被退费：某个退费的项目returnAmount != amount / transactionLogs.size() != returnedProjectList.size()
+            boolean isRecipeAllReturn = false;
+            if(itemCategory == 4){
+                for(TransactionParam project: returnedProjectList){
+                    if(project.getAmount() != project.getReturnAmount())
+                        isRecipeAllReturn = true;
+                }
+            }
+            if(transactionLogs.size() != returnedProjectList.size() || isRecipeAllReturn) {
                 synchronized (this) {
                     //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
                     CommonResult result = invoiceService.getNextInvoiceCode();
@@ -221,4 +235,37 @@ public class PaymentServiceImpl implements PaymentService {
         return CommonResult.success(transactionLogParams.size());
     }
 
+    @Override
+    public CommonResult reprintTransactionLog(String invoiceCode){
+        List<TransactionLog> transactionLogs = transactionLogMapper.listLogsByInvoiceCode(invoiceCode);
+        String newInvoiceCode = null;
+        synchronized (this) {
+            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+            CommonResult result = invoiceService.getNextInvoiceCode();
+            newInvoiceCode = (String) result.getData();
+        }
+        int count = 0;
+        for(TransactionLog transactionLog: transactionLogs){
+            //更改原有的发票号对应的缴费状态
+            transactionLog.setStatus((byte) 5);
+            count += transactionLogMapper.update(transactionLog);
+            //插入新的缴费记录
+            transactionLog.setId(null);
+            transactionLog.setInvoiceCode(newInvoiceCode);
+            transactionLog.setStatus((byte) 2);
+            CommonResult insertReverseResult = transactionService.insertTransactionLog(transactionLog);
+            if (insertReverseResult.getCode() == 500)
+                return insertReverseResult;
+
+        }
+        //向异常表中添加新的记录
+        CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
+                invoiceCode, newInvoiceCode, null, transactionLogs.get(0).getRoleId(), "发票重打" );
+        if (insertExceptionResult.getCode() == 500)
+            return insertExceptionResult;
+        if(count == transactionLogs.size())
+            return CommonResult.success(newInvoiceCode);
+        else
+            return CommonResult.fail();
+    }
 }
