@@ -51,7 +51,8 @@ public class PaymentServiceImpl implements PaymentService {
         for(HashMap log: logs){
             System.out.println("log" + log);
             for(HashMap t: invoiceCollection){
-                if(log.get("invoiceCode").equals(t.get("invoiceCode"))){
+                if( (log.get("invoiceCode").equals(t.get("invoiceCode")))
+                        && (log.get("status") == t.get("status")) ){
                     if(result.containsKey(t.get("invoiceCode")))
                         result.get(t.get("invoiceCode")).add(log);
                     else{
