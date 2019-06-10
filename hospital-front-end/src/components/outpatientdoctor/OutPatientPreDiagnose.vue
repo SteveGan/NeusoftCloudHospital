@@ -1,6 +1,7 @@
 <template lang="html">
   <!-- 门诊病历首页内容 -->
   <div class="outpatient-service-container">
+    <el-button @click="logCurrentCase">log当前的病历</el-button>
     <!-- 左侧操作区 -->
     <div class="service-main-container">
       <!-- 工具栏 -->
@@ -153,7 +154,7 @@
       <el-tabs type="border-card" class="template-tabs">
         <!-- 门诊首页tab-->
         <el-tab-pane label="病历模版">
-          <case-template></case-template>
+          <case-template @give-template="useTemplate"></case-template>
         </el-tab-pane>
         <el-tab-pane label="常用诊断">
           
@@ -233,6 +234,7 @@
 import CaseTemplate from "./CaseTemplate";
 import { listAllDiseases } from "@/api/disease";
 import { delimiter } from "path";
+import { constants } from "fs";
 
 export default {
   name: "OutPatientPreDiagnose",
@@ -326,10 +328,7 @@ export default {
     },
     handleRemoveDiagnoses(allDiagnoses, selectedDiagnoses) {
       //遍历所有被选中的selecteDiagnoses
-      console.log("allDiagnoses");
-      console.log(allDiagnoses);
-      console.log("selectedDiagnoses:");
-      console.log(selectedDiagnoses);
+
       var i;
       for (i = 0; i < selectedDiagnoses.length; i++) {
         console.log("to be deleted:");
@@ -359,6 +358,19 @@ export default {
     },
     handleClear() {
       this.$emit("clearCase");
+    },
+    logCurrentCase() {
+      console.log(this.currentCase);
+    },
+    //使用病历模版组件中传来的template
+    useTemplate(caseTemplate) {
+      this.currentCase.narrate = caseTemplate.narrate;
+      this.currentCase.curDisease = caseTemplate.curDisease;
+      this.currentCase.pastDisease = caseTemplate.pastDisease;
+      this.currentCase.allergy = caseTemplate.allergy;
+      this.currentCase.physicalCondition = caseTemplate.physicalCondition;
+      this.currentCase.traditionalDiagnose = caseTemplate.traditionalDiseases;
+      this.currentCase.assistDiagnose = caseTemplate.assistDiagnose;
     }
   },
   mounted: function() {

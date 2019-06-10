@@ -108,9 +108,9 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
         //可用模板列表
         List<HashMap> myCaseTemplates= caseTemplateMapper.listMyCaseTemplates(roleId);
         returnJson.put("myCaseTemplates", myCaseTemplates);
-        List<HashMap> departmentCaseTemplates= caseTemplateMapper.listDepartmentCaseTemplates(roleId, departmentId);
+        List<HashMap> departmentCaseTemplates= caseTemplateMapper.listDepartmentCaseTemplates(departmentId);
         returnJson.put("departmentCaseTemplates", departmentCaseTemplates);
-        List<HashMap> hospitalCaseTemplates= caseTemplateMapper.listHospitalCaseTemplates(roleId);
+        List<HashMap> hospitalCaseTemplates= caseTemplateMapper.listHospitalCaseTemplates();
         returnJson.put("hospitalCaseTemplates", hospitalCaseTemplates);
 
         return CommonResult.success(returnJson);

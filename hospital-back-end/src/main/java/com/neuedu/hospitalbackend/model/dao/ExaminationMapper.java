@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.model.dao;
 
+import com.neuedu.hospitalbackend.model.po.Examination;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -33,4 +34,10 @@ public interface ExaminationMapper {
     int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("status") Byte status);
 
     int getStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
+
+    int insertSelective(Examination examination);
+
+    Integer getLatestId();
+
 }

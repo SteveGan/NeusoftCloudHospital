@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="cashier">
-  <el-tabs style="padding-left: 5px;" value="second">
+  <el-tabs style="padding-left: 5px;" value="first">
     <el-tab-pane label="门诊挂号管理" name="first">
       <patient-registration></patient-registration>
     </el-tab-pane>
