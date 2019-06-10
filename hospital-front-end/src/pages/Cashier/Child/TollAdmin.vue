@@ -105,7 +105,7 @@
         <div>
           <!-- 操作按钮 -->
           <div class="action-bar">
-            <el-button type="text" icon="el-icon-success" @click="charge">退费</el-button>
+            <el-button type="text" icon="el-icon-success" @click="withdraw">退费</el-button>
             <el-button type="text" icon="el-icon-printer">发票重印</el-button>
             <el-button type="text" icon="el-icon-printer">发票补打</el-button>
           </div>
@@ -120,17 +120,20 @@
               </el-table-column>
               <el-table-column label="项目名称" prop="id">
               </el-table-column>
-              <el-table-column label="数量" prop="amount">
+              <el-table-column label="数量" prop="amount" width="50">
               </el-table-column>
-              <el-table-column label="金额" prop="totalMoney">
+              <el-table-column label="金额" prop="totalMoney" width="50">
               </el-table-column>
               <el-table-column label="开立时间" prop="usedTime(gmtCreate)">
-              </el-table-column>
-              <el-table-column label="缴费状态" prop="status">
               </el-table-column>
               <el-table-column label="开立状态" prop="itemStatus">
               </el-table-column>
               <el-table-column label="执行科室" prop="itemStatus">
+              </el-table-column>
+              <el-table-column label="退费数量" fixed="right" width="200">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.returnAmount" :min=1 :max="scope.row.amount" label="描述文字"></el-input-number>
+                </template>
               </el-table-column>
             </el-table>
           </div>
@@ -156,7 +159,8 @@ export default {
       withdrawItems: [],
 
       chargeSelection: [],
-      withdrawSelection: []
+      withdrawSelection: [],
+      num: 0
     }
   },
 
@@ -168,7 +172,15 @@ export default {
 
   methods: {
     charge() {
-      charge.charge(this.multipleSelection).then(response => {
+      charge.charge(this.chargeSelection).then(response => {
+        console.log(response.data.data)
+      }).catch(error => {
+        
+      })
+    },
+
+    withdraw() {
+      charge.withdraw(this.withdrawSelection).then(response => {
         console.log(response.data.data)
       }).catch(error => {
         
