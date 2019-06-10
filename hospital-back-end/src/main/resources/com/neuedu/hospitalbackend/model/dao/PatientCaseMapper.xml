@@ -187,4 +187,9 @@
       delete from patient_case where registration_id = #{registrationId}
   </delete>
 
+  <select id="getPatientIdByCaseId" resultType="Integer">
+    select patient_id as patientId
+    from patient_case
+    where registration_id = #{caseId}
+  </select>
 </mapper>

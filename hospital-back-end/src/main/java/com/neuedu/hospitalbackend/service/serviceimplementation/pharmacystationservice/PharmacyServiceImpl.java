@@ -30,7 +30,7 @@ public class PharmacyServiceImpl implements PharmacyService {
                 //更新对应的recipe状态和发药人id --已取药
                 count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte) 4, r.getDeliverRoleId());
                 //更新对应药品的库存
-                recipeMapper.updateInventory(r.getMedicineId(), (short) (r.getAmount()-r.getReturnAmount()));
+                recipeMapper.updateInventory(r.getMedicineId(), r.getRemainAmount());
             }
             else
                 return CommonResult.fail();
@@ -44,14 +44,16 @@ public class PharmacyServiceImpl implements PharmacyService {
     public CommonResult returnMedicine(List<RecipeParam> recipeParams){
         int count = 0;
         for(RecipeParam r: recipeParams){
-            //退药条件：已缴费 + 已取药且之前未退过药
-            if(r.getTransactionLogStatus() == 2 && r.getStatus() == 4){
-                //更新对应的recipe药品数量
-                count += recipeMapper.updateAmount(r.getId(), r.getMedicineId(), r.getReturnAmount());
-                //更新对应的recipe状态和退药人
-                count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte)5, r.getDeliverRoleId());
-                //更新对应药品的库存
-                recipeMapper.updateInventory(r.getMedicineId(), (short) -r.getReturnAmount());
+            //退药条件：已缴费 + 已取药 / 已缴费 + 已退药
+            if(r.getTransactionLogStatus() == 2 && (r.getStatus() == 4 || r.getStatus() == 5)){
+                if (r.getReturnAmount() < r.getRemainAmount()){
+                    //更新对应的recipe药品数量
+                    count += recipeMapper.updateRemainAmount(r.getId(), r.getMedicineId(), r.getReturnAmount());
+                    //更新对应的recipe状态和退药人
+                    count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte)5, r.getDeliverRoleId());
+                    //更新对应药品的库存
+                    recipeMapper.updateInventory(r.getMedicineId(), (short) - r.getReturnAmount());
+                }
             }
             else
                 return CommonResult.fail();
