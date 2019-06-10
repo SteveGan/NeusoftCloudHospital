@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_602;
@@ -62,7 +63,7 @@ public class DiseaseManagementImpl implements DiseaseManagementService {
     @Override
     public CommonResult listDiseaseByType(Integer type){
         JSONObject returnJson = new JSONObject();
-        List<Disease> diseases;
+        List<HashMap> diseases;
         if(type == 0)//中医疾病
             diseases = diseaseMapper.ListChineseDisease();
         else if(type == 1) //西医疾病

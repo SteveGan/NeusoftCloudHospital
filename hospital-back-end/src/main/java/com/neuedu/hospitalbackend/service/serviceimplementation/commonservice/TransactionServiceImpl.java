@@ -34,28 +34,6 @@ public class TransactionServiceImpl implements TransactionService {
         return CommonResult.success(transactionExceptionLog);
     }
 
-/*    public CommonResult insertTransactionLog(String invoiceCode, Integer registrationId, Integer patientId, Integer roleId,
-                                             String type, Integer collectionId, Integer projectId, Integer itemId,
-                                             Short amount, Byte payType, BigDecimal totalMoney, Byte status){
-        TransactionLog transactionLog = new TransactionLog();
-        transactionLog.setInvoiceCode(invoiceCode);
-        transactionLog.setRegistrationId(registrationId);
-        transactionLog.setPatientId(patientId);
-        transactionLog.setRoleId(roleId);
-        transactionLog.setType(type);
-        transactionLog.setCollectionId(collectionId);
-        transactionLog.setProjectId(projectId);
-        transactionLog.setItemId(itemId);
-        transactionLog.setAmount(amount);
-        transactionLog.setPayType(payType);
-        transactionLog.setTotalMoney(totalMoney);
-        transactionLog.setStatus(status);
-        int count = transactionLogMapper.insertSelective(transactionLog);
-        if(count == 0)
-            return CommonResult.fail(E_605);
-        return CommonResult.success(transactionLog);
-    }*/
-
     public CommonResult insertTransactionLog(TransactionLog transactionLog){
         int count = transactionLogMapper.insertSelective(transactionLog);
         if(count == 0)

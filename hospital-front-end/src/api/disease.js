@@ -1,10 +1,12 @@
 import request from '@/utils/request'
 
 
-//请求所有的中医和西医疾病
-export function listAllDiseases(){
+//请求所有的中医/西医疾病疾病
+// 0 中医
+// 1 西医
+export function listAllDiseases(code){
   return request({
-    url: ,
+    url:'/basicinfo/diseasetype/' + code,
     method: 'get'
   })
 }

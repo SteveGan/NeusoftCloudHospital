@@ -53,7 +53,11 @@ public class PaymentController {
         return paymentService.updateTransactionLogsAsReturned(transactionLogParams);
     }
 
-
+    @ApiOperation("发票重打")
+    @RequestMapping(value = "/reprint/{invoiceCode}", method = RequestMethod.GET)
+    public CommonResult reprintTransactionLog(@PathVariable(value = "invoiceCode") String invoiceCode){
+        return paymentService.reprintTransactionLog(invoiceCode);
+    }
 
 
 

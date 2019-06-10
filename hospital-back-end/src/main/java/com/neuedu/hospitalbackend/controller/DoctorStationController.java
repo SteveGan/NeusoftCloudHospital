@@ -20,8 +20,6 @@ public class DoctorStationController {
     @Resource
     private PreliminaryCaseService preliminaryCaseService;
     @Resource
-    private ProjectCollectionManagementService projectCollectionManagementService;
-    @Resource
     private PatientCaseTemplateService patientCaseTemplateService;
     @Resource
     private DiagnoseTemplateService diagnoseTemplateService;
@@ -123,14 +121,5 @@ public class DoctorStationController {
     }
 
 
-
-
-    //TODO 测试
-    @ApiOperation("申请检查项目")
-    @RequestMapping(value = "/inspection-application", method = RequestMethod.POST)
-    public CommonResult insertInspection(@RequestBody ProjectParam projectParam)
-    {
-        return projectCollectionManagementService.insertProjectCollection(projectParam);
-    }
 
 }

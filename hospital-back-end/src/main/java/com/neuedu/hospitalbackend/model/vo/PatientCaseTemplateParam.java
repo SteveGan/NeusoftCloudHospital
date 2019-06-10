@@ -5,6 +5,7 @@ public class PatientCaseTemplateParam {
     private Integer roleId; //创建模板的医生的roleId
     private Integer departmentId;
     private String name; //模板名称
+    private String newName; //修改后名称
     private Byte scope; //范围：1.个人 2.科室 3.全院
     private String narrate;
     private String curDisease;
@@ -14,15 +15,12 @@ public class PatientCaseTemplateParam {
     private String allergy;
     private String assistDiagnose;
 
-    private Integer id;//模板编号
-
-
-    public Integer getId() {
-        return id;
+    public String getNewName() {
+        return newName;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNewName(String newName) {
+        this.newName = newName;
     }
 
     public Integer getRoleId() {
