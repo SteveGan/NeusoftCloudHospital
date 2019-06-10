@@ -170,16 +170,14 @@
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     <result column="transaction_log_status" property="transactionLogStatus" jdbcType="TINYINT"/>
-    <result column="total_money" property="totalMoney" jdbcType="DECIMAL"/>
-    <result column="invoice_code" property="invoiceCode" jdbcType="CHAR"/>
   </resultMap>
 
   <select id="listRecipeByRegistrationId" resultMap="AdditionalResultMap">
-    select r.*, t1.status as transaction_log_status, t1.total_money, t1.invoice_code
+    select r.*, t1.status as transaction_log_status
     from recipe r, transaction_log t1
     where r.case_id = #{registrationId} and t1.registration_id = r.case_id
     and t1.project_id = r.medicine_id and t1.collection_id = r.id and (t1.status = 1 or t1.status = 2 or t1.status = 3)
-    and t1.gmt_create >= all(SELECT t2.gmt_create
+    and t1.gmt_create &gt;= all(SELECT t2.gmt_create
                              from transaction_log t2
                              where t2.project_id = r.medicine_id and t2.registration_id = r.case_id
                              and t2.collection_id = r.id and (t2.status = 1 or t2.status = 2 or t2.status = 3))
@@ -208,7 +206,7 @@
   </update>
 
   <select id="listRecipesByRegistrationIdOrDate" resultType="HashMap">
-    select distinct r.case_id, p.name
+    select distinct r.case_id as caseId, p.name
     from recipe r, transaction_log t1, patient p
     <where>
       <if test="caseId != null">

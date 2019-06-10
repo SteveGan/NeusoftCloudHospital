@@ -1,7 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.pharmacystationservice;
 
 import com.neuedu.hospitalbackend.model.dao.RecipeMapper;
-import com.neuedu.hospitalbackend.model.po.Recipe;
 import com.neuedu.hospitalbackend.model.vo.RecipeParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.pharmacystationservice.PharmacyService;
 import com.neuedu.hospitalbackend.util.CommonResult;
@@ -10,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static com.neuedu.hospitalbackend.util.ResultCode.E_705;
+import static com.neuedu.hospitalbackend.util.ResultCode.E_706;
 
 @Service
 public class PharmacyServiceImpl implements PharmacyService {
@@ -45,7 +47,7 @@ public class PharmacyServiceImpl implements PharmacyService {
                 recipeMapper.updateInventory(r.getMedicineId(), r.getRemainAmount());
             }
             else
-                return CommonResult.fail();
+                return CommonResult.fail(E_706);
         }
         if(count == recipeParams.size())
             return CommonResult.success(count);
@@ -56,7 +58,7 @@ public class PharmacyServiceImpl implements PharmacyService {
     public CommonResult returnMedicine(List<RecipeParam> recipeParams){
         int count = 0;
         for(RecipeParam r: recipeParams){
-            //退药条件：已缴费 + 已取药 / 已缴费 + 已退药
+            //退药条件：已缴费 + 已取药 / 已缴费 + 已退药且remainAmount > returnAmount
             if(r.getTransactionLogStatus() == 2 && (r.getStatus() == 4 || r.getStatus() == 5)){
                 if (r.getReturnAmount() <= r.getRemainAmount()){
                     //更新对应的药品剩余数量
@@ -66,9 +68,11 @@ public class PharmacyServiceImpl implements PharmacyService {
                     //更新对应药品的库存
                     recipeMapper.updateInventory(r.getMedicineId(), (short) - r.getReturnAmount());
                 }
+                else
+                    return CommonResult.fail(E_705);
             }
             else
-                return CommonResult.fail();
+                return CommonResult.fail(E_705);
         }
         if(count == 2 * recipeParams.size())
             return CommonResult.success(count);

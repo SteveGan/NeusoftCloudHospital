@@ -114,7 +114,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
      */
     @Override
     public  CommonResult savePresentPatientCase(PatientCaseParam patientCaseParam){
-        return savePatientCase(patientCaseParam, 2, true); //暂存状态status：2     诊断状态：初诊1
+        return savePatientCase(patientCaseParam, 2, true); //病历暂存状态：2     诊断状态：初诊1
     }
 
     /**
@@ -125,7 +125,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
      */
     @Override
     public CommonResult submitPresentPatientCase(PatientCaseParam patientCaseParam){
-        return savePatientCase(patientCaseParam, 3, false); //已诊状态status：3    诊断状态：确诊0
+        return savePatientCase(patientCaseParam, 3, false); //病历已诊状态：3    诊断状态：确诊0
     }
 
     /**
@@ -168,7 +168,6 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         }
         else
             return CommonResult.fail(ResultCode.E_801);
-        System.out.println(diagnoses.size());
         for(DiagnoseParam diagnoseParam: diagnoses) {
             //若数据库已存该诊断，且再次要求暂存/提交，则更新该诊断
             if (existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())) {

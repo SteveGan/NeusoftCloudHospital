@@ -167,14 +167,14 @@
     select role_id, name, scope, name as newName, narrate, cur_disease, cur_treat_condition, past_disease,
             allergy, physical_condition, assist_diagnose
     from case_template
-    where department_id = #{departmentId} and scope = 2 and role_id != #{roleId}
+    where department_id = #{departmentId} and scope = 2
   </select>
 
   <select id="listHospitalCaseTemplates" resultMap="caseTemplateInfo">
     select role_id, name, scope, name as newName, narrate, cur_disease, cur_treat_condition, past_disease,
             allergy, physical_condition, assist_diagnose
     from case_template
-    where scope = 3 and role_id != #{roleId}
+    where scope = 3
   </select>
 
   <select id="getRoleIdById" resultType="Integer">

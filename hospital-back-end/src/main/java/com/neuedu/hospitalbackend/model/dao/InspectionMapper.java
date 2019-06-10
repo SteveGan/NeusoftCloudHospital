@@ -40,7 +40,10 @@ public interface InspectionMapper {
 
     int insertSelective(Inspection inspection);
 
-    Integer getDepartmentIdByProjectId(Integer projectId);
+    List<Integer> listProjectIdsByCollectionId(Integer Id);
 
-    String getProjectNameByProjectId(Integer projectId);
+    int updateInfo(Inspection inspection);
+
+    int delete(@Param("id") Integer id, @Param("projectId") Integer projectId);
+
 }

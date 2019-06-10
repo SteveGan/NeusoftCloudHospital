@@ -46,9 +46,8 @@ public class UserManagementController {
 
     @ApiOperation("1.3.5 返回用户所有角色信息")
     @RequestMapping(value = "/users-with-roles", method = RequestMethod.GET)
-    public CommonResult<JSONObject> listAllUsersAndRoles()
+    public CommonResult listAllUsersAndRoles()
     {
-        JSONObject roles = userManagementImpl.listAllUsersAndRoles();
-        return CommonResult.success(roles);
+        return userManagementImpl.listAllUsersAndRoles();
     }
 }

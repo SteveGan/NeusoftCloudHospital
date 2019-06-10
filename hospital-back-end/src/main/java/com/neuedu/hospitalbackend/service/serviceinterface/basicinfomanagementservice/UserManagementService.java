@@ -36,5 +36,5 @@ public interface UserManagementService {
     /**
      * 1.3.5 返回所有用户以及角色信息
      */
-    JSONObject listAllUsersAndRoles();
+    CommonResult listAllUsersAndRoles();
 }

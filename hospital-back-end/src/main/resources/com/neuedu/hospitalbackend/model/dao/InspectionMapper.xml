@@ -193,19 +193,21 @@
         limit 1
     </select>
 
-    <select id="getDepartmentIdByProjectId" resultType="Integer">
-    select department_id
-    from tech_project
-    where project_id = #{projectId}
-    limit 1
-  </select>
+    <select id="listProjectIdsByCollectionId" resultType="Integer">
+        select project_id
+        from inspection
+        where id = #{id}
+    </select>
 
-    <select id="getProjectNameByProjectId" resultType="String">
-    select project_name
-    from tech_project
-    where project_id = #{projectId}
-    limit 1
-  </select>
+    <update id="updateInfo">
+        update inspection
+        set goal = #{goal}, requirement = #{requirement}, status = #{status}
+        where id = #{id} and project_id = #{projectId}
+    </update>
 
-
+    <delete id="delete">
+        delete
+        from inspection
+        where id = #{id} and project_id = #{projectId}
+    </delete>
 </mapper>
