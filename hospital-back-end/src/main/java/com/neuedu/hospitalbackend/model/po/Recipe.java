@@ -23,7 +23,7 @@ public class Recipe {
 
     private Short amount;
 
-    private Short returnAmount;
+    private Short remainAmount;
 
     private Byte status;
 
@@ -107,12 +107,12 @@ public class Recipe {
         this.amount = amount;
     }
 
-    public Short getReturnAmount() {
-        return returnAmount;
+    public Short getRemainAmount() {
+        return remainAmount;
     }
 
-    public void setReturnAmount(Short returnAmount) {
-        this.returnAmount = returnAmount;
+    public void setRemainAmount(Short remainAmount) {
+        this.remainAmount = remainAmount;
     }
 
     public Byte getStatus() {

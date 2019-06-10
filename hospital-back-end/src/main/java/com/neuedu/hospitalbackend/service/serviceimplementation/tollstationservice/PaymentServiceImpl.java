@@ -121,37 +121,41 @@ public class PaymentServiceImpl implements PaymentService {
             // 先判断collection中的项目是否都为可退状态，如果有一项不可退，则返回给前端，提示重新选择
             //医技项目退费条件：已缴费 + 开立
             //药方退费条件：已缴费 + 已退药 / 已缴费 + 开立
-            for(TransactionParam project: returnedProjectList){
-                if (project.getStatus() == 2){
-                    if ( !((project.getItemCategory() != 4 && project.getItemStatus() == 2)
-                            || (project.getItemCategory() == 4 && project.getItemStatus() == 5)
-                            || (project.getItemCategory() == 4 && project.getItemStatus() == 2))){
+            for(TransactionParam returnedProject: returnedProjectList){
+                if (returnedProject.getStatus() == 2){
+                    if (!((itemCategory != 4 && returnedProject.getItemStatus() == 2)
+                            || (itemCategory == 4 && returnedProject.getItemStatus() == 5)
+                            || (itemCategory == 4 && returnedProject.getItemStatus() == 2))){
                         CommonResult.fail(E_704);
                     }
+                    else if(returnedProject.getRemainAmount() == (returnedProject.getAmount() + returnedProject.getReturnAmount()))
+                        CommonResult.fail(E_704);
                 }
                 else
                     CommonResult.fail(E_704);
             }
 
             // 在检查/检验/处置表中更改想要退费的项目状态 （即检验单B项目1）--已作废
-            for(TransactionParam project: returnedProjectList){
+            for(TransactionParam returnedProject: returnedProjectList){
                 switch (itemCategory){
                     case 1:
-                        inspectionMapper.updateStatus(project.getCollectionId(), project.getProjectId(), (byte) 3);
+                        inspectionMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
                         break;
                     case 2:
-                        examinationMapper.updateStatus(project.getCollectionId(), project.getProjectId(), (byte) 3);
+                        examinationMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
                         break;
                     case 3:
-                        treatmentMapper.updateStatus(project.getCollectionId(), project.getProjectId(), (byte) 3);
+                        treatmentMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
                         break;
                     case 4:
-                        //如果药品本身是已退药的状态,则无需更改对应药品状态
-                        //如果药品本身是开立（未取药）的状态, 则需更改对应处方中药品的return amount
-                        recipeMapper.updateAmount(project.getCollectionId(), project.getProjectId(), project.getReturnAmount());
-                        //如果退药数量 = 药品可退数量，则该药品状态应改为作废
-                        if(project.getReturnAmount() == project.getAmount())
-                            recipeMapper.updateStatus(project.getCollectionId(), project.getProjectId(), (byte) 3);
+                        //如果药品本身是已退药的状态,则无需更改对应药品状态和数量
+                        //如果药品本身是开立（未取药）的状态, 则需更改对应处方中药品的remain amount
+                        if(returnedProject.getItemStatus() == 2){
+                            recipeMapper.updateRemainAmount(returnedProject.getCollectionId(), returnedProject.getProjectId(), returnedProject.getReturnAmount());
+                            //如果退药数量 = 药品可退数量，则该药品状态应改为作废
+                            if(returnedProject.getReturnAmount() == returnedProject.getRemainAmount())
+                                recipeMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
+                        }
                         break;
                 }
             }
@@ -172,7 +176,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             for(TransactionLog transactionLog: transactionLogs){
                 //向缴费表中添加新的缴费记录  --冲正
-                TransactionLog reverseTransactionLog = transactionLog;
+                TransactionLog reverseTransactionLog = (TransactionLog) transactionLog.clone();
                 reverseTransactionLog.setId(null);
                 reverseTransactionLog.setInvoiceCode(reverseInvoiceCode);
                 reverseTransactionLog.setStatus((byte)4);
@@ -185,14 +189,14 @@ public class PaymentServiceImpl implements PaymentService {
             // 如果某个collection下的所有项目没有都被退费，则产生新的缴费记录
             // 对于医技项目来说，没有都被退费： transactionLogs.size() != returnedProjectList.size()
             //对于药品来说，没有都被退费：某个退费的项目returnAmount != amount / transactionLogs.size() != returnedProjectList.size()
-            boolean isRecipeAllReturn = false;
+            boolean isRecipeAllReturn = true;
             if(itemCategory == 4){
                 for(TransactionParam project: returnedProjectList){
-                    if(project.getAmount() != project.getReturnAmount())
-                        isRecipeAllReturn = true;
+                    if(project.getRemainAmount() != project.getReturnAmount())
+                        isRecipeAllReturn = false;
                 }
             }
-            if(transactionLogs.size() != returnedProjectList.size() || isRecipeAllReturn) {
+            if(transactionLogs.size() != returnedProjectList.size() || !isRecipeAllReturn) {
                 synchronized (this) {
                     //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
                     CommonResult result = invoiceService.getNextInvoiceCode();
@@ -202,30 +206,32 @@ public class PaymentServiceImpl implements PaymentService {
                 for(TransactionLog transactionLog: transactionLogs){
                     //新增与 退费的项目所在相同第一层级的未退费项目 的缴费记录（即检验单B中的项目2、3）--已缴费
                     if ( (!returnedProjectIdList.contains(transactionLog.getProjectId())) &&
-                            (transactionLog.getType() != "挂号费")){
-                        transactionLog.setId(null);
-                        transactionLog.setInvoiceCode(newInvoiceCode);
-                        transactionLog.setStatus((byte)2);
-                        transactionLog.setTotalMoney(transactionLog.getTotalMoney().negate());
-                        CommonResult insertNewResult = transactionService.insertTransactionLog(transactionLog);
+                            (transactionLog.getType() != "挂号费") ){
+                        TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
+                        newTransactionLog.setId(null);
+                        newTransactionLog.setInvoiceCode(newInvoiceCode);
+                        newTransactionLog.setStatus(transactionLog.getStatus());
+                        //newTransactionLog.setTotalMoney(transactionLog.getTotalMoney().negate());
+                        CommonResult insertNewResult = transactionService.insertTransactionLog(newTransactionLog);
                         if (insertNewResult.getCode() == 500)
                             return insertNewResult;
                     }
                     //如果 退费的项目是药品，存在退部分数量的情况
-                    else if(returnedProjectIdList.contains(transactionLog.getProjectId()) &&
-                            itemCategory== 4){
+                    else if(returnedProjectIdList.contains(transactionLog.getProjectId()) && itemCategory== 4){
                         for(TransactionParam returnedProject: returnedProjectList){
                             if (returnedProject.getProjectId() == transactionLog.getProjectId()){
                                 Short returnAmount = returnedProject.getReturnAmount();
-                                if(returnAmount != returnedProject.getAmount()){
-                                    BigDecimal newTotalFee = new BigDecimal(returnAmount).multiply(
+                                Short remainAmount = (short) (returnedProject.getRemainAmount() - returnAmount);
+                                if(remainAmount != 0){
+                                    BigDecimal newTotalFee = new BigDecimal(remainAmount).multiply(
                                             medicineMapper.getUnitPrizeById(returnedProject.getProjectId()));
-                                    transactionLog.setId(null);
-                                    transactionLog.setInvoiceCode(newInvoiceCode);
-                                    transactionLog.setAmount((short) ((short)transactionLog.getAmount() - returnAmount));
-                                    transactionLog.setStatus((byte)2);
-                                    transactionLog.setTotalMoney(newTotalFee);
-                                    CommonResult insertNewResult = transactionService.insertTransactionLog(transactionLog);
+                                    TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
+                                    newTransactionLog.setId(null);
+                                    newTransactionLog.setInvoiceCode(newInvoiceCode);
+                                    newTransactionLog.setAmount(remainAmount);
+                                    newTransactionLog.setStatus(transactionLog.getStatus());
+                                    newTransactionLog.setTotalMoney(newTotalFee);
+                                    CommonResult insertNewResult = transactionService.insertTransactionLog(newTransactionLog);
                                     if (insertNewResult.getCode() == 500)
                                         return insertNewResult;
                                 }

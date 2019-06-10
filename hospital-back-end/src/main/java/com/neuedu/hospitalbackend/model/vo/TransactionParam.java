@@ -19,9 +19,10 @@ public class TransactionParam {
     private BigDecimal totalMoney;
     private Byte status; //缴费记录状态: 未缴费，已缴费...
     private Byte itemStatus; //对应收费项目状态: 开立，已登记...
-    private Byte itemCategory; //检查项目，检验项目，处置项目，药方
+    //private Byte itemCategory; //检查项目，检验项目，处置项目，药方
     private Short returnAmount; //退费项目的数量
     private Integer departmentId; //执行科室
+    private Short remainAmount; //剩余可退的数量
 
     public Integer getId() {
         return id;
@@ -135,13 +136,13 @@ public class TransactionParam {
         this.itemStatus = itemStatus;
     }
 
-    public Byte getItemCategory() {
+   /* public Byte getItemCategory() {
         return itemCategory;
     }
 
     public void setItemCategory(Byte itemCategory) {
         this.itemCategory = itemCategory;
-    }
+    }*/
 
     public Short getReturnAmount() {
         return returnAmount;
@@ -157,6 +158,14 @@ public class TransactionParam {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Short getRemainAmount() {
+        return remainAmount;
+    }
+
+    public void setRemainAmount(Short remainAmount) {
+        this.remainAmount = remainAmount;
     }
 }
 
