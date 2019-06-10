@@ -45,16 +45,13 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
 
     /**
      * 申请新的申请清单
-     * @param collectionParam
+     * @Param collectionType
      */
-    public CommonResult applyNewCollection(CollectionParam collectionParam){
+    public CommonResult applyNewCollection(Integer collectionType){
         JSONObject returnJson = new JSONObject();
-        Integer roleId = collectionParam.getApplicantRoleId();
-        Integer caseId = collectionParam.getCaseId();
-        Integer collectionType = collectionParam.getCollectionType();
 
         //参数检验
-        if(roleId == null || caseId == null || collectionType == null)
+        if(collectionType == null)
             return CommonResult.fail(ResultCode.E_801);
 
         //设定申请清单id
@@ -67,8 +64,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             collectionId = collectionId + 1;
             Inspection inspection = new Inspection();
             inspection.setId(collectionId);
-            inspection.setCaseId(caseId);
-            inspection.setCreatorRoleId(roleId);
+            inspection.setProjectId(0);//主键不能为空
             count = inspectionMapper.insertSelective(inspection);
         }
         else if (collectionType == 2) {
@@ -78,8 +74,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             collectionId = collectionId + 1;
             Examination examination = new Examination();
             examination.setId(collectionId);
-            examination.setCaseId(caseId);
-            examination.setCreatorRoleId(roleId);
+            examination.setProjectId(0);//主键不能为空
             count = examinationMapper.insertSelective(examination);
         }
         //TODO 处置

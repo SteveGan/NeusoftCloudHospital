@@ -126,10 +126,10 @@ public class DoctorStationController {
 
 
     @ApiOperation("新增申请项目")
-    @RequestMapping(value = "/collection/application", method = RequestMethod.POST)
-    public CommonResult applyNewCollection(@RequestBody CollectionParam collectionParam)
+    @RequestMapping(value = "/collection/application/{collectionType}", method = RequestMethod.POST)
+    public CommonResult applyNewCollection(@PathVariable Integer collectionType)
     {
-        return projectCollectionManagementService.applyNewCollection(collectionParam);
+        return projectCollectionManagementService.applyNewCollection(collectionType);
     }
 
     @ApiOperation("暂存申请项目")

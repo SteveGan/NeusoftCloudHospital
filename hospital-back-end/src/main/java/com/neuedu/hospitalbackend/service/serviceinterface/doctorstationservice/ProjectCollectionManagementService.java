@@ -17,9 +17,9 @@ public interface ProjectCollectionManagementService {
 
     /**
      * 申请新的申请清单
-     * @param collectionParam
+     * @param collectionType
      */
-    CommonResult applyNewCollection(CollectionParam collectionParam);
+    CommonResult applyNewCollection(Integer collectionType);
 
     /**
      * 暂存申请清单
