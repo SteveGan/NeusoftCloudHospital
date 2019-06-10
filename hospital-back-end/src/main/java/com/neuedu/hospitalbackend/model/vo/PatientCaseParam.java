@@ -14,7 +14,9 @@ public class PatientCaseParam {
     private String allergy; //过敏史
     private String physicalCondition; //体格检查
     private String assistDiagnose;//辅助检查
-    private List<DiagnoseParam> diagnoses; //诊断
+    private Integer diagnoseType;//诊断类型
+    private List<DiagnoseParam> modernDiagnose; //西医诊断
+    private List<DiagnoseParam> traditionalDiagnose; //中医诊断
 
     public String getAssistDiagnose() {
         return assistDiagnose;
@@ -24,16 +26,32 @@ public class PatientCaseParam {
         this.assistDiagnose = assistDiagnose;
     }
 
+    public Integer getDiagnoseType() {
+        return diagnoseType;
+    }
+
+    public void setDiagnoseType(Integer diagnoseType) {
+        this.diagnoseType = diagnoseType;
+    }
+
     public String getPastDisease() {
         return pastDisease;
     }
 
-    public List<DiagnoseParam> getDiagnoses() {
-        return diagnoses;
+    public List<DiagnoseParam> getModernDiagnose() {
+        return modernDiagnose;
     }
 
-    public void setDiagnoses(List<DiagnoseParam> diagnoses) {
-        this.diagnoses = diagnoses;
+    public void setModernDiagnose(List<DiagnoseParam> modernDiagnose) {
+        this.modernDiagnose = modernDiagnose;
+    }
+
+    public List<DiagnoseParam> getTraditionalDiagnose() {
+        return traditionalDiagnose;
+    }
+
+    public void setTraditionalDiagnose(List<DiagnoseParam> traditionalDiagnose) {
+        this.traditionalDiagnose = traditionalDiagnose;
     }
 
     public void setPastDisease(String pastDisease) {

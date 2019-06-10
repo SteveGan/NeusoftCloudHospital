@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.bo.PatientCaseTemplate;
 import com.neuedu.hospitalbackend.model.dao.CaseTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
-import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PatientCaseTemplateService;
 import com.neuedu.hospitalbackend.util.CommonResult;
@@ -13,6 +12,7 @@ import com.neuedu.hospitalbackend.util.ResultCode;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -26,7 +26,7 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
 
 
     /**
-     * 将当前页面中的内容保存到病理模版中
+     * 将当前页面中的内容保存到病历模版中
      * @param patientCaseTemplateParam 当前模版中的内容
      */
     @Override
@@ -40,7 +40,7 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
             return CommonResult.fail(ResultCode.E_801);
         }
         //检验名称是否已存在
-        if(caseTemplateMapper.getPatientCaseTemplateByName(name) != null)
+        if(caseTemplateMapper.getPatientCaseTemplateByRoleIdAndName(roleId, name) != null)
             return CommonResult.fail(ResultCode.E_806);
         //查找部门id
         if(scope == 1 || scope == 2 || scope == 3) {
@@ -66,17 +66,16 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
      * @param patientCaseTemplateParam 模板修改后内容
      */
     public CommonResult modifyPatientCaseTemplate(PatientCaseTemplateParam patientCaseTemplateParam){
-        Integer id = patientCaseTemplateParam.getId();
-        String name = patientCaseTemplateParam.getName();
-        //TODO role权限验证
-        //???名称为唯一???对于一个role所创建的名称唯一
+        Integer roleId = patientCaseTemplateParam.getRoleId();
+        String pastName = patientCaseTemplateParam.getName();
+        String newName = patientCaseTemplateParam.getNewName();
+
         //模板名称是否被修改
-        String curName = caseTemplateMapper.getNameById(id);
-        if(curName == null)
+        if(pastName == null || newName == null)
             return CommonResult.fail(ResultCode.E_800);
-        if (!curName.equals(name)){ //被修改
+        if (!pastName.equals(newName)){ //被修改
             //检验名称是否已存在
-            if(caseTemplateMapper.getPatientCaseTemplateByName(name) != null)
+            if(caseTemplateMapper.getPatientCaseTemplateByRoleIdAndName(roleId, newName) != null)
                 return CommonResult.fail(ResultCode.E_806);
         }
 
@@ -102,7 +101,7 @@ public class PatientCaseTemplateServiceImpl implements PatientCaseTemplateServic
         //角色所在科室
         Integer departmentId = roleMapper.getDepartmentIdByRoleId(roleId);
         //可用模板列表
-        List<PatientCaseTemplate> caseTemplates= caseTemplateMapper.listAvailableByRoleId(roleId, departmentId);
+        List<HashMap> caseTemplates= caseTemplateMapper.listAvailableByRoleId(roleId, departmentId);
         returnJson.put("caseTemplates", caseTemplates);
         return CommonResult.success(returnJson);
     }

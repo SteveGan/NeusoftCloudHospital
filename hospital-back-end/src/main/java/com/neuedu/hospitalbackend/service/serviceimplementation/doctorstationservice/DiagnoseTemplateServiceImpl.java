@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.DiseaseMapper;
 import com.neuedu.hospitalbackend.model.po.DiagnoseTemplate;
-import com.neuedu.hospitalbackend.model.po.Disease;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
@@ -108,7 +107,7 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
 
         }
         //若该诊断已存该疾病，但更新内容中无该疾病，则删除该疾病
-        while(!existedDiseaseIcdCodes.isEmpty()) {
+        if(!existedDiseaseIcdCodes.isEmpty()) {
             for (String leftDiseaseIcdCode : existedDiseaseIcdCodes)
                 count = diagnoseTemplateMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
         }
