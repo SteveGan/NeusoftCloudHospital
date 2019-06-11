@@ -97,7 +97,8 @@
   </select>
 
   <select id="listProjectBasicInfoByType" resultType = "HashMap">
-        select distinct p.project_id as projectId, p.project_name as projectName, d.name as departmentName
+        select distinct p.project_id as projectId, p.project_name as projectName,
+                d.id as departmentId, d.name as departmentName
         from tech_project p, department d
         where classification = #{classification}
               and p.department_id = d.id
