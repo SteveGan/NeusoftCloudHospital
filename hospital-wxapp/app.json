@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/case/case",
     "pages/index/index",
+    "pages/me/me",
     "pages/login/login",
     "pages/about/about",
-    "pages/me/me",
     "pages/online/online",
     "pages/user/user",
     "pages/doctlist/doctlist"

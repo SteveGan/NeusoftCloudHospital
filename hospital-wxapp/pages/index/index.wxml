@@ -18,7 +18,7 @@
       <view class="info">足不出户 咨询专家</view>
     </view>
   </button>
-  <navigator url="/pages/user/user" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
+  <navigator url="/pages/case/case" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
     <view class="matrix-btn user">
       <icon class="user" />
       <view class="title">病历查询</view>

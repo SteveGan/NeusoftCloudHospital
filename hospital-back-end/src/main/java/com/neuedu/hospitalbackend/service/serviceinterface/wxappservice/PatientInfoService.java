@@ -9,4 +9,6 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 public interface PatientInfoService {
 
     CommonResult getPatientInfo(Integer id);
+
+    CommonResult listRegistrationsByPatientId(Integer patientId);
 }

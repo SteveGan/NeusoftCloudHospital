@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.model.dao;
 
+import com.neuedu.hospitalbackend.model.po.Recipe;
 import com.neuedu.hospitalbackend.model.vo.RecipeParam;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -26,5 +27,15 @@ public interface RecipeMapper {
     List<HashMap> listRecipesByRegistrationIdOrDate(@Param("caseId") Integer caseId, @Param("chargeDateBeginStr") String chargeDateBeginStr, @Param("chargeDateEndStr") String chargeDateEndStr);
 
     List<HashMap> listRecipeInfoByRegistrationId(Integer caseId);
+
+    Integer getLatestId();
+
+    int insertSelective(Recipe recipe);
+
+    int updateRecipeInfo(Recipe recipe);
+
+    int deleteById(Integer id);
+
+    int insertList(List<RecipeParam> medicines);
 
 }

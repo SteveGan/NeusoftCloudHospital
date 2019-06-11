@@ -37,4 +37,23 @@
     <select id="getUnitPriceById" resultType="decimal">
         select unit_price from medicine where id = #{id}
     </select>
+
+    <select id="getMedicineTypeAndUPrice" resultType="HashMap">
+        select type, unit_price as unitPrice
+        from medicine
+        where id = #{id}
+    </select>
+
+    <select id="listTraditionalMedicine" resultMap="BaseResultMap">
+        select *
+        from medicine
+        where type = '中草药'
+    </select>
+
+    <select id="listModernMedicine" resultMap="BaseResultMap">
+        select *
+        from medicine
+        where type != '中草药'
+    </select>
+
 </mapper>

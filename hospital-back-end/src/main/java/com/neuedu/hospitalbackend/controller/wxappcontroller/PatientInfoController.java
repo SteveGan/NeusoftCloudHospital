@@ -30,7 +30,7 @@ public class PatientInfoController {
     @RequestMapping(value = "/registrations/{id}", method = RequestMethod.GET)
     public CommonResult listPatientRegistrations(@PathVariable(value = "id") Integer patientId)
     {
-        return null;
+        return patientInfoServiceImpl.listRegistrationsByPatientId(patientId);
     }
 
     @ApiOperation("获取患者挂号详细信息，包括前方等待人数")
