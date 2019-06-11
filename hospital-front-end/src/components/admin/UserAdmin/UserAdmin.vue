@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import user from '@/api/basicinfo/user'
 import UserBasicInfo from "@/components/common/UserbasicInfo";
 import UserInfoEditor from "./Child/UserInfoEditor";
 
@@ -91,6 +92,9 @@ export default {
   components: {
     "user-basic-info": UserBasicInfo,
     "user-info-editor": UserInfoEditor
+  },
+  mounted() {
+    this.refresh();
   },
   computed: {
     usersDisplayed() {
@@ -130,75 +134,20 @@ export default {
         }
       ],
       currentUser: {},
-      users: [
-        {
-          avatar:
-            "http://ww4.sinaimg.cn/large/006tNc79ly1g3hfk9foouj30ho0heqoj.jpg",
-          userName: "帅哥",
-          userId: 10000001,
-          roles: [
-            {
-              id: 20000001,
-              userId: 10000001,
-              positionId: 2,
-              positionName: "门诊医生",
-              departmentId: 16,
-              departmentName: "神经外科",
-              titleId: 1,
-              titleName: "主任医师",
-              gmtCreate: null,
-              gmtModified: null
-            },
-            {
-              id: 20000002,
-              userId: 10000001,
-              positionId: 2,
-              positionName: "医技医生",
-              departmentId: 19,
-              departmentName: "某某科室",
-              titleId: 7,
-              titleName: "大佬",
-              gmtCreate: null,
-              gmtModified: null
-            }
-          ]
-        },
-        {
-          avatar:
-            "http://ww4.sinaimg.cn/large/006tNc79ly1g3j7rgt3mnj30u0140hav.jpg",
-          userName: "儿子",
-          userId: 10000002,
-          roles: [
-            {
-              id: 20000001,
-              userId: 10000001,
-              positionId: 2,
-              positionName: "门诊医生",
-              departmentId: 16,
-              departmentName: "神经外科",
-              titleId: 1,
-              titleName: "主任医师",
-              gmtCreate: null,
-              gmtModified: null
-            },
-            {
-              id: 20000002,
-              userId: 10000001,
-              positionId: 2,
-              positionName: "医技医生",
-              departmentId: 19,
-              departmentName: "某某科室",
-              titleId: 7,
-              titleName: "我的儿子",
-              gmtCreate: null,
-              gmtModified: null
-            }
-          ]
-        }
-      ]
+      users: []
     };
   },
   methods: {
+    refresh() {
+      user.listAllUsersAndRoles().then(response => {
+          console.log(response.data)
+          const data = response.data.data
+          this.users = data;
+          this.setShowedUsers();
+      }).catch(error => {
+          
+      })
+    },
     handleEdit(index, row) {
       this.currentUser = row;
       this.editUserDialogVisible = true;

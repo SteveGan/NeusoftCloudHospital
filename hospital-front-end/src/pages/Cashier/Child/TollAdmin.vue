@@ -150,7 +150,7 @@ export default {
   name: 'TollAdmin',
   data() {
     return{
-      input: "10000001",
+      input: "10000015",
 
       patientInfo: {},
       invoiceCollection: [],
