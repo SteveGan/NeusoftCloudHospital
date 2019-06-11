@@ -63,6 +63,22 @@ App({
       }
     })
   },
+
+  showLoadToast: function (title, duration) {
+    wx.showToast({
+      title: title || '玩命加载中...',
+      icon: 'loading',
+      mask: true,
+      duration: duration || 10000
+    });
+  },
+  showErrorModal: function (content, title) {
+    wx.showModal({
+      title: title || '加载失败',
+      content: content || '未知错误',
+      showCancel: false
+    });
+  },
   globalData: {
     userInfo: null
   }

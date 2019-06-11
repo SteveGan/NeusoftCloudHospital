@@ -1,8 +1,11 @@
 package com.neuedu.hospitalbackend.controller.wxappcontroller;
 
+import com.neuedu.hospitalbackend.service.serviceimplementation.wxappservice.PatientInfoServiceImpl;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * 用于显示患者相关信息，按照列表、详情方式来查询可用于扫码查询
@@ -13,12 +16,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/patient")
 @CrossOrigin
 public class PatientInfoController {
+    @Resource
+    private PatientInfoServiceImpl patientInfoServiceImpl;
 
     @ApiOperation("获取患者信息")
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
     public CommonResult getPatientInfo(@PathVariable(value = "id") Integer patientId)
     {
-        return null;
+        return patientInfoServiceImpl.getPatientInfo(patientId);
     }
 
     @ApiOperation("获取患者挂号列表")

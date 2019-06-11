@@ -83,6 +83,10 @@
         </trim>
     </insert>
 
+    <select id="getPatientInfoById" resultType="Patient">
+        select * from patient where id = #{id}
+    </select>
+
     <select id="getPatientByIdCard" resultType="integer">
         select id from patient where id_card = #{idCard}
     </select>
