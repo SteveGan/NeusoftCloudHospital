@@ -92,6 +92,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         medicine.put("medicineName", recipeLog.get("medicineName"));
         medicine.put("amount", recipeLog.get("amount"));
         medicine.put("dosage", recipeLog.get("dosage"));
+        medicine.put("status", recipeLog.get("status"));
         medicine.put("frequency", recipeLog.get("frequency"));
         medicine.put("medicineUnit", recipeLog.get("medicineUnit"));
         medicine.put("medicineType", recipeLog.get("medicineType"));

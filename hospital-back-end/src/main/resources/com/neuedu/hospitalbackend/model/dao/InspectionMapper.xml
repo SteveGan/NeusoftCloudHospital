@@ -165,7 +165,7 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
-    <select id="listCheckedInButNotRecordedProjects" resultType="InspectionResultMap">
+    <select id="listCheckedInButNotRecordedProjects" resultMap="InspectionResultMap">
       select *
       from inspection
       where department_id = #{departmentId} and status = 4

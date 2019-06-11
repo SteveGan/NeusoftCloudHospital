@@ -226,7 +226,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             Inspection inspection = new Inspection();
             inspection.setId(collectionId);
             inspection.setProjectId(projectId);
-            inspection.setStatus(projectParam.getStatus());
+            inspection.setStatus(projectParam.getProjectStatus());
             inspection.setGoal(projectParam.getGoal());
             inspection.setRequirement(projectParam.getRequirement());
 
@@ -375,7 +375,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             examination.setCaseId(caseId);
             examination.setCreatorRoleId(applicantRoleId);
             examination.setDepartmentId(departmentId);
-            examination.setStatus(projectParam.getStatus());
+            examination.setStatus(projectParam.getProjectStatus());
             examination.setGoal(goal);
             examination.setRequirement(requirement);
             //插入数据库
