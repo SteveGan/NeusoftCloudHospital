@@ -5,6 +5,7 @@ import com.neuedu.hospitalbackend.model.dao.MedicineMapper;
 import com.neuedu.hospitalbackend.model.po.Medicine;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.MedicineManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
+import com.neuedu.hospitalbackend.util.ResultCode;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -58,16 +59,14 @@ public class MedicineManagementImpl implements MedicineManagementService {
     }
 
     @Override
-    public CommonResult listTraditionalMedicine(){
-        List<Medicine> medicineList = medicineMapper.listTraditionalMedicine();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("medicines", medicineList);
-        return CommonResult.success(medicineList);
-    }
-
-    @Override
-    public CommonResult listModernMedicine(){
-        List<Medicine> medicineList = medicineMapper.listModernMedicine();
+    public CommonResult listMedicineByType(Integer type){
+        List<Medicine> medicineList;
+        if(type == 0)
+            medicineList = medicineMapper.listTraditionalMedicine();
+        else if (type == 1)
+            medicineList = medicineMapper.listModernMedicine();
+        else
+            return CommonResult.fail(ResultCode.E_801);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("medicines", medicineList);
         return CommonResult.success(medicineList);

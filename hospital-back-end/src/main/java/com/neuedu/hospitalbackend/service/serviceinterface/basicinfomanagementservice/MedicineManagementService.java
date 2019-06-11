@@ -33,12 +33,8 @@ public interface MedicineManagementService {
     CommonResult deleteMedicineById(Short id);
 
     /**
-     * 所有中药
+     * 所有中药/西药
      */
-    CommonResult listTraditionalMedicine();
+    CommonResult listMedicineByType(Integer type);
 
-    /**
-     * 所有西药
-     */
-    CommonResult listModernMedicine();
 }
