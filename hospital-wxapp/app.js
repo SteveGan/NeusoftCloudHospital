@@ -79,6 +79,18 @@ App({
       showCancel: false
     });
   },
+
+  isLoggedIn: function () {
+    // 从本地存储获取学号及密码
+    var value = wx.getStorageSync('userId')
+    // 判断登录状态决定显示内容
+    if (value) {
+      return true
+    } else {
+      return false
+    }
+  },
+
   globalData: {
     userInfo: null
   }

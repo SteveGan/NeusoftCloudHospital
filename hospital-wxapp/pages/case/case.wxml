@@ -1,0 +1,2 @@
+<!--pages/case/case.wxml-->
+<top-bar hasBack="{{true}}"></top-bar>

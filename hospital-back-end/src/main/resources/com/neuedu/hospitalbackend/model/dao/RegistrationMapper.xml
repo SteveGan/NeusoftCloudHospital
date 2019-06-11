@@ -189,6 +189,23 @@
     and r.is_normal = 0 and t.type = "挂号费" and t.total_money > 0
   </select>
 
+  <resultMap id="JoinMap" type="HashMap">
+    <result column="id" jdbcType="INTEGER" property="registrationId" />
+    <result column="patient_id" jdbcType="INTEGER" property="patientId" />
+    <result column="appointment_date" jdbcType="DATE" property="appointmentDate" />
+    <result column="time_slot" jdbcType="TINYINT" property="timeSlot"/>
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="registration_level_id" jdbcType="SMALLINT" property="registrationLevelId" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="total_fee" jdbcType="DECIMAL" property="totalFee" />
+    <result column="is_normal" jdbcType="BIT" property="isNormal" />
+    <result column="cashier_id" jdbcType="INTEGER" property="cashierId" />
+    <result column="pay_type" jdbcType="TINYINT" property="payType" />
+    <result column="name" jdbcType="VARCHAR" property="departmentName" />
+  </resultMap>
+  <select id="listRegistrationsByPatientId" resultMap="JoinMap" parameterType="Integer">
+    select * from registration left join department on registration.department_id = department.id where registration.patient_id = #{patientId}
+  </select>
 
 
 </mapper>
