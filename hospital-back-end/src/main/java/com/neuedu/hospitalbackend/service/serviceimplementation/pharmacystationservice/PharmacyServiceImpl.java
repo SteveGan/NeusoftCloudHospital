@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.pharmacystationservice;
 
+import com.neuedu.hospitalbackend.model.dao.InventoryMapper;
 import com.neuedu.hospitalbackend.model.dao.RecipeMapper;
 import com.neuedu.hospitalbackend.model.vo.RecipeParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.pharmacystationservice.PharmacyService;
@@ -12,12 +13,15 @@ import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_705;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_706;
+import static com.neuedu.hospitalbackend.util.ResultCode.E_707;
 
 @Service
 public class PharmacyServiceImpl implements PharmacyService {
 
     @Autowired
     private RecipeMapper recipeMapper;
+    @Autowired
+    private InventoryMapper inventoryMapper;
 
 
     public CommonResult listRecipesByRegistrationIdOrDate(Integer caseId, String chargeDateStr){
@@ -39,12 +43,17 @@ public class PharmacyServiceImpl implements PharmacyService {
     public CommonResult deliverMedicine(List<RecipeParam> recipeParams){
         int count = 0;
         for(RecipeParam r: recipeParams){
-            //取药条件：已缴费 + 开立
+            //取药条件：已缴费 + 开立 且该要有库存
             if(r.getTransactionLogStatus() == 2 && r.getStatus() == 2){
-                //更新对应的recipe状态和发药人id --已取药
-                count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte) 4, r.getDeliverRoleId());
-                //更新对应药品的库存
-                recipeMapper.updateInventory(r.getMedicineId(), r.getRemainAmount());
+                //查询药品库存
+                if (inventoryMapper.getRemainingAmountByMedicineId(r.getMedicineId()) > 0){
+                    //更新对应的recipe状态和发药人id --已取药
+                    count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte) 4, r.getDeliverRoleId());
+                    //更新对应药品的库存
+                    inventoryMapper.updateInventory(r.getMedicineId(), r.getRemainAmount());
+                }
+                else
+                    return CommonResult.fail(E_707);
             }
             else
                 return CommonResult.fail(E_706);
@@ -66,7 +75,7 @@ public class PharmacyServiceImpl implements PharmacyService {
                     //更新对应的recipe状态和退药人
                     count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte)5, r.getDeliverRoleId());
                     //更新对应药品的库存
-                    recipeMapper.updateInventory(r.getMedicineId(), (short) - r.getReturnAmount());
+                    inventoryMapper.updateInventory(r.getMedicineId(), (short) - r.getReturnAmount());
                 }
                 else
                     return CommonResult.fail(E_705);

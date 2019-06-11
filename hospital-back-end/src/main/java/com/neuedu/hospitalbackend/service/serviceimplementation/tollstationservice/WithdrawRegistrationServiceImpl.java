@@ -52,10 +52,11 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
                 jsonObject.put("更改原有缴费记录", count1);
 
                 //向缴费表中添加新的缴费记录  --冲正
-                TransactionLog newTransactionLog = originalTransactionLog;
-                String originalInvoiceCode = originalTransactionLog.getInvoiceCode();
+                TransactionLog newTransactionLog = (TransactionLog) originalTransactionLog.clone();
+                //String originalInvoiceCode = originalTransactionLog.getInvoiceCode();
                 newTransactionLog.setId(null);
                 newTransactionLog.setStatus((byte)4);
+                newTransactionLog.setRoleId(registrationParam.getNewCashierId());
                 newTransactionLog.setInvoiceCode(invoiceCode);
                 newTransactionLog.setTotalMoney(newTransactionLog.getTotalMoney().negate());
                 CommonResult insertResult = transactionService.insertTransactionLog(newTransactionLog);
@@ -65,7 +66,7 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
 
             //向异常表中添加新的记录
             CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
-                    originalInvoiceCode,null, invoiceCode, originalTransactionLog.getRoleId(), "挂号退费" );
+                    originalTransactionLog.getInvoiceCode(),null, invoiceCode, registrationParam.getNewCashierId(), "挂号退费" );
             if (insertExceptionResult.getCode() == 500)
                 return insertExceptionResult;
 

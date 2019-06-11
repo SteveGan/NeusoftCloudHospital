@@ -235,4 +235,37 @@
         from transaction_log
         where invoice_code = #{invoiceCode}
     </select>
+
+    <select id="listLogsByRegistrationIdAndDate" resultMap="BaseResultMap">
+        select * from transaction_log t
+        <where>
+            <if test="beginDateStr != null">
+                and date_format(t.gmt_modified,'%Y-%m-%d') &gt;= beginDateStr
+            </if>
+            <if test="endDateStr != null">
+                date_format(t.gmt_modified,'%Y-%m-%d') &lt;= endDateStr
+            </if>
+            and registration_id = #{registrationId}
+        </where>
+        order by t.gmt_modified desc
+    </select>
+
+    <select id="listLogsByCashierIdAndDate" resultMap="BaseResultMap">
+        select * from transaction_log t
+        <where>
+            <if test="beginDateStr != null">
+                t.gmt_modified &gt;= beginDateStr
+            </if>
+            <if test="endDateStr != null">
+                and t.gmt_modified &lt;= endDateStr
+            </if>
+            and role_id = #{cashierId}
+        </where>
+        order by invoice_code asc
+    </select>
+
+    <update id="freezeTransactionLogs">
+        update transaction_log set status = 6
+        where invoice_code = #{invoiceCode}
+    </update>
 </mapper>

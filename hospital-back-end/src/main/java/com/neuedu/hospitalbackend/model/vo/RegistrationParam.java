@@ -1,7 +1,6 @@
 package com.neuedu.hospitalbackend.model.vo;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class RegistrationParam {
 
@@ -22,6 +21,7 @@ public class RegistrationParam {
     private Boolean isBuyCaseBook;
     private Integer cashierId; //收银员id
     private String invoiceCode; //当前挂号单对应的发票号
+    private Integer newCashierId;
 
     private Integer patientId; //病人在本医院的id
     private Byte patientCaseStatus; //患者病历状态
@@ -176,5 +176,13 @@ public class RegistrationParam {
 
     public void setPatientCaseStatus(Byte patientCaseStatus) {
         this.patientCaseStatus = patientCaseStatus;
+    }
+
+    public Integer getNewCashierId() {
+        return newCashierId;
+    }
+
+    public void setNewCashierId(Integer newCashierId) {
+        this.newCashierId = newCashierId;
     }
 }
