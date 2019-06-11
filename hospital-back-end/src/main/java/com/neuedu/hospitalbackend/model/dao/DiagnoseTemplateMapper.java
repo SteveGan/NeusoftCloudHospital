@@ -21,5 +21,7 @@ public interface DiagnoseTemplateMapper {
 
     List<HashMap> listMyDiagnoseTemplate(Integer roleId);
 
+    List<HashMap> listMyDiagnoseTemplateByType(@Param("roleId") Integer roleId, @Param("type") Integer type);
+
     int deleteByName(String name);
 }

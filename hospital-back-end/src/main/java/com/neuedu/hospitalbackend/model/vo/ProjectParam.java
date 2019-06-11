@@ -16,7 +16,7 @@ public class ProjectParam {
 
     private List<ItemParam> items; //小项
 
-    private Integer status;//状态
+    private Byte status;//状态
 
     private Integer caseId;//病历号
     private Integer creatorRoleId;//门诊医生id
@@ -31,11 +31,19 @@ public class ProjectParam {
         this.items = items;
     }
 
-    public Integer getStatus() {
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 

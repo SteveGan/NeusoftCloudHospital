@@ -47,4 +47,5 @@ public interface DepartmentManagementService {
      * 1.2.7 树状图列出科室
      */
     CommonResult listDepartmentsTree();
+
 }

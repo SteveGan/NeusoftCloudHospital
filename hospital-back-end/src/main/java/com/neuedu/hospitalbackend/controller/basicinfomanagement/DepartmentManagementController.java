@@ -60,4 +60,6 @@ public class DepartmentManagementController {
     public CommonResult listDepartmentsTree() {
         return departmentManagement.listDepartmentsTree();
     }
+
+
 }

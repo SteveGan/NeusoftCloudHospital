@@ -95,4 +95,19 @@
     where project_id = #{projectId}
     limit 1
   </select>
+
+  <select id="listProjectBasicInfoByType" resultType = "HashMap">
+        select distinct p.project_id as projectId, p.project_name as projectName,
+                d.id as departmentId, d.name as departmentName
+        from tech_project p, department d
+        where classification = #{classification}
+              and p.department_id = d.id
+    </select>
+
+    <select id="listItemBasicInfoByProject" resultType = "HashMap">
+      select item_id as itemId, item_name as itemName, unit
+      from tech_project
+      where project_id = #{projectId}
+    </select>
+
 </mapper>

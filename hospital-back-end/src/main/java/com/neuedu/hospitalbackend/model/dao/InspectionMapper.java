@@ -46,4 +46,15 @@ public interface InspectionMapper {
 
     int delete(@Param("id") Integer id, @Param("projectId") Integer projectId);
 
+    List<Inspection> listCollectionDetail(Integer caseId);
+
+    HashMap getCollectionInfo(Integer caseId);
+
+
+    List<HashMap> listCollectionInfo(Integer caseId);
+
+    List<HashMap> listProjectInfo(Integer collectionId);
+
+    List<HashMap> listItems(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
 }

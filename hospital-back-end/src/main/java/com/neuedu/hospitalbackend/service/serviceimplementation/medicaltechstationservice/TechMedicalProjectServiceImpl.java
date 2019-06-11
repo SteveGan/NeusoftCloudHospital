@@ -6,7 +6,7 @@ import com.neuedu.hospitalbackend.model.dao.InspectionMapper;
 import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.PatientParam;
-import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TechProjectService;
+import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TechMedicalProjectService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @Service
-public class TechProjectServiceImpl implements TechProjectService {
+public class TechMedicalProjectServiceImpl implements TechMedicalProjectService {
 
     @Resource
     private InspectionMapper inspectionMapper;
@@ -48,7 +48,7 @@ public class TechProjectServiceImpl implements TechProjectService {
             return CommonResult.fail(ResultCode.E_801);//部门参数异常
 
         //查询患者列表
-        List<HashMap> patients = new ArrayList<>();
+        List<HashMap> patients;
         if(1 == projectType)
             patients = inspectionMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName, departmentId);
         else if(2 == projectType)

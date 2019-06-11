@@ -16,6 +16,12 @@ import java.util.List;
 public interface ProjectCollectionManagementService {
 
     /**
+     * 根据当前病历号，找到目前所有的检验申请单
+     * @param caseId
+     */
+    CommonResult listCollections(Integer caseId, Integer type);
+
+    /**
      * 申请新的申请清单
      * @param collectionType
      */

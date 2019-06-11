@@ -37,4 +37,6 @@
     <delete id="delete" parameterType="Integer">
         delete from department where id = #{id}
     </delete>
+
+
 </mapper>

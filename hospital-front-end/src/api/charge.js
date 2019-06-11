@@ -18,11 +18,14 @@ export default {
     })
   },
 
-  withdraw(multipleSelection) {
+  withdraw(multipleSelection, currentRoleId) {
     return request({
       url: 'payment/withdrawal',
       method: 'put',
-      data: multipleSelection
+      data: {
+        multipleSelection: multipleSelection,
+        currentRoleId: currentRoleId
+      }
     })
   }
 }
