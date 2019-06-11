@@ -1,6 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice;
 
 
+import com.neuedu.hospitalbackend.model.vo.RecipeCollectionParam;
+import com.neuedu.hospitalbackend.model.vo.RecipeParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
 
@@ -16,6 +18,26 @@ public interface RecipeManagementService {
      * @return 当前case中的所有recipe
      */
     CommonResult listCurrentCaseRecipes(Integer caseId);
+
+    /**
+     * 新增处方
+     * @return 处方id
+     */
+    CommonResult insertNewRecipe();
+
+    /**
+     * 暂存处方
+     * @param recipeCollectionParam
+     * @return
+     */
+    CommonResult preserveRecipes(RecipeCollectionParam recipeCollectionParam);
+
+    /**
+     * 开立处方
+     * @param recipeCollectionParam
+     * @return
+     */
+    CommonResult submitRecipes(RecipeCollectionParam recipeCollectionParam);
 
 
 //    CommonResult listPatients(Integer doctorRoleId);

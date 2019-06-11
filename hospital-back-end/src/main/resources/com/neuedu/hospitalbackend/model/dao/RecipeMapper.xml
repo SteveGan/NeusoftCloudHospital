@@ -226,7 +226,18 @@
     </where>
   </select>
 
+    <select id="getLatestId" resultType="Integer">
+        select id
+        from recipe
+        order by id desc
+        limit 1
+    </select>
 
+   <delete id="deleteById">
+       delete
+       from recipe
+       where id = #{id}
+   </delete>
 
 
 </mapper>

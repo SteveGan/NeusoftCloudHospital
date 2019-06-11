@@ -1,8 +1,7 @@
 package com.neuedu.hospitalbackend.controller;
 
 
-import com.neuedu.hospitalbackend.model.vo.CaseRecipesParam;
-import com.neuedu.hospitalbackend.model.vo.RecipeParam;
+import com.neuedu.hospitalbackend.model.vo.RecipeCollectionParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.RecipeManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
@@ -24,12 +23,25 @@ public class RecipeController {
         return recipeManagementService.listCurrentCaseRecipes(caseId);
     }
 
-    @ApiOperation("暂存当前页面中所有的处方")
-    @RequestMapping(value = "/preservation", method = RequestMethod.PUT)
-    public CommonResult saveRecipes(@RequestBody CaseRecipesParam caseRecipesParam){
-        return null;
+    @ApiOperation("新增处方")
+    @RequestMapping(value = "/application", method = RequestMethod.POST)
+    public CommonResult insertNewRecipe(){
+        return recipeManagementService.insertNewRecipe();
     }
 
+    //TODO 批量处理
+    @ApiOperation("暂存处方")
+    @RequestMapping(value = "/preservation", method = RequestMethod.PUT)
+    public CommonResult preserveRecipes(@RequestBody RecipeCollectionParam recipeCollectionParam){
+        return recipeManagementService.preserveRecipes(recipeCollectionParam);
+    }
+
+    //TODO 批量处理
+    @ApiOperation("开立处方")
+    @RequestMapping(value = "/submission", method = RequestMethod.PUT)
+    public CommonResult submitRecipes(@RequestBody RecipeCollectionParam recipeCollectionParam){
+        return recipeManagementService.submitRecipes(recipeCollectionParam);
+    }
 
 
     // 这个次要
@@ -38,21 +50,5 @@ public class RecipeController {
     public CommonResult clearRecipes(@PathVariable(value="caseId") Integer caseId, @PathVariable(value="recipeType") Integer recipeType){
         return null;
     }
-
-    @ApiOperation("开立")
-    @RequestMapping(value = "/submission", method = RequestMethod.POST)
-    public CommonResult submitRecipes(@RequestBody RecipeParam recipeParam){
-        return null;
-    }
-
-
-
-
-
-
-
-
-
-
 
 }

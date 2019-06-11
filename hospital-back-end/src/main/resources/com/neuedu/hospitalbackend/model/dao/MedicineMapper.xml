@@ -37,4 +37,10 @@
     <select id="getUnitPriceById" resultType="decimal">
         select unit_price from medicine where id = #{id}
     </select>
+
+    <select id="getMedicineTypeAndUPrice" resultType="HashMap">
+        select type, unit_price as unitPrice
+        from medicine
+        where id = #{id}
+    </select>
 </mapper>
