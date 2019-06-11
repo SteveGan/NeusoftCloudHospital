@@ -59,7 +59,7 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
-    <select id="listCheckedInButNotRecordedProjects" resultType="ExaminationResultMap">
+    <select id="listCheckedInButNotRecordedProjects" resultMap="ExaminationResultMap">
       select *
       from examination
       where department_id = #{departmentId} and status = 4
