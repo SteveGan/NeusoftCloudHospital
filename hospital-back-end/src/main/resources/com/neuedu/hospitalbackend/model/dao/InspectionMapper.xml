@@ -211,25 +211,8 @@
         where id = #{id} and project_id = #{projectId}
     </delete>
 
-    <resultMap id="collectionDetail" type="HashMap">
-        <id column="i_id" property="collectionId"/>
-        <result column="project_id" property="projectId"/>
-        <result column="project_name" property="projectName"/>
-        <result column="department_id" property="departmentId"/>
-        <result column="status" property="status"/>
-        <result column="goal" property="goal"/>
-        <result column="result_description" property="resultDescription"/>
-        <result column="result_image" property="resultImage"/>
-        <result column="advice" property="advice"/>
-        <result column="requirement" property="requirement"/>
-        <collection property="items"  javaType="java.util.List" ofType="HashMap">
-            <id column="item_id" property="itemId"/>
-            <result column="item_name" property="itemName"/>
-            <result column="amount" property="amount"/>
-        </collection>
-    </resultMap>
 
-    <select id="listCollectionDetail" resultMap="collectionDetail">
+    <select id="listCollectionDetail" resultMap="projectInfo">
         select i.department_id, i.project_id, i.status, i.goal, i.requirement,
                 i.result_description, i.result_image, i.advice,
                 p.id as p_id, p.project_name, p.item_id, p.item_name, p.amount
@@ -243,6 +226,34 @@
         from inspection i
         where case_id = #{caseId}
         limit 1
+    </select>
+
+    <resultMap id="projectInfo" type="HashMap">
+        <result column="project_id" property="projectId"/>
+        <result column="project_name" property="projectName"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="status" property="status"/>
+        <result column="goal" property="goal"/>
+        <result column="result_description" property="resultDescription"/>
+        <result column="result_image" property="resultImage"/>
+        <result column="advice" property="advice"/>
+        <result column="requirement" property="requirement"/>
+    </resultMap>
+
+    <select id="listCollectionInfo" resultType="HashMap">
+        select distinct id as collectionId, creator_role_id as applicantRoleId
+        from inspection
+        where case_id = #{caseId}
+    </select>
+
+    <select id="listProjectInfo" resultMap="projectInfo">
+        select distinct i.project_id, p.project_name, i.department_id, d.name as department_name, i.status,
+                i.goal, i.result_description, i.result_image, i.advice, i.result_description
+        from inspection i, inspection_project p, department d
+        where i.id = #{collectionId}
+              and p.collection_id = i.id and p.project_id = i.project_id
+              and d.id = i.department_id
     </select>
 
     <select id="listItems" resultType="HashMap">

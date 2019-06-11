@@ -37,4 +37,11 @@
     <delete id="delete" parameterType="Integer">
         delete from department where id = #{id}
     </delete>
+
+
+    <select id="listIdAndNameByType" resultType = "HashMap">
+        select id, name
+        from department
+        where classification = #{classification}
+    </select>
 </mapper>

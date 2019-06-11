@@ -42,4 +42,11 @@ public interface ExaminationMapper {
 
     HashMap getCollectionInfo(Integer caseId);
 
+    List<HashMap> listCollectionInfo(Integer caseId);
+
+    List<HashMap> listProjectInfo(Integer collectionId);
+
+    List<HashMap> listItems(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
+
 }

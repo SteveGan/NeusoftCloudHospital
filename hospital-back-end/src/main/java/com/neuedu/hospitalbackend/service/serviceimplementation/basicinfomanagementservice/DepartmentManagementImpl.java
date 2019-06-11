@@ -6,8 +6,10 @@ import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
 import com.neuedu.hospitalbackend.model.po.Department;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.DepartmentManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
+import com.neuedu.hospitalbackend.util.ResultCode;
 import org.springframework.stereotype.Service;
 
+import javax.activation.CommandObject;
 import javax.annotation.Resource;
 
 import java.util.ArrayList;
@@ -96,5 +98,17 @@ public class DepartmentManagementImpl implements DepartmentManagementService {
         }
 
         return CommonResult.success(map);
+    }
+
+    @Override
+    public CommonResult listDepartmentsByType(Integer type){
+        List<HashMap> department;
+        if (type == 1)
+            department = departmentMapper.listIdAndNameByType("医学影像学");
+        else if (type == 2)
+            department = departmentMapper.listIdAndNameByType("医技科");
+        else
+            return CommonResult.fail();
+        return CommonResult.success(department);
     }
 }

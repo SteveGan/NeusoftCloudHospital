@@ -50,36 +50,68 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     @Override
     public CommonResult listCollections(Integer caseId, Integer type){
+        //检查1   检验2   处置3
         JSONObject returnJson = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        List<HashMap> projects = new ArrayList<>();
-        HashMap info;
-        if (type == 1) {
-            info = inspectionMapper.getCollectionInfo(caseId);
-            projects = inspectionMapper.listCollectionDetail(caseId);
-//            for (HashMap project: projects){
-//                JSONObject jsonObject = new JSONObject();
-//                Integer projectId = (Integer) project.get("projectId");
-//                jsonObject.put("projectId", projectId);
-//                jsonObject.put("projectName", project.get("projectName"));
-//                jsonObject.put("departmentId", project.get("departmentId"));
-//                jsonObject.put("status", project.get("status"));
-//                jsonObject.put("goal", project.get("goal"));
-//                jsonObject.put("requirement", project.get("requirement"));
-//                    jsonObject.put("resultDescription", project.get("resultDescription"));
-//                    jsonObject.put("resultImage", project.get("resultImage"));
-//                    jsonObject.put("advice", project.get("advice"));
-//                    jsonObject.put("items", inspectionMapper.listItems(collectionId, projectId));
-//                jsonArray.add(jsonObject);
-//            }
-        }
-        else{
-            info = examinationMapper.getCollectionInfo(caseId);
-        }
-        returnJson.put("projects", projects);
-        returnJson.put("collectionId", info.get("collectionId"));
-        returnJson.put("applicantRoleId", info.get("applicantRoleId"));
+        JSONArray collectionArray = new JSONArray();
+        List<HashMap> collections = new ArrayList<>();
+        if (type == 1)
+            collections = inspectionMapper.listCollectionInfo(caseId);
+        else if(type == 2)
+            collections = examinationMapper.listCollectionInfo(caseId);
+//        else if(type == 3)
+//            collections = treatmentMapper.listCollectionInfo(caseId);
 
+        for(HashMap collection:collections) {
+            //collection信息
+            JSONObject collectionJson = new JSONObject();
+            Long collectionIdLong = (Long)collection.get("collectionId");
+            Integer collectionId = new Integer(String.valueOf(collectionIdLong));
+            collectionJson.put("collectionId", collectionId);
+            collectionJson.put("applicantRoleId", collection.get("applicantRoleId"));
+            JSONArray projectArray = new JSONArray();
+            List<HashMap> projects = new ArrayList<>();
+            if (type == 1)
+                projects = inspectionMapper.listProjectInfo(collectionId);
+            else if(type == 2)
+                projects = examinationMapper.listProjectInfo(collectionId);
+            for(HashMap project:projects){
+                //project信息
+                JSONObject projectJson = new JSONObject();
+                Integer projectId = (Integer)project.get("projectId");
+                System.out.println("11111111111111111111111");
+                projectJson.put("projectId",projectId );
+                projectJson.put("projectName", project.get("projectName"));
+                projectJson.put("departmentId", project.get("departmentId"));
+                projectJson.put("departmentName", project.get("departmentName"));
+                projectJson.put("status", project.get("status"));
+                projectJson.put("goal", project.get("goal"));
+                projectJson.put("requirement", project.get("requirement"));
+                projectJson.put("resultDescription", project.get("resultDescription"));
+                projectJson.put("resultImage", project.get("resultImage"));
+                projectJson.put("advice", project.get("advice"));
+                System.out.println("2222222222222222222222");
+                JSONArray itemArray = new JSONArray();
+                List<HashMap> items = new ArrayList<>();
+                if (type == 1)
+                    items = inspectionMapper.listItems(collectionId, projectId);
+                else if(type == 2)
+                    items = examinationMapper.listItems(collectionId, projectId);
+                for(HashMap item:items){
+                    //item信息
+                    JSONObject itemJson = new JSONObject();
+                    itemJson.put("itemId", item.get("itemId"));
+                    itemJson.put("itemName", item.get("itemName"));
+                    itemJson.put("amount", item.get("amount"));
+                    itemArray.add(itemJson);
+                }
+                projectJson.put("items", itemArray);
+                System.out.println("33333333333333333");
+                projectArray.add(projectJson);
+            }
+            collectionJson.put("projects", projectArray);
+            collectionArray.add(collectionJson);
+        }
+        returnJson.put("collections", collectionArray);
         return CommonResult.success(returnJson);
     }
 

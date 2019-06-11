@@ -125,7 +125,7 @@ public class DoctorStationController {
     }
 
 
-    @ApiOperation("根据当前病历号，找到目前所有的检验申请单")
+    @ApiOperation("根据当前病历号，找到所有的项目申请单")
     @RequestMapping(value = "/collection/list/{caseId}/{type}", method = RequestMethod.GET)
     public CommonResult listCollections(@PathVariable(value = "caseId") Integer caseId,
                                         @PathVariable(value = "type") Integer type)
