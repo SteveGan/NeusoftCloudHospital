@@ -86,11 +86,11 @@
               </el-table-column>
               <el-table-column label="开立时间" prop="usedTime(gmtCreate)">
               </el-table-column>
-              <el-table-column label="缴费状态" prop="status">
-              </el-table-column>
+              <!-- <el-table-column label="缴费状态" prop="status">
+              </el-table-column> -->
               <el-table-column label="开立状态" prop="itemStatus">
               </el-table-column>
-              <el-table-column label="执行科室" prop="itemStatus">
+              <el-table-column label="执行科室" prop="departmentId">
               </el-table-column>
             </el-table>
           </div>
@@ -116,19 +116,19 @@
               </el-table-column>
               <el-table-column label="发票号" prop="invoiceCode" width="110">
               </el-table-column>
-              <el-table-column label="项目类型" prop="type">
+              <el-table-column label="项目类型" prop="type" width="80">
               </el-table-column>
-              <el-table-column label="项目名称" prop="id">
+              <el-table-column label="项目名称" prop="id" width="80">
               </el-table-column>
-              <el-table-column label="可退数量" prop="remainAmount" width="50">
+              <el-table-column label="可退数量" prop="remainAmount" width="80">
               </el-table-column>
               <el-table-column label="金额" prop="totalMoney" width="50">
               </el-table-column>
-              <el-table-column label="开立时间" prop="usedTime(gmtCreate)">
+              <el-table-column label="开立时间" prop="gmtCreate">
               </el-table-column>
-              <el-table-column label="开立状态" prop="itemStatus">
-              </el-table-column>
-              <el-table-column label="执行科室" prop="itemStatus">
+              <!-- <el-table-column label="开立状态" prop="itemStatus">
+              </el-table-column> -->
+              <el-table-column label="执行科室" prop="departmentId">
               </el-table-column>
               <el-table-column label="退费数量" fixed="right" width="200">
                 <template slot-scope="scope">
@@ -160,7 +160,28 @@ export default {
 
       chargeSelection: [],
       withdrawSelection: [],
-      num: 0
+      num: 0,
+
+      // 当前操作员
+      currentRoleId: "",
+
+      //常量表
+      constant: {},
+      jiaofeiStatus: {
+        1: "未缴费",
+        2: "已缴费",
+        3: "已退费",
+        4: "冲正",
+        5: "作废",
+        6: "冻结"
+      },
+      chufangStatus: {
+        1: "暂存",
+        2: "开立",
+        3: "作废",
+        4: "已取药",
+        5: "已退药"
+      }
     }
   },
 
@@ -170,7 +191,23 @@ export default {
     }
   },
 
+  mounted(){
+    const currentRoleId = this.$store.getters['user/currentRoleId'];
+    this.currentRoleId = currentRoleId;
+  },
+
   methods: {
+
+    jiaofeiFormatter(row) {
+      const transactionLogStatus = row.transactionLogStatus
+      return this.jiaofeiStatus[transactionLogStatus];
+    },
+
+    chufangFormatter(row) {
+      const status = row.status;
+      return this.chufangStatus[status];
+    },
+
     // 成功提示
     success(msg) {
       this.$message({
@@ -186,6 +223,9 @@ export default {
     
     // 缴费
     charge() {
+      for(var i=0; i<this.chargeSelection.length;i++){
+        chargeSelection[i].cashierId = this.currentRoleId;
+      }
       charge.charge(this.chargeSelection).then(response => {
         console.log(response.data.data)
         if(response.data.code===200){
@@ -200,7 +240,7 @@ export default {
 
     // 退费
     withdraw() {
-      charge.withdraw(this.withdrawSelection).then(response => {
+      charge.withdraw(this.withdrawSelection, this.currentRoleId).then(response => {
         console.log(response.data.data)
         if(response.data.code===200){
           this.success("退费");

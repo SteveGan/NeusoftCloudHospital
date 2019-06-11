@@ -1,7 +1,6 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
 
 public class Inspection {
     private Integer id;
