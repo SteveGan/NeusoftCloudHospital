@@ -4,6 +4,8 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.po.Medicine;
 import com.neuedu.hospitalbackend.model.po.Recipe;
+import com.neuedu.hospitalbackend.util.CommonResult;
+
 import java.util.List;
 
 /**
@@ -12,25 +14,34 @@ import java.util.List;
  */
 public interface RecipeManagementService {
 
-
     /**
-     * 查询所有药品信息
-     * @return 所有药品
+     * 返回当前case中的所有recipe
+     * @param caseId 病历的id
+     * @return 当前case中的所有recipe
      */
-    List<Medicine> listAllMedicine();
+    CommonResult listCurrentCaseRecipes(Integer caseId);
 
 
-    /**
-     * Add recipe into a case
-     * @param obj recipe的信息
-     */
-    void insertRecipe(JSONObject obj);
+//    CommonResult listPatients(Integer doctorRoleId);
 
-    /**
-     * Update the recipe
-     * @param obj recipe的信息
-     */
-    void updateRecipe(JSONObject obj);
+//    /**
+//     * 查询所有药品信息
+//     * @return 所有药品
+//     */
+//    List<Medicine> listAllMedicine();
+//
+//
+//    /**
+//     * Add recipe into a case
+//     * @param obj recipe的信息
+//     */
+//    void insertRecipe(JSONObject obj);
+//
+//    /**
+//     * Update the recipe
+//     * @param obj recipe的信息
+//     */
+//    void updateRecipe(JSONObject obj);
 
 
 }

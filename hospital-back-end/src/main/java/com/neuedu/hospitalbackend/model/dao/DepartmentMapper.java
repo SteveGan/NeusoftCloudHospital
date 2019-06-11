@@ -5,6 +5,7 @@ import com.neuedu.hospitalbackend.model.po.Department;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -20,4 +21,6 @@ public interface DepartmentMapper {
     List<Department> list();
 
     Page<Department> listByPage();
+
+    List<HashMap> listIdAndNameByType(String classification);
 }

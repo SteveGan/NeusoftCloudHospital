@@ -119,19 +119,22 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
     }
 
     /**
-     * 修改常用诊断
+     * 查询常用诊断
      * @param roleId
      */
     @Override
     public CommonResult listMyDiagnoseTemplate(Integer roleId){
         JSONObject returnJson = new JSONObject();
+        List<HashMap> myList;
         //参数检验
         if(roleId == null){
             return CommonResult.fail(ResultCode.E_801);
         }
 
-        List<HashMap> myList = diagnoseTemplateMapper.listMyDiagnoseTemplate(roleId);
-        returnJson.put("myDiagnoseTemplates", myList);
+        myList = diagnoseTemplateMapper.listMyDiagnoseTemplateByType(roleId, 0);
+        returnJson.put("traditionalDiagnoseTemplates", myList);
+        myList = diagnoseTemplateMapper.listMyDiagnoseTemplateByType(roleId, 1);
+        returnJson.put("modernDiagnoseTemplates", myList);
         return CommonResult.success(returnJson);
     }
 

@@ -40,7 +40,21 @@ public interface InspectionMapper {
 
     int insertSelective(Inspection inspection);
 
-    Integer getDepartmentIdByProjectId(Integer projectId);
+    List<Integer> listProjectIdsByCollectionId(Integer Id);
 
-    String getProjectNameByProjectId(Integer projectId);
+    int updateInfo(Inspection inspection);
+
+    int delete(@Param("id") Integer id, @Param("projectId") Integer projectId);
+
+    List<Inspection> listCollectionDetail(Integer caseId);
+
+    HashMap getCollectionInfo(Integer caseId);
+
+
+    List<HashMap> listCollectionInfo(Integer caseId);
+
+    List<HashMap> listProjectInfo(Integer collectionId);
+
+    List<HashMap> listItems(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
 }

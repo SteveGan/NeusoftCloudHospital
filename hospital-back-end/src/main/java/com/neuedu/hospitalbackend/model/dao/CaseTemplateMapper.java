@@ -17,7 +17,7 @@ public interface CaseTemplateMapper {
     int deleteById(Integer id);
     List<HashMap> listAvailableByRoleId(@Param("roleId") Integer roleId, @Param("departmentId") Integer departmentId);
     List<HashMap> listMyCaseTemplates(Integer roleId);
-    List<HashMap> listDepartmentCaseTemplates(@Param("roleId") Integer roleId, @Param("departmentId") Integer departmentId);
-    List<HashMap> listHospitalCaseTemplates(Integer roleId);
+    List<HashMap> listDepartmentCaseTemplates( @Param("departmentId") Integer departmentId);
+    List<HashMap> listHospitalCaseTemplates();
     Integer getRoleIdById(Integer id);
 }

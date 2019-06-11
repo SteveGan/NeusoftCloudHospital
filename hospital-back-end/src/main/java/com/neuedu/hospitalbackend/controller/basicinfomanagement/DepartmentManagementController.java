@@ -60,4 +60,13 @@ public class DepartmentManagementController {
     public CommonResult listDepartmentsTree() {
         return departmentManagement.listDepartmentsTree();
     }
+
+
+    @ApiOperation("根据typeId(检查/检验)，请求所有的（检查项目名，对应科室名）")
+    @RequestMapping(value = "/departments/type/{type}", method = RequestMethod.GET)
+    public CommonResult listDepartmentsByType(@PathVariable Integer type)
+    {
+        System.out.println("000000000000000000000000"+type);
+        return departmentManagement.listDepartmentsByType(type);
+    }
 }

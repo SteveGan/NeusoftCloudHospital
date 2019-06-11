@@ -16,7 +16,7 @@ public class TechProjectController {
     @Resource
     private TechProjectServiceImpl techProjectServiceImpl;
 
-    @ApiOperation("根据病历号或患者姓名，获取所有待登记患者列表")
+    @ApiOperation("（根据病历号或患者姓名）获取所有待登记患者列表")
     @RequestMapping(value = "/patient", method = RequestMethod.GET)
     public CommonResult listPatientByCaseIdOrName(PatientParam patientParam)
     {
@@ -51,7 +51,7 @@ public class TechProjectController {
     }
 
     @ApiOperation("录入项目结果")
-    @RequestMapping(value = "/resultinput", method = RequestMethod.PUT)
+    @RequestMapping(value = "/resultinput/{caseId}", method = RequestMethod.PUT)
     public CommonResult recordResult(@RequestBody ProjectParam projectParam){
         return techProjectServiceImpl.recordResult(projectParam);
         // 后端再次确认项目状态 为 已缴费且未登记

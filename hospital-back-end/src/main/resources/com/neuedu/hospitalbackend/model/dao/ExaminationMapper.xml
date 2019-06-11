@@ -80,4 +80,55 @@
         update examination set status = #{status}
         where id = #{collectionId} and project_id = #{projectId}
     </update>
+
+    <select id="getLatestId" resultType="Integer">
+        select id
+        from examination
+        order by id desc
+        limit 1
+    </select>
+
+
+    <select id="getCollectionInfo" resultType="HashMap">
+        select i.id as collectionId, creator_role_id as applicantRoleId
+        from examination i
+        where case_id = #{caseId}
+        limit 1
+    </select>
+
+
+    <resultMap id="projectInfo" type="HashMap">
+        <result column="project_id" property="projectId"/>
+        <result column="project_name" property="projectName"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="status" property="status"/>
+        <result column="goal" property="goal"/>
+        <result column="result_description" property="resultDescription"/>
+        <result column="result_image" property="resultImage"/>
+        <result column="advice" property="advice"/>
+        <result column="requirement" property="requirement"/>
+    </resultMap>
+
+    <select id="listCollectionInfo" resultType="HashMap">
+        select distinct id as collectionId, creator_role_id as applicantRoleId
+        from examination
+        where case_id = #{caseId}
+    </select>
+
+    <select id="listProjectInfo" resultMap="projectInfo">
+        select distinct i.project_id, p.project_name, i.department_id, d.name as department_name, i.status,
+                i.goal, i.result_description, i.result_image, i.advice, i.result_description
+        from examination i, examination_project p, department d
+        where i.id = #{collectionId}
+              and p.collection_id = i.id and p.project_id = i.project_id
+              and d.id = i.department_id
+    </select>
+
+    <select id="listItems" resultType="HashMap">
+        select item_name as itemName, item_id as itemId, amount
+        from examination_project
+        where collection_id = #{collectionId} and project_id = #{projectId}
+    </select>
+
 </mapper>
