@@ -100,7 +100,7 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
                 else
                     type = 1;
                 //插入数据库
-                count = diagnoseTemplateMapper.insert(diagnoseParam.getIcdCode(), (String)disease.get("diseaseName"), type, roleId, newName);
+                count = diagnoseTemplateMapper.insert(diagnoseParam.getIcdCode(), (String)disease.get("name"), type, roleId, newName);
                 if (count <= 0)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
             }
@@ -112,10 +112,7 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
                 count = diagnoseTemplateMapper.deleteByDiseaseIcdCode(leftDiseaseIcdCode);
         }
 
-        if(count > 0 )
-            return CommonResult.success(count);
-        else
-            return CommonResult.fail();
+       return CommonResult.success(count);
     }
 
     /**

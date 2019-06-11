@@ -42,4 +42,11 @@ public class MedicineController {
     public CommonResult deleteMedicine(@PathVariable Short id) {
         return medicineManagementImpl.deleteMedicineById(id);
     }
+
+    @ApiOperation("所有中药/西药")
+    @RequestMapping(value = "/medicinetype/{type}", method = RequestMethod.GET)
+    public CommonResult listTraditionalMedicine(@PathVariable Integer type) {
+        return medicineManagementImpl.listMedicineByType(type);
+    }
+
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Raven
@@ -23,4 +24,8 @@ public interface MedicineMapper {
     BigDecimal getUnitPriceById(Integer id);
 
     HashMap getMedicineTypeAndUPrice(Integer id);
+
+    List<Medicine> listTraditionalMedicine();
+
+    List<Medicine> listModernMedicine();
 }
