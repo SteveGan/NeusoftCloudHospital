@@ -62,11 +62,14 @@ export default {
   },
   
   // 退号
-  withdrawal(transferData) {
+  withdrawal(transferData, currentRoleId) {
     return request({
       url: '/registration-withdrawal/withdrawal',
       method: 'post',
-      data: transferData
+      data: {
+        transferData: transferData,
+        currentRoleId: currentRoleId
+      }
     })
   }
 }

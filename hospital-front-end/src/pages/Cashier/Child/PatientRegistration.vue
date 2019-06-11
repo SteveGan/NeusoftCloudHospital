@@ -239,9 +239,12 @@ export default {
       doctors: [],
       available: true,
       registrationsInfo: [],
+
+      currentRoleId: ""
       
     }
   },
+
   computed: {
       age() {
         console.log();
@@ -285,7 +288,7 @@ export default {
       transferData.patientCaseStatus=patientCaseStatus;
       console.log(id);
 
-      register.withdrawal(transferData).then(response => {
+      register.withdrawal(transferData, this.currentRoleId).then(response => {
         console.log(response.data)
         const data = response.data.data
 
@@ -451,6 +454,10 @@ export default {
 
     // 显示所有挂号信息列表
     this.registrations();
+
+    // 初始化操作员id
+    const currentRoleId = this.$store.getters['user/currentRoleId'];
+    this.currentRoleId = currentRoleId;
   }
 
 }
