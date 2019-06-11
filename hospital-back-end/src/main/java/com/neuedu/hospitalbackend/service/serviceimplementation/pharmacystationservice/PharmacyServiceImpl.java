@@ -35,8 +35,8 @@ public class PharmacyServiceImpl implements PharmacyService {
         return CommonResult.success(result);
     }
 
-    public CommonResult listRecipeByRegistrationId(Integer registrationId){
-        List<HashMap> recipe = recipeMapper.listRecipeByRegistrationId(registrationId);
+    public CommonResult listIndividualRecipe(Integer registrationId){
+        List<HashMap> recipe = recipeMapper.listIndividualRecipe(registrationId);
         return CommonResult.success(recipe);
     }
 

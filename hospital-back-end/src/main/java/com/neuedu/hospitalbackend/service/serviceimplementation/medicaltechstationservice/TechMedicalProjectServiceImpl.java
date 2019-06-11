@@ -1,9 +1,10 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice;
 
-import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ExaminationMapper;
 import com.neuedu.hospitalbackend.model.dao.InspectionMapper;
 import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
+import com.neuedu.hospitalbackend.model.po.Examination;
+import com.neuedu.hospitalbackend.model.po.Inspection;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationservice.TechMedicalProjectService;
@@ -27,52 +28,34 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
     @Resource
     private TransactionLogMapper transactionLogMapper;
 
-    /**
-     * 患者查询
-     * 1.输入患者病历号或姓名，可以查询到本科室（检查/检验）的待登记患者列表
-     * 无输入时 输出所有待登记患者列表
-     * 动态查询
-     * @param patientParam: projectType, caseId, patientName
-     * @return 待登记患者信息列表
-     */
     @Override
-    public CommonResult listPreparedPatientsByCaseIdOrName(PatientParam patientParam){
-        JSONObject returnObject = new JSONObject();
+   public CommonResult listPreparedPatientsByCaseIdOrDateOrName(PatientParam patientParam){
+
         Integer projectType = patientParam.getProjectType();
         Integer caseId = patientParam.getCaseId();
         String patientName = patientParam.getPatientName();
         Integer departmentId = patientParam.getDepartmentId();
+        String chargeDateStr = patientParam.getChargeDateStr();
 
-        //参数检查
-        if (departmentId == null)
-            return CommonResult.fail(ResultCode.E_801);//部门参数异常
-
-        //查询患者列表
-        List<HashMap> patients;
-        if(1 == projectType)
-            patients = inspectionMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName, departmentId);
-        else if(2 == projectType)
-            patients = examinationMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName, departmentId);
+        List<HashMap> waitingPatients;
+        if(projectType == 1){
+            waitingPatients = inspectionMapper.listPreparedPatientsByCaseIdOrDateOrName(caseId, patientName, chargeDateStr, departmentId);
+        }
+        else if(projectType == 2)
+            waitingPatients = examinationMapper.listPreparedPatientsByCaseIdOrDateOrName(caseId, patientName, chargeDateStr, departmentId);
         else
             return CommonResult.fail(ResultCode.E_801);//科室类型异常
-        returnObject.put("patients", patients);
-        return CommonResult.success(returnObject);
-    }
+        return CommonResult.success(waitingPatients);
+   }
 
-
-    /**
-     * 患者查询
-     * 2.选择患者可以相应申请的项目明细
-     * @param patientParam: projectType, caseId, patientName
-     * @return inspectionId, inspectionName, inspectionGMTCreate, t.status(是否已缴费), requirement
-     */
     @Override
-    public CommonResult listAppliedProjectsByCaseId(PatientParam patientParam){
-        JSONObject returnObject = new JSONObject();
-        List<HashMap> projects = new ArrayList<>();
+    public CommonResult listAllProjectsByCaseId(PatientParam patientParam){
+
         Integer projectType = patientParam.getProjectType();
         Integer caseId = patientParam.getCaseId();
         Integer departmentId = patientParam.getDepartmentId();
+        String chargeDateStr = patientParam.getChargeDateStr();
+        List<HashMap> projects;
 
         //参数检查
         if(caseId == null)
@@ -80,37 +63,24 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
         if (departmentId == null)
             return CommonResult.fail(ResultCode.E_801);//部门参数异常
 
-        //查询项目列表
+        //列出项目列表(collectionId, projectId, projectName, transactionLogStatus, projectStatus)
         if(1 == projectType)
-            projects = inspectionMapper.listAppliedProjectsByCaseId(caseId, departmentId);
+            projects = inspectionMapper.listAllProjectsByCaseId(caseId, chargeDateStr, departmentId);
         else if(2 == projectType)
-            projects = examinationMapper.listAppliedProjectsByCaseId(caseId, departmentId);
+            projects = examinationMapper.listAllProjectsByCaseId(caseId, chargeDateStr, departmentId);
         else
             return CommonResult.fail(ResultCode.E_801);//科室类型异常
-
-        //timestamp格式转换为datetime
-        for(HashMap project: projects)
-            project.put("gmt_create", String.valueOf(project.get("gmt_create")).substring(0, 19)); //yyyy-MM-dd HH:mm:ss
-
-        returnObject.put("projects", projects);
         return CommonResult.success(projects);
     }
 
-
-    /**
-     * 执行确认
-     * 1.选中相应的患者，选中执行的项目，点击“执行确认”按钮，进行登记操作。
-     * 只有已缴费的项目，才可以进行登记
-     * 选中列表中项目开始登记，更新项目申请信息：状态更新、填写医技医生id
-     * @param projectParam: projectType,collectionId,projectId,doctorRoleId
-     * @return 改动数据库行数
-     * */
     @Override
     public CommonResult checkInProject(ProjectParam projectParam){
         Integer projectType = projectParam.getProjectType();
         Integer collectionId = projectParam.getCollectionId();
         Integer projectId = projectParam.getProjectId();
         Integer doctorRoleId = projectParam.getDoctorRoleId();
+        Byte transactionLogStatus = projectParam.getTransactionLogStatus();
+        Byte projectStatus = projectParam.getProjectStatus();
 
         //参数验证
         if (collectionId == null)
@@ -120,36 +90,36 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
         if(doctorRoleId == null)
             return CommonResult.fail(ResultCode.E_801);//医技医生参数异常
         //确认已缴费
-        if(2 != transactionLogMapper.selectStatusOfProject(collectionId, projectId))
+        if(2 != transactionLogStatus)
             return CommonResult.fail(ResultCode.E_804);//项目操作权限异常
 
         //登记项目
-        int count;
-        if(1 == projectType)
-            count = inspectionMapper.checkInProject(collectionId, projectId, doctorRoleId);
-        else if(2 == projectType)
-            count = examinationMapper.checkInProject(collectionId, projectId, doctorRoleId);
-        else
-            return CommonResult.fail(ResultCode.E_801);//科室类型异常
-
-        if(count > 0)
-            return CommonResult.success(count);
+        //可登记项目
+        int count = 0;
+        if(transactionLogStatus == 2 && projectStatus == 2){
+            if(1 == projectType)
+                count = inspectionMapper.checkInProject(collectionId, projectId, doctorRoleId);
+            else if(2 == projectType)
+                count = examinationMapper.checkInProject(collectionId, projectId, doctorRoleId);
+            else
+                return CommonResult.fail(ResultCode.E_801);//科室类型异常
+            if(count > 0)
+                return CommonResult.success(count);
+            else
+                return CommonResult.fail();
+        }
         else
             return CommonResult.fail();
     }
 
-
-    /**
-     * 取消执行
-     * 1.选中相应的患者，选中项目，点击“取消执行”按钮，进行取消操作。
-     * 更新项目申请信息：改变状态
-     * @param projectParam：projectType, collectionId, projectId
-     */
     @Override
     public CommonResult cancelProject(ProjectParam projectParam){
         Integer projectType = projectParam.getProjectType();
         Integer collectionId = projectParam.getCollectionId();
         Integer projectId = projectParam.getProjectId();
+        Integer doctorRoleId = projectParam.getDoctorRoleId();
+        Byte transactionLogStatus = projectParam.getTransactionLogStatus();
+        Byte projectStatus = projectParam.getProjectStatus();
 
         //参数验证
         if (collectionId == null)
@@ -157,63 +127,47 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
         if(projectId == null)
             return CommonResult.fail(ResultCode.E_801);//项目参数异常
         //确认已缴费
-        if(2 != transactionLogMapper.selectStatusOfProject(collectionId, projectId))
+        if(2 != transactionLogStatus)
             return CommonResult.fail(ResultCode.E_804);//项目操作权限异常
 
         //取消执行
-        int count;
-        if(1 == projectType)
-            count = inspectionMapper.cancelProject(collectionId, projectId);
-        else if(2 == projectType)
-            count = examinationMapper.cancelProject(collectionId, projectId);
-        else
-            return CommonResult.fail(ResultCode.E_801);//科室类型异常
-
-        if(count > 0)
-            return CommonResult.success(count);
+        int count = 0;
+        if(transactionLogStatus == 2 && projectStatus == 2){
+            if(1 == projectType)
+                count = inspectionMapper.cancelProject(collectionId, projectId, doctorRoleId);
+            else if(2 == projectType)
+                count = examinationMapper.cancelProject(collectionId, projectId, doctorRoleId);
+            else
+                return CommonResult.fail(ResultCode.E_801);//科室类型异常
+            if(count > 0)
+                return CommonResult.success(count);
+            else
+                return CommonResult.fail();
+        }
         else
             return CommonResult.fail();
     }
 
 
-    /**
-     * 填写结果
-     * 1.显示所有已登记但未录入结果的项目
-     * @param patientParam: projectType, caseId
-     */
     @Override
-    public CommonResult listCheckedInButNotRecordedProject(PatientParam patientParam){
-        JSONObject returnJson = new JSONObject();
-        Integer caseId = patientParam.getCaseId();
-        Integer projectType = patientParam.getProjectType();
-        Integer departmentId = patientParam.getDepartmentId();
+    public CommonResult listCheckedInButNotRecordedProjects(ProjectParam projectParam){
+        Integer projectType = projectParam.getProjectType();
+        Integer departmentId = projectParam.getDepartmentId();
+        String dateStr = projectParam.getChargeDateStr();
 
-        //参数检查
-        if(caseId == null)
-            return CommonResult.fail(ResultCode.E_801);//病历号参数异常
-        if (departmentId == null)
-            return CommonResult.fail(ResultCode.E_801);//部门参数异常
-
-        //未录入结果项目列表
-        List<HashMap> projects = new ArrayList<>();
-        if (1 == projectType)
-            projects = inspectionMapper.listCheckedInButNotRecordedProject(caseId, departmentId);
-        else if (2 == projectType)
-            projects = examinationMapper.listCheckedInButNotRecordedProject(caseId, departmentId);
+        //已登记项目列表
+        if (1 == projectType) {
+            List<Inspection> inspections = inspectionMapper.listCheckedInButNotRecordedProjects(departmentId, dateStr);
+            return CommonResult.success(inspections);
+        }
+        else if (2 == projectType){
+            List<Examination> examinations = examinationMapper.listCheckedInButNotRecordedProjects(departmentId, dateStr);
+            return CommonResult.success(examinations);
+        }
         else
             return CommonResult.fail(ResultCode.E_801);//科室类型异常
-
-        returnJson.put("projects", projects);
-        return CommonResult.success(returnJson);
     }
 
-
-    /**
-     * 填写结果
-     * 2.选中相应的患者和项目后，点击“结果录入”按钮，录入检查结果，如果检查项目有图片，上传检查结果图片
-     * 录入结果: 结果文字、图片（非必填）、医生建议
-     * @param projectParam:projectType, collectionId, projectId, resultDescription, resultImage, advice
-     */
     @Override
     public CommonResult recordResult(ProjectParam projectParam){
         Integer projectType = projectParam.getProjectType();
@@ -238,8 +192,27 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
             count = examinationMapper.recordResult(collectionId, projectId, resultDescription, resultImage, advice);
         else
             return CommonResult.fail(ResultCode.E_801);//科室类型异常
-
         return CommonResult.success(count);
     }
 
+    public CommonResult confirmProject(ProjectParam projectParam){
+        Integer projectType = projectParam.getProjectType();
+        Integer collectionId = projectParam.getCollectionId();
+        Integer projectId = projectParam.getProjectId();
+
+        //参数验证
+        if (collectionId == null)
+            return CommonResult.fail(ResultCode.E_801);//申请参数异常
+        if(projectId == null)
+            return CommonResult.fail(ResultCode.E_801);//项目参数异常
+
+        int count;
+        if (1 == projectType)
+            count = inspectionMapper.updateStatus(collectionId, projectId, (byte) 5);
+        else if (2 == projectType)
+            count = examinationMapper.updateStatus(collectionId, projectId, (byte)5);
+        else
+            return CommonResult.fail(ResultCode.E_801);//科室类型异常
+        return CommonResult.success(count);
+    }
 }

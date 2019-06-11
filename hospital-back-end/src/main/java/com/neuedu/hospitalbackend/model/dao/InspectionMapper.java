@@ -9,27 +9,30 @@ import java.util.List;
 
 @Component
 public interface InspectionMapper {
-    /**
-     * 根据 病历号或者姓名 或 不输入 查找 待登记检查 用户
-     * @param caseId
-     * @param patientName
-     * @return 待登记的caseId, patientName
-     */
-    List<HashMap> listPreparedPatientsByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName,
-                                                     @Param("departmentId") Integer departmentId);
 
-    List<HashMap> listAppliedProjectsByCaseId(@Param("caseId") Integer caseId, @Param("departmentId") Integer departmentId);
+    //列出某科室下所有的患者病历号和姓名
+    List<HashMap> listPreparedPatientsByCaseIdOrDateOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName,
+                                                     @Param("chargeDateStr") String chargeDateStr, @Param("departmentId") Integer departmentId);
 
+    //列出指定患者的医技项目列表
+    List<HashMap> listAllProjectsByCaseId(@Param("caseId") Integer caseId, @Param("chargeDateStr") String chargeDateStr, @Param("departmentId") Integer departmentId);
+
+    //登记项目
     int checkInProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
                        @Param("inspectorRoleId")Integer inspectorRoleId);
 
-    int cancelProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId);
+    //取消项目
+    int cancelProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
+                      @Param("inspectorRoleId")Integer inspectorRoleId);
 
-    List<HashMap> listCheckedInButNotRecordedProject(@Param("caseId") Integer caseId, @Param("departmentId") Integer departmentId);
+    //列出某科室所有已登记项目
+    List<Inspection> listCheckedInButNotRecordedProjects(@Param("departmentId") Integer departmentId, @Param("dateStr") String dateStr);
 
+    //更新某项目结果
     int recordResult(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
                      @Param("resultDescription")String resultDescription, @Param("resultImage")String resultImage,
                      @Param("advice")String advice);
+
 
     int getStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
