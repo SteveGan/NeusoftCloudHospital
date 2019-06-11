@@ -14,7 +14,7 @@ public interface RecipeMapper {
     int updateRemainAmount(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("returnAmount") Short returnAmount);
 
     //根据患者的病历号，列出处方信息列表
-    List<HashMap> listRecipeByRegistrationId(Integer registrationId);
+    List<HashMap> listIndividualRecipe(Integer registrationId);
     //退费时，更新对应的处方状态
     int updateStatus(@Param("collectionId") Integer collectionId, @Param("medicineId") Integer medicineId, @Param("status") Byte status);
     //取药或退药时，更新对应的处方状态和发药人id

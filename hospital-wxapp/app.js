@@ -63,6 +63,34 @@ App({
       }
     })
   },
+
+  showLoadToast: function (title, duration) {
+    wx.showToast({
+      title: title || '玩命加载中...',
+      icon: 'loading',
+      mask: true,
+      duration: duration || 10000
+    });
+  },
+  showErrorModal: function (content, title) {
+    wx.showModal({
+      title: title || '加载失败',
+      content: content || '未知错误',
+      showCancel: false
+    });
+  },
+
+  isLoggedIn: function () {
+    // 从本地存储获取学号及密码
+    var value = wx.getStorageSync('userId')
+    // 判断登录状态决定显示内容
+    if (value) {
+      return true
+    } else {
+      return false
+    }
+  },
+
   globalData: {
     userInfo: null
   }

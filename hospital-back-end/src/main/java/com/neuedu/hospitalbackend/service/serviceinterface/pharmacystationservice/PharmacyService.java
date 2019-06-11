@@ -15,11 +15,11 @@ public interface PharmacyService {
      */
     CommonResult listRecipesByRegistrationIdOrDate(Integer caseId, String chargeDateStr);
     /**
-     * 根据患者的病历号，列出处方信息列表
+     * 根据患者的病历号和指定时间，列出处方信息列表
      * @param registrationId 病历号
      * @return
      */
-    CommonResult listRecipeByRegistrationId(Integer registrationId);
+    CommonResult listIndividualRecipe(Integer registrationId);
 
     /**
      * 执行发药操作

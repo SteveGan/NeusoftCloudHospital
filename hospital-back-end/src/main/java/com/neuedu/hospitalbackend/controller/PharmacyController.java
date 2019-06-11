@@ -34,7 +34,7 @@ public class PharmacyController {
     public CommonResult listRecipeInfo(@PathVariable(value = "id") Integer registrationId){
         JSONObject jsonObject = new JSONObject();
         Registration registration = (Registration) patientService.getRegistrationInfo(registrationId).getData();
-        List<HashMap> recipe = (List<HashMap>) pharmacyService.listRecipeByRegistrationId(registrationId).getData();
+        List<HashMap> recipe = (List<HashMap>) pharmacyService.listIndividualRecipe(registrationId).getData();
         jsonObject.put("registration", registration);
         jsonObject.put("recipe", recipe);
         return CommonResult.success(jsonObject);

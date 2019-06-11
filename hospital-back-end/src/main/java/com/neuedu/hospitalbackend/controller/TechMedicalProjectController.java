@@ -17,45 +17,46 @@ public class TechMedicalProjectController {
     @Resource
     private TechMedicalProjectServiceImpl techMedicalProjectServiceImpl;
 
-    @ApiOperation("（根据病历号或患者姓名）获取所有待登记患者列表")
-    @RequestMapping(value = "/patient", method = RequestMethod.GET)
+    @ApiOperation("（根据病历号或患者姓名或收费日期）获取所有等待列表")
+    @RequestMapping(value = "/patients", method = RequestMethod.GET)
     public CommonResult listPatientByCaseIdOrName(PatientParam patientParam)
     {
-        return techMedicalProjectServiceImpl.listPreparedPatientsByCaseIdOrName(patientParam);
+        return techMedicalProjectServiceImpl.listPreparedPatientsByCaseIdOrDateOrName(patientParam);
     }
 
     @ApiOperation("选中患者，查看已申请的检查/检验项目详情")
     @RequestMapping(value = "/patient-projects", method = RequestMethod.GET)
     public CommonResult listAppliedProjectsByCaseId(PatientParam patientParam){
-        return techMedicalProjectServiceImpl.listAppliedProjectsByCaseId(patientParam);
+        return techMedicalProjectServiceImpl.listAllProjectsByCaseId(patientParam);
     }
 
     @ApiOperation("选中项目登记")
-    @RequestMapping(value = "/project-checkin", method = RequestMethod.PUT)
+    @RequestMapping(value = "/checkin", method = RequestMethod.PUT)
     public CommonResult checkInProject(@RequestBody ProjectParam projectParam){
         return techMedicalProjectServiceImpl.checkInProject(projectParam);
-        // 后端再次确认项目状态 为 已缴费且未登记
     }
 
     @ApiOperation("选中项目取消登记")
-    @RequestMapping(value = "/project-cancel", method = RequestMethod.PUT)
+    @RequestMapping(value = "/cancellation", method = RequestMethod.PUT)
     public CommonResult cancelProject(@RequestBody ProjectParam projectParam){
         return techMedicalProjectServiceImpl.cancelProject(projectParam);
-        // 后端再次确认项目状态 为 已缴费且未登记
     }
 
-    @ApiOperation("根据病历号，获取所有未录入结果项目列表")
-    @RequestMapping(value = "/noresult", method = RequestMethod.GET)
-    public CommonResult listCheckedInButNotRecordedProject(PatientParam patientParam){
-        return techMedicalProjectServiceImpl.listCheckedInButNotRecordedProject(patientParam);
-        // 后端再次确认项目状态 为 已缴费且未登记
+    @ApiOperation("显示本科室已登记项目列表")
+    @RequestMapping(value = "/registeredprojects", method = RequestMethod.GET)
+    public CommonResult listCheckedInButNotRecordedProject(ProjectParam projectParam){
+        return techMedicalProjectServiceImpl.listCheckedInButNotRecordedProjects(projectParam);
     }
 
     @ApiOperation("录入项目结果")
-    @RequestMapping(value = "/resultinput/{caseId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/result", method = RequestMethod.PUT)
     public CommonResult recordResult(@RequestBody ProjectParam projectParam){
         return techMedicalProjectServiceImpl.recordResult(projectParam);
-        // 后端再次确认项目状态 为 已缴费且未登记
     }
 
+    @ApiOperation("确定某项目执行完毕")
+    @RequestMapping(value = "/confirmation", method = RequestMethod.PUT)
+    public CommonResult confirmProject(@RequestBody ProjectParam projectParam){
+        return techMedicalProjectServiceImpl.confirmProject(projectParam);
+    }
 }

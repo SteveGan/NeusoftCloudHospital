@@ -1,1 +1,263 @@
-/* pages/me/me.wxss */
+Page {
+  background-color: #f1f1f1;
+}
+
+.page__bd, .weui-panel {
+  margin-top: 30rpx;
+}
+
+.user-info, .more-btn {
+  display: flex;
+  background-color: #fff;
+  min-height: 85rpx;
+}
+
+/**user-info**/
+
+.card-border-view {
+  padding-top: 15rpx;
+}
+
+.user-info {
+  flex-direction: column;
+  margin: 30rpx 0 -1px;
+  padding: 25rpx 30rpx 20rpx;
+}
+
+.info-hd {
+  display: flex;
+  align-items: center;
+}
+
+.user-title {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 25rpx;
+}
+
+.user-id {
+  font-size: 11pt;
+  color: #8b8b8b;
+}
+
+.info-bd {
+  display: flex;
+  justify-content: space-between;
+  padding: 25rpx 15rpx 0 5rpx;
+  font-size: 11pt;
+  line-height: 150%;
+  color: #8b8b8b;
+}
+
+.info-bd-left, .info-bd-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-bd-left {
+  flex-shrink: 0;
+  padding-right: 30rpx;
+}
+
+/**more-list**/
+
+.more-btn {
+  align-items: center;
+  font-size: 13pt;
+  padding: 0 30rpx;
+}
+
+.about-link {
+  margin-bottom: 15rpx;
+}
+
+.btn-icon {
+  width: 45rpx;
+  height: 45rpx;
+  margin-right: 15rpx;
+}
+
+.user-text {
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  padding-bottom: 10rpx;
+}
+
+.user-info, .more-btn {
+  display: flex;
+  background-color: #fff;
+  min-height: 85rpx;
+}
+
+/**user-info**/
+
+.user-info-box {
+  margin-bottom: 40rpx;
+}
+
+.user-info {
+  flex-direction: column;
+  margin: 20rpx 0;
+  padding: 20rpx;
+}
+
+.info-hd {
+  display: flex;
+  align-items: center;
+}
+
+.bind-btn {
+  color: #aaa;
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.user-avatar-data {
+  overflow: hidden;
+  display: block;
+  border-radius: 5%;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 10pt;
+  line-height: 140%;
+  color: #8b8b8b;
+}
+
+.user-name {
+  font-size: 40rpx;
+  line-height: 160%;
+  letter-spacing: 2rpx;
+}
+
+.user-id {
+  font-size: 11pt;
+  color: #8b8b8b;
+}
+
+.info-bd {
+  display: flex;
+  justify-content: space-between;
+  padding: 25rpx 15rpx 0 5rpx;
+  font-size: 11pt;
+  line-height: 150%;
+  color: #8b8b8b;
+}
+
+.info-bd-left, .info-bd-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-bd-left {
+  flex-shrink: 0;
+  padding-right: 30rpx;
+}
+
+/**more-list**/
+
+.more-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.more-btn {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 13pt;
+  padding: 0 20rpx;
+}
+
+.btn-text {
+  flex: 1;
+  color: #555;
+}
+
+.btn-open {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: 10rpx;
+}
+
+.btn-enter {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+/*切换主题色*/
+
+.color-block {
+  height: 50rpx;
+  flex: 1;
+}
+
+.color-option {
+  display: flex;
+  flex-direction: row;
+}
+
+/*底部三个按钮*/
+.bottom-options {
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-option {
+  height: 160rpx;
+  width: 220rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-img {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.option-text {
+  color: #555;
+}
+
+button {
+  box-sizing: border-box;
+  text-align: left;
+  text-decoration: none;
+  height: 100rpx;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  color: #000;
+  background-color: #f8f8f8;
+}
+
+button::after {
+  border: none;
+}
+
+button {
+  background-color: #fff;
+}
+
+button {
+  border-radius: 0;
+}

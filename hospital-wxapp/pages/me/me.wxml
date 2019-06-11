@@ -1,2 +1,72 @@
-<!--pages/me/me.wxml-->
-<text>pages/me/me.wxml</text>
+<!--顶部标题栏-->
+<top-bar hasBack="{{false}}"></top-bar>
+
+<view class="animation-slide-bottom">
+  <view class="bg-white margin shadow-md padding radius-lg" wx:if="{{isLoggedIn}}">
+    <block>
+      <view class="user-info">
+        <view class="info-hd">
+          <open-data type="userAvatarUrl" class="user-avatar"></open-data>
+          <view class="user-title">
+            <text class="user-name">{{userInfo.name}}</text>
+            <text class="user-id">{{userInfo.id}}</text>
+          </view>
+        </view>
+        <view class="info-bd">
+          <view class="info-bd-left">
+            <text class="user-text">性别：{{userInfo.gender}}</text>
+            <text class="user-text">地址：{{userInfo.address}}</text>
+          </view>
+          <view class="info-bd-right">
+            <text class="user-text">生日：{{userInfo.birthday}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view wx:else>
+    <view class="bg-white margin shadow-md radius-lg animation-slide-bottom padding">
+      <navigator url="/pages/login_eone/login_eone">
+        <empty-state title="请绑定账户后继续" description="点击此处绑定" icon="link">
+        </empty-state>
+      </navigator>
+    </view>
+  </view>
+
+  <!--选项-->
+  <view class="bg-white margin shadow-md padding radius-lg">
+    <view class="about-link" bindtap='login'>
+      <view class="more-btn">
+        <text class='icon-refresh'> 解除登录状态</text>
+      </view>
+    </view>
+
+    <class class="about-link">
+      <button open-type='feedback'>
+        <view class="more-btn">
+          <view class='btn-text'>
+            <text class='icon-question'> 问题反馈</text>
+          </view>
+          <view class="btn-open">
+            <text class='icon-right'></text>
+          </view>
+        </view>
+      </button>
+    </class>
+
+    <navigator url="/pages/about/about" class="about-link">
+      <view class="more-btn">
+        <view class='btn-text'>
+          <text class='icon-info'> 关于 熙康云医院 </text>
+        </view>
+        <view class="btn-open">
+          <text class='icon-right'></text>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>
+
+<!--重新登录提示框-->
+<van-dialog id="van-dialog" />

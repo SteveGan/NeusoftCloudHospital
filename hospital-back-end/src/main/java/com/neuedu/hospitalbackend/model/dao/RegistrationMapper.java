@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -22,6 +23,9 @@ public interface RegistrationMapper {
     List<Registration> listAllNormalRegistrationsInfo();
     //列出 所有退号 信息列表
     List<Registration> listAllRefundedRegistrationInfo();
+
+    //小程序-历史挂号列表
+    List<HashMap> listRegistrationsByPatientId(Integer patientId);
 
 
 }
