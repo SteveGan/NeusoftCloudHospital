@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.MedicineMapper;
 import com.neuedu.hospitalbackend.model.po.Medicine;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.MedicineManagementService;
@@ -7,6 +8,8 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
+import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_602;
 
@@ -52,5 +55,21 @@ public class MedicineManagementImpl implements MedicineManagementService {
             return CommonResult.fail();
         }
         return CommonResult.success(count);
+    }
+
+    @Override
+    public CommonResult listTraditionalMedicine(){
+        List<Medicine> medicineList = medicineMapper.listTraditionalMedicine();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("medicines", medicineList);
+        return CommonResult.success(medicineList);
+    }
+
+    @Override
+    public CommonResult listModernMedicine(){
+        List<Medicine> medicineList = medicineMapper.listModernMedicine();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("medicines", medicineList);
+        return CommonResult.success(medicineList);
     }
 }

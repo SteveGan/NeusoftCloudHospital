@@ -31,4 +31,14 @@ public interface MedicineManagementService {
      * @param id 用户id
      */
     CommonResult deleteMedicineById(Short id);
+
+    /**
+     * 所有中药
+     */
+    CommonResult listTraditionalMedicine();
+
+    /**
+     * 所有西药
+     */
+    CommonResult listModernMedicine();
 }
