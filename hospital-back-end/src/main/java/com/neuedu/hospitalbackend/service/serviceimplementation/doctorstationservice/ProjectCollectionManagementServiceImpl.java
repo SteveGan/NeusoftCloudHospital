@@ -78,7 +78,6 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                 //project信息
                 JSONObject projectJson = new JSONObject();
                 Integer projectId = (Integer)project.get("projectId");
-                System.out.println("11111111111111111111111");
                 projectJson.put("projectId",projectId );
                 projectJson.put("projectName", project.get("projectName"));
                 projectJson.put("departmentId", project.get("departmentId"));
@@ -89,7 +88,6 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                 projectJson.put("resultDescription", project.get("resultDescription"));
                 projectJson.put("resultImage", project.get("resultImage"));
                 projectJson.put("advice", project.get("advice"));
-                System.out.println("2222222222222222222222");
                 JSONArray itemArray = new JSONArray();
                 List<HashMap> items = new ArrayList<>();
                 if (type == 1)
@@ -105,7 +103,6 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     itemArray.add(itemJson);
                 }
                 projectJson.put("items", itemArray);
-                System.out.println("33333333333333333");
                 projectArray.add(projectJson);
             }
             collectionJson.put("projects", projectArray);
@@ -211,11 +208,10 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         int count = 0;
         Integer caseId = collectionParam.getCaseId();
         Integer collectionId = collectionParam.getCollectionId();
-        Byte curStatus = collectionParam.getStatus();
         Integer applicantRoleId = collectionParam.getApplicantRoleId();
 
         //参数检查
-        if(caseId == null || collectionId == null || curStatus == null || applicantRoleId == null)
+        if(caseId == null || collectionId == null || applicantRoleId == null)
             return CommonResult.fail(ResultCode.E_801);
         //TODO 状态检查
 
