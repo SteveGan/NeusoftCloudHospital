@@ -14,7 +14,6 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="disease_id" property="icdCode" jdbcType="VARCHAR" />
     <result column="disease_name" property="diseaseName" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="TINYINT" />
   </resultMap>
 
   <insert id="insert">
@@ -111,7 +110,7 @@
 
 
   <select id="listMyDiagnoseTemplate" resultMap="DiagnoseTemplateInfo">
-      select name, disease_id, disease_name, type
+      select name, disease_id, disease_name
       from diagnose_template
       where role_id = #{roleId}
   </select>

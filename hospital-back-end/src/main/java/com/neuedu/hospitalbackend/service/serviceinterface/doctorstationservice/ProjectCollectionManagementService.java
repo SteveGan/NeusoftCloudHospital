@@ -6,7 +6,6 @@ import com.neuedu.hospitalbackend.model.bo.Project;
 import com.neuedu.hospitalbackend.model.vo.CollectionParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
-import javax.print.attribute.IntegerSyntax;
 import java.util.List;
 
 /**

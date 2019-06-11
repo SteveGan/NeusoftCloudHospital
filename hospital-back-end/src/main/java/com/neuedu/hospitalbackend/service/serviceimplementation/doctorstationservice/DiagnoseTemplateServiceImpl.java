@@ -119,7 +119,7 @@ public class DiagnoseTemplateServiceImpl implements DiagnoseTemplateService {
     }
 
     /**
-     * 修改常用诊断
+     * 查询常用诊断
      * @param roleId
      */
     @Override
