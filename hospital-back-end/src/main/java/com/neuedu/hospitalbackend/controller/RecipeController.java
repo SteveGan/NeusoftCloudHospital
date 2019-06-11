@@ -24,7 +24,6 @@ public class RecipeController {
         return recipeManagementService.listCurrentCaseRecipes(caseId);
     }
 
-
     @ApiOperation("暂存当前页面中所有的处方")
     @RequestMapping(value = "/preservation", method = RequestMethod.PUT)
     public CommonResult saveRecipes(@RequestBody CaseRecipesParam caseRecipesParam){

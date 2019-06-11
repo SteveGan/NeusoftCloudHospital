@@ -5,20 +5,28 @@ App({
     StatusBar: null,
     Custom: null,
     CustomBar: null,
-    serverName: "localhost:8080",
     userInfo: null,
-    statusCode: {
-      success: 200,
-      tokenExpired: 401
-    },
     isiOS: false
   },
   pageBackgroundColor: '#f1f1f1',  
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    var that = this;
+    // 读取本地学号密码缓存，并根据缓存有无判断是否已登录
+    try {
+      wx.getStorage({
+        key: 'userId',
+        success: function (res) {
+          console.log("[INFO]当前登录用户患者id: " + res.data);
+        },
+        fail: function () {
+          that.Login = false;
+          console.log("[INFO]未登录")
+        }
+      })
+    } catch (e) {
+      console.warn('[INFO]登录检验-获取学号缓存失败');
+      this.Login = false;
+    }
 
     // 获取系统显示高度信息
     wx.getSystemInfo({
@@ -34,12 +42,6 @@ App({
       }
     })
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -60,6 +62,22 @@ App({
         }
       }
     })
+  },
+
+  showLoadToast: function (title, duration) {
+    wx.showToast({
+      title: title || '玩命加载中...',
+      icon: 'loading',
+      mask: true,
+      duration: duration || 10000
+    });
+  },
+  showErrorModal: function (content, title) {
+    wx.showModal({
+      title: title || '加载失败',
+      content: content || '未知错误',
+      showCancel: false
+    });
   },
   globalData: {
     userInfo: null

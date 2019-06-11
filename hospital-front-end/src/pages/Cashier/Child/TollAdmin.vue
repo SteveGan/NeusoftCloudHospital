@@ -76,17 +76,15 @@
               </el-table-column>
               <el-table-column label="发票号" prop="invoiceCode" width="110">
               </el-table-column>
-              <el-table-column label="项目类型" prop="type">
+              <el-table-column label="项目类型" prop="collectionId">
               </el-table-column>
-              <el-table-column label="项目名称" prop="id">
+              <el-table-column label="项目名称" prop="projectId">
               </el-table-column>
               <el-table-column label="数量" prop="amount">
               </el-table-column>
               <el-table-column label="金额" prop="totalMoney">
               </el-table-column>
-              <el-table-column label="开立时间" prop="usedTime(gmtCreate)">
-              </el-table-column>
-              <!-- <el-table-column label="缴费状态" prop="status">
+              <!-- <el-table-column label="开立时间" prop="gmtCreate">
               </el-table-column> -->
               <el-table-column label="开立状态" prop="itemStatus">
               </el-table-column>
@@ -109,25 +107,25 @@
             <el-button type="text" icon="el-icon-printer">发票重印</el-button>
             <el-button type="text" icon="el-icon-printer">发票补打</el-button>
           </div>
-          <!-- 缴费项目表 -->
+          <!-- 退费项目表 -->
           <div class="列表">
             <el-table :data="withdrawItems" style="width: 100%" @selection-change="handleWithdrawSelectionChange">
               <el-table-column type="selection" width="55">
               </el-table-column>
               <el-table-column label="发票号" prop="invoiceCode" width="110">
               </el-table-column>
-              <el-table-column label="项目类型" prop="type" width="80">
+              <el-table-column label="项目类型" prop="collectionId" width="80">
               </el-table-column>
-              <el-table-column label="项目名称" prop="id" width="80">
+              <el-table-column label="项目名称" prop="projectId" width="80">
               </el-table-column>
               <el-table-column label="可退数量" prop="remainAmount" width="80">
               </el-table-column>
-              <el-table-column label="金额" prop="totalMoney" width="50">
+              <el-table-column label="金额" prop="totalMoney" width="60">
               </el-table-column>
-              <el-table-column label="开立时间" prop="gmtCreate">
-              </el-table-column>
-              <!-- <el-table-column label="开立状态" prop="itemStatus">
+              <!-- <el-table-column label="开立时间" prop="gmtCreate">
               </el-table-column> -->
+              <el-table-column label="开立状态" prop="itemStatus">
+              </el-table-column>
               <el-table-column label="执行科室" prop="departmentId">
               </el-table-column>
               <el-table-column label="退费数量" fixed="right" width="200">
@@ -217,8 +215,8 @@ export default {
     },
       
     // 失败提示
-    fail(msg) {
-      this.$message.error(msg+'失败');
+    fail(msg, message) {
+      this.$message.error(msg+'失败\n'+message);
     },
     
     // 缴费
@@ -240,12 +238,15 @@ export default {
 
     // 退费
     withdraw() {
-      charge.withdraw(this.withdrawSelection, this.currentRoleId).then(response => {
+      for(var i=0; i<this.withdrawSelection.length; i++){
+        this.withdrawSelection[i].newCashierId = this.currentRoleId;
+      }
+      charge.withdraw(this.withdrawSelection).then(response => {
         console.log(response.data.data)
         if(response.data.code===200){
           this.success("退费");
         } else {
-          this.fail("退费");
+          this.fail("退费", response.data.message);
         }        
       }).catch(error => {
         

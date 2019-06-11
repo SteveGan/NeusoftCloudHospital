@@ -10,4 +10,6 @@ public interface PatientMapper {
     Integer getPatientByIdCard(String idCard);
     Patient getPatientByRegistrationId(Integer registrationId);
     int updatePatientInfo(Patient patient);
+
+    Patient getPatientInfoById(Integer id);
 }
