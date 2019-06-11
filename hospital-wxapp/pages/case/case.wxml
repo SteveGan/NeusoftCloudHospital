@@ -1,2 +1,8 @@
 <!--pages/case/case.wxml-->
 <top-bar hasBack="{{true}}"></top-bar>
+<card-title text="病历列表" sub-text="Case List"></card-title>
+<view class='case-list'>
+  <view class='case-card bg-white margin shadow-md padding radius-lg'>
+  
+  </view>
+</view>
