@@ -58,8 +58,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             collections = inspectionMapper.listCollectionInfo(caseId);
         else if(type == 2)
             collections = examinationMapper.listCollectionInfo(caseId);
-//        else if(type == 3)
-//            collections = treatmentMapper.listCollectionInfo(caseId);
+        else if(type == 3)
+            collections = treatmentMapper.listCollectionInfo(caseId);
 
         for(HashMap collection:collections) {
             //collection信息
@@ -74,6 +74,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                 projects = inspectionMapper.listProjectInfo(collectionId);
             else if(type == 2)
                 projects = examinationMapper.listProjectInfo(collectionId);
+            else if(type == 3)
+                projects = treatmentMapper.listProjectInfo(collectionId);
             for(HashMap project:projects){
                 //project信息
                 JSONObject projectJson = new JSONObject();
@@ -83,24 +85,26 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                 projectJson.put("departmentId", project.get("departmentId"));
                 projectJson.put("departmentName", project.get("departmentName"));
                 projectJson.put("status", project.get("status"));
-                projectJson.put("goal", project.get("goal"));
-                projectJson.put("requirement", project.get("requirement"));
-                projectJson.put("resultDescription", project.get("resultDescription"));
-                projectJson.put("resultImage", project.get("resultImage"));
-                projectJson.put("advice", project.get("advice"));
                 JSONArray itemArray = new JSONArray();
-                List<HashMap> items = new ArrayList<>();
-                if (type == 1)
-                    items = inspectionMapper.listItems(collectionId, projectId);
-                else if(type == 2)
-                    items = examinationMapper.listItems(collectionId, projectId);
-                for(HashMap item:items){
-                    //item信息
-                    JSONObject itemJson = new JSONObject();
-                    itemJson.put("itemId", item.get("itemId"));
-                    itemJson.put("itemName", item.get("itemName"));
-                    itemJson.put("amount", item.get("amount"));
-                    itemArray.add(itemJson);
+                if(type == 1 || type == 2) {
+                    projectJson.put("goal", project.get("goal"));
+                    projectJson.put("requirement", project.get("requirement"));
+                    projectJson.put("resultDescription", project.get("resultDescription"));
+                    projectJson.put("resultImage", project.get("resultImage"));
+                    projectJson.put("advice", project.get("advice"));
+                    List<HashMap> items = new ArrayList<>();
+                    if (type == 1)
+                        items = inspectionMapper.listItems(collectionId, projectId);
+                    else if (type == 2)
+                        items = examinationMapper.listItems(collectionId, projectId);
+                    for (HashMap item : items) {
+                        //item信息
+                        JSONObject itemJson = new JSONObject();
+                        itemJson.put("itemId", item.get("itemId"));
+                        itemJson.put("itemName", item.get("itemName"));
+                        itemJson.put("amount", item.get("amount"));
+                        itemArray.add(itemJson);
+                    }
                 }
                 projectJson.put("items", itemArray);
                 projectArray.add(projectJson);
@@ -113,10 +117,13 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
     }
 
 
+
+
     /**
      * 申请新的申请清单
      * @Param collectionType
      */
+    @Override
     public CommonResult applyNewCollection(Integer collectionType){
         JSONObject returnJson = new JSONObject();
 
@@ -147,9 +154,17 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             examination.setProjectId(0);//主键不能为空
             count = examinationMapper.insertSelective(examination);
         }
-        //TODO 处置
-//        else if(collectionType == 3)
-//            id = treatmentMapper.getLastestId();
+        else if(collectionType == 3){
+            collectionId = treatmentMapper.getLatestId();
+            if (collectionId == null)
+                return CommonResult.fail(ResultCode.E_800);
+            collectionId = collectionId + 1;
+            Treatment treatment = new Treatment();
+            treatment.setId(collectionId);
+            treatment.setProjectId(0);//主键不能为空
+            count = treatmentMapper.insertSelective(treatment);
+        }
+
         else
             return CommonResult.fail(ResultCode.E_801);
 
@@ -310,8 +325,193 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         return CommonResult.success(count);
     }
 
+
     /**
-     * 插入小项到数据库
+     * 暂存/开立 检验清单
+     * @param collectionParam
+     */
+    public CommonResult saveExamination(CollectionParam collectionParam, int operation){
+        int count = 0;
+        Integer caseId = collectionParam.getCaseId();
+        Integer collectionId = collectionParam.getCollectionId();
+        Integer applicantRoleId = collectionParam.getApplicantRoleId();
+
+        //参数检查
+        if(caseId == null || collectionId == null || applicantRoleId == null)
+            return CommonResult.fail(ResultCode.E_801);
+        //TODO 状态检查
+
+        //更新清单内容
+        List<ProjectParam> projectParams = collectionParam.getProjects();
+        List<Integer> existedProjectIds = examinationMapper.listProjectIdsByCollectionId(collectionId); //数据库该清单中项目
+        for(ProjectParam projectParam: projectParams) {
+            Integer projectId = projectParam.getProjectId();
+            if(projectId == null)
+                return CommonResult.fail(ResultCode.E_801);
+            //创建examination对象
+            Examination examination = new Examination();
+            examination.setId(collectionId);
+            examination.setProjectId(projectId);
+            examination.setStatus(projectParam.getProjectStatus());
+            System.out.println("ssssssssssssssssssssss" + projectParam.getProjectStatus());
+            examination.setGoal(projectParam.getGoal());
+            examination.setRequirement(projectParam.getRequirement());
+
+            //若检验项目已在数据库，更新项目内容
+            if(existedProjectIds.contains(projectId)) {
+                //更新项目基本信息
+                count = examinationMapper.updateInfo(examination);
+                if (count <= 0)
+                    return CommonResult.fail();
+                //更新项目中小项信息
+                List<ItemParam> itemParams = projectParam.getItems();
+                List<String> existedItemIds = examinationProjectMapper.
+                        listItemIdsByCollectionIdAndProjectId(collectionId, projectId); //数据库该项目中小项
+                for (ItemParam itemParam : itemParams) {
+                    String itemId = itemParam.getItemId();
+                    if (itemId == null)
+                        return CommonResult.fail(ResultCode.E_801);
+                    //若小项已存在，更新小项
+                    if (existedItemIds.contains(itemId)) {
+                        Short amount = itemParam.getAmount();
+                        count = examinationProjectMapper.updateAmount(collectionId, projectId, itemId, amount);
+                        if (count <= 0)
+                            return CommonResult.fail();
+                        existedItemIds.remove(itemId);
+                    }
+                    //若小项不存在，插入小项
+                    else {
+                        count = insertExaminationProject(collectionId, projectId, itemParam);
+                        if(count <= 0)
+                            return CommonResult.fail(ResultCode.E_802);
+                    }
+                    //若开立，创建缴费清单
+                    if (operation == 2) {
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        if (commonResult.getCode() != 200)
+                            return CommonResult.fail(ResultCode.E_802);//保存失败
+                    }
+                }
+                //剩余已存在小项，删除
+                for (String leftItemId : existedItemIds) {
+                    examinationProjectMapper.delete(collectionId, projectId, leftItemId);
+                }
+                existedProjectIds.remove(projectId);
+            }
+
+            //若检验项目不在数据库，插入
+            else{
+                //创建项目
+                Integer departmentId = techProjectMapper.getDepartmentIdByProjectId(projectId);
+                System.out.println(departmentId);
+                if (departmentId == null)
+                    return CommonResult.fail(ResultCode.E_800);
+                examination.setDepartmentId(departmentId);
+                examination.setCaseId(caseId);
+                examination.setCreatorRoleId(applicantRoleId);
+                count = examinationMapper.insertSelective(examination);
+                if (count <= 0)
+                    return CommonResult.fail();
+                //创建小项
+                List<ItemParam> itemParams = projectParam.getItems();
+                for(ItemParam itemParam : itemParams) {
+                    count = insertExaminationProject(collectionId, projectId, itemParam);
+                    if(count <= 0)
+                        return CommonResult.fail(ResultCode.E_802);
+                    //若开立，创建缴费清单
+                    if (operation == 2) {
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        if (commonResult.getCode() != 200)
+                            return CommonResult.fail(ResultCode.E_802);//保存失败
+                    }
+                }
+            }
+        }
+        //剩余已存在检验项目，删除
+        for(Integer leftProjectId: existedProjectIds){
+            //清单中删除项目
+            examinationMapper.delete(collectionId, leftProjectId);
+            //删除小项
+            examinationProjectMapper.deleteItemsByCidAndPid(collectionId, leftProjectId);
+        }
+
+        return CommonResult.success(count);
+    }
+
+
+    /**
+     * 暂存/开立 处置清单
+     * @param collectionParam
+     */
+    public CommonResult saveTreatment(CollectionParam collectionParam, int operation){
+        int count = 0;
+        Integer caseId = collectionParam.getCaseId();
+        Integer collectionId = collectionParam.getCollectionId();
+        Integer applicantRoleId = collectionParam.getApplicantRoleId();
+
+        //参数检查
+        if(caseId == null || collectionId == null || applicantRoleId == null)
+            return CommonResult.fail(ResultCode.E_801);
+        //TODO 状态检查
+
+        //更新清单内容
+        List<ProjectParam> projectParams = collectionParam.getProjects();
+        List<Integer> existedProjectIds = treatmentMapper.listProjectIdsByCollectionId(collectionId); //数据库该清单中项目
+        for(ProjectParam projectParam: projectParams) {
+            Integer projectId = projectParam.getProjectId();
+            if(projectId == null)
+                return CommonResult.fail(ResultCode.E_801);
+            //创建treatment对象
+            Treatment treatment = new Treatment();
+            treatment.setId(collectionId);
+            treatment.setProjectId(projectId);
+            treatment.setStatus(projectParam.getProjectStatus());
+
+            //若处置项目已在数据库，更新项目内容
+            if(existedProjectIds.contains(projectId)) {
+                //更新项目基本信息
+               treatmentMapper.updateInfo(treatment);
+                //若开立，创建缴费清单
+                if (operation == 2) {
+                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null);
+                    if (commonResult.getCode() != 200)
+                        return CommonResult.fail(ResultCode.E_802);//保存失败
+                }
+            }
+            //若处置项目不在数据库，插入
+            else{
+                //创建项目
+                Integer departmentId = techProjectMapper.getDepartmentIdByProjectId(projectId);
+                if (departmentId == null)
+                    return CommonResult.fail(ResultCode.E_800);
+                treatment.setDepartmentId(departmentId);
+                treatment.setCaseId(caseId);
+                treatment.setCreatorRoleId(applicantRoleId);
+                count = treatmentMapper.insertSelective(treatment);
+                if (count <= 0)
+                    return CommonResult.fail();
+                //若开立，创建缴费清单
+                if (operation == 2) {
+                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null);
+                    if (commonResult.getCode() != 200)
+                        return CommonResult.fail(ResultCode.E_802);//保存失败
+                }
+            }
+        }
+        //剩余已存在处置项目，删除
+        for(Integer leftProjectId: existedProjectIds){
+            treatmentMapper.delete(collectionId, leftProjectId);
+        }
+
+        return CommonResult.success(count);
+    }
+
+
+
+
+
+    /**
+     * 插入检查小项
      * @param collectionId
      * @param projectId,itemParam
      */
@@ -328,103 +528,23 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         return count;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     /**
-     * 暂存/开立 检验清单
-     * @param collectionParam
+     * 插入检验小项
+     * @param collectionId
+     * @param projectId,itemParam
      */
-    public CommonResult saveExamination(CollectionParam collectionParam, int operation){
-        int count = 0;
-        Integer caseId = collectionParam.getCaseId();
-//        Byte status = collectionParam.getStatus();
-        Integer applicantRoleId = collectionParam.getApplicantRoleId();
-        List<ProjectParam> projectParams = collectionParam.getProjects();
-
-        //设定申请清单id
-        Integer id = examinationMapper.getLatestId();
-        if (id == null)
-            return CommonResult.fail(ResultCode.E_800);
-        Integer collectionId = id + 1;
-        collectionParam.setCollectionId(collectionId);
-
-        //创建inspection(project)
-        for(ProjectParam projectParam: projectParams) {
-            Integer projectId = projectParam.getProjectId();
-            if (id == null)
-                return CommonResult.fail(ResultCode.E_801);
-            Integer departmentId = techProjectMapper.getDepartmentIdByProjectId(projectId);
-            if (departmentId == null)
-                return CommonResult.fail(ResultCode.E_800);
-            String goal = projectParam.getGoal();
-            String requirement = projectParam.getRequirement();
-            //创建inspection对象
-            Examination examination= new Examination();
-            examination.setId(collectionId);
-            examination.setProjectId(projectId);
-            examination.setCaseId(caseId);
-            examination.setCreatorRoleId(applicantRoleId);
-            examination.setDepartmentId(departmentId);
-            examination.setStatus(projectParam.getProjectStatus());
-            examination.setGoal(goal);
-            examination.setRequirement(requirement);
-            //插入数据库
-            count = examinationMapper.insertSelective(examination);
-            if (count <= 0)
-                return CommonResult.fail();
-
-            //创建inspection_project(items)
-            List<ItemParam> itemParams = projectParam.getItems();
-            for(ItemParam itemParam : itemParams) {
-                String projectName = techProjectMapper.getProjectNameByProjectId(projectId);
-                String itemId = itemParam.getItemId();
-                String itemName = itemParam.getItemName();
-                Short amount = itemParam.getAmount();
-
-                //创建inspectionProject对象
-                ExaminationProject examinationProject = new ExaminationProject();
-                examinationProject.setCollectionId(collectionId);
-                examinationProject.setProjectId(projectId);
-                examinationProject.setProjectName(projectName);
-                examinationProject.setItemId(itemId);
-                examinationProject.setItemName(itemName);
-                examinationProject.setAmount(amount);
-                //插入数据库
-                count = examinationProjectMapper.insert(examinationProject);
-                if (count <= 0)
-                    return CommonResult.fail();
-
-                //创建缴费清单
-                CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
-                if(commonResult.getCode() != 200){
-                    return CommonResult.fail(ResultCode.E_802);//保存失败
-                }
-            }
-        }
-        return CommonResult.success(count);
+    public int insertExaminationProject(Integer collectionId, Integer projectId, ItemParam itemParam) {
+        String projectName = techProjectMapper.getProjectNameByProjectId(projectId);
+        ExaminationProject examinationProject = new ExaminationProject();
+        examinationProject.setCollectionId(collectionId);
+        examinationProject.setProjectId(projectId);
+        examinationProject.setProjectName(projectName);
+        examinationProject.setItemId(itemParam.getItemId());
+        examinationProject.setItemName(itemParam.getItemName());
+        examinationProject.setAmount(itemParam.getAmount());
+        int count = examinationProjectMapper.insert(examinationProject);
+        return count;
     }
-
-    /**
-     * 加入新的处置组
-     * @param collectionParam
-     */
-    public CommonResult saveTreatment(CollectionParam collectionParam, int operation){
-        return null;
-    }
-
-
-
-
 
 
     /**
@@ -442,26 +562,34 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         if(patientId == null)
             return CommonResult.fail(ResultCode.E_800);
         Integer roleId = collectionParam.getApplicantRoleId();
+        Integer typeInt = collectionParam.getCollectionType();
         String type;
-        if(collectionParam.getCollectionType() == 1)
+        if(typeInt == 1)
             type = "检查费";
-        else if(collectionParam.getCollectionType() == 2)
+        else if(typeInt == 2)
             type = "检验费";
-        else if(collectionParam.getCollectionType() == 3)
+        else if(typeInt == 3)
             type = "处置费";
         else
             return CommonResult.fail(ResultCode.E_801);
         Integer collectionId = collectionParam.getCollectionId();
         Integer projectId = projectParam.getProjectId();
-        String itemId = itemParam.getItemId();
-        Short amount = itemParam.getAmount();
-        if(collectionId == null || projectId == null || itemId == null || amount == null)
-            return CommonResult.fail(ResultCode.E_801);
-        BigDecimal price = techProjectMapper.getPriceByItemId(itemId);
-        if(price == null)
-            return CommonResult.fail(ResultCode.E_800);
-        //计算总金额
-        BigDecimal totalMoney = new BigDecimal(amount).multiply(price);
+        String itemId;
+        BigDecimal price;
+        Short amount;
+        BigDecimal totalMoney; //计算总金额
+        if(typeInt == 1 || typeInt == 2) {
+            itemId = itemParam.getItemId();
+            price = techProjectMapper.getPriceByItemId(itemId);
+            amount = itemParam.getAmount();
+            totalMoney = new BigDecimal(amount).multiply(price);
+        }
+        else{
+            price = techProjectMapper.getPriceByProjectId(projectId);
+            totalMoney = price;
+            itemId = null;
+            amount = 1;
+        }
 
         //创建transactionLog对象
         TransactionLog transactionLog = new TransactionLog();
@@ -479,41 +607,5 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         //增加缴费清单
         return transactionService.insertTransactionLog(transactionLog);
     }
-
-
-
-
-
-
-
-
-
-    /**
-     * 得到所有的检查/检验项目
-     * @param obj 包含了一个字段，可以告诉方法内逻辑：操作的是检查还是检验，
-     *            后面的方法默认有这个字段
-     * @return 所有的检查/检验项目
-     */
-    public List<Project> listAllProject(JSONObject obj){
-        return null;
-    }
-
-    /**
-     * 更新 检查/检验 组
-     * @param obj 当前检查/检验组的信息
-     */
-    public void updateProjectCollection(JSONObject obj){
-
-    }
-
-
-    /**
-     * 删除 检查/检验组
-     * @param projectCollectionId 检查/检验组 id
-     */
-    public void deleteProjectCollection(Integer projectCollectionId){
-
-    }
-
 
 }

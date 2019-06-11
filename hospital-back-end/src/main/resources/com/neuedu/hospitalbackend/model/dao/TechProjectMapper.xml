@@ -76,9 +76,16 @@
   </insert>
 
   <select id="getPriceByItemId" resultType="BigDecimal">
-    select *
+    select price
     from tech_project
     where item_id = #{itemId}
+    limit 1
+  </select>
+
+  <select id="getPriceByProjectId" resultType="BigDecimal">
+    select price
+    from tech_project
+    where project_id = #{projectId}
     limit 1
   </select>
 

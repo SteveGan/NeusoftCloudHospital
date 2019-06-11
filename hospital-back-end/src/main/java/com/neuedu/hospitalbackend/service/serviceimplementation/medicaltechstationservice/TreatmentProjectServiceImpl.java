@@ -38,6 +38,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
         String patientName = patientParam.getPatientName();
         Integer departmentId = patientParam.getDepartmentId();
         Integer projectType = patientParam.getProjectType();
+        String chargeDateStr = patientParam.getChargeDateStr();
 
         //参数检查
         if (departmentId == null)
@@ -46,7 +47,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
             CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         //查询患者列表
-        List<HashMap> patients = treatmentMapper.listPreparedPatientsByCaseIdOrName(caseId, patientName,departmentId);
+        List<HashMap> patients = treatmentMapper.listPreparedPatientsByCaseIdOrDateOrName(caseId, patientName,chargeDateStr,departmentId);
         returnObject.put("patients", patients);
         return CommonResult.success(returnObject);
     }
@@ -65,6 +66,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
         Integer caseId = patientParam.getCaseId();
         Integer projectType = patientParam.getProjectType();
         Integer departmentId = patientParam.getDepartmentId();
+        String chargeDateStr = patientParam.getChargeDateStr();
 
         //参数检查
         if(caseId == null)
@@ -75,7 +77,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
             CommonResult.fail(ResultCode.E_801);//科室类型异常
 
         //查询项目列表
-        List<HashMap> projects = treatmentMapper.listAppliedProjectsByCaseId(caseId,departmentId);
+        List<HashMap> projects = treatmentMapper.listAllProjectsByCaseId(caseId, chargeDateStr, departmentId);
 
         //timestamp格式转换为datetime
         for(HashMap project: projects)
@@ -131,6 +133,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
     public CommonResult cancelProject(ProjectParam projectParam){
         Integer collectionId = projectParam.getCollectionId();
         Integer projectId = projectParam.getProjectId();
+        Integer doctorRoleId = projectParam.getDoctorRoleId();
         Integer projectType = projectParam.getProjectType();
 
         //参数验证
@@ -142,7 +145,7 @@ public class TreatmentProjectServiceImpl implements TreatmentProjectService {
             CommonResult.fail(ResultCode.E_801);//项目参数异常
 
         //取消执行
-        int count = treatmentMapper.cancelProject(collectionId, projectId);
+        int count = treatmentMapper.cancelProject(collectionId, projectId, doctorRoleId);
 
         if(count > 0)
             return CommonResult.success(count);

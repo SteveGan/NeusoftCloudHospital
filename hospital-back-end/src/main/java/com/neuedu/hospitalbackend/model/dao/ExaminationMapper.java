@@ -20,7 +20,7 @@ public interface ExaminationMapper {
                        @Param("examinerRoleId")Integer examinerRoleId);
 
     int cancelProject(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
-                      @Param("inspectorRoleId")Integer inspectorRoleId);
+                      @Param("examinerRoleId")Integer examinerRoleId);
 
     List<Examination> listCheckedInButNotRecordedProjects(@Param("departmentId") Integer departmentId, @Param("dateStr") String dateStr);
 
@@ -32,18 +32,20 @@ public interface ExaminationMapper {
 
     int getStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
+    Integer getLatestId();
 
     int insertSelective(Examination examination);
 
-    Integer getLatestId();
+    List<Integer> listProjectIdsByCollectionId(Integer Id);
 
-    HashMap getCollectionInfo(Integer caseId);
+    int updateInfo(Examination examination);
+
+    int delete(@Param("id") Integer id, @Param("projectId") Integer projectId);
 
     List<HashMap> listCollectionInfo(Integer caseId);
 
     List<HashMap> listProjectInfo(Integer collectionId);
 
     List<HashMap> listItems(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
-
 
 }

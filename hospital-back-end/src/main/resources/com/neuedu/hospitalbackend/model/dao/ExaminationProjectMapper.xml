@@ -64,4 +64,30 @@
       </if>
     </trim>
   </insert>
+
+  <select id="listItemIdsByCollectionIdAndProjectId" resultType="String">
+    select item_id
+    from examination_project
+    where collection_id = #{collectionId} and project_id = #{projectId}
+  </select>
+
+  <update id="updateAmount">
+    update examination_project
+    set amount = #{amount}
+    where collection_id = #{collectionId} and project_id = #{projectId} and item_id = #{itemId}
+  </update>
+
+  <delete id="delete">
+    delete
+    from examination_project
+    where collection_id = #{collectionId} and project_id = #{projectId} and item_id = #{itemId}
+  </delete>
+
+  <delete id="deleteItemsByCidAndPid">
+    delete
+    from examination_project
+    where collection_id = #{collectionId} and project_id = #{projectId}
+  </delete>
+
+
 </mapper>

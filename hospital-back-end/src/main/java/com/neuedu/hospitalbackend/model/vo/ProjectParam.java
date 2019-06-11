@@ -17,6 +17,7 @@ public class ProjectParam {
     private List<ItemParam> items; //小项
 
     private Byte projectStatus;//项目状态
+    private Byte status;
     private Byte transactionLogStatus; //缴费状态
 
     private Integer caseId;//病历号
@@ -24,6 +25,14 @@ public class ProjectParam {
     private Integer collectionId;//申请id
     private Integer projectType;//1.检查 2.检验 3.处置
     private String chargeDateStr; //收费日期
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
 
     public List<ItemParam> getItems() {
         return items;

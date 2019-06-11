@@ -10,6 +10,8 @@ public interface TechProjectMapper {
 
     BigDecimal getPriceByItemId(String itemId);
 
+    BigDecimal getPriceByProjectId(Integer projectId);
+
     int insert(TechProject record);
 
     int insertSelective(TechProject record);
