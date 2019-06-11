@@ -200,10 +200,6 @@
       where id = #{collectionId} and medicine_id = #{projectId}
   </update>
 
-  <update id="updateInventory">
-    update inventory set remaining_amount = remaining_amount - #{amount}
-    where medicine_id = #{medicineId}
-  </update>
 
   <select id="listRecipesByRegistrationIdOrDate" resultType="HashMap">
     select distinct r.case_id as caseId, p.name
@@ -219,10 +215,7 @@
         and t1.gmt_modified &lt;= #{chargeDateEndStr}
       </if>
       and t1.registration_id = r.case_id and t1.patient_id = p.id and t1.collection_id = r.id
-      and t1.gmt_create >= all(SELECT t2.gmt_create
-                                from transaction_log t2
-                                where t2.project_id = r.medicine_id and t2.registration_id = r.case_id
-                                and t2.collection_id = r.id and (t2.status = 1 or t2.status = 2 or t2.status = 3))
+      and (t1.status = 1 or t1.status = 2)
     </where>
   </select>
 

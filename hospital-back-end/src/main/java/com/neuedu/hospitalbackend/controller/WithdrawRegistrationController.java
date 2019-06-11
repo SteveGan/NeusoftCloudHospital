@@ -1,8 +1,6 @@
 package com.neuedu.hospitalbackend.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.Patient;
-import com.neuedu.hospitalbackend.model.po.Registration;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.WithdrawRegistrationService;
@@ -10,6 +8,9 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/registration-withdrawal")

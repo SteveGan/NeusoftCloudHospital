@@ -19,9 +19,9 @@ public class RecipeController {
 
 
     @ApiOperation("得到当前病历的所有处方")
-    @RequestMapping(value = "/invoiceId/{caseId}/{recipeType}", method = RequestMethod.GET)
-    public CommonResult listCurrentCaseRecipes(@PathVariable(value="caseId") Integer caseId, @PathVariable(value="recipeType") Integer recipeType){
-        return null;
+    @RequestMapping(value = "/list/{caseId}", method = RequestMethod.GET)
+    public CommonResult listCurrentCaseRecipes(@PathVariable(value="caseId") Integer caseId){
+        return recipeManagementService.listCurrentCaseRecipes(caseId);
     }
 
 

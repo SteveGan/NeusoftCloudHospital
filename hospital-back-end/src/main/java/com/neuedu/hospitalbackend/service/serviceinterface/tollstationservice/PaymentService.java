@@ -13,21 +13,39 @@ import java.util.List;
 public interface PaymentService {
 
     /**
-     * 通过患者病历号，查询收费项目
+     * 通过患者病历号，查询收费项目及项目状态
      * @param registrationId 病历号
      * @return 收费项目
      */
-    CommonResult listTransactionLogs(Integer registrationId);
+    CommonResult listDetailedTransactionLogs(Integer registrationId);
 
     /**
-     * 更新收费项目的缴费状态
+     * 执行收费操作
      * @param transactionLogList
      * @return
      */
     CommonResult updateTransactionLogsAsPaid(List<TransactionLog> transactionLogList);
 
+    /**
+     * 执行退费操作
+     * @param transactionLogParams
+     * @return
+     */
     CommonResult updateTransactionLogsAsReturned(List<TransactionParam> transactionLogParams);
 
-    CommonResult reprintTransactionLog(String invoiceCode);
+    /**
+     * 发票重打
+     * @param invoiceCode
+     * @return
+     */
+    CommonResult reprintTransactionLog(String invoiceCode, Integer newCashierId);
 
+    /**
+     * 输入患者病历号（必输）、开始时间和结束时间选填。查询该患者的所有收费项目列表
+     * @param registrationId
+     * @param beginDateStr
+     * @param endDateStr
+     * @return
+     */
+    CommonResult listTransactionLogsByIdAndDate(Integer registrationId, String beginDateStr, String endDateStr);
 }

@@ -49,6 +49,7 @@ public class PharmacyController {
     @ApiOperation("执行退药操作")
     @RequestMapping(value = "/return", method = RequestMethod.POST)
     public CommonResult returnMedicine(@RequestBody List<RecipeParam> recipeParams){
+        System.out.println("hahahahah");
         return pharmacyService.returnMedicine(recipeParams);
     }
 }

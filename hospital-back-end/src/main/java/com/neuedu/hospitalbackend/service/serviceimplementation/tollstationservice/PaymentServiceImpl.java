@@ -17,6 +17,7 @@ import java.util.*;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_700;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_704;
+import static com.neuedu.hospitalbackend.util.ResultCode.E_708;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -32,14 +33,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private RecipeMapper recipeMapper;
     @Autowired
+    private MedicineMapper medicineMapper;
+    @Autowired
     private InvoiceService invoiceService;
     @Autowired
     private TransactionService transactionService;
-    @Autowired
-    private MedicineMapper medicineMapper;
 
     @Override
-    public CommonResult listTransactionLogs(Integer registrationId) {
+    public CommonResult listDetailedTransactionLogs(Integer registrationId) {
         List<HashMap> invoiceCollection = transactionLogMapper.getInvoiceCodeAndStatusByRegistrationId(registrationId);
         Map<String, List<HashMap>> result = new HashMap<>();
         List<HashMap> logs = new ArrayList<>();
@@ -84,6 +85,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public CommonResult updateTransactionLogsAsReturned(List<TransactionParam> transactionLogParams) {
+        Integer newCashierId = null;
         //将前端传进来的所有待退费记录转换成<collectionId, List<TransactionParam>>的形式
         HashMap<Integer, List<TransactionParam>> collection = new HashMap<>();
         for (TransactionParam t : transactionLogParams) {
@@ -127,17 +129,18 @@ public class PaymentServiceImpl implements PaymentService {
                     if (!((itemCategory != 4 && returnedProject.getItemStatus() == 2)
                             || (itemCategory == 4 && returnedProject.getItemStatus() == 5)
                             || (itemCategory == 4 && returnedProject.getItemStatus() == 2))){
-                        CommonResult.fail(E_704);
+                       return CommonResult.fail(E_704);
                     }
                     else if(returnedProject.getRemainAmount() < returnedProject.getReturnAmount())
-                        CommonResult.fail(E_704);
+                        return CommonResult.fail(E_704);
                 }
                 else
-                    CommonResult.fail(E_704);
+                    return CommonResult.fail(E_704);
             }
 
             // 在检查/检验/处置表中更改想要退费的项目状态 （即检验单B项目1）--已作废
             for(TransactionParam returnedProject: returnedProjectList){
+                newCashierId = returnedProject.getNewCashierId();
                 switch (itemCategory){
                     case 1:
                         inspectionMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
@@ -150,7 +153,7 @@ public class PaymentServiceImpl implements PaymentService {
                         break;
                     case 4:
                         //如果药品本身是已退药的状态,则无需更改对应药品状态和数量
-                        //如果药品本身是开立（未取药）的状态, 则需更改对应处方中药品的remain amount
+                        //如果药品本身是开立（未取药）的状态，则需更改对应处方中药品的remain amount
                         if(returnedProject.getItemStatus() == 2){
                             recipeMapper.updateRemainAmount(returnedProject.getCollectionId(), returnedProject.getProjectId(), returnedProject.getReturnAmount());
                             //如果退药数量 = 药品可退数量，则该药品状态应改为作废
@@ -179,6 +182,7 @@ public class PaymentServiceImpl implements PaymentService {
                 //向缴费表中添加新的缴费记录  --冲正
                 TransactionLog reverseTransactionLog = (TransactionLog) transactionLog.clone();
                 reverseTransactionLog.setId(null);
+                reverseTransactionLog.setRoleId(newCashierId);
                 reverseTransactionLog.setInvoiceCode(reverseInvoiceCode);
                 reverseTransactionLog.setStatus((byte)4);
                 reverseTransactionLog.setTotalMoney(transactionLog.getTotalMoney().negate());
@@ -210,6 +214,7 @@ public class PaymentServiceImpl implements PaymentService {
                             (transactionLog.getType() != "挂号费") ){
                         TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
                         newTransactionLog.setId(null);
+                        newTransactionLog.setRoleId(newCashierId);
                         newTransactionLog.setInvoiceCode(newInvoiceCode);
                         newTransactionLog.setStatus(transactionLog.getStatus());
                         CommonResult insertNewResult = transactionService.insertTransactionLog(newTransactionLog);
@@ -227,6 +232,7 @@ public class PaymentServiceImpl implements PaymentService {
                                             medicineMapper.getUnitPriceById(returnedProject.getProjectId()));
                                     TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
                                     newTransactionLog.setId(null);
+                                    newTransactionLog.setRoleId(newCashierId);
                                     newTransactionLog.setInvoiceCode(newInvoiceCode);
                                     newTransactionLog.setAmount(remainAmount);
                                     newTransactionLog.setStatus(transactionLog.getStatus());
@@ -243,7 +249,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             //向异常表中添加新的记录
             CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
-                    originalInvoiceCode, newInvoiceCode, reverseInvoiceCode, transactionLogs.get(0).getRoleId(), "项目退费" );
+                    originalInvoiceCode, newInvoiceCode, reverseInvoiceCode, newCashierId, "项目退费" );
             if (insertExceptionResult.getCode() == 500)
                 return insertExceptionResult;
         }
@@ -251,7 +257,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public CommonResult reprintTransactionLog(String invoiceCode){
+    public CommonResult reprintTransactionLog(String invoiceCode, Integer newCashierId){
         List<TransactionLog> transactionLogs = transactionLogMapper.listLogsByInvoiceCode(invoiceCode);
         String newInvoiceCode = null;
         synchronized (this) {
@@ -266,6 +272,7 @@ public class PaymentServiceImpl implements PaymentService {
             count += transactionLogMapper.update(transactionLog);
             //插入新的缴费记录
             transactionLog.setId(null);
+            transactionLog.setRoleId(newCashierId);
             transactionLog.setInvoiceCode(newInvoiceCode);
             transactionLog.setStatus((byte) 2);
             CommonResult insertReverseResult = transactionService.insertTransactionLog(transactionLog);
@@ -275,7 +282,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
         //向异常表中添加新的记录
         CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
-                invoiceCode, newInvoiceCode, null, transactionLogs.get(0).getRoleId(), "发票重打" );
+                invoiceCode, newInvoiceCode, null, newCashierId, "发票重打" );
         if (insertExceptionResult.getCode() == 500)
             return insertExceptionResult;
         if(count == transactionLogs.size())
@@ -283,4 +290,11 @@ public class PaymentServiceImpl implements PaymentService {
         else
             return CommonResult.fail();
     }
+
+    @Override
+    public CommonResult listTransactionLogsByIdAndDate(Integer registrationId, String beginDateStr, String endDateStr){
+        List<TransactionLog> transactionLogs = transactionLogMapper.listLogsByRegistrationIdAndDate(registrationId, beginDateStr, endDateStr);
+        return CommonResult.success(transactionLogs);
+    }
+
 }

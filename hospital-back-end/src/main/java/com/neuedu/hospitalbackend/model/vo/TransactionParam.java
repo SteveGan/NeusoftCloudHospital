@@ -9,7 +9,7 @@ public class TransactionParam {
     private String invoiceCode;
     private Integer registrationId;
     private Integer patientId;
-    private Integer roleId;
+    private Integer roleId; //收费员id
     private String type;
     private Integer collectionId;
     private Integer projectId;
@@ -23,6 +23,7 @@ public class TransactionParam {
     private Short returnAmount; //退费项目的数量
     private Integer departmentId; //执行科室
     private Short remainAmount; //剩余可退的数量
+    private Integer newCashierId;
 
     public Integer getId() {
         return id;
@@ -136,14 +137,6 @@ public class TransactionParam {
         this.itemStatus = itemStatus;
     }
 
-   /* public Byte getItemCategory() {
-        return itemCategory;
-    }
-
-    public void setItemCategory(Byte itemCategory) {
-        this.itemCategory = itemCategory;
-    }*/
-
     public Short getReturnAmount() {
         return returnAmount;
     }
@@ -166,6 +159,14 @@ public class TransactionParam {
 
     public void setRemainAmount(Short remainAmount) {
         this.remainAmount = remainAmount;
+    }
+
+    public Integer getNewCashierId() {
+        return newCashierId;
+    }
+
+    public void setNewCashierId(Integer newCashierId) {
+        this.newCashierId = newCashierId;
     }
 }
 

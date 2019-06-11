@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.InventoryMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Inventory" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="medicine_id" property="medicineId" jdbcType="INTEGER" />
+    <result column="remaining_amount" property="remainingAmount" jdbcType="SMALLINT" />
+  </resultMap>
+  <insert id="insert" parameterType="Inventory" >
+    insert into inventory (id, medicine_id, remaining_amount
+      )
+    values (#{id,jdbcType=INTEGER}, #{medicineId,jdbcType=INTEGER}, #{remainingAmount,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Inventory" >
+    insert into inventory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="medicineId != null" >
+        medicine_id,
+      </if>
+      <if test="remainingAmount != null" >
+        remaining_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="medicineId != null" >
+        #{medicineId,jdbcType=INTEGER},
+      </if>
+      <if test="remainingAmount != null" >
+        #{remainingAmount,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getRemainingAmountByMedicineId" resultType="short">
+    select remaining_amount from inventory
+    where medicine_id = #{medicineId}
+  </select>
+
+  <update id="updateInventory">
+    update inventory set remaining_amount = remaining_amount - #{amount}
+    where medicine_id = #{medicineId}
+  </update>
+
+</mapper>

@@ -7,7 +7,7 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 /**
  * 4. 检查项目医技工作站
  */
-public interface TechProjectService {
+public interface TechMedicalProjectService {
 
 
     /**
