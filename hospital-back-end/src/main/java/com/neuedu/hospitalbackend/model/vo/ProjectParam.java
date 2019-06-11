@@ -16,12 +16,14 @@ public class ProjectParam {
 
     private List<ItemParam> items; //小项
 
-    private Byte status;//状态
+    private Byte projectStatus;//项目状态
+    private Byte transactionLogStatus; //缴费状态
 
     private Integer caseId;//病历号
     private Integer creatorRoleId;//门诊医生id
     private Integer collectionId;//申请id
     private Integer projectType;//1.检查 2.检验 3.处置
+    private String chargeDateStr; //收费日期
 
     public List<ItemParam> getItems() {
         return items;
@@ -39,12 +41,20 @@ public class ProjectParam {
         this.projectName = projectName;
     }
 
-    public Byte getStatus() {
-        return status;
+    public Byte getProjectStatus() {
+        return projectStatus;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setProjectStatus(Byte projectStatus) {
+        this.projectStatus = projectStatus;
+    }
+
+    public Byte getTransactionLogStatus() {
+        return transactionLogStatus;
+    }
+
+    public void setTransactionLogStatus(Byte transactionLogStatus) {
+        this.transactionLogStatus = transactionLogStatus;
     }
 
     public Integer getCaseId() {
@@ -141,5 +151,13 @@ public class ProjectParam {
 
     public void setDoctorRoleId(Integer doctorRoleId) {
         this.doctorRoleId = doctorRoleId;
+    }
+
+    public String getChargeDateStr() {
+        return chargeDateStr;
+    }
+
+    public void setChargeDateStr(String chargeDateStr) {
+        this.chargeDateStr = chargeDateStr;
     }
 }

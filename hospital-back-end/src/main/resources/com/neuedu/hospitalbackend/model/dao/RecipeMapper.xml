@@ -173,7 +173,7 @@
   </resultMap>
 
   <select id="listRecipeByRegistrationId" resultMap="AdditionalResultMap">
-    select r.*, t1.status as transaction_log_status
+    select distinct r.*, t1.status as transaction_log_status
     from recipe r, transaction_log t1
     where r.case_id = #{registrationId} and t1.registration_id = r.case_id
     and t1.project_id = r.medicine_id and t1.collection_id = r.id and (t1.status = 1 or t1.status = 2 or t1.status = 3)
@@ -209,10 +209,10 @@
         r.case_id = #{caseId}
       </if>
       <if test="chargeDateBeginStr != null">
-        and t1.gmt_modified &gt;= #{chargeDateBeginStr}
+        and t1.gmt_create &gt;= #{chargeDateBeginStr}
       </if>
       <if test="chargeDateEndStr != null">
-        and t1.gmt_modified &lt;= #{chargeDateEndStr}
+        and t1.gmt_create &lt;= #{chargeDateEndStr}
       </if>
       and t1.registration_id = r.case_id and t1.patient_id = p.id and t1.collection_id = r.id
       and (t1.status = 1 or t1.status = 2)

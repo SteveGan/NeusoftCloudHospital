@@ -3,31 +3,30 @@ package com.neuedu.hospitalbackend.service.serviceinterface.medicaltechstationse
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 4. 检查项目医技工作站
  */
 public interface TechMedicalProjectService {
 
-
     /**
-     * 患者查询
-     * 输入患者病历号或姓名，可以查询到本科室（检查/检验）的待诊患者列表
-     * @param patientParam: projectType, caseId, patientName
-     * @return 待登记患者信息列表
+     * 查询到本科室（检查/检验）的待诊患者列表
+     * @param patientParam
+     * @return
      */
-    CommonResult listPreparedPatientsByCaseIdOrName(PatientParam patientParam);
+    CommonResult listPreparedPatientsByCaseIdOrDateOrName(PatientParam patientParam);
 
     /**
      * 患者查询
-     * 选择患者可以相应申请的项目明细
+     * 查询指定患者所有的项目及状态
      * @param patientParam: projectType, caseId, patientName
      * @return projectId, projectName, projectCollectionGMTCreate, t.status(是否已缴费), requirement
      */
-    CommonResult listAppliedProjectsByCaseId(PatientParam patientParam);
+    CommonResult listAllProjectsByCaseId(PatientParam patientParam);
 
     /**
-     * 执行确认
+     * 执行确认（登记项目）
      * 选中相应的患者，选中执行的项目，点击“执行确认”按钮，进行登记操作。
      * 只有已缴费的项目，才可以进行登记
      * 更新项目申请信息：状态更新、填写医技医生id
@@ -45,11 +44,11 @@ public interface TechMedicalProjectService {
     CommonResult cancelProject(ProjectParam projectParam);
 
     /**
-     * 填写结果
-     * 显示所有已登记但未录入结果的项目
-     * @param patientParam: projectType, caseId
+     * 显示本科室该天所有已登记的项目
+     * @param projectParam
+     * @return
      */
-    CommonResult listCheckedInButNotRecordedProject(PatientParam patientParam);
+    CommonResult listCheckedInButNotRecordedProjects(ProjectParam projectParam);
 
     /**
      * 填写结果
@@ -59,4 +58,8 @@ public interface TechMedicalProjectService {
      */
     CommonResult recordResult(ProjectParam projectParam);
 
+    /**
+     * 执行完毕项目后，更新其状态
+     */
+    CommonResult confirmProject(ProjectParam projectParam);
 }

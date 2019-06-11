@@ -149,7 +149,8 @@
         select status
         from transaction_log
         where collection_id = #{collectionId} and project_id = #{projectId}
-        limit 1
+        and (t1.status = 1 or t1.status = 2 or t1.status = 3)
+        order by gmt_modified desc limit 1
     </select>
 
     <select id="getLogByRegistrationIdAndType" resultMap="BaseResultMap">
@@ -240,10 +241,10 @@
         select * from transaction_log t
         <where>
             <if test="beginDateStr != null">
-                and date_format(t.gmt_modified,'%Y-%m-%d') &gt;= beginDateStr
+                date_format(t.gmt_create,'%Y-%m-%d') &gt;= beginDateStr
             </if>
             <if test="endDateStr != null">
-                date_format(t.gmt_modified,'%Y-%m-%d') &lt;= endDateStr
+                and date_format(t.gmt_create,'%Y-%m-%d') &lt;= endDateStr
             </if>
             and registration_id = #{registrationId}
         </where>
@@ -254,10 +255,10 @@
         select * from transaction_log t
         <where>
             <if test="beginDateStr != null">
-                t.gmt_modified &gt;= beginDateStr
+                date_format(t.gmt_create,'%Y-%m-%d') &gt;= beginDateStr
             </if>
             <if test="endDateStr != null">
-                and t.gmt_modified &lt;= endDateStr
+                and date_format(t.gmt_create,'%Y-%m-%d') &lt;= endDateStr
             </if>
             and role_id = #{cashierId}
         </where>

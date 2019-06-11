@@ -5,64 +5,67 @@
 <mapper namespace="com.neuedu.hospitalbackend.model.dao.ExaminationMapper">
 
     <resultMap id="ExaminationResultMap" type="Examination">
-        <id column="id" property="id"/>
-        <result column="case_id" property="caseId"/>
-        <result column="department_id" property="departmentId"/>
-        <result column="project_id" property="projectId"/>
-        <result column="status" property="status"/>
-        <result column="goal" property="goal"/>
-        <result column="result_description" property="resultDescription"/>
-        <result column="result_image" property="resultImage"/>
-        <result column="creator_role_id" property="creatorRoleId"/>
-        <result column="examination_role_id" property="examinationRoleId"/>
-        <result column="advice" property="advice"/>
-        <result column="requirement" property="requirement"/>
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="case_id" property="caseId" jdbcType="INTEGER" />
+        <result column="project_id" property="projectId" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="creator_role_id" property="creatorRoleId" jdbcType="INTEGER" />
+        <result column="examiner_role_id" property="examinerRoleId" jdbcType="INTEGER" />
+        <result column="advice" property="advice" jdbcType="VARCHAR" />
+        <result column="result_description" property="resultDescription" jdbcType="VARCHAR" />
+        <result column="result_image" property="resultImage" jdbcType="VARCHAR" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+        <result column="goal" property="goal" jdbcType="VARCHAR" />
+        <result column="department_id" property="departmentId" jdbcType="INTEGER" />
     </resultMap>
 
-    <select id="listPreparedPatientsByCaseIdOrName" resultType="HashMap">
-        select c.registration_id, c.patient_name
-        from patient_case c, examination e, transaction_log t
-        where e.id = t.collection_id and e.project_id = t.project_id
-            and e.case_id = c.registration_id
-            and e.status = 2 and e.department_id = #{departmentId}
-            <if test = "caseId != null">
-                and c.registration_id = #{caseId}
-            </if>
-            <if test="patientName != null and patientName != ''">
-                and c.patient_name = #{patientName}
-            </if>
+    <select id="listPreparedPatientsByCaseIdOrDateOrName" resultType="HashMap">
+        select distinct c.registration_id, c.patient_name
+        from patient_case c, examination i, transaction_log t
+        where i.id = t.collection_id and i.project_id = t.project_id
+        and i.case_id = c.registration_id
+        and i.status = 2 and i.department_id = #{departmentId}
+        <if test = "caseId != null">
+            and c.registration_id = #{caseId}
+        </if>
+        <if test="patientName != null">
+            and c.patient_name = #{patientName}
+        </if>
+        <if test="chargeDateStr != null">
+            and date_format(t.gmt_create,'%Y-%m-%d') = #{chargeDateStr}
+        </if>
     </select>
 
-    <select id="listAppliedProjectsByCaseId" resultType="HashMap">
-      select n.id, n.name, e.id, e.gmt_create, t.status, e.requirement
-      from examination e, non_medicine n, transaction_log t
-      where t.registration_id = #{caseId}  and t.collection_id = e.id  and t.project_id = e.project_id
-          and n.id = e.project_id
-          and e.status = 2 and e.department_id = #{departmentId}
+    <select id="listAllProjectsByCaseId" resultType="HashMap">
+      select distinct i.id, n.project_id, n.name, t.status as t_status, i.status as i_status
+      from examination i, tech_project n, transaction_log t
+      where t.registration_id = #{caseId} and t.collection_id = i.id and i.case_id = t.registration_id
+          and t.project_id = i.project_id and n.project_id = i.project_id
+          and i.status = 2 and i.department_id = #{departmentId}
+          and date_format(t.gmt_create,'%Y-%m-%d') = #{chargeDateStr}
     </select>
 
     <update id="checkInProject">
         update examination
         set status = 4, examiner_role_id = #{examinerRoleId}
-        where id = #{collectionId} and project_id = #{projectId} and status = 2
+        where id = #{collectionId} and project_id = #{projectId}
     </update>
 
     <update id="cancelProject">
         update examination
-        set status = 3
-        where id = #{collectionId} and project_id = #{projectId} and status = 2
+        set status = 3, examiner_role_id = #{examinerRoleId}
+        where id = #{collectionId} and project_id = #{projectId}
     </update>
 
-    <select id="listCheckedInButNotRecordedProject" resultType="HashMap">
-      select n.id, n.name, e.id, e.gmt_create, e.status as e_status, t.status as t_status, e.requirement
-      from examination e, non_medicine n, transaction_log t
-      where t.registration_id = #{caseId}  and t.collection_id = e.id  and t.project_id = e.project_id
-          and e.status = 4 and e.department_id = #{departmentId}
-          and (result_description = null or result_description = '')
-          and (result_image = null or result_image = '')
-          and (advice = null or advice = '')
-          and n.id = e.project_id
+    <select id="listCheckedInButNotRecordedProjects" resultType="ExaminationResultMap">
+      select *
+      from examination
+      where department_id = #{departmentId} and status = 4
+      and date_format(gmt_create,'%Y-%m-%d') = #{dateStr}
     </select>
+
 
     <update id="recordResult">
         update examination

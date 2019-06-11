@@ -10,6 +10,7 @@ public class PatientParam {
     private Integer doctorId;//看诊医生role_id
     private Integer caseId;
     private String patientName;
+    private String chargeDateStr;
 
     public Integer getDoctorId() {
         return doctorId;
@@ -49,5 +50,13 @@ public class PatientParam {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName;
+    }
+
+    public String getChargeDateStr() {
+        return chargeDateStr;
+    }
+
+    public void setChargeDateStr(String chargeDateStr) {
+        this.chargeDateStr = chargeDateStr;
     }
 }
