@@ -37,6 +37,9 @@
     <delete id="delete" parameterType="Integer">
         delete from department where id = #{id}
     </delete>
-
-
+    
+    <select id="getClassificationById" resultType="string">
+        select classification from department
+        where id = #{id}
+    </select>
 </mapper>

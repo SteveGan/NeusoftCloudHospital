@@ -29,7 +29,7 @@ public interface InspectionMapper {
     List<Inspection> listCheckedInButNotRecordedProjects(@Param("departmentId") Integer departmentId, @Param("dateStr") String dateStr);
 
     //更新某项目结果
-    int recordResult(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
+    int updateResult(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
                      @Param("resultDescription")String resultDescription, @Param("resultImage")String resultImage,
                      @Param("advice")String advice);
 

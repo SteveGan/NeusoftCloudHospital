@@ -1,10 +1,13 @@
 package com.neuedu.hospitalbackend.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice.TechMedicalProjectServiceImpl;
+import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,15 +27,26 @@ public class TechMedicalProjectController {
         return techMedicalProjectServiceImpl.listPreparedPatientsByCaseIdOrDateOrName(patientParam);
     }
 
-    @ApiOperation("选中患者，查看已申请的检查/检验项目详情")
+    @ApiOperation("选中患者，查看已申请的检查/检验项目")
     @RequestMapping(value = "/patient-projects", method = RequestMethod.GET)
-    public CommonResult listAppliedProjectsByCaseId(PatientParam patientParam){
+    public CommonResult listAllProjectsByCaseId(PatientParam patientParam){
         return techMedicalProjectServiceImpl.listAllProjectsByCaseId(patientParam);
+    }
+
+    @ApiOperation("选中患者的某个项目，查看项目详情")
+    @RequestMapping(value = "/patient-detailedprojects", method = RequestMethod.GET)
+    public CommonResult listItemsByCollectionIdAndProjectId(ProjectParam projectParam){
+        return techMedicalProjectServiceImpl.listItemsByCollectionIdAndProjectId(projectParam);
     }
 
     @ApiOperation("选中项目登记")
     @RequestMapping(value = "/checkin", method = RequestMethod.PUT)
     public CommonResult checkInProject(@RequestBody ProjectParam projectParam){
+        System.out.println("1111" + projectParam.getCollectionId());
+        System.out.println("2222" + projectParam.getDoctorRoleId());
+        System.out.println("3333" + projectParam.getTransactionLogStatus());
+        System.out.println("4444" + projectParam.getProjectStatus());
+        System.out.println("5555" + projectParam.getProjectId());
         return techMedicalProjectServiceImpl.checkInProject(projectParam);
     }
 
