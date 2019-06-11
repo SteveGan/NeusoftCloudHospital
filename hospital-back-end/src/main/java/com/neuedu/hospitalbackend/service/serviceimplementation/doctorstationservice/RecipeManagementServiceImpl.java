@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.MedicineMapper;
 import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
-import com.neuedu.hospitalbackend.model.dao.PatientMapper;
 import com.neuedu.hospitalbackend.model.dao.RecipeMapper;
 import com.neuedu.hospitalbackend.model.po.Recipe;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
