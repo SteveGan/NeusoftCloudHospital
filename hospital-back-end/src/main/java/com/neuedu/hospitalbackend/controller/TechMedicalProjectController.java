@@ -26,7 +26,7 @@ public class TechMedicalProjectController {
 
     @ApiOperation("选中患者，查看已申请的检查/检验项目详情")
     @RequestMapping(value = "/patient-projects", method = RequestMethod.GET)
-    public CommonResult listAppliedProjectsByCaseId(PatientParam patientParam){
+    public CommonResult listAllProjectsByCaseId(PatientParam patientParam){
         return techMedicalProjectServiceImpl.listAllProjectsByCaseId(patientParam);
     }
 
