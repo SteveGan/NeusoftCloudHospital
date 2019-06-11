@@ -26,7 +26,7 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @ApiOperation("通过患者病历号，显示患者基本信息和收费项目列表")
+    @ApiOperation("通过患者病历号，显示患者基本信息和收费项目详情")
     @RequestMapping(value = "/paymentInfo/{id}", method = RequestMethod.GET)
     public CommonResult getInfo(@PathVariable(value = "id") Integer registrationId){
         JSONObject jsonObject = new JSONObject();
@@ -34,7 +34,7 @@ public class PaymentController {
         if (patientResult.getCode() == 500)
             return patientResult;
         jsonObject.put("patientInfo", patientResult.getData());
-        CommonResult paymentResult = paymentService.listTransactionLogs(registrationId);
+        CommonResult paymentResult = paymentService.listDetailedTransactionLogs(registrationId);
         if (paymentResult.getCode() == 500)
             return paymentResult;
         jsonObject.put("paymentInfo", paymentResult.getData());
@@ -55,11 +55,15 @@ public class PaymentController {
 
     @ApiOperation("发票重打")
     @RequestMapping(value = "/reprint/{invoiceCode}", method = RequestMethod.GET)
-    public CommonResult reprintTransactionLog(@PathVariable(value = "invoiceCode") String invoiceCode){
-        return paymentService.reprintTransactionLog(invoiceCode);
+    public CommonResult reprintTransactionLog(@PathVariable(value = "invoiceCode") String invoiceCode, Integer newCashierId){
+        return paymentService.reprintTransactionLog(invoiceCode, newCashierId);
     }
 
-
+    @ApiOperation("输入患者病历号（必输）、开始时间和结束时间选填。查询该患者的所有收费项目列表")
+    @RequestMapping(value = "/transactionLogs", method = RequestMethod.GET)
+    public CommonResult reprintTransactionLog(Integer registrationId, String beginDateStr, String endDateStr){
+        return paymentService.listTransactionLogsByIdAndDate(registrationId, beginDateStr, endDateStr);
+    }
 
 
 }
