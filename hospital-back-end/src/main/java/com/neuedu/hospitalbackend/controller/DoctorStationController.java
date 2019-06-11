@@ -1,7 +1,5 @@
 package com.neuedu.hospitalbackend.controller;
 
-import com.neuedu.hospitalbackend.model.bo.Project;
-import com.neuedu.hospitalbackend.model.po.Inspection;
 import com.neuedu.hospitalbackend.model.vo.*;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PatientCaseTemplateService;
@@ -27,6 +25,7 @@ public class DoctorStationController {
     private DiagnoseTemplateService diagnoseTemplateService;
     @Resource
     private ProjectCollectionManagementService projectCollectionManagementService;
+
 
 
     @ApiOperation("获取所有待诊、已诊患者列表")

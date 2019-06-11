@@ -22,5 +22,4 @@ public interface DepartmentMapper {
 
     Page<Department> listByPage();
 
-    List<HashMap> listIdAndNameByType(String classification);
 }

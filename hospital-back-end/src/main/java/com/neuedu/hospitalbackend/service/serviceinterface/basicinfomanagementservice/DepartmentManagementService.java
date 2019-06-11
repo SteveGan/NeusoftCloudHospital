@@ -48,9 +48,4 @@ public interface DepartmentManagementService {
      */
     CommonResult listDepartmentsTree();
 
-
-    /**
-     * 根据类型列出科室
-     */
-    CommonResult listDepartmentsByType(Integer type);
 }

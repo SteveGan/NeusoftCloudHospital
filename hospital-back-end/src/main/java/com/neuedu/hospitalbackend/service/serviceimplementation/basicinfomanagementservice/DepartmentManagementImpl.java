@@ -100,15 +100,4 @@ public class DepartmentManagementImpl implements DepartmentManagementService {
         return CommonResult.success(map);
     }
 
-    @Override
-    public CommonResult listDepartmentsByType(Integer type){
-        List<HashMap> department;
-        if (type == 1)
-            department = departmentMapper.listIdAndNameByType("医学影像学");
-        else if (type == 2)
-            department = departmentMapper.listIdAndNameByType("医技科");
-        else
-            return CommonResult.fail();
-        return CommonResult.success(department);
-    }
 }
