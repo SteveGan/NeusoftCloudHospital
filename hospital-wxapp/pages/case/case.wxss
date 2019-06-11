@@ -1,5 +1,5 @@
 /* pages/case/case.wxss */
 .case-card{
   width: 690rpx;
-  height: 250rpx;
+  height: 300rpx;
 }
