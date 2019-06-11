@@ -3,12 +3,26 @@
     <el-aside width="400px">
       <!-- 侧栏区域 -->
       <div class="side-bar">
+        <el-card shadow="hover">
         <!-- 搜索区 -->
-        <div class="search-user">
-          <el-input placeholder="病人病历" class="input-with-select">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+        <div slot="header">
+          <span>查询</span>
+        </div>
+        <div class="search-region">
+          <el-date-picker
+            align="right"
+            type="date"
+            v-model="projectDateStr"
+            placeholder="选择日期"
+            :picker-options="pickerOptions"
+            style="margin-right: 3px;"
+            value-format="yyyy-MM-dd"
+          ></el-date-picker>
+          <el-input placeholder="请输入病历号" class="search-input" v-model="inputCaseId">
+            <el-button slot="append" icon="el-icon-search" @click="listPatientByCaseIdOrName"></el-button>
           </el-input>
         </div>
+        </el-card>
         <!-- 待登记户区 -->
         <el-card shadow="hover">
           <div slot="header">
@@ -18,21 +32,22 @@
           <div class="">
             <!-- 表格 -->
             <el-table
-              :data="waitingPatients"
-              style="width: 100%">
+              :data="waitingList"
+              style="width: 100%"
+              highlight-current-row @current-change="handleCurrentChange">
               <el-table-column
-                prop="caseId"
+                prop="registration_id"
                 label="病历号">
               </el-table-column>
               <el-table-column
-                prop="patientName"
+                prop="patient_name"
                 label="患者姓名">
               </el-table-column>
-              <el-table-column type="expand" width="30px">
+              <!-- <el-table-column type="expand" width="30px">
                 <template slot-scope="props">
                   <p>hahah</p>
                 </template>
-              </el-table-column>
+              </el-table-column> -->
             </el-table>
           </div>
         </el-card>
@@ -144,29 +159,100 @@
 </template>
 
 <script>
+import techDoctor from '@/api/techDoctor'
+
 export default {
   name: 'TechDoctor',
   data () {
     return {
-      waitingPatients:[
-        {
-          caseId: '12313',
-          patientName: 'Gangan'
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
         },
-        {
-          caseId: '123213',
-          patientName: 'Linlin'
-        }
-      ],
-      diagnosedPatients:[
-        {
-          caseId: '121e12',
-          patientName: 'Jiajia'
-        }
-      ],
+        shortcuts: [
+          {
+            text: "今天",
+            onClick(picker) {
+              picker.$emit("pick", new Date());
+            }
+          },
+          {
+            text: "昨天",
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit("pick", date);
+            }
+          },
+          {
+            text: "一周前",
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", date);
+            }
+          }
+        ]
+      },
+
+      projectDateStr: "",
+      currentRoleId: "",
+      inputCaseId: "",
+
+      waitingList: [],
+      currentCase: {},
+
       zhusu: '',
       form: {}
     }
+  },
+
+  methods: {
+    handleCurrentChange(val){
+      this.currentCase = val;
+    },
+
+    listPatientByCaseIdOrName(){
+      techDoctor.listPatientByCaseIdOrName(this.projectDateStr, this.inputCaseId, 125).then(response => {
+          const data = response.data.data
+          console.log(data);
+          this.waitingList = data;
+
+          if(response.data.code===200){
+          this.success("查询");
+        } else {
+          this.fail("查询");
+        }
+      })
+    },
+
+    // 计算当前日期
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+          month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
+    },
+  },
+
+  mounted(){
+    // 得到当前操作员id
+    const currentRoleId = this.$store.getters['user/currentRoleId'];
+    this.currentRoleId = currentRoleId;    
+    // 时间选择框默认显示今天日期
+    this.projectDateStr=this.getNowFormatDate();
+
+    // 读取常量表
+    // this.readConstants();
   }
 }
 </script>
@@ -281,5 +367,10 @@ export default {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
+.search-region {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
 </style>
