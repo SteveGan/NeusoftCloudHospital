@@ -1,0 +1,24 @@
+<!--login.wxml-->
+<view style="z-index: 9999; height: 100%;">
+  <!--顶部标题栏-->
+  <top-bar hasBack="{{true}}" isTransparent="{{true}}"></top-bar>
+  <view class="margin padding radius-lg animation-slide-bottom">
+    <view>
+      <view class="bd">
+        <form class="login-form">
+          <view class='padding'>
+            <text class="icon-link text-white" style='font-size: 48rpx'> 熙康云医院 账户绑定</text>
+          </view>
+          <view class="input-group radius-lg {{userid_focus ? 'active' : ''}}">
+            <text class="icon-people input-label text-white"></text>
+            <input type="number" cursor-spacing="30" id="userid" placeholder="身份证号" bindinput="useridInput" bindfocus="inputFocus" bindblur="inputBlur" style='color: #ffffff' />
+          </view>
+        </form>
+
+        <view class="confirm-btn radius-lg text-xxl padding-sm margin" bindtap="bind">
+          <text class='icon-check'> 确认并继续</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

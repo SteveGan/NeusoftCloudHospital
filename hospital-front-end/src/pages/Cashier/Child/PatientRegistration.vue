@@ -5,7 +5,8 @@
       <div slot="header">
         <span>挂号</span>
         <el-button style="float:right" type="text" icon="el-icon-document-add" @click="confirmation">挂号</el-button>
-        <el-button style="float:right" type="text" icon="el-icon-toilet-paper">补打</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">打印</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">补打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-printer">重打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-refresh-right" @click="refresh">清屏</el-button>
         <el-button style="float:right" type="text" icon="el-icon-camera" @click="scan">扫描</el-button>
@@ -200,12 +201,83 @@
         </el-table>
       </div>
     </el-card>
+
+    <el-dialog title="发票打印" :visible.sync="invoicePrinterVisible" width="70%">
+      <div id="printContent" class="wrap">
+      <div class="con">
+        <h3 style="text-align:center;">熙康云医院 · 挂号单</h3>
+        <h6 style="text-align:center;margin-top: -12px;">地址:沈阳市浑南区创新路195号&nbsp;&nbsp;&nbsp;门诊部:024-88886666</h6>
+        <hr style="width: 630px;text-align:center;" />
+        <h5 style="text-align:left;margin-left: 40px;">
+          挂号日期:
+          {{this.today}}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          病历号:
+          {{this.registrationForm.registrationId}}
+        </h5>
+			  <table style="width: 630px;margin:auto;margin-top: -10px;">
+					<tr height="32px;">
+						<th width="60px;">姓名</th>
+						<th width="100px;">{{this.registrationForm.name}}</th>
+						<th width="90px;">身份证号</th>
+						<th width="200px;">{{this.registrationForm.idCard}}</th>
+						<th>性别</th>
+						<th>男</th>
+					</tr>
+					<tr height="32px;">
+						<th width="60px;">住址</th>
+						<th width="100px;">{{this.registrationForm.address}}</th>
+						<th width="90px;">出生日期</th>
+						<th width="200px;">{{this.registrationForm.birthdayStr}}</th>
+						<th>年龄</th>
+						<th>{{this.age}}</th>
+					</tr>
+					<tr height="32px;">
+
+					</tr>
+					<tr height="32px;">
+						<th width="50px;">看诊日期</th>
+						<th width="100px;">{{this.registrationForm.appointmentDateStr}}</th>
+						<th width="50px;">看诊时段</th>
+						<th width="50px;">{{this.registrationForm.timeSlot}}</th>
+						<th width="50px;">挂号科室</th>
+						<th width="50px;">{{this.registrationForm.departmentId}}</th>
+					</tr>
+          <tr height="32px;">	
+            <th width="50px;">号别</th>
+						<th width="50px;">{{this.registrationForm.registrationLevelId}}</th>
+						<th width="50px;">看诊医生</th>
+						<th width="50px;">{{this.registrationForm.roleId}}</th>
+					</tr>
+          <tr height="32px;">
+            
+					</tr>
+
+          <tr height="32px;">
+						<th width="100px;">结算类别</th>
+						<th width="100px;">{{this.registrationForm.payType}}</th>
+						<th width="50px;">病历本</th>
+						<th width="50px;">{{this.registrationForm.isBuyCaseBook}}</th>
+						<th width="100px;">应收金额</th>
+						<th width="100px;">{{this.registrationForm.totalFee}}</th>
+					</tr>
+			  </table>
+        <h6 style="text-align:left;margin-top: 5px;margin-left: 30px;">
+          挂号员:{{this.currentRoleId}}
+        </h6>
+      </div>
+      <button class="btn no-print" v-print="'#printContent'">打印</button>
+      </div>
+
+    </el-dialog>
   </div>
 </template>
+
 
 <script>
 import InvoiceCode from './InvoiceCode'
 import register from '@/api/register'
+
 
 export default {
   name: 'PatientRegistration',
@@ -234,6 +306,9 @@ export default {
         cashierId: "",
         invoiceCode: "",
       },
+      // 发票打印可见
+      invoicePrinterVisible: false,
+      today: "",
 
       departments: [],
       doctors: [],
@@ -288,7 +363,8 @@ export default {
       transferData.patientCaseStatus=patientCaseStatus;
       console.log(id);
 
-      register.withdrawal(transferData, this.currentRoleId).then(response => {
+      transferData.newCashierId = this.currentRoleId;
+      register.withdrawal(transferData).then(response => {
         console.log(response.data)
         const data = response.data.data
 
@@ -434,7 +510,7 @@ export default {
       }).catch(error => {
         // alert("get error")
       })
-    }
+    },
   },
 
   mounted() {
@@ -450,6 +526,7 @@ export default {
       // alert("get error")
     })
     // 默认设置看诊日期为今天
+    this.today = this.getNowFormatDate();
     this.registrationForm.appointmentDateStr=this.getNowFormatDate();
 
     // 显示所有挂号信息列表
@@ -458,9 +535,9 @@ export default {
     // 初始化操作员id
     const currentRoleId = this.$store.getters['user/currentRoleId'];
     this.currentRoleId = currentRoleId;
-  }
-
+  }  
 }
+
 </script>
 
 <style lang="css" scoped>
@@ -484,4 +561,47 @@ export default {
   margin-bottom: 0;
   width: 50%;
 }
+
+/*发票打印*/
+		html,body{
+		    margin: 0;
+		    padding: 0;
+		}
+		body{
+		    font-size: 14px;
+		    color: #333;
+		}
+		@media print {
+		    body{-webkit-print-color-adjust:exact;} 
+		}
+		.fr{
+		    float:right;
+		}
+		.vt{
+		    vertical-align: top;
+		}
+    .wrap {
+      margin: 0 auto;
+      padding: 20px;
+      width: 680px;
+			height: 405px;
+      border: solid black 3px;
+    }
+
+    .form .row {
+      padding: 10px 0 0;
+    }
+
+    .btn {
+      display: block;
+      margin: 20px auto;
+      padding: 8px 16px;
+    }
+		table{
+			border-collapse:collapse;
+		}
+
+		table, td, th{
+			border:1px solid black;
+		}
 </style>

@@ -7,11 +7,13 @@ import axios from 'axios'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import Print from 'vue-print-nb'
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
+Vue.use(Print);
 
 Vue.prototype.$axios = axios
 
