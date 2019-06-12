@@ -168,6 +168,11 @@
         where id = #{id} and project_id = #{projectId}
     </delete>
 
+    <delete id="deleteByCollectionId">
+        delete
+        from treatment
+        where id = #{collectionId}
+    </delete>
 
     <resultMap id="projectInfo" type="HashMap">
         <result column="project_id" property="projectId"/>

@@ -40,6 +40,8 @@ public interface TreatmentMapper {
 
     int delete(@Param("id") Integer id, @Param("projectId") Integer projectId);
 
+    int deleteByCollectionId(Integer collectionId);
+
     List<HashMap> listCollectionInfo(Integer caseId);
 
     List<HashMap> listProjectInfo(Integer collectionId);
