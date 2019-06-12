@@ -199,6 +199,7 @@ import ProjectApplication from "@/components/outpatientdoctor/ProjectApplication
 import CaseRecipe from "@/components/outpatientdoctor/CaseRecipe";
 import CaseDisposition from "@/components/outpatientdoctor/CaseDisposition";
 import FinalDiagnose from "@/components/outpatientdoctor/FinalDiagnose";
+import { constants } from "fs";
 
 export default {
   name: "OutPatientDoctor",
@@ -321,6 +322,10 @@ export default {
             this.disableModRecipe = true;
           } else {
             //不存在处方
+            caseRecipe.type = 1;
+            this.modernRecipes = Object.assign({}, caseRecipe);
+            caseRecipe.type = 2;
+            this.traditionalRecipes = Object.assign({}, caseRecipe);
             this.disableTraRecipe = false;
             this.disableModRecipe = false;
           }
@@ -347,7 +352,8 @@ export default {
       );
     },
     //上传case的内容
-    onSubmitSelectedCase() {
+    onSubmitSelectedCase(isTraDiagnose) {
+      this.selectedCase.diagnoseType = isTraDiagnose ? 0 : 1;
       console.log("submit:");
       console.log(this.selectedCase);
       submitCase(this.selectedCase).then(
@@ -384,6 +390,8 @@ export default {
   },
   mounted: function() {
     //请求所有待诊病人和已诊病人
+    console.log("当前的roleId");
+    console.log(this.$store.getters["user/currentRoleId"]);
     listAllPatients(this.$store.getters["user/currentRoleId"]).then(
       response => {
         const data = response.data.data;
