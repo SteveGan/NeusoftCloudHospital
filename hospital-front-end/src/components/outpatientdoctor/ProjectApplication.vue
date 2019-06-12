@@ -210,7 +210,8 @@ import {
   getNewCollectionId,
   listAllProjects,
   listAllItems,
-  saveCollection
+  saveCollection,
+  submitCollection
 } from "@/api/project";
 import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
@@ -359,7 +360,7 @@ export default {
       );
     },
     handleCancel() {
-      this.newProject = {};
+      this.newProject = { items: [] };
       this.newItem = {};
       this.dialogAddProject = false;
     },
@@ -367,7 +368,7 @@ export default {
       this.dialogAddProject = false;
       this.newProject.status = 1;
       this.currentCollection.projects.push(this.newProject);
-      this.newProject = {};
+      this.newProject = { items: [] };
       this.newItem = {};
     },
     handleAddProjectDialog(collection) {
@@ -399,7 +400,7 @@ export default {
       for (i = 0; i < length; i++) {
         collection.projects[i].status = 2;
       }
-      saveCollection(collection).then(
+      submitCollection(collection).then(
         response => {
           console.log(response);
         },

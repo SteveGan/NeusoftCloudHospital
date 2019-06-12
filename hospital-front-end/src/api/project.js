@@ -50,3 +50,14 @@ export function saveCollection(collection) {
     data: collection
   })
 }
+
+
+//请求开立一个collection
+//param: collection
+export function submitCollection(collection) {
+  return request({
+    url: '/doctorstation/collection/submission',
+    method: 'PUT',
+    data: collection
+  })
+}
