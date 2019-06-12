@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <invoice-code ref="invoiceCode" v-on:listenToChildEvent="showMsgFromChild"></invoice-code>
-    <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover" v-loading="loading">
+    <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover" v-loading="loading1">
       <div slot="header">
         <span>挂号</span>
         <el-button style="float:right" type="text" icon="el-icon-document-add" @click="confirmation">挂号</el-button>
@@ -84,7 +84,8 @@
         <el-form-item label="结算类别">
           <el-select placeholder="请选择结算类别" v-model="registrationForm.payType" @change="isTotalFeeAvailable">
             <el-option label="自费" value="1"></el-option>
-            <el-option label="医保卡" value="0"></el-option>
+            <el-option label="医保卡" value="2"></el-option>
+            <el-option label="新农合" value="3"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="病历本">
@@ -104,7 +105,7 @@
       <!-- 挂号信息表 -->
       <div class="">
         <el-table :data="registrationsInfo" style="width: 100%" stripe 
-        :default-sort = "{prop: 'id', order: 'descending'}">
+        :default-sort = "{prop: 'id', order: 'descending'}" v-loading="loading2">
           <el-table-column type="expand" fixed="left">
             <template slot-scope="props">
               <el-form label-position="left" class="demo-table-expand">
@@ -146,7 +147,7 @@
           </el-table-column>
 
           <el-table-column
-            label="性别" prop="patient.gender"  width="50">
+            label="性别" prop="patient.genderName"  width="50">
           </el-table-column>
 
           <el-table-column
@@ -166,15 +167,15 @@
           </el-table-column>
 
           <el-table-column
-            label="结算类别" prop="payType">
+            label="结算类别" prop="payTypeName">
           </el-table-column>
 
           <el-table-column
-            label="挂号级别" prop="registrationLevelId">
+            label="挂号级别" prop="registrationLevelName">
           </el-table-column>
 
           <el-table-column
-            label="是否已诊" prop="patientCase.status">
+            label="是否已诊" prop="caseStatusName">
           </el-table-column>
 
           <el-table-column
@@ -316,7 +317,37 @@ export default {
       registrationsInfo: [],
 
       currentRoleId: "",
-      loading: false
+
+      // 加载控制
+      loading1: false,
+      loading2: false,
+
+      // 常量表
+      // 性别
+      genderCast: {
+          0: "女",
+          1: "男"
+      },
+      // 结算类别
+      payTypeCast: {
+        1: "自费",
+        2: "医保",
+        3: "新农合"
+      },
+      // 挂号级别
+      registrationLevelCast: {
+        1: "普通号",
+        2: "专家号",
+        3: "急诊号"
+      },    
+      // 病历状态
+      caseStatusCast: {
+          1: "待诊",
+          2: "暂存",
+          3: "已诊",
+          4: "确诊",
+          5: "诊毕"
+      },  
       
     }
   },
@@ -354,6 +385,7 @@ export default {
     },
     // 退号
     withdrawal(id, appointmentDate, timeSlot, roleId, registrationLevelId, departmentId, patientCaseStatus) {
+      this.loading2 = true;
       var transferData={};
       transferData.registrationId=id;
       transferData.appointmentDateStr=appointmentDate;
@@ -371,11 +403,13 @@ export default {
 
         if(response.data.code===200){
           this.success("退号");
+          this.registrations();
         } else {
           this.fail("退号");
         }
-      }).catch(error => {
-        
+        this.loading2 = false;
+      }).finally(response => {
+          this.loading = false;
       })
 
     },
@@ -413,19 +447,6 @@ export default {
         
       })
     },
-
-    // 挂号成功提示
-    success() {
-      this.$message({
-        message: '挂号成功',
-        type: 'success'
-      });
-    },
-    
-    // 挂号失败提示
-    fail() {
-      this.$message.error('挂号失败');
-    },
     
     // 接收从子组件传过来的“当前发票号”
     showMsgFromChild(data){
@@ -435,7 +456,7 @@ export default {
 
     // 挂号
     confirmation(registrationForm) {
-      this.loading = true;
+      this.loading1 = true;
       const currentRoleId = this.$store.getters['user/currentRoleId'];
       this.registrationForm.cashierId = currentRoleId;
       register.confirmation(this.registrationForm).then(response => {
@@ -445,12 +466,10 @@ export default {
           this.success("挂号");
           this.invoicePrinterVisible = true;
           this.registrations();
-          this.loading = false;
         } else {
           this.fail("挂号");
         }
-      }).catch(error => {
-          
+        this.loading1 = false;
       })
     },
 
@@ -507,9 +526,25 @@ export default {
     // 显示所有挂号信息列表
     registrations() {
       register.registrations().then(response => {
-        console.log("显示所有挂号信息列表:")
-        console.log(response.data)
-        const data = response.data.data
+        console.log("显示所有挂号信息列表:");
+        console.log(response.data);
+        const data = response.data.data;
+        
+        for(var i=0; i<data.length; i++){
+          data[i].patient.genderName = this.genderCast[data[i].patient.gender];
+          data[i].payTypeName = this.payTypeCast[data[i].payType];
+          data[i].registrationLevelName = this.registrationLevelCast[data[i].registrationLevelId];
+          if(data[i].patientCase!=null){
+            if(data[i].patientCase.status!=1){
+              data[i].caseStatusName = "是"
+            } else {
+              data[i].caseStatusName = "否"
+            }
+              
+          } else {
+            data[i].caseStatusName = "是"
+          }
+        }
         this.registrationsInfo = data;
       }).catch(error => {
         // alert("get error")
