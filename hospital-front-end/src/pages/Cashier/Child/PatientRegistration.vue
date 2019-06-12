@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <invoice-code ref="invoiceCode" v-on:listenToChildEvent="showMsgFromChild"></invoice-code>
-    <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover" v-loading="loading">
+    <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover" v-loading="loading1">
       <div slot="header">
         <span>挂号</span>
         <el-button style="float:right" type="text" icon="el-icon-document-add" @click="confirmation">挂号</el-button>
@@ -104,7 +104,7 @@
       <!-- 挂号信息表 -->
       <div class="">
         <el-table :data="registrationsInfo" style="width: 100%" stripe 
-        :default-sort = "{prop: 'id', order: 'descending'}">
+        :default-sort = "{prop: 'id', order: 'descending'}" v-loading="loading2">
           <el-table-column type="expand" fixed="left">
             <template slot-scope="props">
               <el-form label-position="left" class="demo-table-expand">
@@ -316,7 +316,8 @@ export default {
       registrationsInfo: [],
 
       currentRoleId: "",
-      loading: false
+      loading1: false,
+      loading2: false
       
     }
   },
@@ -354,6 +355,7 @@ export default {
     },
     // 退号
     withdrawal(id, appointmentDate, timeSlot, roleId, registrationLevelId, departmentId, patientCaseStatus) {
+      this.loading2 = true;
       var transferData={};
       transferData.registrationId=id;
       transferData.appointmentDateStr=appointmentDate;
@@ -371,11 +373,13 @@ export default {
 
         if(response.data.code===200){
           this.success("退号");
+          this.registrations();
         } else {
           this.fail("退号");
         }
-      }).catch(error => {
-        
+        this.loading2 = false;
+      }).finally(response => {
+          this.loading = false;
       })
 
     },
@@ -413,19 +417,6 @@ export default {
         
       })
     },
-
-    // 挂号成功提示
-    success() {
-      this.$message({
-        message: '挂号成功',
-        type: 'success'
-      });
-    },
-    
-    // 挂号失败提示
-    fail() {
-      this.$message.error('挂号失败');
-    },
     
     // 接收从子组件传过来的“当前发票号”
     showMsgFromChild(data){
@@ -435,7 +426,7 @@ export default {
 
     // 挂号
     confirmation(registrationForm) {
-      this.loading = true;
+      this.loading1 = true;
       const currentRoleId = this.$store.getters['user/currentRoleId'];
       this.registrationForm.cashierId = currentRoleId;
       register.confirmation(this.registrationForm).then(response => {
@@ -445,12 +436,10 @@ export default {
           this.success("挂号");
           this.invoicePrinterVisible = true;
           this.registrations();
-          this.loading = false;
         } else {
           this.fail("挂号");
         }
-      }).catch(error => {
-          
+        this.loading1 = false;
       })
     },
 
