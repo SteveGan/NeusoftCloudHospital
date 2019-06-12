@@ -33,7 +33,7 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
     @Transactional
     public CommonResult operateTransactionLog(RegistrationParam registrationParam){
         JSONObject jsonObject = new JSONObject();
-        String invoiceCode = null; //冲正发票号
+        String invoiceCode; //冲正发票号
         //判断患者挂号状态是否是待诊状态
         if (registrationParam.getPatientCaseStatus() == 1){
            //得到原缴费记录
