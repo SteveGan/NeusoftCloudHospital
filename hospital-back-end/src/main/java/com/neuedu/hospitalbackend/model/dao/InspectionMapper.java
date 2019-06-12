@@ -58,4 +58,7 @@ public interface InspectionMapper {
 
     List<HashMap> listItems(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
+    List<HashMap> getResult(Integer caseId);
+
+
 }

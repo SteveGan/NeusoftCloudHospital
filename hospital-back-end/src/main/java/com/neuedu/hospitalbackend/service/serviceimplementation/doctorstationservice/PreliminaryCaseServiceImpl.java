@@ -293,6 +293,30 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
     }
 
     /**
+     * 确诊诊断信息
+     * @param caseId
+     */
+    public CommonResult listFinalDiagnose(Integer caseId){
+        JSONObject returnJson = new JSONObject();
+        JSONArray finalTraditionalDiagnose = new JSONArray();
+        JSONArray finalModernDiagnose = new JSONArray();
+
+        List<HashMap> diagnoses = diagnoseMapper.listFinalDiagnoseByCaseId(caseId);
+        for(HashMap diagnose : diagnoses){
+            if((diagnose.get("type")).equals("中草药"))
+                finalTraditionalDiagnose.add(diagnose);
+            else
+                finalModernDiagnose.add(diagnose);
+        }
+
+        returnJson.put("finalTraditionalDiagnose", finalTraditionalDiagnose);
+        returnJson.put("finalModernDiagnose", finalModernDiagnose);
+
+        return CommonResult.success(returnJson);
+    }
+
+
+    /**
      * 出生日期转为年龄
      * @param birthDay
      * @return age

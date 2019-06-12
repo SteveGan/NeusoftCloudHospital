@@ -260,4 +260,10 @@
         where collection_id = #{collectionId} and project_id = #{projectId}
     </select>
 
+    <select id="getResult" resultMap="projectInfo">
+        select e.result_description, e.result_image, e.advice, p.project_name
+        from examination e, examination_project p
+        where case_id = #{caseId} and e.project_id = p.project_id
+    </select>
+
 </mapper>

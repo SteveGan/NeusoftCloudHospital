@@ -38,4 +38,6 @@ public interface RecipeMapper {
 
     int deleteByCollectionId(Integer collectionId);
 
+    List<HashMap> getInfo(Integer caseId);
+
 }
