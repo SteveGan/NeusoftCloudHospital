@@ -251,13 +251,24 @@
         order by t.gmt_modified desc
     </select>
 
-    <select id="listLogsByCashierIdAndDate" resultMap="BaseResultMap">
-        select  invoice_code, count(invoice_code),max(`status`) AS `status` FROM `transaction_log` t
-        where registration_id = 10000015
+    <select id="listLogsByCashierIdAndDate" resultType="HashMap">
+        select invoice_code as invoiceCode, count(invoice_code) as totalInvoiceAmount, max(status) as status,
+        SUM(total_money) as totalMoney, ANY_VALUE(type) as type, ANY_VALUE(pay_type) as payType,
+        ANY_VALUE(registration_id) as registrationId, ANY_VALUE(p.name) as name
+        from transaction_log t join patient p on t.patient_id = p.id
+        <where>
+            <if test="beginDateStr != null">
+                and t.gmt_create &gt;= #{beginDateStr}
+            </if>
+            <if test="endDateStr != null">
+                and t.gmt_create &lt;= #{endDateStr}
+            </if>
+            and t.role_id = #{cashierId}
+        </where>
         group by invoice_code
     </select>
 
-    <update id="freezeTransactionLogs">
+    <update id="updateTransactionLogsByInvoiceCode">
         update transaction_log set status = 6
         where invoice_code = #{invoiceCode}
     </update>

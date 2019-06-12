@@ -21,4 +21,10 @@ public interface DailySummaryService {
      */
     CommonResult freezeTransactionLogs(DailySummaryParam dailySummaryParam);
 
+    /**
+     * 日结历史查询
+     * @param dailySummaryParam 日结参数
+     * @return
+     */
+    CommonResult listHistorySummaryLogs(DailySummaryParam dailySummaryParam);
 }

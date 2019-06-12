@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.model.po;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class DailySummaryLog {
@@ -14,9 +15,22 @@ public class DailySummaryLog {
 
     private String invoiceCodeEnd;
 
+    private Timestamp beginDate;
+
+    private Timestamp endDate;
+
     private Date gmtCreate;
 
     private Date gmtModified;
+
+    public DailySummaryLog(Integer cashierRoleId, BigDecimal totalMoney, String invoiceCodeBegin, String invoiceCodeEnd, Timestamp beginDate, Timestamp endDate) {
+        this.cashierRoleId = cashierRoleId;
+        this.totalMoney = totalMoney;
+        this.invoiceCodeBegin = invoiceCodeBegin;
+        this.invoiceCodeEnd = invoiceCodeEnd;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+    }
 
     public Integer getId() {
         return id;
@@ -58,6 +72,22 @@ public class DailySummaryLog {
         this.invoiceCodeEnd = invoiceCodeEnd == null ? null : invoiceCodeEnd.trim();
     }
 
+    public Date getBeginDate() {
+        return beginDate;
+    }
+
+    public void setBeginDate(Timestamp beginDate) {
+        this.beginDate = beginDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
+    }
+
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -73,4 +103,6 @@ public class DailySummaryLog {
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
     }
+
+
 }
