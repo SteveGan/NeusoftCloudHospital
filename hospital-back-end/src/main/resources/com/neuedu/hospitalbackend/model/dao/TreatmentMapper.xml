@@ -189,8 +189,7 @@
     </select>
 
     <select id="listProjectInfo" resultMap="projectInfo">
-        select distinct t.project_id, p.project_name, t.department_id, d.name as department_name, t.status,
-                t.goal, t.result_description, t.result_image, t.advice, t.result_description
+        select distinct t.project_id, p.project_name, t.department_id, d.name as department_name, t.status
         from treatment t, department d, tech_project p
         where t.id = #{collectionId} and d.id = t.department_id
             and t.project_id = p.project_id

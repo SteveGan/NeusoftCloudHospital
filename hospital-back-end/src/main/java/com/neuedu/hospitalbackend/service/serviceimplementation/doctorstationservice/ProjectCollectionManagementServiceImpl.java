@@ -136,8 +136,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         Integer collectionId;
         if (collectionType == 1) {
             collectionId = inspectionMapper.getLatestId();
-            if (collectionId == null)
-                return CommonResult.fail(ResultCode.E_800);
+            if (collectionId == null)//数据库为空
+                collectionId = 20000000;
             collectionId = collectionId + 1;
             Inspection inspection = new Inspection();
             inspection.setId(collectionId);
@@ -146,8 +146,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         }
         else if (collectionType == 2) {
             collectionId = examinationMapper.getLatestId();
-            if (collectionId == null)
-                return CommonResult.fail(ResultCode.E_800);
+            if (collectionId == null)//数据库为空
+                collectionId = 30000000;
             collectionId = collectionId + 1;
             Examination examination = new Examination();
             examination.setId(collectionId);
@@ -156,8 +156,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         }
         else if(collectionType == 3){
             collectionId = treatmentMapper.getLatestId();
-            if (collectionId == null)
-                return CommonResult.fail(ResultCode.E_800);
+            if (collectionId == null)//数据库为空
+                collectionId = 40000000;
             collectionId = collectionId + 1;
             Treatment treatment = new Treatment();
             treatment.setId(collectionId);
@@ -469,13 +469,14 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             //若处置项目已在数据库，更新项目内容
             if(existedProjectIds.contains(projectId)) {
                 //更新项目基本信息
-               treatmentMapper.updateInfo(treatment);
+               count = treatmentMapper.updateInfo(treatment);
                 //若开立，创建缴费清单
                 if (operation == 2) {
                     CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null);
                     if (commonResult.getCode() != 200)
                         return CommonResult.fail(ResultCode.E_802);//保存失败
                 }
+                existedProjectIds.remove(projectId);
             }
             //若处置项目不在数据库，插入
             else{
@@ -495,6 +496,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     if (commonResult.getCode() != 200)
                         return CommonResult.fail(ResultCode.E_802);//保存失败
                 }
+                existedProjectIds.remove(projectId);
             }
         }
         //剩余已存在处置项目，删除
