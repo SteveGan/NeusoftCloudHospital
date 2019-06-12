@@ -85,4 +85,9 @@
     where cashier_role_id = #{cashierId}
     and end_date &gt;= #{beginDateStr} and end_date &lt;= #{endDateStr}
   </select>
+
+  <select id="getEndDateByCashierId" resultType="string">
+    select max(end_date) from daily_summary_log
+    where cashier_role_id = #{cashierId}
+  </select>
 </mapper>

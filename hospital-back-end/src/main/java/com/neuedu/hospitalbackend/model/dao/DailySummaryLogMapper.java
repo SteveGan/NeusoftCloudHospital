@@ -14,6 +14,10 @@ public interface DailySummaryLogMapper {
 
     int insertSelective(DailySummaryLog dailySummaryLog);
 
+    //查询指定收费员上次日结截止时间
+    String getEndDateByCashierId(Integer cashierId);
+
+    //查询日结历史记录
     List<DailySummaryLog> getByCashierIdAndDate(@Param("cashierId") Integer cashierId, @Param("beginDateStr") String beginDateStr,
                                         @Param("endDateStr") String endDateStr);
 }
