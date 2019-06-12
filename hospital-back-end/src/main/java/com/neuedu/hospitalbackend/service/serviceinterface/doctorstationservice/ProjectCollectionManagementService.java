@@ -46,5 +46,8 @@ public interface ProjectCollectionManagementService {
     CommonResult cancelSubmittedCollection(Integer collectionId, Integer type);
 
 
-
+    /**
+     * 删除检查检验处置清单或处方
+     */
+    CommonResult deleteCollection(Integer collectionId, Integer type);
 }

@@ -2,7 +2,6 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationse
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.bo.Project;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.*;
 import com.neuedu.hospitalbackend.model.vo.CollectionParam;
@@ -38,6 +37,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
     private TechProjectMapper techProjectMapper;
     @Resource
     private TreatmentMapper treatmentMapper;
+    @Resource
+    private RecipeMapper recipeMapper;
 
     @Resource
     private TransactionService transactionService;
@@ -221,6 +222,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     public CommonResult saveInspection(CollectionParam collectionParam, int operation){
         int count = 0;
+        String newInvoiceCode = ""; //发票号
         Integer caseId = collectionParam.getCaseId();
         Integer collectionId = collectionParam.getCollectionId();
         Integer applicantRoleId = collectionParam.getApplicantRoleId();
@@ -243,6 +245,15 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             if(count <= 0)
                 return CommonResult.fail(ResultCode.E_802);
             return CommonResult.success(count);
+        }
+
+        //若开立，获取可用发票号
+        if(operation == 2){
+            synchronized (this) {
+                //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+                CommonResult result = invoiceService.getNextInvoiceCode();
+                newInvoiceCode = (String) result.getData();
+            }
         }
 
         //更新清单内容
@@ -289,7 +300,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     }
                     //若开立，创建缴费清单
                     if (operation == 2) {
-                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam,
+                                newInvoiceCode);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
                     }
@@ -321,7 +333,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                         return CommonResult.fail(ResultCode.E_802);
                     //若开立，创建缴费清单
                     if (operation == 2) {
-                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam,
+                                newInvoiceCode);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
                     }
@@ -346,6 +359,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     public CommonResult saveExamination(CollectionParam collectionParam, int operation){
         int count = 0;
+        String newInvoiceCode = ""; //发票号
         Integer caseId = collectionParam.getCaseId();
         Integer collectionId = collectionParam.getCollectionId();
         Integer applicantRoleId = collectionParam.getApplicantRoleId();
@@ -369,6 +383,15 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             if(count <= 0)
                 return CommonResult.fail(ResultCode.E_802);
             return CommonResult.success(count);
+        }
+
+        //若开立，获取可用发票号
+        if(operation == 2){
+            synchronized (this) {
+                //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+                CommonResult result = invoiceService.getNextInvoiceCode();
+                newInvoiceCode = (String) result.getData();
+            }
         }
 
         //更新清单内容
@@ -415,7 +438,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     }
                     //若开立，创建缴费清单
                     if (operation == 2) {
-                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam,
+                                newInvoiceCode);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
                     }
@@ -448,7 +472,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                         return CommonResult.fail(ResultCode.E_802);
                     //若开立，创建缴费清单
                     if (operation == 2) {
-                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam,
+                                newInvoiceCode);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
                     }
@@ -473,6 +498,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     public CommonResult saveTreatment(CollectionParam collectionParam, int operation){
         int count = 0;
+        String newInvoiceCode = ""; //发票号
         Integer caseId = collectionParam.getCaseId();
         Integer collectionId = collectionParam.getCollectionId();
         Integer applicantRoleId = collectionParam.getApplicantRoleId();
@@ -497,6 +523,15 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             return CommonResult.success(count);
         }
 
+        //若开立，获取可用发票号
+        if(operation == 2){
+            synchronized (this) {
+                //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+                CommonResult result = invoiceService.getNextInvoiceCode();
+                newInvoiceCode = (String) result.getData();
+            }
+        }
+
         //更新清单内容
         List<Integer> existedProjectIds = treatmentMapper.listProjectIdsByCollectionId(collectionId); //数据库该清单中项目
         for(ProjectParam projectParam: projectParams) {
@@ -515,7 +550,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                count = treatmentMapper.updateInfo(treatment);
                 //若开立，创建缴费清单
                 if (operation == 2) {
-                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null);
+                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null,
+                            newInvoiceCode);
                     if (commonResult.getCode() != 200)
                         return CommonResult.fail(ResultCode.E_802);//保存失败
                 }
@@ -535,7 +571,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     return CommonResult.fail();
                 //若开立，创建缴费清单
                 if (operation == 2) {
-                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null);
+                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null,
+                            newInvoiceCode);
                     if (commonResult.getCode() != 200)
                         return CommonResult.fail(ResultCode.E_802);//保存失败
                 }
@@ -589,13 +626,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
     /**
      * 创建缴费清单
      */
-    public CommonResult insertTransactionLog(CollectionParam collectionParam, ProjectParam projectParam, ItemParam itemParam){
-//        String newInvoiceCode;//获取可用发票号
-//        synchronized (this) {
-//            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
-//            CommonResult result = invoiceService.getNextInvoiceCode();
-//            newInvoiceCode = (String) result.getData();
-//        }
+    public CommonResult insertTransactionLog(CollectionParam collectionParam, ProjectParam projectParam,
+                                             ItemParam itemParam, String newInvoiceCode){
         Integer registrationId = collectionParam.getCaseId();
         Integer patientId = patientCaseMapper.getPatientIdByCaseId(registrationId);
         if(patientId == null)
@@ -632,7 +664,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
 
         //创建transactionLog对象
         TransactionLog transactionLog = new TransactionLog();
-//        transactionLog.setInvoiceCode(newInvoiceCode);
+        transactionLog.setInvoiceCode(newInvoiceCode);
         transactionLog.setRegistrationId(registrationId);
         transactionLog.setPatientId(patientId);
         transactionLog.setRoleId(roleId);
@@ -672,6 +704,32 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         if(count <= 0)
             return CommonResult.fail(ResultCode.E_804);
         return CommonResult.success(count);
+    }
+
+    /**
+     * 删除检验检查处置清单或处方
+     * @param collectionId,type
+     * @param type 1.检查 2.检验 3.处置 4.处方
+     * @return
+     */
+    public CommonResult deleteCollection(Integer collectionId, Integer type){
+        if(type == 1) {
+            inspectionMapper.deleteByCollectionId(collectionId);
+            inspectionProjectMapper.deleteItemsByCollectionId(collectionId);
+        }
+        else if(type == 2){
+            examinationMapper.deleteByCollectionId(collectionId);
+            examinationProjectMapper.deleteItemsByCollectionId(collectionId);
+        }
+        else if(type == 3){
+            treatmentMapper.deleteByCollectionId(collectionId);
+        }
+        else if(type == 4){
+            recipeMapper.deleteById(collectionId);
+        }
+        else
+            return CommonResult.fail(ResultCode.E_801);
+        return CommonResult.success(null);
     }
 
 }

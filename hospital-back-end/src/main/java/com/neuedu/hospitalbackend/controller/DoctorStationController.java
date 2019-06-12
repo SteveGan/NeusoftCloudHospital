@@ -137,6 +137,13 @@ public class DoctorStationController {
         return projectCollectionManagementService.cancelSubmittedCollection(collectionId, type);
     }
 
+    @ApiOperation("清除检查检验处置清单或处方")
+    @RequestMapping(value = "/deletion/{collectionId}/{type}", method = RequestMethod.DELETE)
+    public CommonResult deleteCollection(@PathVariable(value = "collectionId") Integer collectionId,
+                                                  @PathVariable(value = "type") Integer type)
+    {
+        return projectCollectionManagementService.deleteCollection(collectionId, type);
+    }
 
 
 }
