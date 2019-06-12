@@ -3,8 +3,11 @@
 <!--天气组件-->
 <weather-card></weather-card>
 
-<view class="matrix bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.3s; margin: 0 30rpx">
-  <view wx:if="{{isLoggedIn}}">
+<view class="matrix bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.4s; margin: 0 30rpx">
+  <view wx:if="{{isLoggedIn}}" class="main-card-item">
+    <view class='text-lg header'>
+      <text class='icon-shop'> 掌上医院</text>
+    </view>
     <navigator url="/pages/online/online" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
       <view class="matrix-btn yygh">
         <icon class="yygh" />
@@ -43,3 +46,33 @@
     </view>
   </view>
 </view>
+  <view class="bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.5s;">
+    <view class="main-card-item">
+      <view class='text-lg'>
+        <text class='icon-rank'> 排号情况</text>
+      </view>
+      <navigator url="/pages/card/card" class="margin-top radius">
+        <view class='text-center padding'>
+          <view class='margin'>
+            <view class='margin-bottom'>
+              <text class="text-xsl">6</text>
+              <br/>
+              <text class="text-lg">人</text>
+            </view>
+            <br/>
+            <text class='icon-group'> 还需等待患者人数</text>
+          </view>
+          <view class='margin'>
+            <view class="text-gray">
+              <text class='text-lg icon-friendfamous'> 挂号医生</text>
+              <text class="text-xl text-blue"> {{status}}</text>
+            </view>
+            <view class="text-gray">
+              <text class='text-lg icon-tag'> 挂号科室</text>
+              <text class="text-xl text-blue"> {{networkInfo.sum_bytes}}</text>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>

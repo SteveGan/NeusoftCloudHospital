@@ -25,7 +25,7 @@
                 <span style="float: right; margin-right:10px;">合计：￥</span>
             </div>
             
-            <el-table :data="this.invoiceList" style="width: 100%">
+            <el-table :data="this.invoiceList" style="width: 100%" v-loading="loading">
                 <el-table-column label="发票号" prop="invoiceCode">
                 </el-table-column>
                 <el-table-column label="病历号" prop="registrationId">
@@ -73,14 +73,38 @@ export default {
 
             // 查询结果
             invoiceList: [],
-            sumMoney: 0
+            sumMoney: 0,
+
+            loading: false
         }
     },
 
     methods: {
         // 结算报账
         submit() {
+            this.loading = true;
+            var object = {};
+            object.invoiceCollection = this.invoiceList;
+            object.beginDateStr = this.startDate;
+            object.endDateStr = this.endDate;
+            object.cashierId = this.currentRoleId;
+            object.totalMoney = this.sumMoney;
+            object.invoiceCodeBegin = this.invoiceList[0].invoiceCode;
+            object.invoiceCodeEnd = this.invoiceList[this.invoiceList.length-1].invoiceCode;
 
+            dailySummary.freezeDailyTransactionLogs(object).then(response => {
+                console.log(response.data.data)
+                const data = response.data.data
+
+                if(response.data.code===200){
+                    this.success("结算");
+                    this.invoiceList = [];
+                } else {
+                    this.fail("结算");
+                }
+            }).finally(response => {
+                this.loading = false;
+            })
         },
 
         // 查询
@@ -96,16 +120,21 @@ export default {
                 const data = response.data.data
                 this.invoiceList = data;
 
-                for(var i=0; i<this.invoiceList.length; i++){
-                    this.sumMoney+=this.invoiceList[i].totalMoney;
-                    this.invoiceList[i].jiesuanType = this.jiesuanType[this.invoiceList[i].payType];
+                if(data!=null){
+                    for(var i=0; i<this.invoiceList.length; i++){
+                        this.sumMoney+=this.invoiceList[i].totalMoney;
+                        this.invoiceList[i].jiesuanType = this.jiesuanType[this.invoiceList[i].payType];
+                    }
+                    
+                    this.sumMoney = this.sumMoney.toFixed(2);
                 }
-                this.sumMoney = this.sumMoney.toFixed(2);
                 if(response.data.code===200){
                     this.success("查询");
                 } else {
                     this.fail("查询");
                 }
+            }).finally(response => {
+                this.loading = false;
             })
         },
 
@@ -146,10 +175,8 @@ export default {
         },
 
     mounted() {
-        // 默认设置看诊日期为今天
-        this.today = this.getNowFormatDate();
-        this.currentdate = this.getNowFormatDate();
         // 设置结束时间默认为今天
+        this.currentdate = this.getNowFormatDate();
         this.endDate = this.currentdate;
 
 

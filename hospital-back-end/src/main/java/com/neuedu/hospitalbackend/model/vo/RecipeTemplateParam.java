@@ -1,16 +1,17 @@
 package com.neuedu.hospitalbackend.model.vo;
 
-import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeTemplateParam {
     private String name;
+    private String newName;
     private Integer roleId;
     private Integer departmentId;
     private Byte scope; //1.个人 2.科室 3.全院
 
-    private List<RecipeParam> recipeParams = new ArrayList<>();
+    private List<RecipeParam> recipes = new ArrayList<>();
 //    private String medicineCode;
 //    private Byte type; //1.中草药 2.西药
 //    private BigDecimal dosage;
@@ -18,6 +19,14 @@ public class RecipeTemplateParam {
 //    private String frequency;
 //    private Short amount;
 
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
 
     public String getName() {
         return name;
@@ -51,11 +60,11 @@ public class RecipeTemplateParam {
         this.scope = scope;
     }
 
-    public List<RecipeParam> getRecipeParams() {
-        return recipeParams;
+    public List<RecipeParam> getRecipes() {
+        return recipes;
     }
 
-    public void setRecipeParams(List<RecipeParam> recipeParams) {
-        this.recipeParams = recipeParams;
+    public void setRecipes(List<RecipeParam> recipes) {
+        this.recipes = recipes;
     }
 }

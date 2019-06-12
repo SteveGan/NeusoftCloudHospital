@@ -121,10 +121,10 @@
         <el-tab-pane label="检查申请">
           <project-application :type=2 typeName="检查" v-model="selectedCaseInspections"></project-application>
         </el-tab-pane>
-        <el-tab-pane label="成药处方">
+        <el-tab-pane label="成药处方" :disabled="disableModRecipe">
           <case-recipe v-model="modernRecipes"></case-recipe>
         </el-tab-pane>
-        <el-tab-pane label="草药处方">
+        <el-tab-pane label="草药处方" :disabled="disableTraRecipe">
           <case-recipe v-model="traditionalRecipes"></case-recipe>
         </el-tab-pane>
         <el-tab-pane label="处置单">
@@ -172,6 +172,14 @@
         </el-tab-pane>
       </el-tabs>
     </el-main>
+
+    <!-- 语音播报 -->
+    <div id="bdtts_div_id">
+      <audio id="tts_autio_id" autoplay="autoplay">
+        <source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&amp;ie=UTF-8&amp;spd=1&amp;per=0&amp;vol=15&amp;text=" type="audio/mpeg">
+        <embed id="tts_embed_id" height="0" width="0" src="">
+      </audio>
+    </div>
   </el-container>
 </template>
 
@@ -191,6 +199,7 @@ import ProjectApplication from "@/components/outpatientdoctor/ProjectApplication
 import CaseRecipe from "@/components/outpatientdoctor/CaseRecipe";
 import CaseDisposition from "@/components/outpatientdoctor/CaseDisposition";
 import FinalDiagnose from "@/components/outpatientdoctor/FinalDiagnose";
+import { constants } from "fs";
 
 export default {
   name: "OutPatientDoctor",
@@ -206,7 +215,9 @@ export default {
       modernDisease: [],
       traditionalDisease: [],
       traditionalRecipes: {},
-      modernRecipes: {}
+      modernRecipes: {},
+      disableModRecipe: false,
+      disableTraRecipe: false
     };
   },
   computed: {
@@ -218,8 +229,28 @@ export default {
     }
   },
   methods: {
+    doTTS(name) {
+      var ttsDiv = document.getElementById('bdtts_div_id');
+      var ttsAudio = document.getElementById('tts_autio_id');
+      var ttsText = name;
+
+      // 文字转语音
+      ttsDiv.removeChild(ttsAudio);
+      var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
+      var sss = '<source id="tts_source_id" src="http://tsn.baidu.com/text2audio?lan=zh&ie=UTF-8&per=3&spd=14&vol=15&text=' + ttsText + '" type="audio/mpeg">';
+      var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
+      var au2 = '</audio>';
+      ttsDiv.innerHTML = au1 + sss + eee + au2;
+
+      ttsAudio = document.getElementById('tts_autio_id');
+
+      ttsAudio.play();
+    },
     handlePatientSelect(row) {
-      //将当前的用户设置为被点击的用户
+      // 语音播报
+      this.doTTS("请" + row.name + "到" + "妇产科" + "就诊");
+
+      // 将当前的用户设置为被点击的用户
       this.selectedPatient = Object.assign({}, row);
       //请求当前被点击用户的当前病历信息
       getCaseContent({
@@ -282,11 +313,21 @@ export default {
           if (caseRecipe.type === 1) {
             //如果是西医处方
             this.modernRecipes = Object.assign({}, caseRecipe);
+            this.disableTraRecipe = true;
+            this.disableModRecipe = false;
           } else if (caseRecipe.type == 2) {
             //如果是中医处方
             this.traditionalRecipes = Object.assign({}, caseRecipe);
+            this.disableTraRecipe = false;
+            this.disableModRecipe = true;
           } else {
             //不存在处方
+            caseRecipe.type = 1;
+            this.modernRecipes = Object.assign({}, caseRecipe);
+            caseRecipe.type = 2;
+            this.traditionalRecipes = Object.assign({}, caseRecipe);
+            this.disableTraRecipe = false;
+            this.disableModRecipe = false;
           }
         },
         error => {
@@ -311,7 +352,8 @@ export default {
       );
     },
     //上传case的内容
-    onSubmitSelectedCase() {
+    onSubmitSelectedCase(isTraDiagnose) {
+      this.selectedCase.diagnoseType = isTraDiagnose ? 0 : 1;
       console.log("submit:");
       console.log(this.selectedCase);
       submitCase(this.selectedCase).then(
@@ -348,6 +390,8 @@ export default {
   },
   mounted: function() {
     //请求所有待诊病人和已诊病人
+    console.log("当前的roleId");
+    console.log(this.$store.getters["user/currentRoleId"]);
     listAllPatients(this.$store.getters["user/currentRoleId"]).then(
       response => {
         const data = response.data.data;

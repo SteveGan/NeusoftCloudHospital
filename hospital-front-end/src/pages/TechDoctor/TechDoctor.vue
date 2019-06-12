@@ -34,7 +34,8 @@
             <el-table
               :data="waitingList"
               style="width: 100%"
-              highlight-current-row @current-change="handleCurrentChange">
+              highlight-current-row @current-change="handleCurrentChange"
+              v-loading="loading1">
               <el-table-column
                 prop="registration_id"
                 label="病历号">
@@ -58,7 +59,8 @@
             <el-table
               :data="checkedInList"
               style="width: 100%"
-              highlight-current-row @current-change="handleCheckedInChange">
+              highlight-current-row @current-change="handleCheckedInChange"
+              v-loading="loading1">
               <el-table-column
                 prop="caseId"
                 label="病历号">
@@ -98,7 +100,7 @@
       </el-card>
 
       <!-- 当前病人待做项目 -->
-      <el-table
+      <el-table v-loading="loading2"
         :data="itemList"
         style="width: 100%"
         v-if="itemTable"
@@ -267,7 +269,10 @@ export default {
       //表格内容
       resultDescription: "",
       advice: "",
-      resultImage: "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg"
+      resultImage: "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg",
+
+      loading1: false,
+      loading2: false
     }
   },
 
@@ -285,7 +290,7 @@ export default {
       var object = {};
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
-      object.departmentId = 125;
+      object.departmentId = 129;
       object.caseId = this.currentProject.caseId;
       techDoctor.confirmProject(object).then(response => {
         const data = response.data.data
@@ -310,7 +315,7 @@ export default {
       object.resultImage = this.resultImage;
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
-      object.departmentId = 125;
+      object.departmentId = 129;
       object.caseId = this.currentProject.caseId;
       techDoctor.result(object).then(response => {
         const data = response.data.data
@@ -328,7 +333,7 @@ export default {
     // 显示本科室已登记项目列表
     listCheckedInButNotRecordedProject(){
       var object = {};
-      object.departmentId = 125;
+      object.departmentId = 129;
       object.chargeDateStr = this.chargeDateStr;
       techDoctor.listCheckedInButNotRecordedProject(object).then(response => {
         const data = response.data.data
@@ -340,8 +345,9 @@ export default {
 
     // 登记button
     handleClick(row){
+      this.loading2 = true;
       var project = {};
-      project.departmentId = "125",
+      project.departmentId = "129",
       project.collectionId = row.id;
       project.projectId = row.project_id;
       project.doctorRoleId = this.currentRoleId;
@@ -353,13 +359,14 @@ export default {
         const data = response.data.data
         console.log(data);
 
-
         if(response.data.code===200){
           this.refreshItemList();
           this.success("登记");
         } else {
           this.fail("登记");
         }
+      }).finally(response => {
+          this.loading2 = false;
       })
     },
 
@@ -384,7 +391,7 @@ export default {
     handleCurrentChange(val){
       this.currentCase = val;
       console.log(val);
-      techDoctor.listAllProjectsByCaseId(this.chargeDateStr, val.registration_id, 125).then(response => {
+      techDoctor.listAllProjectsByCaseId(this.chargeDateStr, val.registration_id, 129).then(response => {
           const data = response.data.data
           console.log(data);
           this.itemList = data.projects;
@@ -405,7 +412,8 @@ export default {
 
     // 根据条件搜索患者
     listPatientByCaseIdOrName(){
-      techDoctor.listPatientByCaseIdOrName(this.chargeDateStr, this.inputCaseId, 125).then(response => {
+      this.loading1 = true;
+      techDoctor.listPatientByCaseIdOrName(this.chargeDateStr, this.inputCaseId, 129).then(response => {
           const data = response.data.data
           console.log(data);
           this.waitingList = data;
@@ -416,6 +424,8 @@ export default {
         } else {
           this.fail("查询");
         }
+      }).finally(response => {
+          this.loading1 = false;
       })
     },
 

@@ -36,6 +36,6 @@ public interface RecipeMapper {
 
     int deleteById(Integer id);
 
-    int insertList(List<RecipeParam> medicines);
+    int deleteByCollectionId(Integer collectionId);
 
 }

@@ -21,7 +21,7 @@
           </div>
           <!-- 患者基本信息 -->
           <div class="patient-info">
-            <el-form ref="form" label-width="80px" label-position="left">
+            <el-form ref="form" label-width="80px" label-position="left" v-loading="loading1">
               <el-form-item label="姓名" :disabled="true">
                 <el-input v-model="patientInfo.name"></el-input>
               </el-form-item>
@@ -179,7 +179,9 @@ export default {
         3: "作废",
         4: "已取药",
         5: "已退药"
-      }
+      },
+
+      loading1: false,
     }
   },
 
@@ -222,15 +224,15 @@ export default {
     // 缴费
     charge() {
       for(var i=0; i<this.chargeSelection.length;i++){
-        chargeSelection[i].cashierId = this.currentRoleId;
+        this.chargeSelection[i].cashierId = this.currentRoleId;
       }
       charge.charge(this.chargeSelection).then(response => {
         console.log(response.data.data)
         if(response.data.code===200){
           this.success("缴费");
         } else {
-          this.fail("缴费");
-        }        
+          this.fail("缴费", "");
+        }
       }).catch(error => {
         
       })
@@ -263,6 +265,7 @@ export default {
     
     // 获取病历号所对应的缴费状态
     getpaymentInfo(){
+      this.loading1 = true;
       console.log(this.input)
       charge.getpaymentInfo(this.input).then(response => {
         console.log(response.data.data)
@@ -271,6 +274,13 @@ export default {
 
         this.invoiceCollection = data.paymentInfo.invoiceCollection;
         this.transactionLogs = data.paymentInfo.transactionLogs;
+
+        if(response.data.code===200){
+          this.success("查询");
+        } else {
+          this.fail("查询", "");
+        }
+        this.loading1 = false;
 
         // 选出待缴费项目用于缴费
         for(var i=0; i<this.invoiceCollection.length;i++){

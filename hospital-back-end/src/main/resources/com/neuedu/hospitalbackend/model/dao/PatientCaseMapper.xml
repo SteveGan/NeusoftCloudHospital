@@ -165,7 +165,7 @@
   </select>
 
   <select id="getPatientCaseInfo" resultMap="patientCaseInfo">
-    select narrate, cur_disease, cur_treat_condition, past_disease, allergy, physical_condition, assist_diagnose
+    select status, narrate, cur_disease, cur_treat_condition, past_disease, allergy, physical_condition, assist_diagnose
     from patient_case
     where registration_id = #{caseId}
   </select>

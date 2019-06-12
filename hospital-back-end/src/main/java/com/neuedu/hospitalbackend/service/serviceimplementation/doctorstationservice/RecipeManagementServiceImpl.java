@@ -47,7 +47,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //处方类型：0该患者无处方，1中草药处方，2其他处方（成药）
         if(recipeLogs.size() == 0) {
             returnJson.put("type", 0);
-            returnJson.put("recipes", null);
+            returnJson.put("recipes", new JSONArray());
             return CommonResult.success(returnJson);
         }
         if((Integer)recipeLogs.get(0).get("medicineType") == 1)
@@ -108,7 +108,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //设定申请清单id
         Integer recipeId = recipeMapper.getLatestId();
         if (recipeId == null)
-            return CommonResult.fail(ResultCode.E_800);
+            recipeId = 50000000;
         recipeId = recipeId + 1;
         //插入数据库
         Recipe recipe = new Recipe();
@@ -149,6 +149,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
      */
     public CommonResult updateRecipes(RecipeCollectionParam recipeCollectionParam, Integer status){
         int count = 0;
+        String newInvoiceCode = "";//发票号
         Integer recipeId = recipeCollectionParam.getRecipeId();
         Integer caseId = recipeCollectionParam.getCaseId();
         Integer creatorRoleId = recipeCollectionParam.getCreatorRoleId();
@@ -168,6 +169,15 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             if(count <= 0)
                 return CommonResult.fail(ResultCode.E_802);
             return CommonResult.success(count);
+        }
+
+        //若开立，获取可用发票号
+        if(status == 2){
+            synchronized (this) {
+                //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+                CommonResult result = invoiceService.getNextInvoiceCode();
+                newInvoiceCode = (String) result.getData();
+            }
         }
 
         //插入新提交内容
@@ -198,7 +208,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 
             //若开立，创建缴费清单
             if (status == 2) {
-                CommonResult commonResult = insertTransactionLog(recipeCollectionParam, recipeParam);
+                CommonResult commonResult = insertTransactionLog(recipeCollectionParam, recipeParam, newInvoiceCode);
                 if (commonResult.getCode() != 200)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
             }
@@ -209,13 +219,8 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
     /**
      * 创建缴费清单
      */
-    public CommonResult insertTransactionLog(RecipeCollectionParam collectionParam, RecipeParam recipeParam){
-        String newInvoiceCode;//获取可用发票号
-        synchronized (this) {
-            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
-            CommonResult result = invoiceService.getNextInvoiceCode();
-            newInvoiceCode = (String) result.getData();
-        }
+    public CommonResult insertTransactionLog(RecipeCollectionParam collectionParam, RecipeParam recipeParam,
+                                             String newInvoiceCode){
         Integer registrationId = collectionParam.getCaseId();
         Integer patientId = patientCaseMapper.getPatientIdByCaseId(registrationId);
         if(patientId == null)
@@ -248,10 +253,4 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //增加缴费清单
         return transactionService.insertTransactionLog(transactionLog);
     }
-
-
-
-
-
-
 }
