@@ -89,5 +89,10 @@
     where collection_id = #{collectionId} and project_id = #{projectId}
   </delete>
 
+  <delete id="deleteItemsByCollectionId">
+        delete
+        from examination_project
+        where collection_id = #{collectionId}
+    </delete>
 
 </mapper>
