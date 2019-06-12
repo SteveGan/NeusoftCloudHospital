@@ -241,10 +241,10 @@
         select * from transaction_log t
         <where>
             <if test="beginDateStr != null">
-                date_format(t.gmt_create,'%Y-%m-%d') &gt;= beginDateStr
+                t.gmt_create &gt;= #{beginDateStr}
             </if>
             <if test="endDateStr != null">
-                and date_format(t.gmt_create,'%Y-%m-%d') &lt;= endDateStr
+                and t.gmt_create &lt;= #{endDateStr} <!--date_format(t.gmt_create,'%Y-%m-%d') &lt;= #{endDateStr}-->
             </if>
             and registration_id = #{registrationId}
         </where>
@@ -252,17 +252,9 @@
     </select>
 
     <select id="listLogsByCashierIdAndDate" resultMap="BaseResultMap">
-        select * from transaction_log t
-        <where>
-            <if test="beginDateStr != null">
-                date_format(t.gmt_create,'%Y-%m-%d') &gt;= beginDateStr
-            </if>
-            <if test="endDateStr != null">
-                and date_format(t.gmt_create,'%Y-%m-%d') &lt;= endDateStr
-            </if>
-            and role_id = #{cashierId}
-        </where>
-        order by invoice_code asc
+        select  invoice_code, count(invoice_code),max(`status`) AS `status` FROM `transaction_log` t
+        where registration_id = 10000015
+        group by invoice_code
     </select>
 
     <update id="freezeTransactionLogs">

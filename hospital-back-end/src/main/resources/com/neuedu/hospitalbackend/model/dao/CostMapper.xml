@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.CostMapper" >
+    <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.Cost" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="code" property="code" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="get" resultMap="BaseResultMap" parameterType="Integer">
+      select id, code, name from cost where id = #{id}
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+      select id, code, name from cost
+    </select>
+
+</mapper>

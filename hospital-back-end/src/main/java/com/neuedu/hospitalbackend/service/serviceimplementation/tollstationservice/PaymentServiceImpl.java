@@ -50,11 +50,9 @@ public class PaymentServiceImpl implements PaymentService {
         logs.addAll(transactionLogMapper.getRecipeLogs(registrationId));
         for(HashMap log: logs){
             String logInvoiceCode = (String) log.get("invoiceCode");
-            Byte logStatus = (Byte) log.get("status");
             for(HashMap t: invoiceCollection){
                 String invoiceCode = (String) t.get("invoiceCode");
-                Byte invoiceStatus = (Byte) t.get("status");
-                if( logInvoiceCode.equals(invoiceCode) && logStatus.equals(invoiceStatus) ){
+                if( logInvoiceCode.equals(invoiceCode) && log.get("status") == t.get("status")){
                     if(result.containsKey(invoiceCode))
                         result.get(invoiceCode).add(log);
                     else{
@@ -309,8 +307,10 @@ public class PaymentServiceImpl implements PaymentService {
                invoiceMap.put(invoiceCode, new ArrayList<>());
                invoiceMap.get(invoiceCode).add(t);
            }
+           else{
+               invoiceMap.get(invoiceCode).add(t);
+           }
         }
-        return CommonResult.success(transactionLogs);
+        return CommonResult.success(invoiceMap);
     }
-
 }
