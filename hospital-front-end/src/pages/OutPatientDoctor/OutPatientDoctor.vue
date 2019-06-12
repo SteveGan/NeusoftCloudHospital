@@ -121,10 +121,10 @@
         <el-tab-pane label="检查申请">
           <project-application :type=2 typeName="检查" v-model="selectedCaseInspections"></project-application>
         </el-tab-pane>
-        <el-tab-pane label="成药处方">
+        <el-tab-pane label="成药处方" :disabled="disableModRecipe">
           <case-recipe v-model="modernRecipes"></case-recipe>
         </el-tab-pane>
-        <el-tab-pane label="草药处方">
+        <el-tab-pane label="草药处方" :disabled="disableTraRecipe">
           <case-recipe v-model="traditionalRecipes"></case-recipe>
         </el-tab-pane>
         <el-tab-pane label="处置单">
@@ -206,7 +206,9 @@ export default {
       modernDisease: [],
       traditionalDisease: [],
       traditionalRecipes: {},
-      modernRecipes: {}
+      modernRecipes: {},
+      disableModRecipe: false,
+      disableTraRecipe: false
     };
   },
   computed: {
@@ -282,11 +284,17 @@ export default {
           if (caseRecipe.type === 1) {
             //如果是西医处方
             this.modernRecipes = Object.assign({}, caseRecipe);
+            this.disableTraRecipe = true;
+            this.disableModRecipe = false;
           } else if (caseRecipe.type == 2) {
             //如果是中医处方
             this.traditionalRecipes = Object.assign({}, caseRecipe);
+            this.disableTraRecipe = false;
+            this.disableModRecipe = true;
           } else {
             //不存在处方
+            this.disableTraRecipe = false;
+            this.disableModRecipe = false;
           }
         },
         error => {

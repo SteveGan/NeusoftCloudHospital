@@ -48,7 +48,6 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         if(recipeLogs.size() == 0) {
             returnJson.put("type", 0);
             returnJson.put("recipes", new JSONArray());
-
             return CommonResult.success(returnJson);
         }
         if((Integer)recipeLogs.get(0).get("medicineType") == 1)
@@ -109,7 +108,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //设定申请清单id
         Integer recipeId = recipeMapper.getLatestId();
         if (recipeId == null)
-            return CommonResult.fail(ResultCode.E_800);
+            recipeId = 50000000;
         recipeId = recipeId + 1;
         //插入数据库
         Recipe recipe = new Recipe();

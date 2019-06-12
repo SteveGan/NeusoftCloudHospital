@@ -253,8 +253,8 @@
 
     <select id="listLogsByCashierIdAndDate" resultType="HashMap">
         select invoice_code as invoiceCode, count(invoice_code) as totalInvoiceAmount, max(status) as status,
-        SUM(total_money) as totalMoney, ANY_VALUE(type) as type, ANY_VALUE(pay_type) as payType,
-        ANY_VALUE(registration_id) as registrationId, ANY_VALUE(p.name) as name
+            SUM(total_money) as totalMoney, ANY_VALUE(type) as type, ANY_VALUE(pay_type) as payType,
+            ANY_VALUE(registration_id) as registrationId, ANY_VALUE(p.name) as name
         from transaction_log t join patient p on t.patient_id = p.id
         <where>
             <if test="beginDateStr != null">
@@ -277,5 +277,16 @@
     <select id="getFirstLogDateByCashierId" resultType="string">
         select min(gmt_create) from transaction_log
         where role_id = #{cashierId}
+    </select>
+
+    <select id="listLogsByInvoiceRangeAndCashierId" resultType="HashMap">
+        select invoice_code as invoiceCode, count(invoice_code) as totalInvoiceAmount, max(status) as status,
+            SUM(total_money) as totalMoney, ANY_VALUE(type) as type, ANY_VALUE(pay_type) as payType,
+            ANY_VALUE(registration_id) as registrationId, ANY_VALUE(p.name) as name
+        from transaction_log t join patient p on t.patient_id = p.id
+        where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
+        and t.status = 6
+        group by invoice_code
+        order by invoice_code
     </select>
 </mapper>

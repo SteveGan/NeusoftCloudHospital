@@ -214,6 +214,12 @@ export default {
     handleConfirmAdd() {
       this.dialogAddMedicine = false;
       this.newMedicine.status = 1;
+      // // 判断当前的recipe是否已经有了五种药,如果有了
+      // // 增加新的recipe，并将当前的recipe变为新的recipe
+      // if (this.currentRecipe.medicines.length >= 5)
+      //   this.currentRecipe = this.handleAddNewRecipe();
+      // console.log("新的recipe");
+      // console.log(this.currentRecipe);
       this.currentRecipe.medicines.push(this.newMedicine);
       this.newMedicine = {};
     },
@@ -221,11 +227,11 @@ export default {
       // 向后端请求新的recipe编号
       getNewRecipeCode().then(
         response => {
-          console.log(response.data.data);
           this.caseRecipe.recipes.push({
             medicines: [],
             recipeId: response.data.data.recipeId
           });
+          newRecipe;
         },
         error => {
           console.log(error);
