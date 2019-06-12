@@ -1,4 +1,5 @@
 const login = r => require.ensure([], () => r(require('@/pages/Login/Login')), 'login')
+const Waiting = r => require.ensure([], () => r(require('@/pages/Waiting/Waiting')), 'Waiting')
 const Home = r => require.ensure([], () => r(require('@/pages/Home/Home')), 'Home')
 const Main = r => require.ensure([], () => r(require('@/pages/Main/Main')), 'Main')
 const Admin = r => require.ensure([], () => r(require('@/pages/Admin/Admin')), 'Admin')
@@ -30,10 +31,16 @@ export default [{
     name: 'Home',
     component: Home,
     redirect: '/home/main',
-    children: [{
+    children: [
+      {
         path: 'main',
         name: 'Main',
         component: Main
+      },
+      {
+        path: 'waiting',
+        name: 'Waiting',
+        component: Waiting
       },
       {
         path: 'admin',

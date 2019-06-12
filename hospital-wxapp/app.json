@@ -7,7 +7,8 @@
     "pages/about/about",
     "pages/online/online",
     "pages/user/user",
-    "pages/doctlist/doctlist"
+    "pages/doctlist/doctlist",
+    "pages/case/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
