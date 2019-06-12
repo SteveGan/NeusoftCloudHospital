@@ -122,6 +122,14 @@ public class DoctorStationController {
         return projectCollectionManagementService.submitPresentCollection(collectionParam);
     }
 
+    @ApiOperation("作废申请项目")
+    @RequestMapping(value = "/collection/cancel/{collectionId}/{type}", method = RequestMethod.PUT)
+    public CommonResult cancelSubmittedCollection(@PathVariable(value = "collectionId") Integer collectionId,
+                                                  @PathVariable(value = "type") Integer type)
+    {
+        return projectCollectionManagementService.cancelSubmittedCollection(collectionId, type);
+    }
+
 
 
 
