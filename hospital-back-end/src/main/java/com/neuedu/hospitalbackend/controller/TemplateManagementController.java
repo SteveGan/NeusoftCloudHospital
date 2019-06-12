@@ -1,7 +1,9 @@
 package com.neuedu.hospitalbackend.controller;
 
 import com.neuedu.hospitalbackend.model.vo.DiagnoseTemplateParam;
+import com.neuedu.hospitalbackend.model.vo.RecipeTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
+import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.RecipeTemplateManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ public class TemplateManagementController {
 
     @Resource
     private DiagnoseTemplateService diagnoseTemplateService;
+    @Resource
+    private RecipeTemplateManagementService recipeTemplateManagementService;
 
 
     @ApiOperation("创建常用诊断")
@@ -50,6 +54,13 @@ public class TemplateManagementController {
     }
 
 
+
+    @ApiOperation("创建处方模板")
+    @RequestMapping(value = "/recipetemplate/preservation", method = RequestMethod.POST)
+    public CommonResult saveRecipeTemplate(@RequestBody RecipeTemplateParam recipeTemplateParam)
+    {
+        return recipeTemplateManagementService.insertRecipeTemplate(recipeTemplateParam);
+    }
 
 
 }
