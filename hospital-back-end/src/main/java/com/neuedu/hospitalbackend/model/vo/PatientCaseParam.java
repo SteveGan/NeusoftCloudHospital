@@ -15,8 +15,35 @@ public class PatientCaseParam {
     private String physicalCondition; //体格检查
     private String assistDiagnose;//辅助检查
     private Integer diagnoseType;//诊断类型
-    private List<DiagnoseParam> modernDiagnose; //西医诊断
-    private List<DiagnoseParam> traditionalDiagnose; //中医诊断
+    private Integer status;//1.待诊 2.暂存 3.已诊（未确诊） 4.确诊  5.诊闭
+    private List<DiagnoseParam> modernDiagnose; //西医初诊
+    private List<DiagnoseParam> traditionalDiagnose; //中医初诊
+    private List<DiagnoseParam> finalModernDiagnose; //西医确诊
+    private List<DiagnoseParam> finalTraditionalDiagnose; //中医确诊
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public List<DiagnoseParam> getFinalModernDiagnose() {
+        return finalModernDiagnose;
+    }
+
+    public void setFinalModernDiagnose(List<DiagnoseParam> finalModernDiagnose) {
+        this.finalModernDiagnose = finalModernDiagnose;
+    }
+
+    public List<DiagnoseParam> getFinalTraditionalDiagnose() {
+        return finalTraditionalDiagnose;
+    }
+
+    public void setFinalTraditionalDiagnose(List<DiagnoseParam> finalTraditionalDiagnose) {
+        this.finalTraditionalDiagnose = finalTraditionalDiagnose;
+    }
 
     public String getAssistDiagnose() {
         return assistDiagnose;

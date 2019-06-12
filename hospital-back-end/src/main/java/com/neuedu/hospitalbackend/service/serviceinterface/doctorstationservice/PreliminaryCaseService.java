@@ -29,6 +29,12 @@ public interface PreliminaryCaseService {
     CommonResult getPatientCaseInfo(Integer doctorRoleId, Integer caseId);
 
     /**
+     * 确诊诊断
+     * @param patientCaseParam
+     */
+    CommonResult finalDiagnose(PatientCaseParam patientCaseParam);
+
+    /**
      *  暂存
      *  将当前病历首页中的内容暂时存入数据库
      * @param patientCaseParam 当前病历首页中的内容

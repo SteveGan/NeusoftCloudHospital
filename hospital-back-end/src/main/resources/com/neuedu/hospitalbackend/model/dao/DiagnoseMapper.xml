@@ -15,6 +15,7 @@
     <result column="dis_icd_code" property="icdCode" jdbcType="VARCHAR"/>
     <result column="dis_name" property="diseaseName" jdbcType="VARCHAR"/>
     <result column="type" property="type" jdbcType="VARCHAR"/>
+    <result column="is_first_diagnosed" property="isFirstDiagnosed" jdbcType="BOOLEAN"/>
   </resultMap>
 
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Diagnose" >
@@ -82,7 +83,8 @@
   </select>
 
   <select id="listDiagnosesDetailByCaseId" resultMap="DiagnoseInfo">
-    select dis.icd_code as dis_icd_code,  dia.start_time, dis.name as dis_name, dis.type
+    select dis.icd_code as dis_icd_code, dia.start_time, dis.name as dis_name, dis.type,
+            dia.is_first_diagnosed
     from diagnose dia, disease dis
     where case_id = #{caseId} and dia.disease_id = dis.icd_code
   </select>
@@ -97,6 +99,12 @@
     delete
     from diagnose
     where case_id = #{caseId} and disease_id = #{diseaseIcdCoded}
+  </delete>
+
+  <delete id="deleteFinalDiagnose">
+    delete
+    from diagnose
+    where case_id = #{caseId} and is_first_diagnosed = false
   </delete>
 
 </mapper>
