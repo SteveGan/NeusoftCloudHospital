@@ -22,6 +22,8 @@ const UserWorkloadAnalysis = r => require.ensure([], () => r(require('@/componen
 
 const DrugStation = r => require.ensure([], () => r(require('@/pages/DrugStation/DrugStation')), 'DrugStation')
 
+const TreatmentStation = r => require.ensure([], () => r(require('@/pages/TreatmentStation/TreatmentStation')), 'TreatmentStation')
+
 
 export default [{
     path: '/home',
@@ -88,6 +90,11 @@ export default [{
         path: 'techdoctor',
         name: 'TechDoctor',
         component: TechDoctor
+      },
+      {
+        path: 'treatmentstation',
+        name: 'TreatmentStation',
+        component: TreatmentStation
       },
       {
         path: 'cashier',

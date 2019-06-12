@@ -169,7 +169,7 @@
                     autosize
                     placeholder="请输入检查/检验所见"
                     :autosize="{ minRows: 4, maxRows: 100}"
-                    v-model="watching"
+                    v-model="resultDescription"
                     >
                   </el-input>
                 </el-form-item>
@@ -179,7 +179,7 @@
                     autosize
                     placeholder="请输入诊断意见"
                     :autosize="{ minRows: 4, maxRows: 100}"
-                    v-model="suggestion"
+                    v-model="advice"
                     >
                   </el-input>
                 </el-form-item>
@@ -262,27 +262,62 @@ export default {
       patientCard: false,
       resultForm: false,
 
+      currentProject: {},
+
       //表格内容
-      watching: "",
-      suggestion: "",
-      imageurl: "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg"
+      resultDescription: "",
+      advice: "",
+      resultImage: "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg"
     }
   },
 
   methods: {
+    // 清屏
+    clear(){
+      this.resultDescription = "";
+      this.advice = "";
+      this.resultImage = "";
+    },
+
+    
+    // 提交
+    submit(){
+      var object = {};
+      object.collectionId = this.currentProject.id;
+      object.projectId = this.currentProject.projectId;
+      object.departmentId = 125;
+      object.caseId = this.currentProject.caseId;
+      techDoctor.confirmProject(object).then(response => {
+        const data = response.data.data
+
+        console.log(data);
+
+        if(response.data.code===200){
+          this.success("提交");
+          this.listCheckedInButNotRecordedProject();
+          this.resultForm = false;
+        } else {
+          this.fail("提交");
+        }
+      })
+    },
+
     // 保存
     save() {
       var object = {};
-      object.watching = this.watching;
-      object.suggestion = this.suggestion;
-      object.imageurl = this.imageurl;
+      object.resultDescription = this.resultDescription;
+      object.advice = this.advice;
+      object.resultImage = this.resultImage;
+      object.collectionId = this.currentProject.id;
+      object.projectId = this.currentProject.projectId;
+      object.departmentId = 125;
+      object.caseId = this.currentProject.caseId;
       techDoctor.result(object).then(response => {
         const data = response.data.data
 
         console.log(data);
 
         if(response.data.code===200){
-          this.refreshItemList();
           this.success("保存");
         } else {
           this.fail("保存");
@@ -337,9 +372,12 @@ export default {
     // 选中已登记
     handleCheckedInChange(val){
       this.itemTable = false;
-      this.patientCard = false;
+      // this.patientCard = false;
+      this.patientCard = true;
 
       this.resultForm = true;
+
+      this.currentProject = val;
     },
 
     // 选中患者展示待做项目列表
