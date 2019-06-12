@@ -266,6 +266,7 @@
             and t.role_id = #{cashierId}
         </where>
         group by invoice_code
+        order by invoice_code
     </select>
 
     <update id="updateTransactionLogsByInvoiceCode">

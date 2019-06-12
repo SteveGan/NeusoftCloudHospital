@@ -56,6 +56,7 @@ public class DailySummaryServiceImpl implements DailySummaryService {
         BigDecimal totalMoney = dailySummaryParam.getTotalMoney();
         String invoiceCodeBegin = dailySummaryParam.getInvoiceCodeBegin();
         String invoiceCodeEnd = dailySummaryParam.getInvoiceCodeEnd();
+
         DailySummaryLog dailySummaryLog = new DailySummaryLog(cashierRoleId, totalMoney, invoiceCodeBegin,
                                                 invoiceCodeEnd, beginDate, endDate);
         //更改收费记录状态 --冻结
