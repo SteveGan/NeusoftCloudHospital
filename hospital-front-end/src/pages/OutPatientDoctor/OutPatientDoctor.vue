@@ -172,6 +172,14 @@
         </el-tab-pane>
       </el-tabs>
     </el-main>
+
+    <!-- 语音播报 -->
+    <div id="bdtts_div_id">
+      <audio id="tts_autio_id" autoplay="autoplay">
+        <source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&amp;ie=UTF-8&amp;spd=1&amp;per=0&amp;vol=15&amp;text=" type="audio/mpeg">
+        <embed id="tts_embed_id" height="0" width="0" src="">
+      </audio>
+    </div>
   </el-container>
 </template>
 
@@ -221,8 +229,28 @@ export default {
     }
   },
   methods: {
+    doTTS(name) {
+      var ttsDiv = document.getElementById('bdtts_div_id');
+      var ttsAudio = document.getElementById('tts_autio_id');
+      var ttsText = name;
+
+      // 文字转语音
+      ttsDiv.removeChild(ttsAudio);
+      var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
+      var sss = '<source id="tts_source_id" src="http://tsn.baidu.com/text2audio?lan=zh&ie=UTF-8&per=3&spd=14&vol=15&text=' + ttsText + '" type="audio/mpeg">';
+      var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
+      var au2 = '</audio>';
+      ttsDiv.innerHTML = au1 + sss + eee + au2;
+
+      ttsAudio = document.getElementById('tts_autio_id');
+
+      ttsAudio.play();
+    },
     handlePatientSelect(row) {
-      //将当前的用户设置为被点击的用户
+      // 语音播报
+      this.doTTS("请" + row.name + "到" + "妇产科" + "就诊");
+
+      // 将当前的用户设置为被点击的用户
       this.selectedPatient = Object.assign({}, row);
       //请求当前被点击用户的当前病历信息
       getCaseContent({

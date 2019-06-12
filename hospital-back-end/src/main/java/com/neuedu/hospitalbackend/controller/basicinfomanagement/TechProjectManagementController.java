@@ -23,7 +23,7 @@ public class TechProjectManagementController {
         return techProjectManagementService.listProjectBasicInfoByType(type);
     }
 
-    @ApiOperation("请求项目小项id,name,unit")
+    @ApiOperation("请求项目小项编号、名称、单位")
     @RequestMapping(value = "/items/{projectId}", method = RequestMethod.GET)
     public CommonResult listItemBasicInfoByProject(@PathVariable Integer projectId)
     {
