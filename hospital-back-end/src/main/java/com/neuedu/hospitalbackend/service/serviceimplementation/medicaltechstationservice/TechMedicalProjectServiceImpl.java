@@ -224,9 +224,6 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
         if(resultDescription == null || advice == null)
             return CommonResult.fail(ResultCode.E_805);//缺少必填参数
 
-        //查询患者相关信息
-        Registration registration = (Registration) patientService.getRegistrationInfo(caseId).getData();
-        jsonObject.put("patientInfo", registration);
         //更新项目结果
         int count;
         String projectType = departmentMapper.getClassificationById(departmentId);
