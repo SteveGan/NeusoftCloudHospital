@@ -11,4 +11,11 @@ public interface PatientInfoService {
     CommonResult getPatientInfo(Integer id);
 
     CommonResult listRegistrationsByPatientId(Integer patientId);
+
+    /**
+     *
+     * @param caseId
+     * @return
+     */
+    CommonResult getPatientResultInfo(Integer caseId);
 }

@@ -58,6 +58,10 @@ public interface PreliminaryCaseService {
      */
     CommonResult clearPatientCase(Integer caseId);
 
-
+    /**
+     * 确诊诊断信息
+     * @param caseId
+     */
+    CommonResult listFinalDiagnose(Integer caseId);
 
 }

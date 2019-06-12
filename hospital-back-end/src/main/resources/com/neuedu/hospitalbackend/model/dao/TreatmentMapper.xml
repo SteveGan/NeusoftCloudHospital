@@ -206,6 +206,10 @@
             and t.project_id = p.project_id
     </select>
 
-
+    <select id="getInfo" resultMap="projectInfo">
+        select distinct t.*, p.project_name
+        from treatment t, tech_project p
+        where case_id = #{caseId} and t.project_id = p.project_id
+    </select>
 
 </mapper>
