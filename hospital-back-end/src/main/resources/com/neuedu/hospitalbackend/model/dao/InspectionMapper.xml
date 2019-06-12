@@ -214,6 +214,12 @@
         where id = #{id} and project_id = #{projectId}
     </delete>
 
+    <delete id="deleteByCollectionId">
+        delete
+        from inspection
+        where id = #{collectionId}
+    </delete>
+
 
     <resultMap id="projectInfo" type="HashMap">
         <result column="project_id" property="projectId"/>

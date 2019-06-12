@@ -39,11 +39,11 @@ export default {
   },
 
   // 录入项目结果
-  confirmProject(object){
+  result(object){
     return request({
       url: '/techproject/result',
       method: 'put',
-      params: object
+      data: object
     })
   },
 
@@ -52,7 +52,7 @@ export default {
     return request({
       url: '/techproject/confirmation',
       method: 'put',
-      params: object
+      data: object
     })
   },
 }
