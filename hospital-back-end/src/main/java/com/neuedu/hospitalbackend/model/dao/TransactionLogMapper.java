@@ -47,8 +47,8 @@ public interface TransactionLogMapper {
     List<TransactionLog> listLogsByRegistrationIdAndDate(@Param("registrationId") Integer registrationId, @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
     //根据收费员id、起始日期查询指定收费员的所有发票信息
-    List<TransactionLog> listLogsByCashierIdAndDate(@Param("cashierId") Integer cashierId, @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    List<HashMap> listLogsByCashierIdAndDate(@Param("cashierId") Integer cashierId, @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
     //冻结收费记录
-    int freezeTransactionLogs(String invoiceCode);
+    int updateTransactionLogsByInvoiceCode(String invoiceCode);
 }

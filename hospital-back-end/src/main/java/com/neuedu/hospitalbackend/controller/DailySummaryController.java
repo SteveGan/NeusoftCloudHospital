@@ -21,15 +21,19 @@ public class DailySummaryController {
     @ApiOperation("收费员日结统计")
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
     public CommonResult conductDailyTransactionLogs(DailySummaryParam dailySummaryParam){
-        dailySummaryService.listLogsByCashierIdAndDate(dailySummaryParam);
-        return null;
+        return dailySummaryService.listLogsByCashierIdAndDate(dailySummaryParam);
     }
 
     @ApiOperation("收费员结算报账")
     @RequestMapping(value = "/settlement", method = RequestMethod.GET)
     public CommonResult freezeDailyTransactionLogs(DailySummaryParam dailySummaryParam){
-        dailySummaryService.freezeTransactionLogs(dailySummaryParam);
-        return null;
+        return dailySummaryService.freezeTransactionLogs(dailySummaryParam);
+    }
+
+    @ApiOperation("收费员日结历史查询")
+    @RequestMapping(value = "/history", method = RequestMethod.GET)
+    public CommonResult listHistorySummaryLogs(DailySummaryParam dailySummaryParam){
+        return dailySummaryService.listHistorySummaryLogs(dailySummaryParam);
     }
 
 }

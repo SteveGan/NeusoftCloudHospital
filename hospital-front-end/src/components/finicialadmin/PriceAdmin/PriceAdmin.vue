@@ -48,10 +48,6 @@
             </el-table-column>
             <el-table-column label="科目名称" prop="name">
             </el-table-column>
-            <el-table-column label="科目分类(小类)" prop="classification">
-            </el-table-column>
-            <el-table-column label="科目类别(大类)" prop="type">
-            </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button

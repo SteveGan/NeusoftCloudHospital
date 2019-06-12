@@ -129,7 +129,7 @@
 2019-06-05 17:42:01,587 DEBUG ClassPathMapperScanner:49 - Enabling autowire by type for MapperFactoryBean with name 'constantMapper'.
 2019-06-05 17:42:01,587 DEBUG ClassPathMapperScanner:49 - Creating MapperFactoryBean with name 'costMapper' and 'com.neuedu.hospitalbackend.model.dao.CostMapper' mapperInterface
 2019-06-05 17:42:01,587 DEBUG ClassPathMapperScanner:49 - Enabling autowire by type for MapperFactoryBean with name 'costMapper'.
-2019-06-05 17:42:01,587 DEBUG ClassPathMapperScanner:49 - Creating MapperFactoryBean with name 'dailySummaryMapper' and 'com.neuedu.hospitalbackend.model.dao.DailySummaryMapper' mapperInterface
+2019-06-05 17:42:01,587 DEBUG ClassPathMapperScanner:49 - Creating MapperFactoryBean with name 'dailySummaryMapper' and 'com.neuedu.hospitalbackend.model.dao.DailySummaryLogMapper' mapperInterface
 2019-06-05 17:42:01,587 DEBUG ClassPathMapperScanner:49 - Enabling autowire by type for MapperFactoryBean with name 'dailySummaryMapper'.
 2019-06-05 17:42:01,587 DEBUG ClassPathMapperScanner:49 - Creating MapperFactoryBean with name 'departmentMapper' and 'com.neuedu.hospitalbackend.model.dao.DepartmentMapper' mapperInterface
 2019-06-05 17:42:01,588 DEBUG ClassPathMapperScanner:49 - Enabling autowire by type for MapperFactoryBean with name 'departmentMapper'.
