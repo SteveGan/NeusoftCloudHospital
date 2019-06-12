@@ -145,11 +145,11 @@
 
 
     <select id="listAllProjectsByCaseId" resultType="HashMap">
-      select distinct i.id, n.project_id, n.name, t.status as t_status, i.status as i_status
+      select distinct i.id, n.project_id, n.project_name, t.status as t_status, i.status as i_status
       from inspection i, tech_project n, transaction_log t
       where t.registration_id = #{caseId} and t.collection_id = i.id and i.case_id = t.registration_id
           and t.project_id = i.project_id and n.project_id = i.project_id
-          and i.status = 2 and i.department_id = #{departmentId}
+          and i.department_id = #{departmentId}
           and date_format(t.gmt_create,'%Y-%m-%d') = #{chargeDateStr}
     </select>
 
@@ -172,7 +172,7 @@
       and date_format(gmt_create,'%Y-%m-%d') = #{dateStr}
     </select>
 
-    <update id="recordResult">
+    <update id="updateResult">
         update inspection
         set result_description = #{resultDescription}, result_image = #{resultImage}, advice = #{advice}
         where id = #{collectionId} and project_id = #{projectId}

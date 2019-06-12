@@ -22,8 +22,8 @@ Page({
         idCard: that.data.idCard
       }),
       success: function(res) {
-        console.log(res.data.data);
-        if (res.data.data !== false) {
+        console.log(res.data);
+        if (res.data.data !== null) {
           //清除缓存
           wx.removeStorageSync('userId');
           wx.setStorage({

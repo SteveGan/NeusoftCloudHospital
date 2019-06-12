@@ -1,8 +1,22 @@
 <!--pages/case/case.wxml-->
 <top-bar hasBack="{{true}}"></top-bar>
 <card-title text="病历列表" sub-text="Case List"></card-title>
-<view class='case-list'>
+<view class='case-list animation-slide-bottom' wx:for="{{caseList}}" wx:key="index" style='animation-delay: 0.4s'>
   <view class='case-card bg-white margin shadow-md padding radius-lg'>
-  
+      <view class="main-card-item">
+        <view class='text-lg'>
+          <text class='icon-time'> {{item.appointmentDate}}</text>
+        </view>
+        <navigator url="/pages/card/card" class="margin-top radius">
+          <view class='text-center padding'>
+            <view class="text-xxl">{{item.classification}} - {{item.departmentName}}</view>
+          </view>  
+          <view class='text-left padding'>
+            <view class='text-l'>挂号等级: {{item.registrationLevelId}}</view>
+            <view class='text-l'>付款类型: {{item.payType}}</view>
+          </view>
+        </navigator>
+      </view>  
   </view>
+  
 </view>

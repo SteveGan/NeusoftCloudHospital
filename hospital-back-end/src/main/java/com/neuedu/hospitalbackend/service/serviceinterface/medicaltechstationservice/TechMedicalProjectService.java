@@ -19,12 +19,18 @@ public interface TechMedicalProjectService {
 
     /**
      * 患者查询
-     * 查询指定患者所有的项目及状态
+     * 查询指定患者所有的项目及状态及患者信息
      * @param patientParam: projectType, caseId, patientName
      * @return projectId, projectName, projectCollectionGMTCreate, t.status(是否已缴费), requirement
      */
     CommonResult listAllProjectsByCaseId(PatientParam patientParam);
 
+    /**
+     * 列出患者指定项目下的小项信息
+     * @param projectParam
+     * @return
+     */
+    CommonResult listItemsByCollectionIdAndProjectId(ProjectParam projectParam);
     /**
      * 执行确认（登记项目）
      * 选中相应的患者，选中执行的项目，点击“执行确认”按钮，进行登记操作。

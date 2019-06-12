@@ -107,7 +107,7 @@ public class PaymentServiceImpl implements PaymentService {
             for(int i=0; i < returnedProjectList.size(); i++){
                 returnedProjectIdList.add(returnedProjectList.get(i).getProjectId());
             }
-            // 判断集合的类别（检验、检查、处置、药方）
+            // 判断集合的类别（检查、检验、处置、药方）
             Byte itemCategory = null;
             if(collectionId.toString().startsWith("2")) {
                 itemCategory = 1;

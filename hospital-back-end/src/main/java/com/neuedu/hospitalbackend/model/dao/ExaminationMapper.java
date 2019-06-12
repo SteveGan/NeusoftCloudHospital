@@ -24,7 +24,7 @@ public interface ExaminationMapper {
 
     List<Examination> listCheckedInButNotRecordedProjects(@Param("departmentId") Integer departmentId, @Param("dateStr") String dateStr);
 
-    int recordResult(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
+    int updateResult(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId,
                      @Param("resultDescription")String resultDescription, @Param("resultImage")String resultImage,
                      @Param("advice")String advice);
 

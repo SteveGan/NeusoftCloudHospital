@@ -27,7 +27,7 @@
 
   <view wx:else>
     <view class="bg-white margin shadow-md radius-lg animation-slide-bottom padding">
-      <navigator url="/pages/login_eone/login_eone">
+      <navigator url="/pages/login/login">
         <empty-state title="请绑定账户后继续" description="点击此处绑定" icon="link">
         </empty-state>
       </navigator>

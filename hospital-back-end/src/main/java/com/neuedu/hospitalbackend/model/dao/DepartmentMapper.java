@@ -2,13 +2,11 @@ package com.neuedu.hospitalbackend.model.dao;
 
 import com.github.pagehelper.Page;
 import com.neuedu.hospitalbackend.model.po.Department;
-import io.swagger.models.auth.In;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
 
-@Mapper
+@Component
 public interface DepartmentMapper {
     Department get(Integer id);
 
@@ -22,4 +20,5 @@ public interface DepartmentMapper {
 
     Page<Department> listByPage();
 
+    String getClassificationById(Integer id);
 }

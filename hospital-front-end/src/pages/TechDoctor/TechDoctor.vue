@@ -12,7 +12,7 @@
           <el-date-picker
             align="right"
             type="date"
-            v-model="projectDateStr"
+            v-model="chargeDateStr"
             placeholder="选择日期"
             :picker-options="pickerOptions"
             style="margin-right: 3px;"
@@ -43,11 +43,6 @@
                 prop="patient_name"
                 label="患者姓名">
               </el-table-column>
-              <!-- <el-table-column type="expand" width="30px">
-                <template slot-scope="props">
-                  <p>hahah</p>
-                </template>
-              </el-table-column> -->
             </el-table>
           </div>
         </el-card>
@@ -61,18 +56,19 @@
           <div class="">
             <!-- 表格 -->
             <el-table
-              :data="diagnosedPatients"
-              style="width: 100%">
+              :data="checkedInList"
+              style="width: 100%"
+              highlight-current-row @current-change="handleCheckedInChange">
               <el-table-column
                 prop="caseId"
                 label="病历号">
               </el-table-column>
               <el-table-column
-                prop="patientName"
-                label="患者姓名">
+                prop="id"
+                label="单号">
               </el-table-column>
               <el-table-column
-                prop="patientName"
+                prop="projectId"
                 label="检查项目">
               </el-table-column>
             </el-table>
@@ -81,38 +77,88 @@
       </div>
     </el-aside>
     <el-main>
+
+
       <!-- 当前病人信息 -->
-      <el-card shadow="hover" :body-style="{ padding: '5px'}" class="info-card">
+      <el-card shadow="hover" :body-style="{ padding: '5px'}" class="info-card" v-if="patientCard">
         <div class="current-user">
           <!-- 基本信息 -->
           <div class="basic-info">
-            <!-- 就诊状态 -->
-            <span>就诊状态: 待诊 </span>
             <!-- 病历号 -->
-            <span>病历号: 31231 </span>
+            <span>病历号: {{patientInfo.id}} </span>
             <!-- 姓名 -->
-            <span>姓名: Gangan </span>
+            <span>姓名: {{patientInfo.patient.name}} </span>
             <!-- 性别 -->
-            <span>性别: 男 </span>
+            <span>性别: {{patientInfo.patient.gender}} </span>
             <!-- 年龄 -->
-            <span>年龄: 5 </span>
-            <!-- 结算类别 -->
-            <span>结算类别: 免费 </span>
+            <span>出生日期: {{patientInfo.patient.birthday}} </span>
           </div>
           </div>
         </div>
       </el-card>
+
+      <!-- 当前病人待做项目 -->
+      <el-table
+        :data="itemList"
+        style="width: 100%"
+        v-if="itemTable"
+        >
+        <el-table-column
+          type="index"
+          width="50">
+        </el-table-column>
+        <el-table-column
+          property="id"
+          label="项目id"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          property="project_id"
+          label="项目代码"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          property="project_name"
+          label="项目分类"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          property="project_name"
+          label="项目名称"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          property="i_status"
+          label="项目状态"
+          width="120">
+        </el-table-column>                
+        <el-table-column
+          property="t_status"
+          label="缴费状态">
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="100">
+          <template slot-scope="scope">
+            <el-button @click="handleClick(scope.row)" type="text" size="small" v-if="scope.row.t_status==2&&scope.row.i_status==2">登记</el-button>
+            <el-button @click="handleClick(scope.row)" type="text" disabled size="small" v-if="scope.row.t_status!==2||scope.row.i_status!==2">登记</el-button>
+          </template>
+        </el-table-column>        
+      </el-table>
+
       <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" style="overflow:vible">
+      <el-tabs type="border-card" style="overflow:vible" v-if="resultForm">
         <!-- 结果录入tab-->
         <el-tab-pane label="结果录入">
           <!-- 结果录入模块 -->
           <div class="">
             <!-- 工具栏 -->
             <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px;">
-              <el-button type="text" icon="el-icon-refresh-right" round>清屏</el-button>
-              <el-button type="text" icon="el-icon-folder-checked" round>暂存</el-button>
-              <el-button type="text" icon="el-icon-printer" round>打印</el-button>
+              <el-button type="text" icon="el-icon-refresh-right" round @click="clear">清屏</el-button>
+              <el-button type="text" icon="el-icon-folder-checked" round @click="save">保存</el-button>
+              <el-button type="text" icon="el-icon-folder-checked" round @click="submit">提交</el-button>
+              <el-button type="text" icon="el-icon-printer" round @click="print">打印</el-button>
             </el-card>
             <!-- 录入表格 -->
             <el-card style="margin-bottom: 5px;">
@@ -123,6 +169,7 @@
                     autosize
                     placeholder="请输入检查/检验所见"
                     :autosize="{ minRows: 4, maxRows: 100}"
+                    v-model="watching"
                     >
                   </el-input>
                 </el-form-item>
@@ -132,6 +179,7 @@
                     autosize
                     placeholder="请输入诊断意见"
                     :autosize="{ minRows: 4, maxRows: 100}"
+                    v-model="suggestion"
                     >
                   </el-input>
                 </el-form-item>
@@ -195,31 +243,138 @@ export default {
         ]
       },
 
-      projectDateStr: "",
+      chargeDateStr: "",
+      // 当前操作员
       currentRoleId: "",
       inputCaseId: "",
 
       waitingList: [],
       currentCase: {},
+      itemList: [],
+      checkedInList: [],
 
       zhusu: '',
-      form: {}
+      form: {},
+      patientInfo: {},
+
+      //隐藏
+      itemTable: false,
+      patientCard: false,
+      resultForm: false,
+
+      //表格内容
+      watching: "",
+      suggestion: "",
+      imageurl: "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg"
     }
   },
 
   methods: {
-    handleCurrentChange(val){
-      this.currentCase = val;
+    // 保存
+    save() {
+      var object = {};
+      object.watching = this.watching;
+      object.suggestion = this.suggestion;
+      object.imageurl = this.imageurl;
+      techDoctor.result(object).then(response => {
+        const data = response.data.data
+
+        console.log(data);
+
+        if(response.data.code===200){
+          this.refreshItemList();
+          this.success("保存");
+        } else {
+          this.fail("保存");
+        }
+      })
     },
 
+    // 显示本科室已登记项目列表
+    listCheckedInButNotRecordedProject(){
+      var object = {};
+      object.departmentId = 125;
+      object.chargeDateStr = this.chargeDateStr;
+      techDoctor.listCheckedInButNotRecordedProject(object).then(response => {
+        const data = response.data.data
+
+        this.checkedInList = data;
+        console.log(data);
+      })
+    },
+
+    // 登记button
+    handleClick(row){
+      var project = {};
+      project.departmentId = "125",
+      project.collectionId = row.id;
+      project.projectId = row.project_id;
+      project.doctorRoleId = this.currentRoleId;
+      project.transactionLogStatus = row.t_status;
+      project.projectStatus = row.i_status;
+      console.log(project);
+
+      techDoctor.checkInProject(project).then(response => {
+        const data = response.data.data
+        console.log(data);
+
+
+        if(response.data.code===200){
+          this.refreshItemList();
+          this.success("登记");
+        } else {
+          this.fail("登记");
+        }
+      })
+    },
+
+    // 刷新待做项目列表
+    refreshItemList(){
+      this.handleCurrentChange(this.currentCase);
+      this.listCheckedInButNotRecordedProject();
+    },
+
+    // 选中已登记
+    handleCheckedInChange(val){
+      this.itemTable = false;
+      this.patientCard = false;
+
+      this.resultForm = true;
+    },
+
+    // 选中患者展示待做项目列表
+    handleCurrentChange(val){
+      this.currentCase = val;
+      console.log(val);
+      techDoctor.listAllProjectsByCaseId(this.chargeDateStr, val.registration_id, 125).then(response => {
+          const data = response.data.data
+          console.log(data);
+          this.itemList = data.projects;
+          this.patientInfo = data.patientInfo;
+
+          this.itemTable = true;
+          this.patientCard = true;
+
+          this.resultForm = false;
+
+          if(response.data.code===200){
+          this.success("查询");
+        } else {
+          this.fail("查询");
+        }
+      })
+    },
+
+    // 根据条件搜索患者
     listPatientByCaseIdOrName(){
-      techDoctor.listPatientByCaseIdOrName(this.projectDateStr, this.inputCaseId, 125).then(response => {
+      techDoctor.listPatientByCaseIdOrName(this.chargeDateStr, this.inputCaseId, 125).then(response => {
           const data = response.data.data
           console.log(data);
           this.waitingList = data;
 
           if(response.data.code===200){
           this.success("查询");
+          this.listCheckedInButNotRecordedProject();
         } else {
           this.fail("查询");
         }
@@ -242,6 +397,19 @@ export default {
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
     },
+
+    // 成功提示
+    success(msg) {
+      this.$message({
+        message: msg+'成功',
+        type: 'success'
+      });
+    },
+      
+    // 失败提示
+    fail(msg) {
+      this.$message.error(msg+'失败');
+    },    
   },
 
   mounted(){
@@ -249,7 +417,7 @@ export default {
     const currentRoleId = this.$store.getters['user/currentRoleId'];
     this.currentRoleId = currentRoleId;    
     // 时间选择框默认显示今天日期
-    this.projectDateStr=this.getNowFormatDate();
+    this.chargeDateStr=this.getNowFormatDate();
 
     // 读取常量表
     // this.readConstants();
