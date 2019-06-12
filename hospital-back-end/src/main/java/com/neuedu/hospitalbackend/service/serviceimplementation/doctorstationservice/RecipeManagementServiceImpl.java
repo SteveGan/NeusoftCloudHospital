@@ -47,7 +47,8 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //处方类型：0该患者无处方，1中草药处方，2其他处方（成药）
         if(recipeLogs.size() == 0) {
             returnJson.put("type", 0);
-            returnJson.put("recipes", null);
+            returnJson.put("recipes", new JSONArray());
+
             return CommonResult.success(returnJson);
         }
         if((Integer)recipeLogs.get(0).get("medicineType") == 1)
@@ -210,12 +211,12 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
      * 创建缴费清单
      */
     public CommonResult insertTransactionLog(RecipeCollectionParam collectionParam, RecipeParam recipeParam){
-        String newInvoiceCode;//获取可用发票号
-        synchronized (this) {
-            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
-            CommonResult result = invoiceService.getNextInvoiceCode();
-            newInvoiceCode = (String) result.getData();
-        }
+//        String newInvoiceCode;//获取可用发票号
+//        synchronized (this) {
+//            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+//            CommonResult result = invoiceService.getNextInvoiceCode();
+//            newInvoiceCode = (String) result.getData();
+//        }
         Integer registrationId = collectionParam.getCaseId();
         Integer patientId = patientCaseMapper.getPatientIdByCaseId(registrationId);
         if(patientId == null)
@@ -232,7 +233,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 
         //创建transactionLog对象
         TransactionLog transactionLog = new TransactionLog();
-        transactionLog.setInvoiceCode(newInvoiceCode);
+//        transactionLog.setInvoiceCode(newInvoiceCode);
         transactionLog.setRegistrationId(registrationId);
         transactionLog.setPatientId(patientId);
         transactionLog.setRoleId(roleId);
@@ -248,10 +249,4 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //增加缴费清单
         return transactionService.insertTransactionLog(transactionLog);
     }
-
-
-
-
-
-
 }

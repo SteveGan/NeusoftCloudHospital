@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 public class RecipeParam {
+    private String medicineCode;
+
+    private Byte type; //1.中草药 2.西药
+
+    private String dosageUnit;
 
     private Integer id;
 
@@ -89,6 +94,30 @@ public class RecipeParam {
 
     public Short getRemainAmount() {
         return remainAmount;
+    }
+
+    public String getMedicineCode() {
+        return medicineCode;
+    }
+
+    public void setMedicineCode(String medicineCode) {
+        this.medicineCode = medicineCode;
+    }
+
+    public Byte getType() {
+        return type;
+    }
+
+    public void setType(Byte type) {
+        this.type = type;
+    }
+
+    public String getDosageUnit() {
+        return dosageUnit;
+    }
+
+    public void setDosageUnit(String dosageUnit) {
+        this.dosageUnit = dosageUnit;
     }
 
     public void setRemainAmount(Short remainAmount) {
