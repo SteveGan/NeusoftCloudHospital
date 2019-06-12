@@ -1,5 +1,11 @@
-import {login} from '@/api/login'
-import {getToken, setToken, removeToken} from '@/utils/auth'
+import {
+  login
+} from '@/api/login'
+import {
+  getToken,
+  setToken,
+  removeToken
+} from '@/utils/auth'
 
 const state = {
   token: getToken(),
@@ -7,26 +13,46 @@ const state = {
   id: '',
   avatar: '',
   roles: [],
-  currentRole: {
-    id:"3"
-  }
+  currentRole: {}
 }
 
 const getters = {
-  currentRoleId : state => {
+  currentRoleId: state => {
     return state.currentRole.id
+  },
+  currentDepartmentId: state => {
+    return state.currentRole.deparmentId;
+  },
+  currentRoleDescription: state => {
+    if (Object.keys(state.currentRole).length === 0) {
+      return "请选择您的职位"
+    } else {
+      var description = "部门：" + state.currentRole.departmentName + "  职位：" + state.currentRole.positionName
+      if (state.currentRole.titleName != null) {
+        description = description + "  职称：" + state.currentRole.titleName
+      }
+      return description
+    }
+  },
+  roles: state => {
+    return state.roles;
   }
 }
 
 const actions = {
 
   //登录
-  Login ({commit}, {userId, password}) {
+  Login({
+    commit
+  }, {
+    userId,
+    password
+  }) {
     return new Promise((resolve, reject) => {
       login(userId, password).then(response => {
-        console.log(response)
         const data = response.data.data
-        if (response.data.code === 200){
+        console.log(data)
+        if (response.data.code === 200) {
           const tokenStr = data.web_token
           setToken(tokenStr)
           // 存储该用户相关信息
@@ -48,10 +74,14 @@ const actions = {
   },
 
   //前端登出
-  FedLogOut({commit}){
+  FedLogOut({
+    commit
+  }) {
     return new Promise(resolve => {
       //将store中的token设为空
-      commit('SET_TOKEN', {token: ''})
+      commit('SET_TOKEN', {
+        token: ''
+      })
       removeToken()
       resolve()
     })
@@ -74,8 +104,8 @@ const mutations = {
   setRoles: (state, roles) => {
     state.roles = roles
   },
-  setCurrentRole : (state, role) => {
-    state.role = role
+  setCurrentRole: (state, role) => {
+    state.currentRole = Object.assign({}, role)
   }
 }
 

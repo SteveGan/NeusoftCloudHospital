@@ -285,7 +285,7 @@ export default {
       var object = {};
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
-      object.departmentId = 125;
+      object.departmentId = 129;
       object.caseId = this.currentProject.caseId;
       techDoctor.confirmProject(object).then(response => {
         const data = response.data.data
@@ -310,7 +310,7 @@ export default {
       object.resultImage = this.resultImage;
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
-      object.departmentId = 125;
+      object.departmentId = 129;
       object.caseId = this.currentProject.caseId;
       techDoctor.result(object).then(response => {
         const data = response.data.data
@@ -328,7 +328,7 @@ export default {
     // 显示本科室已登记项目列表
     listCheckedInButNotRecordedProject(){
       var object = {};
-      object.departmentId = 125;
+      object.departmentId = 129;
       object.chargeDateStr = this.chargeDateStr;
       techDoctor.listCheckedInButNotRecordedProject(object).then(response => {
         const data = response.data.data
@@ -341,7 +341,7 @@ export default {
     // 登记button
     handleClick(row){
       var project = {};
-      project.departmentId = "125",
+      project.departmentId = "129",
       project.collectionId = row.id;
       project.projectId = row.project_id;
       project.doctorRoleId = this.currentRoleId;
@@ -384,7 +384,7 @@ export default {
     handleCurrentChange(val){
       this.currentCase = val;
       console.log(val);
-      techDoctor.listAllProjectsByCaseId(this.chargeDateStr, val.registration_id, 125).then(response => {
+      techDoctor.listAllProjectsByCaseId(this.chargeDateStr, val.registration_id, 129).then(response => {
           const data = response.data.data
           console.log(data);
           this.itemList = data.projects;
@@ -405,7 +405,7 @@ export default {
 
     // 根据条件搜索患者
     listPatientByCaseIdOrName(){
-      techDoctor.listPatientByCaseIdOrName(this.chargeDateStr, this.inputCaseId, 125).then(response => {
+      techDoctor.listPatientByCaseIdOrName(this.chargeDateStr, this.inputCaseId, 129).then(response => {
           const data = response.data.data
           console.log(data);
           this.waitingList = data;

@@ -6,6 +6,9 @@ Page {
   padding-bottom: 92rpx;
   position: relative;
 }
+.header{
+  margin: 20rpx;
+}
 
 button{
   background-color: #fff;
