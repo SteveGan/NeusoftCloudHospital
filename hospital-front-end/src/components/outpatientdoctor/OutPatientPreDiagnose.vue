@@ -369,7 +369,7 @@ export default {
       this.$emit("saveCase", this.ableEditTraDiagnose);
     },
     handleSubmit() {
-      this.$emit("submitCase");
+      this.$emit("submitCase", this.ableEditTraDiagnose);
     },
     handleClear() {
       this.$emit("clearCase");
