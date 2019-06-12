@@ -11,5 +11,21 @@ public interface RecipeTemplateManagementService {
      */
     CommonResult insertRecipeTemplate(RecipeTemplateParam recipeTemplateParam);
 
+    /**
+     * 删除处方模板
+     */
+    CommonResult deleteRecipeTemplate(Integer roleId, String recipeName);
+
+    /**
+     * 查询处方模板
+     * @param roleId
+     */
+    CommonResult listRecipeTemplate(Integer roleId, Integer type);
+
+    /**
+     * 修改处方模板
+     * @param recipeTemplateParam
+     */
+    CommonResult modifyRecipeTemplate(RecipeTemplateParam recipeTemplateParam);
 
 }

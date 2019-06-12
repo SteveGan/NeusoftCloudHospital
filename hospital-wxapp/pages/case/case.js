@@ -3,7 +3,20 @@ Page({
 
   data: {
     userId: "",
-    caseList: []
+    caseList: [],
+
+
+    registrationLevelCast: {
+      1: "普通号",
+      2: "专家号",
+      3: "急诊号"
+    },
+
+    payTypeCast: {
+      1: "自费",
+      2: "医保",
+      3: "新农合"
+    }
   },
 
   onLoad: function (options) {
@@ -23,6 +36,10 @@ Page({
       dataType: 'json',
       success: function (res) {
         console.log(res);
+        for(var i=0; i<res.data.data.length; i++){
+          res.data.data[i].registrationLevelName = that.data.registrationLevelCast[res.data.data[i].registrationLevelId]
+          res.data.data[i].payTypeName = that.data.payTypeCast[res.data.data[i].payType]
+        }
         that.setData({
           caseList: res.data.data
         })

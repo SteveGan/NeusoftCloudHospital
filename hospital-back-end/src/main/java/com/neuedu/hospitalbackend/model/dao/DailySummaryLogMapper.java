@@ -26,4 +26,7 @@ public interface DailySummaryLogMapper {
     //查询收银员第一次日结时间
     String getFirstSummaryDate(Integer cashierId);
 
+    DailySummaryLog getSummaryLog(@Param("cashierId") Integer cashierId, @Param("beginDateStr") String beginDateStr,
+                                  @Param("endDateStr") String endDateStr);
+
 }

@@ -129,7 +129,7 @@
     <select id="listPreparedPatientsByCaseIdOrDateOrName" resultType="HashMap">
         select distinct c.registration_id, c.patient_name
         from patient_case c, examination e, transaction_log t
-        where id = t.collection_id and e.project_id = t.project_id
+        where e.id = t.collection_id and e.project_id = t.project_id
         and e.case_id = c.registration_id
         and e.status = 2 and e.department_id = #{departmentId}
         <if test = "caseId != null">

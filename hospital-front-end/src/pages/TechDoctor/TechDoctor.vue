@@ -34,7 +34,8 @@
             <el-table
               :data="waitingList"
               style="width: 100%"
-              highlight-current-row @current-change="handleCurrentChange">
+              highlight-current-row @current-change="handleCurrentChange"
+              v-loading="loading1">
               <el-table-column
                 prop="registration_id"
                 label="病历号">
@@ -58,7 +59,8 @@
             <el-table
               :data="checkedInList"
               style="width: 100%"
-              highlight-current-row @current-change="handleCheckedInChange">
+              highlight-current-row @current-change="handleCheckedInChange"
+              v-loading="loading1">
               <el-table-column
                 prop="caseId"
                 label="病历号">
@@ -98,7 +100,7 @@
       </el-card>
 
       <!-- 当前病人待做项目 -->
-      <el-table
+      <el-table v-loading="loading2"
         :data="itemList"
         style="width: 100%"
         v-if="itemTable"
@@ -267,7 +269,10 @@ export default {
       //表格内容
       resultDescription: "",
       advice: "",
-      resultImage: "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg"
+      resultImage: "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg",
+
+      loading1: false,
+      loading2: false
     }
   },
 
@@ -340,6 +345,7 @@ export default {
 
     // 登记button
     handleClick(row){
+      this.loading2 = true;
       var project = {};
       project.departmentId = "129",
       project.collectionId = row.id;
@@ -353,13 +359,14 @@ export default {
         const data = response.data.data
         console.log(data);
 
-
         if(response.data.code===200){
           this.refreshItemList();
           this.success("登记");
         } else {
           this.fail("登记");
         }
+      }).finally(response => {
+          this.loading2 = false;
       })
     },
 
@@ -405,6 +412,7 @@ export default {
 
     // 根据条件搜索患者
     listPatientByCaseIdOrName(){
+      this.loading1 = true;
       techDoctor.listPatientByCaseIdOrName(this.chargeDateStr, this.inputCaseId, 129).then(response => {
           const data = response.data.data
           console.log(data);
@@ -416,6 +424,8 @@ export default {
         } else {
           this.fail("查询");
         }
+      }).finally(response => {
+          this.loading1 = false;
       })
     },
 

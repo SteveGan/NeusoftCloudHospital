@@ -25,7 +25,7 @@
                 <span style="float: right; margin-right:10px;">合计：￥</span>
             </div>
             
-            <el-table :data="this.invoiceList" style="width: 100%">
+            <el-table :data="this.invoiceList" style="width: 100%" v-loading="loading">
                 <el-table-column label="发票号" prop="invoiceCode">
                 </el-table-column>
                 <el-table-column label="病历号" prop="registrationId">
@@ -73,13 +73,16 @@ export default {
 
             // 查询结果
             invoiceList: [],
-            sumMoney: 0
+            sumMoney: 0,
+
+            loading: false
         }
     },
 
     methods: {
         // 结算报账
         submit() {
+            this.loading = true;
             var object = {};
             object.invoiceCollection = this.invoiceList;
             object.beginDateStr = this.startDate;
@@ -99,6 +102,8 @@ export default {
                 } else {
                     this.fail("结算");
                 }
+            }).finally(response => {
+                this.loading = false;
             })
         },
 
@@ -128,6 +133,8 @@ export default {
                 } else {
                     this.fail("查询");
                 }
+            }).finally(response => {
+                this.loading = false;
             })
         },
 

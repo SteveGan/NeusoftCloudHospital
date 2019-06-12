@@ -62,5 +62,27 @@ public class TemplateManagementController {
         return recipeTemplateManagementService.insertRecipeTemplate(recipeTemplateParam);
     }
 
+    @ApiOperation("删除处方模板")
+    @RequestMapping(value = "/recipetemplate/deletion/{roleId}/{recipeName}", method = RequestMethod.DELETE)
+    public CommonResult deleteRecipeTemplate(@PathVariable(value = "roleId") Integer roleId,
+                                             @PathVariable(value = "recipeName") String recipeName)
+    {
+        return recipeTemplateManagementService.deleteRecipeTemplate(roleId, recipeName);
+    }
+
+    @ApiOperation("查询处方模板")
+    @RequestMapping(value = "/recipetemplate/list/{roleId}/{type}", method = RequestMethod.GET)
+    public CommonResult listRecipeTemplate(@PathVariable(value = "roleId") Integer roleId, @PathVariable(value = "type") Integer type)
+    {
+        return recipeTemplateManagementService.listRecipeTemplate(roleId, type);
+    }
+
+    @ApiOperation("修改处方模板")
+    @RequestMapping(value = "/recipetemplate/modification", method = RequestMethod.PUT)
+    public CommonResult modifyRecipeTemplate(@RequestBody RecipeTemplateParam recipeTemplateParam)
+    {
+        return recipeTemplateManagementService.modifyRecipeTemplate(recipeTemplateParam);
+    }
+
 
 }

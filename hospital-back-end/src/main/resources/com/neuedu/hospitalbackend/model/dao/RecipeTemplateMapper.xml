@@ -16,6 +16,21 @@
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <resultMap id="RecipeTemplateInfo" type="HashMap" >
+    <result column="r_name" property="recipeName" jdbcType="VARCHAR" />
+    <result column="m_name" property="medicineName" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="scope" property="scope" jdbcType="TINYINT" />
+    <result column="medicine_code" property="medicineCode" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="dosage" property="dosage" jdbcType="DECIMAL" />
+    <result column="dosage_unit" property="dosageUnit" jdbcType="VARCHAR" />
+    <result column="frequency" property="frequency" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="SMALLINT" />
+  </resultMap>
+
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.RecipeTemplate" >
     insert into recipe_template (name, role_id,
       department_id, scope, medicine_code, 
@@ -120,6 +135,18 @@
     where role_id = #{roleId} and name = #{name}
   </select>
 
+  <select id="listAvailableByType" resultMap="RecipeTemplateInfo">
+    select distinct r.role_id, r.name as r_name, r.scope, r.department_id, r.scope, r.medicine_code, m.name as m_name, r.type,
+            r.dosage, r.dosage_unit, r.frequency, r.amount
+    from recipe_template r, medicine m
+    where (role_id = #{roleId} or (scope = 2 and department_id = #{departmentId}) or scope = 3)
+          and r.medicine_code = m.code and r.type = #{type}
+  </select>
 
+  <delete id="deleteByRIdAndName">
+    delete
+    from recipe_template
+    where role_id = #{roleId} and name = #{recipeName}
+  </delete>
 
 </mapper>

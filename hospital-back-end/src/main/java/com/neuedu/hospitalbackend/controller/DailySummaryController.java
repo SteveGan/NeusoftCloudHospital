@@ -34,6 +34,12 @@ public class DailySummaryController {
         return dailySummaryService.freezeTransactionLogs(dailySummaryParam);
     }
 
+    @ApiOperation("查询收费员第一次日结的时间")
+    @RequestMapping(value = "/firstsummarydate", method = RequestMethod.GET)
+    public CommonResult getFirstSummaryDate(Integer cashierId){
+        return dailySummaryService.getFirstSummaryDate(cashierId);
+    }
+
     @ApiOperation("收费员日结历史查询")
     @RequestMapping(value = "/history", method = RequestMethod.GET)
     public CommonResult listHistorySummaryLogs(DailySummaryParam dailySummaryParam){
@@ -46,9 +52,4 @@ public class DailySummaryController {
         return dailySummaryService.listInvoiceInfoByCashierIdAndDate(dailySummaryParam);
     }
 
-    @ApiOperation("查询收费员第一次日结的时间")
-    @RequestMapping(value = "/firstsummarydate", method = RequestMethod.GET)
-    public CommonResult getFirstSummaryDate(Integer cashierId){
-        return dailySummaryService.getFirstSummaryDate(cashierId);
-    }
 }

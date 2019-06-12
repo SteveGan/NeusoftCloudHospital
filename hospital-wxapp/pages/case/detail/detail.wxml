@@ -1,2 +1,12 @@
 <!--pages/case/detail/detail.wxml-->
-<text>pages/case/detail/detail.wxml</text>
+<top-bar hasBack="{{true}}"></top-bar>
+{{registrationId}}
+<card-title text="基础信息" sub-text="Basic Info"></card-title>
+
+<card-title text="检查结果" sub-text="Inspection"></card-title>
+
+<card-title text="检验结果" sub-text="Examination"></card-title>
+
+<card-title text="处方信息" sub-text="Recipe"></card-title>
+
+<card-title text="处置信息" sub-text="Treatment"></card-title>

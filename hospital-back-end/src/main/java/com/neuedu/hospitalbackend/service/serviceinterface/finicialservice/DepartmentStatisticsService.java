@@ -1,6 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.finicialservice;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
  * 6.3 门诊科室工作量统计
@@ -13,15 +14,13 @@ public interface DepartmentStatisticsService {
 
     /**
      * 6.3.1 临床科室工作量统计
-     * @param object
      * @return
      */
-    JSONObject clinicianDepartmentStatistics(JSONObject object);
+    CommonResult clinicianDepartmentStatistics(String beginDateStr, String endDateStr);
 
     /**
      * 6.3.2 医技科室工作量统计
-     * @param object
      * @return
      */
-    JSONObject technicianDepartmentStatistics(JSONObject object);
+    CommonResult technicianDepartmentStatistics(String beginDateStr, String endDateStr);
 }
