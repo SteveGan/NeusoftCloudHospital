@@ -59,11 +59,10 @@ public class PaymentController {
         return paymentService.reprintTransactionLog(invoiceCode, newCashierId);
     }
 
-    @ApiOperation("输入患者病历号（必输）、开始时间和结束时间选填。查询该患者的所有收费项目列表")
+    @ApiOperation("患者费用查询")
     @RequestMapping(value = "/transactionLogs/{id}", method = RequestMethod.GET)
     public CommonResult reprintTransactionLog(@PathVariable(value = "id")Integer registrationId, String beginDateStr, String endDateStr){
         return paymentService.listLogsByRegistrationIdAndDate(registrationId, beginDateStr, endDateStr);
     }
-
 
 }

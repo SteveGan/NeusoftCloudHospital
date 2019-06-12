@@ -313,10 +313,4 @@ public class PaymentServiceImpl implements PaymentService {
         }
         return CommonResult.success(invoiceMap);
     }
-
-    @Override
-    public CommonResult listLogsByCashierIdAndDate(Integer cashierId, String beginDateStr, String endDateStr){
-        return null;
-    }
-
 }

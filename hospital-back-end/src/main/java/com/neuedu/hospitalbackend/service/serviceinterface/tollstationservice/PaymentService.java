@@ -48,13 +48,4 @@ public interface PaymentService {
      * @return
      */
     CommonResult listLogsByRegistrationIdAndDate(Integer registrationId, String beginDateStr, String endDateStr);
-
-    /**
-     * 门诊日结
-     * @param cashierId
-     * @param beginDateStr
-     * @param endDateStr
-     * @return
-     */
-    CommonResult listLogsByCashierIdAndDate(Integer cashierId, String beginDateStr, String endDateStr);
 }
