@@ -47,7 +47,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //处方类型：0该患者无处方，1中草药处方，2其他处方（成药）
         if(recipeLogs.size() == 0) {
             returnJson.put("type", 0);
-            returnJson.put("recipes", null);
+            returnJson.put("recipes", new JSONArray());
             return CommonResult.success(returnJson);
         }
         if((Integer)recipeLogs.get(0).get("medicineType") == 1)
@@ -108,7 +108,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //设定申请清单id
         Integer recipeId = recipeMapper.getLatestId();
         if (recipeId == null)
-            return CommonResult.fail(ResultCode.E_800);
+            recipeId = 50000000;
         recipeId = recipeId + 1;
         //插入数据库
         Recipe recipe = new Recipe();
