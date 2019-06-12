@@ -18,13 +18,14 @@
     <result column="assist_diagnose" property="assistDiagnose" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="patientCaseInfo" type="HashMap" >
-  <result column="narrate" property="narrate" jdbcType="VARCHAR" />
-  <result column="cur_disease" property="curDisease" jdbcType="VARCHAR" />
-  <result column="cur_treat_condition" property="curTreatCondition" jdbcType="VARCHAR" />
-  <result column="past_disease" property="pastDisease" jdbcType="VARCHAR" />
-  <result column="allergy" property="allergy" jdbcType="VARCHAR" />
-  <result column="physical_condition" property="physicalCondition" jdbcType="VARCHAR" />
-  <result column="assist_diagnose" property="assistDiagnose" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="narrate" property="narrate" jdbcType="VARCHAR" />
+    <result column="cur_disease" property="curDisease" jdbcType="VARCHAR" />
+    <result column="cur_treat_condition" property="curTreatCondition" jdbcType="VARCHAR" />
+    <result column="past_disease" property="pastDisease" jdbcType="VARCHAR" />
+    <result column="allergy" property="allergy" jdbcType="VARCHAR" />
+    <result column="physical_condition" property="physicalCondition" jdbcType="VARCHAR" />
+    <result column="assist_diagnose" property="assistDiagnose" jdbcType="VARCHAR" />
 </resultMap>
   
 
@@ -192,4 +193,11 @@
     from patient_case
     where registration_id = #{caseId}
   </select>
+
+  <update id="updatePatientCaseStatus">
+    update patient_case
+    set status = #{status}
+    where registration_id = #{caseId}
+  </update>
+
 </mapper>

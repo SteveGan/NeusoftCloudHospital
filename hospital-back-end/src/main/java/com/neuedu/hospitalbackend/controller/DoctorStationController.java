@@ -41,6 +41,14 @@ public class DoctorStationController {
         return preliminaryCaseService.getPatientCaseInfo(doctorRoleId, caseId);
     }
 
+
+    @ApiOperation("确诊诊断")
+    @RequestMapping(value = "/finalDiagnose", method = RequestMethod.PUT)
+    public CommonResult finalDiagnose(@RequestBody PatientCaseParam patientCaseParam)
+    {
+        return preliminaryCaseService.finalDiagnose(patientCaseParam);
+    }
+
     @ApiOperation("暂存病历")
     @RequestMapping(value = "/preservation", method = RequestMethod.PUT)
     public CommonResult savePresentPatientCase(@RequestBody PatientCaseParam patientCaseParam)
@@ -129,7 +137,6 @@ public class DoctorStationController {
     {
         return projectCollectionManagementService.cancelSubmittedCollection(collectionId, type);
     }
-
 
 
 

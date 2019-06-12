@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.DiagnoseMapper;
 import com.neuedu.hospitalbackend.model.dao.PatientCaseMapper;
 import com.neuedu.hospitalbackend.model.po.Diagnose;
+import com.neuedu.hospitalbackend.model.po.PatientCase;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseParam;
 import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
@@ -67,16 +68,21 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         JSONObject returnJson = new JSONObject();
         JSONArray traditionalDiagnose = new JSONArray();
         JSONArray modernDiagnose = new JSONArray();
+        JSONArray finalTraditionalDiagnose = new JSONArray();
+        JSONArray finalModernDiagnose = new JSONArray();
+
         //参数检验
         if(caseId == null)
             return CommonResult.fail(ResultCode.E_801);//病历号参数异常
         if(doctorRoleId == null)
             return CommonResult.fail(ResultCode.E_801);//医生角色参数异常
+
         //病历信息
         HashMap patientCase = patientCaseMapper.getPatientCaseInfo(caseId);
         if(patientCase == null)
             return CommonResult.fail(ResultCode.E_800);//参数异常
         returnJson.put("caseId", caseId);
+        returnJson.put("status",  patientCase.get("status"));
         returnJson.put("narrate",  patientCase.get("narrate"));
         returnJson.put("curTreatCondition", patientCase.get("curTreatCondition"));
         returnJson.put("assistDiagnose",  patientCase.get("assistDiagnose"));
@@ -84,28 +90,79 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         returnJson.put("allergy",  patientCase.get("allergy"));
         returnJson.put("pastDisease",  patientCase.get("pastDisease"));
         returnJson.put("physicalCondition",  patientCase.get("physicalCondition"));
+
         //诊断信息
         List<HashMap> diagnoses = diagnoseMapper.listDiagnosesDetailByCaseId(caseId);
         if(diagnoses.size() != 0) {
             //诊断类型
-            String type = String.valueOf(diagnoses.get(0).get("type"));
-            if (type.equals("中医疾病")) {
-                //中医诊断疾病
-                returnJson.put("diagnoseType", 0);
-                for(HashMap diagnose: diagnoses)
-                    traditionalDiagnose.add(diagnose);
-            }
-            else {
-                //西医诊断疾病
-                returnJson.put("diagnoseType", 1);
-                for(HashMap diagnose: diagnoses)
-                    modernDiagnose.add(diagnose);
+            Integer type;
+            if (String.valueOf(diagnoses.get(0).get("type")).equals("中医疾病"))
+                type = 0;// 中医诊断疾病
+            else
+                type = 1;// 西医诊断疾病
+            returnJson.put("diagnoseType", type);
+
+            for(HashMap diagnose: diagnoses) {
+                Boolean isFirstDiagnosed = (Boolean)diagnose.get("isFirstDiagnosed");
+                if (type == 0) {//中医
+                    if (isFirstDiagnosed == true)
+                        traditionalDiagnose.add(diagnose);//中医初诊
+                    else
+                        finalTraditionalDiagnose.add(diagnose);//中医确诊
+                }
+                else{ //西医
+                    if (isFirstDiagnosed == true)
+                        modernDiagnose.add(diagnose);//西医初诊
+                    else
+                        finalModernDiagnose.add(diagnose);//西医确诊
+                }
             }
         }
         returnJson.put("traditionalDiagnose", traditionalDiagnose);
         returnJson.put("modernDiagnose", modernDiagnose);
+        returnJson.put("finalTraditionalDiagnose", finalTraditionalDiagnose);
+        returnJson.put("finalModernDiagnose", finalModernDiagnose);
         return CommonResult.success(returnJson);
     }
+
+    /**
+     * 确诊诊断
+     * @param patientCaseParam
+     */
+    public CommonResult finalDiagnose(PatientCaseParam patientCaseParam){
+        int count;
+        Integer caseId = patientCaseParam.getCaseId();
+        //删除已有诊断
+        diagnoseMapper.deleteFinalDiagnose(caseId);
+        //新增确诊诊断
+        Integer diagnoseType = patientCaseParam.getDiagnoseType();
+        List<DiagnoseParam> diagnoseParams;
+        if(diagnoseType == 0)
+            diagnoseParams = patientCaseParam.getFinalTraditionalDiagnose();
+        else if (diagnoseType == 1)
+            diagnoseParams = patientCaseParam.getFinalModernDiagnose();
+        else
+            return CommonResult.fail(ResultCode.E_800);
+        for(DiagnoseParam diagnoseParam : diagnoseParams) {
+            Diagnose diagnose = new Diagnose();
+            diagnose.setCaseId(caseId);
+            diagnose.setIsFirstDiagnosed(false);
+            diagnose.setDiseaseId(diagnoseParam.getIcdCode());
+            diagnose.setStartTime(Date.valueOf(diagnoseParam.getStartTime()));
+            diagnose.setDiseaseId(diagnose.getDiseaseId());
+            count = diagnoseMapper.insertSelective(diagnose);
+            if (count <= 0)
+                return CommonResult.fail(ResultCode.E_802);
+        }
+        //病历状态更新为确诊
+        Integer status = patientCaseParam.getStatus();
+        count = patientCaseMapper.updatePatientCaseStatus(caseId, status);//确诊
+        if (count <= 0)
+            return CommonResult.fail(ResultCode.E_802);
+
+        return CommonResult.success(count);
+    }
+
 
     /**
      * 暂存
