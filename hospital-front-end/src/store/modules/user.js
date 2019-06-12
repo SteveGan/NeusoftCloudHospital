@@ -19,6 +19,9 @@ const state = {
 const getters = {
   currentRoleId: state => {
     return state.currentRole.id
+  },
+  currentDepartmentId: state => {
+    return state.currentRole.deparmentId;
   }
 }
 
