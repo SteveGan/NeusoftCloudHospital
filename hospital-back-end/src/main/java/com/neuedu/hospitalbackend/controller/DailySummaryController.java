@@ -5,10 +5,7 @@ import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.Da
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/dailysummary")
@@ -32,8 +29,8 @@ public class DailySummaryController {
     }
 
     @ApiOperation("收费员结算报账")
-    @RequestMapping(value = "/settlement", method = RequestMethod.GET)
-    public CommonResult freezeDailyTransactionLogs(DailySummaryParam dailySummaryParam){
+    @RequestMapping(value = "/settlement", method = RequestMethod.PUT)
+    public CommonResult freezeDailyTransactionLogs(@RequestBody DailySummaryParam dailySummaryParam){
         return dailySummaryService.freezeTransactionLogs(dailySummaryParam);
     }
 
