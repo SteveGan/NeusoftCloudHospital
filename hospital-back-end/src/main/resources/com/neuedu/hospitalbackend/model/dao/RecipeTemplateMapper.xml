@@ -143,4 +143,10 @@
           and r.medicine_code = m.code and r.type = #{type}
   </select>
 
+  <delete id="deleteByRIdAndName">
+    delete
+    from recipe_template
+    where role_id = #{roleId} and name = #{recipeName}
+  </delete>
+
 </mapper>

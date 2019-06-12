@@ -77,5 +77,12 @@ public class TemplateManagementController {
         return recipeTemplateManagementService.listRecipeTemplate(roleId, type);
     }
 
+    @ApiOperation("修改处方模板")
+    @RequestMapping(value = "/recipetemplate/modification", method = RequestMethod.PUT)
+    public CommonResult modifyRecipeTemplate(@RequestBody RecipeTemplateParam recipeTemplateParam)
+    {
+        return recipeTemplateManagementService.modifyRecipeTemplate(recipeTemplateParam);
+    }
+
 
 }

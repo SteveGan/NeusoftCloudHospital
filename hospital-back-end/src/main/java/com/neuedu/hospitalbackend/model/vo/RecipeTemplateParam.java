@@ -6,6 +6,7 @@ import java.util.List;
 
 public class RecipeTemplateParam {
     private String name;
+    private String newName;
     private Integer roleId;
     private Integer departmentId;
     private Byte scope; //1.个人 2.科室 3.全院
@@ -18,6 +19,14 @@ public class RecipeTemplateParam {
 //    private String frequency;
 //    private Short amount;
 
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
 
     public String getName() {
         return name;

@@ -12,8 +12,9 @@ public interface RecipeTemplateMapper {
 
     int insertSelective(RecipeTemplate recipeTemplate);
 
-    HashMap getRecipeTemplateByRoleIdAndName(@Param("roleId") Integer roleId, @Param("name") String name);
+    List<HashMap> getRecipeTemplateByRoleIdAndName(@Param("roleId") Integer roleId, @Param("name") String name);
 
     List<HashMap> listAvailableByType(Integer roleId, Integer departmentId, Integer type);
 
+    int deleteByRIdAndName(@Param("roleId") Integer roleId, @Param("recipeName") String recipeName);
 }

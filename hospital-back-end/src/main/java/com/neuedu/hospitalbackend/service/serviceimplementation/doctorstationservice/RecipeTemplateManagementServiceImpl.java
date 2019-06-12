@@ -1,5 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationservice;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.RecipeTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
@@ -17,6 +19,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManagementService {
@@ -37,14 +40,14 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
         int count = 0;
         Integer roleId = recipeTemplateParam.getRoleId();
         Byte scope = recipeTemplateParam.getScope(); // 1.个人  2.科室  3.全院
-        String name = recipeTemplateParam.getName();
+        String name = recipeTemplateParam.getNewName();
 
         //参数检验
         if (roleId == null || scope == null || name == null){
             return CommonResult.fail(ResultCode.E_801);
         }
         //检验名称是否已存在
-        if(recipeTemplateMapper.getRecipeTemplateByRoleIdAndName(roleId, name) != null)
+        if(0 != recipeTemplateMapper.getRecipeTemplateByRoleIdAndName(roleId, name).size())
             return CommonResult.fail(ResultCode.E_806);
 
         //插入处方模板
@@ -68,12 +71,22 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
         return CommonResult.success(count);
     }
 
+
     /**
      * 删除模板
      */
     public CommonResult deleteRecipeTemplate(Integer roleId, String recipeName){
-        return null;
+        //参数检验
+        if (roleId == null || recipeName == null)
+            return CommonResult.fail(ResultCode.E_801);
+        //权限检验
+        if(0 == recipeTemplateMapper.getRecipeTemplateByRoleIdAndName(roleId, recipeName).size())
+            return CommonResult.fail(ResultCode.E_804);
+        //删除模板
+        int count = recipeTemplateMapper.deleteByRIdAndName(roleId, recipeName);
+        return CommonResult.success(count);
     }
+
 
     /**
      * 查询处方模板
@@ -90,25 +103,97 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
 
         //查询所有可见模板
         List<HashMap> recipeTemplates = recipeTemplateMapper.listAvailableByType(roleId, departmentId, type);
-        List<HashMap> personal = new ArrayList<>();
-        List<HashMap> department = new ArrayList<>();
-        List<HashMap> hospital = new ArrayList<>();
+        HashMap<String, List<HashMap>> personal = new HashMap<>();
+        HashMap<String, List<HashMap>> department = new HashMap<>();
+        HashMap<String, List<HashMap>> hospital = new HashMap<>();
+        //模板名称+内容组
         for(HashMap recipeTemplate : recipeTemplates){
+            String recipeName = (String)recipeTemplate.get("recipeName");
+            recipeTemplate.remove("recipeName");
             Integer scope = (Integer) recipeTemplate.get("scope");
-            if(scope == 1)  //个人
-                personal.add(recipeTemplate);
-            else if (scope == 2) //科室
-                department.add(recipeTemplate);
-            else if (scope == 3)  //全院
-                hospital.add(recipeTemplate);
+            List<HashMap> medicines;
+            if(scope == 1) { //个人
+                System.out.println(personal);
+                if(personal.containsKey(recipeName))
+                    medicines = personal.get(recipeName);
+                else
+                    medicines = new ArrayList<>();
+                medicines.add(recipeTemplate);
+                personal.put(recipeName, medicines);
+            }
+            if (scope == 2) {  //科室
+                if(department.containsKey(recipeName)) {
+                    medicines = personal.get(recipeName);
+                    medicines.add(recipeTemplate);
+                }
+                else {
+                    medicines = new ArrayList<>();
+                    medicines.add(recipeTemplate);
+                    department.put(recipeName, medicines);
+                }
+            }
+            if (scope == 3) {  //全院
+                if(hospital.containsKey(recipeName)) {
+                    medicines = personal.get(recipeName);
+                    medicines.add(recipeTemplate);
+                }
+                else {
+                    medicines = new ArrayList<>();
+                    medicines.add(recipeTemplate);
+                    hospital.put(recipeName, medicines);
+                }
+            }
         }
 
-        returnJson.put("personal", personal);
-        returnJson.put("department", department);
-        returnJson.put("hospital", hospital);
+        returnJson.put("personal", toJson(personal));
+        returnJson.put("department", toJson(department));
+        returnJson.put("hospital", toJson(hospital));
         return CommonResult.success(returnJson);
     }
 
 
+    /**
+     * 修改处方模板
+     * @param recipeTemplateParam
+     */
+    public CommonResult modifyRecipeTemplate(RecipeTemplateParam recipeTemplateParam){
+        Integer roleId = recipeTemplateParam.getRoleId();
+        String pastName = recipeTemplateParam.getName();//修改前名称
+        String newName = recipeTemplateParam.getNewName();//修改后名称
+
+        //参数检验
+        if(roleId == null || pastName == null || newName == null)
+            return CommonResult.fail(ResultCode.E_801);
+
+        //修改名称是否已存在
+        if (!newName.equals(pastName) &&
+                0 != recipeTemplateMapper.getRecipeTemplateByRoleIdAndName(roleId, newName).size())
+            return CommonResult.fail(ResultCode.E_806);
+
+        //删除
+        if (200 != deleteRecipeTemplate(roleId, pastName).getCode())
+            return CommonResult.fail();
+
+        //增加
+        return insertRecipeTemplate(recipeTemplateParam);
+    }
+
+
+
+    /**
+     * HashMap转成Json格式
+     * @param hashMap
+     * @return
+     */
+    public JSONArray toJson(HashMap<String, List<HashMap>> hashMap){
+        JSONArray returnArray = new JSONArray();
+        for (Map.Entry<String, List<HashMap>> entry : hashMap.entrySet()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("recipeName", entry.getKey());
+            jsonObject.put("medicines", entry.getValue());
+            returnArray.add(jsonObject);
+        }
+        return returnArray;
+    }
 
 }
