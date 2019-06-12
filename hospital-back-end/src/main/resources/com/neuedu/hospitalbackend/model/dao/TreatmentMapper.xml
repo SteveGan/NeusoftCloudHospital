@@ -11,49 +11,191 @@
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
         <result column="status" property="status" jdbcType="TINYINT" />
         <result column="creator_role_id" property="creatorRoleId" jdbcType="INTEGER" />
-        <result column="inspector_role_id" property="inspectorRoleId" jdbcType="INTEGER" />
+        <result column="treater_role_id" property="treaterRoleId" jdbcType="INTEGER" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
 
-    <select id="listPreparedPatientsByCaseIdOrName" resultType="HashMap">
-        select c.registration_id, c.patient_name
-        from patient_case c, treatment tr, transaction_log t
-        where tr.id = t.collection_id and tr.project_id = t.project_id
-            and tr.case_id = c.registration_id
-            and tr.status = 2 and tr.department_id = #{departmentId}
-            <if test = "caseId != null">
-                and c.registration_id = #{caseId}
+
+    <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Treatment" >
+    insert into treatment (id, case_id, project_id, 
+      status, creator_role_id, treater_role_id, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{creatorRoleId,jdbcType=INTEGER}, #{treaterRoleId,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Treatment" >
+        insert into treatment
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
             </if>
-            <if test="patientName != null and patientName != ''">
-                and c.patient_name = #{patientName}
+            <if test="caseId != null" >
+                case_id,
             </if>
+            <if test="projectId != null" >
+                project_id,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="creatorRoleId != null" >
+                creator_role_id,
+            </if>
+            <if test="treaterRoleId != null" >
+                treater_role_id,
+            </if>
+            <if test="gmtCreate != null" >
+                gmt_create,
+            </if>
+            <if test="gmtModified != null" >
+                gmt_modified,
+            </if>
+            <if test="departmentId != null" >
+                department_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="caseId != null" >
+                #{caseId,jdbcType=INTEGER},
+            </if>
+            <if test="projectId != null" >
+                #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="creatorRoleId != null" >
+                #{creatorRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="treaterRoleId != null" >
+                #{treaterRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null" >
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null" >
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="departmentId != null" >
+                #{departmentId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="listPreparedPatientsByCaseIdOrDateOrName" resultType="HashMap">
+        select distinct c.registration_id, c.patient_name
+        from patient_case c, treatment t, transaction_log t
+        where t.id = t.collection_id and t.project_id = t.project_id
+        and t.case_id = c.registration_id
+        and t.status = 2 and t.department_id = #{departmentId}
+        <if test = "caseId != null">
+            and c.registration_id = #{caseId}
+        </if>
+        <if test="patientName != null">
+            and c.patient_name = #{patientName}
+        </if>
+        <if test="chargeDateStr != null">
+            and date_format(t.gmt_create,'%Y-%m-%d') = #{chargeDateStr}
+        </if>
     </select>
 
-    <select id="listAppliedProjectsByCaseId" resultType="HashMap">
-        select n.id, n.name, tr.id, tr.gmt_create, t.status, tr.requirement
-        from treatment tr, non_medicine n, transaction_log t
-        where t.registration_id = #{caseId}  and t.collection_id = tr.id  and t.project_id = tr.project_id
-        and n.id = tr.project_id
-        and tr.status = 2 and tr.department_id = #{departmentId}
+    <select id="listAllProjectsByCaseId" resultType="HashMap">
+      select distinct t.id, n.project_id, n.name, t.status as t_status, t.status as i_status
+      from treatment t, tech_project n, transaction_log t
+      where t.registration_id = #{caseId} and t.collection_id = t.id and t.case_id = t.registration_id
+          and t.project_id = t.project_id and n.project_id = t.project_id
+          and t.status = 2 and t.department_id = #{departmentId}
+          and date_format(t.gmt_create,'%Y-%m-%d') = #{chargeDateStr}
     </select>
 
     <update id="checkInProject">
         update treatment
-        set status = 4, treater_role_id = #{treaterRoleId}
-        where id = #{collectionId} and project_id = #{projectId} and status = 2
+        set status = 4, inspector_role_id = #{inspectorRoleId}
+        where id = #{collectionId} and project_id = #{projectId}
     </update>
 
     <update id="cancelProject">
         update treatment
-        set status = 3
-        where id = #{collectionId} and project_id = #{projectId} and status = 2
+        set status = 3, inspector_role_id = #{inspectorRoleId}
+        where id = #{collectionId} and project_id = #{projectId}
     </update>
+
+    <select id="listCheckedInButNotRecordedProjects" resultMap="BaseResultMap">
+      select *
+      from treatment
+      where department_id = #{departmentId} and status = 4
+      and date_format(gmt_create,'%Y-%m-%d') = #{dateStr}
+    </select>
+
+    <select id="getStatusOfProject" resultType="Integer">
+        select status
+        from treatment
+        where id = #{collectionId} and project_id = #{projectId}
+    </select>
 
     <update id="updateStatus">
         update treatment set status = #{status}
         where id = #{collectionId} and project_id = #{projectId}
     </update>
+
+    <select id="getLatestId" resultType="Integer">
+        select id
+        from treatment
+        order by id desc
+        limit 1
+    </select>
+
+    <select id="listProjectIdsByCollectionId" resultType="Integer">
+        select project_id
+        from treatment
+        where id = #{id}
+    </select>
+
+    <update id="updateInfo">
+        update treatment
+        set status = #{status}
+        where id = #{id} and project_id = #{projectId}
+    </update>
+
+    <delete id="delete">
+        delete
+        from treatment
+        where id = #{id} and project_id = #{projectId}
+    </delete>
+
+
+    <resultMap id="projectInfo" type="HashMap">
+        <result column="project_id" property="projectId"/>
+        <result column="project_name" property="projectName"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="status" property="status"/>
+        <result column="goal" property="goal"/>
+        <result column="result_description" property="resultDescription"/>
+        <result column="result_image" property="resultImage"/>
+        <result column="advice" property="advice"/>
+        <result column="requirement" property="requirement"/>
+    </resultMap>
+
+    <select id="listCollectionInfo" resultType="HashMap">
+        select distinct id as collectionId, creator_role_id as applicantRoleId
+        from treatment
+        where case_id = #{caseId}
+    </select>
+
+    <select id="listProjectInfo" resultMap="projectInfo">
+        select distinct t.project_id, p.project_name, t.department_id, d.name as department_name, t.status,
+                t.goal, t.result_description, t.result_image, t.advice, t.result_description
+        from treatment t, department d, tech_project p
+        where t.id = #{collectionId} and d.id = t.department_id
+            and t.project_id = p.project_id
+    </select>
+
 
 
 </mapper>

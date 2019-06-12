@@ -215,22 +215,6 @@
     </delete>
 
 
-    <select id="listCollectionDetail" resultMap="projectInfo">
-        select i.department_id, i.project_id, i.status, i.goal, i.requirement,
-                i.result_description, i.result_image, i.advice,
-                p.id as p_id, p.project_name, p.item_id, p.item_name, p.amount
-        from inspection i, inspection_project p
-        where i.case_id = #{caseId}
-              and i.id = p.collection_id and i.project_id = p.project_id
-    </select>
-
-    <select id="getCollectionInfo" resultType="HashMap">
-        select i.id as collectionId, creator_role_id as applicantRoleId
-        from inspection i
-        where case_id = #{caseId}
-        limit 1
-    </select>
-
     <resultMap id="projectInfo" type="HashMap">
         <result column="project_id" property="projectId"/>
         <result column="project_name" property="projectName"/>

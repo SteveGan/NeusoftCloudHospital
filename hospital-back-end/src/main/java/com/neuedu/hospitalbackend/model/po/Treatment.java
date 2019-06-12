@@ -15,7 +15,7 @@ public class Treatment {
 
     private Integer creatorRoleId;
 
-    private Integer inspectorRoleId;
+    private Integer treaterRoleId;
 
     private Date gmtCreate;
 
@@ -69,12 +69,12 @@ public class Treatment {
         this.creatorRoleId = creatorRoleId;
     }
 
-    public Integer getInspectorRoleId() {
-        return inspectorRoleId;
+    public Integer getTreaterRoleId() {
+        return treaterRoleId;
     }
 
-    public void setInspectorRoleId(Integer inspectorRoleId) {
-        this.inspectorRoleId = inspectorRoleId;
+    public void setTreaterRoleId(Integer treaterRoleId) {
+        this.treaterRoleId = treaterRoleId;
     }
 
     public Date getGmtCreate() {

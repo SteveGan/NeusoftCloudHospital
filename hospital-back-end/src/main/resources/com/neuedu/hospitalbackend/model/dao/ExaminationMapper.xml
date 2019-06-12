@@ -21,12 +21,117 @@
         <result column="department_id" property="departmentId" jdbcType="INTEGER" />
     </resultMap>
 
+    <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Examination" >
+    insert into examination (id, case_id, project_id,
+      status, creator_role_id, examiner_role_id,
+      advice, result_description, result_image,
+      gmt_create, gmt_modified, requirement,
+      goal)
+    values (#{id,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER},
+      #{status,jdbcType=TINYINT}, #{creatorRoleId,jdbcType=INTEGER}, #{examinerRoleId,jdbcType=INTEGER},
+      #{advice,jdbcType=VARCHAR}, #{resultDescription,jdbcType=VARCHAR}, #{resultImage,jdbcType=VARCHAR},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{requirement,jdbcType=VARCHAR},
+      #{goal,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Examination" >
+        insert into examination
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="caseId != null" >
+                case_id,
+            </if>
+            <if test="projectId != null" >
+                project_id,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="creatorRoleId != null" >
+                creator_role_id,
+            </if>
+            <if test="examinerRoleId != null" >
+                examiner_role_id,
+            </if>
+            <if test="advice != null" >
+                advice,
+            </if>
+            <if test="resultDescription != null" >
+                result_description,
+            </if>
+            <if test="resultImage != null" >
+                result_image,
+            </if>
+            <if test="gmtCreate != null" >
+                gmt_create,
+            </if>
+            <if test="gmtModified != null" >
+                gmt_modified,
+            </if>
+            <if test="requirement != null" >
+                requirement,
+            </if>
+            <if test="goal != null" >
+                goal,
+            </if>
+            <if test="departmentId != null" >
+                department_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="caseId != null" >
+                #{caseId,jdbcType=INTEGER},
+            </if>
+            <if test="projectId != null" >
+                #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="creatorRoleId != null" >
+                #{creatorRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="examinerRoleId != null" >
+                #{examinerRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="advice != null" >
+                #{advice,jdbcType=VARCHAR},
+            </if>
+            <if test="resultDescription != null" >
+                #{resultDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="resultImage != null" >
+                #{resultImage,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null" >
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null" >
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="requirement != null" >
+                #{requirement,jdbcType=VARCHAR},
+            </if>
+            <if test="goal != null" >
+                #{goal,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentId != null" >
+                #{departmentId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+
     <select id="listPreparedPatientsByCaseIdOrDateOrName" resultType="HashMap">
         select distinct c.registration_id, c.patient_name
-        from patient_case c, examination i, transaction_log t
-        where i.id = t.collection_id and i.project_id = t.project_id
-        and i.case_id = c.registration_id
-        and i.status = 2 and i.department_id = #{departmentId}
+        from patient_case c, examination e, transaction_log t
+        where id = t.collection_id and e.project_id = t.project_id
+        and e.case_id = c.registration_id
+        and e.status = 2 and e.department_id = #{departmentId}
         <if test = "caseId != null">
             and c.registration_id = #{caseId}
         </if>
@@ -39,11 +144,11 @@
     </select>
 
     <select id="listAllProjectsByCaseId" resultType="HashMap">
-      select distinct i.id, n.project_id, n.project_name, t.status as t_status, i.status as i_status
-      from examination i, tech_project n, transaction_log t
-      where t.registration_id = #{caseId} and t.collection_id = i.id and i.case_id = t.registration_id
-          and t.project_id = i.project_id and n.project_id = i.project_id
-          and i.department_id = #{departmentId}
+      select distinct e.id, n.project_id, n.name, t.status as t_status, e.status as i_status
+      from examination e, tech_project n, transaction_log t
+      where t.registration_id = #{caseId} and t.collection_id = e.id and e.case_id = t.registration_id
+          and t.project_id = e.project_id and n.project_id = e.project_id
+          and e.status = 2 and e.department_id = #{departmentId}
           and date_format(t.gmt_create,'%Y-%m-%d') = #{chargeDateStr}
     </select>
 
@@ -67,7 +172,7 @@
     </select>
 
 
-    <update id="updateResult">
+    <update id="recordResult">
         update examination
         set result_description = #{resultDescription}, result_image = #{resultImage}, advice = #{advice}
         where id = #{collectionId} and project_id = #{projectId}
@@ -91,13 +196,23 @@
         limit 1
     </select>
 
-
-    <select id="getCollectionInfo" resultType="HashMap">
-        select i.id as collectionId, creator_role_id as applicantRoleId
-        from examination i
-        where case_id = #{caseId}
-        limit 1
+    <select id="listProjectIdsByCollectionId" resultType="Integer">
+        select project_id
+        from examination
+        where id = #{id}
     </select>
+
+    <update id="updateInfo">
+        update examination
+        set goal = #{goal}, requirement = #{requirement}, status = #{status}
+        where id = #{id} and project_id = #{projectId}
+    </update>
+
+    <delete id="delete">
+        delete
+        from examination
+        where id = #{id} and project_id = #{projectId}
+    </delete>
 
 
     <resultMap id="projectInfo" type="HashMap">
@@ -120,12 +235,12 @@
     </select>
 
     <select id="listProjectInfo" resultMap="projectInfo">
-        select distinct i.project_id, p.project_name, i.department_id, d.name as department_name, i.status,
-                i.goal, i.result_description, i.result_image, i.advice, i.result_description
-        from examination i, examination_project p, department d
-        where i.id = #{collectionId}
-              and p.collection_id = i.id and p.project_id = i.project_id
-              and d.id = i.department_id
+        select distinct e.project_id, p.project_name, e.department_id, d.name as department_name, e.status,
+                e.goal, e.result_description, e.result_image, e.advice, e.result_description
+        from examination e, examination_project p, department d
+        where e.id = #{collectionId}
+              and p.collection_id = e.id and p.project_id = e.project_id
+              and d.id = e.department_id
     </select>
 
     <select id="listItems" resultType="HashMap">
