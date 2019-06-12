@@ -173,7 +173,7 @@
     <result column="m_name" property="medicineName" jdbcType="VARCHAR"/>
   </resultMap>
 
-  <select id="listRecipeByRegistrationId" resultMap="AdditionalResultMap">
+  <select id="listIndividualRecipe" resultMap="AdditionalResultMap">
     select distinct r.*, t1.status as transaction_log_status
     from recipe r, transaction_log t1
     where r.case_id = #{registrationId} and t1.registration_id = r.case_id
