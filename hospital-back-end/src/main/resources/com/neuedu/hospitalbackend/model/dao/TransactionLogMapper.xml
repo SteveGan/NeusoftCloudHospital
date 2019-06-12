@@ -263,7 +263,7 @@
             <if test="endDateStr != null">
                 and t.gmt_create &lt;= #{endDateStr}
             </if>
-            and t.role_id = #{cashierId}
+            and t.role_id = #{cashierId} and t.status != 6
         </where>
         group by invoice_code
         order by invoice_code

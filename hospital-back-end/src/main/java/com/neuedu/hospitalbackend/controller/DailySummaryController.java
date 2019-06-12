@@ -40,4 +40,9 @@ public class DailySummaryController {
         return dailySummaryService.listHistorySummaryLogs(dailySummaryParam);
     }
 
+    @ApiOperation("查询收费员第一次日结的时间")
+    @RequestMapping(value = "/firstsummarydate", method = RequestMethod.GET)
+    public CommonResult getFirstSummaryDate(Integer cashierId){
+        return dailySummaryService.getFirstSummaryDate(cashierId);
+    }
 }

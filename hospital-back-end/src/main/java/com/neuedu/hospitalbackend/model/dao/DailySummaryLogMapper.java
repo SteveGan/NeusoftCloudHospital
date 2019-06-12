@@ -20,4 +20,7 @@ public interface DailySummaryLogMapper {
     //查询日结历史记录
     List<DailySummaryLog> getByCashierIdAndDate(@Param("cashierId") Integer cashierId, @Param("beginDateStr") String beginDateStr,
                                         @Param("endDateStr") String endDateStr);
+
+    String getFirstSummaryDate(Integer cashierId);
+
 }

@@ -14,8 +14,8 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 public interface PatientCaseTemplateService {
 
     /**
-     * 将当前页面中的内容保存到病理模版中
-     * @param patientCaseTemplateParam 当前模版中的内容
+     * 将当前页面中的内容保存到病历模板中
+     * @param patientCaseTemplateParam 当前模板中的内容
      */
     CommonResult saveAsCaseTemplate(PatientCaseTemplateParam patientCaseTemplateParam);
 
@@ -26,7 +26,7 @@ public interface PatientCaseTemplateService {
     CommonResult modifyPatientCaseTemplate(PatientCaseTemplateParam patientCaseTemplateParam);
 
     /**
-     * 查询该医生所有可用模版
+     * 查询该医生所有可用模板
      * @param roleId 医生的角色id
      * @return 可用病历模版列表
      */
