@@ -13,50 +13,9 @@
       </el-card>
       <!-- 操作 -->
       <div class="">
-        <!-- 病史病历 -->
-        <el-card class="input-card" shadow="hover">
-          <div slot="header">
-            <span>病史病历</span>
-          </div>
-          <el-form :model="currentCase" label-position='left'>
-            <p>{{currentCase.diagnoses}}</p>
-            <el-form-item label="主诉">
-              <el-input v-model="currentCase.narrate" type="textarea" autosize placeholder="请输入内容">
-              </el-input>
-            </el-form-item>
-            <el-form-item label="现病史">
-              <el-input v-model="currentCase.curDisease" type="textarea" autosize placeholder="请输入内容">
-              </el-input>
-            </el-form-item>
-            <el-form-item label="既往史">
-              <el-input v-model="currentCase.pastDisease" type="textarea" autosize placeholder="请输入内容">
-              </el-input>
-            </el-form-item>
-            <el-form-item  label="过敏信息">
-              <el-input v-model="currentCase.allergy" type="textarea" autosize placeholder="请输入内容">
-              </el-input>
-            </el-form-item>
-          </el-form>
-        </el-card>
-        <el-card class="input-card" shadow="hover">
-          <div slot="header">
-            <span>检查及结果</span>
-          </div>
-          <el-form label-position='left' :model="currentCase">
-            <el-form-item label="体格检查">
-              <el-input v-model="currentCase.physicalCondition" type="textarea" autosize placeholder="请输入内容">
-              </el-input>
-            </el-form-item>
-            <el-form-item label="辅助检查">
-              <el-input v-model="currentCase.assistDiagnose" type="textarea" autosize placeholder="请输入内容">
-              </el-input>
-            </el-form-item>
-          </el-form>
-        </el-card>
-      </el-card>
       <el-card class="input-card" shadow="hover">
         <div slot="header">
-          <span>评估诊断</span>
+          <span>确诊信息</span>
         </div>
         <!-- 中医诊断 -->
         <div class="">
@@ -149,18 +108,9 @@
     </div>
     <!-- 右侧模版区域 -->
     <div class="service-side-container">
-      <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" class="template-tabs">
-        <!-- 门诊首页tab-->
-        <el-tab-pane label="病历模版">
-          <case-template @give-template="useTemplate"></case-template>
-        </el-tab-pane>
-        <el-tab-pane label="常用诊断">
-          <diagnose-template @give-disease="useDisease"></diagnose-template>
-        </el-tab-pane>
-        <el-tab-pane label="历史病历">
-        </el-tab-pane>
-      </el-tabs>
+      <el-card shadow="hover">
+        <diagnose-template @give-disease="useDisease"></diagnose-template>
+      </el-card>
     </div>
     <!-- 新增中医诊断dialog -->
     <el-dialog title="新增中医诊断" :visible.sync="dialogAddTraDiagnose" :before-close="handleClose">
@@ -237,7 +187,7 @@ import { constants } from "fs";
 import { currentDate } from "@/utils/date";
 
 export default {
-  name: "OutPatientPreDiagnose",
+  name: "FinalDiagnose",
   components: {
     "case-template": CaseTemplate,
     "diagnose-template": DiagnoseTemplate

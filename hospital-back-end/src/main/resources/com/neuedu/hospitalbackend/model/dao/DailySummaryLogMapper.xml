@@ -90,4 +90,9 @@
     select max(end_date) from daily_summary_log
     where cashier_role_id = #{cashierId}
   </select>
+
+  <select id="getFirstSummaryDate" resultType="string">
+    select min(gmt_create) from daily_summary_log
+    where cashier_role_id = #{cashierId}
+  </select>
 </mapper>

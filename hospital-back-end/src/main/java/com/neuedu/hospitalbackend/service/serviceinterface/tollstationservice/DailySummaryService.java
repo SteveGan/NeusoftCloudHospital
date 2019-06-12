@@ -32,4 +32,11 @@ public interface DailySummaryService {
      * @return
      */
     CommonResult listHistorySummaryLogs(DailySummaryParam dailySummaryParam);
+
+    /**
+     * 查询指定收费员第一条日结记录的时间
+     * @param cashierId
+     * @return
+     */
+    CommonResult getFirstSummaryDate(Integer cashierId);
 }

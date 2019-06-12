@@ -97,7 +97,7 @@
       <!-- 导航栏(也就是一个标签页) -->
       <el-tabs type="border-card" style="overflow:vible">
         <!-- 门诊首页tab-->
-        <el-tab-pane label="门诊首页">
+        <el-tab-pane label="病历首页">
           <!-- 门诊病历首页内容 -->
           <outpatient-prediagnose 
             @saveCase="onSaveSelectedCase" 
@@ -106,322 +106,29 @@
             v-model="selectedCase">
           </outpatient-prediagnose>
         </el-tab-pane>
+        <el-tab-pane label="病历确诊">
+          <!-- 门诊病历确诊内容 -->
+          <final-diagnose 
+            @saveCase="onSaveSelectedCase" 
+            @submitCase="onSubmitSelectedCase" 
+            @clearCase="onClearSelectedCase"
+            v-model="selectedCase">
+          </final-diagnose >
+        </el-tab-pane>
         <el-tab-pane label="检验申请">
-          <examination-application></examination-application>
+          <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
         </el-tab-pane>
         <el-tab-pane label="检查申请">
+          <project-application :type=2 typeName="检查" v-model="selectedCaseInspections"></project-application>
         </el-tab-pane>
         <el-tab-pane label="成药处方">
-          <div class="recipe-service-container">
-            <!-- 主操作区 -->
-            <div>
-              <!-- 工具栏 -->
-              <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px;">
-                <el-button type="text" icon="el-icon-refresh-right" round>清屏</el-button>
-                <el-button type="text" icon="el-icon-folder-checked" round>暂存</el-button>
-                <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-              </el-card>
-              <!-- 检验申请的操作栏以及表格, 做成一个卡片 -->
-              <el-card>
-                <!-- 操作栏 -->
-                <div slot="header" class="clearfix">
-                    <span>处方 1</span>
-                    <el-button style="float:right" type="text" icon="el-icon-s-check">开立</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-delete-solid">删除（作废）</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-remove">增药</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-circle-plus">删药</el-button>
-                </div>
-                <!-- 项目列表 -->
-                <div class="">
-                  <el-table
-                    style="width: 100%">
-                    <el-table-column
-                      type="selection"
-                      width="55">
-                    </el-table-column>
-                    <el-table-column
-                      label="药品名称">
-                    </el-table-column>
-                    <el-table-column
-                      label="规格">
-                    </el-table-column
-                      label="单价">
-                    <el-table-column
-                      label="用法">
-                    </el-table-column>
-                    <el-table-column
-                      label="用量">
-                    </el-table-column>
-                    <el-table-column
-                      label="单位">
-                    </el-table-column>
-                    <el-table-column
-                      label="频次">
-                    </el-table-column>
-                    <el-table-column
-                      label="天数">
-                    </el-table-column>
-                    <el-table-column
-                      label="次数">
-                    </el-table-column>
-                    <el-table-column
-                      label="数量">
-                    </el-table-column>
-                    <el-table-column
-                      label="单位">
-                    </el-table-column>
-                    <el-table-column
-                      label="皮试">
-                    </el-table-column>
-                    <el-table-column
-                      label="皮试结果">
-                    </el-table-column>
-                    <el-table-column
-                      label="自购">
-                    </el-table-column>
-                    <el-table-column
-                      label="用药嘱托">
-                    </el-table-column>
-                  </el-table>
-                </div>
-              </el-card>
-              <!-- 添加处方按钮 -->
-              <div class="add-recipe-button">
-                <el-button type="text" icon="el-icon-plus" round>新增处方</el-button>
-              </div>
-            </div>
-            <!-- 底部模版区域 -->
-            <div>
-              <!-- 导航栏(也就是一个标签页) -->
-              <el-tabs type="border-card" class="template-tabs">
-                <!-- 门诊首页tab-->
-                <el-tab-pane label="处方模版">
-                  <div class="recipe-template">
-                    <!-- 左侧browser区 -->
-                    <div class="recipe-browser">
-                      <el-card>
-                      </el-card>
-                    </div>
-                    <!-- 右侧处方内容展示区-->
-                    <div class="recipe-detail">
-                      <el-card>
-                      </el-card>
-                    </div>
-                  </div>
-
-
-                </el-tab-pane>
-                <el-tab-pane label="常用药品"></el-tab-pane>
-                <el-tab-pane label="建议方案"></el-tab-pane>
-                <el-tab-pane label="历史处方"></el-tab-pane>
-              </el-tabs>
-            </div>
-          </div>
+          <case-recipe v-model="modernRecipes"></case-recipe>
         </el-tab-pane>
         <el-tab-pane label="草药处方">
-          <div class="recipe-service-container">
-            <!-- 主操作区 -->
-            <div>
-              <!-- 工具栏 -->
-              <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px;">
-                <el-button type="text" icon="el-icon-refresh-right" round>清屏</el-button>
-                <el-button type="text" icon="el-icon-folder-checked" round>暂存</el-button>
-                <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-              </el-card>
-              <!-- 检验申请的操作栏以及表格, 做成一个卡片 -->
-              <el-card>
-                <!-- 操作栏 -->
-                <div slot="header" class="clearfix">
-                    <span>处方 1</span>
-                    <el-button style="float:right" type="text" icon="el-icon-s-check">开立</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-delete-solid">删除（作废）</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-remove">增药</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-circle-plus">删药</el-button>
-                </div>
-                <!-- 项目列表 -->
-                <div class="">
-                  <el-table
-                    style="width: 100%">
-                    <el-table-column
-                      type="selection"
-                      width="55">
-                    </el-table-column>
-                    <el-table-column
-                      label="药品名称">
-                    </el-table-column>
-                    <el-table-column
-                      label="规格">
-                    </el-table-column
-                      label="单价">
-                    <el-table-column
-                      label="用法">
-                    </el-table-column>
-                    <el-table-column
-                      label="用量">
-                    </el-table-column>
-                    <el-table-column
-                      label="单位">
-                    </el-table-column>
-                    <el-table-column
-                      label="频次">
-                    </el-table-column>
-                    <el-table-column
-                      label="天数">
-                    </el-table-column>
-                    <el-table-column
-                      label="次数">
-                    </el-table-column>
-                    <el-table-column
-                      label="数量">
-                    </el-table-column>
-                    <el-table-column
-                      label="单位">
-                    </el-table-column>
-                    <el-table-column
-                      label="皮试">
-                    </el-table-column>
-                    <el-table-column
-                      label="皮试结果">
-                    </el-table-column>
-                    <el-table-column
-                      label="自购">
-                    </el-table-column>
-                    <el-table-column
-                      label="用药嘱托">
-                    </el-table-column>
-                  </el-table>
-                </div>
-              </el-card>
-              <!-- 添加处方按钮 -->
-              <div class="add-recipe-button">
-                <el-button type="text" icon="el-icon-plus" round>新增处方</el-button>
-              </div>
-            </div>
-            <!-- 底部模版区域 -->
-            <div>
-              <!-- 导航栏(也就是一个标签页) -->
-              <el-tabs type="border-card" class="template-tabs">
-                <!-- 门诊首页tab-->
-                <el-tab-pane label="处方模版">
-                  <div class="recipe-template">
-                    <!-- 左侧browser区 -->
-                    <div class="recipe-browser">
-                      <el-card>
-                      </el-card>
-                    </div>
-                    <!-- 右侧处方内容展示区-->
-                    <div class="recipe-detail">
-                      <el-card>
-                      </el-card>
-                    </div>
-                  </div>
-
-
-                </el-tab-pane>
-                <el-tab-pane label="常用药品"></el-tab-pane>
-                <el-tab-pane label="建议方案"></el-tab-pane>
-                <el-tab-pane label="历史处方"></el-tab-pane>
-              </el-tabs>
-            </div>
-          </div>
+          <case-recipe v-model="traditionalRecipes"></case-recipe>
         </el-tab-pane>
         <el-tab-pane label="处置单">
-          <div class="outpatient-service-container">
-            <!-- 左侧操作区 -->
-            <div class="service-main-container">
-              <!-- 工具栏 -->
-              <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px;">
-                <el-button type="text" icon="el-icon-refresh-right" round>清屏</el-button>
-                <el-button type="text" icon="el-icon-folder-checked" round>暂存</el-button>
-                <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-              </el-card>
-              <!-- 处置申请的操作栏以及表格, 做成一个卡片 -->
-              <el-card>
-                <!-- 操作栏 -->
-                <div slot="header" class="clearfix">
-                    <span>申请单列表</span>
-                    <el-button style="float:right" type="text" icon="el-icon-document-add" round>存为模版</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-s-check">开立</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-delete-solid">作废</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-remove">删除项目</el-button>
-                    <el-button style="float:right" type="text" icon="el-icon-circle-plus">新增项目</el-button>
-                </div>
-                <!-- 项目列表 -->
-                <div class="">
-                  <el-table
-                    style="width: 100%">
-                    <el-table-column
-                      type="selection"
-                      width="55">
-                    </el-table-column>
-                    <el-table-column
-                      label="申请单号">
-                    </el-table-column>
-                    <el-table-column
-                      label="申请时间">
-                    </el-table-column
-                      label="状态">
-                    <el-table-column
-                      label="申请人">
-                    </el-table-column>
-                    <el-table-column
-                      label="收费状态">
-                    </el-table-column>
-                    <el-table-column
-                      label="执行状态">
-                    </el-table-column>
-                    <el-table-column
-                      label="金额">
-                    </el-table-column>
-                  </el-table>
-                </div>
-              </el-card>
-              <!-- 所有可选处置项目 -->
-              <el-card>
-                <!-- 操作栏 -->
-                <div slot="header" class="clearfix">
-                    <span>项目列表</span>
-                </div>
-                <!-- 项目列表 -->
-                <div class="">
-                  <el-table
-                    style="width: 100%">
-                    <el-table-column
-                      type="selection"
-                      width="55">
-                    </el-table-column>
-                    <el-table-column
-                      label="类别">
-                    </el-table-column>
-                    <el-table-column
-                      label="通用名">
-                    </el-table-column
-                      label="剩余库存">
-                    <el-table-column
-                      label="执行科室">
-                    </el-table-column>
-                  </el-table>
-                </div>
-              </el-card>
-            </div>
-            <!-- 右侧模版区域 -->
-            <div class="service-side-container">
-              <!-- 导航栏(也就是一个标签页) -->
-              <el-tabs type="border-card" class="template-tabs">
-                <!-- 门诊首页tab-->
-                <el-tab-pane label="常用项目">
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                  <p>haha</p>
-                </el-tab-pane>
-                <el-tab-pane label="处置模版"></el-tab-pane>
-              </el-tabs>
-            </div>
-          </div>
+          <case-disposition v-model="selectedCaseDispositions"></case-disposition>
         </el-tab-pane>
         <el-tab-pane label="患者账单">
           <el-card>
@@ -470,7 +177,9 @@
 
 <script>
 import { listAllPatients } from "@/api/patient";
+import { listAllCollections } from "@/api/project";
 import { getCaseContent, submitCase, saveCase, clearCase } from "@/api/case";
+import { listCaseRecipes } from "@/api/recipe";
 import {
   caseStatusCodeToString,
   genderCodeToString
@@ -478,7 +187,10 @@ import {
 
 import OutPatientPreDiagnose from "@/components/outpatientdoctor/OutPatientPreDiagnose";
 import CaseTemplateAdmin from "@/components/outpatientdoctor/CaseTemplateAdmin";
-import ExaminationApplication from "@/components/outpatientdoctor/ExaminationApplication";
+import ProjectApplication from "@/components/outpatientdoctor/ProjectApplication";
+import CaseRecipe from "@/components/outpatientdoctor/CaseRecipe";
+import CaseDisposition from "@/components/outpatientdoctor/CaseDisposition";
+import FinalDiagnose from "@/components/outpatientdoctor/FinalDiagnose";
 
 export default {
   name: "OutPatientDoctor",
@@ -488,8 +200,13 @@ export default {
       diagnosedPatients: [],
       selectedPatient: { name: "haha" },
       selectedCase: {},
+      selectedCaseExaminations: {},
+      selectedCaseInspections: {},
+      selectedCaseDispositions: {},
       modernDisease: [],
-      traditionalDisease: []
+      traditionalDisease: [],
+      traditionalRecipes: {},
+      modernRecipes: {}
     };
   },
   computed: {
@@ -512,16 +229,76 @@ export default {
         response => {
           const caseContent = response.data.data;
           this.selectedCase = Object.assign({}, caseContent);
-          console.log(this.selectedCase);
         },
         error => {
           //暂时不处理
           console.alert("得到病历内容出Bug了");
         }
       );
+      //请求当前被点击用户的所有检查项目清单
+      listAllCollections(this.selectedPatient.caseId, 1).then(
+        response => {
+          this.selectedCaseExaminations = Object.assign({}, response.data.data);
+          this.selectedCaseExaminations.caseId = this.selectedPatient.caseId;
+          console.log("读取到的检查项目数据");
+          console.log(response);
+        },
+        error => {
+          //暂时不处理
+          console.alert("得到检查内容出Bug了");
+        }
+      );
+      //请求当前被点击用户的所有检验项目清单
+      listAllCollections(this.selectedPatient.caseId, 2).then(
+        response => {
+          this.selectedCaseInspections = Object.assign({}, response.data.data);
+          this.selectedCaseInspections.caseId = this.selectedPatient.caseId;
+          console.log("读取到的检查项目数据");
+          console.log(response);
+        },
+        error => {
+          //暂时不处理
+          console.alert("得到检验内容出Bug了");
+        }
+      );
+      //请求当前被点击用户病历的所有处置信息
+      listAllCollections(this.selectedPatient.caseId, 3).then(
+        response => {
+          this.selectedCaseDispositions = Object.assign({}, response.data.data);
+          this.selectedCaseDispositions.caseId = this.selectedPatient.caseId;
+        },
+        error => {
+          //暂时不处理
+          console.alert("得到处置内容出Bug了");
+        }
+      );
+      //请求当前被点击用户的病历所有的处方
+      listCaseRecipes(this.selectedPatient.caseId).then(
+        response => {
+          console.log("所有的处方信息");
+          console.log(response.data.data);
+          var caseRecipe = response.data.data;
+          caseRecipe.caseId = this.selectedPatient.caseId;
+          if (caseRecipe.type === 1) {
+            //如果是西医处方
+            this.modernRecipes = Object.assign({}, caseRecipe);
+          } else if (caseRecipe.type == 2) {
+            //如果是中医处方
+            this.traditionalRecipes = Object.assign({}, caseRecipe);
+          } else {
+            //不存在处方
+          }
+        },
+        error => {
+          //暂时不处理
+          console.alert("查所有处方出bug了");
+        }
+      );
     },
     //暂存case的内容
-    onSaveSelectedCase() {
+    onSaveSelectedCase(isTraDiagnose) {
+      console.log(isTraDiagnose);
+      this.selectedCase.diagnoseType = isTraDiagnose ? 0 : 1;
       console.log("save:");
       console.log(this.selectedCase);
       saveCase(this.selectedCase).then(
@@ -564,7 +341,10 @@ export default {
   components: {
     "outpatient-prediagnose": OutPatientPreDiagnose,
     "case-template-admin": CaseTemplateAdmin,
-    "examination-application": ExaminationApplication
+    "project-application": ProjectApplication,
+    "case-recipe": CaseRecipe,
+    "case-disposition": CaseDisposition,
+    "final-diagnose": FinalDiagnose
   },
   mounted: function() {
     //请求所有待诊病人和已诊病人
