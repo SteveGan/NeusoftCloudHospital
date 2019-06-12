@@ -78,7 +78,7 @@
             <el-table-column label="模版名称" prop="name" width="150"></el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
-                <el-button type="text" size="mini">使用</el-button>
+                <el-button type="text" size="mini" @click="handleUseTemplate(scope.row)">使用</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -119,7 +119,7 @@
             <el-table-column label="模版名称" prop="name" width="150"></el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
-                <el-button type="text" size="mini">使用</el-button>
+                <el-button type="text" size="mini" @click="handleUseTemplate(scope.row)">使用</el-button>
               </template>
             </el-table-column>
           </el-table>

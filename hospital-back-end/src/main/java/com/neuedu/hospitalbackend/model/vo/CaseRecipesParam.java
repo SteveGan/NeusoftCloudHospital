@@ -7,7 +7,7 @@ public class CaseRecipesParam {
     private Integer roleId;
     private Integer recipeType;
 
-    //不能用这个RecipeParam!!!!!!!!! 
+    //不能用这个RecipeParam!!!!!!!!!
     List<RecipeParam> recipes;
 
     public Integer getCaseId() {
