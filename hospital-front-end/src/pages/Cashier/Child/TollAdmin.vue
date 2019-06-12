@@ -50,7 +50,7 @@
         <el-table :data="invoiceCollection" stripe style="width: 100%">
           <el-table-column type="index" label="序号">
           </el-table-column>          
-          <el-table-column prop="invoiceCode" label="发票号" style="width: 100%">
+          <el-table-column prop="invoice_code" label="发票号" style="width: 100%">
           </el-table-column>
           <el-table-column prop="status" label="状态" style="width: 60%">
           </el-table-column>
@@ -284,7 +284,7 @@ export default {
 
         // 选出待缴费项目用于缴费
         for(var i=0; i<this.invoiceCollection.length;i++){
-          var temp = this.invoiceCollection[i].invoiceCode
+          var temp = this.invoiceCollection[i].invoice_code
           if(this.invoiceCollection[i].status==1){
             for(var j=0;j<this.transactionLogs[temp].length;j++){
               if(this.transactionLogs[temp][j].type!="挂号费"&&this.transactionLogs[temp][j].status===1){
@@ -295,7 +295,7 @@ export default {
         }
         // 选出已缴费项目用于退费
         for(var i=0; i<this.invoiceCollection.length;i++){
-          var temp = this.invoiceCollection[i].invoiceCode
+          var temp = this.invoiceCollection[i].invoice_code
           if(this.invoiceCollection[i].status==2){
             for(var j=0;j<this.transactionLogs[temp].length;j++){
               if(this.transactionLogs[temp][j].type!="挂号费"&&this.transactionLogs[temp][j].status===2){
