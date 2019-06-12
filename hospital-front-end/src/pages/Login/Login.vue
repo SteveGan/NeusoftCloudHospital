@@ -64,7 +64,7 @@
       };
       return {
         loginForm: {
-          userId: 'admin',
+          userId: '',
           passWord: '123456',
         },
         loading: false,
