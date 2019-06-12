@@ -289,12 +289,12 @@ export default {
     return {
       registrationForm: {
         registrationId : "0",
-        name: "王三奇",
-        gender: "1",
+        name: "",
+        gender: "",
         birthdayStr: "",
         payType: "",
-        idCard: "210881199806228181",
-        address: "东北大学",
+        idCard: "",
+        address: "",
         appointmentDateStr: "",
         timeSlot: "",
         registrationLevelId: "",
