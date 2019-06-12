@@ -190,7 +190,7 @@
                 <el-upload
                   class="upload-demo"
                   drag
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="/api/upload"
                   multiple>
                   <i class="el-icon-upload"></i>
                   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -210,6 +210,7 @@
 
 <script>
 import techDoctor from '@/api/techDoctor'
+import upload from '@/api/upload'
 
 export default {
   name: 'TechDoctor',
@@ -277,6 +278,10 @@ export default {
   },
 
   methods: {
+    upload() {
+      
+    },
+
     // 打印
     print() {
 
