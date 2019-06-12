@@ -84,7 +84,8 @@
         <el-form-item label="结算类别">
           <el-select placeholder="请选择结算类别" v-model="registrationForm.payType" @change="isTotalFeeAvailable">
             <el-option label="自费" value="1"></el-option>
-            <el-option label="医保卡" value="0"></el-option>
+            <el-option label="医保卡" value="2"></el-option>
+            <el-option label="新农合" value="3"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="病历本">
@@ -146,7 +147,7 @@
           </el-table-column>
 
           <el-table-column
-            label="性别" prop="patient.gender"  width="50">
+            label="性别" prop="patient.genderName"  width="50">
           </el-table-column>
 
           <el-table-column
@@ -166,11 +167,11 @@
           </el-table-column>
 
           <el-table-column
-            label="结算类别" prop="payType">
+            label="结算类别" prop="payTypeName">
           </el-table-column>
 
           <el-table-column
-            label="挂号级别" prop="registrationLevelId">
+            label="挂号级别" prop="registrationLevelName">
           </el-table-column>
 
           <el-table-column
@@ -316,8 +317,37 @@ export default {
       registrationsInfo: [],
 
       currentRoleId: "",
+
+      // 加载控制
       loading1: false,
-      loading2: false
+      loading2: false,
+
+      // 常量表
+      // 性别
+      genderCast: {
+          0: "女",
+          1: "男"
+      },
+      // 结算类别
+      payTypeCast: {
+        1: "自费",
+        2: "医保",
+        3: "新农合"
+      },
+      // 挂号级别
+      registrationLevelCast: {
+        1: "普通号",
+        2: "专家号",
+        3: "急诊号"
+      },    
+      // 病历状态
+      caseStatusCast: {
+          1: "待诊",
+          2: "暂存",
+          3: "已诊",
+          4: "确诊",
+          5: "诊毕"
+      },  
       
     }
   },
@@ -496,9 +526,16 @@ export default {
     // 显示所有挂号信息列表
     registrations() {
       register.registrations().then(response => {
-        console.log("显示所有挂号信息列表:")
-        console.log(response.data)
-        const data = response.data.data
+        console.log("显示所有挂号信息列表:");
+        console.log(response.data);
+        const data = response.data.data;
+        
+        for(var i=0; i<data.length; i++){
+          data[i].patient.genderName = this.genderCast[data[i].patient.gender];
+          data[i].payTypeName = this.payTypeCast[data[i].payType];
+          data[i].registrationLevelName = this.registrationLevelCast[data[i].registrationLevelId];
+          // data[i].patientCase.caseStatusName = this.caseStatusCast[data[i].patientCase.status];
+        }
         this.registrationsInfo = data;
       }).catch(error => {
         // alert("get error")
