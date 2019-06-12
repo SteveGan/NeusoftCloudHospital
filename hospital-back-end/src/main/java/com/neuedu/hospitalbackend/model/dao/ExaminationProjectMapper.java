@@ -21,6 +21,7 @@ public interface ExaminationProjectMapper {
 
     int deleteItemsByCidAndPid(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
+    int deleteItemsByCollectionId(Integer collectionId);
 }
 
 

@@ -89,4 +89,10 @@
     where collection_id = #{collectionId} and project_id = #{projectId}
   </delete>
 
+  <delete id="deleteItemsByCollectionId">
+        delete
+        from inspection_project
+        where collection_id = #{collectionId}
+    </delete>
+
 </mapper>
