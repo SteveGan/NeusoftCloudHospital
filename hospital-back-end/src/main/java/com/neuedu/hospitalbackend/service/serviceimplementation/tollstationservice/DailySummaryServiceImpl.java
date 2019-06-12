@@ -27,8 +27,10 @@ public class DailySummaryServiceImpl implements DailySummaryService {
     @Override
     public CommonResult getLastEndDate(Integer cashierId){
         String lastEndDate = dailySummaryLogMapper.getEndDateByCashierId(cashierId);
-        if (lastEndDate == null)
-            return CommonResult.success(null);
+        if (lastEndDate == null){
+            String firstLogDate = transactionLogMapper.getFirstLogDateByCashierId(cashierId);
+            return CommonResult.success(firstLogDate);
+        }
         else
             return CommonResult.success(lastEndDate);
     }

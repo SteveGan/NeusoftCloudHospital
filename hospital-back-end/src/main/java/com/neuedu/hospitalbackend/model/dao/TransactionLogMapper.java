@@ -51,4 +51,7 @@ public interface TransactionLogMapper {
 
     //冻结收费记录
     int updateTransactionLogsByInvoiceCode(String invoiceCode);
+
+    //根据收费员Id,找到其第一条收费记录时间
+    String getFirstLogDateByCashierId(Integer cashierId);
 }
