@@ -352,8 +352,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             Examination examination = new Examination();
             examination.setId(collectionId);
             examination.setProjectId(projectId);
-            examination.setStatus(projectParam.getProjectStatus());
-            System.out.println("ssssssssssssssssssssss" + projectParam.getProjectStatus());
+            examination.setStatus(projectParam.getStatus());
+            System.out.println("ssssssssssssssssssssss" + projectParam.getStatus());
             examination.setGoal(projectParam.getGoal());
             examination.setRequirement(projectParam.getRequirement());
 
