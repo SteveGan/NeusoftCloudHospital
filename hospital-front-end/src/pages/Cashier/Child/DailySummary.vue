@@ -5,11 +5,11 @@
                 <span>查询条件</span>
             </div>
             <el-form :inline="true">
-                <el-form-item label="起始日期">
-                    <el-date-picker type="date" v-model="startDate" placeholder="选择起始日期" class="date-selection" value-format="yyyy-MM-dd"></el-date-picker>
+                <el-form-item label="起始时间">
+                    <el-date-picker type="datetime" v-model="startDate" placeholder="选择起始时间" class="date-selection"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="结束日期">
-                    <el-date-picker type="date" v-model="endDate" placeholder="选择结束日期" class="date-selection" value-format="yyyy-MM-dd"></el-date-picker>
+                <el-form-item label="结束时间">
+                    <el-date-picker type="datetime" v-model="endDate" :picker-options="pickerOptions" placeholder="选择结束时间" class="date-selection"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="收款员">
                     <el-input v-model="currentRoleId" disabled></el-input>
@@ -34,10 +34,16 @@
 </template>
 
 <script>
+import dailySummary from '@/api/dailySummary'
 export default {
     name: 'DailySummary',
     data() {
         return {
+            pickerOptions: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                }
+            },
             // 上方搜索
             startDate: "",
             endDate: "",
@@ -51,22 +57,18 @@ export default {
     },
 
     methods: {
-        // 计算当前日期
+        // 计算当前时间
         getNowFormatDate() {
             var date = new Date();
             var seperator1 = "-";
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var strDate = date.getDate();
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
-            }
-            if (strDate >= 0 && strDate <= 9) {
-                strDate = "0" + strDate;
-            }
-            var currentdate = year + seperator1 + month + seperator1 + strDate;
+            var seperator2 = ":";
+            var month = date.getMonth() + 1<10? "0"+(date.getMonth() + 1):date.getMonth() + 1;
+            var strDate = date.getDate()<10? "0" + date.getDate():date.getDate();
+            var currentdate = date.getFullYear() + seperator1  + month  + seperator1  + strDate
+                    + " "  + date.getHours()  + seperator2  + date.getMinutes()
+                    + seperator2 + date.getSeconds();
             return currentdate;
-        },
+        }
     },
 
     mounted() {
