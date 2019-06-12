@@ -22,6 +22,10 @@ public interface RecipeTemplateManagementService {
      */
     CommonResult listRecipeTemplate(Integer roleId, Integer type);
 
-
+    /**
+     * 修改处方模板
+     * @param recipeTemplateParam
+     */
+    CommonResult modifyRecipeTemplate(RecipeTemplateParam recipeTemplateParam);
 
 }
