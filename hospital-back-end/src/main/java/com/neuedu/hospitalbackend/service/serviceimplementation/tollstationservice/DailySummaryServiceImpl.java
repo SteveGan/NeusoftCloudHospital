@@ -44,7 +44,7 @@ public class DailySummaryServiceImpl implements DailySummaryService {
         if(invoiceResult.size()!=0)
             return CommonResult.success(invoiceResult);
         else
-            return CommonResult.fail(E_708);
+            return CommonResult.success(null);
     }
 
     @Override
@@ -81,6 +81,16 @@ public class DailySummaryServiceImpl implements DailySummaryService {
         if(dailySummaryLogs != null)
             return CommonResult.success(dailySummaryLogs);
         else
-            return CommonResult.fail(E_709);
+            return CommonResult.success(null);
+    }
+
+    @Override
+    public CommonResult getFirstSummaryDate(Integer cashierId){
+        String firstSummaryDate = dailySummaryLogMapper.getFirstSummaryDate(cashierId);
+        if (firstSummaryDate == null)
+            return CommonResult.success(null);
+        else
+            return CommonResult.success(firstSummaryDate);
+
     }
 }
