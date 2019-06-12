@@ -175,7 +175,7 @@
           </el-table-column>
 
           <el-table-column
-            label="是否已诊" prop="patientCase.status">
+            label="是否已诊" prop="caseStatusName">
           </el-table-column>
 
           <el-table-column
@@ -534,7 +534,16 @@ export default {
           data[i].patient.genderName = this.genderCast[data[i].patient.gender];
           data[i].payTypeName = this.payTypeCast[data[i].payType];
           data[i].registrationLevelName = this.registrationLevelCast[data[i].registrationLevelId];
-          // data[i].patientCase.caseStatusName = this.caseStatusCast[data[i].patientCase.status];
+          if(data[i].patientCase!=null){
+            if(data[i].patientCase.status!=1){
+              data[i].caseStatusName = "是"
+            } else {
+              data[i].caseStatusName = "否"
+            }
+              
+          } else {
+            data[i].caseStatusName = "是"
+          }
         }
         this.registrationsInfo = data;
       }).catch(error => {
