@@ -1,6 +1,5 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
@@ -50,15 +49,17 @@ public class PaymentServiceImpl implements PaymentService {
         logs.addAll(transactionLogMapper.listLogsByTableName("treatment", registrationId));
         logs.addAll(transactionLogMapper.getRecipeLogs(registrationId));
         for(HashMap log: logs){
-            System.out.println("log" + log);
+            String logInvoiceCode = (String) log.get("invoiceCode");
+            Byte logStatus = (Byte) log.get("status");
             for(HashMap t: invoiceCollection){
-                if( (log.get("invoiceCode").equals(t.get("invoiceCode")))
-                        && (log.get("status") == t.get("status")) ){
-                    if(result.containsKey(t.get("invoiceCode")))
-                        result.get(t.get("invoiceCode")).add(log);
+                String invoiceCode = (String) t.get("invoiceCode");
+                Byte invoiceStatus = (Byte) t.get("status");
+                if( logInvoiceCode.equals(invoiceCode) && logStatus.equals(invoiceStatus) ){
+                    if(result.containsKey(invoiceCode))
+                        result.get(invoiceCode).add(log);
                     else{
-                        result.put((String) t.get("invoiceCode"), new ArrayList<>());
-                        result.get(t.get("invoiceCode")).add(log);
+                        result.put(invoiceCode, new ArrayList<>());
+                        result.get(invoiceCode).add(log);
                     }
                 }
             }
@@ -91,9 +92,8 @@ public class PaymentServiceImpl implements PaymentService {
         for (TransactionParam t : transactionLogParams) {
             Integer collectionId = t.getCollectionId();
             if (!collection.containsKey(collectionId)) {
-                List<TransactionParam> projects = new ArrayList<>();
-                projects.add(t);
-                collection.put(collectionId, projects);
+                collection.put(collectionId, new ArrayList<>());
+                collection.get(collectionId).add(t);
             } else
                 collection.get(collectionId).add(t);
         }
@@ -125,10 +125,12 @@ public class PaymentServiceImpl implements PaymentService {
             //医技项目退费条件：已缴费 + 开立
             //药方退费条件：已缴费 + 已退药 / 已缴费 + 开立
             for(TransactionParam returnedProject: returnedProjectList){
-                if (returnedProject.getStatus() == 2){
-                    if (!((itemCategory != 4 && returnedProject.getItemStatus() == 2)
-                            || (itemCategory == 4 && returnedProject.getItemStatus() == 5)
-                            || (itemCategory == 4 && returnedProject.getItemStatus() == 2))){
+                Byte returnedTransactionStatus = returnedProject.getStatus(); //缴费记录状态
+                Byte returnedProjectStatus = returnedProject.getItemStatus(); //项目自身状态
+                if (returnedTransactionStatus == 2){
+                    if (!((itemCategory != 4 && returnedProjectStatus == 2)
+                            || (itemCategory == 4 && returnedProjectStatus == 5)
+                            || (itemCategory == 4 && returnedProjectStatus == 2))){
                        return CommonResult.fail(E_704);
                     }
                     else if(returnedProject.getRemainAmount() < returnedProject.getReturnAmount())
@@ -141,24 +143,29 @@ public class PaymentServiceImpl implements PaymentService {
             // 在检查/检验/处置表中更改想要退费的项目状态 （即检验单B项目1）--已作废
             for(TransactionParam returnedProject: returnedProjectList){
                 newCashierId = returnedProject.getNewCashierId();
+                Integer returnedCollectionId = returnedProject.getCollectionId();
+                Integer returnedProjectId = returnedProject.getProjectId();
+                Byte returnedItemStatus = returnedProject.getItemStatus();
+                Short returnedReturnAmount = returnedProject.getReturnAmount();
+                Short returnedRemainAmount = returnedProject.getRemainAmount();
                 switch (itemCategory){
                     case 1:
-                        inspectionMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
+                        inspectionMapper.updateStatus(returnedCollectionId, returnedProjectId, (byte) 3);
                         break;
                     case 2:
-                        examinationMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
+                        examinationMapper.updateStatus(returnedCollectionId, returnedProjectId, (byte) 3);
                         break;
                     case 3:
-                        treatmentMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
+                        treatmentMapper.updateStatus(returnedCollectionId, returnedProjectId, (byte) 3);
                         break;
                     case 4:
                         //如果药品本身是已退药的状态,则无需更改对应药品状态和数量
                         //如果药品本身是开立（未取药）的状态，则需更改对应处方中药品的remain amount
-                        if(returnedProject.getItemStatus() == 2){
-                            recipeMapper.updateRemainAmount(returnedProject.getCollectionId(), returnedProject.getProjectId(), returnedProject.getReturnAmount());
+                        if(returnedItemStatus == 2){
+                            recipeMapper.updateRemainAmount(returnedCollectionId, returnedProjectId, returnedReturnAmount);
                             //如果退药数量 = 药品可退数量，则该药品状态应改为作废
-                            if(returnedProject.getReturnAmount() == returnedProject.getRemainAmount())
-                                recipeMapper.updateStatus(returnedProject.getCollectionId(), returnedProject.getProjectId(), (byte) 3);
+                            if(returnedReturnAmount.equals(returnedRemainAmount))
+                                recipeMapper.updateStatus(returnedCollectionId, returnedProjectId, (byte) 3);
                         }
                         break;
                 }
@@ -169,7 +176,7 @@ public class PaymentServiceImpl implements PaymentService {
             // 更改 退费的项目所在第一层级的 相关缴费记录状态（即检验单B中的所有项目）--已退费
             transactionLogMapper.updateSelectiveAsReturned(collectionId,originalInvoiceCode);
 
-            String reverseInvoiceCode = null;
+            String reverseInvoiceCode;
             String newInvoiceCode = null;
             //向缴费表中添加 退费的项目所在第一层级的 冲正记录（即检验单B中的所有项目） --冲正，
             synchronized (this) {
@@ -197,7 +204,7 @@ public class PaymentServiceImpl implements PaymentService {
             boolean isRecipeAllReturn = true;
             if(itemCategory == 4){
                 for(TransactionParam project: returnedProjectList){
-                    if(project.getRemainAmount() != project.getReturnAmount())
+                    if( !project.getRemainAmount().equals(project.getReturnAmount()))
                         isRecipeAllReturn = false;
                 }
             }
@@ -211,7 +218,7 @@ public class PaymentServiceImpl implements PaymentService {
                 for(TransactionLog transactionLog: transactionLogs){
                     //新增与 退费的项目所在相同第一层级的未退费项目 的缴费记录（即检验单B中的项目2、3）--已缴费
                     if ( (!returnedProjectIdList.contains(transactionLog.getProjectId())) &&
-                            (transactionLog.getType() != "挂号费") ){
+                            (!transactionLog.getType().equals("挂号费")) ){
                         TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
                         newTransactionLog.setId(null);
                         newTransactionLog.setRoleId(newCashierId);
@@ -224,7 +231,7 @@ public class PaymentServiceImpl implements PaymentService {
                     //如果 退费的项目是药品，存在退部分数量的情况
                     else if(returnedProjectIdList.contains(transactionLog.getProjectId()) && itemCategory== 4){
                         for(TransactionParam returnedProject: returnedProjectList){
-                            if (returnedProject.getProjectId() == transactionLog.getProjectId()){
+                            if (returnedProject.getProjectId().equals(transactionLog.getProjectId())){
                                 Short returnAmount = returnedProject.getReturnAmount();
                                 Short remainAmount = (short) (returnedProject.getRemainAmount() - returnAmount);
                                 if(remainAmount != 0){
@@ -259,12 +266,13 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public CommonResult reprintTransactionLog(String invoiceCode, Integer newCashierId){
         List<TransactionLog> transactionLogs = transactionLogMapper.listLogsByInvoiceCode(invoiceCode);
-        String newInvoiceCode = null;
+        String newInvoiceCode;
         synchronized (this) {
             //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
             CommonResult result = invoiceService.getNextInvoiceCode();
             newInvoiceCode = (String) result.getData();
         }
+
         int count = 0;
         for(TransactionLog transactionLog: transactionLogs){
             //更改原有的发票号对应的缴费状态
@@ -292,8 +300,16 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public CommonResult listTransactionLogsByIdAndDate(Integer registrationId, String beginDateStr, String endDateStr){
+    public CommonResult listLogsByRegistrationIdAndDate(Integer registrationId, String beginDateStr, String endDateStr){
         List<TransactionLog> transactionLogs = transactionLogMapper.listLogsByRegistrationIdAndDate(registrationId, beginDateStr, endDateStr);
+        Map<String, List<TransactionLog>> invoiceMap = new HashMap<>();
+        for(TransactionLog t: transactionLogs){
+            String invoiceCode = t.getInvoiceCode();
+           if(!invoiceMap.containsKey(invoiceCode)){
+               invoiceMap.put(invoiceCode, new ArrayList<>());
+               invoiceMap.get(invoiceCode).add(t);
+           }
+        }
         return CommonResult.success(transactionLogs);
     }
 

@@ -5,22 +5,17 @@ import com.neuedu.hospitalbackend.constant.Cache;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.model.po.*;
-import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.InvoiceService;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.TransactionService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import com.neuedu.hospitalbackend.util.ConstantMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_700;
-import static com.neuedu.hospitalbackend.util.ResultCode.E_701;
-import static com.neuedu.hospitalbackend.util.ResultCode.E_703;
 
 @Service
 public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService {
@@ -66,8 +61,8 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
         Short registrationLevelId = registrationParam.getRegistrationLevelId();
         double cost = registrationLevelMapper.getRegistrationLevelCostById(registrationLevelId).doubleValue();
         double bookCost = 1;
-        double totalCost = 0;
-        if (registrationParam.getIsBuyCaseBook() == true){
+        double totalCost;
+        if (registrationParam.getIsBuyCaseBook()){
             totalCost = cost + bookCost;
         }
         else
@@ -117,7 +112,7 @@ public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.servi
 
             if (count2 > 0) {
                 //检查患者是否已在本系统中
-                int count3 = 0;
+                int count3;
                 Integer patientId = patientMapper.getPatientByIdCard(registrationParam.getIdCard());
                 System.out.println("patientId" + patientId);
                 if (patientId == null) {
