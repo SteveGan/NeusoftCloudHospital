@@ -103,6 +103,5 @@ public class DailySummaryServiceImpl implements DailySummaryService {
             return CommonResult.success(null);
         else
             return CommonResult.success(firstSummaryDate);
-
     }
 }

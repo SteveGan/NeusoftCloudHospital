@@ -20,8 +20,6 @@ public interface TransactionLogMapper {
     //在退号时得到挂号的缴费记录
     TransactionLog getLogByRegistrationIdAndType(@Param("registrationId") Integer registrationId, @Param("type") String type);
 
-    TransactionLog getSelective(TransactionLog transactionLog);
-
     //列出 指定病历号的 挂号缴费记录及挂号状态
     HashMap getRegistrationLog(Integer registrationId);
 
@@ -31,13 +29,22 @@ public interface TransactionLogMapper {
     //列出 指定病历号的药方 缴费记录
     List<HashMap> getRecipeLogs(Integer registrationId);
 
+    //列出 指定集合清单、指定项目下的小项详情
+    List<HashMap> listItemsByCollectionIdAndProjectId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
     //更改 退费的项目所在第一层级的 相关缴费记录状态 --已退费
     int updateSelectiveAsReturned(Integer collectionId, @Param("invoiceCode") String invoiceCode);
 
     //列出 退费的项目所在第一层级的 所有缴费记录
     List<TransactionLog> listCollectionProjectInfo(@Param("collectionId") Integer collectionId, @Param("invoiceCode") String invoiceCode);
 
-    //列出指定用户的所有发票号、项目单号、缴费状态
+    //列出 退费的项目所在发票号层级的 所有缴费记录
+    List<TransactionLog> listInvoiceProjectInfo(String invoiceCode);
+
+    //列出 退费的项目所在发票层级的 所有集合id
+    List<Integer> listCollectionIdByInvoiceCode(String invoiceCode);
+
+    //列出指定用户的所有发票号、缴费状态
     List<HashMap> getInvoiceCodeAndStatusByRegistrationId(Integer registrationId);
 
     //根据发票号查询缴费记录
@@ -57,4 +64,19 @@ public interface TransactionLogMapper {
 
     //根据发票号范围和收银员id查询所有发票信息
     List<HashMap> listLogsByInvoiceRangeAndCashierId(@Param("cashierId") Integer cashierId, @Param("invoiceCodeBegin") String invoiceCodeBegin, @Param("invoiceCodeEnd") String invoiceCodeEnd);
+
+    //查询在统计范围内的发票号数量
+    int countInvoiceCodeInRangeByCashierId(@Param("cashierId") Integer cashierId, @Param("invoiceCodeBegin") String invoiceCodeBegin, @Param("invoiceCodeEnd") String invoiceCodeEnd);
+
+    //日结时得到不同类型状态的发票号
+    List<String> listInvoiceCodeByStatus(@Param("cashierId") Integer cashierId, @Param("invoiceCodeBegin") String invoiceCodeBegin,
+                                         @Param("invoiceCodeEnd") String invoiceCodeEnd, @Param("status") Byte status);
+
+    //日结时计算每种费用类型的总金额
+    List<HashMap> listTotalMoneyByType(@Param("cashierId") Integer cashierId, @Param("invoiceCodeBegin") String invoiceCodeBegin, @Param("invoiceCodeEnd") String invoiceCodeEnd);
+
+    //开单/执行科室工作量统计
+    List<HashMap> calculateMoneyByDepartmentAndType(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
+                                                        @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
 }

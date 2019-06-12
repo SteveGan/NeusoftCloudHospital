@@ -277,6 +277,11 @@ export default {
   },
 
   methods: {
+    // 打印
+    print() {
+
+    },
+
     // 清屏
     clear(){
       this.resultDescription = "";
@@ -378,11 +383,11 @@ export default {
 
     // 选中已登记
     handleCheckedInChange(val){
-      this.itemTable = false;
-      // this.patientCard = false;
-      this.patientCard = true;
-
       this.resultForm = true;
+      this.itemTable = false;
+      // // this.patientCard = false;
+      // this.patientCard = true;
+
 
       this.currentProject = val;
     },

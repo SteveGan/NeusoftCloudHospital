@@ -279,7 +279,6 @@
 import InvoiceCode from './InvoiceCode'
 import register from '@/api/register'
 
-
 export default {
   name: 'PatientRegistration',
   components:{
@@ -458,7 +457,7 @@ export default {
     confirmation(registrationForm) {
       this.loading1 = true;
       const currentRoleId = this.$store.getters['user/currentRoleId'];
-      this.registrationForm.cashierId = currentRoleId;
+      this.registrationForm.cashierId = this.currentRoleId;
       register.confirmation(this.registrationForm).then(response => {
         console.log(response.data)
 
