@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { routeByPositionId } from "@/utils/path";
+
 export default {
   name: "RoleCard",
   props: {
@@ -43,30 +45,7 @@ export default {
       this.$store.commit("user/setCurrentRole", this.role);
       // 跳转到相应页面
       const positionId = this.role.positionId;
-      var path = "";
-      switch (positionId) {
-        //收费员
-        case 1:
-          path = "/home/cashier";
-          break;
-        case 2:
-          path = "/home/outpatientdoctor";
-          break;
-        case 3:
-          path = "/home/techdoctor";
-          break;
-        case 4:
-          path = "/home/drugstation";
-          break;
-        case 5:
-          path = "/home/cashier";
-          break;
-        case 6:
-          path = "/home/admin";
-          break;
-      }
-      console.log(path);
-      this.$router.push({ path: path });
+      this.$router.push({ path: routeByPositionId(positionId) });
     }
   },
   computed: {

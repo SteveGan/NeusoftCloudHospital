@@ -22,6 +22,20 @@ const getters = {
   },
   currentDepartmentId: state => {
     return state.currentRole.deparmentId;
+  },
+  currentRoleDescription: state => {
+    if (Object.keys(state.currentRole).length === 0) {
+      return "请选择您的职位"
+    } else {
+      var description = "部门：" + state.currentRole.departmentName + "  职位：" + state.currentRole.positionName
+      if (state.currentRole.titleName != null) {
+        description = description + "  职称：" + state.currentRole.titleName
+      }
+      return description
+    }
+  },
+  roles: state => {
+    return state.roles;
   }
 }
 
