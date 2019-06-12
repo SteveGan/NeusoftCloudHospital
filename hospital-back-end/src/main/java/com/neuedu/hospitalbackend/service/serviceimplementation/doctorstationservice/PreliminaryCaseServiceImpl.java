@@ -74,7 +74,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         //病历信息
         HashMap patientCase = patientCaseMapper.getPatientCaseInfo(caseId);
         if(patientCase == null)
-            return CommonResult.fail(ResultCode.E_801);//参数异常
+            return CommonResult.fail(ResultCode.E_800);//参数异常
 //        returnJson.put("patientCase", patientCase);
         returnJson.put("caseId", caseId);
         returnJson.put("narrate",  patientCase.get("narrate"));
@@ -215,8 +215,8 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         //暂存状态
         if (2 == curStatus){
             //清除病历首页信息
-            count = patientCaseMapper.updatePatientCase(caseId, null, null, null,
-                    null, null,null, null,1);//待诊状态：1
+            count = patientCaseMapper.updatePatientCase(caseId, " ", " ", " ",
+                    " ", " "," ", " ",1);//待诊状态：1
             if(count <= 0)
                 return CommonResult.fail(ResultCode.E_802);//保存失败
             //删除诊断

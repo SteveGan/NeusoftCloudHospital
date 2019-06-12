@@ -241,7 +241,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             Inspection inspection = new Inspection();
             inspection.setId(collectionId);
             inspection.setProjectId(projectId);
-            inspection.setStatus(projectParam.getProjectStatus());
+            inspection.setStatus(projectParam.getStatus());
             inspection.setGoal(projectParam.getGoal());
             inspection.setRequirement(projectParam.getRequirement());
 
@@ -352,8 +352,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             Examination examination = new Examination();
             examination.setId(collectionId);
             examination.setProjectId(projectId);
-            examination.setStatus(projectParam.getProjectStatus());
-            System.out.println("ssssssssssssssssssssss" + projectParam.getProjectStatus());
+            examination.setStatus(projectParam.getStatus());
             examination.setGoal(projectParam.getGoal());
             examination.setRequirement(projectParam.getRequirement());
 
@@ -465,7 +464,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             Treatment treatment = new Treatment();
             treatment.setId(collectionId);
             treatment.setProjectId(projectId);
-            treatment.setStatus(projectParam.getProjectStatus());
+            treatment.setStatus(projectParam.getStatus());
 
             //若处置项目已在数据库，更新项目内容
             if(existedProjectIds.contains(projectId)) {
