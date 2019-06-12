@@ -45,7 +45,6 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 
         List<HashMap> recipeLogs = recipeMapper.listRecipeInfoByRegistrationId(caseId);
         //处方类型：0该患者无处方，1中草药处方，2其他处方（成药）
-        System.out.println(recipeLogs.size());
         if(recipeLogs.size() == 0) {
             returnJson.put("type", 0);
             returnJson.put("recipes", null);
@@ -157,6 +156,20 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 
         //删除数据库已存在内容
         recipeMapper.deleteById(recipeId);
+
+        //清屏删除
+        if(medicines.size() == 0){
+            Recipe recipe = new Recipe();
+            recipe.setId(recipeId);
+            recipe.setMedicineId(0);
+            recipe.setCaseId(caseId);
+            recipe.setCreatorRoleId(creatorRoleId);
+            count = recipeMapper.insertSelective(recipe);//保存recipeId
+            if(count <= 0)
+                return CommonResult.fail(ResultCode.E_802);
+            return CommonResult.success(count);
+        }
+
         //插入新提交内容
         for(RecipeParam recipeParam: medicines){
             //创建对象
