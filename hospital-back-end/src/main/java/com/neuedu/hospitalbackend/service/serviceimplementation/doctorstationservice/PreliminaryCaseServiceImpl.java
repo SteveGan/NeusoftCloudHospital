@@ -10,6 +10,7 @@ import com.neuedu.hospitalbackend.model.vo.PatientCaseParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
+import com.neuedu.hospitalbackend.util.SHAUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

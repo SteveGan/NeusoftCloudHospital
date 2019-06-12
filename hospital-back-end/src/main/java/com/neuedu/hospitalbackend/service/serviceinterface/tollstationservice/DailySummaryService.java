@@ -8,6 +8,11 @@ public interface DailySummaryService {
 
 
     /**
+     * 根据收费员id查询上次日结的截止时间
+     */
+    CommonResult getLastEndDate(Integer cashierId);
+
+    /**
      * 日结统计：根据收费员id、起始日期查询指定收费员的所有发票信息
      * @param dailySummaryParam 日结参数
      * @return

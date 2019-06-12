@@ -34,10 +34,16 @@ public interface ProjectCollectionManagementService {
     CommonResult savePresentCollection(CollectionParam collectionParam);
 
     /**
-     * 提交申请清单
+     * 开立申请清单
      * @param collectionParam
      */
     CommonResult submitPresentCollection(CollectionParam collectionParam);
+
+    /**
+     * 作废开立项目
+     * @param collectionId
+     */
+    CommonResult cancelSubmittedCollection(Integer collectionId, Integer type);
 
 
 

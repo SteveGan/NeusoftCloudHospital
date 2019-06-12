@@ -229,11 +229,9 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         //参数检查
         if(caseId == null || collectionId == null || applicantRoleId == null)
             return CommonResult.fail(ResultCode.E_801);
-        //TODO 状态检查
 
         //若删除或清空
         if(projectParams.size() == 0){
-            System.out.println("1111sssssssssssssssss  " + projectParams.size());
             inspectionMapper.deleteByCollectionId(collectionId);//删除项目
             inspectionProjectMapper.deleteItemsByCollectionId(collectionId);//删除小项
             Inspection inspection = new Inspection();
@@ -356,11 +354,10 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         //参数检查
         if(caseId == null || collectionId == null || applicantRoleId == null)
             return CommonResult.fail(ResultCode.E_801);
-        //TODO 状态检查
+
 
         //若删除或清空
         if(projectParams.size() == 0){
-            System.out.println("2222sssssssssssssssss" + projectParams.size());
             examinationMapper.deleteByCollectionId(collectionId);//删除项目
             examinationProjectMapper.deleteItemsByCollectionId(collectionId);//删除小项
             Examination examination = new Examination();
@@ -484,11 +481,10 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         //参数检查
         if(caseId == null || collectionId == null || applicantRoleId == null)
             return CommonResult.fail(ResultCode.E_801);
-        //TODO 状态检查
+
 
         //若删除或清空
         if(projectParams.size() == 0){
-            System.out.println("3333sssssssssssssssss  " + projectParams.size());
             treatmentMapper.deleteByCollectionId(collectionId);//删除项目
             Treatment treatment = new Treatment();
             treatment.setId(collectionId);
@@ -554,10 +550,6 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         return CommonResult.success(count);
     }
 
-
-
-
-
     /**
      * 插入检查小项
      * @param collectionId
@@ -593,7 +585,6 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         int count = examinationProjectMapper.insert(examinationProject);
         return count;
     }
-
 
     /**
      * 创建缴费清单
@@ -654,6 +645,30 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
 
         //增加缴费清单
         return transactionService.insertTransactionLog(transactionLog);
+    }
+
+
+    /**
+     * 作废申请项目
+     * 已开立的项目才可以被作废
+     * @param collectionId
+     */
+    public CommonResult cancelSubmittedCollection(Integer collectionId, Integer type){
+        int count = 0;
+
+        if (type == 1){ // 检查
+
+        }
+        else if (type == 2){ // 检验
+
+        }
+        else if (type == 3){ //处置
+
+        }
+        else
+            return CommonResult.fail(ResultCode.E_802);
+
+        return CommonResult.success(count);
     }
 
 }
