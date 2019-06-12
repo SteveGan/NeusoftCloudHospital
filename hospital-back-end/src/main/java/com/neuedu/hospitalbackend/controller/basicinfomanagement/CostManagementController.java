@@ -23,7 +23,7 @@ public class CostManagementController {
 
     @ApiOperation("列出全部科目")
     @RequestMapping(value = "/costs", method = RequestMethod.GET)
-    public CommonResult listAllDepartments() {
+    public CommonResult listAllCosts() {
         return costManagementImpl.listAllCosts();
     }
 }
