@@ -235,12 +235,16 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         if(projectParams.size() == 0){
             System.out.println("1111sssssssssssssssss  " + projectParams.size());
             inspectionMapper.deleteByCollectionId(collectionId);//删除项目
+            inspectionProjectMapper.deleteItemsByCollectionId(collectionId);//删除小项
             Inspection inspection = new Inspection();
             inspection.setId(collectionId);
             inspection.setProjectId(0);
             inspection.setCaseId(caseId);
             inspection.setCreatorRoleId(applicantRoleId);
-            inspectionMapper.insertSelective(inspection);//保存collectionId
+            count = inspectionMapper.insertSelective(inspection);//保存collectionId
+            if(count <= 0)
+                return CommonResult.fail(ResultCode.E_802);
+            return CommonResult.success(count);
         }
 
         //更新清单内容
@@ -358,12 +362,16 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         if(projectParams.size() == 0){
             System.out.println("2222sssssssssssssssss" + projectParams.size());
             examinationMapper.deleteByCollectionId(collectionId);//删除项目
+            examinationProjectMapper.deleteItemsByCollectionId(collectionId);//删除小项
             Examination examination = new Examination();
             examination.setId(collectionId);
             examination.setProjectId(0);
             examination.setCaseId(caseId);
             examination.setCreatorRoleId(applicantRoleId);
-            examinationMapper.insertSelective(examination);//保存collectionId
+            count = examinationMapper.insertSelective(examination);//保存collectionId
+            if(count <= 0)
+                return CommonResult.fail(ResultCode.E_802);
+            return CommonResult.success(count);
         }
 
         //更新清单内容
@@ -487,7 +495,10 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             treatment.setProjectId(0);
             treatment.setCaseId(caseId);
             treatment.setCreatorRoleId(applicantRoleId);
-            treatmentMapper.insertSelective(treatment);//保存collectionId
+            count = treatmentMapper.insertSelective(treatment);//保存collectionId
+            if(count <= 0)
+                return CommonResult.fail(ResultCode.E_802);
+            return CommonResult.success(count);
         }
 
         //更新清单内容

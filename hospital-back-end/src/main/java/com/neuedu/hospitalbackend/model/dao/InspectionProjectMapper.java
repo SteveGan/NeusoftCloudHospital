@@ -19,4 +19,7 @@ public interface InspectionProjectMapper {
                @Param("itemId") String itemId);
 
     int deleteItemsByCidAndPid(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
+    int deleteItemsByCollectionId(Integer collectionId);
+
 }

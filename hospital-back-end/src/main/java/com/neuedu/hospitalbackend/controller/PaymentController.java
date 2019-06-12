@@ -62,7 +62,8 @@ public class PaymentController {
     @ApiOperation("输入患者病历号（必输）、开始时间和结束时间选填。查询该患者的所有收费项目列表")
     @RequestMapping(value = "/transactionLogs", method = RequestMethod.GET)
     public CommonResult reprintTransactionLog(Integer registrationId, String beginDateStr, String endDateStr){
-        return paymentService.listTransactionLogsByIdAndDate(registrationId, beginDateStr, endDateStr);
+//        return paymentService.listTransactionLogsByIdAndDate(registrationId, beginDateStr, endDateStr);
+        return null;
     }
 
 
