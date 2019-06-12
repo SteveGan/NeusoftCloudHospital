@@ -1,13 +1,13 @@
 <template lang="html">
   <div>
     <invoice-code ref="invoiceCode" v-on:listenToChildEvent="showMsgFromChild"></invoice-code>
-    <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover">
+    <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover" v-loading="loading">
       <div slot="header">
         <span>挂号</span>
         <el-button style="float:right" type="text" icon="el-icon-document-add" @click="confirmation">挂号</el-button>
         <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">打印</el-button>
-        <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">补打</el-button>
-        <el-button style="float:right" type="text" icon="el-icon-printer">重打</el-button>
+        <!-- <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">补打</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-printer">重打</el-button> -->
         <el-button style="float:right" type="text" icon="el-icon-refresh-right" @click="refresh">清屏</el-button>
         <el-button style="float:right" type="text" icon="el-icon-camera" @click="scan">扫描</el-button>
       </div>
@@ -315,7 +315,8 @@ export default {
       available: true,
       registrationsInfo: [],
 
-      currentRoleId: ""
+      currentRoleId: "",
+      loading: false
       
     }
   },
@@ -434,14 +435,17 @@ export default {
 
     // 挂号
     confirmation(registrationForm) {
+      this.loading = true;
       const currentRoleId = this.$store.getters['user/currentRoleId'];
       this.registrationForm.cashierId = currentRoleId;
       register.confirmation(this.registrationForm).then(response => {
         console.log(response.data)
 
         if(response.data.code===200){
-          this.refresh()
           this.success("挂号");
+          this.invoicePrinterVisible = true;
+          this.registrations();
+          this.loading = false;
         } else {
           this.fail("挂号");
         }
