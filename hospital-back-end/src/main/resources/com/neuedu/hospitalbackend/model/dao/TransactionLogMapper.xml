@@ -272,4 +272,9 @@
         update transaction_log set status = 6
         where invoice_code = #{invoiceCode}
     </update>
+
+    <select id="getFirstLogDateByCashierId" resultType="string">
+        select min(gmt_create) from transaction_log
+        where role_id = #{cashierId}
+    </select>
 </mapper>
