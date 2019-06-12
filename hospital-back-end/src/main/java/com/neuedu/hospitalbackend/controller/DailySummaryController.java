@@ -18,6 +18,13 @@ public class DailySummaryController {
     @Autowired
     private DailySummaryService dailySummaryService;
 
+    @ApiOperation("查询收费员上次日结截止时间")
+    @RequestMapping(value = "/lastdate", method = RequestMethod.GET)
+    public CommonResult getLastEndDate(Integer cashierId){
+        return dailySummaryService.getLastEndDate(cashierId);
+    }
+
+
     @ApiOperation("收费员日结统计")
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
     public CommonResult conductDailyTransactionLogs(DailySummaryParam dailySummaryParam){

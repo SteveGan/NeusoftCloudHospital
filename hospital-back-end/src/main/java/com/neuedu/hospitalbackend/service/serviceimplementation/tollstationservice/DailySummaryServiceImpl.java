@@ -14,9 +14,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.neuedu.hospitalbackend.util.ResultCode.E_708;
-import static com.neuedu.hospitalbackend.util.ResultCode.E_709;
-import static com.neuedu.hospitalbackend.util.ResultCode.E_805;
+import static com.neuedu.hospitalbackend.util.ResultCode.*;
 
 @Component
 public class DailySummaryServiceImpl implements DailySummaryService {
@@ -25,6 +23,15 @@ public class DailySummaryServiceImpl implements DailySummaryService {
     private TransactionLogMapper transactionLogMapper;
     @Autowired
     private DailySummaryLogMapper dailySummaryLogMapper;
+
+    @Override
+    public CommonResult getLastEndDate(Integer cashierId){
+        String lastEndDate = dailySummaryLogMapper.getEndDateByCashierId(cashierId);
+        if (lastEndDate == null)
+            return CommonResult.success(null);
+        else
+            return CommonResult.success(lastEndDate);
+    }
 
     @Override
     public CommonResult listLogsByCashierIdAndDate(DailySummaryParam dailySummaryParam){
