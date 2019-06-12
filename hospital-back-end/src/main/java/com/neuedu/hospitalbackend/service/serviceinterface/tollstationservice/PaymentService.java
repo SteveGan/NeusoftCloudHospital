@@ -47,5 +47,5 @@ public interface PaymentService {
      * @param endDateStr
      * @return
      */
-    CommonResult listTransactionLogsByIdAndDate(Integer registrationId, String beginDateStr, String endDateStr);
+    CommonResult listLogsByRegistrationIdAndDate(Integer registrationId, String beginDateStr, String endDateStr);
 }
