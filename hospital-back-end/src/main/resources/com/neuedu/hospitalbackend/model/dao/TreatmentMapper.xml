@@ -143,6 +143,12 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
+    <update id="updateStatusToCancel">
+        update treatment
+        set status = #{status}
+        where id = #{collectionId} and status = 2
+    </update>
+
     <select id="getLatestId" resultType="Integer">
         select id
         from treatment

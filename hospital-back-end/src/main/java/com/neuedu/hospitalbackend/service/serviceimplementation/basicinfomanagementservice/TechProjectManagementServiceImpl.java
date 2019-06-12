@@ -25,6 +25,8 @@ public class TechProjectManagementServiceImpl implements TechProjectManagementSe
             info = techProjectMapper.listProjectBasicInfoByType("医学影像科");
         else if (type == 2)
             info = techProjectMapper.listProjectBasicInfoByType("医技科");
+        else if (type == 3)
+            info = techProjectMapper.listProjectBasicInfoByType("药剂科");
         else
             return CommonResult.fail(ResultCode.E_801);
         returnJson.put("projects", info);

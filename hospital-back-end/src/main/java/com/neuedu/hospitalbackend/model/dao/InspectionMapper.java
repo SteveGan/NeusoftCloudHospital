@@ -38,6 +38,7 @@ public interface InspectionMapper {
 
     int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("status") Byte status);
 
+    int updateStatusToCancel(@Param("collectionId") Integer collectionId, @Param("status") Byte status);
 
     Integer getLatestId();
 

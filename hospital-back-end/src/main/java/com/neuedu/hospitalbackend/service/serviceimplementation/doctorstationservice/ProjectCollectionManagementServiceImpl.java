@@ -655,19 +655,22 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     public CommonResult cancelSubmittedCollection(Integer collectionId, Integer type){
         int count = 0;
+        Byte status = 3;
 
         if (type == 1){ // 检查
-
+            count = inspectionMapper.updateStatusToCancel(collectionId, status);
         }
         else if (type == 2){ // 检验
-
+            count = examinationMapper.updateStatusToCancel(collectionId, status);
         }
         else if (type == 3){ //处置
-
+            count = treatmentMapper.updateStatusToCancel(collectionId, status);
         }
         else
             return CommonResult.fail(ResultCode.E_802);
 
+        if(count <= 0)
+            return CommonResult.fail(ResultCode.E_804);
         return CommonResult.success(count);
     }
 
