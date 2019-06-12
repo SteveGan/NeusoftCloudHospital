@@ -15,15 +15,15 @@ public class DailySummaryLog {
 
     private String invoiceCodeEnd;
 
-    private Timestamp beginDate;
+    private Date beginDate;
 
-    private Timestamp endDate;
+    private Date endDate;
 
     private Date gmtCreate;
 
     private Date gmtModified;
 
-    public DailySummaryLog(Integer cashierRoleId, BigDecimal totalMoney, String invoiceCodeBegin, String invoiceCodeEnd, Timestamp beginDate, Timestamp endDate) {
+    public DailySummaryLog(Integer cashierRoleId, BigDecimal totalMoney, String invoiceCodeBegin, String invoiceCodeEnd, Date beginDate, Date endDate) {
         this.cashierRoleId = cashierRoleId;
         this.totalMoney = totalMoney;
         this.invoiceCodeBegin = invoiceCodeBegin;
@@ -76,15 +76,15 @@ public class DailySummaryLog {
         return beginDate;
     }
 
-    public void setBeginDate(Timestamp beginDate) {
+    public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
     }
 
-    public Timestamp getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Timestamp endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

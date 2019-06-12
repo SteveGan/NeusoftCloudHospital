@@ -40,6 +40,12 @@ public class DailySummaryController {
         return dailySummaryService.listHistorySummaryLogs(dailySummaryParam);
     }
 
+    @ApiOperation("根据日结信息，显示其对应的发票信息")
+    @RequestMapping(value = "/invoiceinfo", method = RequestMethod.GET)
+    public CommonResult listInvoiceResults(DailySummaryParam dailySummaryParam){
+        return dailySummaryService.listInvoiceInfoByCashierIdAndDate(dailySummaryParam);
+    }
+
     @ApiOperation("查询收费员第一次日结的时间")
     @RequestMapping(value = "/firstsummarydate", method = RequestMethod.GET)
     public CommonResult getFirstSummaryDate(Integer cashierId){

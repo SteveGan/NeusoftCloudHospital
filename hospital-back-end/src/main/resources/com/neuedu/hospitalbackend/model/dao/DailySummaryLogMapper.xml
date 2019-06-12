@@ -9,7 +9,7 @@
     <result column="invoice_code_end" property="invoiceCodeEnd" jdbcType="CHAR" />
     <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
     <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
-    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_create" property="gmtCreate" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
   <insert id="insert" parameterType="DailySummaryLog" >
@@ -80,10 +80,10 @@
     </trim>
   </insert>
 
-  <select id="getByCashierIdAndDate" resultMap="BaseResultMap">
-    select * from daily_summary_log
+  <select id="getByCashierIdAndDate" resultType="HashMap">
+    select cashier_role_id as cashierId, gmt_create as gmtCreate from daily_summary_log
     where cashier_role_id = #{cashierId}
-    and end_date &gt;= #{beginDateStr} and end_date &lt;= #{endDateStr}
+    and gmt_create &gt;= #{beginDateStr} and gmt_create &lt;= #{endDateStr}
   </select>
 
   <select id="getEndDateByCashierId" resultType="string">
@@ -94,5 +94,11 @@
   <select id="getFirstSummaryDate" resultType="string">
     select min(gmt_create) from daily_summary_log
     where cashier_role_id = #{cashierId}
+  </select>
+
+  <select id="getInvoiceRangeByCashierIdAndDate" resultType="HashMap">
+    select invoice_code_begin as invoiceCodeBegin, invoice_code_end as invoiceCodeEnd
+    from daily_summary_log
+    where cashier_role_id = #{cashierId} and gmt_create = #{createDate}
   </select>
 </mapper>

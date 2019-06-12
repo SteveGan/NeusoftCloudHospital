@@ -54,4 +54,7 @@ public interface TransactionLogMapper {
 
     //根据收费员Id,找到其第一条收费记录时间
     String getFirstLogDateByCashierId(Integer cashierId);
+
+    //根据发票号范围和收银员id查询所有发票信息
+    List<HashMap> listLogsByInvoiceRangeAndCashierId(@Param("cashierId") Integer cashierId, @Param("invoiceCodeBegin") String invoiceCodeBegin, @Param("invoiceCodeEnd") String invoiceCodeEnd);
 }

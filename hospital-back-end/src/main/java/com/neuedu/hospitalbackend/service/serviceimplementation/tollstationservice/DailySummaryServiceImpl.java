@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -77,11 +78,22 @@ public class DailySummaryServiceImpl implements DailySummaryService {
         Integer cashierId = dailySummaryParam.getCashierId();
         String beginDateStr = dailySummaryParam.getBeginDateStr();
         String endDateStr = dailySummaryParam.getEndDateStr();
-        List<DailySummaryLog> dailySummaryLogs = dailySummaryLogMapper.getByCashierIdAndDate(cashierId, beginDateStr, endDateStr);
+        List<HashMap> dailySummaryLogs = dailySummaryLogMapper.getByCashierIdAndDate(cashierId, beginDateStr, endDateStr);
         if(dailySummaryLogs != null)
             return CommonResult.success(dailySummaryLogs);
         else
             return CommonResult.success(null);
+    }
+
+    @Override
+    public CommonResult listInvoiceInfoByCashierIdAndDate(DailySummaryParam dailySummaryParam){
+        Integer cashierId = dailySummaryParam.getCashierId();
+        String createDateStr = dailySummaryParam.getCreateDateStr();
+        HashMap invoiceRange = dailySummaryLogMapper.getInvoiceRangeByCashierIdAndDate(cashierId, createDateStr);
+        String invoiceCodeBegin = (String) invoiceRange.get("invoiceCodeBegin");
+        String invoiceCodeEnd = (String) invoiceRange.get("invoiceCodeEnd");
+        List<HashMap> invoiceResult = transactionLogMapper.listLogsByInvoiceRangeAndCashierId(cashierId, invoiceCodeBegin, invoiceCodeEnd);
+        return  CommonResult.success(invoiceResult);
     }
 
     @Override

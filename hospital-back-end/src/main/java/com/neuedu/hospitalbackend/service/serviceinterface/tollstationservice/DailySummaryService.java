@@ -34,6 +34,13 @@ public interface DailySummaryService {
     CommonResult listHistorySummaryLogs(DailySummaryParam dailySummaryParam);
 
     /**
+     * 根据日结信息，显示其对应的发票信息
+     * @param dailySummaryParam
+     * @return
+     */
+    CommonResult listInvoiceInfoByCashierIdAndDate(DailySummaryParam dailySummaryParam);
+
+    /**
      * 查询指定收费员第一条日结记录的时间
      * @param cashierId
      * @return

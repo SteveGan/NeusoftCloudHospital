@@ -18,9 +18,12 @@ public interface DailySummaryLogMapper {
     String getEndDateByCashierId(Integer cashierId);
 
     //查询日结历史记录
-    List<DailySummaryLog> getByCashierIdAndDate(@Param("cashierId") Integer cashierId, @Param("beginDateStr") String beginDateStr,
+    List<HashMap> getByCashierIdAndDate(@Param("cashierId") Integer cashierId, @Param("beginDateStr") String beginDateStr,
                                         @Param("endDateStr") String endDateStr);
 
+    HashMap getInvoiceRangeByCashierIdAndDate(@Param("cashierId") Integer cashierId, @Param("createDate") String createDate);
+
+    //查询收银员第一次日结时间
     String getFirstSummaryDate(Integer cashierId);
 
 }
