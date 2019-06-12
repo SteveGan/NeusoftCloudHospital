@@ -30,6 +30,8 @@ public class TransactionLog implements Cloneable {
 
     private Byte status;
 
+    private Boolean isFrozen;
+
     private Date gmtCreate;
 
     private Date gmtModified;
@@ -152,6 +154,14 @@ public class TransactionLog implements Cloneable {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Boolean getFrozen() {
+        return isFrozen;
+    }
+
+    public void setFrozen(Boolean frozen) {
+        isFrozen = frozen;
     }
 
     public Object clone() {

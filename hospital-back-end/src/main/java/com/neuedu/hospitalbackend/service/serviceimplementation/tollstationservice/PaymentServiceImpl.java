@@ -40,9 +40,11 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public CommonResult listDetailedTransactionLogs(Integer registrationId) {
+        //列出指定用户的所有发票号、缴费状态（已缴费、已退费、冲正、作废、冻结）
         List<HashMap> invoiceCollection = transactionLogMapper.getInvoiceCodeAndStatusByRegistrationId(registrationId);
         Map<String, List<HashMap>> result = new HashMap<>();
         List<HashMap> logs = new ArrayList<>();
+        //列出指定用户的待缴费、已缴费状态缴费记录  第一层目录 -- 第二层目录
         logs.add(transactionLogMapper.getRegistrationLog(registrationId));
         logs.addAll(transactionLogMapper.listLogsByTableName("inspection", registrationId));
         logs.addAll(transactionLogMapper.listLogsByTableName("examination", registrationId));
@@ -62,18 +64,39 @@ public class PaymentServiceImpl implements PaymentService {
                 }
             }
         }
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("invoiceCollection", invoiceCollection);
-        jsonObject.put("transactionLogs", result);
+        jsonObject.put("transactionLogs", logs);
         return CommonResult.success(jsonObject);
     }
 
     @Override
+    public CommonResult listCollectionDetailedItems(Integer collectionId, Integer projectId){
+        // 判断集合的类别（检查、检验、处置、药方）
+        List<HashMap> itemInfo;
+        if(collectionId.toString().startsWith("2")) {
+            itemInfo = transactionLogMapper.listItemsByCollectionIdAndProjectId(collectionId, projectId);
+        } else if(collectionId.toString().startsWith("3")) {
+            itemInfo = transactionLogMapper.listItemsByCollectionIdAndProjectId(collectionId, projectId);
+        } else
+            return CommonResult.success("不存在小项");
+        return CommonResult.success(itemInfo);
+    }
+
+    @Override
     public CommonResult updateTransactionLogsAsPaid(List<TransactionLog> transactionLogs) {
+        String invoiceCode;
+        synchronized (this) {
+            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+            CommonResult result = invoiceService.getNextInvoiceCode();
+            invoiceCode = (String) result.getData();
+        }
         int count = 0;
         for (TransactionLog transactionLog : transactionLogs) {
             if (transactionLog.getStatus() == 1) {
                 transactionLog.setStatus((byte) 2);
+                //transactionLog.setInvoiceCode(invoiceCode);
                 count += transactionLogMapper.update(transactionLog);
             }
         }
@@ -171,11 +194,13 @@ public class PaymentServiceImpl implements PaymentService {
 
             // 得到 退费的项目所在第一层级的(同一个发票号、同一个collectionId） 缴费记录
             List<TransactionLog> transactionLogs = transactionLogMapper.listCollectionProjectInfo(collectionId, originalInvoiceCode);
+
             // 更改 退费的项目所在第一层级的 相关缴费记录状态（即检验单B中的所有项目）--已退费
             transactionLogMapper.updateSelectiveAsReturned(collectionId,originalInvoiceCode);
 
             String reverseInvoiceCode;
             String newInvoiceCode = null;
+
             //向缴费表中添加 退费的项目所在第一层级的 冲正记录（即检验单B中的所有项目） --冲正，
             synchronized (this) {
                 //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
@@ -214,6 +239,7 @@ public class PaymentServiceImpl implements PaymentService {
                 }
 
                 for(TransactionLog transactionLog: transactionLogs){
+                    if(transactionLog.getCollectionId() == collectionId)
                     //新增与 退费的项目所在相同第一层级的未退费项目 的缴费记录（即检验单B中的项目2、3）--已缴费
                     if ( (!returnedProjectIdList.contains(transactionLog.getProjectId())) &&
                             (!transactionLog.getType().equals("挂号费")) ){
@@ -260,7 +286,6 @@ public class PaymentServiceImpl implements PaymentService {
         }
         return CommonResult.success(transactionLogParams.size());
     }
-
     @Override
     public CommonResult reprintTransactionLog(String invoiceCode, Integer newCashierId){
         List<TransactionLog> transactionLogs = transactionLogMapper.listLogsByInvoiceCode(invoiceCode);

@@ -1,10 +1,7 @@
 package com.neuedu.hospitalbackend.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.Patient;
-import com.neuedu.hospitalbackend.model.po.Registration;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
 import com.neuedu.hospitalbackend.model.vo.TransactionParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService;

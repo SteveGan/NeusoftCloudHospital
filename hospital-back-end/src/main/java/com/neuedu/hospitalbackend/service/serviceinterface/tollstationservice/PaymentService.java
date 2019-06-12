@@ -19,6 +19,14 @@ public interface PaymentService {
     CommonResult listDetailedTransactionLogs(Integer registrationId);
 
     /**
+     * 列出某清单某项目下的小项及收费金额
+     * @param collectionId 清单号
+     * @param projectId 项目id
+     * @return
+     */
+    CommonResult listCollectionDetailedItems(Integer collectionId, Integer projectId);
+
+    /**
      * 执行收费操作
      * @param transactionLogList 需要缴费的项目集合
      * @return

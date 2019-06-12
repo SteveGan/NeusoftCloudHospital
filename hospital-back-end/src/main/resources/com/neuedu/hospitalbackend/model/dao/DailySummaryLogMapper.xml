@@ -81,7 +81,8 @@
   </insert>
 
   <select id="getByCashierIdAndDate" resultType="HashMap">
-    select cashier_role_id as cashierId, gmt_create as gmtCreate from daily_summary_log
+    select cashier_role_id as cashierId, gmt_create as gmtCreate
+    from daily_summary_log
     where cashier_role_id = #{cashierId}
     and gmt_create &gt;= #{beginDateStr} and gmt_create &lt;= #{endDateStr}
   </select>
@@ -100,5 +101,10 @@
     select invoice_code_begin as invoiceCodeBegin, invoice_code_end as invoiceCodeEnd
     from daily_summary_log
     where cashier_role_id = #{cashierId} and gmt_create = #{createDate}
+  </select>
+  
+  <select id="getSummaryLog" resultMap="BaseResultMap">
+    select * from daily_summary_log
+    where cashier_role_id = #{cashierId} and begin_date = #{beginDateStr} and end_date = #{endDateStr}
   </select>
 </mapper>
