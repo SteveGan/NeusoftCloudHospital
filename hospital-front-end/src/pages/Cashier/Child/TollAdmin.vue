@@ -230,7 +230,7 @@ export default {
           this.success("缴费");
         } else {
           this.fail("缴费");
-        }        
+        }
       }).catch(error => {
         
       })
