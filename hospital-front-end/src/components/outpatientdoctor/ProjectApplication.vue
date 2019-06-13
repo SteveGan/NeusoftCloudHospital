@@ -207,12 +207,7 @@
         <el-button type="primary" @click="handleConfirmAdd">添加</el-button>
       </span>
     </el-dialog>
-    <el-dialog
-      title="检查结果"
-      :visible.sync="dialogShowResult"
-      :before-close="handleClose"
-      width="600px"
-    >
+    <el-dialog title="检查结果" :visible.sync="dialogShowResult" width="600px">
       <el-card shadow="hover">
         <el-form label-position="left" label-width="80px" :model="currentResult">
           <el-form-item label="诊断意见">
@@ -234,14 +229,13 @@
             ></el-input>
           </el-form-item>
           <el-form-item label="检查结果图片">
-            <el-image
-              style="width: 100px; height: 100px"
-              :src="currentResult.resultImage"
-              :fit="fit"
-            ></el-image>
+            <el-image style="width: 100px; height: 100px" :src="currentResult.resultImage"></el-image>
           </el-form-item>
         </el-form>
       </el-card>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleCancel">取消</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -416,6 +410,7 @@ export default {
       );
     },
     handleCancel() {
+      console.log("cancel");
       this.newProject = { items: [] };
       this.newItem = {};
       this.dialogAddProject = false;
@@ -479,6 +474,24 @@ export default {
     handleClear(collection) {
       collection.projects = [];
       this.handleTempSave(collection);
+    },
+    showResult(collectionId, projectId) {
+      var data = {
+        collectionId: collectionId,
+        projectId: projectId,
+        projectType: this.type
+      };
+      getProjectResult(data).then(
+        response => {
+          console.log("结果：");
+          console.log(response.data.data.result);
+          this.currentResult = response.data.data.result;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+      this.dialogShowResult = true;
     }
   },
   mounted: function() {
@@ -490,22 +503,6 @@ export default {
         console.log(error);
       }
     );
-  },
-  showResult(collectionId, projectId) {
-    var data = {
-      collectionId: collectionId,
-      projectId: projectId,
-      projectType: this.type
-    };
-    getProjectResult(data).then(
-      response => {
-        this.currentResult = response.data.data.results;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    this.dialogShowResult = true;
   }
 };
 </script>

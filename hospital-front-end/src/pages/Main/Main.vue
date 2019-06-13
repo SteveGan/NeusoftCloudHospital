@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div style="margin: 10px 10px 10px 10px">
     <!--  部门与职位部分    -->
     <div>
       <user-roles :roles="this.$store.state.user.roles"></user-roles>

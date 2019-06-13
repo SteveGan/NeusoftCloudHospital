@@ -1,41 +1,42 @@
 <template lang="html">
-  <div class="role-area">
-    <!--  标题："部门与职位"      -->
-    <div>
-      <p class="title">部门与职位</p>
+  <el-card shadow="hover">
+    <div class="role-area">
+      <!--  标题："部门与职位"      -->
+      <div>
+        <p class="title">部门与职位</p>
+      </div>
+      <div class="card-container">
+        <role-card v-for="roleObj in this.roles" :key="roleObj.id" :role="roleObj"></role-card>
+      </div>
     </div>
-    <!--   内容：一堆卡片    -->
-    <div class="card-container">
-      <role-card v-for="roleObj in this.roles" :key="roleObj.id" :role="roleObj"></role-card>
-    </div>
-  </div>
+  </el-card>
 </template>
-
 <script>
-import RoleCard from './Child/RoleCard'
+import RoleCard from "./Child/RoleCard";
 
 export default {
-  name: 'UserRoles',
+  name: "UserRoles",
   components: {
-    'role-card': RoleCard
+    "role-card": RoleCard
   },
-  props:{
+  props: {
     roles: Array
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
-.role-area{
+.role-area {
   padding-left: 20px;
   padding-right: 20px;
 }
-.card-container{
+.card-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
-.title{
+.title {
   margin-left: 30px;
   font-size: 27px;
 }
