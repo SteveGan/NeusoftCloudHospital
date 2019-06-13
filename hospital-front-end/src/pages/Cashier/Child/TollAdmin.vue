@@ -11,7 +11,7 @@
         <div>
           <!-- 搜索栏 -->
           <div class="search-bar">
-            <el-input placeholder="搜索内容" class="input-with-select" v-model="input">
+            <el-input placeholder="搜索内容" class="input-with-select" v-model="input" style="width: 350px;">
               <el-select slot="prepend" placeholder="病历号" class="select-box" style="width: 100px;">
                 <el-option label="病历号" value="0"></el-option>
                 <el-option label="用户ID" value="1"></el-option>
