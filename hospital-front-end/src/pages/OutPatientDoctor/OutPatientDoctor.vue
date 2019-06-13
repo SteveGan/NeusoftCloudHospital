@@ -219,6 +219,19 @@ export default {
     }
   },
   methods: {
+    // 挂号成功提示
+    success() {
+      this.$message({
+        message: "操作成功",
+        type: "success"
+      });
+    },
+
+    // 挂号失败提示
+    fail() {
+      this.$message.error("操作失败");
+    },
+
     doTTS(name) {
       var ttsDiv = document.getElementById("bdtts_div_id");
       var ttsAudio = document.getElementById("tts_autio_id");
@@ -340,6 +353,11 @@ export default {
       saveCase(this.selectedCase).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.log(error);
@@ -354,20 +372,28 @@ export default {
       submitCase(this.selectedCase).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.log(error);
         }
       );
       // 刷新当前用户列表
-      console.log("当前的roleId");
-      console.log(this.$store.getters["user/currentRoleId"]);
       listAllPatients(this.$store.getters["user/currentRoleId"]).then(
         response => {
           const data = response.data.data;
           this.waitingPatients = data.waitingPatients;
           this.diagnosedPatients = data.diagnosedPatients;
           // console.log(this.waitingPatients)
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.alert("请求所有病人出Bug了");
@@ -381,6 +407,11 @@ export default {
       clearCase(this.selectedCase.caseId).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.log(response);

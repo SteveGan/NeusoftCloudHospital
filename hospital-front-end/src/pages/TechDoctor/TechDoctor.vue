@@ -211,11 +211,11 @@
 </template>
 
 <script>
-import techDoctor from '@/api/techDoctor'
+import techDoctor from "@/api/techDoctor";
 
 export default {
-  name: 'TechDoctor',
-  data () {
+  name: "TechDoctor",
+  data() {
     return {
       pickerOptions: {
         disabledDate(time) {
@@ -257,7 +257,7 @@ export default {
       itemList: [],
       checkedInList: [],
 
-      zhusu: '',
+      zhusu: "",
       form: {},
       patientInfo: {},
 
@@ -271,52 +271,50 @@ export default {
       //表格内容
       resultDescription: "",
       advice: "",
-      resultImage: "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg",
+      resultImage:
+        "http://ww4.sinaimg.cn/large/006tNc79ly1g3v2cgwoaxj30ax07t3z8.jpg",
 
       loading1: false,
       loading2: false
-    }
+    };
   },
 
   methods: {
     handleImageSuccess(res, file) {
       console.log(res);
-        this.resultImage = res.data.url;
+      this.resultImage = res.data.url;
     },
 
     // 打印
-    print() {
-
-    },
+    print() {},
 
     // 清屏
-    clear(){
+    clear() {
       this.resultDescription = "";
       this.advice = "";
       this.resultImage = "";
     },
 
-    
     // 提交
-    submit(){
+    submit() {
       var object = {};
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
-      object.departmentId = 129;
+      object.departmentId = this.$store.getters["user/currentDepartmentId"];
       object.caseId = this.currentProject.caseId;
       techDoctor.confirmProject(object).then(response => {
-        const data = response.data.data
+        const data = response.data.data;
 
         console.log(data);
 
-        if(response.data.code===200){
+        if (response.data.code === 200) {
           this.success("提交");
           this.listCheckedInButNotRecordedProject();
           this.resultForm = false;
         } else {
           this.fail("提交");
         }
-      })
+      });
     },
 
     // 保存
@@ -327,84 +325,93 @@ export default {
       object.resultImage = this.resultImage;
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
-      object.departmentId = 129;
+      object.departmentId = this.$store.getters["user/currentDepartmentId"];
       object.caseId = this.currentProject.caseId;
       techDoctor.result(object).then(response => {
-        const data = response.data.data
+        const data = response.data.data;
 
         console.log(data);
 
-        if(response.data.code===200){
+        if (response.data.code === 200) {
           this.success("保存");
         } else {
           this.fail("保存");
         }
-      })
+      });
     },
 
     // 显示本科室已登记项目列表
-    listCheckedInButNotRecordedProject(){
+    listCheckedInButNotRecordedProject() {
       var object = {};
-      object.departmentId = 129;
+      object.departmentId = this.$store.getters["user/currentDepartmentId"];
       object.chargeDateStr = this.chargeDateStr;
       techDoctor.listCheckedInButNotRecordedProject(object).then(response => {
-        const data = response.data.data
+        const data = response.data.data;
 
         this.checkedInList = data;
         console.log(data);
-      })
+      });
     },
 
     // 登记button
-    handleClick(row){
+    handleClick(row) {
       this.loading2 = true;
       var project = {};
-      project.departmentId = "129",
-      project.collectionId = row.id;
+      (project.departmentId =
+        "this.$store.getters['user/currentDepartmentId']"),
+        (project.collectionId = row.id);
       project.projectId = row.project_id;
       project.doctorRoleId = this.currentRoleId;
       project.transactionLogStatus = row.t_status;
       project.projectStatus = row.i_status;
       console.log(project);
 
-      techDoctor.checkInProject(project).then(response => {
-        const data = response.data.data
-        console.log(data);
+      techDoctor
+        .checkInProject(project)
+        .then(response => {
+          const data = response.data.data;
+          console.log(data);
 
-        if(response.data.code===200){
-          this.refreshItemList();
-          this.success("登记");
-        } else {
-          this.fail("登记");
-        }
-      }).finally(response => {
+          if (response.data.code === 200) {
+            this.refreshItemList();
+            this.success("登记");
+          } else {
+            this.fail("登记");
+          }
+        })
+        .finally(response => {
           this.loading2 = false;
-      })
+        });
     },
 
     // 刷新待做项目列表
-    refreshItemList(){
+    refreshItemList() {
       this.handleCurrentChange(this.currentCase);
       this.listCheckedInButNotRecordedProject();
     },
 
     // 选中已登记
-    handleCheckedInChange(val){
+    handleCheckedInChange(val) {
       this.resultForm = true;
       this.itemTable = false;
       // // this.patientCard = false;
       // this.patientCard = true;
 
-
       this.currentProject = val;
     },
 
     // 选中患者展示待做项目列表
-    handleCurrentChange(val){
+    handleCurrentChange(val) {
       this.currentCase = val;
       console.log(val);
-      techDoctor.listAllProjectsByCaseId(this.chargeDateStr, val.registration_id, 129).then(response => {
-          const data = response.data.data
+      techDoctor
+        .listAllProjectsByCaseId(
+          this.chargeDateStr,
+          val.registration_id,
+          this.$store.getters["user/currentDepartmentId"]
+        )
+        .then(response => {
+          const data = response.data.data;
           console.log(data);
           this.itemList = data.projects;
           this.patientInfo = data.patientInfo;
@@ -414,31 +421,38 @@ export default {
 
           this.resultForm = false;
 
-          if(response.data.code===200){
-          this.success("查询");
-        } else {
-          this.fail("查询");
-        }
-      })
+          if (response.data.code === 200) {
+            this.success("查询");
+          } else {
+            this.fail("查询");
+          }
+        });
     },
 
     // 根据条件搜索患者
-    listPatientByCaseIdOrName(){
+    listPatientByCaseIdOrName() {
       this.loading1 = true;
-      techDoctor.listPatientByCaseIdOrName(this.chargeDateStr, this.inputCaseId, 129).then(response => {
-          const data = response.data.data
+      techDoctor
+        .listPatientByCaseIdOrName(
+          this.chargeDateStr,
+          this.inputCaseId,
+          this.$store.getters["user/currentDepartmentId"]
+        )
+        .then(response => {
+          const data = response.data.data;
           console.log(data);
           this.waitingList = data;
 
-          if(response.data.code===200){
-          this.success("查询");
-          this.listCheckedInButNotRecordedProject();
-        } else {
-          this.fail("查询");
-        }
-      }).finally(response => {
+          if (response.data.code === 200) {
+            this.success("查询");
+            this.listCheckedInButNotRecordedProject();
+          } else {
+            this.fail("查询");
+          }
+        })
+        .finally(response => {
           this.loading1 = false;
-      })
+        });
     },
 
     // 计算当前日期
@@ -449,10 +463,10 @@ export default {
       var month = date.getMonth() + 1;
       var strDate = date.getDate();
       if (month >= 1 && month <= 9) {
-          month = "0" + month;
+        month = "0" + month;
       }
       if (strDate >= 0 && strDate <= 9) {
-          strDate = "0" + strDate;
+        strDate = "0" + strDate;
       }
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
@@ -461,125 +475,122 @@ export default {
     // 成功提示
     success(msg) {
       this.$message({
-        message: msg+'成功',
-        type: 'success'
+        message: msg + "成功",
+        type: "success"
       });
     },
-      
+
     // 失败提示
     fail(msg) {
-      this.$message.error(msg+'失败');
-    },    
+      this.$message.error(msg + "失败");
+    }
   },
 
-  mounted(){
+  mounted() {
     // 得到当前操作员id
-    const currentRoleId = this.$store.getters['user/currentRoleId'];
-    this.currentRoleId = currentRoleId;    
+    const currentRoleId = this.$store.getters["user/currentRoleId"];
+    this.currentRoleId = currentRoleId;
     // 时间选择框默认显示今天日期
-    this.chargeDateStr=this.getNowFormatDate();
+    this.chargeDateStr = this.getNowFormatDate();
 
     // 读取常量表
     // this.readConstants();
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
-
-.side-bar{
+.side-bar {
   height: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color:#fafafa;
+  background-color: #fafafa;
 }
 
-.search-user{
+.search-user {
   height: 30px;
-  margin-bottom:
+  margin-bottom: ;
 }
 
-.current-user{
+.current-user {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
 
-.basic-info{
+.basic-info {
   padding-top: 4px;
   font-size: 15px;
   margin-right: auto;
 }
 
-.info-card{
+.info-card {
   margin-bottom: 4px;
 }
 
-.outpatient-service-container{
+.outpatient-service-container {
   display: grid;
   grid-template-columns: 70% 30%;
 }
 
-.service-main-container{
+.service-main-container {
   grid-column: 1/2;
   margin-left: 2px;
 }
 
-.service-side-container{
+.service-side-container {
   grid-column: 2;
   margin-right: 2px;
   margin-top: 38px;
 }
 
-.recipe-service-container{
-  display:flex;
+.recipe-service-container {
+  display: flex;
   flex-direction: column;
 }
 
-.recipe-template{
+.recipe-template {
   display: grid;
   grid-template-columns: 40% 60%;
 }
 
-.recipe-browser{
+.recipe-browser {
   grid-column: 1/2;
   padding: 2px;
 }
 
-.recipe-detail{
+.recipe-detail {
   grid-column: 2;
   padding: 2px;
 }
 
-
-
-.template-tabs{
+.template-tabs {
   position: -webkit-sticky;
   position: sticky;
   top: 0px;
 }
 
-.tool-bar{
+.tool-bar {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin-bottom: 5px;
 }
 
-.input-card{
+.input-card {
   margin-top: 5px;
   margin-right: 10px;
 }
 
-.diagnose-header{
+.diagnose-header {
   display: flex;
   flex-direction: row;
-  align-items:center;
+  align-items: center;
 }
 
-.application-number{
+.application-number {
   background-color: #597ef7;
   border-radius: 5px;
   font-size: 15px;
@@ -587,11 +598,11 @@ export default {
   color: white;
 }
 
-.service-main-container .el-card{
+.service-main-container .el-card {
   margin-right: 5px;
 }
 
-.add-recipe-button{
+.add-recipe-button {
   margin-top: 5px;
   margin-bottom: 5px;
 }
