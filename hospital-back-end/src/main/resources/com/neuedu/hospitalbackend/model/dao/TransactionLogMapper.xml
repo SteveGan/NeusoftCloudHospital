@@ -166,7 +166,7 @@
         select distinct t.*, p.department_id as department_id, p.status as item_status, tp.project_name as project_name
         from transaction_log t, ${tableName} p, tech_project tp
         where t.collection_id = p.id and t.registration_id = #{registrationId}
-        and t.project_id = p.project_id and and t.total_money > 0 and is_frozen = 0
+        and t.project_id = p.project_id and t.total_money > 0 and t.is_frozen = 0
         and tp.project_id = p.project_id
     </select>
 
@@ -176,14 +176,14 @@
         from transaction_log t, registration r
         where
         t.registration_id = #{registrationId} and t.type = "挂号费"
-        and t.registration_id = r.id and t.total_money > 0 and is_frozen = 0
+        and t.registration_id = r.id and t.total_money > 0 and t.is_frozen = 0
     </select>
 
     <select id="getRecipeLogs" resultMap="ItemResultMap">
         select distinct t.*, r.department_id as department_id, r.status as item_status, r.remain_amount as remain_amount, m.name as project_name
         from transaction_log t, recipe r, medicine m
         where t.collection_id = r.id and t.registration_id = #{registrationId}
-        and t.project_id = r.medicine_id and t.total_money > 0 and is_frozen = 0
+        and t.project_id = r.medicine_id and t.total_money > 0 and t.is_frozen = 0
         and m.id = t.project_id
     </select>
 
@@ -317,11 +317,12 @@
     </select>
 
     <select id="calculateMoneyByDepartmentAndType" resultType="HashMap">
-        select r.department_name, SUM(total_money) as total_Money, t.type
+        select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type
         from ${tableName} e, role r, transaction_log t
         where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
         and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr}
         group by r.department_name, type
     </select>
+
 
 </mapper>
