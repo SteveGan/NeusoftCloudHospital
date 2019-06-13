@@ -61,3 +61,13 @@ export function submitCollection(collection) {
     data: collection
   })
 }
+
+
+//请求一个project的结果
+export function getProjectResult(data) {
+  return request({
+    url: '/doctorstation/collection/result',
+    method: 'POST',
+    data: data
+  })
+}

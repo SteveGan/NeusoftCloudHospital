@@ -90,7 +90,7 @@
             <span>结算类别: TODO </span>
           </div>
           <!-- 诊毕 -->
-          <el-button type="primary">诊毕</el-button>
+          <el-button type="primary" @click="handleFinish">诊毕</el-button>
           </div>
         </div>
       </el-card>
@@ -105,6 +105,9 @@
             @clearCase="onClearSelectedCase"
             v-model="selectedCase">
           </outpatient-prediagnose>
+        </el-tab-pane>
+        <el-tab-pane label="病历确诊">
+          <final-case></final-case>
         </el-tab-pane>
         <el-tab-pane label="检验申请">
           <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
@@ -189,6 +192,7 @@ import CaseTemplateAdmin from "@/components/outpatientdoctor/CaseTemplateAdmin";
 import ProjectApplication from "@/components/outpatientdoctor/ProjectApplication";
 import CaseRecipe from "@/components/outpatientdoctor/CaseRecipe";
 import CaseDisposition from "@/components/outpatientdoctor/CaseDisposition";
+import FinalCase from "@/components/outpatientdoctor/FinalCase";
 import { constants } from "fs";
 
 export default {
@@ -254,7 +258,13 @@ export default {
     },
     handlePatientSelect(row) {
       // 语音播报
-      this.doTTS("请" + row.name + "到" + "妇产科" + "就诊");
+      this.doTTS(
+        "请" +
+          row.name +
+          "到" +
+          this.$store.getters["user/currentDepartmentName"] +
+          "就诊"
+      );
 
       // 将当前的用户设置为被点击的用户
       this.selectedPatient = Object.assign({}, row);
@@ -344,6 +354,15 @@ export default {
         }
       );
     },
+    handleFinish() {
+      this.selectedCase.status = "5";
+      this.diagnosedPatients.splice(
+        this.diagnosedPatients.findIndex(
+          patientCase => patientCase.caseId === this.selectedCase.caseId
+        ),
+        1
+      );
+    },
     //暂存case的内容
     onSaveSelectedCase(isTraDiagnose) {
       console.log(isTraDiagnose);
@@ -382,23 +401,37 @@ export default {
           console.log(error);
         }
       );
-      // 刷新当前用户列表
-      listAllPatients(this.$store.getters["user/currentRoleId"]).then(
-        response => {
-          const data = response.data.data;
-          this.waitingPatients = data.waitingPatients;
-          this.diagnosedPatients = data.diagnosedPatients;
-          // console.log(this.waitingPatients)
-          if (response.data.code === 200) {
-            this.success("缴费");
-          } else {
-            this.fail("缴费");
-          }
-        },
-        error => {
-          console.alert("请求所有病人出Bug了");
-        }
+      var splicedCase = this.waitingPatients.splice(
+        this.waitingPatients.findIndex(
+          patientCase => patientCase.caseId === this.selectedCase.caseId
+        ),
+        1
       );
+      this.diagnosedPatients.push(splicedCase[0]);
+
+      // allDiagnoses.splice(
+      //     allDiagnoses.findIndex(
+      //       disease => disease.icdCode === selectedDiagnoses[i].icdCode
+      //     ),
+      //     1
+      //   );
+      // 刷新当前用户列表
+      // listAllPatients(this.$store.getters["user/currentRoleId"]).then(
+      //   response => {
+      //     const data = response.data.data;
+      //     this.waitingPatients = data.waitingPatients;
+      //     this.diagnosedPatients = data.diagnosedPatients;
+      //     // console.log(this.waitingPatients)
+      //     if (response.data.code === 200) {
+      //       this.success("缴费");
+      //     } else {
+      //       this.fail("缴费");
+      //     }
+      //   },
+      //   error => {
+      //     console.alert("请求所有病人出Bug了");
+      //   }
+      // );
     },
     //清空case内容
     onClearSelectedCase() {
@@ -425,7 +458,8 @@ export default {
     "case-template-admin": CaseTemplateAdmin,
     "project-application": ProjectApplication,
     "case-recipe": CaseRecipe,
-    "case-disposition": CaseDisposition
+    "case-disposition": CaseDisposition,
+    "final-case": FinalCase
   },
   mounted: function() {
     //请求所有待诊病人和已诊病人
@@ -436,7 +470,8 @@ export default {
         const data = response.data.data;
         this.waitingPatients = data.waitingPatients;
         this.diagnosedPatients = data.diagnosedPatients;
-        // console.log(this.waitingPatients)
+        console.log("等待的用户");
+        console.log(this.waitingPatients);
       },
       error => {
         console.alert("请求所有病人出Bug了");
