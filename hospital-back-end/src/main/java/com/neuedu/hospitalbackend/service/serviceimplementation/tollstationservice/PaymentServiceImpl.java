@@ -53,7 +53,7 @@ public class PaymentServiceImpl implements PaymentService {
         for(HashMap log: logs){
             String logInvoiceCode = (String) log.get("invoiceCode");
             for(HashMap t: invoiceCollection){
-                String invoiceCode = (String) t.get("invoiceCode");
+                String invoiceCode = (String) t.get("invoice_code");
                 if( logInvoiceCode.equals(invoiceCode) && log.get("status") == t.get("status")){
                     if(result.containsKey(invoiceCode))
                         result.get(invoiceCode).add(log);
@@ -67,7 +67,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("invoiceCollection", invoiceCollection);
-        jsonObject.put("transactionLogs", logs);
+        jsonObject.put("transactionLogs", result);
         return CommonResult.success(jsonObject);
     }
 
@@ -154,7 +154,7 @@ public class PaymentServiceImpl implements PaymentService {
                             || (itemCategory == 4 && returnedProjectStatus == 2))){
                        return CommonResult.fail(E_704);
                     }
-                    else if(returnedProject.getRemainAmount() < returnedProject.getReturnAmount())
+                    else if(itemCategory == 4 && returnedProject.getRemainAmount() < returnedProject.getReturnAmount())
                         return CommonResult.fail(E_704);
                 }
                 else
