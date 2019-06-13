@@ -210,7 +210,6 @@
 
 <script>
 import techDoctor from '@/api/techDoctor'
-import upload from '@/api/upload'
 
 export default {
   name: 'TechDoctor',
