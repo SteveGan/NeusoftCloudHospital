@@ -54,4 +54,7 @@ public interface ExaminationMapper {
 
     List<HashMap> getResult(Integer caseId);
 
+    HashMap getResultByCIdAndPId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+
+
 }
