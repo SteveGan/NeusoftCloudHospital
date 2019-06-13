@@ -144,7 +144,7 @@
             <version>5.1.9</version>
         </dependency>
 
-        <!-- 部分JDKb版本 xml bind缺失补全 -->
+        <!-- 部分JDK版本 xml bind缺失补全 -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
