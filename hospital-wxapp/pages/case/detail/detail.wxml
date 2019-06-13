@@ -17,6 +17,11 @@
   <view class='text-lg'>
     <text class='icon-rank'> {{item.projectName}}</text>
   </view>
+  <van-cell-group>
+    <van-field value="{{ item.resultDescription }}" type="textarea" autosize disabled label="检查所见" />
+    <van-field value="{{ item.advice }}" type="textarea" autosize disabled label="医生建议" />
+    <image class="inspection-image" src="{{ item.resultImage }}" mode="widthFix"></image>
+  </van-cell-group>
 </view>
 
 <card-title text="检验结果" sub-text="Examination"></card-title>

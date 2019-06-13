@@ -39,8 +39,10 @@ export function projectStatusCodeToString(statusCode) {
   } else if (statusCode === 2) {
     status = '已开立'
   } else if (statusCode === 3) {
-    status = '已登记'
+    status = '作废'
   } else if (statusCode === 4) {
+    status = '已登记'
+  } else if (statusCode === 5) {
     status = '执行完毕'
   } else {
     status = '未知'

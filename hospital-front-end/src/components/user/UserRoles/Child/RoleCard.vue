@@ -69,6 +69,7 @@ export default {
 .role-card {
   margin: 20px 30px;
   min-width: 250px;
+  max-width: 250px;
 }
 .role-info {
   font-size: 16px;

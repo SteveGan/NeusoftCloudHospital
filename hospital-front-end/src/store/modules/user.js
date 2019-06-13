@@ -23,6 +23,9 @@ const getters = {
   currentDepartmentId: state => {
     return state.currentRole.departmentId;
   },
+  currentDepartmentName: state => {
+    return state.currentRole.departmentName;
+  },
   currentRoleDescription: state => {
     if (Object.keys(state.currentRole).length === 0) {
       return "请选择您的职位"
