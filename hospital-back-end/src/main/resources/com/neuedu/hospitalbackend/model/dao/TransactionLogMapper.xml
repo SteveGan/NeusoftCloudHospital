@@ -162,29 +162,27 @@
         <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="listLogsByTableName" resultMap="ItemResultMap">
-        select distinct t.*, p.department_id as department_id, p.status as item_status, tp.project_name as project_name
-        from transaction_log t, ${tableName} p, tech_project tp
-        where t.collection_id = p.id and t.registration_id = #{registrationId}
-        and t.project_id = p.project_id and t.total_money > 0 and t.is_frozen = 0
-        and tp.project_id = p.project_id
-    </select>
 
+    <select id="listLogsByTableName" resultMap="ItemResultMap">
+        select distinct t.*, p.department_id as department_id, p.status as item_status
+        from transaction_log t, ${tableName} p
+        where t.collection_id = p.id and t.registration_id = #{registrationId}
+        and t.project_id = p.project_id and t.total_money > 0
+    </select>
 
     <select id="getRegistrationLog" resultMap="ItemResultMap">
         select distinct t.*, r.is_normal as item_status
         from transaction_log t, registration r
         where
         t.registration_id = #{registrationId} and t.type = "挂号费"
-        and t.registration_id = r.id and t.total_money > 0 and t.is_frozen = 0
+        and t.registration_id = r.id and t.total_money > 0
     </select>
 
     <select id="getRecipeLogs" resultMap="ItemResultMap">
-        select distinct t.*, r.department_id as department_id, r.status as item_status, r.remain_amount as remain_amount, m.name as project_name
-        from transaction_log t, recipe r, medicine m
+        select distinct t.*, r.department_id as department_id, r.status as item_status, r.remain_amount as remain_amount
+        from transaction_log t, recipe r
         where t.collection_id = r.id and t.registration_id = #{registrationId}
-        and t.project_id = r.medicine_id and t.total_money > 0 and t.is_frozen = 0
-        and m.id = t.project_id
+        and t.project_id = r.medicine_id and t.total_money > 0
     </select>
 
     <select id="listItemsByCollectionIdAndProjectId" resultType="HashMap">
@@ -228,8 +226,8 @@
         where invoice_code = #{invoiceCode}
     </select>
 
-    <select id="getInvoiceCodeAndStatusByRegistrationId" resultType="HashMap">
-        select distinct invoice_code, status
+    <select id="getInvoiceCodeAndStatusByRegistrationId"  resultMap="ItemResultMap">
+        select distinct invoice_code, collection_id, status
         from transaction_log
         where registration_id = #{registrationId} and status != 4
     </select>

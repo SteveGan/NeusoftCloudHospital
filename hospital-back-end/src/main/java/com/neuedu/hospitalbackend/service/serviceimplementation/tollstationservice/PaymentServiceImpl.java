@@ -40,31 +40,28 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public CommonResult listDetailedTransactionLogs(Integer registrationId) {
-        //列出指定用户的所有发票号、缴费状态（已缴费、已退费、冲正、作废、冻结）
         List<HashMap> invoiceCollection = transactionLogMapper.getInvoiceCodeAndStatusByRegistrationId(registrationId);
         Map<String, List<HashMap>> result = new HashMap<>();
         List<HashMap> logs = new ArrayList<>();
-        //列出指定用户的待缴费、已缴费状态缴费记录  第一层目录 -- 第二层目录
         logs.add(transactionLogMapper.getRegistrationLog(registrationId));
         logs.addAll(transactionLogMapper.listLogsByTableName("inspection", registrationId));
         logs.addAll(transactionLogMapper.listLogsByTableName("examination", registrationId));
         logs.addAll(transactionLogMapper.listLogsByTableName("treatment", registrationId));
         logs.addAll(transactionLogMapper.getRecipeLogs(registrationId));
         for(HashMap log: logs){
-            String logInvoiceCode = (String) log.get("invoiceCode");
+            System.out.println("log" + log);
             for(HashMap t: invoiceCollection){
-                String invoiceCode = (String) t.get("invoice_code");
-                if( logInvoiceCode.equals(invoiceCode) && log.get("status") == t.get("status")){
-                    if(result.containsKey(invoiceCode))
-                        result.get(invoiceCode).add(log);
+                if( (log.get("invoiceCode").equals(t.get("invoiceCode")))
+                        && (log.get("status") == t.get("status")) ){
+                    if(result.containsKey(t.get("invoiceCode")))
+                        result.get(t.get("invoiceCode")).add(log);
                     else{
-                        result.put(invoiceCode, new ArrayList<>());
-                        result.get(invoiceCode).add(log);
+                        result.put((String) t.get("invoiceCode"), new ArrayList<>());
+                        result.get(t.get("invoiceCode")).add(log);
                     }
                 }
             }
         }
-
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("invoiceCollection", invoiceCollection);
         jsonObject.put("transactionLogs", result);
