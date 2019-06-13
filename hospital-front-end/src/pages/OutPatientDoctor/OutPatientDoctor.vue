@@ -49,7 +49,7 @@
             <!-- 表格 -->
             <el-table
               :data="diagnosedPatients"
-              style="width: 100%">
+              style="width: 100%;">
               <el-table-column
                 prop="caseId"
                 label="病历号">
@@ -105,15 +105,6 @@
             @clearCase="onClearSelectedCase"
             v-model="selectedCase">
           </outpatient-prediagnose>
-        </el-tab-pane>
-        <el-tab-pane label="病历确诊">
-          <!-- 门诊病历确诊内容 -->
-          <final-diagnose 
-            @saveCase="onSaveSelectedCase" 
-            @submitCase="onSubmitSelectedCase" 
-            @clearCase="onClearSelectedCase"
-            v-model="selectedCase">
-          </final-diagnose >
         </el-tab-pane>
         <el-tab-pane label="检验申请">
           <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
@@ -198,7 +189,6 @@ import CaseTemplateAdmin from "@/components/outpatientdoctor/CaseTemplateAdmin";
 import ProjectApplication from "@/components/outpatientdoctor/ProjectApplication";
 import CaseRecipe from "@/components/outpatientdoctor/CaseRecipe";
 import CaseDisposition from "@/components/outpatientdoctor/CaseDisposition";
-import FinalDiagnose from "@/components/outpatientdoctor/FinalDiagnose";
 import { constants } from "fs";
 
 export default {
@@ -229,20 +219,36 @@ export default {
     }
   },
   methods: {
+    // 挂号成功提示
+    success() {
+      this.$message({
+        message: "操作成功",
+        type: "success"
+      });
+    },
+
+    // 挂号失败提示
+    fail() {
+      this.$message.error("操作失败");
+    },
+
     doTTS(name) {
-      var ttsDiv = document.getElementById('bdtts_div_id');
-      var ttsAudio = document.getElementById('tts_autio_id');
+      var ttsDiv = document.getElementById("bdtts_div_id");
+      var ttsAudio = document.getElementById("tts_autio_id");
       var ttsText = name;
 
       // 文字转语音
       ttsDiv.removeChild(ttsAudio);
       var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
-      var sss = '<source id="tts_source_id" src="http://tsn.baidu.com/text2audio?lan=zh&ie=UTF-8&per=3&spd=14&vol=15&text=' + ttsText + '" type="audio/mpeg">';
+      var sss =
+        '<source id="tts_source_id" src="http://tsn.baidu.com/text2audio?lan=zh&ie=UTF-8&per=3&spd=14&vol=15&text=' +
+        ttsText +
+        '" type="audio/mpeg">';
       var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
-      var au2 = '</audio>';
+      var au2 = "</audio>";
       ttsDiv.innerHTML = au1 + sss + eee + au2;
 
-      ttsAudio = document.getElementById('tts_autio_id');
+      ttsAudio = document.getElementById("tts_autio_id");
 
       ttsAudio.play();
     },
@@ -260,6 +266,8 @@ export default {
         response => {
           const caseContent = response.data.data;
           this.selectedCase = Object.assign({}, caseContent);
+          console.log("当前病历：");
+          console.log(this.selectedCase);
         },
         error => {
           //暂时不处理
@@ -345,6 +353,11 @@ export default {
       saveCase(this.selectedCase).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.log(error);
@@ -359,9 +372,31 @@ export default {
       submitCase(this.selectedCase).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.log(error);
+        }
+      );
+      // 刷新当前用户列表
+      listAllPatients(this.$store.getters["user/currentRoleId"]).then(
+        response => {
+          const data = response.data.data;
+          this.waitingPatients = data.waitingPatients;
+          this.diagnosedPatients = data.diagnosedPatients;
+          // console.log(this.waitingPatients)
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
+        },
+        error => {
+          console.alert("请求所有病人出Bug了");
         }
       );
     },
@@ -372,6 +407,11 @@ export default {
       clearCase(this.selectedCase.caseId).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.log(response);
@@ -385,8 +425,7 @@ export default {
     "case-template-admin": CaseTemplateAdmin,
     "project-application": ProjectApplication,
     "case-recipe": CaseRecipe,
-    "case-disposition": CaseDisposition,
-    "final-diagnose": FinalDiagnose
+    "case-disposition": CaseDisposition
   },
   mounted: function() {
     //请求所有待诊病人和已诊病人

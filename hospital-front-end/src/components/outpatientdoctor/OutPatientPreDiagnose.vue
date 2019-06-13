@@ -53,7 +53,6 @@
             </el-form-item>
           </el-form>
         </el-card>
-      </el-card>
       <el-card class="input-card" shadow="hover">
         <div slot="header">
           <span>评估诊断</span>
