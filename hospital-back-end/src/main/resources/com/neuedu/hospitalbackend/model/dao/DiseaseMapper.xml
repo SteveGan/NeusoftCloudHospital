@@ -51,7 +51,7 @@
         where type != '中医疾病'
     </select>
 
-    <select id="getDiseaseByIcdCode" resultType="HashMap">
+    <select id="getDiseaseByIcdCode" resultMap="DiseaseInfo">
         select *
         from disease
         where icd_code = #{icdCode}
