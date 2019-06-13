@@ -86,17 +86,10 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public CommonResult updateTransactionLogsAsPaid(List<TransactionLog> transactionLogs) {
-        String invoiceCode;
-        synchronized (this) {
-            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
-            CommonResult result = invoiceService.getNextInvoiceCode();
-            invoiceCode = (String) result.getData();
-        }
         int count = 0;
         for (TransactionLog transactionLog : transactionLogs) {
             if (transactionLog.getStatus() == 1) {
                 transactionLog.setStatus((byte) 2);
-                //transactionLog.setInvoiceCode(invoiceCode);
                 count += transactionLogMapper.update(transactionLog);
             }
         }

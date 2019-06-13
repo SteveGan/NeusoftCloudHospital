@@ -300,7 +300,7 @@ export default {
       var object = {};
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
-      object.departmentId = this.$store.getters["user/currentDepartmentId"];
+      object.departmentId = this.$store.getters['user/currentDepartmentId'];
       object.caseId = this.currentProject.caseId;
       techDoctor.confirmProject(object).then(response => {
         const data = response.data.data;
@@ -325,7 +325,7 @@ export default {
       object.resultImage = this.resultImage;
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
-      object.departmentId = this.$store.getters["user/currentDepartmentId"];
+      object.departmentId = this.$store.getters['user/currentDepartmentId'];
       object.caseId = this.currentProject.caseId;
       techDoctor.result(object).then(response => {
         const data = response.data.data;
@@ -343,7 +343,7 @@ export default {
     // 显示本科室已登记项目列表
     listCheckedInButNotRecordedProject() {
       var object = {};
-      object.departmentId = this.$store.getters["user/currentDepartmentId"];
+      object.departmentId = this.$store.getters['user/currentDepartmentId'];
       object.chargeDateStr = this.chargeDateStr;
       techDoctor.listCheckedInButNotRecordedProject(object).then(response => {
         const data = response.data.data;
@@ -355,11 +355,11 @@ export default {
 
     // 登记button
     handleClick(row) {
+      console.log("here")
       this.loading2 = true;
       var project = {};
-      (project.departmentId =
-        "this.$store.getters['user/currentDepartmentId']"),
-        (project.collectionId = row.id);
+      project.departmentId = this.$store.getters['user/currentDepartmentId'];
+      project.collectionId = row.id;
       project.projectId = row.project_id;
       project.doctorRoleId = this.currentRoleId;
       project.transactionLogStatus = row.t_status;
@@ -408,7 +408,7 @@ export default {
         .listAllProjectsByCaseId(
           this.chargeDateStr,
           val.registration_id,
-          this.$store.getters["user/currentDepartmentId"]
+          this.$store.getters['user/currentDepartmentId']
         )
         .then(response => {
           const data = response.data.data;
@@ -431,12 +431,13 @@ export default {
 
     // 根据条件搜索患者
     listPatientByCaseIdOrName() {
+      console.log(this.$store.getters['user/currentDepartmentId'])
       this.loading1 = true;
       techDoctor
         .listPatientByCaseIdOrName(
           this.chargeDateStr,
           this.inputCaseId,
-          this.$store.getters["user/currentDepartmentId"]
+          this.$store.getters['user/currentDepartmentId']
         )
         .then(response => {
           const data = response.data.data;
