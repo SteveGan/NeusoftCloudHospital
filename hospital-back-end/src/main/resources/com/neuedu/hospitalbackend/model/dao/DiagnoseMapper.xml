@@ -107,4 +107,11 @@
     where case_id = #{caseId} and is_first_diagnosed = false
   </delete>
 
+  <select id="listFinalDiagnoseByCaseId" resultMap="DiagnoseInfo">
+    select dia.start_time, dis.icd_code as dis_icd_code, dis.name as dis_name, dis.type
+    from diagnose dia, disease dis
+    where dia.case_id = #{caseId} and dia.disease_id = dis.icd_code and dia.is_first_diagnosed = 0
+  </select>
+
+
 </mapper>

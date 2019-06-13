@@ -49,5 +49,6 @@ public interface TreatmentMapper {
 
     List<HashMap> listItems(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
+    List<HashMap> getInfo(Integer caseId);
 
 }
