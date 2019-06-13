@@ -239,4 +239,10 @@
        where id = #{id}
    </delete>
 
+  <select id="getInfo" resultMap="AdditionalResultMap">
+    select r.*, m.name as m_name
+    from recipe r, medicine m
+    where case_id = #{caseId} and r.medicine_id = m.id
+  </select>
+
 </mapper>

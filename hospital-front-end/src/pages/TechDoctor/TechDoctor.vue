@@ -190,7 +190,7 @@
                 <el-upload
                   class="upload-demo"
                   drag
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action="/api/upload"
                   multiple>
                   <i class="el-icon-upload"></i>
                   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -277,6 +277,15 @@ export default {
   },
 
   methods: {
+    upload() {
+      
+    },
+
+    // 打印
+    print() {
+
+    },
+
     // 清屏
     clear(){
       this.resultDescription = "";
@@ -378,11 +387,11 @@ export default {
 
     // 选中已登记
     handleCheckedInChange(val){
-      this.itemTable = false;
-      // this.patientCard = false;
-      this.patientCard = true;
-
       this.resultForm = true;
+      this.itemTable = false;
+      // // this.patientCard = false;
+      // this.patientCard = true;
+
 
       this.currentProject = val;
     },

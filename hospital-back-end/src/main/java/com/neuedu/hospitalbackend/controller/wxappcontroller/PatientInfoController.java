@@ -70,15 +70,22 @@ public class PatientInfoController {
 
     @ApiOperation("获取患者个人统计信息，就诊次数，偏爱医生，患病提示")
     @RequestMapping(value = "/data/{id}", method = RequestMethod.GET)
-    public CommonResult getPatientData(@PathVariable(value = "id") Integer patiendId)
+    public CommonResult getPatientData(@PathVariable(value = "id") Integer patientId)
     {
         return null;
     }
 
     @ApiOperation("获取患者吃药提醒，药品不足提醒")
     @RequestMapping(value = "/notification/{id}", method = RequestMethod.GET)
-    public CommonResult getPatientNotification(@PathVariable(value = "id") Integer patiendId)
+    public CommonResult getPatientNotification(@PathVariable(value = "id") Integer patientId)
     {
         return null;
+    }
+
+    @ApiOperation("获取患者本次看诊病历、检查、检验、处置、处方信息")
+    @RequestMapping(value = "/resultinfo/{id}", method = RequestMethod.GET)
+    public CommonResult getPatientResultInfo(@PathVariable(value = "id") Integer caseId)
+    {
+        return patientInfoServiceImpl.getPatientResultInfo(caseId);
     }
 }

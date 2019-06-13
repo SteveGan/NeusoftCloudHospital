@@ -153,7 +153,7 @@
         <result column="status" property="status" jdbcType="TINYINT" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
-        <result column="project_status" property="projectStatus" jdbcType="TINYINT"/>
+        <result column="item_status" property="itemStatus" jdbcType="TINYINT"/>
         <result column="department_id" property="departmentId" jdbcType="INTEGER"/>
         <result column="remain_amount" property="remainAmount" jdbcType = "SMALLINT"/>
         <result column="total_amount" property="originalAmount" jdbcType="SMALLINT"/>
@@ -163,27 +163,27 @@
     </resultMap>
 
     <select id="listLogsByTableName" resultMap="ItemResultMap">
-        select distinct t.*, p.department_id as department_id, p.status as project_status, tp.project_name as project_name
+        select distinct t.*, p.department_id as department_id, p.status as item_status, tp.project_name as project_name
         from transaction_log t, ${tableName} p, tech_project tp
         where t.collection_id = p.id and t.registration_id = #{registrationId}
-        and t.project_id = p.project_id and (t.status = 1 or t.status = 2)
+        and t.project_id = p.project_id and and t.total_money > 0 and is_frozen = 0
         and tp.project_id = p.project_id
     </select>
 
 
     <select id="getRegistrationLog" resultMap="ItemResultMap">
-        select distinct t.*, r.is_normal as project_status
+        select distinct t.*, r.is_normal as item_status
         from transaction_log t, registration r
         where
         t.registration_id = #{registrationId} and t.type = "挂号费"
-        and t.registration_id = r.id and t.total_money > 0
+        and t.registration_id = r.id and t.total_money > 0 and is_frozen = 0
     </select>
 
     <select id="getRecipeLogs" resultMap="ItemResultMap">
-        select distinct t.*, r.department_id as department_id, r.status as project_status, r.remain_amount as remain_amount, m.name as project_name
+        select distinct t.*, r.department_id as department_id, r.status as item_status, r.remain_amount as remain_amount, m.name as project_name
         from transaction_log t, recipe r, medicine m
         where t.collection_id = r.id and t.registration_id = #{registrationId}
-        and t.project_id = r.medicine_id and (t.status = 1 or t.status = 2)
+        and t.project_id = r.medicine_id and t.total_money > 0 and is_frozen = 0
         and m.id = t.project_id
     </select>
 
@@ -228,11 +228,10 @@
         where invoice_code = #{invoiceCode}
     </select>
 
-
     <select id="getInvoiceCodeAndStatusByRegistrationId" resultType="HashMap">
         select distinct invoice_code, status
         from transaction_log
-        where registration_id = #{registrationId}
+        where registration_id = #{registrationId} and status != 4
     </select>
 
     <select id="listLogsByInvoiceCode" resultMap="BaseResultMap">
@@ -267,7 +266,7 @@
             <if test="endDateStr != null">
                 and t.gmt_create &lt;= #{endDateStr}
             </if>
-            and t.role_id = #{cashierId} and t.status != 6
+            and t.role_id = #{cashierId} and t.is_frozen = 0
         </where>
         group by invoice_code
         order by invoice_code

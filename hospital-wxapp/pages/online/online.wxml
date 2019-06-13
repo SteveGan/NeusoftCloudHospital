@@ -1,8 +1,10 @@
 <!--online.wxml-->
+<top-bar hasBack="{{true}}"></top-bar>
+
 <view class="container">
   <import src="/pages/public.wxml"/>
   <view class="online-head">
-    <image src="https://xcx.yzw0525.com/images/online_01.jpg"></image>
+    <image model="widthFix" src="https://xcx.yzw0525.com/images/online_01.jpg"></image>
   </view>
   <form bindsubmit="MyfromSubmit" report-submit="true">
   <view class="Myfrom clear">

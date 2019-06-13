@@ -1,12 +1,48 @@
 <!--pages/case/detail/detail.wxml-->
 <top-bar hasBack="{{true}}"></top-bar>
-{{registrationId}}
+
 <card-title text="基础信息" sub-text="Basic Info"></card-title>
+<view class='case-card bg-white margin shadow-md padding radius-lg'>
+  <van-cell-group>
+    <van-field value="{{ basicInfo.caseId }}" type="textarea" autosize disabled label="病历号" />
+    <van-field value="{{ basicInfo.allergy }}" type="textarea" autosize disabled label="过敏史" />
+    <van-field value="{{ basicInfo.assistDiagnose }}" type="textarea" autosize disabled label="辅助检查" />
+    <van-field value="{{ basicInfo.curDisease }}" type="textarea" autosize disabled label="现病史" />
+    <van-field value="{{ basicInfo.curTreatCondition }}" type="textarea" autosize disabled label="现病治疗情况" />
+  </van-cell-group>
+</view>
 
 <card-title text="检查结果" sub-text="Inspection"></card-title>
+<view wx:for="{{inspection}}" class='case-card bg-white margin shadow-md padding radius-lg'>
+  <view class='text-lg'>
+    <text class='icon-rank'> {{item.projectName}}</text>
+  </view>
+</view>
 
 <card-title text="检验结果" sub-text="Examination"></card-title>
+<view wx:for="{{examination}}" class='case-card bg-white margin shadow-md padding radius-lg'>
+  <view class='text-lg'>
+    <text class='icon-rank'> {{item.projectName}}</text>
+  </view>
+</view>
 
 <card-title text="处方信息" sub-text="Recipe"></card-title>
+<view wx:for="{{recipe}}" class='case-card bg-white margin shadow-md padding radius-lg'>
+  <view class='text-lg'>
+    <text class='icon-rank'> {{item.medicineName}}</text>
+  </view>
+  <van-cell-group>
+    <van-field value="{{ item.medicineFormulation }}" type="textarea" autosize disabled label="剂型" />
+    <van-field value="{{ item.medicineUnit }}" type="textarea" autosize disabled label="包装单位" />
+    <van-field value="{{ item.medicineSpecification }}" type="textarea" autosize disabled label="规格" />
+    <van-field value="{{ item.medicineUnitPrice }} " type="textarea " autosize disabled label="单价 " />
+    <van-field value="{{ item.amount }} " type="textarea " autosize disabled label="开药数量 " />
+  </van-cell-group>
+</view>
 
-<card-title text="处置信息" sub-text="Treatment"></card-title>
+<card-title text="处置信息 " sub-text="Treatment "></card-title>
+<view wx:for="{{treatment}} " class='case-card bg-white margin shadow-md padding radius-lg'>
+  <view class='text-lg'>
+    <text class='icon-rank'> {{item.projectName}}</text>
+  </view>
+</view>

@@ -22,4 +22,6 @@ public interface DiagnoseMapper {
     List<String> listDiseaseIcdCodesByCaseId(Integer caseId);
 
     List<HashMap> listDiagnosesDetailByCaseId(Integer caseId);
+
+    List<HashMap> listFinalDiagnoseByCaseId(Integer caseId);
 }

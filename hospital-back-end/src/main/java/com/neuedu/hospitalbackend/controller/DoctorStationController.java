@@ -42,7 +42,7 @@ public class DoctorStationController {
 
 
     @ApiOperation("确诊诊断")
-    @RequestMapping(value = "/finalDiagnose", method = RequestMethod.PUT)
+    @RequestMapping(value = "/finaldiagnose", method = RequestMethod.PUT)
     public CommonResult finalDiagnose(@RequestBody PatientCaseParam patientCaseParam)
     {
         return preliminaryCaseService.finalDiagnose(patientCaseParam);
@@ -67,6 +67,14 @@ public class DoctorStationController {
     public CommonResult clearPatientCase(@PathVariable(value = "id") Integer caseId){
         return preliminaryCaseService.clearPatientCase(caseId);
     }
+
+    @ApiOperation("确诊诊断信息")
+    @RequestMapping(value = "/finaldiagnose/{caseId}", method = RequestMethod.GET)
+    public CommonResult listFinalDiagnose(@PathVariable(value = "caseId") Integer caseId)
+    {
+        return preliminaryCaseService.listFinalDiagnose(caseId);
+    }
+
 
 
     @ApiOperation("存为病历模板")
