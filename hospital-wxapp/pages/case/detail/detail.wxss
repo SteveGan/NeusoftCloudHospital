@@ -1,1 +1,4 @@
 /* pages/case/detail/detail.wxss */
+.inspection-image{
+  margin-left: 20rpx;
+}
