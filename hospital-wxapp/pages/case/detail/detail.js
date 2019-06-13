@@ -2,7 +2,7 @@
 Page({
 
   data: {
-    registrationId: "10000007",
+    registrationId: "",
     resultInfo: {},
     basicInfo: {},
     inspection: [],
@@ -12,9 +12,9 @@ Page({
   },
 
   onLoad: function (options) {
-    // this.setData({
-    //   registrationId: options.registrationId
-    // })
+    this.setData({
+      registrationId: options.registrationId
+    })
     console.log(options)
   },
 

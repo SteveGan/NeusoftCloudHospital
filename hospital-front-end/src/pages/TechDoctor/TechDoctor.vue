@@ -355,11 +355,11 @@ export default {
 
     // 登记button
     handleClick(row) {
+      console.log("here")
       this.loading2 = true;
       var project = {};
-      (project.departmentId =
-        "this.$store.getters['user/currentDepartmentId']"),
-        (project.collectionId = row.id);
+      project.departmentId = this.$store.getters['user/currentDepartmentId'];
+      project.collectionId = row.id;
       project.projectId = row.project_id;
       project.doctorRoleId = this.currentRoleId;
       project.transactionLogStatus = row.t_status;
