@@ -732,4 +732,25 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         return CommonResult.success(null);
     }
 
+    /**
+     * 获取项目检查结果
+     * @param projectParam
+     */
+    public CommonResult getProjectResult(ProjectParam projectParam){
+        JSONObject returnJson = new JSONObject();
+        Integer collectionId = projectParam.getCollectionId();
+        Integer projectId = projectParam.getProjectId();
+        Integer projectType = projectParam.getProjectType();
+        HashMap result;
+
+        if(projectType == 1) //检查
+            result = inspectionMapper.getResultByCIdAndPId(collectionId, projectId);
+        else if(projectType == 2)  //检验
+            result = examinationMapper.getResultByCIdAndPId(collectionId, projectId);
+        else
+            return CommonResult.fail(ResultCode.E_801);
+
+        returnJson.put("result", result);
+        return CommonResult.success(returnJson);
+    }
 }

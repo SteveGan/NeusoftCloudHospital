@@ -4,6 +4,7 @@ package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.bo.Project;
 import com.neuedu.hospitalbackend.model.vo.CollectionParam;
+import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
 import java.util.List;
@@ -50,4 +51,12 @@ public interface ProjectCollectionManagementService {
      * 删除检查检验处置清单或处方
      */
     CommonResult deleteCollection(Integer collectionId, Integer type);
+
+    /**
+     * 获取项目检查结果
+     * @param projectParam
+     */
+    CommonResult getProjectResult(ProjectParam projectParam);
+
+
 }

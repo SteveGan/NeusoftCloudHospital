@@ -34,7 +34,7 @@ Page({
           recipe: res.data.data.处方信息,
           treatment: res.data.data.处置信息,
         })
-        console.log(that.data.treatment)
+        console.log(that.data.inspection)
       }
     })
   },

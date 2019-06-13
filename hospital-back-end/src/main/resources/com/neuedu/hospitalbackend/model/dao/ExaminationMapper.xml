@@ -266,4 +266,10 @@
         where case_id = #{caseId} and e.project_id = p.project_id
     </select>
 
+    <select id="getResultByCIdAndPId" resultType="HashMap">
+        select result_description as resultDescription, result_image as resultImage, advice
+        from examination
+        where id = #{collectionId} and project_id = #{projectId}
+    </select>
+
 </mapper>

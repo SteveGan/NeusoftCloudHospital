@@ -6,7 +6,6 @@ import com.neuedu.hospitalbackend.model.po.*;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.PreliminaryCaseService;
 import com.neuedu.hospitalbackend.service.serviceinterface.wxappservice.PatientInfoService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import com.sun.jndi.cosnaming.ExceptionMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

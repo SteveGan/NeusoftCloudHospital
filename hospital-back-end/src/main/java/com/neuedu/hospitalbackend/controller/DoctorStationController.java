@@ -146,12 +146,18 @@ public class DoctorStationController {
     }
 
     @ApiOperation("清除检查检验处置清单或处方")
-    @RequestMapping(value = "/deletion/{collectionId}/{type}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/collection/deletion/{collectionId}/{type}", method = RequestMethod.DELETE)
     public CommonResult deleteCollection(@PathVariable(value = "collectionId") Integer collectionId,
                                                   @PathVariable(value = "type") Integer type)
     {
         return projectCollectionManagementService.deleteCollection(collectionId, type);
     }
 
+    @ApiOperation("申请项目结果")
+    @RequestMapping(value = "/collection/result", method = RequestMethod.POST)
+    public CommonResult getProjectResult(@RequestBody ProjectParam projectParam)
+    {
+        return projectCollectionManagementService.getProjectResult(projectParam);
+    }
 
 }
