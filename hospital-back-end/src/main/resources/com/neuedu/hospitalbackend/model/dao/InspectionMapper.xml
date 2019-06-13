@@ -262,7 +262,7 @@
     </select>
 
     <select id="getResult" resultMap="projectInfo">
-        select i.result_description, i.result_image, i.advice, p.project_name
+        select distinct i.result_description, i.result_image, i.advice, p.project_name
         from inspection i, inspection_project p
         where case_id = #{caseId} and i.project_id = p.project_id
     </select>
