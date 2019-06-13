@@ -75,7 +75,12 @@
             <el-table-column prop="departmentName" label="部门名称"></el-table-column>
             <el-table-column prop="status" label="执行状态" :formatter="statusFormatter"></el-table-column>
             <el-table-column label="检查结果">
-              <el-button type="text">查看检查结果</el-button>
+              <template slot-scope="scope">
+                <el-button
+                  type="text"
+                  @click="showResult(collection.collectionId, scope.row.projectId)"
+                >查看检查结果</el-button>
+              </template>
             </el-table-column>
             <el-table-column>
               <template slot-scope="scope">
@@ -202,6 +207,42 @@
         <el-button type="primary" @click="handleConfirmAdd">添加</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="检查结果"
+      :visible.sync="dialogShowResult"
+      :before-close="handleClose"
+      width="600px"
+    >
+      <el-card shadow="hover">
+        <el-form label-position="left" label-width="80px" :model="currentResult">
+          <el-form-item label="诊断意见">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 8}"
+              style="width: 300px"
+              v-model="currentResult.advice"
+              disabled
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="检查检验结果所见">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 8}"
+              style="width: 300px"
+              v-model="currentResult.resultDescription"
+              disabled
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="检查结果图片">
+            <el-image
+              style="width: 100px; height: 100px"
+              :src="currentResult.resultImage"
+              :fit="fit"
+            ></el-image>
+          </el-form-item>
+        </el-form>
+      </el-card>
+    </el-dialog>
   </div>
 </template>
 
@@ -211,7 +252,8 @@ import {
   listAllProjects,
   listAllItems,
   saveCollection,
-  submitCollection
+  submitCollection,
+  getProjectResult
 } from "@/api/project";
 import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
@@ -226,7 +268,10 @@ export default {
       currentCollection: {},
       projects: [],
       items: [],
-      addProjectButtonDisabled: []
+      addProjectButtonDisabled: [],
+      dialogShowResult: false,
+      currentResult: {},
+      currentResult: {}
     };
   },
   props: {
@@ -262,6 +307,17 @@ export default {
     }
   },
   methods: {
+    success() {
+      this.$message({
+        message: "操作成功",
+        type: "success"
+      });
+    },
+
+    // 挂号失败提示
+    fail() {
+      this.$message.error("操作失败");
+    },
     handleClose(done) {
       this.$confirm("确认关闭？")
         .then(_ => {
@@ -363,6 +419,7 @@ export default {
       this.newProject = { items: [] };
       this.newItem = {};
       this.dialogAddProject = false;
+      this.dialogShowResult = false;
     },
     handleConfirmAdd() {
       this.dialogAddProject = false;
@@ -384,6 +441,11 @@ export default {
       saveCollection(collection).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.log(error);
@@ -403,6 +465,11 @@ export default {
       submitCollection(collection).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
         },
         error => {
           console.log(error);
@@ -423,6 +490,22 @@ export default {
         console.log(error);
       }
     );
+  },
+  showResult(collectionId, projectId) {
+    var data = {
+      collectionId: collectionId,
+      projectId: projectId,
+      projectType: this.type
+    };
+    getProjectResult(data).then(
+      response => {
+        this.currentResult = response.data.data.results;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this.dialogShowResult = true;
   }
 };
 </script>

@@ -21,7 +21,7 @@ const getters = {
     return state.currentRole.id
   },
   currentDepartmentId: state => {
-    return state.currentRole.deparmentId;
+    return state.currentRole.departmentId;
   },
   currentRoleDescription: state => {
     if (Object.keys(state.currentRole).length === 0) {
