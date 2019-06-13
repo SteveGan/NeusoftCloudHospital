@@ -49,7 +49,7 @@
             <!-- 表格 -->
             <el-table
               :data="diagnosedPatients"
-              style="width: 100%">
+              style="width: 100%;">
               <el-table-column
                 prop="caseId"
                 label="病历号">
