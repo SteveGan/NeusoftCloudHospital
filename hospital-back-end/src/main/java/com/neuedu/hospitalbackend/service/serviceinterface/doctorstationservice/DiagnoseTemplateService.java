@@ -20,7 +20,7 @@ public interface DiagnoseTemplateService {
     CommonResult modifyDiagnoseTemplate(DiagnoseTemplateParam diagnoseTemplateParam);
 
     /**
-     * 修改常用诊断
+     * 查询常用诊断
      * @param roleId
      */
     CommonResult listMyDiagnoseTemplate(Integer roleId);

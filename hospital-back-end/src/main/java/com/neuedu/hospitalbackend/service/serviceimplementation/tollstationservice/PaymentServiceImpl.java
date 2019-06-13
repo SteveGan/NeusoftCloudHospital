@@ -232,7 +232,6 @@ public class PaymentServiceImpl implements PaymentService {
                 }
 
                 for(TransactionLog transactionLog: transactionLogs){
-                    if(transactionLog.getCollectionId() == collectionId)
                     //新增与 退费的项目所在相同第一层级的未退费项目 的缴费记录（即检验单B中的项目2、3）--已缴费
                     if ( (!returnedProjectIdList.contains(transactionLog.getProjectId())) &&
                             (!transactionLog.getType().equals("挂号费")) ){
