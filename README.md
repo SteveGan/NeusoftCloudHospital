@@ -31,7 +31,8 @@ Druid | 数据库连接池 |
 Swagger-UI | 文档生产工具 |
 Log4j  | 日志 |
 Springboot devtool | Springboot热部署等 |
-Taobao IP Share | 淘宝IP分享计划(用于登录日志)
+Taobao IP Share | 淘宝IP分享计划(用于登录日志) |
+线程池
 
 - 安全机制
 - 日志模块

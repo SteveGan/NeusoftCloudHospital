@@ -81,24 +81,26 @@
     </el-card>
 
     <el-dialog :visible.sync="addDepartmentDialogVisible" width="60%" :before-close="handleClose">
-      <department-info-adder>添加科室</department-info-adder>
+      <department-adder>添加科室</department-adder>
     </el-dialog>
     <el-dialog :visible.sync="editDepartmentDialogVisible" width="60%" :before-close="handleClose">
-      <department-info-editor v-model="currentDepartment">编辑科室信息</department-info-editor>
+      <department-editor v-model="currentDepartment">编辑科室信息</department-editor>
     </el-dialog>
+    <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
   </div>
 </template>
 
+
 <script>
 import department from '@/api/basicinfo/department'
-import DepartmentInfoEditor from './Child/DepartmentInfoEditor'
-import DepartmentInfoAdder from './Child/DepartmentInfoAdder'
+import DepartmentEditor from './Child/DepartmentEditor'
+import DepartmentAdder from './Child/DepartmentAdder'
 
 export default {
   name: 'DepartmentAdmin',
   components:{
-    'department-info-editor': DepartmentInfoEditor,
-    'department-info-adder': DepartmentInfoAdder
+    'department-editor': DepartmentEditor,
+    'department-adder': DepartmentAdder
   },
 
   data() {
