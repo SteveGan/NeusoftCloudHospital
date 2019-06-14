@@ -7,7 +7,9 @@ public class InspectionTemplate {
 
     private String name;
 
-    private Integer itemId;
+    private Integer projectId;
+
+    private String itemId;
 
     private Integer roleId;
 
@@ -39,11 +41,19 @@ public class InspectionTemplate {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getItemId() {
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

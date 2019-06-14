@@ -18,7 +18,7 @@
   </resultMap>
 
   <resultMap id="RecipeTemplateInfo" type="HashMap" >
-    <result column="r_name" property="recipeName" jdbcType="VARCHAR" />
+    <result column="r_name" property="name" jdbcType="VARCHAR" />
     <result column="m_name" property="medicineName" jdbcType="VARCHAR" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="department_id" property="departmentId" jdbcType="INTEGER" />

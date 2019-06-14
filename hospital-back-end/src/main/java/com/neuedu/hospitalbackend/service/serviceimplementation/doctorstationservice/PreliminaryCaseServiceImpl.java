@@ -157,8 +157,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
                 return CommonResult.fail(ResultCode.E_802);
         }
         //病历状态更新为确诊
-        Integer status = patientCaseParam.getStatus();
-        count = patientCaseMapper.updatePatientCaseStatus(caseId, status);//确诊
+        count = patientCaseMapper.updatePatientCaseStatus(caseId, 4);//确诊
         if (count <= 0)
             return CommonResult.fail(ResultCode.E_802);
 

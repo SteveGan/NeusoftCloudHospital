@@ -1,8 +1,10 @@
 package com.neuedu.hospitalbackend.controller;
 
+import com.neuedu.hospitalbackend.model.vo.CollectionTemplateParam;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseTemplateParam;
 import com.neuedu.hospitalbackend.model.vo.RecipeTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
+import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.ProjectCollectionTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.RecipeTemplateManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +23,8 @@ public class TemplateManagementController {
     private DiagnoseTemplateService diagnoseTemplateService;
     @Resource
     private RecipeTemplateManagementService recipeTemplateManagementService;
+    @Resource
+    private ProjectCollectionTemplateService projectCollectionTemplateService;
 
 
     @ApiOperation("创建常用诊断")
@@ -83,6 +87,15 @@ public class TemplateManagementController {
     {
         return recipeTemplateManagementService.modifyRecipeTemplate(recipeTemplateParam);
     }
+
+
+    @ApiOperation("创建检查检验处置项目模板")
+    @RequestMapping(value = "/collectiontemplate/preservation", method = RequestMethod.POST)
+    public CommonResult saveCollectionTemplate(@RequestBody CollectionTemplateParam collectionTemplateParam)
+    {
+        return projectCollectionTemplateService.insertCollectionTemplate(collectionTemplateParam);
+    }
+
 
 
 }
