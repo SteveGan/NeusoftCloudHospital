@@ -1,13 +1,18 @@
 <template>
-  <el-container style="height: 500vh;">
+  <el-container style="height: 500px;">
     <!--  侧边栏  -->
     <el-aside width="200px">
+      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+        <el-radio-button :label="false">展开</el-radio-button>
+        <el-radio-button :label="true">收起</el-radio-button>
+      </el-radio-group>
       <el-menu
         default-active="1"
         class="el-menu-vertical-demo"
         :router="activeRouter"
         @open="handleOpen"
-        @close="handleClose">
+        @close="handleClose"
+        :collapse="isCollapse">
         <el-menu-item index="/home/admin/user">
           <i class="el-icon-s-custom"></i>
           <span slot="title">用户管理</span>
@@ -20,11 +25,11 @@
           <i class="el-icon-s-operation"></i>
           <span slot="title">挂号级别管理</span>
         </el-menu-item>
-        <el-menu-item index="/home/admin/paymethod">
+        <el-menu-item index="/home/admin/paytype">
           <i class="el-icon-s-check"></i>
           <span slot="title">结算类别管理</span>
         </el-menu-item>
-        <el-menu-item index="/home/admin/diagnoselist">
+        <el-menu-item index="/home/admin/disease">
           <i class="el-icon-s-order"></i>
           <span slot="title">诊断目录管理</span>
         </el-menu-item>
@@ -60,7 +65,8 @@
     name: "Admin",
     data: () =>{
       return {
-        activeRouter: true
+        activeRouter: true,
+        isCollapse: true
       }
     },
     methods: {
@@ -80,6 +86,10 @@
     margin: 0;
     padding: 0;
     height: 100%;
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
   }
   .main-container{
     background-color: #f5f5f5;

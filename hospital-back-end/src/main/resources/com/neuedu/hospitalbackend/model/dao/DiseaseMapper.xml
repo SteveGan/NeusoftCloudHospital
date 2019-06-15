@@ -21,6 +21,10 @@
         select id, icd_code, code, name, type from disease where id = #{id}
     </select>
 
+    <select id="list" resultMap="BaseResultMap">
+        select id, icd_code, code, name, type from disease
+    </select>
+
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Disease">
         insert into disease (icd_code, code, name, type) values (#{icdCode}, #{code}, #{name}, #{type})
     </insert>

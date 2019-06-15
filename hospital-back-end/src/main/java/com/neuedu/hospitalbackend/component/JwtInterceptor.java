@@ -18,9 +18,9 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_603;
  */
 public class JwtInterceptor extends HandlerInterceptorAdapter {
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//
 //        String authHeader = request.getHeader("Authorization");
 //        // 校验失败
 //        if (authHeader == null || !authHeader.startsWith("Bearer:")) {
@@ -34,7 +34,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 //        //验证token
 //        Claims claims = JwtUtil.checkToken(token, response);
 //        request.setAttribute("username", claims.getSubject());
-        return true;
-    }
+//        return true;
+//    }
 
 }
