@@ -11,7 +11,7 @@ public class ProjectTemplateParam {
 
     private String requirement;
 
-    List<String> items = new ArrayList<>();
+    List<ItemParam> items = new ArrayList<>();
 
     public Integer getProjectId() {
         return projectId;
@@ -37,11 +37,11 @@ public class ProjectTemplateParam {
         this.requirement = requirement;
     }
 
-    public List<String> getItems() {
+    public List<ItemParam> getItems() {
         return items;
     }
 
-    public void setItems(List<String> items) {
+    public void setItems(List<ItemParam> items) {
         this.items = items;
     }
 }

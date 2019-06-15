@@ -12,4 +12,12 @@ public interface TreatmentTemplateMapper {
 
     int insertSelective(TreatmentTemplate treatmentTemplate);
 
+    List<HashMap> getInfoByRoleIdAndDepartmentId(@Param("roleId") Integer roleId, @Param("departmentId") Integer departmentId);
+
+    List<HashMap> listTemplateNameAndCreator(@Param("roleId") Integer roleId, @Param("departmentId") Integer departmentId);
+
+    List<HashMap> listProject(@Param("roleId") Integer roleId, @Param("name") String name);
+
+    int deleteTemplateByRoleIdAndName(@Param("roleId") Integer roleId, @Param("name") String name);
+
 }

@@ -14,6 +14,19 @@
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <resultMap id="TemplateInfo" type="HashMap" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="scope" property="scope" jdbcType="TINYINT" />
+    <result column="goal" property="goal" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+  </resultMap>
+
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.InspectionTemplate" >
     insert into inspection_template (name, item_id, project_id
       role_id, department_id, goal, 
@@ -103,5 +116,39 @@
     from inspection_template
     where role_id = #{roleId} and name = #{name}
   </select>
+
+  <select id="getInfoByRoleIdAndDepartmentId" resultType="HashMap">
+    select distinct i.name, i.scope, i.goal, i.requirement, i.project_id, t.project_name, i.item_id, t.item_name
+    from inspection_template i, tech_project t
+    where (role_id = #{roleId} or (scope = 2 and i.department_id = #{departmentId}) or scope = 3)
+          and i.project_id = t.project_id and i.item_id = t.item_id
+  </select>
+
+  <select id="listTemplateNameAndCreator" resultType="HashMap">
+    select distinct name, role_id as roleId, scope
+    from inspection_template
+    where role_id = #{roleId} or (scope = 2 and department_id = #{departmentId}) or scope = 3
+  </select>
+
+  <select id="listProject" resultMap="TemplateInfo">
+    select distinct i.goal, i.requirement, t.project_name, i.project_id
+    from inspection_template i, tech_project t
+    where i.role_id = #{roleId} and i.name = #{name}
+          and i.project_id = t.project_id and i.item_id = t.item_id
+  </select>
+
+  <select id="listItems" resultMap="TemplateInfo">
+    select distinct t.item_name, t.item_id
+    from inspection_template i, tech_project t
+    where i.role_id = #{roleId} and i.name = #{name} and i.project_id = #{projectId}
+          and i.project_id = t.project_id and i.item_id = t.item_id
+  </select>
+
+  <delete id="deleteTemplateByRoleIdAndName">
+    delete
+    from inspection_template
+    where role_id = #{roleId} and name = #{name}
+  </delete>
+
 
 </mapper>

@@ -8,9 +8,23 @@
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="department_id" property="departmentId" jdbcType="INTEGER" />
     <result column="scope" property="scope" jdbcType="TINYINT" />
+    <result column="goal" property="goal" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <resultMap id="TemplateInfo" type="HashMap" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="scope" property="scope" jdbcType="TINYINT" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="item_name" property="itemName" jdbcType="INTEGER" />
+    <result column="project_name" property="itemId" jdbcType="VARCHAR" />
+    <result column="goal" property="goal" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+  </resultMap>
+
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.TreatmentTemplate" >
     insert into treatment_template (name, project_id,
       role_id, department_id, scope, 
@@ -40,6 +54,12 @@
       <if test="scope != null" >
         scope,
       </if>
+      <if test="goal != null" >
+        goal,
+      </if>
+      <if test="requirement != null" >
+        requirement,
+      </if>
       <if test="gmtCreate != null" >
         gmt_create,
       </if>
@@ -66,6 +86,12 @@
       <if test="scope != null" >
         #{scope,jdbcType=TINYINT},
       </if>
+      <if test="goal != null" >
+        #{goal,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null" >
+        #{requirement,jdbcType=VARCHAR},
+      </if>
       <if test="gmtCreate != null" >
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -81,4 +107,30 @@
     where role_id = #{roleId} and name = #{name}
   </select>
 
+  <select id="getInfoByRoleIdAndDepartmentId" resultType="HashMap">
+    select distinct tt.name, tt.scope, tt.project_id, t.project_name, tt.goal, tt.requirement,
+    from treatment_template tt, tech_project t
+    where (role_id = #{roleId} or (scope = 2 and tt.department_id = #{departmentId}) or scope = 3)
+          and tt.project_id = t.project_id
+  </select>
+
+  <select id="listTemplateNameAndCreator" resultType="HashMap">
+    select distinct name, role_id as roleId, scope
+    from treatment_template
+    where role_id = #{roleId} or (scope = 2 and department_id = #{departmentId}) or scope = 3
+  </select>
+
+  <select id="listProject" resultMap="TemplateInfo">
+    select distinct tt.goal, tt.requirement, t.project_name, tt.project_id
+    from treatment_template tt, tech_project t
+    where tt.role_id = #{roleId} and tt.name = #{name}
+          and tt.project_id = t.project_id and tt.item_id = t.item_id
+  </select>
+
+  <delete id="deleteTemplateByRoleIdAndName">
+    delete
+    from treatment_template
+    where role_id = #{roleId} and name = #{name}
+  </delete>
+  
 </mapper>

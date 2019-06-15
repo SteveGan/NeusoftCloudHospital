@@ -149,7 +149,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
      */
     public CommonResult updateRecipes(RecipeCollectionParam recipeCollectionParam, Integer status){
         int count = 0;
-        String newInvoiceCode = "";//发票号
+//        String newInvoiceCode = "";//发票号
         Integer recipeId = recipeCollectionParam.getRecipeId();
         Integer caseId = recipeCollectionParam.getCaseId();
         Integer creatorRoleId = recipeCollectionParam.getCreatorRoleId();
@@ -171,14 +171,14 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             return CommonResult.success(count);
         }
 
-        //若开立，获取可用发票号
-        if(status == 2){
-            synchronized (this) {
-                //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
-                CommonResult result = invoiceService.getNextInvoiceCode();
-                newInvoiceCode = (String) result.getData();
-            }
-        }
+//        //若开立，获取可用发票号
+//        if(status == 2){
+//            synchronized (this) {
+//                //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+//                CommonResult result = invoiceService.getNextInvoiceCode();
+//                newInvoiceCode = (String) result.getData();
+//            }
+//        }
 
         //插入新提交内容
         for(RecipeParam recipeParam: medicines){
@@ -208,7 +208,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 
             //若开立，创建缴费清单
             if (status == 2) {
-                CommonResult commonResult = insertTransactionLog(recipeCollectionParam, recipeParam, newInvoiceCode);
+                CommonResult commonResult = insertTransactionLog(recipeCollectionParam, recipeParam);
                 if (commonResult.getCode() != 200)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
             }
@@ -219,8 +219,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
     /**
      * 创建缴费清单
      */
-    public CommonResult insertTransactionLog(RecipeCollectionParam collectionParam, RecipeParam recipeParam,
-                                             String newInvoiceCode){
+    public CommonResult insertTransactionLog(RecipeCollectionParam collectionParam, RecipeParam recipeParam){
         Integer registrationId = collectionParam.getCaseId();
         Integer patientId = patientCaseMapper.getPatientIdByCaseId(registrationId);
         if(patientId == null)
@@ -237,7 +236,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 
         //创建transactionLog对象
         TransactionLog transactionLog = new TransactionLog();
-        transactionLog.setInvoiceCode(newInvoiceCode);
+//        transactionLog.setInvoiceCode(newInvoiceCode);
         transactionLog.setRegistrationId(registrationId);
         transactionLog.setPatientId(patientId);
         transactionLog.setRoleId(roleId);

@@ -75,17 +75,19 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
     /**
      * 删除模板
      */
-    public CommonResult deleteRecipeTemplate(Integer roleId, String recipeName){
+    @Override
+    public CommonResult deleteRecipeTemplate(Integer roleId, String recipeName) {
         //参数检验
         if (roleId == null || recipeName == null)
             return CommonResult.fail(ResultCode.E_801);
         //权限检验
-        if(0 == recipeTemplateMapper.getRecipeTemplateByRoleIdAndName(roleId, recipeName).size())
+        if (0 == recipeTemplateMapper.getRecipeTemplateByRoleIdAndName(roleId, recipeName).size())
             return CommonResult.fail(ResultCode.E_804);
         //删除模板
         int count = recipeTemplateMapper.deleteByRIdAndName(roleId, recipeName);
         return CommonResult.success(count);
     }
+
 
 
     /**

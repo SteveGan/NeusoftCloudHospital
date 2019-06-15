@@ -15,6 +15,19 @@ public interface ProjectCollectionTemplateService {
      */
     CommonResult insertCollectionTemplate(CollectionTemplateParam collectionTemplateParam);
 
+    /**
+     * 查询检查检验处置模板
+     */
+    CommonResult listCollectionTemplate(Integer roleId, Integer type);
 
+    /**
+     * 删除检查检验处置模板
+     */
+    CommonResult deleteCollectionTemplate(CollectionTemplateParam collectionTemplateParam);
+
+    /**
+     * 修改检查检验处置模板
+     */
+    CommonResult modifyCollectionTemplate(CollectionTemplateParam collectionTemplateParam);
 
 }

@@ -12,4 +12,14 @@ public interface InspectionTemplateMapper {
 
     int insertSelective(InspectionTemplate inspectionTemplate);
 
+    List<HashMap> getInfoByRoleIdAndDepartmentId(@Param("roleId") Integer roleId, @Param("departmentId") Integer departmentId);
+
+    List<HashMap> listTemplateNameAndCreator(@Param("roleId") Integer roleId, @Param("departmentId") Integer departmentId);
+
+    List<HashMap> listProject(@Param("roleId") Integer roleId, @Param("name") String templateName);
+
+    List<HashMap> listItems(@Param("roleId") Integer roleId, @Param("name") String name, @Param("projectId") Integer projectId);
+
+    int deleteTemplateByRoleIdAndName(@Param("roleId") Integer roleId, @Param("name") String name);
+
 }

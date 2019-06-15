@@ -15,6 +15,10 @@ public class TreatmentTemplate {
 
     private Byte scope;
 
+    private String goal;
+
+    private String requirement;
+
     private Date gmtCreate;
 
     private Date gmtModified;
@@ -37,6 +41,22 @@ public class TreatmentTemplate {
 
     public Integer getProjectId() {
         return projectId;
+    }
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal;
+    }
+
+    public String getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(String requirement) {
+        this.requirement = requirement;
     }
 
     public void setProjectId(Integer projectId) {

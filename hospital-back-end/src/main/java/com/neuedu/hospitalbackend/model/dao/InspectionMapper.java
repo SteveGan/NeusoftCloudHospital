@@ -63,4 +63,5 @@ public interface InspectionMapper {
     HashMap getResultByCIdAndPId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
 
+
 }
