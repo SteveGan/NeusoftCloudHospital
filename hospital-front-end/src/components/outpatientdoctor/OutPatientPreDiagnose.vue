@@ -267,21 +267,36 @@ export default {
       }
     },
     ableEditTraDiagnose: function() {
-      if (this.currentCase.modernDiagnose.length === 0) {
-        return true;
+      if (Object.keys(this.currentCase).length !== 0) {
+        if (this.currentCase.modernDiagnose.length === 0) {
+          return true;
+        } else {
+          return false;
+        }
       } else {
         return false;
       }
     },
     ableEditModDiagnose: function() {
-      if (this.currentCase.traditionalDiagnose.length === 0) {
-        return true;
+      if (Object.keys(this.currentCase).length !== 0) {
+        if (this.currentCase.traditionalDiagnose.length === 0) {
+          return true;
+        } else {
+          return false;
+        }
       } else {
         return false;
       }
     }
   },
   methods: {
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    },
     queryTraditionalDiseaseSearch(queryString, cb) {
       var traditionalDiseases = this.traditionalDiseases;
       var results = queryString
@@ -335,7 +350,6 @@ export default {
     },
     handleRemoveDiagnoses(allDiagnoses, selectedDiagnoses) {
       //遍历所有被选中的selecteDiagnoses
-
       var i;
       for (i = 0; i < selectedDiagnoses.length; i++) {
         console.log("to be deleted:");

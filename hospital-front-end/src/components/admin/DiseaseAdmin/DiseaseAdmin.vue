@@ -1,20 +1,20 @@
 <template lang="html">
 <div class="container">
-  <!-- 挂号级别管理功能区，做成卡片的样子 -->
+  <!-- 诊断目录管理功能区，做成卡片的样子 -->
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
     <div slot="header" class="clearfix">
-      <span style="padding-left: 20px;">挂号级别管理</span>
+      <span style="padding-left: 20px;">诊断目录管理</span>
     </div>
     
     <!-- 表单部分 -->
     <div class="business-region">
-      <!-- 表单头部：搜索功能区和添加挂号级别按钮 -->
+      <!-- 表单头部：搜索功能区和添加诊断目录按钮 -->
       <div class="tool-bar">
         <!-- 搜索区 -->
         <div class="search-region">
           <el-input placeholder="搜索内容" v-model="input" class="input-with-select">
-            <el-select v-model="chosenOption" slot="prepend" placeholder="通过挂号级别ID搜索" class="select-box">
+            <el-select v-model="chosenOption" slot="prepend" placeholder="通过诊断目录ID搜索" class="select-box">
               <el-option  v-for="item in searchOptions"
                           :key="item.value"
                           :label="item.label"
@@ -31,26 +31,26 @@
             <el-button type="primary"  @click="refresh">刷新</el-button>
           </div>
           <div>
-            <el-button type="primary"  @click="addRegistrationLevelDialogVisible = true">新增挂号级别</el-button>
+            <el-button type="primary"  @click="addDiseaseDialogVisible = true">新增诊断目录</el-button>
           </div>
         </div>
         </div>
-        <!-- 列表，展示所有挂号级别或搜索到的挂号级别，后面带有修改/删除按钮-->
+        <!-- 列表，展示所有诊断目录或搜索到的诊断目录，后面带有修改/删除按钮-->
         <div class="table-region">
-          <el-table :data="this.showedRegistrationLevels" style="width: 100%">
+          <el-table :data="this.showedDiseases" style="width: 100%">
             <!-- <el-table-column
               type="selection"
               width="55">
             </el-table-column> -->
-            <el-table-column label="挂号级别ID" prop="id" width="60">
+            <el-table-column label="诊断目录ID" prop="id" width="60">
             </el-table-column>
-            <el-table-column label="挂号级别编码" prop="code">
+            <el-table-column label="诊断目录编码" prop="code">
             </el-table-column>
-            <el-table-column label="挂号级别名称" prop="name">
+            <el-table-column label="诊断目录名称" prop="name">
             </el-table-column>
-            <el-table-column label="挂号级别分类(小类)" prop="classification">
+            <el-table-column label="诊断目录分类(小类)" prop="classification">
             </el-table-column>
-            <el-table-column label="挂号级别类别(大类)" prop="type">
+            <el-table-column label="诊断目录类别(大类)" prop="type">
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
@@ -73,87 +73,87 @@
               :page-sizes="[10, 30, 50, 100]"
               :page-size="currentSize"
               layout="total, sizes, prev, pager, next, jumper"
-              :total="registrationlevels.length">
+              :total="diseases.length">
             </el-pagination>
           </div>
         </div>
       </div>
     </el-card>
 
-    <el-dialog :visible.sync="addRegistrationLevelDialogVisible" width="60%" :before-close="handleClose">
-      <registrationlevel-adder>添加挂号级别</registrationlevel-adder>
+    <el-dialog :visible.sync="addDiseaseDialogVisible" width="60%" :before-close="handleClose">
+      <disease-adder>添加诊断目录</disease-adder>
     </el-dialog>
-    <el-dialog :visible.sync="editRegistrationLevelDialogVisible" width="60%" :before-close="handleClose">
-      <registrationlevel-editor v-model="currentRegistrationLevel">编辑挂号级别信息</registrationlevel-editor>
+    <el-dialog :visible.sync="editDiseaseDialogVisible" width="60%" :before-close="handleClose">
+      <disease-editor v-model="currentDisease">编辑诊断目录信息</disease-editor>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import registrationlevel from '@/api/basicinfo/registrationlevel'
-import RegistrationLevelEditor from './Child/RegistrationLevelEditor'
-import RegistrationLevelAdder from './Child/RegistrationLevelAdder'
+import disease from '@/api/basicinfo/disease'
+import DiseaseEditor from './Child/DiseaseEditor'
+import DiseaseAdder from './Child/DiseaseAdder'
 
 export default {
-  name: 'RegistrationLevelAdmin',
+  name: 'DiseaseAdmin',
   components:{
-    'registrationlevel-editor': RegistrationLevelEditor,
-    'registrationlevel-adder': RegistrationLevelAdder
+    'disease-editor': DiseaseEditor,
+    'disease-adder': DiseaseAdder
   },
 
   data() {
     return {
       input: "",
-      addRegistrationLevelDialogVisible: false,
-      editRegistrationLevelDialogVisible: false,
+      addDiseaseDialogVisible: false,
+      editDiseaseDialogVisible: false,
       searchOptions: [
           {
-            value: 'registrationlevelId',
-            label: '通过挂号级别ID搜索'
+            value: 'diseaseId',
+            label: '通过诊断目录ID搜索'
           },
           {
-            value: 'registrationlevelName',
-            label: '通过挂号级别名搜索'
+            value: 'diseaseName',
+            label: '通过诊断目录名搜索'
           }
         ],
       
-      registrationlevels: [],
-      showedRegistrationLevels: [],
+      diseases: [],
+      showedDiseases: [],
       currentPage: 1,
       currentSize: 10,
-      currentRegistrationLevel: {}
+      currentDisease: {}
     }
   },
 
   methods: {
       // 搜索
       search() {
-        registrationlevel.getRegistrationLevelById(this.input).then(response => {
+        disease.getDiseaseById(this.input).then(response => {
           console.log(response.data.data)
           const data = response.data.data;
-          this.showedRegistrationLevels=[];
-          this.showedRegistrationLevels.push(data);
+          this.showedDiseases=[];
+          this.showedDiseases.push(data);
 
         }).catch(error => {
         
         })
       },
-      // 新增/修改 挂号级别信息
+      // 新增/修改 诊断目录信息
       handleEdit(index, row) {
-        this.currentRegistrationLevel = row
-        this.editRegistrationLevelDialogVisible = true
-        console.log(this.currentRegistrationLevel)
+        this.currentDisease = row
+        this.editDiseaseDialogVisible = true
+        console.log(this.currentDisease)
       },
 
       handleDelete(index, row) {
-        registrationlevel.deleteRegistrationLevel(row.id).then(response => {
+        disease.deleteDisease(row.id).then(response => {
           console.log(response.data)
           const data = response.data.data;
 
           if(response.data.code===200){
-            this.success("挂号级别删除");
+            this.success("诊断目录删除");
           } else {
-            this.fail("挂号级别删除");
+            this.fail("诊断目录删除");
           }
           this.refresh();
         }).catch(error => {
@@ -176,27 +176,27 @@ export default {
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
         this.currentSize=val;
-        this.setShowedRegistrationLevels();
+        this.setShowedDiseases();
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
         this.currentPage=val;
-        this.setShowedRegistrationLevels();
+        this.setShowedDiseases();
       },
       refresh() {
-        registrationlevel.listAllRegistrationLevels().then(response => {
+        disease.listAllDiseases().then(response => {
           console.log(response.data)
           const data = response.data.data
-          this.registrationlevels = data;
-          this.setShowedRegistrationLevels();
+          this.diseases = data;
+          this.setShowedDiseases();
         }).catch(error => {
           
         })
       },
 
-      setShowedRegistrationLevels() {
+      setShowedDiseases() {
         console.log(this.currentPage);
-        this.showedRegistrationLevels = this.registrationlevels.slice((this.currentPage-1)*this.currentSize, (this.currentPage-1)*this.currentSize+this.currentSize);
+        this.showedDiseases = this.diseases.slice((this.currentPage-1)*this.currentSize, (this.currentPage-1)*this.currentSize+this.currentSize);
       }
   },
 

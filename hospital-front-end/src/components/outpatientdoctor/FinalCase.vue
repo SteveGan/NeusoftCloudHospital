@@ -3,10 +3,10 @@
     <div class="service-main-container">
       <!-- 工具栏 -->
       <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px">
-        <el-button type="text" icon="el-icon-refresh-right" round>清屏</el-button>
-        <el-button type="text" icon="el-icon-folder-checked" round>暂存</el-button>
+        <el-button type="text" icon="el-icon-refresh-right" round @click="handleClearFinalCase">清屏</el-button>
+        <el-button type="text" icon="el-icon-folder-checked" round @click="handleSaveFinalCase">暂存</el-button>
         <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-        <el-button type="text" icon="el-icon-upload" round>提交</el-button>
+        <el-button type="text" icon="el-icon-upload" round @click="handleSubmitFinalCase">提交</el-button>
       </el-card>
       <div>
         <el-card class="input-card" shadow="hover">
@@ -24,9 +24,23 @@
               <!-- 按钮组 -->
               <div style="margin-left: 10px;">
                 <!-- 增加按钮 -->
-                <el-button type="primary" icon="el-icon-plus" size="mini" circle></el-button>
+                <el-button
+                  type="primary"
+                  icon="el-icon-plus"
+                  size="mini"
+                  circle
+                  @click="dialogAddTraDiagnose=true"
+                  :disabled="!ableEditTraDiagnose"
+                ></el-button>
                 <!-- 减少按钮 -->
-                <el-button type="primary" icon="el-icon-minus" size="mini" circle></el-button>
+                <el-button
+                  type="primary"
+                  icon="el-icon-minus"
+                  size="mini"
+                  circle
+                  @click="handleRemoveDiagnoses(finalCase.finalTraditionalDiagnose, selectedTraDiagnoses)"
+                  :disabled="!ableEditTraDiagnose"
+                ></el-button>
               </div>
             </div>
             <!-- 表格 -->
@@ -35,6 +49,7 @@
                 ref="multipleTable"
                 tooltip-effect="dark"
                 style="width: 100%"
+                :data="finalCase.finalTraditionalDiagnose"
                 @selection-change="handleSelectTraDiagnoses"
               >
                 <el-table-column type="selection" width="55"></el-table-column>
@@ -55,9 +70,23 @@
               <!-- 按钮组 -->
               <div style="margin-left: 10px;">
                 <!-- 增加按钮 -->
-                <el-button type="primary" icon="el-icon-plus" size="mini" circle></el-button>
+                <el-button
+                  type="primary"
+                  icon="el-icon-plus"
+                  size="mini"
+                  circle
+                  @click="dialogAddModDiagnose=true"
+                  :disabled="!ableEditModDiagnose"
+                ></el-button>
                 <!-- 减少按钮 -->
-                <el-button type="primary" icon="el-icon-minus" size="mini" circle></el-button>
+                <el-button
+                  type="primary"
+                  icon="el-icon-minus"
+                  size="mini"
+                  circle
+                  @click="handleRemoveDiagnoses(finalCase.finalModernDiagnose, selectedModDiagnoses)"
+                  :disabled="!ableEditModDiagnose"
+                ></el-button>
               </div>
             </div>
             <!-- 表格 -->
@@ -66,6 +95,7 @@
                 ref="multipleTable"
                 tooltip-effect="dark"
                 style="width: 100%"
+                :data="finalCase.finalModernDiagnose"
                 @selection-change="handleSelectModDiagnoses"
               >
                 <el-table-column type="selection" width="55"></el-table-column>
@@ -142,6 +172,15 @@
         <el-button type="primary" @click="addNewModDisease">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 右侧模版区域 -->
+    <div class="service-side-container">
+      <el-card shadow="hover">
+        <div slot="header">
+          <span>诊断模版</span>
+        </div>
+        <diagnose-template @give-disease="useDisease"></diagnose-template>
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -152,6 +191,7 @@ import { listAllDiseases } from "@/api/disease";
 import { delimiter } from "path";
 import { constants } from "fs";
 import { currentDate } from "@/utils/date";
+import { totalmem } from "os";
 
 export default {
   name: "FinalCase",
@@ -167,7 +207,9 @@ export default {
       traditionalDiseases: [],
       modernDiseases: [],
       newTraditionalDisease: {},
-      newModernDisease: {}
+      newModernDisease: {},
+      selectedTraDiagnoses: [],
+      selectedModDiagnoses: []
     };
   },
   props: {
@@ -180,6 +222,30 @@ export default {
       },
       set(v) {
         this.$emit("input", v);
+      }
+    },
+    ableEditTraDiagnose: function() {
+      if (Object.keys(this.finalCase).length !== 0) {
+        console.log("当前哈哈哈哈哈");
+        console.log(this.finalCase);
+        if (this.finalCase.finalModernDiagnose.length === 0) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    },
+    ableEditModDiagnose: function() {
+      if (Object.keys(this.finalCase).length !== 0) {
+        if (this.finalCase.finalTraditionalDiagnose.length === 0) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
       }
     }
   },
@@ -205,6 +271,20 @@ export default {
         : modernDiseases;
       cb(results);
     },
+    handleRemoveDiagnoses(allDiagnoses, selectedDiagnoses) {
+      //遍历所有被选中的selecteDiagnoses
+      var i;
+      for (i = 0; i < selectedDiagnoses.length; i++) {
+        console.log("to be deleted:");
+        console.log(selectedDiagnoses[i]);
+        allDiagnoses.splice(
+          allDiagnoses.findIndex(
+            disease => disease.icdCode === selectedDiagnoses[i].icdCode
+          ),
+          1
+        );
+      }
+    },
     createFilter(queryString) {
       return disease => {
         return (
@@ -224,24 +304,94 @@ export default {
     },
     cancelAdd() {
       this.dialogAddTraDiagnose = false;
+      this.dialogAddModDiagnose = false;
       this.newTraditionalDisease = {};
       this.newModernDisease = {};
     },
     addNewTraDisease() {
       this.dialogAddTraDiagnose = false;
-      //将新的中医诊断加入当前病历中
-      // this.currentCase.traditionalDiagnose.push(
-      //   JSON.parse(JSON.stringify(this.newTraditionalDisease))
-      // );
-      //将新的中医诊断清空
+      // 将新的中医诊断加入当前病历中
+      this.finalCase.finalTraditionalDiagnose.push(
+        JSON.parse(JSON.stringify(this.newTraditionalDisease))
+      );
+      // 将新的中医诊断清空
       this.newTraditionalDisease = {};
     },
     addNewModDisease() {
       this.dialogAddModDiagnose = false;
-      // this.currentCase.modernDiagnose.push(
-      //   JSON.parse(JSON.stringify(this.newModernDisease))
-      // );
+      console.log(this.finalCase);
+      this.finalCase.finalModernDiagnose.push(
+        JSON.parse(JSON.stringify(this.newModernDisease))
+      );
+      console.log("当前现代确诊：");
+      console.log(this.finalCase.finalModernDiagnose);
+      this.newModernDisease = {};
+    },
+    handleSelectTraDiagnoses(val) {
+      this.selectedTraDiagnoses = val;
+      console.log(val);
+    },
+    handleSelectModDiagnoses(val) {
+      this.selectedModDiagnoses = val;
+      console.log(val);
+    },
+    handleSaveFinalCase() {
+      this.$emit("save-final-case", this.ableEditTraDiagnose);
+    },
+    handleSubmitFinalCase() {
+      this.$emit("submit-final-case", this.ableEditTraDiagnose);
+    },
+    useDisease(diagnoseTemplate) {
+      //如果是西医疾病,添加到西医诊断中
+      if (diagnoseTemplate.type === 1) {
+        this.finalCase.finalModernDiagnose.push({
+          icdCode: diagnoseTemplate.icdCode,
+          diseaseName: diagnoseTemplate.diseaseName,
+          startTime: currentDate()
+        });
+      } else {
+        this.finalCase.finalTraditionalDiagnose.push({
+          icdCode: diagnoseTemplate.icdCode,
+          diseaseName: diagnoseTemplate.diseaseName,
+          startTime: currentDate()
+        });
+      }
+      console.log(currentDate());
+    },
+    handleClearFinalCase() {
+      this.finalCase = Object.assign(
+        {},
+        {
+          finalTraditionalDiagnose: [],
+          finalModernDiagnose: []
+        }
+      );
+      this.$emit("save-final-case", this.ableEditTraDiagnose);
     }
+  },
+  mounted: function() {
+    // 读取所有的中医疾病
+    listAllDiseases(0).then(
+      response => {
+        const data = response.data.data;
+        this.traditionalDiseases = data.disease;
+        console.log("读到的中医疾病");
+        console.log(this.traditionalDiseases);
+      },
+      error => {
+        console.log("读取中医疾病出bug了");
+      }
+    );
+    // 读取所有的西医疾病
+    listAllDiseases(1).then(
+      response => {
+        const data = response.data.data;
+        this.modernDiseases = data.disease;
+      },
+      error => {
+        console.log("读取西医疾病出bug了");
+      }
+    );
   }
 };
 </script>

@@ -136,6 +136,10 @@ public class PaymentServiceImpl implements PaymentService {
             //医技项目退费条件：已缴费 + 开立
             //药方退费条件：已缴费 + 已退药 / 已缴费 + 开立
             for(TransactionParam returnedProject: returnedProjectList){
+
+                System.out.println("hhhh" + returnedProject.getRemainAmount());
+                System.out.println("kkkk" + returnedProject.getReturnAmount());
+                System.out.println("sahdj" + returnedProject.getItemStatus());
                 Byte returnedTransactionStatus = returnedProject.getStatus(); //缴费记录状态
                 Byte returnedProjectStatus = returnedProject.getItemStatus(); //项目自身状态
                 if (returnedTransactionStatus == 2){

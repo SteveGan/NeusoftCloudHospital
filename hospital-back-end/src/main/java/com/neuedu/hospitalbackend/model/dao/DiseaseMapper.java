@@ -16,6 +16,8 @@ public interface DiseaseMapper {
 
     int delete(Short id);
 
+    List<Disease> list();
+
     String getTypeOfDiseaseByIcdCode(String icdCode);
 
     List<HashMap> ListChineseDisease();

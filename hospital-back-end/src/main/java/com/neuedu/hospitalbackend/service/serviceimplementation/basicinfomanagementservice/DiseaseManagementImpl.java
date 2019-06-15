@@ -61,6 +61,12 @@ public class DiseaseManagementImpl implements DiseaseManagementService {
     }
 
     @Override
+    public CommonResult listAllDiseases() {
+        List<Disease> list = diseaseMapper.list();
+        return CommonResult.success(list);
+    }
+
+    @Override
     public CommonResult listDiseaseByType(Integer type){
         JSONObject returnJson = new JSONObject();
         List<HashMap> diseases;

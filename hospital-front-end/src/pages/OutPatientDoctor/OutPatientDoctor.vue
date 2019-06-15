@@ -107,7 +107,7 @@
           </outpatient-prediagnose>
         </el-tab-pane>
         <el-tab-pane label="病历确诊">
-          <final-case></final-case>
+          <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase"></final-case>
         </el-tab-pane>
         <el-tab-pane label="检验申请">
           <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
@@ -186,6 +186,7 @@ import {
   caseStatusCodeToString,
   genderCodeToString
 } from "@/utils/interpreter";
+import { listFinalDiagnoses, saveFinalDiagnose } from "@/api/finalDiagnose";
 
 import OutPatientPreDiagnose from "@/components/outpatientdoctor/OutPatientPreDiagnose";
 import CaseTemplateAdmin from "@/components/outpatientdoctor/CaseTemplateAdmin";
@@ -194,6 +195,7 @@ import CaseRecipe from "@/components/outpatientdoctor/CaseRecipe";
 import CaseDisposition from "@/components/outpatientdoctor/CaseDisposition";
 import FinalCase from "@/components/outpatientdoctor/FinalCase";
 import { constants } from "fs";
+import { POINT_CONVERSION_COMPRESSED } from "constants";
 
 export default {
   name: "OutPatientDoctor",
@@ -206,6 +208,7 @@ export default {
       selectedCaseExaminations: {},
       selectedCaseInspections: {},
       selectedCaseDispositions: {},
+      selectedFinalCase: {},
       modernDisease: [],
       traditionalDisease: [],
       traditionalRecipes: {},
@@ -353,6 +356,17 @@ export default {
           console.alert("查所有处方出bug了");
         }
       );
+      //请求当前被点击用户的最终诊断信息
+      listFinalDiagnoses(this.selectedPatient.caseId).then(
+        response => {
+          console.log("当前被选择的最终诊断：");
+          this.selectedFinalCase = response.data.data;
+          console.log(this.selectedFinalCase);
+        },
+        error => {
+          console.log(error);
+        }
+      );
     },
     handleFinish() {
       this.selectedCase.status = "5";
@@ -408,30 +422,6 @@ export default {
         1
       );
       this.diagnosedPatients.push(splicedCase[0]);
-
-      // allDiagnoses.splice(
-      //     allDiagnoses.findIndex(
-      //       disease => disease.icdCode === selectedDiagnoses[i].icdCode
-      //     ),
-      //     1
-      //   );
-      // 刷新当前用户列表
-      // listAllPatients(this.$store.getters["user/currentRoleId"]).then(
-      //   response => {
-      //     const data = response.data.data;
-      //     this.waitingPatients = data.waitingPatients;
-      //     this.diagnosedPatients = data.diagnosedPatients;
-      //     // console.log(this.waitingPatients)
-      //     if (response.data.code === 200) {
-      //       this.success("缴费");
-      //     } else {
-      //       this.fail("缴费");
-      //     }
-      //   },
-      //   error => {
-      //     console.alert("请求所有病人出Bug了");
-      //   }
-      // );
     },
     //清空case内容
     onClearSelectedCase() {
@@ -440,7 +430,7 @@ export default {
       clearCase(this.selectedCase.caseId).then(
         response => {
           console.log(response);
-          if (response.data.code === 200) {
+          if (response.code === 200) {
             this.success("缴费");
           } else {
             this.fail("缴费");
@@ -451,6 +441,43 @@ export default {
         }
       );
       this.selectedCase = {};
+    },
+    //存储当前的最终诊断
+    onSaveFinalCase(isTraDiagnose) {
+      this.selectedFinalCase.diagnoseType = isTraDiagnose ? 0 : 1;
+      this.selectedFinalCase.caseId = this.selectedPatient.caseId;
+      this.selectedFinalCase.status = 3;
+      saveFinalDiagnose(this.selectedFinalCase).then(
+        response => {
+          console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    onSubmitFinalCase(isTraDiagnose) {
+      this.selectedFinalCase.diagnoseType = isTraDiagnose ? 0 : 1;
+      this.selectedFinalCase.caseId = this.selectedPatient.caseId;
+      this.selectedFinalCase.status = 4;
+      saveFinalDiagnose(this.selectedFinalCase).then(
+        response => {
+          console.log(response);
+          if (response.data.code === 200) {
+            this.success("缴费");
+          } else {
+            this.fail("缴费");
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   },
   components: {
@@ -477,14 +504,6 @@ export default {
         console.alert("请求所有病人出Bug了");
       }
     );
-    // //请求所有中医疾病和西医疾病
-    // listAllDisease().then( response => {
-    //   const data = response.data.data
-    //   this.modernDisease = data.modernDisease
-    //   this.traditionalDisease = data.traditionalDisease
-    // }, error => {
-    //   //暂时不做处理
-    // })
   }
 };
 </script>

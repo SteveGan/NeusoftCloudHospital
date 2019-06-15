@@ -34,6 +34,10 @@ public interface DiseaseManagementService {
      */
     CommonResult deleteDiseaseById(Short id);
 
+    /**
+     * 1.5.5 列出全部疾病
+     */
+    CommonResult listAllDiseases();
 
     /**
      * 获取西医或者疾病

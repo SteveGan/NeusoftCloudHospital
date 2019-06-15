@@ -67,25 +67,7 @@
     </div>
     <!-- 底部模版区域 -->
     <div>
-      <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" class="template-tabs">
-        <!-- 门诊首页tab-->
-        <el-tab-pane label="处方模版">
-          <div class="recipe-template">
-            <!-- 左侧browser区 -->
-            <div class="recipe-browser">
-              <el-card></el-card>
-            </div>
-            <!-- 右侧处方内容展示区-->
-            <div class="recipe-detail">
-              <el-card></el-card>
-            </div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="常用药品"></el-tab-pane>
-        <el-tab-pane label="建议方案"></el-tab-pane>
-        <el-tab-pane label="历史处方"></el-tab-pane>
-      </el-tabs>
+      <recipe-template v-model="currentRecipeTemplate"></recipe-template>
     </div>
     <!-- 新增药品dialog -->
     <el-dialog
@@ -136,11 +118,13 @@ import {
   saveRecipe,
   submitRecipe
 } from "@/api/recipe";
+import { listRecipeTemplates } from "@/api/recipeTemplate";
 import { constants } from "fs";
 import {
   medicineTypeCodeToString,
   medicineTypeToCode
 } from "@/utils/interpreter";
+import RecipeTemplate from "./RecipeTemplate";
 
 export default {
   name: "CaseRecipe",
@@ -149,8 +133,12 @@ export default {
       dialogAddMedicine: false,
       newMedicine: {},
       currentRecipe: {},
-      medicines: []
+      medicines: [],
+      currentRecipeTemplate: {}
     };
+  },
+  components: {
+    "recipe-template": RecipeTemplate
   },
   props: {
     value: Object
@@ -279,6 +267,20 @@ export default {
         console.log(error);
       }
     );
+    //请求相应的可用处方模版
+    listRecipeTemplates(
+      this.$store.getters["user/roleId"],
+      this.caseRecipe.type
+    ).then(
+      response => {
+        this.currentRecipeTemplate = response.data.data;
+        console.log("当前的处方模版：");
+        console.log(this.currentRecipeTemplate);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 };
 </script>
@@ -292,21 +294,6 @@ export default {
 .recipe-service-container {
   display: flex;
   flex-direction: column;
-}
-
-.recipe-template {
-  display: grid;
-  grid-template-columns: 40% 60%;
-}
-
-.recipe-browser {
-  grid-column: 1/2;
-  padding: 2px;
-}
-
-.recipe-detail {
-  grid-column: 2;
-  padding: 2px;
 }
 
 .service-main-container .el-card {

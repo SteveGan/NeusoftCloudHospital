@@ -6,9 +6,9 @@ const Admin = r => require.ensure([], () => r(require('@/pages/Admin/Admin')), '
 const UserAdmin = r => require.ensure([], () => r(require('@/components/admin/UserAdmin/UserAdmin')), 'UserAdmin')
 const ScheduleAdmin = r => require.ensure([], () => r(require('@/components/admin/ScheduleAdmin/ScheduleAdmin')), 'ScheduleAdmin')
 const RegistrationLevelAdmin = r => require.ensure([], () => r(require('@/components/admin/RegistrationLevelAdmin/RegistrationLevelAdmin')), 'RegistrationLevelAdmin')
-const PayMethodAdmin = r => require.ensure([], () => r(require('@/components/admin/PayMethodAdmin/PayMethodAdmin')), 'PayMethodAdmin')
+const PayTypeAdmin = r => require.ensure([], () => r(require('@/components/admin/PayTypeAdmin/PayTypeAdmin')), 'PayTypeAdmin')
 const NonMedicineProjectAdmin = r => require.ensure([], () => r(require('@/components/admin/NonMedicineProjectAdmin/NonMedicineProjectAdmin')), 'NonMedicineProjectAdmin')
-const DiagnoseListAdmin = r => require.ensure([], () => r(require('@/components/admin/DiagnoseListAdmin/DiagnoseListAdmin')), 'DiagnoseListAdmin')
+const DiseaseAdmin = r => require.ensure([], () => r(require('@/components/admin/DiseaseAdmin/DiseaseAdmin')), 'DiseaseAdmin')
 const DepartmentAdmin = r => require.ensure([], () => r(require('@/components/admin/DepartmentAdmin/DepartmentAdmin')), 'DepartmentAdmin')
 const ArrangementRuleAdmin = r => require.ensure([], () => r(require('@/components/admin/ArrangementRuleAdmin/ArrangementRuleAdmin')), 'ArrangementRuleAdmin')
 const OutPatientDoctor = r => require.ensure([], () => r(require('@/pages/OutPatientDoctor/OutPatientDoctor')), 'OutPatientDoctor')
@@ -62,9 +62,9 @@ export default [{
             component: RegistrationLevelAdmin
           },
           {
-            path: 'paymethod',
-            name: 'PayMethodAdmin',
-            component: PayMethodAdmin
+            path: 'paytype',
+            name: 'PayTypeAdmin',
+            component: PayTypeAdmin
           },
           {
             path: 'nonmedicineproject',
@@ -72,9 +72,9 @@ export default [{
             component: NonMedicineProjectAdmin
           },
           {
-            path: 'diagnoselist',
-            name: 'DiagnoseListAdmin',
-            component: DiagnoseListAdmin
+            path: 'disease',
+            name: 'DiseaseAdmin',
+            component: DiseaseAdmin
           },
           {
             path: 'department',
