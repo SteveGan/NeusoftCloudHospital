@@ -62,7 +62,7 @@
         </el-form-item>
         <el-form-item label="挂号科室">
           <el-select placeholder="挂号科室" @change="isRegistrationAvailable" v-model="registrationForm.departmentId">
-            <el-option v-for="department in departments" :label="department.name" :value="department.id"></el-option>
+            <el-option v-for="department in departments" v-bind:key="department.name"  :label="department.name" :value="department.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="号别">
@@ -74,7 +74,7 @@
         </el-form-item>
         <el-form-item label="看诊医生">
           <el-select placeholder="看诊医生" v-model="registrationForm.roleId" :disabled="available"> 
-            <el-option v-for="doctor in doctors" :label="doctor.userName" :value="doctor.roleId"></el-option> 
+            <el-option v-for="doctor in doctors" v-bind:key = "doctor.roleId" :label="doctor.userName" :value="doctor.roleId"></el-option> 
           </el-select>
         </el-form-item>
 
@@ -188,16 +188,20 @@
 
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
-              <el-button type="text" size="small" v-if="scope.row.normal&&scope.row.patientCase.status==1" @click="withdrawal(scope.row.id, scope.row.appointmentDate, scope.row.timeSlot, scope.row.roleId, scope.row.registrationLevelId, scope.row.departmentId, scope.row.patientCase.status)">
-                退号
-              </el-button>
-              <el-button type="text" disabled size="small" v-if="!scope.row.normal">
-                已退号
-              </el-button>
-              <el-button type="text" disabled size="small" v-if="scope.row.normal&&scope.row.patientCase.status!=1">
-                已就诊
-              </el-button>
-            </template>
+  <el-button
+    type="text"
+    size="small"
+    v-if="scope.row.normal&&scope.row.patientCase.status==1"
+    @click="withdrawal(scope.row.id, scope.row.appointmentDate, scope.row.timeSlot, scope.row.roleId, scope.row.registrationLevelId, scope.row.departmentId, scope.row.patientCase.status)"
+  >退号</el-button>
+  <el-button type="text" disabled size="small" v-if="!scope.row.normal">已退号</el-button>
+  <el-button
+    type="text"
+    disabled
+    size="small"
+    v-if="scope.row.normal&&scope.row.patientCase.status!=1"
+  >已就诊</el-button>
+</template>
           </el-table-column>
         </el-table>
       </div>
@@ -276,19 +280,19 @@
 
 
 <script>
-import InvoiceCode from './InvoiceCode'
-import register from '@/api/register'
+import InvoiceCode from "./InvoiceCode";
+import register from "@/api/register";
 
 export default {
-  name: 'PatientRegistration',
-  components:{
-    'invoice-code': InvoiceCode
+  name: "PatientRegistration",
+  components: {
+    "invoice-code": InvoiceCode
   },
 
-  data () {
+  data() {
     return {
       registrationForm: {
-        registrationId : "0",
+        registrationId: "0",
         name: "",
         gender: "",
         birthdayStr: "",
@@ -304,7 +308,7 @@ export default {
         totalFee: "",
         isBuyCaseBook: "",
         cashierId: "",
-        invoiceCode: "",
+        invoiceCode: ""
       },
       // 发票打印可见
       invoicePrinterVisible: false,
@@ -324,8 +328,8 @@ export default {
       // 常量表
       // 性别
       genderCast: {
-          0: "女",
-          1: "男"
+        0: "女",
+        1: "男"
       },
       // 结算类别
       payTypeCast: {
@@ -338,130 +342,138 @@ export default {
         1: "普通号",
         2: "专家号",
         3: "急诊号"
-      },    
+      },
       // 病历状态
       caseStatusCast: {
-          1: "待诊",
-          2: "暂存",
-          3: "已诊",
-          4: "确诊",
-          5: "诊毕"
-      },  
-      
-    }
+        1: "待诊",
+        2: "暂存",
+        3: "已诊",
+        4: "确诊",
+        5: "诊毕"
+      }
+    };
   },
 
   computed: {
-      age() {
-        console.log();
-        const day1 = new Date(this.registrationForm.birthdayStr);
-        const day2 = new Date(this.getNowFormatDate());
-        var age = Math.floor((day2 - day1) / (1000 * 60 * 60 * 24 * 365));
-        if(isNaN(age)){
-          age = "";
-        }
-        return age;
+    age() {
+      console.log();
+      const day1 = new Date(this.registrationForm.birthdayStr);
+      const day2 = new Date(this.getNowFormatDate());
+      var age = Math.floor((day2 - day1) / (1000 * 60 * 60 * 24 * 365));
+      if (isNaN(age)) {
+        age = "";
       }
+      return age;
+    }
   },
 
   methods: {
     // 扫描
-    scan() {
-
-    },
+    scan() {},
 
     // 成功提示
     success(msg) {
       this.$message({
-        message: msg+'成功',
-        type: 'success'
+        message: msg + "成功",
+        type: "success"
       });
     },
-      
+
     // 失败提示
     fail(msg) {
-      this.$message.error(msg+'失败');
+      this.$message.error(msg + "失败");
     },
     // 退号
-    withdrawal(id, appointmentDate, timeSlot, roleId, registrationLevelId, departmentId, patientCaseStatus) {
+    withdrawal(
+      id,
+      appointmentDate,
+      timeSlot,
+      roleId,
+      registrationLevelId,
+      departmentId,
+      patientCaseStatus
+    ) {
       this.loading2 = true;
-      var transferData={};
-      transferData.registrationId=id;
-      transferData.appointmentDateStr=appointmentDate;
-      transferData.timeSlot=timeSlot;
-      transferData.roleId=roleId;
-      transferData.registrationLevelId=registrationLevelId;
-      transferData.departmentId=departmentId;
-      transferData.patientCaseStatus=patientCaseStatus;
+      var transferData = {};
+      transferData.registrationId = id;
+      transferData.appointmentDateStr = appointmentDate;
+      transferData.timeSlot = timeSlot;
+      transferData.roleId = roleId;
+      transferData.registrationLevelId = registrationLevelId;
+      transferData.departmentId = departmentId;
+      transferData.patientCaseStatus = patientCaseStatus;
       console.log(id);
 
       transferData.newCashierId = this.currentRoleId;
-      register.withdrawal(transferData).then(response => {
-        console.log(response.data)
-        const data = response.data.data
+      register
+        .withdrawal(transferData)
+        .then(response => {
+          console.log(response.data);
+          const data = response.data.data;
 
-        if(response.data.code===200){
-          this.success("退号");
-          this.registrations();
-        } else {
-          this.fail("退号");
-        }
-        this.loading2 = false;
-      }).finally(response => {
+          if (response.data.code === 200) {
+            this.success("退号");
+            this.registrations();
+          } else {
+            this.fail("退号");
+          }
+          this.loading2 = false;
+        })
+        .finally(response => {
           this.loading = false;
-      })
-
+        });
     },
 
     refreshRegistration() {
       this.registrations();
     },
-    
+
     // 刷新，用于清屏按钮及挂号成功后
     refresh() {
-      this.registrationForm.idCard="";
-      this.registrationForm.name="";
-      this.registrationForm.gender="";
-      this.registrationForm.address="";
-      this.registrationForm.birthdayStr="";
-      this.age="";
-      this.registrationForm.timeSlot="";
-      this.registrationForm.departmentId="";
-      this.registrationForm.registrationLevelId="";
-      this.registrationForm.roleId="";
-      this.registrationForm.payType="";
-      this.registrationForm.isBuyCaseBook="";
-      this.registrationForm.totalFee="";
+      this.registrationForm.idCard = "";
+      this.registrationForm.name = "";
+      this.registrationForm.gender = "";
+      this.registrationForm.address = "";
+      this.registrationForm.birthdayStr = "";
+      this.age = "";
+      this.registrationForm.timeSlot = "";
+      this.registrationForm.departmentId = "";
+      this.registrationForm.registrationLevelId = "";
+      this.registrationForm.roleId = "";
+      this.registrationForm.payType = "";
+      this.registrationForm.isBuyCaseBook = "";
+      this.registrationForm.totalFee = "";
 
       this.getNextRegistrationId();
       this.$refs.invoiceCode.getNextInvoiceCode();
     },
 
-    getNextRegistrationId(){
-      register.getNextRegistrationId().then(response => {
-        console.log(response.data)
-        const data = response.data.data
-        this.registrationForm.registrationId = data;
-      }).catch(error => {
-        
-      })
+    getNextRegistrationId() {
+      register
+        .getNextRegistrationId()
+        .then(response => {
+          console.log(response.data);
+          const data = response.data.data;
+          this.registrationForm.registrationId = data;
+        })
+        .catch(error => {});
     },
-    
+
     // 接收从子组件传过来的“当前发票号”
-    showMsgFromChild(data){
+    showMsgFromChild(data) {
       console.log(data);
-      this.registrationForm.invoiceCode=data;
+      this.registrationForm.invoiceCode = data;
     },
 
     // 挂号
     confirmation(registrationForm) {
       this.loading1 = true;
-      const currentRoleId = this.$store.getters['user/currentRoleId'];
+      const currentRoleId = this.$store.getters["user/currentRoleId"];
       this.registrationForm.cashierId = this.currentRoleId;
       register.confirmation(this.registrationForm).then(response => {
-        console.log(response.data)
+        console.log(response.data);
 
-        if(response.data.code===200){
+        if (response.data.code === 200) {
           this.success("挂号");
           this.invoicePrinterVisible = true;
           this.registrations();
@@ -469,39 +481,49 @@ export default {
           this.fail("挂号");
         }
         this.loading1 = false;
-      })
+      });
     },
 
     // 检查是否可以向后台查询可选医生列表
     isRegistrationAvailable() {
-      const result = this.registrationForm.timeSlot!==""&&this.registrationForm.departmentId!==""&&this.registrationForm.registrationLevelId!=="";
+      const result =
+        this.registrationForm.timeSlot !== "" &&
+        this.registrationForm.departmentId !== "" &&
+        this.registrationForm.registrationLevelId !== "";
       console.log(result);
-      if(result){
-        register.listAvailableDoctors(this.registrationForm).then(response => {
-        console.log("显示所有可选医生列表:")
-        const data = response.data.data.availableDoctors
-        this.doctors = data;
-        console.log(this.docters)
+      if (result) {
+        register
+          .listAvailableDoctors(this.registrationForm)
+          .then(response => {
+            console.log("显示所有可选医生列表:");
+            const data = response.data.data.availableDoctors;
+            this.doctors = data;
+            console.log(this.docters);
 
-        this.available=false;
-        }).catch(error => {
-          
-        })
+            this.available = false;
+          })
+          .catch(error => {});
       }
       return result;
     },
 
     // 检查应收金额栏是否应该向后台请求查询数据
     isTotalFeeAvailable() {
-      const result = this.registrationForm.payType!==""&&this.registrationForm.isBuyCaseBook!==""&&this.registrationForm.roleId!=="";
-      if(result){
-        register.calculateTotalFee(this.registrationForm).then(response => {
-        console.log("计算总金额: " + response.data.data)
-        const data = response.data.data;
-        this.registrationForm.totalFee = data;
-        }).catch(error => {
-          // alert("get error")
-        })
+      const result =
+        this.registrationForm.payType !== "" &&
+        this.registrationForm.isBuyCaseBook !== "" &&
+        this.registrationForm.roleId !== "";
+      if (result) {
+        register
+          .calculateTotalFee(this.registrationForm)
+          .then(response => {
+            console.log("计算总金额: " + response.data.data);
+            const data = response.data.data;
+            this.registrationForm.totalFee = data;
+          })
+          .catch(error => {
+            // alert("get error")
+          });
       }
     },
 
@@ -513,10 +535,10 @@ export default {
       var month = date.getMonth() + 1;
       var strDate = date.getDate();
       if (month >= 1 && month <= 9) {
-          month = "0" + month;
+        month = "0" + month;
       }
       if (strDate >= 0 && strDate <= 9) {
-          strDate = "0" + strDate;
+        strDate = "0" + strDate;
       }
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
@@ -524,31 +546,37 @@ export default {
 
     // 显示所有挂号信息列表
     registrations() {
-      register.registrations().then(response => {
-        console.log("显示所有挂号信息列表:");
-        console.log(response.data);
-        const data = response.data.data;
-        
-        for(var i=0; i<data.length; i++){
-          data[i].patient.genderName = this.genderCast[data[i].patient.gender];
-          data[i].payTypeName = this.payTypeCast[data[i].payType];
-          data[i].registrationLevelName = this.registrationLevelCast[data[i].registrationLevelId];
-          if(data[i].patientCase!=null){
-            if(data[i].patientCase.status!=1){
-              data[i].caseStatusName = "是"
+      register
+        .registrations()
+        .then(response => {
+          console.log("显示所有挂号信息列表:");
+          console.log(response.data);
+          const data = response.data.data;
+
+          for (var i = 0; i < data.length; i++) {
+            data[i].patient.genderName = this.genderCast[
+              data[i].patient.gender
+            ];
+            data[i].payTypeName = this.payTypeCast[data[i].payType];
+            data[i].registrationLevelName = this.registrationLevelCast[
+              data[i].registrationLevelId
+            ];
+            if (data[i].patientCase != null) {
+              if (data[i].patientCase.status != 1) {
+                data[i].caseStatusName = "是";
+              } else {
+                data[i].caseStatusName = "否";
+              }
             } else {
-              data[i].caseStatusName = "否"
+              data[i].caseStatusName = "是";
             }
-              
-          } else {
-            data[i].caseStatusName = "是"
           }
-        }
-        this.registrationsInfo = data;
-      }).catch(error => {
-        // alert("get error")
-      })
-    },
+          this.registrationsInfo = data;
+        })
+        .catch(error => {
+          // alert("get error")
+        });
+    }
   },
 
   mounted() {
@@ -556,40 +584,42 @@ export default {
     this.getNextRegistrationId();
 
     // 获取科室列表
-    register.listAllDepartments().then(response => {
-      console.log(response.data)
-      const data = response.data.data
-      this.departments = data;
-    }).catch(error => {
-      // alert("get error")
-    })
+    register
+      .listAllDepartments()
+      .then(response => {
+        console.log(response.data);
+        const data = response.data.data;
+        this.departments = data;
+      })
+      .catch(error => {
+        // alert("get error")
+      });
     // 默认设置看诊日期为今天
     this.today = this.getNowFormatDate();
-    this.registrationForm.appointmentDateStr=this.getNowFormatDate();
+    this.registrationForm.appointmentDateStr = this.getNowFormatDate();
 
     // 显示所有挂号信息列表
     this.registrations();
 
     // 初始化操作员id
-    const currentRoleId = this.$store.getters['user/currentRoleId'];
+    const currentRoleId = this.$store.getters["user/currentRoleId"];
     this.currentRoleId = currentRoleId;
-  }  
-}
-
+  }
+};
 </script>
 
 <style lang="css" scoped>
-.vice-title{
+.vice-title {
   margin-bottom: 20px;
 }
-.date-selection{
+.date-selection {
   width: 100%;
 }
 
 /*展开行*/
 .demo-table-expand {
-    font-size: 0;
-  }
+  font-size: 0;
+}
 .demo-table-expand label {
   width: 90px;
   color: #99a9bf;
@@ -601,45 +631,50 @@ export default {
 }
 
 /*发票打印*/
-		html,body{
-		    margin: 0;
-		    padding: 0;
-		}
-		body{
-		    font-size: 14px;
-		    color: #333;
-		}
-		@media print {
-		    body{-webkit-print-color-adjust:exact;} 
-		}
-		.fr{
-		    float:right;
-		}
-		.vt{
-		    vertical-align: top;
-		}
-    .wrap {
-      margin: 0 auto;
-      padding: 20px;
-      width: 680px;
-			height: 405px;
-      border: solid black 3px;
-    }
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-size: 14px;
+  color: #333;
+}
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+}
+.fr {
+  float: right;
+}
+.vt {
+  vertical-align: top;
+}
+.wrap {
+  margin: 0 auto;
+  padding: 20px;
+  width: 680px;
+  height: 405px;
+  border: solid black 3px;
+}
 
-    .form .row {
-      padding: 10px 0 0;
-    }
+.form .row {
+  padding: 10px 0 0;
+}
 
-    .btn {
-      display: block;
-      margin: 20px auto;
-      padding: 8px 16px;
-    }
-		table{
-			border-collapse:collapse;
-		}
+.btn {
+  display: block;
+  margin: 20px auto;
+  padding: 8px 16px;
+}
+table {
+  border-collapse: collapse;
+}
 
-		table, td, th{
-			border:1px solid black;
-		}
+table,
+td,
+th {
+  border: 1px solid black;
+}
 </style>
