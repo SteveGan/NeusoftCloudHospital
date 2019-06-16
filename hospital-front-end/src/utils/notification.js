@@ -1,6 +1,5 @@
 import {
-  Message,
-  MessageBox
+  Message
 } from 'element-ui'
 
 
