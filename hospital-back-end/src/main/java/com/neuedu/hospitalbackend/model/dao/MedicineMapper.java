@@ -21,6 +21,8 @@ public interface MedicineMapper {
 
     int delete(Short id);
 
+    List<Medicine> list();
+
     BigDecimal getUnitPriceById(Integer id);
 
     HashMap getMedicineTypeAndUPrice(Integer id);

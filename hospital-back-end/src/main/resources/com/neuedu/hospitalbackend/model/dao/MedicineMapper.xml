@@ -20,6 +20,10 @@
     select id, code, name, specification, unit, factory, formulation, type, unit_price, pinyin_code from medicine where id = #{id}
   </select>
 
+    <select id="list" resultMap="BaseResultMap">
+      select id, code, name, specification, unit, factory, formulation, type, unit_price, pinyin_code from medicine
+    </select>
+
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Medicine" >
     insert into medicine (code, name, specification, unit, factory, formulation, type, unit_price, pinyin_code)
     values (#{code}, #{name}, #{specification}, #{unit}, #{factory}, #{formulation}, #{type}, #{unitPrice}, #{pinyinCode})

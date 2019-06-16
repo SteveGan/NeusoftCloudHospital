@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.List;
+
 import static com.neuedu.hospitalbackend.util.ResultCode.E_602;
 
 @Service
@@ -52,5 +54,11 @@ public class RegistrationLevelManagementImpl implements RegistrationLevelManagem
             return CommonResult.fail();
         }
         return CommonResult.success(count);
+    }
+
+    @Override
+    public CommonResult listAllRegistrationLevels() {
+        List<RegistrationLevel> list = registrationLevelMapper.list();
+        return CommonResult.success(list);
     }
 }

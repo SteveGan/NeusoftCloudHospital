@@ -36,4 +36,9 @@ public interface RegistrationLevelManagementService {
      */
     CommonResult deleteRegistrationLevelById(Short id);
 
+    /**
+     * 1.4.5 列出全部挂号级别
+     */
+    CommonResult listAllRegistrationLevels();
+
 }

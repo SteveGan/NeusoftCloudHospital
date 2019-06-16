@@ -32,4 +32,9 @@ public interface NonMedicineManagementService {
      * @param id 用户id
      */
     CommonResult deleteNonMedicineById(Integer id);
+
+    /**
+     * 1.6.5 列出全部非药品项目
+     */
+    CommonResult listAllNonMedicines();
 }

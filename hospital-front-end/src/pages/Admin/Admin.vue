@@ -1,18 +1,11 @@
 <template>
-  <el-container style="height: 500px;">
+  <el-container style="height: 700px;">
     <!--  侧边栏  -->
     <el-aside width="200px">
-      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-        <el-radio-button :label="false">展开</el-radio-button>
-        <el-radio-button :label="true">收起</el-radio-button>
-      </el-radio-group>
       <el-menu
         default-active="1"
         class="el-menu-vertical-demo"
-        :router="activeRouter"
-        @open="handleOpen"
-        @close="handleClose"
-        :collapse="isCollapse">
+        :router="activeRouter">
         <el-menu-item index="/home/admin/user">
           <i class="el-icon-s-custom"></i>
           <span slot="title">用户管理</span>
@@ -66,16 +59,9 @@
     data: () =>{
       return {
         activeRouter: true,
-        isCollapse: true
       }
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
     }
   }
 

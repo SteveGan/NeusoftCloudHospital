@@ -59,6 +59,12 @@ public class MedicineManagementImpl implements MedicineManagementService {
     }
 
     @Override
+    public CommonResult listAllMedicines() {
+        List<Medicine> list = medicineMapper.list();
+        return CommonResult.success(list);
+    }
+
+    @Override
     public CommonResult listMedicineByType(Integer type){
         List<Medicine> medicineList;
         if(type == 0)

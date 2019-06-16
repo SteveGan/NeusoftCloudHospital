@@ -48,9 +48,9 @@
             </el-table-column>
             <el-table-column label="挂号级别名称" prop="name">
             </el-table-column>
-            <el-table-column label="挂号级别分类(小类)" prop="classification">
+            <el-table-column label="挂号费" prop="cost">
             </el-table-column>
-            <el-table-column label="挂号级别类别(大类)" prop="type">
+            <el-table-column label="挂号限额" prop="quota">
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
@@ -80,10 +80,10 @@
       </div>
     </el-card>
 
-    <el-dialog :visible.sync="addRegistrationLevelDialogVisible" width="60%" :before-close="handleClose">
+    <el-dialog :visible.sync="addRegistrationLevelDialogVisible" width="60%">
       <registrationlevel-adder>添加挂号级别</registrationlevel-adder>
     </el-dialog>
-    <el-dialog :visible.sync="editRegistrationLevelDialogVisible" width="60%" :before-close="handleClose">
+    <el-dialog :visible.sync="editRegistrationLevelDialogVisible" width="60%">
       <registrationlevel-editor v-model="currentRegistrationLevel">编辑挂号级别信息</registrationlevel-editor>
     </el-dialog>
   </div>
@@ -103,6 +103,7 @@ export default {
 
   data() {
     return {
+      chosenOption: "",
       input: "",
       addRegistrationLevelDialogVisible: false,
       editRegistrationLevelDialogVisible: false,
@@ -201,7 +202,7 @@ export default {
   },
 
   mounted() {
-    this.refresh()
+    this.refresh();
   }
 }
 </script>
