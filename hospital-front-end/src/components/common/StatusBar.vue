@@ -84,7 +84,8 @@ export default {
 .align-end {
   display: flex;
   justify-content: flex-end;
-  background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 100%);
+  background-image: linear-gradient(to right, #00bdda 0%, #0178bc 100%);
+  
 }
 .justify-start {
   margin-right: auto;

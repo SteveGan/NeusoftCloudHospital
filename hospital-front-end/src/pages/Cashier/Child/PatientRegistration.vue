@@ -623,7 +623,7 @@ export default {
 }
 
 .container{
-  background-color: #f8f8f8;
+  background-color: #f2f7f8;
 }
 
 .vice-title {
