@@ -4,21 +4,18 @@ import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
- * 2.2 退号
- * @author Parachute.
+ * 退号
+ * 当患者由于挂错了号或者是挂了号没有看诊，此时可以通过退号的操作来完成取消挂号，
+ * 退还患者费用后，收回患者发票，同时打印发票收据（也叫冲红发票，相应金额为负值），
+ * 收费人员把两张发票订在一起，金额相互抵消
+ * @author Polaris
  */
 public interface WithdrawRegistrationService {
 
     /**
      * 执行退号操作
-     * TODO: 1.向缴费表中添加新的缴费记录  --冲正
-     * TODO: 2.将原有缴费记录状态更改为已退费 --已退费
-     * TODO: 3.向异常表中添加新的记录
-     * TODO: 4.在挂号表中更新该病历号的状态 --已退号
-     * TODO: 5.从病历表中移除病历记录
-     * TODO: 6.增加 所选医生 的余号数量
-     * @param registrationParam
-     * @return
+     * @param registrationParam: registrationId, patientCaseStatus, appointmentDate...
+     * @return 操作结果
      */
     CommonResult operateTransactionLog(RegistrationParam registrationParam);
 }

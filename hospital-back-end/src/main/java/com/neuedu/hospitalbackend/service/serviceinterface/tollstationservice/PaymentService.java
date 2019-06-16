@@ -1,6 +1,5 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
-import com.neuedu.hospitalbackend.model.po.TransactionLog;
 import com.neuedu.hospitalbackend.model.vo.TransactionParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
@@ -8,6 +7,7 @@ import java.util.List;
 
 /**
  * 2.3 收费 & 2.4 退费
+ * @author Polaris
  */
 public interface PaymentService {
 

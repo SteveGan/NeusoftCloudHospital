@@ -8,8 +8,8 @@ import com.neuedu.hospitalbackend.model.po.Registration;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
- * 2.1 现场挂号
- * @author Parachute
+ * 现场挂号
+ * @author Polaris
  */
 public interface RegistrationService {
 

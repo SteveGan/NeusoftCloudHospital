@@ -253,6 +253,7 @@
                 and t.gmt_create &lt;= #{endDateStr} <!--date_format(t.gmt_create,'%Y-%m-%d') &lt;= #{endDateStr}-->
             </if>
             and registration_id = #{registrationId}
+            and (status = 1 or status = 2)
         </where>
         order by t.gmt_modified desc
     </select>

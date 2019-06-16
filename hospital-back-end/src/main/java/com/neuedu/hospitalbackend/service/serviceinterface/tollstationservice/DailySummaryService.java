@@ -3,7 +3,10 @@ package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 import com.neuedu.hospitalbackend.model.vo.DailySummaryParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
-
+/**
+ * 收费员日结
+ * 用于挂号收费员每日交班日结，并向财务报账，同时可以查询本人历史日结数据。
+ */
 public interface DailySummaryService {
 
 

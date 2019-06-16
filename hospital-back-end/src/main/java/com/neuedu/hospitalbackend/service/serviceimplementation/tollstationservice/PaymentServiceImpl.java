@@ -326,7 +326,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public CommonResult listLogsByRegistrationIdAndDate(Integer registrationId, String beginDateStr, String endDateStr){
         List<TransactionLog> transactionLogs = transactionLogMapper.listLogsByRegistrationIdAndDate(registrationId, beginDateStr, endDateStr);
-        Map<String, List<TransactionLog>> invoiceMap = new HashMap<>();
+        /*Map<String, List<TransactionLog>> invoiceMap = new HashMap<>();
         for(TransactionLog t: transactionLogs){
             String invoiceCode = t.getInvoiceCode();
            if(!invoiceMap.containsKey(invoiceCode)){
@@ -336,7 +336,7 @@ public class PaymentServiceImpl implements PaymentService {
            else{
                invoiceMap.get(invoiceCode).add(t);
            }
-        }
-        return CommonResult.success(invoiceMap);
+        }*/
+        return CommonResult.success(transactionLogs);
     }
 }

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * 6.4 门诊医生工作量统计
  * 应用场景：用于财务工作人员统计指定时间段的医生工作量
- * @author Raven
+ * @author Polais
  */
 public interface DoctorStatisticsService {
 
