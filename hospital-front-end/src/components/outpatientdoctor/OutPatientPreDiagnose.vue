@@ -6,10 +6,10 @@
       <!-- 工具栏 -->
       <!-- 工具栏 -->
       <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px">
-        <el-button type="text" icon="el-icon-refresh-right" @click="handleClear" round>清屏</el-button>
-        <el-button type="text" icon="el-icon-folder-checked" @click="handleSave" round>暂存</el-button>
+        <el-button type="text" icon="el-icon-refresh-right" @click="handleClear" round :disabled="!editable">清屏</el-button>
+        <el-button type="text" icon="el-icon-folder-checked" @click="handleSave" round :disabled="!editable">暂存</el-button>
         <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-        <el-button type="text" icon="el-icon-upload" @click="handleSubmit" round>提交</el-button>
+        <el-button type="text" icon="el-icon-upload" @click="handleSubmit" round :disabled="!editable">提交</el-button>
       </el-card>
       <!-- 操作 -->
       <div class="">
@@ -21,19 +21,19 @@
           <el-form :model="currentCase" label-position='left'>
             <p>{{currentCase.diagnoses}}</p>
             <el-form-item label="主诉">
-              <el-input v-model="currentCase.narrate" type="textarea" autosize placeholder="请输入内容">
+              <el-input v-model="currentCase.narrate" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
             <el-form-item label="现病史">
-              <el-input v-model="currentCase.curDisease" type="textarea" autosize placeholder="请输入内容">
+              <el-input v-model="currentCase.curDisease" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
             <el-form-item label="既往史">
-              <el-input v-model="currentCase.pastDisease" type="textarea" autosize placeholder="请输入内容">
+              <el-input v-model="currentCase.pastDisease" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
             <el-form-item  label="过敏信息">
-              <el-input v-model="currentCase.allergy" type="textarea" autosize placeholder="请输入内容">
+              <el-input v-model="currentCase.allergy" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
           </el-form>
@@ -44,11 +44,11 @@
           </div>
           <el-form label-position='left' :model="currentCase">
             <el-form-item label="体格检查">
-              <el-input v-model="currentCase.physicalCondition" type="textarea" autosize placeholder="请输入内容">
+              <el-input v-model="currentCase.physicalCondition" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
             <el-form-item label="辅助检查">
-              <el-input v-model="currentCase.assistDiagnose" type="textarea" autosize placeholder="请输入内容">
+              <el-input v-model="currentCase.assistDiagnose" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
           </el-form>
@@ -68,9 +68,9 @@
             <!-- 按钮组 -->
             <div style="margin-left: 10px;">
               <!-- 增加按钮 -->
-              <el-button type="primary" icon="el-icon-plus" size="mini" circle @click="dialogAddTraDiagnose=true" :disabled="!ableEditTraDiagnose"></el-button>
+              <el-button type="primary" icon="el-icon-plus" size="mini" circle @click="dialogAddTraDiagnose=true" :disabled="!ableEditTraDiagnose || !editable"></el-button>
               <!-- 减少按钮 -->
-              <el-button type="primary" icon="el-icon-minus" size="mini" circle @click="handleRemoveDiagnoses(currentCase.traditionalDiagnose, selectedTraDiagnoses)" :disabled="!ableEditTraDiagnose"></el-button>
+              <el-button type="primary" icon="el-icon-minus" size="mini" circle @click="handleRemoveDiagnoses(currentCase.traditionalDiagnose, selectedTraDiagnoses)" :disabled="!ableEditTraDiagnose || !editable"></el-button>
             </div>
           </div>
           <!-- 表格 -->
@@ -111,9 +111,9 @@
             <!-- 按钮组 -->
             <div style="margin-left: 10px;">
               <!-- 增加按钮 -->
-              <el-button type="primary" icon="el-icon-plus" size="mini" circle @click="dialogAddModDiagnose=true" :disabled="!ableEditModDiagnose"></el-button>
+              <el-button type="primary" icon="el-icon-plus" size="mini" circle @click="dialogAddModDiagnose=true" :disabled="!ableEditModDiagnose || !editable"></el-button>
               <!-- 减少按钮 -->
-              <el-button type="primary" icon="el-icon-minus" size="mini" circle @click="handleRemoveDiagnoses(currentCase.modernDiagnose, selectedModDiagnoses)" :disabled="!ableEditModDiagnose"></el-button>
+              <el-button type="primary" icon="el-icon-minus" size="mini" circle @click="handleRemoveDiagnoses(currentCase.modernDiagnose, selectedModDiagnoses)" :disabled="!ableEditModDiagnose || !editable"></el-button>
             </div>
           </div>
           <!-- 表格 -->
@@ -255,7 +255,8 @@ export default {
     };
   },
   props: {
-    value: Object
+    value: Object,
+    editable: Boolean
   },
   computed: {
     currentCase: {

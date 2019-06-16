@@ -104,6 +104,7 @@
             @submitCase="onSubmitSelectedCase" 
             @clearCase="onClearSelectedCase"
             v-model="selectedCase"
+            :editable="ableEditPreDiagnose"
             :disabled="disablePreDiagnose">
           </outpatient-prediagnose>
         </el-tab-pane>
@@ -214,6 +215,7 @@ export default {
       traditionalDisease: [],
       traditionalRecipes: {},
       modernRecipes: {},
+      //控制那些子页面可以被访问
       disablePreDiagnose: true,
       disableFinalDiagnose: true,
       disableExamination: true,
@@ -222,7 +224,9 @@ export default {
       disableFinish: true,
       disableRecipe: true,
       disableModRecipe: true,
-      disableTraRecipe: true
+      disableTraRecipe: true,
+      //病历首页是否可以被修改
+      ableEditPreDiagnose: true
     };
   },
   computed: {
@@ -314,6 +318,7 @@ export default {
             this.disableRecipe = false;
             this.disableFinish = true;
             this.disableDisposition = true;
+            this.ableEditPreDiagnose = false;
           } else if (caseStatus === 4) {
             //已确诊
             this.disableFinalDiagnose = false;
@@ -322,6 +327,7 @@ export default {
             this.disableRecipe = false;
             this.disableFinish = false;
             this.disableDisposition = false;
+            this.ableEditPreDiagnose = false;
           }
           //请求当前被点击用户的病历所有的处方
           listCaseRecipes(this.selectedPatient.caseId).then(
@@ -461,6 +467,7 @@ export default {
           this.disableInspection = false;
           this.disableExamination = false;
           this.disableDisposition = false;
+          this.ableEditPreDiagnose = false;
         },
         error => {
           console.log(error);
