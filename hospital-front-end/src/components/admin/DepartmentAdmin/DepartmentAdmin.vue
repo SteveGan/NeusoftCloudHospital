@@ -4,7 +4,7 @@
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
     <div slot="header" class="clearfix">
-      <i class="el-icon-tickets"></i>
+      <i class="el-icon-s-home"></i>
       <span style="padding-left: 20px;">科室管理</span>
     </div>
     

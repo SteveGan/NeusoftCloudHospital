@@ -37,20 +37,22 @@
         </div>
         <!-- 列表，展示所有非药品收费项目或搜索到的非药品收费项目，后面带有修改/删除按钮-->
         <div class="table-region">
-          <el-table :data="this.showedNonmedicineProjects" style="width: 100%">
+          <el-table :data="this.showedNonmedicines" style="width: 100%">
             <!-- <el-table-column
               type="selection"
               width="55">
             </el-table-column> -->
-            <el-table-column label="非药品收费项目ID" prop="id" width="60">
+            <el-table-column label="非药品收费项目ID" prop="id" width="80">
             </el-table-column>
             <el-table-column label="非药品收费项目编码" prop="code">
             </el-table-column>
             <el-table-column label="非药品收费项目名称" prop="name">
             </el-table-column>
-            <el-table-column label="非药品收费项目分类(小类)" prop="classification">
+            <el-table-column label="规格" prop="specification">
             </el-table-column>
-            <el-table-column label="非药品收费项目类别(大类)" prop="type">
+            <el-table-column label="单价" prop="unitPrice">
+            </el-table-column>
+            <el-table-column label="费用分类" prop="costType">
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
@@ -73,7 +75,7 @@
               :page-sizes="[10, 30, 50, 100]"
               :page-size="currentSize"
               layout="total, sizes, prev, pager, next, jumper"
-              :total="nonmedicineprojects.length">
+              :total="nonmedicine.length">
             </el-pagination>
           </div>
         </div>
@@ -117,8 +119,8 @@ export default {
           }
         ],
       
-      nonmedicineprojects: [],
-      showedNonmedicineProjects: [],
+      nonmedicine: [],
+      showedNonmedicines: [],
       currentPage: 1,
       currentSize: 10,
       currentNonmedicineProject: {}
@@ -131,8 +133,8 @@ export default {
         nonmedicineproject.getNonmedicineProjectById(this.input).then(response => {
           console.log(response.data.data)
           const data = response.data.data;
-          this.showedNonmedicineProjects=[];
-          this.showedNonmedicineProjects.push(data);
+          this.showedNonmedicines=[];
+          this.showedNonmedicines.push(data);
 
         }).catch(error => {
         
@@ -176,27 +178,27 @@ export default {
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
         this.currentSize=val;
-        this.setShowedNonmedicineProjects();
+        this.setShowedNonmedicines();
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
         this.currentPage=val;
-        this.setShowedNonmedicineProjects();
+        this.setShowedNonmedicines();
       },
       refresh() {
-        nonmedicineproject.listAllNonmedicineProjects().then(response => {
+        nonmedicineproject.listAllNonmedicines().then(response => {
           console.log(response.data)
           const data = response.data.data
-          this.nonmedicineprojects = data;
-          this.setShowedNonmedicineProjects();
+          this.nonmedicine = data;
+          this.setShowedNonmedicines();
         }).catch(error => {
           
         })
       },
 
-      setShowedNonmedicineProjects() {
+      setShowedNonmedicines() {
         console.log(this.currentPage);
-        this.showedNonmedicineProjects = this.nonmedicineprojects.slice((this.currentPage-1)*this.currentSize, (this.currentPage-1)*this.currentSize+this.currentSize);
+        this.showedNonmedicines = this.nonmedicine.slice((this.currentPage-1)*this.currentSize, (this.currentPage-1)*this.currentSize+this.currentSize);
       }
   },
 

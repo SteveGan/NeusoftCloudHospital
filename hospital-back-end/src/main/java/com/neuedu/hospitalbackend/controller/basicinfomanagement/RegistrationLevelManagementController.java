@@ -42,4 +42,10 @@ public class RegistrationLevelManagementController {
     public CommonResult deleteRegistrationLevel(@PathVariable Short id) {
         return registrationLevelManagementImpl.deleteRegistrationLevelById(id);
     }
+
+    @ApiOperation("1.4.5 列出全部疾病信息")
+    @RequestMapping(value = "/registration-levels", method = RequestMethod.GET)
+    public CommonResult listAllRegistrationLevels() {
+        return registrationLevelManagementImpl.listAllRegistrationLevels();
+    }
 }
