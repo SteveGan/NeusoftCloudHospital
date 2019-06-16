@@ -16,6 +16,10 @@
      select id, code, name, quota, cost from registration_level where id = #{id}
     </select>
 
+    <select id="list" resultMap="BaseResultMap">
+        select id, code, name, quota, cost from registration_level
+    </select>
+
     <insert id="insert" parameterType="RegistrationLevel" >
     insert into registration_level (code, name, quota, cost)
     values (#{code}, #{name}, #{quota}, #{cost})
