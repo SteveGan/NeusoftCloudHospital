@@ -24,4 +24,16 @@
         where id = #{roleId}
     </select>
 
+    <select id="getTitleByRoleId" resultType="Integer">
+        select title_id
+        from role
+        where id = #{roleId}
+    </select>
+
+    <select id="getUserNameByRoleId" resultType="String">
+        select u.name
+        from role r, user u
+        where r.user_id = u.id and r.id = #{roleId}
+    </select>
+
 </mapper>

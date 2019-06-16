@@ -1,10 +1,8 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice;
 
-import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.Arrangement;
-import com.neuedu.hospitalbackend.model.po.ArrangementRule;
-
-import java.util.List;
+import com.neuedu.hospitalbackend.model.vo.ArrangementParam;
+import com.neuedu.hospitalbackend.model.vo.ArrangementRuleParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
  * 1.7 医生排班管理
@@ -12,16 +10,17 @@ import java.util.List;
  */
 public interface ArrangementManagementService {
 
-    /**
-     * 1.7.1 设置排班规则
-     * @param arrangementRule PO:排班规则
+       /**
+     * 设置排班规则
+     * @param arrangementRuleParam VO:排班规则
      */
-    public void setArrangementRule(ArrangementRule arrangementRule);
+    CommonResult insertArrangementRule(ArrangementRuleParam arrangementRuleParam);
 
     /**
-     * 1.7.2 生成排班计划
-     * @param object
-     * @return
+     * 生成排班规则
+     * @param arrangementParam
      */
-    public List<Arrangement> generateArrangement(JSONObject object);
+    CommonResult insertArrangement(ArrangementParam arrangementParam);
+
+
 }
