@@ -9,4 +9,7 @@ import java.util.List;
 public interface CostMapper {
     Cost get(Integer id);
     List<Cost> list();
+    int update(Cost cost);
+    int delete(Integer id);
+
 }

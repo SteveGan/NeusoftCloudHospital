@@ -23,32 +23,25 @@ public interface TransactionLogMapper {
     //列出 指定病历号的 挂号缴费记录及挂号状态
     HashMap getRegistrationLog(Integer registrationId);
 
+    //列出指定用户的所有发票号、缴费状态
+    List<HashMap> getInvoiceCodeAndStatusByRegistrationId(Integer registrationId);
+
     //列出 指定病历号的所有医技项目(检查/检验/处置) 缴费记录
     List<HashMap> listLogsByTableName(@Param("tableName") String tableName, @Param("registrationId") Integer registrationId);
 
     //列出 指定病历号的药方 缴费记录
-    List<HashMap> getRecipeLogs(Integer registrationId);
+    List<HashMap> listRecipeLogs(Integer registrationId);
+
+    //查询同一发票号下的所有缴费记录
+    List<TransactionLog> listLogsByInvoiceCode(String invoiceCode);
+
+    //更改 与退费的项目所在同一发票号的 相关缴费记录状态 --已退费
+    int updateSelectiveAsReturned(String invoiceCode);
+
+    List<Integer> listIdByCollectionAndProjectId(@Param("invoiceCode") String invoiceCode, @Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
     //列出 指定集合清单、指定项目下的小项详情
-    List<HashMap> listItemsByCollectionIdAndProjectId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
-
-    //更改 退费的项目所在第一层级的 相关缴费记录状态 --已退费
-    int updateSelectiveAsReturned(Integer collectionId, @Param("invoiceCode") String invoiceCode);
-
-    //列出 退费的项目所在第一层级的 所有缴费记录
-    List<TransactionLog> listCollectionProjectInfo(@Param("collectionId") Integer collectionId, @Param("invoiceCode") String invoiceCode);
-
-    //列出 退费的项目所在发票号层级的 所有缴费记录
-    List<TransactionLog> listInvoiceProjectInfo(String invoiceCode);
-
-    //列出 退费的项目所在发票层级的 所有集合id
-    List<Integer> listCollectionIdByInvoiceCode(String invoiceCode);
-
-    //列出指定用户的所有发票号、缴费状态
-    List<HashMap> getInvoiceCodeAndStatusByRegistrationId(Integer registrationId);
-
-    //根据发票号查询缴费记录
-    List<TransactionLog> listLogsByInvoiceCode(String invoiceCode);
+    List<TransactionLog> listItemsByCollectionIdAndProjectId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
     //根据病历号（必填）、起始日期查询指定患者的所有收费项目列表
     List<TransactionLog> listLogsByRegistrationIdAndDate(@Param("registrationId") Integer registrationId, @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);

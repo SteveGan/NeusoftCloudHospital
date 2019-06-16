@@ -15,4 +15,13 @@
       select id, code, name from cost
     </select>
 
+    <update id="update" parameterType="Cost">
+        update cost set code = #{code}, name = #{name}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="integer">
+        delete from cost where id = #{id}
+    </delete>
+
 </mapper>

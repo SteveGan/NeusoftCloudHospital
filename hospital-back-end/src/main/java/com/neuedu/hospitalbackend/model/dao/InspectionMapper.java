@@ -33,10 +33,13 @@ public interface InspectionMapper {
                      @Param("resultDescription")String resultDescription, @Param("resultImage")String resultImage,
                      @Param("advice")String advice);
 
+    //更新某项目状态
+    int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("status") Byte status);
+
+    //查找某项目
+    String getResultByCollectionAndProjectId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
     int getStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
-
-    int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("status") Byte status);
 
     int updateStatusToCancel(@Param("collectionId") Integer collectionId, @Param("status") Byte status);
 

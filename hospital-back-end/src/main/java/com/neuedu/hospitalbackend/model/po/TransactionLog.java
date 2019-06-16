@@ -22,6 +22,8 @@ public class TransactionLog implements Cloneable {
 
     private String itemId;
 
+    private String itemName;
+
     private Short amount;
 
     private Byte payType;
@@ -162,6 +164,14 @@ public class TransactionLog implements Cloneable {
 
     public void setFrozen(Boolean frozen) {
         isFrozen = frozen;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public Object clone() {
