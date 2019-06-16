@@ -1,7 +1,9 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.model.dao.RoleMapper;
 import com.neuedu.hospitalbackend.model.dao.UserMapper;
 import com.neuedu.hospitalbackend.model.po.User;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.UserManagementService;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_602;
@@ -22,6 +25,8 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_602;
 public class UserManagementImpl implements UserManagementService {
     @Resource
     UserMapper userMapper;
+    @Resource
+    RoleMapper roleMapper;
 
     @Override
     public CommonResult getUserById(Integer id) {
@@ -70,6 +75,19 @@ public class UserManagementImpl implements UserManagementService {
         JSONObject returnJson = new JSONObject();
         List<User> users = userMapper.listAllUsersAndRoles();
         returnJson.put("users", users);
+        return CommonResult.success(returnJson);
+    }
+
+    /**
+     * 获取某科室中所有role
+     */
+    @Override
+    public CommonResult listAllRolesByDepartmentId(Integer departmentId){
+        JSONObject returnJson = new JSONObject();
+
+        List<HashMap> roles = roleMapper.listAllRolesByDepartmentId(departmentId);
+
+        returnJson.put("roles", roles);
         return CommonResult.success(returnJson);
     }
 }

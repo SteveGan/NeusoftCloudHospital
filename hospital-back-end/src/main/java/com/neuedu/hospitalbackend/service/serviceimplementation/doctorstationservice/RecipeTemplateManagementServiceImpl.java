@@ -75,17 +75,19 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
     /**
      * 删除模板
      */
-    public CommonResult deleteRecipeTemplate(Integer roleId, String recipeName){
+    @Override
+    public CommonResult deleteRecipeTemplate(Integer roleId, String recipeName) {
         //参数检验
         if (roleId == null || recipeName == null)
             return CommonResult.fail(ResultCode.E_801);
         //权限检验
-        if(0 == recipeTemplateMapper.getRecipeTemplateByRoleIdAndName(roleId, recipeName).size())
+        if (0 == recipeTemplateMapper.getRecipeTemplateByRoleIdAndName(roleId, recipeName).size())
             return CommonResult.fail(ResultCode.E_804);
         //删除模板
         int count = recipeTemplateMapper.deleteByRIdAndName(roleId, recipeName);
         return CommonResult.success(count);
     }
+
 
 
     /**
@@ -108,9 +110,12 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
         HashMap<String, List<HashMap>> hospital = new HashMap<>();
         //模板名称+内容组
         for(HashMap recipeTemplate : recipeTemplates){
-            String recipeName = (String)recipeTemplate.get("recipeName");
-            recipeTemplate.remove("recipeName");
+            String recipeName = (String)recipeTemplate.get("name");
             Integer scope = (Integer) recipeTemplate.get("scope");
+            recipeTemplate.remove("name");
+            recipeTemplate.remove("scope");
+            recipeTemplate.remove("roleId");
+            recipeTemplate.remove("departmentId");
             List<HashMap> medicines;
             if(scope == 1) { //个人
                 System.out.println(personal);
@@ -189,7 +194,8 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
         JSONArray returnArray = new JSONArray();
         for (Map.Entry<String, List<HashMap>> entry : hashMap.entrySet()) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("recipeName", entry.getKey());
+            jsonObject.put("name", entry.getKey());
+            jsonObject.put("newName", "");
             jsonObject.put("medicines", entry.getValue());
             returnArray.add(jsonObject);
         }

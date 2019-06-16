@@ -42,4 +42,11 @@
         select classification from department
         where id = #{id}
     </select>
+
+    <select id="listDoctorDepartments" resultType="HashMap">
+        select id as departmentId, name as departmentName
+        from department
+        where type = '临床科室'
+    </select>
+
 </mapper>

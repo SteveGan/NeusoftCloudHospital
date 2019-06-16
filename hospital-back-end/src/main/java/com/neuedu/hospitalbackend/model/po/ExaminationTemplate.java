@@ -7,7 +7,9 @@ public class ExaminationTemplate {
 
     private String name;
 
-    private Integer itemId;
+    private String itemId;
+
+    private Integer projectId;
 
     private Integer roleId;
 
@@ -39,12 +41,20 @@ public class ExaminationTemplate {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Integer itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 
     public Integer getRoleId() {

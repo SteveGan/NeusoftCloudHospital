@@ -19,6 +19,10 @@
     select id, code, name, specification, unit_price, cost_type, executive_department from non_medicine where id = #{id}
   </select>
 
+    <select id="list" resultMap="BaseResultMap">
+        select id, code, name, specification, unit_price, cost_type, executive_department from non_medicine
+    </select>
+
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.NonMedicine" >
     insert into non_medicine (code, name, specification, unit_price, cost_type, executive_department)
     values (#{code}, #{name}, #{specification}, #{unitPrice}, #{costType}, #{executiveDepartment})

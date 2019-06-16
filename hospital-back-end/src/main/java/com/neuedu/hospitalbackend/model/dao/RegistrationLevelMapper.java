@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 public interface RegistrationLevelMapper {
@@ -17,4 +18,7 @@ public interface RegistrationLevelMapper {
     int update(RegistrationLevel registrationLevel);
 
     int delete(Short id);
+
+    List<RegistrationLevel> list();
+
 }

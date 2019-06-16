@@ -48,9 +48,9 @@
             </el-table-column>
             <el-table-column label="诊断目录名称" prop="name">
             </el-table-column>
-            <el-table-column label="诊断目录分类(小类)" prop="classification">
+            <el-table-column label="ICD编码" prop="icdCode">
             </el-table-column>
-            <el-table-column label="诊断目录类别(大类)" prop="type">
+            <el-table-column label="分类" prop="type">
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">

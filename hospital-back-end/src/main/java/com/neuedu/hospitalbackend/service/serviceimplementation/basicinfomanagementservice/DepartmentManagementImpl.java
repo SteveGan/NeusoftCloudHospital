@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
@@ -98,6 +99,19 @@ public class DepartmentManagementImpl implements DepartmentManagementService {
         }
 
         return CommonResult.success(map);
+    }
+
+
+    /**
+     * 获取所有门诊科室
+     */
+    public CommonResult listDoctorDepartments(){
+        JSONObject returnJson = new JSONObject();
+
+        List<HashMap> departments = departmentMapper.listDoctorDepartments();
+
+        returnJson.put("departments", departments);
+        return CommonResult.success(returnJson);
     }
 
 }

@@ -1,9 +1,10 @@
 <template lang="html">
-<div class="container">
+<div class="container"  style="height: 600px;">
   <!-- 科室管理功能区，做成卡片的样子 -->
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
     <div slot="header" class="clearfix">
+      <i class="el-icon-s-home"></i>
       <span style="padding-left: 20px;">科室管理</span>
     </div>
     

@@ -25,22 +25,28 @@ public class NonMedicineManagementController {
         return nonMedicineManagementImpl.getNonMedicineById(id);
     }
 
-    @ApiOperation("1.6.2 新增疾病非药品项目信息")
+    @ApiOperation("1.6.2 新增非药品项目信息")
     @RequestMapping(value = "/non-medicine", method = RequestMethod.POST)
     public CommonResult addNonMedicine(@RequestBody NonMedicine nonMedicine) {
         return nonMedicineManagementImpl.insertNonMedicine(nonMedicine);
     }
 
-    @ApiOperation("1.6.3 修改疾病非药品项目信息")
+    @ApiOperation("1.6.3 修改非药品项目信息")
     @RequestMapping(value = "/non-medicine", method = RequestMethod.PUT)
     public CommonResult updateNonMedicine(@RequestBody NonMedicine nonMedicine) {
         return nonMedicineManagementImpl.updateNonMedicineById(nonMedicine);
     }
 
-    @ApiOperation("1.6.4 删除疾病非药品项目信息")
+    @ApiOperation("1.6.4 删除非药品项目信息")
     @RequestMapping(value = "/non-medicine/{id}", method = RequestMethod.DELETE)
     public CommonResult deleteNonMedicine(@PathVariable Integer id) {
         return nonMedicineManagementImpl.deleteNonMedicineById(id);
+    }
+
+    @ApiOperation("1.6.5 列出全部非药品项目信息")
+    @RequestMapping(value = "/non-medicines", method = RequestMethod.GET)
+    public CommonResult listAllNonMedicines() {
+        return nonMedicineManagementImpl.listAllNonMedicines();
     }
 
 }

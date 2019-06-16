@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.hospitalbackend.model.dao.ExaminationTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.hospitalbackend.model.po.ExaminationTemplate" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="scope" property="scope" jdbcType="TINYINT" />
+    <result column="goal" property="goal" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="TemplateInfo" type="HashMap" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="scope" property="scope" jdbcType="TINYINT" />
+    <result column="goal" property="goal" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+  <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.ExaminationTemplate" >
+    insert into examination_template (name, item_id, project_id
+      role_id, department_id, scope, 
+      goal, requirement, gmt_create, 
+      gmt_modified)
+    values (#{name,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER},
+      #{roleId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{scope,jdbcType=TINYINT}, 
+      #{goal,jdbcType=VARCHAR}, #{requirement,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.ExaminationTemplate" >
+    insert into examination_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="scope != null" >
+        scope,
+      </if>
+      <if test="goal != null" >
+        goal,
+      </if>
+      <if test="requirement != null" >
+        requirement,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null" >
+        #{scope,jdbcType=TINYINT},
+      </if>
+      <if test="goal != null" >
+        #{goal,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null" >
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getByRIdAndName" resultMap="BaseResultMap">
+    select *
+    from examination_template
+    where role_id = #{roleId} and name = #{name}
+  </select>
+
+  <select id="getInfoByRoleIdAndDepartmentId" resultMap="TemplateInfo">
+    select distinct e.name, e.scope, e.goal, e.requirement, e.project_id, t.project_name, e.item_id, t.item_name
+    from examination_template e, tech_project t
+    where (role_id = #{roleId} or (scope = 2 and e.department_id = #{departmentId}) or scope = 3)
+          and e.project_id = t.project_id and e.item_id = t.item_id
+  </select>
+
+  <select id="listTemplateNameAndCreator" resultType="HashMap">
+    select distinct name, role_id as roleId, scope
+    from examination_template
+    where role_id = #{roleId} or (scope = 2 and department_id = #{departmentId}) or scope = 3
+  </select>
+
+  <select id="listProject" resultMap="TemplateInfo">
+    select distinct e.goal, e.requirement, t.project_name, e.project_id
+    from examination_template e, tech_project t
+    where e.role_id = #{roleId} and e.name = #{name}
+          and e.project_id = t.project_id and e.item_id = t.item_id
+  </select>
+
+  <select id="listItems" resultMap="TemplateInfo">
+    select distinct t.item_name, t.item_id
+    from examination_template e, tech_project t
+    where e.role_id = #{roleId} and e.name = #{name} and e.project_id = #{projectId}
+          and e.project_id = t.project_id and e.item_id = t.item_id
+  </select>
+
+  <delete id="deleteTemplateByRoleIdAndName">
+    delete
+    from examination_template
+    where role_id = #{roleId} and name = #{name}
+  </delete>
+</mapper>

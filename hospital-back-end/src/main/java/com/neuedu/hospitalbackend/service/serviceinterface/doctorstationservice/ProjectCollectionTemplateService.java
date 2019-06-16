@@ -1,41 +1,33 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice;
 
 
-import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.bo.ProjectCollectionTemplate;
-import java.util.List;
+import com.neuedu.hospitalbackend.model.vo.CollectionTemplateParam;
+import com.neuedu.hospitalbackend.util.CommonResult;
+
 
 /**
  * 包含检查/检验 组套管理方法
  */
 public interface ProjectCollectionTemplateService {
 
+    /**
+     * 申请检查检验处置模板
+     */
+    CommonResult insertCollectionTemplate(CollectionTemplateParam collectionTemplateParam);
 
     /**
-     * 返回该医生可用的检查/检验 模版
-     * @param doctorId 医生的id
-     * @return 返回所有可用的模版
+     * 查询检查检验处置模板
      */
-    List<ProjectCollectionTemplate> listProjectCollectionTemplate(int doctorId);
-
+    CommonResult listCollectionTemplate(Integer roleId, Integer type);
 
     /**
-     * 添加新的检查/检验模版
-     * @param obj 检查检验模版内容
+     * 删除检查检验处置模板
      */
-    void insertProjectCollectionTemplate(JSONObject obj);
-
+    CommonResult deleteCollectionTemplate(CollectionTemplateParam collectionTemplateParam);
 
     /**
-     * 删除相应的检查/检验模版
-     * @param templateId 模版的id
+     * 修改检查检验处置模板
      */
-    void deleteProjectCollectionTemplate(int templateId);
+    CommonResult modifyCollectionTemplate(CollectionTemplateParam collectionTemplateParam);
 
-
-    /**
-     * 更新检查/检验模版
-     * @param obj 检查检验模版内容
-     */
-    void updateProjectCollectionTemplate(JSONObject obj);
 }

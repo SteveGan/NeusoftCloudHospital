@@ -37,4 +37,9 @@ public interface UserManagementService {
      * 1.3.5 返回所有用户以及角色信息
      */
     CommonResult listAllUsersAndRoles();
+
+    /**
+     * 获取某科室中所有role
+     */
+    CommonResult listAllRolesByDepartmentId(Integer departmentId);
 }
