@@ -16,6 +16,8 @@ public class RecipeParam {
 
     private Integer medicineId;
 
+    private String medicineName;
+
     private Integer departmentId;
 
     private Short amount;
@@ -52,6 +54,15 @@ public class RecipeParam {
 
     private String chargeDateEndStr;
 */
+
+    public String getMedicineName() {
+        return medicineName;
+    }
+
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -224,11 +224,11 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         Integer patientId = patientCaseMapper.getPatientIdByCaseId(registrationId);
         if(patientId == null)
             return CommonResult.fail(ResultCode.E_800);
-        Integer roleId = collectionParam.getCreatorRoleId();
         Integer collectionId = collectionParam.getRecipeId();
         Integer projectId = recipeParam.getMedicineId();
         Short amount = recipeParam.getAmount();
-        if(collectionId == null || projectId == null || amount == null)
+        String medicineName = recipeParam.getMedicineName();
+        if(collectionId == null || projectId == null || amount == null || medicineName == null)
             return CommonResult.fail(ResultCode.E_801);
         //计算总金额
         BigDecimal price = recipeParam.getMedicineUnitPrice();
@@ -239,13 +239,13 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 //        transactionLog.setInvoiceCode(newInvoiceCode);
         transactionLog.setRegistrationId(registrationId);
         transactionLog.setPatientId(patientId);
-//        transactionLog.setItemName();
         if(recipeParam.getMedicineType() == 1)
             transactionLog.setType("中草药");
         else
             transactionLog.setType("成药");
         transactionLog.setCollectionId(collectionId);
         transactionLog.setProjectId(projectId);
+        transactionLog.setItemName(medicineName);
         transactionLog.setAmount(amount);
         transactionLog.setTotalMoney(totalMoney);
 
