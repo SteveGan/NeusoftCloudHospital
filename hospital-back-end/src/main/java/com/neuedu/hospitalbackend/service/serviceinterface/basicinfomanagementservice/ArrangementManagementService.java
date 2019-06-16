@@ -10,7 +10,7 @@ import com.neuedu.hospitalbackend.util.CommonResult;
  */
 public interface ArrangementManagementService {
 
-       /**
+    /**
      * 设置排班规则
      * @param arrangementRuleParam VO:排班规则
      */
@@ -22,5 +22,10 @@ public interface ArrangementManagementService {
      */
     CommonResult insertArrangement(ArrangementParam arrangementParam);
 
+    /**
+     * 查看某科室排班规则
+     * @param departmentId 科室id
+     */
+    CommonResult listArrangementRules(Integer departmentId);
 
 }

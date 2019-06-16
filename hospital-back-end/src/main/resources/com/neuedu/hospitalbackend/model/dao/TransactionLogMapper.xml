@@ -14,6 +14,7 @@
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
         <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+        <result column="item_name" property="itemName" jdbcType="VARCHAR" />
         <result column="amount" property="amount" jdbcType="SMALLINT" />
         <result column="pay_type" property="payType" jdbcType="TINYINT" />
         <result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
@@ -68,6 +69,9 @@
             <if test="itemId != null">
                 item_id,
             </if>
+            <if test="itemName != null">
+                item_name,
+            </if>
             <if test="amount != null">
                 amount,
             </if>
@@ -109,6 +113,9 @@
             <if test="itemId != null">
                 #{itemId,jdbcType=VARCHAR},
             </if>
+            <if test="itemName != null">
+                #{itemName,jdbcType=VARCHAR},
+            </if>
             <if test="amount != null">
                 #{amount,jdbcType=INTEGER},
             </if>
@@ -123,6 +130,27 @@
             </if>
         </trim>
     </insert>
+
+    <update id="update" parameterType="TransactionLog">
+        update transaction_log
+        <trim prefix="set" suffixOverrides=",">
+            <if test="invoiceCode != null"> invoice_code = #{invoiceCode}, </if>
+            <if test="registrationId != null"> registration_id = #{registrationId}, </if>
+            <if test="patientId != null"> patient_id = #{patientId}, </if>
+            <if test="roleId != null"> role_id = #{roleId}, </if>
+            <if test="type != null"> type = #{type}, </if>
+            <if test="collectionId != null"> collection_id = #{collectionId}, </if>
+            <if test="projectId != null"> project_id = #{projectId}, </if>
+            <if test="itemId != null"> item_id = #{itemId}, </if>
+            <if test="itemName != null"> item_name = #{itemName}, </if>
+            <if test="amount != null"> amount = #{amount}, </if>
+            <if test="payType != null"> pay_type = #{payType}, </if>
+            <if test="totalMoney != null"> total_money = #{totalMoney}, </if>
+            <if test="status != null"> status = #{status}, </if>
+            <if test="isFrozen != null"> is_frozen = #{isFrozen}, </if>
+        </trim>
+        where id = #{id}
+    </update>
 
     <select id="selectStatusOfProject" resultType="Integer">
         select status
@@ -147,13 +175,14 @@
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
         <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+        <result column="item_name" property="itemName" jdbcType="VARCHAR" />
         <result column="amount" property="amount" jdbcType="SMALLINT" />
         <result column="pay_type" property="payType" jdbcType="TINYINT" />
         <result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
         <result column="status" property="status" jdbcType="TINYINT" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
-        <result column="item_status" property="itemStatus" jdbcType="TINYINT"/>
+        <result column="project_status" property="projectStatus" jdbcType="TINYINT"/>
         <result column="department_id" property="departmentId" jdbcType="INTEGER"/>
         <result column="remain_amount" property="remainAmount" jdbcType = "SMALLINT"/>
         <result column="total_amount" property="originalAmount" jdbcType="SMALLINT"/>
@@ -162,80 +191,56 @@
         <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <select id="getRegistrationLog" resultMap="ItemResultMap">
+        select distinct t.invoice_code, t.registration_id, t.amount, t.total_money, t.status, r.is_normal as project_status
+        from transaction_log t, registration r
+        where t.registration_id = #{registrationId} and t.type = "挂号费"
+        and t.registration_id = r.id and t.total_money > 0 and t.is_frozen = 0
+    </select>
 
     <select id="listLogsByTableName" resultMap="ItemResultMap">
-        select distinct t.*, p.department_id as department_id, p.status as item_status
+        select distinct any_value(t.invoice_code) as invoice_code, any_value(t.registration_id) as registration_id, any_value(t.collection_id) as collection_id, any_value(t.project_id) as project_id,
+        any_value(t.type) as type, any_value(t.status) as status, any_value(p.department_id) as department_id, any_value(p.status) as project_status, sum(t.total_money) as total_money
         from transaction_log t, ${tableName} p
         where t.collection_id = p.id and t.registration_id = #{registrationId}
-        and t.project_id = p.project_id and t.total_money > 0
+        and t.project_id = p.project_id and t.total_money > 0 and t.status != 3 and t.is_frozen = 0
+		GROUP BY t.collection_id, t.project_id
     </select>
 
-    <select id="getRegistrationLog" resultMap="ItemResultMap">
-        select distinct t.*, r.is_normal as item_status
-        from transaction_log t, registration r
-        where
-        t.registration_id = #{registrationId} and t.type = "挂号费"
-        and t.registration_id = r.id and t.total_money > 0
-    </select>
-
-    <select id="getRecipeLogs" resultMap="ItemResultMap">
-        select distinct t.*, r.department_id as department_id, r.status as item_status, r.remain_amount as remain_amount
+    <select id="listRecipeLogs" resultMap="ItemResultMap">
+        select distinct t.invoice_code, t.registration_id, t.collection_id, t.project_id, t.type,
+        t.amount, t.total_money, t.status, r.department_id as department_id, r.status as project_status, r.remain_amount as remain_amount
         from transaction_log t, recipe r
         where t.collection_id = r.id and t.registration_id = #{registrationId}
-        and t.project_id = r.medicine_id and t.total_money > 0
+        and t.project_id = r.medicine_id and t.total_money > 0 and t.is_frozen = 0
     </select>
 
-    <select id="listItemsByCollectionIdAndProjectId" resultType="HashMap">
-        select distinct t.*, tp.item_name, tp.price as item_price
-        from transaction_log t, tech_project tp
-        where t.collection_id = #{collectionId} and t.project_id = #{projectId} and tp.item_id = t.item_id
-    </select>
-
-    <update id="update" parameterType="TransactionLog">
-        update transaction_log
-        <trim prefix="set" suffixOverrides=",">
-            <if test="invoiceCode != null"> invoice_code = #{invoiceCode}, </if>
-            <if test="registrationId != null"> registration_id = #{registrationId}, </if>
-            <if test="patientId != null"> patient_id = #{patientId}, </if>
-            <if test="roleId != null"> role_id = #{roleId}, </if>
-            <if test="type != null"> type = #{type}, </if>
-            <if test="collectionId != null"> collection_id = #{collectionId}, </if>
-            <if test="projectId != null"> project_id = #{projectId}, </if>
-            <if test="itemId != null"> item_id = #{itemId}, </if>
-            <if test="amount != null"> amount = #{amount}, </if>
-            <if test="payType != null"> pay_type = #{payType}, </if>
-            <if test="totalMoney != null"> total_money = #{totalMoney}, </if>
-            <if test="status != null"> status = #{status}, </if>
-            <if test="isFrozen != null"> is_frozen = #{isFrozen}, </if>
-        </trim>
-        where id = #{id}
-    </update>
-
-    <update id="updateSelectiveAsReturned" parameterType="TransactionLog">
-        update transaction_log set status = 3
-        where collection_id = #{collectionId} and invoice_code = #{invoiceCode} and is_frozen = 0
-    </update>
-
-    <select id="listCollectionProjectInfo" resultMap="BaseResultMap">
-        select * from transaction_log
-        where collection_id = #{collectionId} and invoice_code = #{invoiceCode}
-    </select>
-
-    <select id="listInvoiceProjectInfo" resultMap="BaseResultMap">
-        select * from transaction_log
-        where invoice_code = #{invoiceCode}
-    </select>
-
-    <select id="getInvoiceCodeAndStatusByRegistrationId"  resultMap="ItemResultMap">
-        select distinct invoice_code, collection_id, status
-        from transaction_log
-        where registration_id = #{registrationId} and status != 4
+    <select id="listItemsByCollectionIdAndProjectId" resultMap="BaseResultMap">
+        select distinct t.*
+        from transaction_log t
+        where t.collection_id = #{collectionId} and t.project_id = #{projectId} and status = 1
     </select>
 
     <select id="listLogsByInvoiceCode" resultMap="BaseResultMap">
-        select *
-        from transaction_log
+        select distinct t.*
+        from transaction_log t
         where invoice_code = #{invoiceCode}
+    </select>
+
+    <update id="updateSelectiveAsReturned" parameterType="TransactionLog">
+        update transaction_log set status = 3
+        where invoice_code = #{invoiceCode} and is_frozen = 0
+    </update>
+
+    <select id="listIdByCollectionAndProjectId" resultType="integer">
+        select id from transaction_log t
+        where t.invoice_code = #{invoiceCode} and t.collection_id = #{collectionId} and t.project_id = #{projectId}
+    </select>
+
+    <select id="getInvoiceCodeAndStatusByRegistrationId" resultMap="ItemResultMap">
+        select distinct invoice_code, status
+        from transaction_log
+        where registration_id = #{registrationId} and status != 1
     </select>
 
     <select id="listLogsByRegistrationIdAndDate" resultMap="BaseResultMap">
@@ -248,6 +253,7 @@
                 and t.gmt_create &lt;= #{endDateStr} <!--date_format(t.gmt_create,'%Y-%m-%d') &lt;= #{endDateStr}-->
             </if>
             and registration_id = #{registrationId}
+            and (status = 1 or status = 2)
         </where>
         order by t.gmt_modified desc
     </select>
@@ -289,11 +295,6 @@
         and is_frozen = 1
         group by invoice_code
         order by invoice_code
-    </select>
-
-    <select id="listCollectionIdByInvoiceCode" resultType="Integer">
-        select distinct collection_id from transaction_log
-        where invoice_code = #{invoiceCode}
     </select>
 
     <select id="countInvoiceCodeInRangeByCashierId" resultType="int">

@@ -2,18 +2,15 @@ package com.neuedu.hospitalbackend.controller;
 
 import com.neuedu.hospitalbackend.model.vo.CollectionTemplateParam;
 import com.neuedu.hospitalbackend.model.vo.DiagnoseTemplateParam;
-import com.neuedu.hospitalbackend.model.vo.ProjectTemplateParam;
 import com.neuedu.hospitalbackend.model.vo.RecipeTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.DiagnoseTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.ProjectCollectionTemplateService;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.RecipeTemplateManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 
 
 @RestController

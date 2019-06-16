@@ -5,9 +5,9 @@ import com.neuedu.hospitalbackend.model.dao.RecipeMapper;
 import com.neuedu.hospitalbackend.model.vo.RecipeParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.pharmacystationservice.PharmacyService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,12 +15,15 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_705;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_706;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_707;
 
+/**
+ * @author Polaris
+ */
 @Service
 public class PharmacyServiceImpl implements PharmacyService {
 
-    @Autowired
+    @Resource
     private RecipeMapper recipeMapper;
-    @Autowired
+    @Resource
     private InventoryMapper inventoryMapper;
 
 

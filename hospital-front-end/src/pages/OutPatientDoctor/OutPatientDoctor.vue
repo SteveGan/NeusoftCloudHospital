@@ -109,7 +109,7 @@
           </outpatient-prediagnose>
         </el-tab-pane>
         <el-tab-pane label="病历确诊" :disabled="disableFinalDiagnose">
-          <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase"></final-case>
+          <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase" :editable="ableEditFinalDiagnose"></final-case>
         </el-tab-pane>
         <el-tab-pane label="检验申请" :disabled="disableExamination">
           <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
@@ -127,41 +127,7 @@
           <case-disposition v-model="selectedCaseDispositions"></case-disposition>
         </el-tab-pane>
         <el-tab-pane label="患者账单">
-          <el-card>
-            <!-- 操作栏 -->
-            <div slot="header" class="clearfix">
-                <span>申请单列表</span>
-            </div>
-            <!-- 项目列表 -->
-            <div class="">
-              <el-table
-                style="width: 100%">
-                <el-table-column
-                  type="selection"
-                  width="55">
-                </el-table-column>
-                <el-table-column
-                  label="名称">
-                </el-table-column>
-                <el-table-column
-                  label="规格">
-                </el-table-column
-                  label="数量">
-                <el-table-column
-                  label="付数">
-                </el-table-column>
-                <el-table-column
-                  label="单位">
-                </el-table-column>
-                <el-table-column
-                  label="金额">
-                </el-table-column>
-                <el-table-column
-                  label="收费状态">
-                </el-table-column>
-              </el-table>
-            </div>
-          </el-card>
+          <case-pay-list :payList="selectedPayList"></case-pay-list>
         </el-tab-pane>
         <el-tab-pane label="病历模版管理">
           <case-template-admin></case-template-admin>
@@ -189,6 +155,7 @@ import {
   genderCodeToString
 } from "@/utils/interpreter";
 import { listFinalDiagnoses, saveFinalDiagnose } from "@/api/finalDiagnose";
+import { listPayInfoByCaseId } from "@/api/casePayInfo";
 
 import OutPatientPreDiagnose from "@/components/outpatientdoctor/OutPatientPreDiagnose";
 import CaseTemplateAdmin from "@/components/outpatientdoctor/CaseTemplateAdmin";
@@ -196,8 +163,11 @@ import ProjectApplication from "@/components/outpatientdoctor/ProjectApplication
 import CaseRecipe from "@/components/outpatientdoctor/CaseRecipe";
 import CaseDisposition from "@/components/outpatientdoctor/CaseDisposition";
 import FinalCase from "@/components/outpatientdoctor/FinalCase";
+import CasePayList from "@/components/outpatientdoctor/CasePayList";
 import { constants } from "fs";
 import { POINT_CONVERSION_COMPRESSED } from "constants";
+import { successDialog, failDialog } from "@/utils/notification";
+import { fail } from "assert";
 
 export default {
   name: "OutPatientDoctor",
@@ -211,6 +181,7 @@ export default {
       selectedCaseInspections: {},
       selectedCaseDispositions: {},
       selectedFinalCase: {},
+      selectedPayList: [],
       modernDisease: [],
       traditionalDisease: [],
       traditionalRecipes: {},
@@ -226,7 +197,8 @@ export default {
       disableModRecipe: true,
       disableTraRecipe: true,
       //病历首页是否可以被修改
-      ableEditPreDiagnose: true
+      ableEditPreDiagnose: false,
+      ableEditFinalDiagnose: false
     };
   },
   computed: {
@@ -310,15 +282,17 @@ export default {
             this.disableRecipe = true;
             this.disableFinish = true;
             this.disableDisposition = true;
+            this.ableEditPreDiagnose = true;
           } else if (caseStatus === 3) {
             //已诊（未确诊）
             this.disableFinalDiagnose = false;
             this.disableExamination = false;
             this.disableInspection = false;
-            this.disableRecipe = false;
+            this.disableRecipe = true;
             this.disableFinish = true;
             this.disableDisposition = true;
             this.ableEditPreDiagnose = false;
+            this.ableEditFinalDiagnose = true;
           } else if (caseStatus === 4) {
             //已确诊
             this.disableFinalDiagnose = false;
@@ -328,6 +302,9 @@ export default {
             this.disableFinish = false;
             this.disableDisposition = false;
             this.ableEditPreDiagnose = false;
+            this.ableEditFinalDiagnose = false;
+          } else {
+            //do nothing
           }
           //请求当前被点击用户的病历所有的处方
           listCaseRecipes(this.selectedPatient.caseId).then(
@@ -342,12 +319,18 @@ export default {
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = true;
                   this.disableModRecipe = false;
+                } else {
+                  this.disableTraRecipe = true;
+                  this.disableModRecipe = true;
                 }
               } else if (caseRecipe.type == 2) {
                 //如果是中医处方
                 this.traditionalRecipes = Object.assign({}, caseRecipe);
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = false;
+                  this.disableModRecipe = true;
+                } else {
+                  this.disableTraRecipe = true;
                   this.disableModRecipe = true;
                 }
               } else {
@@ -359,6 +342,9 @@ export default {
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = false;
                   this.disableModRecipe = false;
+                } else {
+                  this.disableTraRecipe = true;
+                  this.disableModRecipe = true;
                 }
               }
             },
@@ -423,6 +409,17 @@ export default {
           console.log(error);
         }
       );
+      //请求当前被点击用户的账单
+      listPayInfoByCaseId(this.selectedPatient.caseId).then(
+        response => {
+          console.log("当前用户账单： ");
+          console.log(response.data.data);
+          this.selectedPayList = response.data.data;
+        },
+        error => {
+          failDialog("查询当前用户账单失败");
+        }
+      );
     },
     handleFinish() {
       this.selectedCase.status = "5";
@@ -439,9 +436,9 @@ export default {
       saveCase(this.selectedCase).then(
         response => {
           if (response.data.code === 200) {
-            this.success("缴费");
+            successDialog("暂存成功");
           } else {
-            this.fail("缴费");
+            failDialog("暂存失败");
           }
         },
         error => {
@@ -455,14 +452,14 @@ export default {
       submitCase(this.selectedCase).then(
         response => {
           if (response.data.code === 200) {
-            this.success("缴费");
+            successDialog("开立成功");
           } else {
-            this.fail("缴费");
+            failDialog("开立失败");
           }
           //更改可访问模块
-          this.disableRecipe = false;
-          this.disableModRecipe = false;
-          this.disableTraRecipe = false;
+          this.disableRecipe = true;
+          this.disableModRecipe = true;
+          this.disableTraRecipe = true;
           this.disableFinalDiagnose = false;
           this.disableInspection = false;
           this.disableExamination = false;
@@ -487,9 +484,9 @@ export default {
       clearCase(this.selectedCase.caseId).then(
         response => {
           if (response.code === 200) {
-            this.success("缴费");
+            successDialog("清空成功");
           } else {
-            this.fail("缴费");
+            failDialog("清空失败");
           }
         },
         error => {
@@ -506,9 +503,9 @@ export default {
       saveFinalDiagnose(this.selectedFinalCase).then(
         response => {
           if (response.data.code === 200) {
-            this.success("缴费");
+            successDialog("暂存成功");
           } else {
-            this.fail("缴费");
+            failDialog("暂存失败");
           }
         },
         error => {
@@ -523,10 +520,16 @@ export default {
       saveFinalDiagnose(this.selectedFinalCase).then(
         response => {
           if (response.data.code === 200) {
-            this.success("缴费");
+            successDialog("开立成功");
           } else {
-            this.fail("缴费");
+            failDialog("开立失败");
           }
+          // 改变可点击的模块
+          this.disableRecipe = false;
+          this.disableModRecipe = false;
+          this.disableTraRecipe = false;
+          this.disableFinish = false;
+          this.ableEditFinalDiagnose = false;
         },
         error => {
           console.log(error);
@@ -543,7 +546,8 @@ export default {
     "project-application": ProjectApplication,
     "case-recipe": CaseRecipe,
     "case-disposition": CaseDisposition,
-    "final-case": FinalCase
+    "final-case": FinalCase,
+    "case-pay-list": CasePayList
   },
   mounted: function() {
     //请求所有待诊病人和已诊病人
@@ -554,9 +558,10 @@ export default {
         this.diagnosedPatients = data.diagnosedPatients;
         console.log("等待的用户");
         console.log(this.waitingPatients);
+        successDialog("挂号人员数据读取完毕");
       },
       error => {
-        console.alert("请求所有病人出Bug了");
+        failDialog("挂号人员数据读取异常");
       }
     );
   }

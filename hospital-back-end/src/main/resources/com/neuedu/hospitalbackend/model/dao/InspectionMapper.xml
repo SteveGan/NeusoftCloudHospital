@@ -178,6 +178,11 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
+    <select id="getResultByCollectionAndProjectId" resultType="string">
+        select result_description from inspection
+        where id = #{collectionId} and project_id = #{projectId}
+    </select>
+
     <select id="getStatusOfProject" resultType="Integer">
         select status
         from inspection

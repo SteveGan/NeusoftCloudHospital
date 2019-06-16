@@ -6,19 +6,21 @@ import com.neuedu.hospitalbackend.model.po.TransactionExceptionLog;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.TransactionService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import javax.annotation.Resource;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_605;
 
+/**
+ * @author Polaris
+ */
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    @Autowired
+    @Resource
     private TransactionLogMapper transactionLogMapper;
-    @Autowired
+    @Resource
     private TransactionExceptionLogMapper transactionExceptionLogMapper;
 
     public CommonResult insertTransactionExceptionLog(String originalCode, String newCode, String reverseCode, Integer roleId, String reason){

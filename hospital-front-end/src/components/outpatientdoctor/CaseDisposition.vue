@@ -26,7 +26,7 @@
             style="float:right; margin-left: 10px;"
             type="text"
             icon="el-icon-s-check"
-            @click="handleSubmit(collection)"
+            @click="handleSubmit(collection, index)"
             :disabled="isEditable[index]"
           >开立</el-button>
           <el-button
@@ -145,6 +145,7 @@ import {
 } from "@/api/project";
 import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
+import { successDialog, failDialog } from "@/utils/notification";
 
 export default {
   name: "CaseDisposition",
@@ -162,6 +163,7 @@ export default {
   },
   computed: {
     isEditable: function() {
+      console.log("disposition isEditable Updated");
       var collections = this.caseDispositions.collections;
       var isEditable = [];
       var i = 0;
@@ -247,8 +249,16 @@ export default {
     },
     handleConfirmAdd() {
       this.dialogAddProject = false;
-      this.newProject.status = 1;
-      this.currentCollection.projects.push(this.newProject);
+      const repeatedProject = this.currentCollection.projects.filter(
+        project => project.projectName === this.newProject.projectName
+      );
+      if (repeatedProject.length === 0) {
+        this.newProject.status = 1;
+        this.currentCollection.projects.push(this.newProject);
+        successDialog("项目添加成功");
+      } else {
+        failDialog("该项目已存在");
+      }
       this.newProject = {};
     },
     handleAddProjectDialog(collection) {
@@ -262,13 +272,15 @@ export default {
       saveCollection(collection).then(
         response => {
           console.log(response);
+          successDialog("暂存成功");
         },
         error => {
           console.log(error);
+          failDialog("暂存失败");
         }
       );
     },
-    handleSubmit(collection) {
+    handleSubmit(collection, index) {
       collection.caseId = this.caseDispositions.caseId;
       collection.applicantRoleId = this.$store.getters["user/currentRoleId"];
       collection.collectionType = 3;
@@ -281,6 +293,12 @@ export default {
       saveCollection(collection).then(
         response => {
           console.log(response);
+          if (response.data.code === 200) {
+            successDialog("开立成功");
+          } else {
+            failDialog("开立失败");
+          }
+          this.$set(this.caseDispositions.collections, index, collection);
         },
         error => {
           console.log(error);

@@ -1,13 +1,13 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
-import com.neuedu.hospitalbackend.model.po.TransactionLog;
 import com.neuedu.hospitalbackend.model.vo.TransactionParam;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
 import java.util.List;
 
 /**
- * 2.3 收费 & 2.4 退费
+ * 收费 & 退费
+ * @author Polaris
  */
 public interface PaymentService {
 
@@ -16,22 +16,28 @@ public interface PaymentService {
      * @param registrationId 病历号
      * @return 收费项目
      */
-    CommonResult listDetailedTransactionLogs(Integer registrationId);
+    CommonResult listTransactionLogsByRegistrationId(Integer registrationId);
 
     /**
-     * 列出某清单某项目下的小项及收费金额
-     * @param collectionId 清单号
-     * @param projectId 项目id
+     * 列出某发票下的缴费记录
+     * @param invoiceCode 发票号
      * @return
      */
-    CommonResult listCollectionDetailedItems(Integer collectionId, Integer projectId);
+    CommonResult listTransactionLogsByInvoiceCode(String invoiceCode);
 
+    /**
+     * 累出某个项目下的小项
+     * @param collectionId
+     * @param projectId
+     * @return
+     */
+    CommonResult listTransactionLogsByCollectionAndProjectId(Integer collectionId, Integer projectId);
     /**
      * 执行收费操作
      * @param transactionLogList 需要缴费的项目集合
      * @return
      */
-    CommonResult updateTransactionLogsAsPaid(List<TransactionLog> transactionLogList);
+    CommonResult updateTransactionLogsAsPaid(List<TransactionParam> transactionLogList);
 
     /**
      * 执行退费操作

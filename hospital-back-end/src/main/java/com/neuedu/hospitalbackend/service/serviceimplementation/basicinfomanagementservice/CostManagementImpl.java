@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @Author: Raven
- * @Date: 2019/6/12 11:11 AM
- */
+import static com.neuedu.hospitalbackend.util.ResultCode.E_602;
+
 @Service
 public class CostManagementImpl implements CostManagementService {
     @Resource
@@ -33,6 +31,30 @@ public class CostManagementImpl implements CostManagementService {
     @Override
     public CommonResult insertCost(Cost cost) {
         int count = costMapper.insertSelective(cost);
+        if (count == 0) {
+            return CommonResult.fail();
+        }
+        return CommonResult.success(count);
+    }
+
+    @Override
+    public CommonResult updateCostById(Cost cost){
+        if (costMapper.get(cost.getId()) == null) {
+            return CommonResult.fail(E_602);
+        }
+        int count = costMapper.update(cost);
+        if (count == 0) {
+            return CommonResult.fail();
+        }
+        return CommonResult.success(count);
+    }
+
+    @Override
+    public CommonResult deleteCostById(Integer id){
+        if (costMapper.get(id) == null) {
+            return CommonResult.fail(E_602);
+        }
+        int count = costMapper.delete(id);
         if (count == 0) {
             return CommonResult.fail();
         }

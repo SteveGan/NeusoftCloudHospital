@@ -28,8 +28,8 @@
                       <el-table-column label="处方名称" prop="recipeName"></el-table-column>
                       <el-table-column label="操作">
                         <template slot-scope="scope">
-                          <el-button @click="useRecipe(scope.row)">使用</el-button>
-                          <el-button @click="showRecipeDetail(scope.row)">查看详情</el-button>
+                          <el-button @click="useRecipe(scope.row)" type="text">使用</el-button>
+                          <el-button @click="showRecipeDetail(scope.row)" type="text">查看详情</el-button>
                         </template>
                       </el-table-column>
                     </el-table>

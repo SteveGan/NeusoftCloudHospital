@@ -4,15 +4,16 @@ import com.neuedu.hospitalbackend.model.vo.DailySummaryParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.DailySummaryService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/dailysummary")
 @CrossOrigin
 public class DailySummaryController {
 
-    @Autowired
+    @Resource
     private DailySummaryService dailySummaryService;
 
     @ApiOperation("查询收费员上次日结截止时间")
