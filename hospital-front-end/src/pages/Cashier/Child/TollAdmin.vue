@@ -42,7 +42,7 @@
         </div>
       </el-card>
 
-      <el-card shadow="hover">
+      <el-card shadow="hover" style="margin-top: 30px">
         <div slot="header">
           <span>发票清单</span>
         </div>
@@ -58,7 +58,7 @@
       </el-card>
     </div>
     <!-- 右侧显示列表，展示已交费和未交费项目 -->
-    <div class="edit-board">
+    <div class="edit-board" style="margin-right: 30px; width:auto">
       <el-card shadow="hover">
         <div slot="header">
           <span>待缴费清单</span>
@@ -71,31 +71,31 @@
           </div>
           <!-- 缴费项目表 -->
           <div class="列表">
-            <el-table :data="chargeItems" style="width: 100%" @selection-change="handleChargeSelectionChange">
+            <el-table :data="chargeItems" @selection-change="handleChargeSelectionChange">
               <el-table-column type="selection" width="55">
               </el-table-column>
               <!-- <el-table-column label="发票号" prop="invoiceCode" width="110">
               </el-table-column> -->
-              <el-table-column label="项目类型" prop="collectionId">
+              <el-table-column label="项目类型" prop="collectionId" width="100px">
               </el-table-column>
-              <el-table-column label="项目名称" prop="itemName">
+              <el-table-column label="项目名称" prop="itemName" width="100px">
               </el-table-column>
-              <el-table-column label="数量" prop="amount">
+              <el-table-column label="数量" prop="amount" width="100px">
               </el-table-column>
-              <el-table-column label="金额" prop="totalMoney">
+              <el-table-column label="金额" prop="totalMoney" width="100px">
               </el-table-column>
               <!-- <el-table-column label="开立时间" prop="gmtCreate">
               </el-table-column> -->
-              <el-table-column label="开立状态" prop="itemStatus">
+              <el-table-column label="开立状态" prop="itemStatus" width="100px">
               </el-table-column>
-              <el-table-column label="执行科室" prop="departmentId">
+              <el-table-column label="执行科室" prop="departmentId" width="100px">
               </el-table-column>
             </el-table>
           </div>
         </div>
       </el-card>
 
-      <el-card shadow="hover">
+      <el-card shadow="hover"c>
         <div slot="header">
           <span>已缴费清单</span>
         </div>
@@ -109,7 +109,7 @@
           </div>
           <!-- 退费项目表 -->
           <div class="列表">
-            <el-table :data="withdrawItems" style="width: 100%" @selection-change="handleWithdrawSelectionChange">
+            <el-table :data="withdrawItems" @selection-change="handleWithdrawSelectionChange">
               <el-table-column type="selection" width="55">
               </el-table-column>
               <el-table-column label="发票号" prop="invoiceCode" width="110">
@@ -130,7 +130,7 @@
               </el-table-column>
               <el-table-column label="退费数量" fixed="right" width="200">
                 <template slot-scope="scope">
-                  <el-input-number v-model="scope.row.returnAmount" :min=1 :max="scope.row.amount" label="描述文字"></el-input-number>
+                  <el-input-number v-model="scope.row.returnAmount" :disabled="scope.row.projectStatus==5||scope.row.type=='检查费'||scope.row.type=='检验费'" :min=1 :max="scope.row.amount" label="描述文字"></el-input-number>
                 </template>
               </el-table-column>
             </el-table>
@@ -224,17 +224,16 @@ export default {
     // 缴费
     charge() {
       for(var i=0; i<this.chargeSelection.length;i++){
-        this.chargeSelection[i].cashierId = this.currentRoleId;
+        this.chargeSelection[i].roleId = this.currentRoleId;
       }
       charge.charge(this.chargeSelection).then(response => {
         console.log(response.data.data)
         if(response.data.code===200){
+          this.getpaymentInfo();
           this.success("缴费");
         } else {
           this.fail("缴费", "");
         }
-      }).catch(error => {
-        
       })
     },
 
@@ -246,6 +245,7 @@ export default {
       charge.withdraw(this.withdrawSelection).then(response => {
         console.log(response.data.data)
         if(response.data.code===200){
+          this.getpaymentInfo();
           this.success("退费");
         } else {
           this.fail("退费", response.data.message);
@@ -265,6 +265,8 @@ export default {
     
     // 获取病历号所对应的缴费状态
     getpaymentInfo(){
+      this.chargeSelection.length = 0;
+      this.withdrawSelection.length = 0;
       this.loading1 = true;
       console.log(this.input)
       charge.getpaymentInfo(this.input).then(response => {
@@ -288,8 +290,8 @@ export default {
         //   if(this.invoiceCollection[i].status==1){
             for(var j=0;j<this.transactionLogs.length;j++){
               if(this.transactionLogs[j].status===1){
-                this.chargeItems.push(this.transactionLogs[j]);
                 this.transactionLogs[j].itemStatus = this.chufangStatus[this.transactionLogs[j].projectStatus]
+                this.chargeItems.push(this.transactionLogs[j]);
               }
             }
         //   }
@@ -300,6 +302,12 @@ export default {
         //   if(this.invoiceCollection[i].status==2){
             for(var j=0;j<this.transactionLogs.length;j++){
               if(this.transactionLogs[j].status===2){
+                this.transactionLogs[j].itemStatus = this.chufangStatus[this.transactionLogs[j].projectStatus]
+                this.transactionLogs[j].returnAmount = this.transactionLogs[j].amount - this.transactionLogs[j].remainAmount;
+                if(this.transactionLogs[j].type=="检查费"||this.transactionLogs[j].type=="检验费"){
+                  this.transactionLogs[j].remainAmount = 1;
+                  this.transactionLogs[j].returnAmount = 1;
+                }
                 this.withdrawItems.push(this.transactionLogs[j])
               }
             }
@@ -318,12 +326,12 @@ export default {
 
 .search-board{
   width: 400px;
-  margin: 2px 10px;
+  margin: 0px 30px 30px 25px;
 }
 
 .edit-board{
-  width: 1200px;
-  margin: 2px 10px;
+  margin: 0px 30px 30px 0;
+  right: 30px;
 }
 
 .patient-info{
