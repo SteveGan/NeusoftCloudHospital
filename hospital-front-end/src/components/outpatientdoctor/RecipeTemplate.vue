@@ -11,12 +11,12 @@
               <el-tabs stretch>
                 <el-tab-pane label="个人" name="first">
                   <div class="table-container">
-                    <el-table>
-                      <el-table-column label="处方名称"></el-table-column>
+                    <el-table :data="allTemplates.personal">
+                      <el-table-column label="处方名称" prop="recipeName"></el-table-column>
                       <el-table-column label="操作">
                         <template slot-scope="scope">
-                          <el-button>使用</el-button>
-                          <el-button>查看详情</el-button>
+                          <el-button @click="useRecipe(scope.row)">使用</el-button>
+                          <el-button @click="showRecipeDetail(scope.row)">查看详情</el-button>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -24,12 +24,12 @@
                 </el-tab-pane>
                 <el-tab-pane label="科室" name="second">
                   <div class="table-container">
-                    <el-table>
-                      <el-table-column label="处方名称"></el-table-column>
+                    <el-table :data="allTemplates.department">
+                      <el-table-column label="处方名称" prop="recipeName"></el-table-column>
                       <el-table-column label="操作">
                         <template slot-scope="scope">
-                          <el-button>使用</el-button>
-                          <el-button>查看详情</el-button>
+                          <el-button @click="useRecipe(scope.row)">使用</el-button>
+                          <el-button @click="showRecipeDetail(scope.row)">查看详情</el-button>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -37,12 +37,12 @@
                 </el-tab-pane>
                 <el-tab-pane label="全院" name="third">
                   <div class="table-container">
-                    <el-table>
-                      <el-table-column label="处方名称"></el-table-column>
+                    <el-table :data="allTemplates.hospital">
+                      <el-table-column label="处方名称" prop="recipeName"></el-table-column>
                       <el-table-column label="操作">
                         <template slot-scope="scope">
-                          <el-button>使用</el-button>
-                          <el-button>查看详情</el-button>
+                          <el-button @click="useRecipe(scope.row)">使用</el-button>
+                          <el-button @click="showRecipeDetail(scope.row)">查看详情</el-button>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -53,7 +53,20 @@
           </div>
           <!-- 右侧处方内容展示区-->
           <div class="recipe-detail">
-            <el-card shadow="hover"></el-card>
+            <el-card shadow="hover">
+              <div slot="header" class="clearfix">
+                <span>{{currentTemplate.recipeName}}</span>
+              </div>
+              <el-table style="width: 100%" :data="currentTemplate.medicines">
+                <el-table-column label="药品名称" prop="medicineName"></el-table-column>
+                <el-table-column label="规格" prop="medicineSpecification"></el-table-column>
+                <el-table-column label="单次用量" prop="dosage"></el-table-column>
+                <el-table-column label="剂型" prop="medicineFormulation"></el-table-column>
+                <el-table-column label="频次" prop="frequency"></el-table-column>
+                <el-table-column label="数量" prop="amount"></el-table-column>
+                <el-table-column label="单位" prop="medicineUnit"></el-table-column>
+              </el-table>
+            </el-card>
           </div>
         </div>
       </el-tab-pane>
@@ -69,17 +82,44 @@ import { listRecipeTemplates } from "@/api/recipeTemplate";
 
 export default {
   name: "RecipeTemplate",
-  props: {
-    value: Object
+  data() {
+    return {
+      allTemplates: {},
+      currentTemplate: {}
+    };
   },
-  computed: {
-    recipeTemplate: {
-      get() {
-        return this.value;
-      },
-      set(v) {
-        this.$emit("input", v);
-      }
+  methods: {
+    showRecipeDetail(row) {
+      this.currentTemplate = row;
+    },
+    useRecipe(row) {
+      this.currentTemplate = row;
+      console.log("返回的模版：");
+      console.log(this.currentTemplate);
+      this.$emit("give-recipe-template", this.currentTemplate);
+    }
+  },
+  props: {
+    recipeType: Number
+  },
+  watch: {
+    recipeType: function(newValue, oldValue) {
+      console.log("模版类型：");
+      console.log(this.recipeType);
+      listRecipeTemplates(
+        this.$store.getters["user/currentRoleId"],
+        this.recipeType
+      ).then(
+        response => {
+          console.log("当前读取到的处方模版");
+          console.log(response.data.data);
+          this.allTemplates = Object.assign({}, response.data.data);
+          console.log(this.allTemplates);
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 };

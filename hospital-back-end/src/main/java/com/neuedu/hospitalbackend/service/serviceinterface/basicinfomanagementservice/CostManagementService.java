@@ -12,4 +12,15 @@ public interface CostManagementService {
     CommonResult updateCostById(Cost cost);
 
     CommonResult deleteCostById(Integer id);
+
+    /**
+     * 根据id获取科目信息
+     */
+    CommonResult getCostById(Integer id);
+
+    /**
+     * 新增科目信息
+     */
+    CommonResult insertCost(Cost cost);
+
 }

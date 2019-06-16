@@ -1,10 +1,11 @@
 <template lang="html">
-  <el-card :body-style="{padding:'0px'}" style="margin: 5px 4px;s" shadow="hover">
+  <el-card :body-style="{padding:'0px'}"  style="margin-top: 0;" shadow="hover">
     <!-- 发票号区域 -->
     <div class="invoice-number-region">
       <!-- 门诊发票号 -->
       <div class="">
-        <p>当前发票号</p>
+        <i class="el-icon-caret-right"></i>
+        <span>当前发票号</span>
       </div>
       <div class="">
         <el-input v-model="invoiceCode" :disabled="true"></el-input>
@@ -59,7 +60,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 30px;
+  height: 50px;
   padding: 5px 20px;
 }
 

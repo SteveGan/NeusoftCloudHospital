@@ -1,6 +1,6 @@
 <template lang="html">
-    <div>
-        <el-card style="margin: 5px 4px;s" shadow="hover">
+    <div style="margin: 0 30px 0 25px; height:100%;">
+        <el-card shadow="hover">
             <div slot="header">
                 <span>查询条件</span>
             </div>
@@ -17,7 +17,7 @@
                 <el-button type="text" icon="el-icon-document-add" @click="search">日结统计</el-button>
             </el-form>
         </el-card>
-        <el-card style="margin: 5px 4px;s" shadow="hover">
+        <el-card style="margin-top: 30px" shadow="hover">
             <div slot="header">
                 <span>查询结果</span>
                 <el-button type="text" style="float: right;" icon="el-icon-document-add" @click="submit">结算报账</el-button>

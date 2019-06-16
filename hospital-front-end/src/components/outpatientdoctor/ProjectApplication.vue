@@ -26,7 +26,7 @@
             style="float:right; margin-left: 10px;"
             type="text"
             icon="el-icon-s-check"
-            @click="handleSubmit(collection)"
+            @click="handleSubmit(collection, index)"
             :disabled="isEditable[index]"
           >开立</el-button>
           <el-button
@@ -251,6 +251,7 @@ import {
 } from "@/api/project";
 import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
+import { isContext } from "vm";
 
 export default {
   name: "ProjectApplication",
@@ -273,8 +274,30 @@ export default {
     type: Number,
     typeName: String
   },
+  // watch: {
+  //   innerCollections: function(newValue, oldValue) {
+  //     console.log("change happens");
+  //     console.log(newValue);
+  //     var collections = newValue.collections;
+  //     var isEditable = [];
+  //     var i = 0;
+  //     var length = collections.length;
+  //     for (i = 0; i < length; i++) {
+  //       if (
+  //         collections[i].projects.length !== 0 &&
+  //         collections[i].projects[0].status !== 1
+  //       ) {
+  //         isEditable.push(true);
+  //       } else {
+  //         isEditable.push(false);
+  //       }
+  //     }
+  //     this.isEditable = isEditable;
+  //   }
+  // },
   computed: {
     isEditable: function() {
+      console.log("isEditable Updated");
       var collections = this.caseExaminations.collections;
       var isEditable = [];
       var i = 0;
@@ -289,8 +312,10 @@ export default {
           isEditable.push(false);
         }
       }
+      console.log(isEditable);
       return isEditable;
     },
+
     caseExaminations: {
       get() {
         return this.value;
@@ -320,11 +345,8 @@ export default {
         .catch(_ => {});
     },
     handleAddCollection() {
-      // this.collections.push({});
-      // console.log(this.collections);
       getNewCollectionId(this.type).then(
         response => {
-          console.log(response.data.data);
           const newCollectionId = response.data.data.collectionId;
           this.caseExaminations.collections.push({
             collectionId: newCollectionId,
@@ -332,7 +354,7 @@ export default {
           });
         },
         error => {
-          console.log(response.data.data);
+          console.log(error);
         }
       );
     },
@@ -373,7 +395,6 @@ export default {
     handleSelectProject(item) {
       this.newProject.departmentName = item.departmentName;
       this.newProject.projectId = item.projectId;
-      console.log("projectId" + this.newProject.projectId);
       // 去查询相应project下的可用小项信息
       listAllItems(this.newProject.projectId).then(
         response => {
@@ -388,6 +409,7 @@ export default {
     handleSelectItem(item) {
       this.newItem.itemId = item.itemId;
       this.newItem.unit = item.unit;
+      this.newItem.amount = 1;
     },
     handleAddItem() {
       this.newProject.items.push(JSON.parse(JSON.stringify(this.newItem)));
@@ -410,7 +432,6 @@ export default {
       );
     },
     handleCancel() {
-      console.log("cancel");
       this.newProject = { items: [] };
       this.newItem = {};
       this.dialogAddProject = false;
@@ -426,8 +447,6 @@ export default {
     handleAddProjectDialog(collection) {
       this.dialogAddProject = true;
       this.currentCollection = collection;
-      console.log("currentCollection");
-      console.log(this.currentCollection);
     },
     handleTempSave(collection) {
       collection.caseId = this.caseExaminations.caseId;
@@ -435,7 +454,6 @@ export default {
       collection.collectionType = this.type;
       saveCollection(collection).then(
         response => {
-          console.log(response);
           if (response.data.code === 200) {
             this.success("缴费");
           } else {
@@ -447,7 +465,7 @@ export default {
         }
       );
     },
-    handleSubmit(collection) {
+    handleSubmit(collection, index) {
       collection.caseId = this.caseExaminations.caseId;
       collection.applicantRoleId = this.$store.getters["user/currentRoleId"];
       collection.collectionType = this.type;
@@ -459,12 +477,12 @@ export default {
       }
       submitCollection(collection).then(
         response => {
-          console.log(response);
           if (response.data.code === 200) {
             this.success("缴费");
           } else {
             this.fail("缴费");
           }
+          this.$set(this.caseExaminations.collections, index, collection);
         },
         error => {
           console.log(error);
@@ -483,8 +501,6 @@ export default {
       };
       getProjectResult(data).then(
         response => {
-          console.log("结果：");
-          console.log(response.data.data.result);
           this.currentResult = response.data.data.result;
         },
         error => {

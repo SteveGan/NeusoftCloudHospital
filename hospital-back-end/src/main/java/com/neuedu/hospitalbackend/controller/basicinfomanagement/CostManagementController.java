@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-/**
- * @Author: Raven
- * @Date: 2019/6/12 11:13 AM
- */
 @RestController
 @RequestMapping("/basicinfo")
 @CrossOrigin
@@ -24,6 +20,19 @@ public class CostManagementController {
     public CommonResult listAllCosts() {
         return costManagementImpl.listAllCosts();
     }
+
+    @ApiOperation("根据id获取科目信息")
+    @RequestMapping(value = "/cost/{id}", method = RequestMethod.GET)
+    public CommonResult getCostById(@PathVariable Integer id) {
+        return costManagementImpl.getCostById(id);
+    }
+
+    @ApiOperation("新增科目信息")
+    @RequestMapping(value = "/cost", method = RequestMethod.POST)
+    public CommonResult addCost(@RequestBody Cost cost) {
+        return costManagementImpl.insertCost(cost);
+    }
+
 
     @ApiOperation("修改费用科目信息")
     @RequestMapping(value = "cost", method = RequestMethod.PUT)

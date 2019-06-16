@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="HashMap" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="is_valid" property="isValid" jdbcType="BIT" />
     <result column="department_id" property="departmentId" jdbcType="INTEGER" />
     <result column="title_id" property="titleId" jdbcType="INTEGER" />
@@ -25,6 +26,7 @@
     <result column="sun_am" property="sunAm" jdbcType="BIT" />
     <result column="sun_pm" property="sunPm" jdbcType="BIT" />
   </resultMap>
+
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.ArrangementRule" >
     insert into arrangement_rule (id, role_id, is_valid, 
       department_id, title_id, registration_level_id, 
@@ -192,6 +194,13 @@
     select *
     from arrangement_rule
     where is_valid = true and id = #{id}
+  </select>
+
+  <select id="listArrangementRulesByDepartmentId" resultMap="BaseResultMap">
+    select a.*, u.name
+    from arrangement_rule a, role r, user u
+    where a.department_id = #{departmentId}
+          and r.user_id = u.id and a.role_id = r.id
   </select>
 
 </mapper>

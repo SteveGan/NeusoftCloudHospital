@@ -1,19 +1,22 @@
 <template lang="html">
-  <div>
-    <invoice-code ref="invoiceCode" v-on:listenToChildEvent="showMsgFromChild"></invoice-code>
-    <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover" v-loading="loading1">
+  <div class="container">
+    <invoice-code style="margin: 30px 30px 30px 25px;" ref="invoiceCode" v-on:listenToChildEvent="showMsgFromChild"></invoice-code>
+    <el-card class="input-card" style="margin: 30px 30px 30px 25px;" shadow="hover" v-loading="loading1">
       <div slot="header">
-        <span>挂号</span>
+        <div class="raven-title">
+          <i class="el-icon-s-order"></i>
+          <span>挂号</span>
         <el-button style="float:right" type="text" icon="el-icon-document-add" @click="confirmation">挂号</el-button>
         <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">打印</el-button>
         <!-- <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">补打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-printer">重打</el-button> -->
         <el-button style="float:right" type="text" icon="el-icon-refresh-right" @click="refresh">清屏</el-button>
         <el-button style="float:right" type="text" icon="el-icon-camera" @click="scan">扫描</el-button>
+        </div>
       </div>
       <el-form :inline="true">
         <div class="vice-title">
-          <span>基础信息</span>
+          <span class="raven-title-2">基础信息</span>
         </div>
         <el-form-item label="病历号">
           <el-input placeholder="病历号" :disabled="true" v-model="registrationForm.registrationId"></el-input>
@@ -46,7 +49,7 @@
         </el-form-item>
 
         <div class="vice-title">
-          <span>挂号选择</span>
+          <span class="raven-title-2">挂号选择</span>
         </div>
         <!-- <el-form-item label="医疗证号">
           <el-input placeholder="医疗证号"></el-input>
@@ -79,7 +82,7 @@
         </el-form-item>
 
         <div class="vice-title">
-          <span>收费信息</span>
+          <span class="raven-title-2">收费信息</span>
         </div>
         <el-form-item label="结算类别">
           <el-select placeholder="请选择结算类别" v-model="registrationForm.payType" @change="isTotalFeeAvailable">
@@ -97,11 +100,13 @@
       </el-form>
     </el-card>
     <!-- 挂号信息列表：有退号功能 -->
-    <el-card class="input-card" style="margin: 5px 4px;s" shadow="hover">
+    <el-card class="input-card" style="margin: 30px 30px 30px 25px;" shadow="hover">
       <div slot="header">
-        <span>挂号信息列表</span>
+        <i class="el-icon-s-unfold raven-title"></i>
+        <span class="raven-title">挂号信息列表</span>
         <el-button style="float:right" type="text" icon="el-icon-refresh" @click="refreshRegistration">刷新</el-button>
       </div>
+      
       <!-- 挂号信息表 -->
       <div class="">
         <el-table :data="registrationsInfo" style="width: 100%" stripe 
@@ -609,6 +614,18 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.raven-title{
+  font-size: 25px;
+}
+
+.raven-title-2 {
+  font-size: 20px;
+}
+
+.container{
+  background-color: #f8f8f8;
+}
+
 .vice-title {
   margin-bottom: 20px;
 }

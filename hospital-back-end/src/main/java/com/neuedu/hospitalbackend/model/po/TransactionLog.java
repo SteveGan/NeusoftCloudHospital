@@ -38,6 +38,14 @@ public class TransactionLog implements Cloneable {
 
     private Date gmtModified;
 
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
     public Integer getId() {
         return id;
     }
