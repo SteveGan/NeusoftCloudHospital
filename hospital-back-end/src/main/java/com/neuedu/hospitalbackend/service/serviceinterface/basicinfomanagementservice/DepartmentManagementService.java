@@ -48,4 +48,9 @@ public interface DepartmentManagementService {
      */
     CommonResult listDepartmentsTree();
 
+    /**
+     * 获取所有门诊科室
+     */
+    CommonResult listDoctorDepartments();
+
 }

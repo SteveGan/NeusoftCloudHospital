@@ -36,4 +36,10 @@
         where r.user_id = u.id and r.id = #{roleId}
     </select>
 
+    <select id="listAllRolesByDepartmentId" resultType="HashMap">
+        select r.id as roleId, u.name as roleName
+        from role r, user u
+        where department_id =#{departmentId} and r.user_id = u.id
+    </select>
+
 </mapper>

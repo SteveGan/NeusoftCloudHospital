@@ -61,5 +61,11 @@ public class DepartmentManagementController {
         return departmentManagement.listDepartmentsTree();
     }
 
+    @ApiOperation("获取所有门诊科室")
+    @RequestMapping(value = "/doctordepartments", method = RequestMethod.GET)
+    public CommonResult listDoctorDepartments() {
+        return departmentManagement.listDoctorDepartments();
+    }
+
 
 }

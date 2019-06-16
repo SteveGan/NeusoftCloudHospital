@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.neuedu.hospitalbackend.model.po.Department;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -21,4 +22,6 @@ public interface DepartmentMapper {
     Page<Department> listByPage();
 
     String getClassificationById(Integer id);
+
+    List<HashMap> listDoctorDepartments();
 }

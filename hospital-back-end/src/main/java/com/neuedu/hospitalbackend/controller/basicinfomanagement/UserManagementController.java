@@ -50,4 +50,12 @@ public class UserManagementController {
     {
         return userManagementImpl.listAllUsersAndRoles();
     }
+
+
+    @ApiOperation("某科室中所有角色")
+    @RequestMapping(value = "/departmentroles/{departmentId}", method = RequestMethod.GET)
+    public CommonResult listAllRolesByDepartmentId(@PathVariable Integer departmentId)
+    {
+        return userManagementImpl.listAllRolesByDepartmentId(departmentId);
+    }
 }
