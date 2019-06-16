@@ -58,83 +58,78 @@
       </el-card>
     </div>
     <!-- 右侧显示列表，展示已交费和未交费项目 -->
-    <div class="edit-board" style="margin-right: 30px; width:auto">
-      <el-card shadow="hover">
+    <div class="edit-board" >
+      <el-card shadow="hover" style="margin: 0 30px 30px 0; width:100%">
         <div slot="header">
           <span>待缴费清单</span>
         </div>
-        <!-- 主体区域 -->
-        <div>
-          <!-- 操作按钮 -->
-          <div class="action-bar">
-            <el-button type="text" icon="el-icon-success" @click="charge">结算</el-button>
-          </div>
-          <!-- 缴费项目表 -->
-          <div class="列表">
-            <el-table :data="chargeItems" @selection-change="handleChargeSelectionChange">
-              <el-table-column type="selection" width="55">
-              </el-table-column>
-              <!-- <el-table-column label="发票号" prop="invoiceCode" width="110">
-              </el-table-column> -->
-              <el-table-column label="项目类型" prop="collectionId" width="100px">
-              </el-table-column>
-              <el-table-column label="项目名称" prop="itemName" width="100px">
-              </el-table-column>
-              <el-table-column label="数量" prop="amount" width="100px">
-              </el-table-column>
-              <el-table-column label="金额" prop="totalMoney" width="100px">
-              </el-table-column>
-              <!-- <el-table-column label="开立时间" prop="gmtCreate">
-              </el-table-column> -->
-              <el-table-column label="开立状态" prop="itemStatus" width="100px">
-              </el-table-column>
-              <el-table-column label="执行科室" prop="departmentId" width="100px">
-              </el-table-column>
-            </el-table>
-          </div>
+        <!-- 操作按钮 -->
+        <div class="action-bar">
+          <el-button type="text" icon="el-icon-success" @click="charge">结算</el-button>
+        </div>
+        <!-- 缴费项目表 -->
+        <div class="列表">
+          <el-table :data="chargeItems" @selection-change="handleChargeSelectionChange">
+            <el-table-column type="selection" width="55">
+            </el-table-column>
+            <!-- <el-table-column label="发票号" prop="invoiceCode" width="110">
+            </el-table-column> -->
+            <el-table-column label="项目类型" prop="collectionId" width="100px">
+            </el-table-column>
+            <el-table-column label="项目名称" prop="itemName" width="100px">
+            </el-table-column>
+            <el-table-column label="数量" prop="amount" width="100px">
+            </el-table-column>
+            <el-table-column label="金额" prop="totalMoney" width="100px">
+            </el-table-column>
+            <!-- <el-table-column label="开立时间" prop="gmtCreate">
+            </el-table-column> -->
+            <el-table-column label="开立状态" prop="itemStatus" width="100px">
+            </el-table-column>
+            <el-table-column label="执行科室" prop="departmentId" width="100px">
+            </el-table-column>
+          </el-table>
         </div>
       </el-card>
 
-      <el-card shadow="hover"c>
+      <el-card shadow="hover" style="margin: 30px 30px 30px 0; width:100%">
         <div slot="header">
           <span>已缴费清单</span>
         </div>
         <!-- 主体区域 -->
-        <div>
           <!-- 操作按钮 -->
-          <div class="action-bar">
-            <el-button type="text" icon="el-icon-success" @click="withdraw">退费</el-button>
-            <el-button type="text" icon="el-icon-printer">发票重印</el-button>
-            <el-button type="text" icon="el-icon-printer">发票补打</el-button>
-          </div>
-          <!-- 退费项目表 -->
-          <div class="列表">
-            <el-table :data="withdrawItems" @selection-change="handleWithdrawSelectionChange">
-              <el-table-column type="selection" width="55">
-              </el-table-column>
-              <el-table-column label="发票号" prop="invoiceCode" width="110">
-              </el-table-column>
-              <el-table-column label="项目类型" prop="collectionId" width="80">
-              </el-table-column>
-              <el-table-column label="项目名称" prop="projectId" width="80">
-              </el-table-column>
-              <el-table-column label="可退数量" prop="remainAmount" width="80">
-              </el-table-column>
-              <el-table-column label="金额" prop="totalMoney" width="80">
-              </el-table-column>
-              <!-- <el-table-column label="开立时间" prop="gmtCreate">
-              </el-table-column> -->
-              <el-table-column label="开立状态" prop="itemStatus" width="80">
-              </el-table-column>
-              <el-table-column label="执行科室" prop="departmentId" width="80">
-              </el-table-column>
-              <el-table-column label="退费数量" fixed="right" width="200">
-                <template slot-scope="scope">
-                  <el-input-number v-model="scope.row.returnAmount" :disabled="scope.row.projectStatus==5||scope.row.type=='检查费'||scope.row.type=='检验费'" :min=1 :max="scope.row.amount" label="描述文字"></el-input-number>
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
+        <div class="action-bar">
+          <el-button type="text" icon="el-icon-success" @click="withdraw">退费</el-button>
+          <el-button type="text" icon="el-icon-printer">发票重印</el-button>
+          <el-button type="text" icon="el-icon-printer">发票补打</el-button>
+        </div>
+        <!-- 退费项目表 -->
+        <div class="列表">
+          <el-table :data="withdrawItems" @selection-change="handleWithdrawSelectionChange">
+            <el-table-column type="selection" width="55">
+            </el-table-column>
+            <el-table-column label="发票号" prop="invoiceCode" width="110">
+            </el-table-column>
+            <el-table-column label="项目类型" prop="collectionId" width="80">
+            </el-table-column>
+            <el-table-column label="项目名称" prop="projectId" width="80">
+            </el-table-column>
+            <el-table-column label="可退数量" prop="remainAmount" width="80">
+            </el-table-column>
+            <el-table-column label="金额" prop="totalMoney" width="80">
+            </el-table-column>
+            <!-- <el-table-column label="开立时间" prop="gmtCreate">
+            </el-table-column> -->
+            <el-table-column label="开立状态" prop="itemStatus" width="80">
+            </el-table-column>
+            <el-table-column label="执行科室" prop="departmentId" width="80">
+            </el-table-column>
+            <el-table-column label="退费数量" fixed="right" width="200">
+              <template slot-scope="scope">
+                <el-input-number v-model="scope.row.returnAmount" :disabled="scope.row.projectStatus==5||scope.row.type=='检查费'||scope.row.type=='检验费'" :min=1 :max="scope.row.amount" label="描述文字"></el-input-number>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
       </el-card>
     </div>
@@ -148,7 +143,7 @@ export default {
   name: 'TollAdmin',
   data() {
     return{
-      input: "10000015",
+      input: "",
 
       patientInfo: {},
       invoiceCollection: [],
@@ -327,11 +322,6 @@ export default {
 .search-board{
   width: 400px;
   margin: 0px 30px 30px 25px;
-}
-
-.edit-board{
-  margin: 0px 30px 30px 0;
-  right: 30px;
 }
 
 .patient-info{
