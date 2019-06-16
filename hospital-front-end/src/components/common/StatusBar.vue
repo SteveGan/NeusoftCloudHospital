@@ -84,13 +84,14 @@ export default {
 .align-end {
   display: flex;
   justify-content: flex-end;
+  background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 100%);
 }
 .justify-start {
   margin-right: auto;
 }
 .el-dropdown-link {
   cursor: pointer;
-  color: #409eff;
+  color: #fff;
 }
 .el-icon-arrow-down {
   font-size: 12px;

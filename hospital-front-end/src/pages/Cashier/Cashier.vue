@@ -40,5 +40,9 @@ export default {
   margin: 0;
   min-height: 100%;
   min-width: 100%;
+  
+}
+.cashier{
+background-color: #f8f8f8;
 }
 </style>
