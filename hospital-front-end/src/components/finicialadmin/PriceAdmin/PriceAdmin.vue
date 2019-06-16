@@ -4,7 +4,7 @@
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
     <div slot="header" class="clearfix">
-      <span style="padding-left: 20px;">科目管理</span>
+      <span style="padding-left: 20px;">费用科目管理</span>
     </div>
     
     <!-- 表单部分 -->
@@ -76,10 +76,10 @@
       </div>
     </el-card>
 
-    <el-dialog :visible.sync="addPriceDialogVisible" width="60%" :before-close="handleClose">
+    <el-dialog :visible.sync="addPriceDialogVisible" width="60%">
       <price-info-adder>添加科目</price-info-adder>
     </el-dialog>
-    <el-dialog :visible.sync="editPriceDialogVisible" width="60%" :before-close="handleClose">
+    <el-dialog :visible.sync="editPriceDialogVisible" width="60%">
       <price-info-editor v-model="currentPrice">编辑科目信息</price-info-editor>
     </el-dialog>
   </div>
@@ -99,6 +99,7 @@ export default {
 
   data() {
     return {
+      chosenOption: "",
       input: "",
       addPriceDialogVisible: false,
       editPriceDialogVisible: false,

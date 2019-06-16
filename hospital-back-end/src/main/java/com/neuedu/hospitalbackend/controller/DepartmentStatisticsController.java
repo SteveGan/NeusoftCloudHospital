@@ -24,7 +24,7 @@ public class DepartmentStatisticsController {
     }
 
     @ApiOperation("医技科室工作量统计")
-    @RequestMapping(value = "/technicianD", method = RequestMethod.GET)
+    @RequestMapping(value = "/technician", method = RequestMethod.GET)
     public CommonResult technicianDepartmentStatistics(String beginDateStr, String endDateStr){
         return departmentStatisticsService.technicianDepartmentStatistics(beginDateStr, endDateStr);
     }
