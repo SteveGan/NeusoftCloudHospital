@@ -37,11 +37,11 @@
           </template>
           <el-menu-item index="arrangementrule">
             <i class="el-icon-edit"></i>
-            <span slot="title">排班规则</span>
+            <span slot="title">设置排班规则</span>
           </el-menu-item>
           <el-menu-item index="schedule">
             <i class="el-icon-document-checked"></i>
-            <span slot="title">排班计划</span>
+            <span slot="title">生成排班计划</span>
           </el-menu-item>
         </el-submenu>
       </el-menu>

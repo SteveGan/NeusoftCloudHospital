@@ -16,5 +16,31 @@ export default{
       url: 'basicinfo/departmentroles/' + departmentId,
       method: 'GET'
     })
-  }
+  },
+
+  // 查询排班规则
+  listArrangementRules(departmentId) {
+    return request({
+      url: 'basicinfo/arrangementrules/' + departmentId,
+      method: 'GET'
+    })
+  },
+
+  // 设定排班规则
+  insertArrangementRule(arrangementRuleParam) {
+    return request({
+      url: 'basicinfo/arrangementrule',
+      method: 'POST',
+      data: arrangementRuleParam
+    })
+  },
+
+  // 生成排班规则
+  insertArrangement(arrangementParam) {
+    return request({
+      url: 'basicinfo/arrangement',
+      method: 'POST',
+      data: arrangementParam
+    })
+  },
 }
