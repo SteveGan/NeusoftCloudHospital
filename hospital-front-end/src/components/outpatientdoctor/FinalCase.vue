@@ -3,10 +3,28 @@
     <div class="service-main-container">
       <!-- 工具栏 -->
       <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px">
-        <el-button type="text" icon="el-icon-refresh-right" round @click="handleClearFinalCase">清屏</el-button>
-        <el-button type="text" icon="el-icon-folder-checked" round @click="handleSaveFinalCase">暂存</el-button>
+        <el-button
+          type="text"
+          icon="el-icon-refresh-right"
+          round
+          @click="handleClearFinalCase"
+          :disabled="!editable"
+        >清屏</el-button>
+        <el-button
+          type="text"
+          icon="el-icon-folder-checked"
+          round
+          @click="handleSaveFinalCase"
+          :disabled="!editable"
+        >暂存</el-button>
         <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-        <el-button type="text" icon="el-icon-upload" round @click="handleSubmitFinalCase">提交</el-button>
+        <el-button
+          type="text"
+          icon="el-icon-upload"
+          round
+          @click="handleSubmitFinalCase"
+          :disabled="!editable"
+        >提交</el-button>
       </el-card>
       <div>
         <el-card class="input-card" shadow="hover">
@@ -30,7 +48,7 @@
                   size="mini"
                   circle
                   @click="dialogAddTraDiagnose=true"
-                  :disabled="!ableEditTraDiagnose"
+                  :disabled="!ableEditTraDiagnose || !editable"
                 ></el-button>
                 <!-- 减少按钮 -->
                 <el-button
@@ -39,7 +57,7 @@
                   size="mini"
                   circle
                   @click="handleRemoveDiagnoses(finalCase.finalTraditionalDiagnose, selectedTraDiagnoses)"
-                  :disabled="!ableEditTraDiagnose"
+                  :disabled="!ableEditTraDiagnose || !editable"
                 ></el-button>
               </div>
             </div>
@@ -76,7 +94,7 @@
                   size="mini"
                   circle
                   @click="dialogAddModDiagnose=true"
-                  :disabled="!ableEditModDiagnose"
+                  :disabled="!ableEditModDiagnose || !editable"
                 ></el-button>
                 <!-- 减少按钮 -->
                 <el-button
@@ -85,7 +103,7 @@
                   size="mini"
                   circle
                   @click="handleRemoveDiagnoses(finalCase.finalModernDiagnose, selectedModDiagnoses)"
-                  :disabled="!ableEditModDiagnose"
+                  :disabled="!ableEditModDiagnose || !editable"
                 ></el-button>
               </div>
             </div>
@@ -213,7 +231,8 @@ export default {
     };
   },
   props: {
-    value: Object
+    value: Object,
+    editable: Boolean
   },
   computed: {
     finalCase: {
@@ -225,13 +244,19 @@ export default {
       }
     },
     ableEditTraDiagnose: function() {
+      console.log("当前finalmoddiagnose");
+      console.log(this.finalCase.finalModernDiagnose);
+      console.log("当前finaltradiangose");
+      console.log(this.finalCase.finalTraditionalDiagnose);
       if (Object.keys(this.finalCase).length !== 0) {
         if (this.finalCase.finalModernDiagnose.length === 0) {
           return true;
         } else {
+          console.log("1");
           return false;
         }
       } else {
+        console.log("2");
         return false;
       }
     },

@@ -252,6 +252,7 @@ import {
 import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
 import { isContext } from "vm";
+import { successDialog, failDialog } from "@/utils/notification";
 
 export default {
   name: "ProjectApplication",
@@ -274,27 +275,6 @@ export default {
     type: Number,
     typeName: String
   },
-  // watch: {
-  //   innerCollections: function(newValue, oldValue) {
-  //     console.log("change happens");
-  //     console.log(newValue);
-  //     var collections = newValue.collections;
-  //     var isEditable = [];
-  //     var i = 0;
-  //     var length = collections.length;
-  //     for (i = 0; i < length; i++) {
-  //       if (
-  //         collections[i].projects.length !== 0 &&
-  //         collections[i].projects[0].status !== 1
-  //       ) {
-  //         isEditable.push(true);
-  //       } else {
-  //         isEditable.push(false);
-  //       }
-  //     }
-  //     this.isEditable = isEditable;
-  //   }
-  // },
   computed: {
     isEditable: function() {
       console.log("isEditable Updated");
@@ -439,9 +419,17 @@ export default {
     },
     handleConfirmAdd() {
       this.dialogAddProject = false;
-      this.newProject.status = 1;
-      this.currentCollection.projects.push(this.newProject);
-      this.newProject = { items: [] };
+      const repeatedProject = this.currentCollection.projects.filter(
+        project => project.projectName === this.newProject.projectName
+      );
+      if (repeatedProject.length === 0) {
+        this.newProject.status = 1;
+        this.currentCollection.projects.push(this.newProject);
+        this.newProject = { items: [] };
+        successDialog("项目添加成功");
+      } else {
+        failDialog("失败：该项目已存在");
+      }
       this.newItem = {};
     },
     handleAddProjectDialog(collection) {
