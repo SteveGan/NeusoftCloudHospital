@@ -1,12 +1,12 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.commonservice;
 
-import com.neuedu.hospitalbackend.model.bo.ExceptionLog;
 import com.neuedu.hospitalbackend.model.po.TransactionLog;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
-import java.math.BigDecimal;
-import java.util.List;
-
+/**
+ * 缴费表和缴费异常表的数据插入
+ * @author Polaris
+ */
 public interface TransactionService {
 
     /**
@@ -16,15 +16,15 @@ public interface TransactionService {
      * @param reverseCode 冲正发票号
      * @param roleId 收银员ID
      * @param reason 异常原因
-     * @return
+     * @return 执行结果
      */
     CommonResult insertTransactionExceptionLog(String originalCode, String newCode, String reverseCode,
                                                Integer roleId, String reason);
 
     /**
      * 向缴费表里添加记录
-     * @param transactionLog
-     * @return
+     * @param transactionLog 缴费记录
+     * @return 执行结果
      */
     CommonResult insertTransactionLog(TransactionLog transactionLog);
 }

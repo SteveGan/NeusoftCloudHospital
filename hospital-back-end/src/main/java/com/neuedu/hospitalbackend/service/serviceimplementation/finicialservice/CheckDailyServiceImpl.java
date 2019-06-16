@@ -7,18 +7,21 @@ import com.neuedu.hospitalbackend.model.po.DailySummaryLog;
 import com.neuedu.hospitalbackend.model.vo.DailySummaryParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.finicialservice.CheckDailyService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
-@Component
+/**
+ * @author Polaris
+ */
+@Service
 public class CheckDailyServiceImpl implements CheckDailyService {
 
-    @Autowired
+    @Resource
     private DailySummaryLogMapper dailySummaryLogMapper;
-    @Autowired
+    @Resource
     private TransactionLogMapper transactionLogMapper;
 
     public CommonResult checkDailySummary(DailySummaryParam dailySummaryParam){

@@ -8,25 +8,30 @@ import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.Invoice
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.TransactionService;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.WithdrawRegistrationService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+
 import static com.neuedu.hospitalbackend.util.ResultCode.*;
 
+/**
+ * @author Polaris
+ */
 @Service
 public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationService {
 
-    @Autowired
+    @Resource
     private TransactionService transactionService;
-    @Autowired
+    @Resource
     private InvoiceService invoiceService;
-    @Autowired
+    @Resource
     private RegistrationMapper registrationMapper;
-    @Autowired
+    @Resource
     private TransactionLogMapper transactionLogMapper;
-    @Autowired
+    @Resource
     private PatientCaseMapper patientCaseMapper;
-    @Autowired
+    @Resource
     private ArrangementMapper arrangementMapper;
 
     @Override

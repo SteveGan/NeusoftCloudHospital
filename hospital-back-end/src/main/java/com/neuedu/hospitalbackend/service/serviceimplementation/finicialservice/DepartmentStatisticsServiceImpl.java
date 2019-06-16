@@ -4,16 +4,19 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.service.serviceinterface.finicialservice.DepartmentStatisticsService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
-@Component
+/**
+ * @author Polaris
+ */
+@Service
 public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsService {
 
-    @Autowired
+    @Resource
     private TransactionLogMapper transactionLogMapper;
 
     public CommonResult clinicianDepartmentStatistics(String beginDateStr, String endDateStr){

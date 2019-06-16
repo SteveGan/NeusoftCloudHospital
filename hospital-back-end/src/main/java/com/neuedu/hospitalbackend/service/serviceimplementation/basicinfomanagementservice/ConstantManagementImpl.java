@@ -1,14 +1,11 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ConstantMapper;
 import com.neuedu.hospitalbackend.model.po.Constant;
-import com.neuedu.hospitalbackend.model.po.Department;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.ConstantManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

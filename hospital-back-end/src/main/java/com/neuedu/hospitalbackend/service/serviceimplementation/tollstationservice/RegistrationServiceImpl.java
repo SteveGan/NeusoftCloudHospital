@@ -17,6 +17,9 @@ import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_700;
 
+/**
+ * @author Polaris
+ */
 @Service
 public class RegistrationServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService {
 

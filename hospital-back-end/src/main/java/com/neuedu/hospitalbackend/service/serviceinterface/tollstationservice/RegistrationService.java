@@ -1,10 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice;
 
-import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.vo.DoctorParam;
+
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
-import com.neuedu.hospitalbackend.model.po.PatientCase;
-import com.neuedu.hospitalbackend.model.po.Registration;
 import com.neuedu.hospitalbackend.util.CommonResult;
 
 /**
@@ -35,11 +32,6 @@ public interface RegistrationService {
 
     /**
      * 执行挂号操作
-     * TODO：1.向缴费表中添加新的缴费记录  --已缴费
-     * TODO: 2.向挂号表中添加新的挂号记录 --默认正常
-     * TODO: 3.更新 所选医生 对应的余号数量
-     * TODO: 4.检查患者是否已在本系统中
-     * TODO: 5.向病历表中添加新的病历记录 --默认待诊
      * @param registrationParam 挂号记录
      * @return
      */

@@ -6,7 +6,7 @@ import com.neuedu.hospitalbackend.util.CommonResult;
 import java.util.List;
 
 /**
- * 2.3 收费 & 2.4 退费
+ * 收费 & 退费
  * @author Polaris
  */
 public interface PaymentService {
