@@ -50,7 +50,7 @@
         <el-table :data="invoiceCollection" stripe style="width: 100%">
           <el-table-column type="index" label="序号">
           </el-table-column>          
-          <el-table-column prop="invoice_code" label="发票号" style="width: 100%">
+          <el-table-column prop="invoiceCode" label="发票号" style="width: 100%">
           </el-table-column>
           <el-table-column prop="status" label="状态" style="width: 60%">
           </el-table-column>
@@ -74,11 +74,11 @@
             <el-table :data="chargeItems" style="width: 100%" @selection-change="handleChargeSelectionChange">
               <el-table-column type="selection" width="55">
               </el-table-column>
-              <el-table-column label="发票号" prop="invoiceCode" width="110">
-              </el-table-column>
+              <!-- <el-table-column label="发票号" prop="invoiceCode" width="110">
+              </el-table-column> -->
               <el-table-column label="项目类型" prop="collectionId">
               </el-table-column>
-              <el-table-column label="项目名称" prop="projectId">
+              <el-table-column label="项目名称" prop="itemName">
               </el-table-column>
               <el-table-column label="数量" prop="amount">
               </el-table-column>
@@ -120,13 +120,13 @@
               </el-table-column>
               <el-table-column label="可退数量" prop="remainAmount" width="80">
               </el-table-column>
-              <el-table-column label="金额" prop="totalMoney" width="60">
+              <el-table-column label="金额" prop="totalMoney" width="80">
               </el-table-column>
               <!-- <el-table-column label="开立时间" prop="gmtCreate">
               </el-table-column> -->
-              <el-table-column label="开立状态" prop="itemStatus">
+              <el-table-column label="开立状态" prop="itemStatus" width="80">
               </el-table-column>
-              <el-table-column label="执行科室" prop="departmentId">
+              <el-table-column label="执行科室" prop="departmentId" width="80">
               </el-table-column>
               <el-table-column label="退费数量" fixed="right" width="200">
                 <template slot-scope="scope">
@@ -177,7 +177,7 @@ export default {
         1: "暂存",
         2: "开立",
         3: "作废",
-        4: "已取药",
+        4: "已登记",
         5: "已退药"
       },
 
@@ -283,27 +283,28 @@ export default {
         this.loading1 = false;
 
         // 选出待缴费项目用于缴费
-        for(var i=0; i<this.invoiceCollection.length;i++){
-          var temp = this.invoiceCollection[i].invoice_code
-          if(this.invoiceCollection[i].status==1){
-            for(var j=0;j<this.transactionLogs[temp].length;j++){
-              if(this.transactionLogs[temp][j].type!="挂号费"&&this.transactionLogs[temp][j].status===1){
-                this.chargeItems.push(this.transactionLogs[temp][j])
+        // for(var i=0; i<this.invoiceCollection.length;i++){
+        //   var temp = this.invoiceCollection[i].invoice_code
+        //   if(this.invoiceCollection[i].status==1){
+            for(var j=0;j<this.transactionLogs.length;j++){
+              if(this.transactionLogs[j].status===1){
+                this.chargeItems.push(this.transactionLogs[j]);
+                this.transactionLogs[j].itemStatus = this.chufangStatus[this.transactionLogs[j].projectStatus]
               }
             }
-          }
-        }
+        //   }
+        // }
         // 选出已缴费项目用于退费
-        for(var i=0; i<this.invoiceCollection.length;i++){
-          var temp = this.invoiceCollection[i].invoice_code
-          if(this.invoiceCollection[i].status==2){
-            for(var j=0;j<this.transactionLogs[temp].length;j++){
-              if(this.transactionLogs[temp][j].type!="挂号费"&&this.transactionLogs[temp][j].status===2){
-                this.withdrawItems.push(this.transactionLogs[temp][j])
+        // for(var i=0; i<this.invoiceCollection.length;i++){
+        //   var temp = this.invoiceCollection[i].invoice_code
+        //   if(this.invoiceCollection[i].status==2){
+            for(var j=0;j<this.transactionLogs.length;j++){
+              if(this.transactionLogs[j].status===2){
+                this.withdrawItems.push(this.transactionLogs[j])
               }
             }
-          }
-        }
+        //   }
+        // }
         console.log("end")
       }).catch(error => {
         

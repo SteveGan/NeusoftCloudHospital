@@ -409,6 +409,7 @@ export default {
     handleSelectItem(item) {
       this.newItem.itemId = item.itemId;
       this.newItem.unit = item.unit;
+      this.newItem.amount = 1;
     },
     handleAddItem() {
       this.newProject.items.push(JSON.parse(JSON.stringify(this.newItem)));

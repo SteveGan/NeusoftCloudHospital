@@ -661,7 +661,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
 //        transactionLog.setInvoiceCode(newInvoiceCode);
         transactionLog.setRegistrationId(registrationId);
         transactionLog.setPatientId(patientId);
-        transactionLog.setRoleId(roleId);
+//        transactionLog.setItemName();
         transactionLog.setType(type);
         transactionLog.setCollectionId(collectionId);
         transactionLog.setProjectId(projectId);
