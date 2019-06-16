@@ -5,18 +5,19 @@ import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.Invoice
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.RegistrationService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/registration")
 @CrossOrigin
 public class RegistrationController {
     
-    @Autowired
+    @Resource
     private RegistrationService registrationService;
 
-    @Autowired
+    @Resource
     private InvoiceService invoiceService;
 
     @ApiOperation("得到当前挂号单的病历号")

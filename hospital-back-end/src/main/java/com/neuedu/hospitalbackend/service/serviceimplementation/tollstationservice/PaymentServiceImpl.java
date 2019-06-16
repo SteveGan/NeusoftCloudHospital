@@ -18,6 +18,9 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_700;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_704;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_712;
 
+/**
+ * @author Polaris
+ */
 @Service
 public class PaymentServiceImpl implements PaymentService {
 

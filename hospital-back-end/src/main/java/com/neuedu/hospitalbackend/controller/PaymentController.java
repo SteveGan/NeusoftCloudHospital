@@ -2,15 +2,14 @@ package com.neuedu.hospitalbackend.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.po.TransactionLog;
 import com.neuedu.hospitalbackend.model.vo.TransactionParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.PaymentService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
@@ -18,9 +17,9 @@ import java.util.List;
 @CrossOrigin
 public class PaymentController {
 
-    @Autowired
+    @Resource
     private PatientService patientService;
-    @Autowired
+    @Resource
     private PaymentService paymentService;
 
     @ApiOperation("通过患者病历号，显示患者基本信息和待缴费、已缴费项目详情")
