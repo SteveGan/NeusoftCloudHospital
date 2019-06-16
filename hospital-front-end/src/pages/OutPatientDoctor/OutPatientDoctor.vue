@@ -109,7 +109,7 @@
           </outpatient-prediagnose>
         </el-tab-pane>
         <el-tab-pane label="病历确诊" :disabled="disableFinalDiagnose">
-          <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase"></final-case>
+          <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase" :editable="ableEditFinalDiagnose"></final-case>
         </el-tab-pane>
         <el-tab-pane label="检验申请" :disabled="disableExamination">
           <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
@@ -198,6 +198,7 @@ import CaseDisposition from "@/components/outpatientdoctor/CaseDisposition";
 import FinalCase from "@/components/outpatientdoctor/FinalCase";
 import { constants } from "fs";
 import { POINT_CONVERSION_COMPRESSED } from "constants";
+import { successDialog, failDialog } from "@/utils/notification";
 
 export default {
   name: "OutPatientDoctor",
@@ -226,7 +227,8 @@ export default {
       disableModRecipe: true,
       disableTraRecipe: true,
       //病历首页是否可以被修改
-      ableEditPreDiagnose: true
+      ableEditPreDiagnose: false,
+      ableEditFinalDiagnose: false
     };
   },
   computed: {
@@ -310,15 +312,17 @@ export default {
             this.disableRecipe = true;
             this.disableFinish = true;
             this.disableDisposition = true;
+            this.ableEditPreDiagnose = true;
           } else if (caseStatus === 3) {
             //已诊（未确诊）
             this.disableFinalDiagnose = false;
             this.disableExamination = false;
             this.disableInspection = false;
-            this.disableRecipe = false;
+            this.disableRecipe = true;
             this.disableFinish = true;
             this.disableDisposition = true;
             this.ableEditPreDiagnose = false;
+            this.ableEditFinalDiagnose = true;
           } else if (caseStatus === 4) {
             //已确诊
             this.disableFinalDiagnose = false;
@@ -328,6 +332,9 @@ export default {
             this.disableFinish = false;
             this.disableDisposition = false;
             this.ableEditPreDiagnose = false;
+            this.ableEditFinalDiagnose = false;
+          } else {
+            //do nothing
           }
           //请求当前被点击用户的病历所有的处方
           listCaseRecipes(this.selectedPatient.caseId).then(
@@ -342,12 +349,18 @@ export default {
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = true;
                   this.disableModRecipe = false;
+                } else {
+                  this.disableTraRecipe = true;
+                  this.disableModRecipe = true;
                 }
               } else if (caseRecipe.type == 2) {
                 //如果是中医处方
                 this.traditionalRecipes = Object.assign({}, caseRecipe);
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = false;
+                  this.disableModRecipe = true;
+                } else {
+                  this.disableTraRecipe = true;
                   this.disableModRecipe = true;
                 }
               } else {
@@ -359,6 +372,9 @@ export default {
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = false;
                   this.disableModRecipe = false;
+                } else {
+                  this.disableTraRecipe = true;
+                  this.disableModRecipe = true;
                 }
               }
             },
@@ -439,9 +455,9 @@ export default {
       saveCase(this.selectedCase).then(
         response => {
           if (response.data.code === 200) {
-            this.success("缴费");
+            successDialog("暂存成功");
           } else {
-            this.fail("缴费");
+            failDialog("暂存失败");
           }
         },
         error => {
@@ -455,14 +471,14 @@ export default {
       submitCase(this.selectedCase).then(
         response => {
           if (response.data.code === 200) {
-            this.success("缴费");
+            successDialog("开立成功");
           } else {
-            this.fail("缴费");
+            failDialog("开立失败");
           }
           //更改可访问模块
-          this.disableRecipe = false;
-          this.disableModRecipe = false;
-          this.disableTraRecipe = false;
+          this.disableRecipe = true;
+          this.disableModRecipe = true;
+          this.disableTraRecipe = true;
           this.disableFinalDiagnose = false;
           this.disableInspection = false;
           this.disableExamination = false;
@@ -487,9 +503,9 @@ export default {
       clearCase(this.selectedCase.caseId).then(
         response => {
           if (response.code === 200) {
-            this.success("缴费");
+            successDialog("清空成功");
           } else {
-            this.fail("缴费");
+            failDialog("清空失败");
           }
         },
         error => {
@@ -506,9 +522,9 @@ export default {
       saveFinalDiagnose(this.selectedFinalCase).then(
         response => {
           if (response.data.code === 200) {
-            this.success("缴费");
+            successDialog("暂存成功");
           } else {
-            this.fail("缴费");
+            failDialog("暂存失败");
           }
         },
         error => {
@@ -523,10 +539,16 @@ export default {
       saveFinalDiagnose(this.selectedFinalCase).then(
         response => {
           if (response.data.code === 200) {
-            this.success("缴费");
+            successDialog("开立成功");
           } else {
-            this.fail("缴费");
+            failDialog("开立失败");
           }
+          // 改变可点击的模块
+          this.disableRecipe = false;
+          this.disableModRecipe = false;
+          this.disableTraRecipe = false;
+          this.disableFinish = false;
+          this.ableEditFinalDiagnose = false;
         },
         error => {
           console.log(error);
@@ -554,9 +576,10 @@ export default {
         this.diagnosedPatients = data.diagnosedPatients;
         console.log("等待的用户");
         console.log(this.waitingPatients);
+        successDialog("挂号人员数据读取完毕");
       },
       error => {
-        console.alert("请求所有病人出Bug了");
+        failDialog("挂号人员数据读取异常");
       }
     );
   }

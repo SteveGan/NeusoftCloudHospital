@@ -241,8 +241,16 @@ export default {
     },
     handleConfirmAdd() {
       this.dialogAddMedicine = false;
-      this.newMedicine.status = 1;
-      this.currentRecipe.medicines.push(this.newMedicine);
+      const repeatedMedicine = this.currentRecipe.medicines.filter(
+        medicine => medicine.medicineId === this.newMedicine.medicineId
+      );
+      if (repeatedMedicine.length === 0) {
+        this.newMedicine.status = 1;
+        this.currentRecipe.medicines.push(this.newMedicine);
+        successDialog("添加成功");
+      } else {
+        failDialog("该药品已存在");
+      }
       this.newMedicine = {};
     },
     handleAddNewRecipe() {
@@ -273,9 +281,11 @@ export default {
       saveRecipe(recipe).then(
         response => {
           console.log(response);
+          successDialog("暂存成功");
         },
         error => {
           console.log(error);
+          failDialog("暂存失败");
         }
       );
     },
