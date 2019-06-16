@@ -23,4 +23,20 @@ public class CostManagementImpl implements CostManagementService {
         List<Cost> list = costMapper.list();
         return CommonResult.success(list);
     }
+
+    @Override
+    public CommonResult getCostById(Integer id){
+        Cost cost = costMapper.getById(id);
+        return CommonResult.success(cost);
+    }
+
+    @Override
+    public CommonResult insertCost(Cost cost) {
+        int count = costMapper.insertSelective(cost);
+        if (count == 0) {
+            return CommonResult.fail();
+        }
+        return CommonResult.success(count);
+    }
+
 }

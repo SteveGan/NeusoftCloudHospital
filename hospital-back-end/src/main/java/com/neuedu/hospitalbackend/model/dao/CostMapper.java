@@ -8,5 +8,11 @@ import java.util.List;
 @Component
 public interface CostMapper {
     Cost get(Integer id);
+
     List<Cost> list();
+
+    Cost getById(Integer id);
+
+    int insertSelective(Cost cost);
+
 }
