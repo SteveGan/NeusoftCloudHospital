@@ -258,9 +258,16 @@ export default {
       submitRecipe(recipe).then(
         response => {
           console.log(response);
+          // 改变可操纵按钮
         },
         error => {
           console.log(error);
+          //将所有药的状态都改成未开立
+          var i;
+          var length = recipe.medicines.length;
+          for (i = 0; i < length; i++) {
+            recipe.medicines[i].status = 1;
+          }
         }
       );
     },
