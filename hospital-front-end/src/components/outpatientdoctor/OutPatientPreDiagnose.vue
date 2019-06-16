@@ -18,21 +18,21 @@
           <div slot="header">
             <span>病史病历</span>
           </div>
-          <el-form :model="currentCase" label-position='left'>
+          <el-form :model="currentCase" label-position='left' :rules="historyRules">
             <p>{{currentCase.diagnoses}}</p>
-            <el-form-item label="主诉">
+            <el-form-item label="主诉" prop="narrate">
               <el-input v-model="currentCase.narrate" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
-            <el-form-item label="现病史">
+            <el-form-item label="现病史" prop="curDisease">
               <el-input v-model="currentCase.curDisease" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
-            <el-form-item label="既往史">
+            <el-form-item label="既往史" prop="pastDisease">
               <el-input v-model="currentCase.pastDisease" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
-            <el-form-item  label="过敏信息">
+            <el-form-item  label="过敏信息" prop="allergy">
               <el-input v-model="currentCase.allergy" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
@@ -42,12 +42,12 @@
           <div slot="header">
             <span>检查及结果</span>
           </div>
-          <el-form label-position='left' :model="currentCase">
-            <el-form-item label="体格检查">
+          <el-form label-position='left' :model="currentCase" :rules="examinationRules">
+            <el-form-item label="体格检查" prop="physicalCondition">
               <el-input v-model="currentCase.physicalCondition" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
-            <el-form-item label="辅助检查">
+            <el-form-item label="辅助检查" prop="assistDiagnose">
               <el-input v-model="currentCase.assistDiagnose" type="textarea" autosize placeholder="请输入内容" :disabled="!editable">
               </el-input>
             </el-form-item>
@@ -234,6 +234,7 @@ import { listAllDiseases } from "@/api/disease";
 import { delimiter } from "path";
 import { constants } from "fs";
 import { currentDate } from "@/utils/date";
+import { successDialog, failDialog } from "@/utils/notification";
 
 export default {
   name: "OutPatientPreDiagnose",
@@ -251,7 +252,27 @@ export default {
       newTraditionalDisease: {},
       newModernDisease: {},
       selectedTraDiagnoses: [],
-      selectedModDiagnoses: []
+      selectedModDiagnoses: [],
+      historyRules: {
+        narrate: [{ required: true, message: "请输入主诉", trigger: "blur" }],
+        curDisease: [
+          { required: true, message: "请输入现病史", trigger: "blur" }
+        ],
+        pastDisease: [
+          { required: true, message: "请输入既往史", trigger: "blur" }
+        ],
+        allergy: [
+          { required: true, message: "请输入过敏信息", trigger: "blur" }
+        ]
+      },
+      examinationRules: {
+        physicalCondition: [
+          { required: true, message: "请输入体格检查结果", trigger: "blur" }
+        ],
+        assistDiagnose: [
+          { required: true, message: "请输入辅助检查结果", trigger: "blur" }
+        ]
+      }
     };
   },
   props: {
@@ -370,7 +391,27 @@ export default {
       this.$emit("saveCase", this.ableEditTraDiagnose);
     },
     handleSubmit() {
-      this.$emit("submitCase", this.ableEditTraDiagnose);
+      if (
+        this.currentCase.narrate !== null ||
+        this.currentCase.curDisease !== null ||
+        this.currentCase.pastDisease !== null ||
+        this.currentCase.allergy !== null ||
+        this.currentCase.physicalCondition !== null ||
+        this.currentCase.assistDiagnose !== null
+      ) {
+        if (
+          this.currentCase.narrate.trim() !== "" ||
+          this.currentCase.curDisease.trim() !== "" ||
+          this.currentCase.pastDisease.trim() !== "" ||
+          this.currentCase.allergy.trim() !== "" ||
+          this.currentCase.physicalCondition.trim() !== "" ||
+          this.currentCase.assistDiagnose.trim() !== ""
+        ) {
+          this.$emit("submitCase", this.ableEditTraDiagnose);
+        }
+      } else {
+        failDialog("请输入必填项");
+      }
     },
     handleClear() {
       this.$emit("clearCase");
