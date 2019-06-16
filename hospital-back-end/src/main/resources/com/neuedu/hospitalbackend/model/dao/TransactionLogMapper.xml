@@ -188,7 +188,6 @@
         <result column="total_amount" property="originalAmount" jdbcType="SMALLINT"/>
         <result column="project_name" property="projectName" jdbcType="VARCHAR"/>
         <result column="item_price" property="itemPrice" jdbcType="DECIMAL"/>
-        <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="getRegistrationLog" resultMap="ItemResultMap">
@@ -316,12 +315,19 @@
     </select>
 
     <select id="calculateMoneyByDepartmentAndType" resultType="HashMap">
-        select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type
+        select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type, count(distinct invoice_code) as invoiceAmount
         from ${tableName} e, role r, transaction_log t
         where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
         and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr}
         group by r.department_name, type
     </select>
 
+    <select id="countPatientCasesByDepartmentName" resultType="HashMap">
+        select r.department_name as departmentName, count(*) as visits
+        from patient_case pc, role r
+        where r.id = pc.role_id
+        and pc.gmt_create &lt;= #{endDateStr} and pc.gmt_create &gt;= #{beginDateStr}
+        group by r.department_name
+    </select>
 
 </mapper>

@@ -72,4 +72,5 @@ public interface TransactionLogMapper {
     List<HashMap> calculateMoneyByDepartmentAndType(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
                                                         @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
+    List<HashMap> countPatientCasesByDepartmentName(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 }
