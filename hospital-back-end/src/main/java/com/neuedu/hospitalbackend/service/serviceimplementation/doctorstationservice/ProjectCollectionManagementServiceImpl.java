@@ -626,7 +626,6 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         Integer patientId = patientCaseMapper.getPatientIdByCaseId(registrationId);
         if(patientId == null)
             return CommonResult.fail(ResultCode.E_800);
-        Integer roleId = collectionParam.getApplicantRoleId();
         Integer typeInt = collectionParam.getCollectionType();
         String type;
         if(typeInt == 1)
@@ -640,11 +639,13 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         Integer collectionId = collectionParam.getCollectionId();
         Integer projectId = projectParam.getProjectId();
         String itemId;
+        String itemName = "";
         BigDecimal price;
         Short amount;
         BigDecimal totalMoney; //计算总金额
         if(typeInt == 1 || typeInt == 2) {
             itemId = itemParam.getItemId();
+            itemName = itemParam.getItemName();
             price = techProjectMapper.getPriceByItemId(itemId);
             amount = itemParam.getAmount();
             totalMoney = new BigDecimal(amount).multiply(price);
@@ -661,12 +662,11 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
 //        transactionLog.setInvoiceCode(newInvoiceCode);
         transactionLog.setRegistrationId(registrationId);
         transactionLog.setPatientId(patientId);
-//        transactionLog.setItemName();
         transactionLog.setType(type);
         transactionLog.setCollectionId(collectionId);
         transactionLog.setProjectId(projectId);
         transactionLog.setItemId(itemId);
-//        transactionLog.setI
+        transactionLog.setItemName(itemName);
         transactionLog.setAmount(amount);
         transactionLog.setTotalMoney(totalMoney);
 
