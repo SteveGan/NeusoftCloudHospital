@@ -183,7 +183,7 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
      */
     @Override
     public CommonResult submitPresentPatientCase(PatientCaseParam patientCaseParam){
-        return savePatientCase(patientCaseParam, 3, false); //病历已诊状态：3    诊断状态：确诊0
+        return savePatientCase(patientCaseParam, 3, true); //病历已诊状态：3    诊断状态：确诊0
     }
 
     /**

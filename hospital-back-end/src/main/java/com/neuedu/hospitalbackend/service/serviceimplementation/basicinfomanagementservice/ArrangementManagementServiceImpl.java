@@ -1,5 +1,7 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanagementservice;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ArrangementMapper;
 import com.neuedu.hospitalbackend.model.dao.ArrangementRuleMapper;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
@@ -14,9 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.Date;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ArrangementManagementServiceImpl implements ArrangementManagementService {
@@ -185,5 +185,39 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     }
 
 
+    /**
+     * 查看某科室排班规则
+     * @param departmentId 科室id
+     */
+    public CommonResult listArrangementRules(Integer departmentId){
+        JSONObject returnJson = new JSONObject();
+
+        List<HashMap> arrangementRuleList = arrangementRuleMapper.listArrangementRulesByDepartmentId(departmentId);
+
+        HashMap<Integer, List<HashMap>> arrangementRules = new HashMap<>();// <规则id， 内容>
+        for(HashMap arrangementRule : arrangementRuleList){
+            System.out.println(arrangementRule);
+            Long idLong = (Long)arrangementRule.get("id");
+            Integer id = new Integer(String.valueOf(idLong));
+            List<HashMap> info;
+            if(!arrangementRules.containsKey(id))
+                info = new ArrayList<>();
+            else
+                info = arrangementRules.get(id);
+            arrangementRule.remove("id");
+            info.add(arrangementRule);
+            arrangementRules.put(id, info);
+        }
+        //JSON格式
+        JSONArray jsonArray = new JSONArray();
+        for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ruleId", entry.getKey());
+            jsonObject.put("arrangementRules", entry.getValue());
+            jsonArray.add(jsonObject);
+        }
+        returnJson.put("arrangementRules", arrangementRules);
+        return CommonResult.success(returnJson);
+    }
 
 }

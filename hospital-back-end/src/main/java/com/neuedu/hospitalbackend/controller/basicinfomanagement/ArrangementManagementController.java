@@ -29,6 +29,11 @@ public class ArrangementManagementController {
         return arrangementManagementService.insertArrangement(arrangementParam);
     }
 
+    @ApiOperation("查询排班规则")
+    @RequestMapping(value = "/arrangementrules/{departmentId}", method = RequestMethod.GET)
+    public CommonResult listArrangementRules(@PathVariable Integer departmentId) {
+        return arrangementManagementService.listArrangementRules(departmentId);
+    }
 
 
 }

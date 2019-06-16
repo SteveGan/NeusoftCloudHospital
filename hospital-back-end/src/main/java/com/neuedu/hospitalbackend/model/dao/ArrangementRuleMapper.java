@@ -13,4 +13,6 @@ public interface ArrangementRuleMapper {
 
     List<HashMap> getValidById(Integer id);
 
+    List<HashMap> listArrangementRulesByDepartmentId(Integer departmentId);
+
 }
