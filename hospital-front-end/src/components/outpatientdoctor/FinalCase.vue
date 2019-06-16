@@ -226,8 +226,6 @@ export default {
     },
     ableEditTraDiagnose: function() {
       if (Object.keys(this.finalCase).length !== 0) {
-        console.log("当前哈哈哈哈哈");
-        console.log(this.finalCase);
         if (this.finalCase.finalModernDiagnose.length === 0) {
           return true;
         } else {

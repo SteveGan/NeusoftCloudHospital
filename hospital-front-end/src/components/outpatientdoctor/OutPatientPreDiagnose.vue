@@ -321,11 +321,9 @@ export default {
       };
     },
     handleSelectTraDisease(item) {
-      console.log(item);
       this.newTraditionalDisease.icdCode = item.icdCode;
     },
     handleSelectModDisease(item) {
-      console.log(item);
       this.newModernDisease.icdCode = item.icdCode;
     },
     cancelAdd() {
@@ -352,8 +350,6 @@ export default {
       //遍历所有被选中的selecteDiagnoses
       var i;
       for (i = 0; i < selectedDiagnoses.length; i++) {
-        console.log("to be deleted:");
-        console.log(selectedDiagnoses[i]);
         allDiagnoses.splice(
           allDiagnoses.findIndex(
             disease => disease.icdCode === selectedDiagnoses[i].icdCode
@@ -364,11 +360,9 @@ export default {
     },
     handleSelectTraDiagnoses(val) {
       this.selectedTraDiagnoses = val;
-      console.log(val);
     },
     handleSelectModDiagnoses(val) {
       this.selectedModDiagnoses = val;
-      console.log(val);
     },
 
     handleSave() {
@@ -379,9 +373,6 @@ export default {
     },
     handleClear() {
       this.$emit("clearCase");
-    },
-    logCurrentCase() {
-      console.log(this.currentCase);
     },
     //使用病历模版组件中传来的template
     useTemplate(caseTemplate) {
@@ -408,7 +399,6 @@ export default {
           startTime: currentDate()
         });
       }
-      console.log(currentDate());
     }
   },
   mounted: function() {

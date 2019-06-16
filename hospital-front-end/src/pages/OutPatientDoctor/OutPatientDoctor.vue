@@ -95,7 +95,7 @@
         </div>
       </el-card>
       <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" style="overflow:vible">
+      <el-tabs type="border-card" style="overflow:vible" tab-click="testTabClick">
         <!-- 门诊首页tab-->
         <el-tab-pane label="病历首页">
           <!-- 门诊病历首页内容 -->
@@ -103,16 +103,17 @@
             @saveCase="onSaveSelectedCase" 
             @submitCase="onSubmitSelectedCase" 
             @clearCase="onClearSelectedCase"
-            v-model="selectedCase">
+            v-model="selectedCase"
+            :disabled="disablePreDiagnose">
           </outpatient-prediagnose>
         </el-tab-pane>
-        <el-tab-pane label="病历确诊">
+        <el-tab-pane label="病历确诊" :disabled="disableFinalDiagnose">
           <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase"></final-case>
         </el-tab-pane>
-        <el-tab-pane label="检验申请">
+        <el-tab-pane label="检验申请" :disabled="disableExamination">
           <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
         </el-tab-pane>
-        <el-tab-pane label="检查申请">
+        <el-tab-pane label="检查申请" :disabled="disableInspection">
           <project-application :type=2 typeName="检查" v-model="selectedCaseInspections"></project-application>
         </el-tab-pane>
         <el-tab-pane label="成药处方" :disabled="disableModRecipe">
@@ -121,7 +122,7 @@
         <el-tab-pane label="草药处方" :disabled="disableTraRecipe">
           <case-recipe v-model="traditionalRecipes"></case-recipe>
         </el-tab-pane>
-        <el-tab-pane label="处置单">
+        <el-tab-pane label="处置单" :disabled="disableDisposition">
           <case-disposition v-model="selectedCaseDispositions"></case-disposition>
         </el-tab-pane>
         <el-tab-pane label="患者账单">
@@ -213,8 +214,15 @@ export default {
       traditionalDisease: [],
       traditionalRecipes: {},
       modernRecipes: {},
-      disableModRecipe: false,
-      disableTraRecipe: false
+      disablePreDiagnose: true,
+      disableFinalDiagnose: true,
+      disableExamination: true,
+      disableInspection: true,
+      disableDisposition: true,
+      disableFinish: true,
+      disableRecipe: true,
+      disableModRecipe: true,
+      disableTraRecipe: true
     };
   },
   computed: {
@@ -260,6 +268,9 @@ export default {
       ttsAudio.play();
     },
     handlePatientSelect(row) {
+      console.log("被选中的病人");
+      console.log(row);
+
       // 语音播报
       this.doTTS(
         "请" +
@@ -279,21 +290,91 @@ export default {
         response => {
           const caseContent = response.data.data;
           this.selectedCase = Object.assign({}, caseContent);
-          console.log("当前病历：");
+          console.log("选中的病历初诊：");
           console.log(this.selectedCase);
+
+          const caseStatus = this.selectedCase.status;
+
+          this.disablePreDiagnose = false;
+          console.log("当前的状态码：");
+          console.log(caseStatus);
+          //如果该病历的初诊未被提交，不允许进行其他任何操作
+          if (caseStatus === 1 || caseStatus === 2) {
+            this.disableFinalDiagnose = true;
+            this.disableExamination = true;
+            this.disableInspection = true;
+            this.disableRecipe = true;
+            this.disableFinish = true;
+            this.disableDisposition = true;
+          } else if (caseStatus === 3) {
+            //已诊（未确诊）
+            this.disableFinalDiagnose = false;
+            this.disableExamination = false;
+            this.disableInspection = false;
+            this.disableRecipe = false;
+            this.disableFinish = true;
+            this.disableDisposition = true;
+          } else if (caseStatus === 4) {
+            //已确诊
+            this.disableFinalDiagnose = false;
+            this.disableExamination = false;
+            this.disableInspection = false;
+            this.disableRecipe = false;
+            this.disableFinish = false;
+            this.disableDisposition = false;
+          }
+          //请求当前被点击用户的病历所有的处方
+          listCaseRecipes(this.selectedPatient.caseId).then(
+            response => {
+              var caseRecipe = response.data.data;
+              caseRecipe.caseId = this.selectedPatient.caseId;
+              console.log("选中的处方信息：");
+              console.log(caseRecipe);
+              if (caseRecipe.type === 1) {
+                //如果是西医处方
+                this.modernRecipes = Object.assign({}, caseRecipe);
+                if (!this.disableRecipe) {
+                  this.disableTraRecipe = true;
+                  this.disableModRecipe = false;
+                }
+              } else if (caseRecipe.type == 2) {
+                //如果是中医处方
+                this.traditionalRecipes = Object.assign({}, caseRecipe);
+                if (!this.disableRecipe) {
+                  this.disableTraRecipe = false;
+                  this.disableModRecipe = true;
+                }
+              } else {
+                //不存在处方
+                caseRecipe.type = 1;
+                this.modernRecipes = Object.assign({}, caseRecipe);
+                caseRecipe.type = 2;
+                this.traditionalRecipes = Object.assign({}, caseRecipe);
+                if (!this.disableRecipe) {
+                  this.disableTraRecipe = false;
+                  this.disableModRecipe = false;
+                }
+              }
+            },
+            error => {
+              //暂时不处理
+              console.alert("查所有处方出bug了");
+            }
+          );
         },
         error => {
           //暂时不处理
           console.alert("得到病历内容出Bug了");
         }
       );
+
       //请求当前被点击用户的所有检查项目清单
       listAllCollections(this.selectedPatient.caseId, 1).then(
         response => {
           this.selectedCaseExaminations = Object.assign({}, response.data.data);
           this.selectedCaseExaminations.caseId = this.selectedPatient.caseId;
-          console.log("读取到的检查项目数据");
-          console.log(response);
+          console.log("选中的病历检查项目：");
+          console.log(this.selectedCaseExaminations);
         },
         error => {
           //暂时不处理
@@ -305,63 +386,32 @@ export default {
         response => {
           this.selectedCaseInspections = Object.assign({}, response.data.data);
           this.selectedCaseInspections.caseId = this.selectedPatient.caseId;
-          console.log("读取到的检查项目数据");
-          console.log(response);
+          console.log("选中的病历检验项目：");
+          console.log(this.selectedCaseInspections);
         },
         error => {
           //暂时不处理
           console.alert("得到检验内容出Bug了");
         }
       );
+
       //请求当前被点击用户病历的所有处置信息
       listAllCollections(this.selectedPatient.caseId, 3).then(
         response => {
           this.selectedCaseDispositions = Object.assign({}, response.data.data);
           this.selectedCaseDispositions.caseId = this.selectedPatient.caseId;
+          console.log("选中的病历的处置信息：");
+          console.log(this.selectedCaseDispositions);
         },
         error => {
           //暂时不处理
           console.alert("得到处置内容出Bug了");
         }
       );
-      //请求当前被点击用户的病历所有的处方
-      listCaseRecipes(this.selectedPatient.caseId).then(
-        response => {
-          console.log("所有的处方信息");
-          console.log(response.data.data);
-          var caseRecipe = response.data.data;
-          caseRecipe.caseId = this.selectedPatient.caseId;
-          if (caseRecipe.type === 1) {
-            //如果是西医处方
-            this.modernRecipes = Object.assign({}, caseRecipe);
-            this.disableTraRecipe = true;
-            this.disableModRecipe = false;
-          } else if (caseRecipe.type == 2) {
-            //如果是中医处方
-            this.traditionalRecipes = Object.assign({}, caseRecipe);
-            this.disableTraRecipe = false;
-            this.disableModRecipe = true;
-          } else {
-            //不存在处方
-            caseRecipe.type = 1;
-            this.modernRecipes = Object.assign({}, caseRecipe);
-            caseRecipe.type = 2;
-            this.traditionalRecipes = Object.assign({}, caseRecipe);
-            this.disableTraRecipe = false;
-            this.disableModRecipe = false;
-          }
-        },
-        error => {
-          //暂时不处理
-          console.alert("查所有处方出bug了");
-        }
-      );
       //请求当前被点击用户的最终诊断信息
       listFinalDiagnoses(this.selectedPatient.caseId).then(
         response => {
-          console.log("当前被选择的最终诊断：");
           this.selectedFinalCase = response.data.data;
-          console.log(this.selectedFinalCase);
         },
         error => {
           console.log(error);
@@ -379,13 +429,9 @@ export default {
     },
     //暂存case的内容
     onSaveSelectedCase(isTraDiagnose) {
-      console.log(isTraDiagnose);
       this.selectedCase.diagnoseType = isTraDiagnose ? 0 : 1;
-      console.log("save:");
-      console.log(this.selectedCase);
       saveCase(this.selectedCase).then(
         response => {
-          console.log(response);
           if (response.data.code === 200) {
             this.success("缴费");
           } else {
@@ -400,21 +446,27 @@ export default {
     //上传case的内容
     onSubmitSelectedCase(isTraDiagnose) {
       this.selectedCase.diagnoseType = isTraDiagnose ? 0 : 1;
-      console.log("submit:");
-      console.log(this.selectedCase);
       submitCase(this.selectedCase).then(
         response => {
-          console.log(response);
           if (response.data.code === 200) {
             this.success("缴费");
           } else {
             this.fail("缴费");
           }
+          //更改可访问模块
+          this.disableRecipe = false;
+          this.disableModRecipe = false;
+          this.disableTraRecipe = false;
+          this.disableFinalDiagnose = false;
+          this.disableInspection = false;
+          this.disableExamination = false;
+          this.disableDisposition = false;
         },
         error => {
           console.log(error);
         }
       );
+
       var splicedCase = this.waitingPatients.splice(
         this.waitingPatients.findIndex(
           patientCase => patientCase.caseId === this.selectedCase.caseId
@@ -425,11 +477,8 @@ export default {
     },
     //清空case内容
     onClearSelectedCase() {
-      console.log("clear:");
-      console.log(this.selectedCase);
       clearCase(this.selectedCase.caseId).then(
         response => {
-          console.log(response);
           if (response.code === 200) {
             this.success("缴费");
           } else {
@@ -449,7 +498,6 @@ export default {
       this.selectedFinalCase.status = 3;
       saveFinalDiagnose(this.selectedFinalCase).then(
         response => {
-          console.log(response);
           if (response.data.code === 200) {
             this.success("缴费");
           } else {
@@ -467,7 +515,6 @@ export default {
       this.selectedFinalCase.status = 4;
       saveFinalDiagnose(this.selectedFinalCase).then(
         response => {
-          console.log(response);
           if (response.data.code === 200) {
             this.success("缴费");
           } else {
@@ -478,6 +525,9 @@ export default {
           console.log(error);
         }
       );
+    },
+    testTabClick(data) {
+      console.log(data);
     }
   },
   components: {
@@ -490,8 +540,6 @@ export default {
   },
   mounted: function() {
     //请求所有待诊病人和已诊病人
-    console.log("当前的roleId");
-    console.log(this.$store.getters["user/currentRoleId"]);
     listAllPatients(this.$store.getters["user/currentRoleId"]).then(
       response => {
         const data = response.data.data;
