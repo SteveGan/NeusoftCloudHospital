@@ -26,7 +26,7 @@
             style="float:right; margin-left: 10px;"
             type="text"
             icon="el-icon-s-check"
-            @click="handleSubmit(collection)"
+            @click="handleSubmit(collection, index)"
             :disabled="isEditable[index]"
           >开立</el-button>
           <el-button
@@ -251,6 +251,7 @@ import {
 } from "@/api/project";
 import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
+import { isContext } from "vm";
 
 export default {
   name: "ProjectApplication",
@@ -273,8 +274,30 @@ export default {
     type: Number,
     typeName: String
   },
+  // watch: {
+  //   innerCollections: function(newValue, oldValue) {
+  //     console.log("change happens");
+  //     console.log(newValue);
+  //     var collections = newValue.collections;
+  //     var isEditable = [];
+  //     var i = 0;
+  //     var length = collections.length;
+  //     for (i = 0; i < length; i++) {
+  //       if (
+  //         collections[i].projects.length !== 0 &&
+  //         collections[i].projects[0].status !== 1
+  //       ) {
+  //         isEditable.push(true);
+  //       } else {
+  //         isEditable.push(false);
+  //       }
+  //     }
+  //     this.isEditable = isEditable;
+  //   }
+  // },
   computed: {
     isEditable: function() {
+      console.log("isEditable Updated");
       var collections = this.caseExaminations.collections;
       var isEditable = [];
       var i = 0;
@@ -289,8 +312,10 @@ export default {
           isEditable.push(false);
         }
       }
+      console.log(isEditable);
       return isEditable;
     },
+
     caseExaminations: {
       get() {
         return this.value;
@@ -439,7 +464,7 @@ export default {
         }
       );
     },
-    handleSubmit(collection) {
+    handleSubmit(collection, index) {
       collection.caseId = this.caseExaminations.caseId;
       collection.applicantRoleId = this.$store.getters["user/currentRoleId"];
       collection.collectionType = this.type;
@@ -456,6 +481,7 @@ export default {
           } else {
             this.fail("缴费");
           }
+          this.$set(this.caseExaminations.collections, index, collection);
         },
         error => {
           console.log(error);
