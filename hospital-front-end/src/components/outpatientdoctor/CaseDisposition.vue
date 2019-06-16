@@ -196,11 +196,8 @@ export default {
         .catch(_ => {});
     },
     handleAddCollection() {
-      // this.collections.push({});
-      // console.log(this.collections);
       getNewCollectionId(3).then(
         response => {
-          console.log(response.data.data);
           const newCollectionId = response.data.data.collectionId;
           this.caseDispositions.collections.push({
             collectionId: newCollectionId,
@@ -235,7 +232,6 @@ export default {
     handleSelectProject(item) {
       this.newProject.departmentName = item.departmentName;
       this.newProject.projectId = item.projectId;
-      console.log("projectId" + this.newProject.projectId);
     },
     handleRemoveProject(row, collection) {
       collection.projects.splice(

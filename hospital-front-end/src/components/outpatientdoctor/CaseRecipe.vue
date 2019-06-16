@@ -29,6 +29,7 @@
             style="float:right; margin-left: 10px;"
             type="text"
             icon="el-icon-refresh-right"
+            @click="handleClear(recipe)"
           >清空</el-button>
           <el-button
             style="margin-left: 10px"
@@ -38,7 +39,7 @@
           >新增药品</el-button>
         </div>
         <!-- 项目列表 -->
-        <div class>
+        <div>
           <el-table style="width: 100%" :data="recipe.medicines">
             <el-table-column label="药品名称" prop="medicineName"></el-table-column>
             <el-table-column label="规格" prop="medicineSpecification"></el-table-column>
@@ -67,7 +68,10 @@
     </div>
     <!-- 底部模版区域 -->
     <div>
-      <recipe-template v-model="currentRecipeTemplate"></recipe-template>
+      <recipe-template
+        v-bind:recipeType="caseRecipe.type"
+        @give-recipe-template="useRecipeTemplate"
+      ></recipe-template>
     </div>
     <!-- 新增药品dialog -->
     <el-dialog
@@ -135,7 +139,8 @@ export default {
       newMedicine: {},
       currentRecipe: {},
       medicines: [],
-      currentRecipeTemplate: {}
+      currentRecipeTemplate: {},
+      newRecipe: {}
     };
   },
   components: {
@@ -165,6 +170,8 @@ export default {
     handleAddMedicineDialog(recipe) {
       this.dialogAddMedicine = true;
       this.currentRecipe = recipe;
+      console.log("当前的recipe");
+      console.log(this.currentRecipe);
     },
     handleRemoveDrug(row, recipe) {
       recipe.medicines.splice(
@@ -191,7 +198,6 @@ export default {
     handleSelectMedicine(medicine) {
       this.newMedicine.medicineUnit = medicine.unit;
       this.newMedicine.medicineId = medicine.id;
-      console.log("药品的类型是" + medicine.type);
       this.newMedicine.medicineType = medicineTypeToCode(medicine.type);
       this.newMedicine.medicineFormulation = medicine.formulation;
       this.newMedicine.medicineSpecification = medicine.specification;
@@ -203,12 +209,6 @@ export default {
     handleConfirmAdd() {
       this.dialogAddMedicine = false;
       this.newMedicine.status = 1;
-      // // 判断当前的recipe是否已经有了五种药,如果有了
-      // // 增加新的recipe，并将当前的recipe变为新的recipe
-      // if (this.currentRecipe.medicines.length >= 5)
-      //   this.currentRecipe = this.handleAddNewRecipe();
-      // console.log("新的recipe");
-      // console.log(this.currentRecipe);
       this.currentRecipe.medicines.push(this.newMedicine);
       this.newMedicine = {};
     },
@@ -216,16 +216,23 @@ export default {
       // 向后端请求新的recipe编号
       getNewRecipeCode().then(
         response => {
-          this.caseRecipe.recipes.push({
+          this.newRecipe = {
             medicines: [],
             recipeId: response.data.data.recipeId
-          });
-          newRecipe;
+          };
         },
         error => {
           console.log(error);
         }
       );
+      //如果newRecipe成功创建
+      if (Object.keys(this.newRecipe).length !== 0) {
+        this.currentRecipe = Object.assign({}, this.newRecipe);
+        this.caseRecipe.recipes.push(this.currentRecipe);
+      } else {
+        //处理错误
+      }
+      this.newRecipe = {};
     },
     handleSaveRecipe(recipe) {
       recipe.caseId = this.caseRecipe.caseId;
@@ -256,27 +263,43 @@ export default {
           console.log(error);
         }
       );
+    },
+    showCaseRecipe() {
+      console.log(this.caseRecipe);
+    },
+    useRecipeTemplate(givenTemplate) {
+      console.log("使用了模版");
+      // 向后端请求新的recipe编号
+      getNewRecipeCode().then(
+        response => {
+          this.newRecipe = {
+            medicines: givenTemplate.medicines,
+            recipeId: response.data.data.recipeId
+          };
+        },
+        error => {
+          console.log(error);
+        }
+      );
+      //如果newRecipe成功创建
+      if (Object.keys(this.newRecipe).length !== 0) {
+        this.currentRecipe = Object.assign({}, this.newRecipe);
+        this.caseRecipe.recipes.push(this.currentRecipe);
+      } else {
+        //处理错误
+      }
+      this.newRecipe = {};
+    },
+    handleClear(recipe) {
+      recipe.medicines = [];
     }
   },
   mounted: function() {
     // 请求所有的西药（暂时这么写） 中:0, 西:1
+
     listAllMedicines(1).then(
       response => {
         this.medicines = response.data.data;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    //请求相应的可用处方模版
-    listRecipeTemplates(
-      this.$store.getters["user/roleId"],
-      this.caseRecipe.type
-    ).then(
-      response => {
-        this.currentRecipeTemplate = response.data.data;
-        console.log("当前的处方模版：");
-        console.log(this.currentRecipeTemplate);
       },
       error => {
         console.log(error);

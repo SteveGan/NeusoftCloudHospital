@@ -7,12 +7,44 @@
         <result column="name" property="name" jdbcType="VARCHAR" />
     </resultMap>
 
+    <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Cost" >
+        insert into cost
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="code != null" >
+                code,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
     <select id="get" resultMap="BaseResultMap" parameterType="Integer">
       select id, code, name from cost where id = #{id}
     </select>
 
     <select id="list" resultMap="BaseResultMap">
       select id, code, name from cost
+    </select>
+
+    <select id="getById" resultMap="BaseResultMap">
+       select id, code, name
+       from cost
+       where id = #{id}
     </select>
 
 </mapper>
