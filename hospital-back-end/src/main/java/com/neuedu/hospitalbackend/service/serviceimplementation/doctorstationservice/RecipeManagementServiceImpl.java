@@ -239,7 +239,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 //        transactionLog.setInvoiceCode(newInvoiceCode);
         transactionLog.setRegistrationId(registrationId);
         transactionLog.setPatientId(patientId);
-        transactionLog.setRoleId(roleId);
+//        transactionLog.setItemName();
         if(recipeParam.getMedicineType() == 1)
             transactionLog.setType("中草药");
         else
