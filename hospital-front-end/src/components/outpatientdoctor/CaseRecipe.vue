@@ -88,16 +88,17 @@
                 :highlight-first-item="true"
                 @select="handleSelectMedicine"
                 value-key="name"
+                style="width: 180px;"
               ></el-autocomplete>
             </el-form-item>
             <el-form-item label="数量">
-              <el-input-number :min="1" :max="10" v-model="newMedicine.amount"></el-input-number>
+              <el-input-number clearable :min="1" :max="10" v-model="newMedicine.amount"></el-input-number>
             </el-form-item>
             <el-form-item label="频次">
-              <el-input-number :min="1" :max="10" v-model="newMedicine.frequency"></el-input-number>
+              <el-input clearable placeholder="请输入药品频次" v-model="newMedicine.frequency" style="width: 180px;"></el-input>
             </el-form-item>
             <el-form-item label="用量">
-              <el-input-number :min="1" :max="10" v-model="newMedicine.dosage"></el-input-number>
+              <el-input-number v-model="newMedicine.dosage"></el-input-number>
             </el-form-item>
           </el-form>
         </el-card>
