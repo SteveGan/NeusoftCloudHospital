@@ -189,6 +189,11 @@
         where id = #{collectionId} and project_id = #{projectId}
     </update>
 
+    <select id="getResultByCollectionAndProjectId" resultType="string">
+        select result_description from examination
+        where id = #{collectionId} and project_id = #{projectId}
+    </select>
+
     <update id="updateStatusToCancel">
         update examination
         set status = #{status}

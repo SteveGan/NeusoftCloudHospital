@@ -205,6 +205,7 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             else
                 info = arrangementRules.get(id);
             arrangementRule.remove("id");
+            arrangementRule.remove("departmentId");
             info.add(arrangementRule);
             arrangementRules.put(id, info);
         }
@@ -213,10 +214,10 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("ruleId", entry.getKey());
-            jsonObject.put("arrangementRules", entry.getValue());
+            jsonObject.put("arrangementRule", entry.getValue());
             jsonArray.add(jsonObject);
         }
-        returnJson.put("arrangementRules", arrangementRules);
+        returnJson.put("arrangementRules", jsonArray);
         return CommonResult.success(returnJson);
     }
 
