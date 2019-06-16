@@ -238,11 +238,8 @@ export default {
       this.selectedCaseTemplate = {};
     },
     handleEdit(row) {
-      console.log(row);
       this.selectedCaseTemplate = row;
       this.oldTemplateName = this.selectedCaseTemplate.name;
-      console.log("1. oldTemplateName was changed to current name");
-      console.log(this.oldTemplateName);
       this.dialogEditCaseTemplate = true;
     },
     addNewCaseTemplate() {
@@ -253,7 +250,6 @@ export default {
       );
       // 将当前的新模版发送给后端
       this.newCaseTemplate.roleId = this.$store.getters["user/currentRoleId"];
-      console.log(this.newCaseTemplate);
       submitNewCaseTemplate(this.newCaseTemplate).then(
         response => {
           console.log(response);
@@ -271,10 +267,6 @@ export default {
       //设置一下 name 和 newName
       this.selectedCaseTemplate.newName = this.selectedCaseTemplate.name;
       this.selectedCaseTemplate.name = this.oldTemplateName;
-      console.log("2:");
-      console.log(this.oldTemplateName);
-      console.log("被编辑过的selectedTempalte");
-      console.log(this.selectedCaseTemplate);
       //发送
       updateCaseTemplate(this.selectedCaseTemplate).then(
         response => {
@@ -286,20 +278,15 @@ export default {
       );
       //将newName赋给name
       this.selectedCaseTemplate.name = this.oldTemplateName;
-      console.log("3:");
-      console.log(this.oldTemplateName);
       this.oldTemplateName = "";
     },
     handleSelectTemplate(val) {
       this.selectedTemplates = val;
-      console.log(val);
     },
     handleRemoveTemplates() {
       //遍历所有被选中的templates
       var i;
       for (i = 0; i < this.selectedTemplates.length; i++) {
-        console.log("to be deleted:");
-        console.log(this.selectedTemplates[i]);
         this.myCaseTemplates.splice(
           this.myCaseTemplates.findIndex(
             template => template.name === this.selectedTemplates[i].name
@@ -312,9 +299,7 @@ export default {
   mounted: function() {
     listCaseTemplate(this.$store.getters["user/currentRoleId"]).then(
       response => {
-        console.log("模版管理：");
         this.myCaseTemplates = response.data.data.myCaseTemplates;
-        console.log(this.myCaseTemplates);
       },
       error => {
         console.log("读取病理模版出bug了");

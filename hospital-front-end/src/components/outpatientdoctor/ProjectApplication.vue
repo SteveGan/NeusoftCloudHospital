@@ -320,11 +320,8 @@ export default {
         .catch(_ => {});
     },
     handleAddCollection() {
-      // this.collections.push({});
-      // console.log(this.collections);
       getNewCollectionId(this.type).then(
         response => {
-          console.log(response.data.data);
           const newCollectionId = response.data.data.collectionId;
           this.caseExaminations.collections.push({
             collectionId: newCollectionId,
@@ -332,7 +329,7 @@ export default {
           });
         },
         error => {
-          console.log(response.data.data);
+          console.log(error);
         }
       );
     },
@@ -373,7 +370,6 @@ export default {
     handleSelectProject(item) {
       this.newProject.departmentName = item.departmentName;
       this.newProject.projectId = item.projectId;
-      console.log("projectId" + this.newProject.projectId);
       // 去查询相应project下的可用小项信息
       listAllItems(this.newProject.projectId).then(
         response => {
@@ -410,7 +406,6 @@ export default {
       );
     },
     handleCancel() {
-      console.log("cancel");
       this.newProject = { items: [] };
       this.newItem = {};
       this.dialogAddProject = false;
@@ -426,8 +421,6 @@ export default {
     handleAddProjectDialog(collection) {
       this.dialogAddProject = true;
       this.currentCollection = collection;
-      console.log("currentCollection");
-      console.log(this.currentCollection);
     },
     handleTempSave(collection) {
       collection.caseId = this.caseExaminations.caseId;
@@ -435,7 +428,6 @@ export default {
       collection.collectionType = this.type;
       saveCollection(collection).then(
         response => {
-          console.log(response);
           if (response.data.code === 200) {
             this.success("缴费");
           } else {
@@ -459,7 +451,6 @@ export default {
       }
       submitCollection(collection).then(
         response => {
-          console.log(response);
           if (response.data.code === 200) {
             this.success("缴费");
           } else {
@@ -483,8 +474,6 @@ export default {
       };
       getProjectResult(data).then(
         response => {
-          console.log("结果：");
-          console.log(response.data.data.result);
           this.currentResult = response.data.data.result;
         },
         error => {
