@@ -63,11 +63,31 @@ export function medicineTypeCodeToString(typeCode) {
 
 //将药品类型字符串变为code
 export function medicineTypeToCode(type) {
-  var code;
+  var code = '';
   if (type === "中草药") {
     code = 1;
   } else {
     code = 2;
   }
   return code;
+}
+
+//将付款状态变成code
+export function payStatusCodeToString(code) {
+  var status = "";
+  switch (code) {
+    case 1:
+      status = "未缴费";
+      break;
+    case 2:
+      status = "已缴费";
+      break;
+    case 3:
+      status = "已退费";
+    case 4:
+      status = "冲正";
+    case 5:
+      status = "作废"
+  }
+  return status;
 }
