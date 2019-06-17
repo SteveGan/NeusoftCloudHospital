@@ -15,4 +15,8 @@ public interface CostMapper {
 
     int insertSelective(Cost cost);
 
+    int update(Cost cost);
+
+    int delete(Integer id);
+
 }
