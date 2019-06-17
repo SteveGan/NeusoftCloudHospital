@@ -108,4 +108,11 @@
         and department_id = #{departmentId}
   </update>
 
+  <select id="listByDepartmentIdAndDate" resultMap="BaseResultMap">
+     select *
+     from arrangement
+     where department_id = #{departmetnId} and
+        appointment_date >= #{startDate} and #{endtDate} >= appointment_date
+  </select>
+
 </mapper>

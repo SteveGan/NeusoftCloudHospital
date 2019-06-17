@@ -10,7 +10,6 @@
 </template>
 
 <script>
-
   import StatusBar from '@/components/common/StatusBar'
 
   export default {
@@ -22,10 +21,10 @@
 </script>
 
 <style lang="css" scoped>
-  .container{
-    padding: 0;
-    margin: 0;
-    min-height: 100%;
-    min-width: 100%;
-  }
+.container{
+  padding: 0px;
+  margin: 0px;
+  min-height: 100%;
+  min-width: 100%;
+}
 </style>
