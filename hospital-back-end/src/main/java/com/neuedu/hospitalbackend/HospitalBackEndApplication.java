@@ -14,6 +14,7 @@ public class HospitalBackEndApplication {
 
         // 初始化全局缓存变量
         new Cache().initialize();
+        System.out.println("[INFO]服务器启动成功！");
     }
 
 }
