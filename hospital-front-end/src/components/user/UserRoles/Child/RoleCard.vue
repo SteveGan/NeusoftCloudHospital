@@ -11,13 +11,12 @@
         {{realPositionName}}
       </p>
     </div>
-    <div>
+    <div v-if="realTitleName!=null">
       <p class="role-info">
         <span>职称：</span>
         {{realTitleName}}
       </p>
     </div>
-    <div></div>
   </el-card>
 </template>
 
