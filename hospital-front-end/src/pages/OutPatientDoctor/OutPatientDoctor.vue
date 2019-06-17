@@ -87,7 +87,7 @@
             <!-- 年龄 -->
             <span>年龄: {{this.selectedPatient.age}} </span>
             <!-- 结算类别 -->
-            <span>结算类别: TODO </span>
+            <!-- <span>结算类别: TODO </span> -->
           </div>
           <!-- 诊毕 -->
           <el-button type="primary" @click="handleFinish">诊毕</el-button>

@@ -105,16 +105,14 @@
       <el-tabs type="border-card" class="template-tabs">
         <!-- 门诊首页tab-->
         <el-tab-pane label="病历模版">
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
+          <p>TODO</p>
         </el-tab-pane>
-        <el-tab-pane label="常用诊断"></el-tab-pane>
-        <el-tab-pane label="历史病历"></el-tab-pane>
+        <el-tab-pane label="常用诊断">
+          <p>TODO</p>
+        </el-tab-pane>
+        <el-tab-pane label="历史病历">
+          <p>TODO</p>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <!-- 新增项目dialog -->
