@@ -11,7 +11,7 @@
       </div>
     </div>
   </el-card>
-  </div>
+</div>
 </template>
 <script>
 import RoleCard from "./Child/RoleCard";
@@ -30,10 +30,9 @@ export default {
 <style lang="css" scoped>
 .main-box {
   background-color: #f2f7f8;
-  margin: 0px;
 }
 .main-card{
-  margin: 15px 30px 25px 30px;
+  /* margin: 15px 30px 25px 30px; */
 }
 .role-area {
   padding-left: 20px;

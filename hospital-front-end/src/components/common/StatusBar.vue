@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu class="el-menu-demo align-end" mode="horizontal">
+    <el-menu class="el-menu-demo align-end" mode="horizontal" text-color="#ffffff">
       <el-menu-item class="justify-start" @click="handleClickLogo">
         <img src="@/assets/icons/project_logo_complete.png" class="project-logo">
       </el-menu-item>

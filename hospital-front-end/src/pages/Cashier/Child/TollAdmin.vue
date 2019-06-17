@@ -59,7 +59,7 @@
     </div>
     <!-- 右侧显示列表，展示已交费和未交费项目 -->
     <div class="edit-board" >
-      <el-card shadow="hover" style="margin: 0 30px 30px 0; width:100%">
+      <el-card shadow="hover" style="margin: 0 30px 30px 0;">
         <div slot="header">
           <span>待缴费清单</span>
         </div>
@@ -92,7 +92,7 @@
         </div>
       </el-card>
 
-      <el-card shadow="hover" style="margin: 30px 30px 30px 0; width:100%">
+      <el-card shadow="hover" style="margin: 30px 30px 30px 0;">
         <div slot="header">
           <span>已缴费清单</span>
         </div>
