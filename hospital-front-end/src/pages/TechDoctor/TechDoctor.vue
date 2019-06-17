@@ -301,6 +301,7 @@ export default {
 
     // 提交
     submit() {
+      this.save();
       var object = {};
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
