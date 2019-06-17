@@ -433,6 +433,7 @@ export default {
               ),
               1
             );
+            this.disableFinish = true;
           } else {
             failDialog("诊毕失败");
             this.selectedCase.status = "4";
