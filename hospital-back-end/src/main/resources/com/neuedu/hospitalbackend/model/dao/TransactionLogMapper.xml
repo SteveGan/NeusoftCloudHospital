@@ -207,7 +207,7 @@
     </select>
 
     <select id="listRecipeLogs" resultMap="ItemResultMap">
-        select distinct t.invoice_code, t.registration_id, t.collection_id, t.project_id, t.type,
+        select distinct t.invoice_code, t.registration_id, t.collection_id, t.project_id, t.type, t.item_name,
         t.amount, t.total_money, t.status, r.department_id as department_id, r.status as project_status, r.remain_amount as remain_amount
         from transaction_log t, recipe r
         where t.collection_id = r.id and t.registration_id = #{registrationId}
