@@ -318,7 +318,7 @@
         select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type, count(distinct invoice_code) as invoiceAmount
         from ${tableName} e, role r, transaction_log t
         where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
-        and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr}
+        and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr} and t.registration_id = e.case_id
         group by r.department_name, type
     </select>
 
