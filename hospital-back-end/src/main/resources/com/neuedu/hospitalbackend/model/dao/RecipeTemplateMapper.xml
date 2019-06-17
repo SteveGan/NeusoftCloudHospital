@@ -24,9 +24,9 @@
     <result column="department_id" property="departmentId" jdbcType="INTEGER" />
     <result column="scope" property="scope" jdbcType="TINYINT" />
     <result column="medicine_code" property="medicineCode" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="type" property="medicineType" jdbcType="TINYINT" />
     <result column="dosage" property="dosage" jdbcType="DECIMAL" />
-    <result column="dosage_unit" property="dosageUnit" jdbcType="VARCHAR" />
+    <result column="dosage_unit" property="medicineUnit" jdbcType="VARCHAR" />
     <result column="frequency" property="frequency" jdbcType="VARCHAR" />
     <result column="amount" property="amount" jdbcType="SMALLINT" />
   </resultMap>
