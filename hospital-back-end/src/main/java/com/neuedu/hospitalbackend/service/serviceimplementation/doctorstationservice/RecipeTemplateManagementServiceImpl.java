@@ -100,7 +100,7 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
 
         //获取医生所在科室id
         Integer departmentId = roleMapper.getDepartmentIdByRoleId(roleId);
-        if (departmentId == null)
+        if (departmentId == null || roleId == null)
             return CommonResult.fail(ResultCode.E_800);
 
         //查询所有可见模板
