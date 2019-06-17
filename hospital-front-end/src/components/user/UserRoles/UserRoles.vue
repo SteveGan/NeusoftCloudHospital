@@ -1,5 +1,6 @@
 <template lang="html">
-  <el-card shadow="hover">
+<div class="main-box">
+  <el-card shadow="hover" class="main-card">
     <div class="role-area">
       <!--  标题："部门与职位"      -->
       <div>
@@ -10,6 +11,7 @@
       </div>
     </div>
   </el-card>
+</div>
 </template>
 <script>
 import RoleCard from "./Child/RoleCard";
@@ -26,6 +28,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.main-box {
+  background-color: #f2f7f8;
+}
+.main-card{
+  /* margin: 15px 30px 25px 30px; */
+}
 .role-area {
   padding-left: 20px;
   padding-right: 20px;

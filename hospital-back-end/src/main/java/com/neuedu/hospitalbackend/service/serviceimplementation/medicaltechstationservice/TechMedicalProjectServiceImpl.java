@@ -273,6 +273,24 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
         return CommonResult.success(jsonObject);
     }
 
+    @Override
+    public CommonResult showResult(ProjectParam projectParam){
+        Integer departmentId = projectParam.getDepartmentId();
+        Integer collectionId = projectParam.getCollectionId();
+        Integer projectId = projectParam.getProjectId();
+        String projectType = departmentMapper.getClassificationById(departmentId);
+        switch (projectType){
+            case "医学影像科":
+                Inspection inspection = inspectionMapper.getResultByCollectionAndProjectId(collectionId, projectId);
+                return CommonResult.success(inspection);
+            case "医技科":
+                Examination examination = examinationMapper.getResultByCollectionAndProjectId(collectionId, projectId);
+                return CommonResult.success(examination);
+            default:
+                return CommonResult.fail(E_801);//科室类型异常
+        }
+    }
+
     public CommonResult confirmProject(ProjectParam projectParam){
 
         Integer departmentId = projectParam.getDepartmentId();
@@ -287,18 +305,18 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
 
         int count = 0;
         String projectType = departmentMapper.getClassificationById(departmentId);
-        String result;
+        String description;
         switch (projectType){
             case "医学影像科":
-                result = inspectionMapper.getResultByCollectionAndProjectId(collectionId, projectId);
-                if(result == null)
+                description = inspectionMapper.getDescriptionByCollectionAndProjectId(collectionId, projectId);
+                if(description == null)
                     CommonResult.fail(E_711); //未保存检查结果
                 else
                     count = inspectionMapper.updateStatus(collectionId, projectId, (byte) 5);
                 break;
             case "医技科":
-                result = examinationMapper.getResultByCollectionAndProjectId(collectionId, projectId);
-                if(result == null)
+                description = examinationMapper.getDescriptionByCollectionAndProjectId(collectionId, projectId);
+                if(description == null)
                     CommonResult.fail(E_711);
                 else
                     count = examinationMapper.updateStatus(collectionId, projectId, (byte)5);

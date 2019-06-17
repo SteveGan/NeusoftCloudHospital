@@ -28,9 +28,11 @@ public interface ExaminationMapper {
                      @Param("resultDescription")String resultDescription, @Param("resultImage")String resultImage,
                      @Param("advice")String advice);
 
+    Examination getResultByCollectionAndProjectId(@Param("collectionId")Integer collectionId, @Param("projectId")Integer projectId);
+
     int updateStatus(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId, @Param("status") Byte status);
 
-    String getResultByCollectionAndProjectId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
+    String getDescriptionByCollectionAndProjectId(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
 
     int updateStatusToCancel(@Param("collectionId") Integer collectionId, @Param("status") Byte status);
 

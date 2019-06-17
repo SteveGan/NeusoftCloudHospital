@@ -65,6 +65,12 @@ public class TechMedicalProjectController {
         return techMedicalProjectServiceImpl.recordResult(projectParam);
     }
 
+    @ApiOperation("显示项目结果")
+    @RequestMapping(value = "/result", method = RequestMethod.GET)
+    public CommonResult showResult(ProjectParam projectParam){
+        return techMedicalProjectServiceImpl.showResult(projectParam);
+    }
+
     @ApiOperation("确定某项目执行完毕")
     @RequestMapping(value = "/confirmation", method = RequestMethod.PUT)
     public CommonResult confirmProject(@RequestBody ProjectParam projectParam){

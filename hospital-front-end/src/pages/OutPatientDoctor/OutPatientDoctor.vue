@@ -90,7 +90,7 @@
             <!-- <span>结算类别: TODO </span> -->
           </div>
           <!-- 诊毕 -->
-          <el-button type="primary" @click="handleFinish">诊毕</el-button>
+          <el-button type="primary" @click="handleFinish" :disabled="disableFinish">诊毕</el-button>
           </div>
         </div>
       </el-card>
@@ -423,11 +423,25 @@ export default {
     },
     handleFinish() {
       this.selectedCase.status = "5";
-      this.diagnosedPatients.splice(
-        this.diagnosedPatients.findIndex(
-          patientCase => patientCase.caseId === this.selectedCase.caseId
-        ),
-        1
+      saveCase(this.selectedCase).then(
+        response => {
+          if (response.data.code === 200) {
+            successDialog("诊毕成功");
+            this.diagnosedPatients.splice(
+              this.diagnosedPatients.findIndex(
+                patientCase => patientCase.caseId === this.selectedCase.caseId
+              ),
+              1
+            );
+            this.disableFinish = true;
+          } else {
+            failDialog("诊毕失败");
+            this.selectedCase.status = "4";
+          }
+        },
+        error => {
+          failDialog("诊毕失败");
+        }
       );
     },
     //暂存case的内容
@@ -520,9 +534,9 @@ export default {
       saveFinalDiagnose(this.selectedFinalCase).then(
         response => {
           if (response.data.code === 200) {
-            successDialog("开立成功");
+            successDialog("提交成功");
           } else {
-            failDialog("开立失败");
+            failDialog("提交失败");
           }
           // 改变可点击的模块
           this.disableRecipe = false;

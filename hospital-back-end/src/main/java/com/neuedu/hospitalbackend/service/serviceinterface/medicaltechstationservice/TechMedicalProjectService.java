@@ -61,7 +61,7 @@ public interface TechMedicalProjectService {
 
     /**
      * 填写结果
-     * 选中相应的患者和项目后，点击“结果录入”按钮，录入检查结果，如果检查项目有图片，上传检查结果图片
+     * 选中相应的患者和项目后，点击“保存”按钮，录入检查结果，如果检查项目有图片，上传检查结果图片
      * 录入结果: 结果文字、图片（非必填）、医生建议
      * @param projectParam: projectCollectionId, projectId, resultDescription, resultImage, advice
      * @return 执行结果
@@ -69,7 +69,14 @@ public interface TechMedicalProjectService {
     CommonResult recordResult(ProjectParam projectParam);
 
     /**
-     * 执行完毕项目后，更新其状态
+     * 点击某项目，显示结果
+     * @param projectParam: projectCollectionId, projectId
+     * @return
+     */
+    CommonResult showResult(ProjectParam projectParam);
+
+    /**
+     * 执行完毕项目后，点击提交按钮，更新其状态
      * @param projectParam: projectCollectionId, projectId...
      * @return 执行结果
      */
