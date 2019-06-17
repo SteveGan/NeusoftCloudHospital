@@ -16,7 +16,7 @@ export function routeByPositionId(positionId) {
       path = "/home/drugstation";
       break;
     case 5:
-      path = "/home/cashier";
+      path = "/home/finicialadmin";
       break;
     case 6:
       path = "/home/admin";

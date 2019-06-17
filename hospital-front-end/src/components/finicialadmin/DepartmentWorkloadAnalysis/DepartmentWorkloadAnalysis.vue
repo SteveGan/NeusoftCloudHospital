@@ -24,9 +24,17 @@
           </el-table-column>
           <el-table-column prop="departmentName" label="科室名称">
           </el-table-column>
-          <el-table-column prop="type" label="类型">
+          <el-table-column prop="visits" label="看诊人次">
           </el-table-column>
-          <el-table-column prop="totalMoney" label="总额">
+          <el-table-column prop="invoiceAmount" label="发票数量">
+          </el-table-column>
+          <el-table-column prop="检查费" label="检查费">
+          </el-table-column>
+          <el-table-column prop="检验费" label="检验费">
+          </el-table-column>
+          <el-table-column prop="成药" label="成药费">
+          </el-table-column>
+          <el-table-column prop="处置" label="处置费">
           </el-table-column>
       </el-table>
     </el-card>
@@ -40,9 +48,17 @@
           </el-table-column>        
           <el-table-column prop="departmentName" label="科室名称">
           </el-table-column>
-          <el-table-column prop="type" label="类型">
+          <el-table-column prop="visits" label="看诊人次">
           </el-table-column>
-          <el-table-column prop="totalMoney" label="总额">
+          <el-table-column prop="invoiceAmount" label="发票数量">
+          </el-table-column>
+          <el-table-column prop="检查费" label="检查费">
+          </el-table-column>
+          <el-table-column prop="检验费" label="检验费">
+          </el-table-column>
+          <el-table-column prop="成药" label="成药费">
+          </el-table-column>
+          <el-table-column prop="处置" label="处置费">
           </el-table-column>
       </el-table>
     </el-card>    
@@ -68,8 +84,7 @@ export default {
     search() {
       statistics.clinicianDepartmentStatistics(this.startDate, this.endDate).then(response => {
         const data = response.data.data;
-        this.clinicianDepartment = [].concat(data.inspectionStatistics).concat(data.recipeStatistics).
-        concat(data.examinationStatistics).concat(data.treatmentStatistics);
+        this.clinicianDepartment = data
         console.log(this.clinicianDepartment)
         
         if(response.data.code===200){
@@ -81,8 +96,7 @@ export default {
 
       statistics.technicianDepartmentStatistics(this.startDate, this.endDate).then(response => {
         const data = response.data.data
-        this.technicianDepartment = [].concat(data.inspectionStatistics).concat(data.recipeStatistics).
-        concat(data.examinationStatistics).concat(data.treatmentStatistics);
+        this.technicianDepartment = data
         console.log(this.technicianDepartment)
       })
     },

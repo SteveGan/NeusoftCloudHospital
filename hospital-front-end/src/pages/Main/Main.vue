@@ -7,9 +7,9 @@
     <!--  统计数据部分    -->
     <div>
       <!--  标题："数据统计"      -->
-      <div>
+      <!-- <div>
         <p class="title">历史数据统计</p>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

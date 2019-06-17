@@ -1,9 +1,9 @@
 <template>
 <div class="container">
-  <div class="drug-station" style="margin: 15px 30px 30px 25px;">
+  <div class="drug-station" style="margin: 0px 30px 30px 25px;">
     <!-- 左侧搜索区域 -->
     <div class="left-side">
-      <el-card shadow="hover">
+      <el-card shadow="hover" style="margin-top: 15px;">
         <div slot="header">
           <span>查询</span>
         </div>
@@ -32,7 +32,7 @@
     </div>
     <!-- 右侧操作区 -->
     <div class="right-side">
-      <el-card shadow="hover">
+      <el-card shadow="hover" style="margin-top: 15px;">
         <div slot="header">
           <span>发药管理</span>
           <el-button
@@ -386,6 +386,7 @@ export default {
 .container{
   background-color: #f2f7f8;
   height: 100vh;
+  margin-top: 0;
 }
 
 .drug-station {
