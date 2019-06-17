@@ -214,11 +214,116 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("ruleId", entry.getKey());
-            jsonObject.put("arrangementRule", entry.getValue());
+            jsonObject = formatJson(jsonObject, entry.getValue());
             jsonArray.add(jsonObject);
         }
         returnJson.put("arrangementRules", jsonArray);
         return CommonResult.success(returnJson);
     }
+
+    /**
+     * List转成JSON格式
+     */
+    public JSONObject formatJson(JSONObject jsonObject, List<HashMap> arrangementRule){
+        JSONArray personalRulesArray = new JSONArray();
+        //规则下每个role
+        //转换成String
+        //14位 每一位表示一个时间段 1.安排 0.不安排
+        for(HashMap personalRule : arrangementRule){
+            String timeStr = "";
+            if((Boolean)personalRule.get("monAm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("monAm");
+            if((Boolean)personalRule.get("monPm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("monPm");
+            if((Boolean)personalRule.get("tueAm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("tueAm");
+            if((Boolean)personalRule.get("tuePm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("tuePm");
+            if((Boolean)personalRule.get("wedAm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("wedAm");
+            if((Boolean)personalRule.get("wedPm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("wedPm");
+            if((Boolean)personalRule.get("thuAm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("thuAm");
+            if((Boolean)personalRule.get("thuPm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("thuPm");
+            if((Boolean)personalRule.get("friAm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("friAm");
+            if((Boolean)personalRule.get("friPm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("friPm");
+            if((Boolean)personalRule.get("satAm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("satAm");
+            if((Boolean)personalRule.get("satPm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("satPm");
+            if((Boolean)personalRule.get("sunAm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("sunAm");
+            if((Boolean)personalRule.get("sunPm") == true)
+                timeStr = timeStr + 1;
+            else
+                timeStr = timeStr + 0;
+            personalRule.remove("sunPm");
+            personalRule.put("ruleTime", timeStr);
+            personalRulesArray.add(personalRule);
+        }
+
+        jsonObject.put("arrangementRule", personalRulesArray);
+        return jsonObject;
+    }
+
+
+    /**
+     * 查看某科室排班结果信息
+     * @param startDate
+     * @param endDate
+     * @param departmentId
+     */
+    @Override
+    public CommonResult listArrangements(Date startDate, Date endDate, Integer departmentId){
+
+        List<Arrangement> arrangements = arrangementMapper.listByDepartmentIdAndDate(startDate, endDate, departmentId);
+
+        return null;
+
+    }
+
 
 }
