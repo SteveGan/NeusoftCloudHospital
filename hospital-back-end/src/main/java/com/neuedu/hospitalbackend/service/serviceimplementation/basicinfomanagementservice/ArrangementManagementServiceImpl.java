@@ -318,9 +318,9 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
      */
     @Override
     public CommonResult listArrangements(Date startDate, Date endDate, Integer departmentId){
-
+       JSONObject returnJson = new JSONObject();
         List<Arrangement> arrangements = arrangementMapper.listByDepartmentIdAndDate(startDate, endDate, departmentId);
-
+        returnJson.put("arrangements", arrangements);
         return null;
 
     }
