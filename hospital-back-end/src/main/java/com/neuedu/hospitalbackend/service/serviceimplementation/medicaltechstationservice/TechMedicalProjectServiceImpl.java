@@ -24,7 +24,9 @@ import java.util.List;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_711;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_801;
 
-
+/**
+ * @author Polaris
+ */
 @Service
 public class TechMedicalProjectServiceImpl implements TechMedicalProjectService {
 

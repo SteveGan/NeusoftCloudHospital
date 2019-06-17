@@ -7,9 +7,9 @@ import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.Patient
 import com.neuedu.hospitalbackend.service.serviceinterface.pharmacystationservice.PharmacyService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,9 +18,9 @@ import java.util.List;
 @CrossOrigin
 public class PharmacyController {
 
-    @Autowired
+    @Resource
     private PharmacyService pharmacyService;
-    @Autowired
+    @Resource
     private PatientService patientService;
 
     @ApiOperation("根据病历号或日期，查询开立的处方信息")
@@ -49,7 +49,6 @@ public class PharmacyController {
     @ApiOperation("执行退药操作")
     @RequestMapping(value = "/return", method = RequestMethod.POST)
     public CommonResult returnMedicine(@RequestBody List<RecipeParam> recipeParams){
-        System.out.println("hahahahah");
         return pharmacyService.returnMedicine(recipeParams);
     }
 }

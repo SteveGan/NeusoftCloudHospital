@@ -6,23 +6,25 @@ import com.neuedu.hospitalbackend.model.po.DailySummaryLog;
 import com.neuedu.hospitalbackend.model.vo.DailySummaryParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.DailySummaryService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.*;
 
-@Component
+/**
+ * @author Polaris
+ */
+@Service
 public class DailySummaryServiceImpl implements DailySummaryService {
 
-    @Autowired
+    @Resource
     private TransactionLogMapper transactionLogMapper;
-    @Autowired
+    @Resource
     private DailySummaryLogMapper dailySummaryLogMapper;
 
     @Override

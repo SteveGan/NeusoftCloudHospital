@@ -1,9 +1,9 @@
 <template lang="html">
-  <el-container style="height: 90vh;">
+  <el-container style="height: 90vh; background-color: #f2f7f8;">
     <el-aside width="400px">
       <!-- 侧栏区域 -->
       <div class="side-bar">
-        <el-card shadow="hover">
+        <el-card shadow="hover" style="margin: 0px 0px 30px 25px;">
         <!-- 搜索区 -->
         <div slot="header">
           <span>查询</span>
@@ -24,7 +24,7 @@
         </div>
         </el-card>
         <!-- 待登记户区 -->
-        <el-card shadow="hover">
+        <el-card shadow="hover" style="margin: 0px 0px 30px 25px;">
           <div slot="header">
             <span>待登记病人</span>
           </div>
@@ -49,7 +49,7 @@
         </el-card>
 
         <!-- 已登记项目区 -->
-        <el-card shadow="hover">
+        <el-card shadow="hover" style="margin: 0px 0px 30px 25px;">
           <div slot="header">
             <span>已登记项目</span>
           </div>
@@ -82,7 +82,7 @@
 
 
       <!-- 当前病人信息 -->
-      <el-card shadow="hover" :body-style="{ padding: '5px'}" class="info-card" v-if="patientCard">
+      <el-card shadow="hover" style="margin: 0 15px 30px 0;" class="info-card" v-if="patientCard">
         <div class="current-user">
           <!-- 基本信息 -->
           <div class="basic-info">
@@ -102,7 +102,7 @@
       <!-- 当前病人待做项目 -->
       <el-table v-loading="loading2"
         :data="itemList"
-        style="width: 100%"
+        style="margin: 0 15px 30px 0;"
         v-if="itemTable"
         >
         <el-table-column
@@ -150,7 +150,7 @@
       </el-table>
 
       <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" style="overflow:vible" v-if="resultForm">
+      <el-tabs type="border-card" style="overflow:vible; margin: 0 15px 30px 0;" v-if="resultForm">
         <!-- 结果录入tab-->
         <el-tab-pane label="结果录入">
           <!-- 结果录入模块 -->
@@ -507,7 +507,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #fafafa;
 }
 
 .search-user {

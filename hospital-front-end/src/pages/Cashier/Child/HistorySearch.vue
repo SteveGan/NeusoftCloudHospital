@@ -1,6 +1,6 @@
 <template lang="html">
-    <div>
-        <el-card style="margin: 5px 4px;s" shadow="hover">
+    <div style="height: 100vh">
+        <el-card style="margin: 0 30px 0 25px;" shadow="hover">
             <div slot="header">
                 <span>查询条件</span>
             </div>
@@ -18,7 +18,7 @@
             </el-form>
         </el-card>
         <div class="main-container">
-            <el-card style="width:300px; margin: 5px 4px;s" shadow="hover">
+            <el-card style="width:400px; margin: 30px 30px 30px 25px;" shadow="hover">
                 <div slot="header">
                     <span>日结信息列表</span>
                 </div>
@@ -32,7 +32,7 @@
                 </el-table>
 
             </el-card>
-            <el-card style="width:1000px; margin: 5px 4px;s" shadow="hover">
+            <el-card style="margin: 30px 30px 30px 0; width:100%" shadow="hover">
                 <div slot="header">
                     <span>日结明细</span>
                 </div>

@@ -1,13 +1,10 @@
 package com.neuedu.hospitalbackend.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.vo.ProjectParam;
 import com.neuedu.hospitalbackend.model.vo.PatientParam;
 import com.neuedu.hospitalbackend.service.serviceimplementation.medicaltechstationservice.TechMedicalProjectServiceImpl;
-import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

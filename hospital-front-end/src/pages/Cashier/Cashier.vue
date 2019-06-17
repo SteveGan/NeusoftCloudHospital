@@ -43,6 +43,6 @@ export default {
   
 }
 .cashier{
-background-color: #f8f8f8;
+  background-color: #f2f7f8;
 }
 </style>

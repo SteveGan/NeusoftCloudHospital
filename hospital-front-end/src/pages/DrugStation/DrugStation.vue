@@ -1,8 +1,9 @@
 <template>
-  <div class="drug-station">
+<div class="container">
+  <div class="drug-station" style="margin: 0px 30px 30px 25px;">
     <!-- 左侧搜索区域 -->
     <div class="left-side">
-      <el-card shadow="hover">
+      <el-card shadow="hover" style="margin-top: 15px;">
         <div slot="header">
           <span>查询</span>
         </div>
@@ -31,7 +32,7 @@
     </div>
     <!-- 右侧操作区 -->
     <div class="right-side">
-      <el-card shadow="hover">
+      <el-card shadow="hover" style="margin-top: 15px;">
         <div slot="header">
           <span>发药管理</span>
           <el-button
@@ -58,7 +59,7 @@
           </el-table>
         </div>
       </el-card>
-      <el-card shadow="hover">
+      <el-card shadow="hover" style="margin-top: 30px">
         <div slot="header">
           <span>退药管理</span>
           <el-button
@@ -90,7 +91,7 @@
           </el-table>
         </div>
       </el-card>
-      <el-card shadow="hover">
+      <el-card shadow="hover" style="margin-top: 30px">
         <div slot="header">
           <span>全部</span>
         </div>
@@ -118,6 +119,7 @@
       <div></div>
     </el-dialog>
   </div>
+</div>
 </template>
 
 <script>
@@ -381,6 +383,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.container{
+  background-color: #f2f7f8;
+  height: 100vh;
+  margin-top: 0;
+}
+
 .drug-station {
   display: grid;
   grid-template-columns: 30% 70%;
@@ -391,7 +399,7 @@ export default {
   grid-column: 1 /2;
 }
 .right-side {
-  margin: 3px;
+  margin: 0 0 30px 30px;
   grid-column: 2 / 2;
 }
 

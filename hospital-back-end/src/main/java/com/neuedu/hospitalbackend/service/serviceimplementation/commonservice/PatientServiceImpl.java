@@ -5,18 +5,22 @@ import com.neuedu.hospitalbackend.model.dao.RegistrationMapper;
 import com.neuedu.hospitalbackend.model.po.Patient;
 import com.neuedu.hospitalbackend.model.po.Registration;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_702;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_703;
 
+/**
+ * @author Polaris
+ */
 @Service
 public class PatientServiceImpl implements com.neuedu.hospitalbackend.service.serviceinterface.commonservice.PatientService {
 
-    @Autowired
+    @Resource
     private PatientMapper patientMapper;
-    @Autowired
+    @Resource
     private RegistrationMapper registrationMapper;
 
     public CommonResult getPatientInfo(Integer registrationId) {

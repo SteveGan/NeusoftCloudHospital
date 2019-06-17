@@ -4,7 +4,6 @@ import com.neuedu.hospitalbackend.model.po.Cost;
 
 /**
  * 6.1 费用科目管理(基础信息查询)
- * @author Raven
  */
 public interface CostManagementService {
 

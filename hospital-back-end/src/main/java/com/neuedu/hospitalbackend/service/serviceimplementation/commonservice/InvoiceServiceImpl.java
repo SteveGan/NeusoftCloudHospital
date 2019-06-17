@@ -3,13 +3,17 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.commonservice;
 import com.neuedu.hospitalbackend.model.dao.InvoiceMapper;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.InvoiceService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
+/**
+ * @author Polaris
+ */
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
-    @Autowired
+    @Resource
     private InvoiceMapper invoiceMapper;
 
     @Override

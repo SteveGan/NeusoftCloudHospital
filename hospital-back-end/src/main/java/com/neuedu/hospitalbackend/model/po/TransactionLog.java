@@ -174,14 +174,6 @@ public class TransactionLog implements Cloneable {
         isFrozen = frozen;
     }
 
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
     public Object clone() {
         Object obj=null;
         //调用Object类的clone方法，返回一个Object实例
