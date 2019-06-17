@@ -301,6 +301,7 @@ export default {
 
     // 提交
     submit() {
+      this.save();
       var object = {};
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
@@ -402,6 +403,19 @@ export default {
       // this.patientCard = true;
 
       this.currentProject = val;
+      console.log(val)
+      var object = {};
+      object.departmentId = this.$store.getters['user/currentDepartmentId'];
+      object.collectionId = val.id;
+      object.projectId = val.projectId;
+      techDoctor.showResult(object).then(response => {
+        const data = response.data.data;
+        console.log(data);
+
+        this.resultDescription = data.resultDescription;
+        this.advice = data.advice;
+        this.resultImage = data.resultImage;
+      })
     },
 
     // 选中患者展示待做项目列表

@@ -160,16 +160,16 @@ public class PaymentServiceImpl implements PaymentService {
 
                 // 在检查/检验/处置表中更改想要退费的项目状态 --已作废
                 switch (itemCategory){
-                    case 1:
+                    case (byte)1:
                         inspectionMapper.updateStatus(returnedCollectionId, returnedProjectId, (byte) 3);
                         break;
-                    case 2:
+                    case (byte)2:
                         examinationMapper.updateStatus(returnedCollectionId, returnedProjectId, (byte) 3);
                         break;
-                    case 3:
+                    case (byte)3:
                         treatmentMapper.updateStatus(returnedCollectionId, returnedProjectId, (byte) 3);
                         break;
-                    case 4:
+                    case (byte)4:
                         //如果药品本身是已退药的状态,则无需更改对应药品状态和数量
                         //如果药品本身是开立（未取药）的状态，则需更改对应处方中药品的remain amount
                         Short returnedReturnAmount = returnedProject.getReturnAmount();
@@ -215,7 +215,7 @@ public class PaymentServiceImpl implements PaymentService {
             //对于药品来说，没有都被退费：某个退费的项目returnAmount != amount / transactionLogs.size() != returnedProjectList.size()
             boolean isRecipeAllReturn = true;
             for(TransactionParam project: returnedProjectList){
-                if(!project.getRemainAmount().equals(project.getReturnAmount()))
+                if(project.getRemainAmount() > 0)
                     isRecipeAllReturn = false;
             }
 

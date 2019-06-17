@@ -14,7 +14,7 @@
         </view>
         <view class="info-bd">
           <view class="info-bd-left">
-            <text class="user-text">性别：{{userInfo.gender}}</text>
+            <text class="user-text">性别：{{userInfo.genderCast}}</text>
             <text class="user-text">地址：{{userInfo.address}}</text>
           </view>
           <view class="info-bd-right">
