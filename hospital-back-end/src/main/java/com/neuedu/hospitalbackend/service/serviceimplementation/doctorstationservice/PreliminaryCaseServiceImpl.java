@@ -206,8 +206,8 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
             return CommonResult.fail(ResultCode.E_801);//病历号参数异常
         //状态检查
         int curStatus = patientCaseMapper.getPatientCaseStatus(caseId);
-        if (1 != curStatus && 2 != curStatus)//待诊或暂存状态
-            return CommonResult.fail(ResultCode.E_804);//操作权限异常
+//        if (1 != curStatus && 2 != curStatus)//待诊或暂存状态
+//            return CommonResult.fail(ResultCode.E_804);//操作权限异常
 
         //暂存或提交
         //病历

@@ -248,6 +248,7 @@ export default {
       this.myCaseTemplates.push(
         JSON.parse(JSON.stringify(this.newCaseTemplate))
       );
+
       // 将当前的新模版发送给后端
       this.newCaseTemplate.roleId = this.$store.getters["user/currentRoleId"];
       submitNewCaseTemplate(this.newCaseTemplate).then(
