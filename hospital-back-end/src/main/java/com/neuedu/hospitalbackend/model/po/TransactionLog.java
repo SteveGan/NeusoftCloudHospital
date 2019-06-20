@@ -20,6 +20,8 @@ public class TransactionLog implements Cloneable {
 
     private Integer projectId;
 
+    private String projectName;
+
     private String itemId;
 
     private String itemName;
@@ -108,6 +110,14 @@ public class TransactionLog implements Cloneable {
 
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getItemId() {
