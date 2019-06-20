@@ -1789,6 +1789,7 @@ project_id</ColNames>
       <Comment>数量</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="387" parent="240" name="PRIMARY">
@@ -2012,6 +2013,7 @@ project_id</ColNames>
       <Comment>数量</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="422" parent="243" name="PRIMARY">
@@ -3072,7 +3074,6 @@ medicine_id</ColNames>
       <Position>5</Position>
       <Comment>收费员角色id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="588" parent="259" name="type">

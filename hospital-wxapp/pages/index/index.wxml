@@ -8,11 +8,11 @@
     <view class='text-lg header'>
       <text class='icon-shop'> 掌上医院</text>
     </view>
-    <navigator url="/pages/online/online" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
-      <view class="matrix-btn yygh">
-        <icon class="yygh" />
-        <view class="title">预约挂号</view>
-        <view class="info">无需排队 免费挂号</view>
+    <navigator url="/pages/case/case" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
+      <view class="matrix-btn user">
+        <icon class="user" />
+        <view class="title">病历查询</view>
+        <view class="info">电子病历 即用即查</view>
       </view>
     </navigator>
     <button open-type="contact" class="nav-btn active" hover-class="nav-hover">
@@ -22,18 +22,18 @@
         <view class="info">足不出户 咨询专家</view>
       </view>
     </button>
-    <navigator url="/pages/case/case" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
-      <view class="matrix-btn user">
-        <icon class="user" />
-        <view class="title">病历查询</view>
-        <view class="info">电子病历 即用即查</view>
-      </view>
-    </navigator>
     <navigator url="/pages/about/about" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
       <view class="matrix-btn gtpp">
         <icon class="gtpp" />
         <view class="title">熙康品牌</view>
         <view class="info">爱与健康 连接你我</view>
+      </view>
+    </navigator>
+    <navigator url="/pages/about/about" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
+      <view class="matrix-btn yygh">
+        <icon class="gtpp" />
+        <view class="title">预约挂号</view>
+        <view class="info">无需排队 免费挂号</view>
       </view>
     </navigator>
   </view>
