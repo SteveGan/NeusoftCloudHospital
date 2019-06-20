@@ -245,7 +245,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             transactionLog.setType("成药");
         transactionLog.setCollectionId(collectionId);
         transactionLog.setProjectId(projectId);
-        transactionLog.setItemName(medicineName);
+        transactionLog.setProjectName(medicineName);
         transactionLog.setAmount(amount);
         transactionLog.setTotalMoney(totalMoney);
 
