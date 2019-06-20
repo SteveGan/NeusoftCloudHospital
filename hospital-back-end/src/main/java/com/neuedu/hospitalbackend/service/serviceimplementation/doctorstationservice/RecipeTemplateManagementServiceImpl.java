@@ -2,6 +2,7 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationse
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.model.dao.MedicineMapper;
 import com.neuedu.hospitalbackend.model.dao.RecipeTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
 import com.neuedu.hospitalbackend.model.po.RecipeTemplate;
@@ -25,6 +26,8 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
     RecipeTemplateMapper recipeTemplateMapper;
     @Resource
     RoleMapper roleMapper;
+    @Resource
+    MedicineMapper medicineMapper;
 
 
     /**
@@ -55,7 +58,8 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
             recipeTemplate.setRoleId(roleId);
             recipeTemplate.setDepartmentId(132); //药局
             recipeTemplate.setScope(scope);
-            recipeTemplate.setMedicineCode(recipeParam.getMedicineCode());
+            String medicineCode = medicineMapper.getCodeById(recipeParam.getMedicineId());
+            recipeTemplate.setMedicineCode(medicineCode);
             recipeTemplate.setType(recipeParam.getMedicineType());
             recipeTemplate.setDosage(recipeParam.getDosage());
             recipeTemplate.setDosageUnit(recipeParam.getMedicineUnit());
