@@ -13,6 +13,7 @@
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
+        <result column="project_name" property="projectName" jdbcType="VARCHAR" />
         <result column="item_id" property="itemId" jdbcType="VARCHAR" />
         <result column="item_name" property="itemName" jdbcType="VARCHAR" />
         <result column="amount" property="amount" jdbcType="SMALLINT" />
@@ -66,6 +67,9 @@
             <if test="projectId != null">
                 project_id,
             </if>
+            <if test="projectName != null">
+                project_name,
+            </if>
             <if test="itemId != null">
                 item_id,
             </if>
@@ -110,6 +114,9 @@
             <if test="projectId != null">
                 #{projectId,jdbcType=INTEGER},
             </if>
+            <if test="projectName != null">
+                #{projectName,jdbcType=VARCHAR},
+            </if>
             <if test="itemId != null">
                 #{itemId,jdbcType=VARCHAR},
             </if>
@@ -141,6 +148,7 @@
             <if test="type != null"> type = #{type}, </if>
             <if test="collectionId != null"> collection_id = #{collectionId}, </if>
             <if test="projectId != null"> project_id = #{projectId}, </if>
+            <if test="projectName != null"> project_name = #{projectName}, </if>
             <if test="itemId != null"> item_id = #{itemId}, </if>
             <if test="itemName != null"> item_name = #{itemName}, </if>
             <if test="amount != null"> amount = #{amount}, </if>
@@ -174,6 +182,7 @@
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
+        <result column="project_name" property="projectName" jdbcType="VARCHAR" />
         <result column="item_id" property="itemId" jdbcType="VARCHAR" />
         <result column="item_name" property="itemName" jdbcType="VARCHAR" />
         <result column="amount" property="amount" jdbcType="SMALLINT" />
