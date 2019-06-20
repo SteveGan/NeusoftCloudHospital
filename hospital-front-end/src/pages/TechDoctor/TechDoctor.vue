@@ -3,7 +3,7 @@
     <el-aside width="400px">
       <!-- 侧栏区域 -->
       <div class="side-bar">
-        <el-card shadow="hover" style="margin: 0px 0px 30px 25px;">
+        <el-card shadow="hover" style="margin: 10px 0px 30px 25px;">
         <!-- 搜索区 -->
         <div slot="header">
           <span>查询</span>
@@ -99,11 +99,14 @@
         </div>
       </el-card>
 
+      <el-card shadow="hover" v-if="itemTable" v-loading="loading2">
+      <div slot="header">
+        <span>全部项目</span>
+      </div>
       <!-- 当前病人待做项目 -->
-      <el-table v-loading="loading2"
+      <el-table 
         :data="itemList"
         style="margin: 0 15px 30px 0;"
-        v-if="itemTable"
         >
         <el-table-column
           type="index"
@@ -148,6 +151,7 @@
           </template>
         </el-table-column>        
       </el-table>
+      </el-card>
 
       <!-- 导航栏(也就是一个标签页) -->
       <el-tabs type="border-card" style="overflow:vible; margin: 0 15px 30px 0;" v-if="resultForm">
@@ -297,6 +301,7 @@ export default {
 
     // 提交
     submit() {
+      this.save();
       var object = {};
       object.collectionId = this.currentProject.id;
       object.projectId = this.currentProject.projectId;
@@ -398,6 +403,19 @@ export default {
       // this.patientCard = true;
 
       this.currentProject = val;
+      console.log(val)
+      var object = {};
+      object.departmentId = this.$store.getters['user/currentDepartmentId'];
+      object.collectionId = val.id;
+      object.projectId = val.projectId;
+      techDoctor.showResult(object).then(response => {
+        const data = response.data.data;
+        console.log(data);
+
+        this.resultDescription = data.resultDescription;
+        this.advice = data.advice;
+        this.resultImage = data.resultImage;
+      })
     },
 
     // 选中患者展示待做项目列表

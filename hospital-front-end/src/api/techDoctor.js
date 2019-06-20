@@ -47,6 +47,15 @@ export default {
     })
   },
 
+  // 录入项目结果
+  showResult(object){
+    return request({
+      url: '/techproject/result',
+      method: 'get',
+      params: object
+    })
+  },
+
   // 确定某项目执行完毕
   confirmProject(object){
     return request({

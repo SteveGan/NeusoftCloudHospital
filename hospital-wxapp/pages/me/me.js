@@ -37,6 +37,12 @@ Page({
       dataType: 'json',
       success: function (res) {
         console.log(res);
+        const data = res.data.data;
+        if(data.gender == 1){
+          data.genderCast = "男";
+        } else {
+          data.genderCast = "女";
+        }
         that.setData({
           userInfo: res.data.data
         })

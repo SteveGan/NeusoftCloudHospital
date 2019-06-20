@@ -26,15 +26,15 @@
     </el-form>
 
     <el-table :data="rules" border style="width: 100%" highlight-current-row @current-change="handleCurrentChange">
-      <el-table-column type="selection" width="55">
+      <el-table-column type="index" width="50">
       </el-table-column>
-      <el-table-column prop="ruleId" label="规则名称">
+      <el-table-column prop="id" label="规则名称">
       </el-table-column>
-      <el-table-column prop="arrangementRule.adminId" label="科室名称">
+      <el-table-column prop="departmentId" label="科室名称">
       </el-table-column>
-      <el-table-column prop="arrangementRule.name" label="医生姓名">
+      <el-table-column prop="name" label="医生姓名">
       </el-table-column>
-      <el-table-column prop="arrangementRule.titleId" label="时间">
+      <el-table-column prop="ruleTime" label="时间">
       </el-table-column>
     </el-table>
   </el-card>
@@ -56,7 +56,6 @@ export default {
       endDate: "",
 
       rules: [],
-      multipleSelection: [],
       id: 1,
       currentRow: {}
     }
@@ -78,8 +77,9 @@ export default {
     search() {
       rule.listArrangementRules(this.departmentId).then(response => {
         console.log(response.data);
-        const rules = response.data.data.arrangementRules;
-         this.success("搜索");
+        const rules = response.data.data.arrangementRule;
+
+        this.success("搜索");
         this.rules = rules;
       })
     },

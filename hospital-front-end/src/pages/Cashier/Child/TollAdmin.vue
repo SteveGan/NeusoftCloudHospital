@@ -59,7 +59,7 @@
     </div>
     <!-- 右侧显示列表，展示已交费和未交费项目 -->
     <div class="edit-board" >
-      <el-card shadow="hover" style="margin: 0 30px 30px 0; width:100%">
+      <el-card shadow="hover" style="margin: 0 30px 30px 0;">
         <div slot="header">
           <span>待缴费清单</span>
         </div>
@@ -92,7 +92,7 @@
         </div>
       </el-card>
 
-      <el-card shadow="hover" style="margin: 30px 30px 30px 0; width:100%">
+      <el-card shadow="hover" style="margin: 30px 30px 30px 0;">
         <div slot="header">
           <span>已缴费清单</span>
         </div>
@@ -173,7 +173,7 @@ export default {
         2: "开立",
         3: "作废",
         4: "已登记",
-        5: "已退药"
+        5: "已退药/执行完毕"
       },
 
       loading1: false,
@@ -222,7 +222,7 @@ export default {
         this.chargeSelection[i].roleId = this.currentRoleId;
       }
       charge.charge(this.chargeSelection).then(response => {
-        console.log(response.data.data)
+        console.log(response.data.data);
         if(response.data.code===200){
           this.getpaymentInfo();
           this.success("缴费");
@@ -260,6 +260,8 @@ export default {
     
     // 获取病历号所对应的缴费状态
     getpaymentInfo(){
+      this.chargeItems = [];
+      this.withdrawItems = [];
       this.chargeSelection.length = 0;
       this.withdrawSelection.length = 0;
       this.loading1 = true;
