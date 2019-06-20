@@ -58,7 +58,7 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
             recipeTemplate.setMedicineCode(recipeParam.getMedicineCode());
             recipeTemplate.setType(recipeParam.getMedicineType());
             recipeTemplate.setDosage(recipeParam.getDosage());
-            recipeTemplate.setDosageUnit(recipeParam.getDosageUnit());
+            recipeTemplate.setDosageUnit(recipeParam.getMedicineUnit());
             recipeTemplate.setFrequency(recipeParam.getFrequency());
             recipeTemplate.setAmount(recipeParam.getAmount());
             count = recipeTemplateMapper.insertSelective(recipeTemplate);
