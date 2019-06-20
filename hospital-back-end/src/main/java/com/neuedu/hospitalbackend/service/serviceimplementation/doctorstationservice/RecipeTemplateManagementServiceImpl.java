@@ -59,7 +59,7 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
             recipeTemplate.setDepartmentId(132); //药局
             recipeTemplate.setScope(scope);
             recipeTemplate.setMedicineCode(recipeParam.getMedicineCode());
-            recipeTemplate.setType(recipeParam.getType());
+            recipeTemplate.setType(recipeParam.getMedicineType());
             recipeTemplate.setDosage(recipeParam.getDosage());
             recipeTemplate.setDosageUnit(recipeParam.getDosageUnit());
             recipeTemplate.setFrequency(recipeParam.getFrequency());
