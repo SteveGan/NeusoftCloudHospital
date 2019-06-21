@@ -638,6 +638,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
             return CommonResult.fail(ResultCode.E_801);
         Integer collectionId = collectionParam.getCollectionId();
         Integer projectId = projectParam.getProjectId();
+        String projectName = projectParam.getProjectName();
         String itemId;
         String itemName = "";
         BigDecimal price;
@@ -665,6 +666,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         transactionLog.setType(type);
         transactionLog.setCollectionId(collectionId);
         transactionLog.setProjectId(projectId);
+        transactionLog.setProjectName(projectName);
         transactionLog.setItemId(itemId);
         transactionLog.setItemName(itemName);
         transactionLog.setAmount(amount);

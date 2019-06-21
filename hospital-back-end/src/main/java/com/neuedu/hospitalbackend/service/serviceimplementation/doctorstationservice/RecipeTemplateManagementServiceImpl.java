@@ -1,18 +1,16 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationservice;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.hospitalbackend.model.dao.MedicineMapper;
 import com.neuedu.hospitalbackend.model.dao.RecipeTemplateMapper;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
-import com.neuedu.hospitalbackend.model.po.Recipe;
 import com.neuedu.hospitalbackend.model.po.RecipeTemplate;
 import com.neuedu.hospitalbackend.model.vo.RecipeParam;
 import com.neuedu.hospitalbackend.model.vo.RecipeTemplateParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.doctorstationservice.RecipeTemplateManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
-import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +26,8 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
     RecipeTemplateMapper recipeTemplateMapper;
     @Resource
     RoleMapper roleMapper;
+    @Resource
+    MedicineMapper medicineMapper;
 
 
     /**
@@ -51,17 +51,18 @@ public class RecipeTemplateManagementServiceImpl implements RecipeTemplateManage
             return CommonResult.fail(ResultCode.E_806);
 
         //插入处方模板
-        List<RecipeParam> recipeParams = recipeTemplateParam.getRecipes();
+        List<RecipeParam> recipeParams = recipeTemplateParam.getMedicines();
         for(RecipeParam recipeParam : recipeParams){
             RecipeTemplate recipeTemplate = new RecipeTemplate();
             recipeTemplate.setName(name);
             recipeTemplate.setRoleId(roleId);
             recipeTemplate.setDepartmentId(132); //药局
             recipeTemplate.setScope(scope);
-            recipeTemplate.setMedicineCode(recipeParam.getMedicineCode());
+            String medicineCode = medicineMapper.getCodeById(recipeParam.getMedicineId());
+            recipeTemplate.setMedicineCode(medicineCode);
             recipeTemplate.setType(recipeParam.getMedicineType());
             recipeTemplate.setDosage(recipeParam.getDosage());
-            recipeTemplate.setDosageUnit(recipeParam.getDosageUnit());
+            recipeTemplate.setDosageUnit(recipeParam.getMedicineUnit());
             recipeTemplate.setFrequency(recipeParam.getFrequency());
             recipeTemplate.setAmount(recipeParam.getAmount());
             count = recipeTemplateMapper.insertSelective(recipeTemplate);

@@ -47,7 +47,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         //处方类型：0该患者无处方，1中草药处方，2其他处方（成药）
         if(recipeLogs.size() == 0) {
             returnJson.put("type", 0);
-            returnJson.put("recipes", new JSONArray());
+            returnJson.put("medicines", new JSONArray());
             return CommonResult.success(returnJson);
         }
         if((Integer)recipeLogs.get(0).get("medicineType") == 1)
@@ -75,7 +75,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             jsonObject.put("medicines", entry.getValue());
             jsonArray.add(jsonObject);
         }
-        returnJson.put("recipes", jsonArray);
+        returnJson.put("medicines", jsonArray);
         return CommonResult.success(returnJson);
     }
 
@@ -245,7 +245,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             transactionLog.setType("成药");
         transactionLog.setCollectionId(collectionId);
         transactionLog.setProjectId(projectId);
-        transactionLog.setItemName(medicineName);
+        transactionLog.setProjectName(medicineName);
         transactionLog.setAmount(amount);
         transactionLog.setTotalMoney(totalMoney);
 

@@ -13,6 +13,7 @@ public class TransactionParam {
     private String type;
     private Integer collectionId;
     private Integer projectId;
+    private String projectName;
     private String itemId;
     private String itemName;
     private Short amount;
@@ -87,6 +88,14 @@ public class TransactionParam {
 
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getItemId() {

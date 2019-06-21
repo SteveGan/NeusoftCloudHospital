@@ -30,4 +30,6 @@ public interface MedicineMapper {
     List<Medicine> listTraditionalMedicine();
 
     List<Medicine> listModernMedicine();
+
+    String getCodeById(Integer id);
 }

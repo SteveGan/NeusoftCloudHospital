@@ -62,4 +62,10 @@
         limit 50
     </select>
 
+    <select id="getCodeById" resultType="String">
+        select code
+        from medicine
+        where id = #{id}
+    </select>
+
 </mapper>
