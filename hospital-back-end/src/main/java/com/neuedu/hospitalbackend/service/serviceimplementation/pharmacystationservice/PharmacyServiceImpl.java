@@ -45,15 +45,23 @@ public class PharmacyServiceImpl implements PharmacyService {
 
     public CommonResult deliverMedicine(List<RecipeParam> recipeParams){
         int count = 0;
+
         for(RecipeParam r: recipeParams){
+            Byte transactionLogStatus = r.getTransactionLogStatus();
+            Byte medicineStatus = r.getStatus();
+            Integer medicineId = r.getMedicineId();
+            Integer recipeId = r.getId();
+            Integer deliverRoleId = r.getDeliverRoleId();
+            Short remainAmount = r.getRemainAmount();
+
             //取药条件：已缴费 + 开立 且该要有库存
-            if(r.getTransactionLogStatus() == 2 && r.getStatus() == 2){
+            if(transactionLogStatus == 2 && medicineStatus == 2){
                 //查询药品库存
-                if (inventoryMapper.getRemainingAmountByMedicineId(r.getMedicineId()) > 0){
+                if (inventoryMapper.getRemainingAmountByMedicineId(medicineId) > remainAmount){
                     //更新对应的recipe状态和发药人id --已取药
-                    count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte) 4, r.getDeliverRoleId());
+                    count += recipeMapper.updateStatusAndDeliverId(recipeId, medicineId, (byte) 4,deliverRoleId);
                     //更新对应药品的库存
-                    inventoryMapper.updateInventory(r.getMedicineId(), r.getRemainAmount());
+                    inventoryMapper.updateInventory(medicineId, remainAmount);
                 }
                 else
                     return CommonResult.fail(E_707);
@@ -70,15 +78,23 @@ public class PharmacyServiceImpl implements PharmacyService {
     public CommonResult returnMedicine(List<RecipeParam> recipeParams){
         int count = 0;
         for(RecipeParam r: recipeParams){
+            Byte transactionLogStatus = r.getTransactionLogStatus();
+            Byte medicineStatus = r.getStatus();
+            Integer medicineId = r.getMedicineId();
+            Integer recipeId = r.getId();
+            Integer deliverRoleId = r.getDeliverRoleId();
+            Short remainAmount = r.getRemainAmount();
+            Short returnAmount = r.getReturnAmount();
+
             //退药条件：已缴费 + 已取药 / 已缴费 + 已退药且remainAmount > returnAmount
-            if(r.getTransactionLogStatus() == 2 && (r.getStatus() == 4 || r.getStatus() == 5)){
-                if (r.getReturnAmount() <= r.getRemainAmount()){
+            if(transactionLogStatus == 2 && (medicineStatus == 4 || medicineStatus == 5)){
+                if (returnAmount <= remainAmount){
                     //更新对应的药品剩余数量
-                    count += recipeMapper.updateRemainAmount(r.getId(), r.getMedicineId(), r.getReturnAmount());
+                    count += recipeMapper.updateRemainAmount(recipeId, medicineId, returnAmount);
                     //更新对应的recipe状态和退药人
-                    count += recipeMapper.updateStatusAndDeliverId(r.getId(), r.getMedicineId(), (byte)5, r.getDeliverRoleId());
+                    count += recipeMapper.updateStatusAndDeliverId(recipeId, medicineId, (byte)5, deliverRoleId);
                     //更新对应药品的库存
-                    inventoryMapper.updateInventory(r.getMedicineId(), (short) - r.getReturnAmount());
+                    inventoryMapper.updateInventory(medicineId, (short) - returnAmount);
                 }
                 else
                     return CommonResult.fail(E_705);

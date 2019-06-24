@@ -15,8 +15,6 @@ public interface TransactionLogMapper {
 
     int update(TransactionLog transactionLog);
 
-    int selectStatusOfProject(@Param("collectionId") Integer collectionId, @Param("projectId") Integer projectId);
-
     //在退号时得到挂号的缴费记录
     TransactionLog getLogByRegistrationIdAndType(@Param("registrationId") Integer registrationId, @Param("type") String type);
 
@@ -24,7 +22,7 @@ public interface TransactionLogMapper {
     HashMap getRegistrationLog(Integer registrationId);
 
     //列出指定用户的所有发票号、缴费状态
-    List<HashMap> getInvoiceCodeAndStatusByRegistrationId(Integer registrationId);
+    List<HashMap> listInvoiceCodeAndStatusByRegistrationId(Integer registrationId);
 
     //列出 指定病历号的所有医技项目(检查/检验/处置) 缴费记录
     List<HashMap> listLogsByTableName(@Param("tableName") String tableName, @Param("registrationId") Integer registrationId);

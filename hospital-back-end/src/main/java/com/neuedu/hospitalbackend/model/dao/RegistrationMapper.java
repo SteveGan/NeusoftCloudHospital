@@ -27,5 +27,4 @@ public interface RegistrationMapper {
     //小程序-历史挂号列表
     List<HashMap> listRegistrationsByPatientId(Integer patientId);
 
-
 }

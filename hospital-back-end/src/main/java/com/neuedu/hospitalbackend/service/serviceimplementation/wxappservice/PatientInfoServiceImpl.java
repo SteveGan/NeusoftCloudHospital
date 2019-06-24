@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @Author: Raven
+ * @author Raven
  * @Date: 2019/6/11 5:54 PM
  */
 @Service
@@ -30,6 +30,10 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     private TreatmentMapper treatmentMapper;
     @Resource
     private RecipeMapper recipeMapper;
+    @Resource
+    private RoleMapper roleMapper;
+    @Resource
+    private PatientCaseMapper patientCaseMapper;
 
     @Resource
     private PreliminaryCaseService preliminaryCaseService;
@@ -64,5 +68,19 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         returnJson.put("处方信息", recipeMapper.getInfo(caseId));
 
         return CommonResult.success(returnJson);
+    }
+
+    @Override
+    public CommonResult getWaitingAmountById(Integer registrationId){
+        JSONObject jsonObject = new JSONObject();
+
+        HashMap info = patientCaseMapper.getWaitingAmountById(registrationId);
+        Integer roleId = Integer.valueOf(info.get("role_id").toString());
+
+        jsonObject.put("beforeAmount", info.get("before_amount"));
+        jsonObject.put("doctorName", roleMapper.getUserNameByRoleId(roleId));
+        jsonObject.put("departmentName", roleMapper.getDepartmentNameByRoleId(roleId));
+
+        return CommonResult.success(jsonObject);
     }
 }

@@ -19,8 +19,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public synchronized CommonResult getNextInvoiceCode() {
         String nextInvoiceCode = invoiceMapper.getAvailableInvoiceCode();
-        invoiceMapper.updateInvoiceStatusById(nextInvoiceCode);
-        System.out.println("[INFO]正在使用: " + nextInvoiceCode);
+        invoiceMapper.updateInvoiceStatusById((byte)2, nextInvoiceCode);
+        System.out.println("[INFO]正在使用发票号: " + nextInvoiceCode);
         return CommonResult.success(nextInvoiceCode);
+    }
+
+    @Override
+    public CommonResult updateStatus(Byte status, String invoiceCode){
+        int count = invoiceMapper.updateInvoiceStatusById(status, invoiceCode);
+        return CommonResult.success(count);
     }
 }

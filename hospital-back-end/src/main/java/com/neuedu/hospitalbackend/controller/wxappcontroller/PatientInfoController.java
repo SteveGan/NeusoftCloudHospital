@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 
 /**
  * 用于显示患者相关信息，按照列表、详情方式来查询可用于扫码查询
- * @Author: Raven
+ * @author Raven
  * @Date: 2019/6/9 7:28 PM
  */
 @RestController
@@ -37,7 +37,7 @@ public class PatientInfoController {
     @RequestMapping(value = "/registration/{id}", method = RequestMethod.GET)
     public CommonResult getPatientRegistration(@PathVariable(value = "id") Integer registrationId)
     {
-        return null;
+        return patientInfoServiceImpl.getWaitingAmountById(registrationId);
     }
 
     @ApiOperation("获取患者病历信息列表")

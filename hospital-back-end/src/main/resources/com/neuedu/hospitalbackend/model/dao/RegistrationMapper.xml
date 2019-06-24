@@ -203,9 +203,11 @@
     <result column="pay_type" jdbcType="TINYINT" property="payType" />
     <result column="name" jdbcType="VARCHAR" property="departmentName" />
   </resultMap>
-  <select id="listRegistrationsByPatientId" resultMap="JoinMap" parameterType="Integer">
-    select * from registration left join department on registration.department_id = department.id where registration.patient_id = #{patientId}
-  </select>
 
+  <select id="listRegistrationsByPatientId" resultMap="JoinMap" parameterType="Integer">
+    select * from registration
+    left join department on registration.department_id = department.id
+    where registration.patient_id = #{patientId}
+  </select>
 
 </mapper>
