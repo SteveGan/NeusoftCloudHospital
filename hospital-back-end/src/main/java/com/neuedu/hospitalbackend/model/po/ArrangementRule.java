@@ -3,6 +3,8 @@ package com.neuedu.hospitalbackend.model.po;
 public class ArrangementRule {
     private Integer id;
 
+    private String ruleName;
+
     private Integer roleId;
 
     private Boolean isValid;
@@ -51,6 +53,22 @@ public class ArrangementRule {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
+    }
+
+    public Boolean getValid() {
+        return isValid;
+    }
+
+    public void setValid(Boolean valid) {
+        isValid = valid;
     }
 
     public Integer getRoleId() {

@@ -40,8 +40,8 @@ public enum ResultCode implements IErrorCode {
     E_803(803, "删除失败"),
     E_804(804, "操作权限异常"),
     E_805(805, "缺少必填参数"),
-    E_806(806, "该模板名称已存在"),
-    E_807(807, "不存在该模板");
+    E_806(806, "该名称已存在"),
+    E_807(807, "该模板不存在");
 
     private long code;
     private String message;

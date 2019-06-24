@@ -11,7 +11,17 @@ public class ArrangementRuleParam {
 
     private Integer departmentId;
 
+    private String ruleName;
+
     private List<ArrangementRule> arrangementRules;
+
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
+    }
 
     public Integer getAdminId() {
         return adminId;
