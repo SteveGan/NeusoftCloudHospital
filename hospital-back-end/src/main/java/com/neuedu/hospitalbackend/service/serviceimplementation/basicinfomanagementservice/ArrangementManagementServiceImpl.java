@@ -38,6 +38,13 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         int count = 0;
         Integer adminId = arrangementRuleParam.getAdminId();
         Integer departmentId = arrangementRuleParam.getDepartmentId();
+        String ruleName = arrangementRuleParam.getRuleName();
+        //排班规则名称是否重复
+        if(0 != arrangementRuleMapper.listByRuleName(ruleName).size()){
+            return CommonResult.fail(ResultCode.E_806); //名称已存在
+        }
+
+        //排班规则编号
         Integer id = arrangementRuleMapper.getLastId();
         if(id == null)
             id = 0;
@@ -46,6 +53,7 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         List<ArrangementRule> arrangementRuleList = arrangementRuleParam.getArrangementRules();
         for(ArrangementRule arrangementRule : arrangementRuleList){
            arrangementRule.setId(id);
+           arrangementRule.setRuleName(ruleName);
            arrangementRule.setAdminId(adminId);
            arrangementRule.setDepartmentId(departmentId);
            arrangementRule.setIsValid(true);//默认为有效

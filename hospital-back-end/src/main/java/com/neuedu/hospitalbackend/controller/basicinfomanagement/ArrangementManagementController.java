@@ -24,13 +24,13 @@ public class ArrangementManagementController {
         return arrangementManagementService.insertArrangementRule(arrangementRuleParam);
     }
 
-    @ApiOperation("生成排班规则")
+    @ApiOperation("生成排班结果")
     @RequestMapping(value = "/arrangement", method = RequestMethod.POST)
     public CommonResult insertArrangement(@RequestBody ArrangementParam arrangementParam) {
         return arrangementManagementService.insertArrangement(arrangementParam);
     }
 
-    @ApiOperation("查询排班规则具体信息")
+    @ApiOperation("查询排班规则")
     @RequestMapping(value = "/arrangementrules/{departmentId}", method = RequestMethod.GET)
     public CommonResult listArrangementRules(@PathVariable Integer departmentId) {
         return arrangementManagementService.listArrangementRules(departmentId);

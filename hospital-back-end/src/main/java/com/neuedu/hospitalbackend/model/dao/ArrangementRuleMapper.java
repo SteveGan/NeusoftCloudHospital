@@ -15,4 +15,6 @@ public interface ArrangementRuleMapper {
 
     List<HashMap> listArrangementRulesByDepartmentId(Integer departmentId);
 
+    List<HashMap> listByRuleName(String ruleName);
+
 }
