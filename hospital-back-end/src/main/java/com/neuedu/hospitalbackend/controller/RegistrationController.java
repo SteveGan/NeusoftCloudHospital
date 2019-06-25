@@ -58,7 +58,7 @@ public class RegistrationController {
 
     @ApiOperation("恢复未用发票号状态")
     @RequestMapping(value = "/{invoiceCode}", method = RequestMethod.PUT)
-    public CommonResult restoreInvoiceStatus(@PathVariable(value = "invoiceCode")String invoiceCode){
+    public CommonResult restoreInvoiceStatus(@PathVariable(value = "invoiceCode") String invoiceCode){
         return invoiceService.updateStatus((byte)1, invoiceCode);
     }
 }
