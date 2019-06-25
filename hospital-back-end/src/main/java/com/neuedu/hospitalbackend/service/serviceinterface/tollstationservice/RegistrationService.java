@@ -42,4 +42,5 @@ public interface RegistrationService {
      * @return
      */
     CommonResult listRegistrations();
+
 }

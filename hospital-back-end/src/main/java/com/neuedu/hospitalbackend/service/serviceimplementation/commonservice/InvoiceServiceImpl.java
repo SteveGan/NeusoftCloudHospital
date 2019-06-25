@@ -27,6 +27,9 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public CommonResult updateStatus(Byte status, String invoiceCode){
         int count = invoiceMapper.updateInvoiceStatusById(status, invoiceCode);
-        return CommonResult.success(count);
+        if (count > 0)
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
     }
 }
