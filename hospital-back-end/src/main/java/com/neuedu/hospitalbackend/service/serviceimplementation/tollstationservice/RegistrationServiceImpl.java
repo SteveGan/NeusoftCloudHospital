@@ -186,6 +186,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 patientCase.setPatientId(patientId);
                 patientCase.setPatientName(name);
                 patientCase.setRoleId(doctorId);
+                patientCase.setAppointmentDate(Date.valueOf(appointmentDateStr));
                 int count6 = patientCaseMapper.insertSelective(patientCase);
                 jsonObject.put("insertPatientCase", count6);
                 if ((count1 + count2 + count3 + count4 + count5 + count6) != 6)

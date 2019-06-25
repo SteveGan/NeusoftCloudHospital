@@ -29,5 +29,7 @@ public interface PatientCaseMapper {
     Integer getPatientIdByCaseId(Integer caseId);
 
     //小程序--列出指定患者之前的等待人数
-    HashMap getWaitingAmountById(Integer registrationId);
+    int getWaitingAmountById(@Param("registrationId") Integer registrationId, @Param("roleId") Integer roleId, @Param("appointmentDateStr") String appointmentDateStr);
+    //小程序--根据患者id列出所有待诊的病历号和看诊日期
+    List<HashMap> listRegistrationsByPatientId(Integer patientId);
 }
