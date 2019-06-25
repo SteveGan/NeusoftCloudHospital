@@ -1,6 +1,5 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.finicialservice;
 
-import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.TransactionLogMapper;
 import com.neuedu.hospitalbackend.service.serviceinterface.finicialservice.DepartmentStatisticsService;
 import com.neuedu.hospitalbackend.util.CommonResult;

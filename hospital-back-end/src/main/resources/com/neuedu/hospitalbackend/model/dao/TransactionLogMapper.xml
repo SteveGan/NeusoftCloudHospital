@@ -304,13 +304,14 @@
     </select>
     
     <select id="listInvoiceCodeByStatus" resultType="string">
-        select invoice_code from transaction_log t
+        select distinct invoice_code from transaction_log t
         where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
         and status = #{status}
     </select>
 
     <select id="listTotalMoneyByType" resultType="HashMap">
-        select type, sum(total_money) as total_money FROM transaction_log t
+        select type, sum(total_money) as total_money
+        from transaction_log t
         where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
         group by type
     </select>

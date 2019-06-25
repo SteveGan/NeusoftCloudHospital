@@ -1,7 +1,6 @@
 package com.neuedu.hospitalbackend.model.po;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class DailySummaryLog {
@@ -18,6 +17,8 @@ public class DailySummaryLog {
     private Date beginDate;
 
     private Date endDate;
+
+    private boolean isCorrect;
 
     private Date gmtCreate;
 
@@ -86,6 +87,14 @@ public class DailySummaryLog {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
     }
 
     public Date getGmtCreate() {
