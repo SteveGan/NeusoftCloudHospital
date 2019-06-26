@@ -9,7 +9,8 @@ public class TransactionParam {
     private String invoiceCode;
     private Integer registrationId;
     private Integer patientId;
-    private Integer roleId; //收费员id
+    private Integer roleId; //医生id
+    private Integer cashierId;
     private String type;
     private Integer collectionId;
     private Integer projectId;
@@ -64,6 +65,14 @@ public class TransactionParam {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getCashierId() {
+        return cashierId;
+    }
+
+    public void setCashierId(Integer cashierId) {
+        this.cashierId = cashierId;
     }
 
     public String getType() {

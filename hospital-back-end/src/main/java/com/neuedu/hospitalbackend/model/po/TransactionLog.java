@@ -14,6 +14,8 @@ public class TransactionLog implements Cloneable {
 
     private Integer roleId;
 
+    private Integer cashierId;
+
     private String type;
 
     private Integer collectionId;
@@ -86,6 +88,14 @@ public class TransactionLog implements Cloneable {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getCashierId() {
+        return cashierId;
+    }
+
+    public void setCashierId(Integer cashierId) {
+        this.cashierId = cashierId;
     }
 
     public String getType() {
