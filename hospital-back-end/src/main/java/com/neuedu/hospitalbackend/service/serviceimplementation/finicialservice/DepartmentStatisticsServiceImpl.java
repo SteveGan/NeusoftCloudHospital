@@ -19,7 +19,8 @@ public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsServ
     private TransactionLogMapper transactionLogMapper;
 
     public CommonResult clinicianDepartmentStatistics(String beginDateStr, String endDateStr){
-        List<HashMap> statistics = new ArrayList();
+
+/*        List<HashMap> statistics = new ArrayList();
         statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
                 "examination", "project_id", "creator_role_id", beginDateStr, endDateStr));
         statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
@@ -38,13 +39,32 @@ public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsServ
                 }
             }
 
+        }*/
+        List<HashMap> result = convertMap(transactionLogMapper.calculateMoneyByDepartmentAndType(beginDateStr, endDateStr));
+        List<HashMap> visits = transactionLogMapper.countPatientCasesByDepartmentName(beginDateStr, endDateStr);
+        List<HashMap> invoices = transactionLogMapper.countInvoicesByDepartmentName(beginDateStr, endDateStr);
+        for(HashMap r: result){
+            String departmentName = r.get("departmentName").toString();
+            for(HashMap v: visits){
+                System.out.println(v.get("department_name").toString());
+                if(departmentName.equals(v.get("department_name").toString())){
+                    r.put("visits", v.get("visits")); //看诊人次
+                    break;
+                }
+            }
+            for(HashMap i: invoices){
+                if(r.get("departmentName").equals(i.get("department_name").toString())){
+                    r.put("invoiceAmount", i.get("invoice_amount")); //发票数量
+                    break;
+                }
+            }
         }
         return  CommonResult.success(result);
     }
 
     public CommonResult technicianDepartmentStatistics(String beginDateStr, String endDateStr){
         List<HashMap> statistics = new ArrayList();
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
+        /*statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
                 "examination", "project_id", "examiner_role_id", beginDateStr, endDateStr));
         statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
                 "inspection", "project_id", "inspector_role_id", beginDateStr, endDateStr));
@@ -53,28 +73,25 @@ public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsServ
         statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
                 "recipe", "medicine_id", "deliver_role_id", beginDateStr, endDateStr));
 
-        List<HashMap> result = convertMap(statistics);
+        List<HashMap> result = convertMap(statistics);*/
 
-        return  CommonResult.success(result);
+        return  CommonResult.success(statistics);
     }
 
     public List<HashMap> convertMap(List<HashMap> statistics){
         Map<String, HashMap> map = new HashMap<>();
         List<HashMap> result = new ArrayList<>();
         for(HashMap s: statistics){
-            String departmentName = (String) s.get("departmentName");
-            String type = (String) s.get("type");
-            BigDecimal totalMoney = (BigDecimal) s.get("totalMoney");
-            Long invoiceAmount = (Long) s.get("invoiceAmount"); //发票数量
+            String departmentName = s.get("department_name").toString();
+            String type = s.get("type").toString();
+            BigDecimal totalMoney = (BigDecimal) s.get("total_money");
             if (!map.containsKey(departmentName)) {
                 map.put(departmentName, new HashMap());
                 map.get(departmentName).put("departmentName", departmentName);
                 map.get(departmentName).put(type, totalMoney);
-                map.get(departmentName).put("invoiceAmount", invoiceAmount);
             } else{
                 map.get(departmentName).put("departmentName", departmentName);
                 map.get(departmentName).put(type, totalMoney);
-                map.get(departmentName).put("invoiceAmount", invoiceAmount);
             }
         }
         Iterator ite = map.entrySet().iterator();

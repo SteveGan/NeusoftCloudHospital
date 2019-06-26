@@ -50,6 +50,8 @@ public class RecipeParam {
 
     private String chargeDateStr; //收费日期
 
+    private String costType;
+
    /* private String chargeDateBeginStr;
 
     private String chargeDateEndStr;
@@ -239,7 +241,15 @@ public class RecipeParam {
         this.chargeDateStr = chargeDateStr;
     }
 
-   /* public String getChargeDateBeginStr() {
+    public String getCostType() {
+        return costType;
+    }
+
+    public void setCostType(String costType) {
+        this.costType = costType;
+    }
+
+    /* public String getChargeDateBeginStr() {
         return chargeDateBeginStr;
     }
 

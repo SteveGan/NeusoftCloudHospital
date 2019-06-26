@@ -326,18 +326,36 @@
     </select>
 
     <select id="calculateMoneyByDepartmentAndType" resultType="HashMap">
-        select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type, count(distinct invoice_code) as invoiceAmount
+        <!--select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type, count(distinct invoice_code) as invoiceAmount
         from ${tableName} e, role r, transaction_log t
         where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
         and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr} and t.registration_id = e.case_id
-        group by r.department_name, type
+        group by r.department_name, type-->
+        select sum(total_money) as total_money, r.department_name, t.type
+        from transaction_log t, role r
+        where t.status = 2 and r.id = t.role_id
+        and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
+        GROUP BY r.department_name, t.type
     </select>
 
     <select id="countPatientCasesByDepartmentName" resultType="HashMap">
-        select r.department_name as departmentName, count(*) as visits
+        <!--select r.department_name as departmentName, count(distinct registration_id) as visits
+        from transaction_log t, role r
+        where t.status = 2 and r.id = t.role_id and t.type = "挂号费"
+        and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr}
+        group by r.department_name-->
+        select r.department_name, count(distinct registration_id) as visits
         from patient_case pc, role r
-        where r.id = pc.role_id
-        and pc.gmt_create &lt;= #{endDateStr} and pc.gmt_create &gt;= #{beginDateStr}
+        where pc.role_id = r.id and pc.status != 1
+        and pc.gmt_modified &lt;= #{endDateStr} and pc.gmt_modified &gt;= #{beginDateStr}
+        group by r.department_name
+    </select>
+
+    <select id="countInvoicesByDepartmentName" resultType="HashMap">
+        select r.department_name, count(distinct invoice_code) as invoice_amount
+        from transaction_log t, role r
+        where t.status = 2 and r.id = t.role_id
+        and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
         group by r.department_name
     </select>
 
