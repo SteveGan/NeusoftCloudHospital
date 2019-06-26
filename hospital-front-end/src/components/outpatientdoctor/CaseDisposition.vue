@@ -266,6 +266,7 @@ export default {
       this.currentCollection = collection;
     },
     handleTempSave(collection) {
+      collection.roleId = this.$store.getters["user/currentRoleId"];
       collection.caseId = this.caseDispositions.caseId;
       collection.applicantRoleId = this.$store.getters["user/currentRoleId"];
       collection.collectionType = 3;
@@ -281,6 +282,7 @@ export default {
       );
     },
     handleSubmit(collection, index) {
+      collection.roleId = this.$store.getters["user/currentRoleId"];
       collection.caseId = this.caseDispositions.caseId;
       collection.applicantRoleId = this.$store.getters["user/currentRoleId"];
       collection.collectionType = 3;

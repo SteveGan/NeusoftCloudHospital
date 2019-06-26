@@ -1,3 +1,9 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import store from '@/store'
+
+Vue.use(VueRouter);
+
 const login = r => require.ensure([], () => r(require('@/pages/Login/Login')), 'login')
 const Waiting = r => require.ensure([], () => r(require('@/pages/Waiting/Waiting')), 'Waiting')
 const Home = r => require.ensure([], () => r(require('@/pages/Home/Home')), 'Home')
@@ -14,21 +20,17 @@ const ArrangementRuleAdmin = r => require.ensure([], () => r(require('@/componen
 const OutPatientDoctor = r => require.ensure([], () => r(require('@/pages/OutPatientDoctor/OutPatientDoctor')), 'OutPatientDoctor')
 const Cashier = r => require.ensure([], () => r(require('@/pages/Cashier/Cashier')), 'Cashier')
 const TechDoctor = r => require.ensure([], () => r(require('@/pages/TechDoctor/TechDoctor')), 'TechDoctor')
-
 const FinicialAdmin = r => require.ensure([], () => r(require('@/pages/FinicialAdmin/FinicialAdmin')), 'FinicialAdmin')
 const Dailycheck = r => require.ensure([], () => r(require('@/components/finicialadmin/DailyCheck/DailyCheck')), 'DailyCheck')
 const DepartmentWorkloadAnalysis = r => require.ensure([], () => r(require('@/components/finicialadmin/DepartmentWorkloadAnalysis/DepartmentWorkloadAnalysis')), 'DepartmentWorkloadAnalysis')
 const PriceAdmin = r => require.ensure([], () => r(require('@/components/finicialadmin/PriceAdmin/PriceAdmin')), 'PriceAdmin')
 const UserWorkloadAnalysis = r => require.ensure([], () => r(require('@/components/finicialadmin/UserWorkloadAnalysis/UserWorkloadAnalysis')), 'UserWorkloadAnalysis')
-
 const DrugStation = r => require.ensure([], () => r(require('@/pages/DrugStation/DrugStation')), 'DrugStation')
-
 const TreatmentStation = r => require.ensure([], () => r(require('@/pages/TreatmentStation/TreatmentStation')), 'TreatmentStation')
-
 const Caller = r => require.ensure([], () => r(require('@/pages/Caller/Caller')), 'Caller')
 
-
-export default [{
+// define routes
+const routes = [{
     path: '/home',
     name: 'Home',
     component: Home,
@@ -36,108 +38,171 @@ export default [{
     children: [{
         path: 'main',
         name: 'Main',
-        component: Main
+        component: Main,
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'waiting',
         name: 'Waiting',
-        component: Waiting
+        component: Waiting,
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'admin',
         name: 'Admin',
         component: Admin,
+        meta: {
+          requiresAuth: true
+        },
         children: [{
             path: 'user',
             name: 'User',
-            component: UserAdmin
+            component: UserAdmin,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'schedule',
             name: 'ScheduleAdmin',
-            component: ScheduleAdmin
+            component: ScheduleAdmin,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'registrationlevel',
             name: 'RegistrationLevelAdmin',
-            component: RegistrationLevelAdmin
+            component: RegistrationLevelAdmin,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'paytype',
             name: 'PayTypeAdmin',
-            component: PayTypeAdmin
+            component: PayTypeAdmin,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'nonmedicineproject',
             name: 'NonMedicineProjectAdmin',
-            component: NonMedicineProjectAdmin
+            component: NonMedicineProjectAdmin,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'disease',
             name: 'DiseaseAdmin',
-            component: DiseaseAdmin
+            component: DiseaseAdmin,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'department',
             name: 'DepartmentAdmin',
-            component: DepartmentAdmin
+            component: DepartmentAdmin,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'arrangementrule',
             name: 'ArrangementRuleAdmin',
-            component: ArrangementRuleAdmin
+            component: ArrangementRuleAdmin,
+            meta: {
+              requiresAuth: true
+            }
           }
         ]
       },
       {
         path: 'outpatientdoctor',
         name: 'OutPatientDoctor',
-        component: OutPatientDoctor
+        component: OutPatientDoctor,
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'techdoctor',
         name: 'TechDoctor',
-        component: TechDoctor
+        component: TechDoctor,
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'treatmentstation',
         name: 'TreatmentStation',
-        component: TreatmentStation
+        component: TreatmentStation,
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'cashier',
         name: 'Cashier',
-        component: Cashier
+        component: Cashier,
+        meta: {
+          requiresAuth: true
+        }
       },
       {
         path: 'finicialadmin',
         name: 'FinicialAdmin',
         component: FinicialAdmin,
+        meta: {
+          requiresAuth: true
+        },
         children: [{
             path: 'dailycheck',
             name: 'Dailycheck',
-            component: Dailycheck
+            component: Dailycheck,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'departmentworkloadanalysis',
             name: 'DepartmentWorkloadanalysis',
-            component: DepartmentWorkloadAnalysis
+            component: DepartmentWorkloadAnalysis,
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'priceadmin',
             name: 'PriceAdmin',
-            component: PriceAdmin
+            component: PriceAdmin,
+            meta: {
+              requiresAuth: true
+            }
           }, {
             path: 'userworkloadanalysis',
             name: 'UserWorkloadAnalysis',
-            component: UserWorkloadAnalysis
+            component: UserWorkloadAnalysis,
+            meta: {
+              requiresAuth: true
+            }
           }
         ]
       },
       {
         path: 'drugstation',
         name: 'DrugStation',
-        component: DrugStation
+        component: DrugStation,
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   },
@@ -152,3 +217,32 @@ export default [{
     component: Caller
   }
 ]
+
+var router = new VueRouter({
+  routes
+})
+
+// 每次跳转前检查登陆状态，如果未登陆，则路由至登陆页面
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    console.log("验证是否有token")
+    console.log(store.getters['user/token'])
+    if (typeof (store.getters['user/token']) === "undefined") {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+
+})
+
+export default router

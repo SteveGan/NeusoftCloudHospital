@@ -74,4 +74,6 @@ public class UserServiceImpl implements UserService {
         userMapper.setPassword(userId, encryptedNewPass);
         return CommonResult.success(null);
     }
+
+
 }

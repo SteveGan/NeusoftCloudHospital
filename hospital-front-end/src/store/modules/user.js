@@ -17,6 +17,9 @@ const state = {
 }
 
 const getters = {
+  token: state => {
+    return state.token
+  },
   currentUserId: state => {
     return state.id
   },

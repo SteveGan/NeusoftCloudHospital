@@ -58,7 +58,9 @@ public class OauthServiceImpl implements OauthService {
             result.put("avatar", user.getAvatar());
             List<Role> roles = roleMapper.listRole(loginParam.getUserId());
             result.put("roles", roles);
+
             String token = JwtUtil.getToken(user.getName());
+
             result.put("web_token", "Bearer:" + token);
             System.out.println();
             hospitalLogger.info("登录成功: " + loginParam.getUserId() + " with token: " + token);
