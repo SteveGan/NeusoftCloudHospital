@@ -111,7 +111,7 @@
   <select id="listByDepartmentIdAndDatePeriod" resultMap="BaseResultMap">
      select *
      from arrangement
-     where department_id = #{departmetnId} and
+     where department_id = #{departmetId} and
         appointment_date >= #{startDate} and #{endDate} >= appointment_date
   </select>
 
