@@ -52,6 +52,10 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         if(0 != arrangementRuleMapper.listByRuleName(ruleName).size()){
             return CommonResult.fail(ResultCode.E_806); //名称已存在
         }
+        //参数检验
+        List<ArrangementRule> arrangementRuleList = arrangementRuleParam.getArrangementRules();
+        if(0 == arrangementRuleList.size())
+            return CommonResult.fail(ResultCode.E_801);
 
         //排班规则编号
         Integer id = arrangementRuleMapper.getLastId();
@@ -59,7 +63,6 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             id = 0;
         id = id + 1;
 
-        List<ArrangementRule> arrangementRuleList = arrangementRuleParam.getArrangementRules();
         for(ArrangementRule arrangementRule : arrangementRuleList){
            arrangementRule.setId(id);
            arrangementRule.setRuleName(ruleName);
