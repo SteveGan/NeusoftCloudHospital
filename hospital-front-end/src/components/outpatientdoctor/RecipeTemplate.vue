@@ -12,7 +12,7 @@
                 <el-tab-pane label="个人" name="first">
                   <div class="table-container">
                     <el-table :data="allTemplates.personal">
-                      <el-table-column label="处方名称" prop="recipeName"></el-table-column>
+                      <el-table-column label="处方名称" prop="name"></el-table-column>
                       <el-table-column label="操作">
                         <template slot-scope="scope">
                           <el-button @click="useRecipe(scope.row)">使用</el-button>
@@ -25,7 +25,7 @@
                 <el-tab-pane label="科室" name="second">
                   <div class="table-container">
                     <el-table :data="allTemplates.department">
-                      <el-table-column label="处方名称" prop="recipeName"></el-table-column>
+                      <el-table-column label="处方名称" prop="name"></el-table-column>
                       <el-table-column label="操作">
                         <template slot-scope="scope">
                           <el-button @click="useRecipe(scope.row)" type="text">使用</el-button>
@@ -38,7 +38,7 @@
                 <el-tab-pane label="全院" name="third">
                   <div class="table-container">
                     <el-table :data="allTemplates.hospital">
-                      <el-table-column label="处方名称" prop="recipeName"></el-table-column>
+                      <el-table-column label="处方名称" prop="name"></el-table-column>
                       <el-table-column label="操作">
                         <template slot-scope="scope">
                           <el-button @click="useRecipe(scope.row)">使用</el-button>
@@ -55,7 +55,7 @@
           <div class="recipe-detail">
             <el-card shadow="hover">
               <div slot="header" class="clearfix">
-                <span>{{currentTemplate.recipeName}}</span>
+                <span>{{currentTemplate.name}}</span>
               </div>
               <el-table style="width: 100%" :data="currentTemplate.medicines">
                 <el-table-column label="药品名称" prop="medicineName"></el-table-column>

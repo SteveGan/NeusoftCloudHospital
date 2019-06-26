@@ -11,6 +11,7 @@
             style="float:right; margin-left: 10px;"
             type="text"
             icon="el-icon-document-add"
+            @click="handleAddTemplate(recipe)"
           >存为模版</el-button>
           <el-button
             style="float:right; margin-left: 10px;"
@@ -126,6 +127,59 @@
       </div>
     </el-dialog>
     <!-- 编辑药品dialog to do-->
+    <!-- 存为处方dialog -->
+    <el-dialog
+      title="添加处方模版"
+      :visible.sync="dialogAddRecipeTemplate"
+      :before-close="handleClose"
+      width="600px"
+    >
+      <div>
+        <el-card shadow="hover" style="margin-bottom: 10px">
+          <div slot="header" class="clearfix">
+            <span>模版内容</span>
+          </div>
+          <div>
+            <el-table style="width: 100%" :data="newTemplate.medicines">
+              <el-table-column label="药品名称" prop="medicineName"></el-table-column>
+              <el-table-column label="规格" prop="medicineSpecification"></el-table-column>
+              <el-table-column label="单次用量" prop="dosage"></el-table-column>
+              <el-table-column label="剂型" prop="medicineFormulation"></el-table-column>
+              <el-table-column label="频次" prop="frequency"></el-table-column>
+              <el-table-column label="数量" prop="amount"></el-table-column>
+              <el-table-column label="单位" prop="medicineUnit"></el-table-column>
+            </el-table>
+          </div>
+        </el-card>
+        <el-card shadow="hover">
+          <div slot="header">
+            <span>权限设置</span>
+          </div>
+          <div>
+            <!-- 填写该处方信息的表单 -->
+            <el-form :model="newTemplate" label-position="left" label-width="80px">
+              <el-form-item label="处方名称">
+                <el-input v-model="newTemplate.newName"></el-input>
+              </el-form-item>
+              <el-form-item label="使用权限">
+                <el-select v-model="newTemplate.scope" placeholder="请选择模版权限">
+                  <el-option
+                    v-for="scope in scopes"
+                    :key="scope.value"
+                    :label="scope.label"
+                    :value="scope.value"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-form>
+          </div>
+        </el-card>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleCancel">取消</el-button>
+        <el-button type="primary" @click="handleConfirmAddTemplate">添加</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -136,7 +190,10 @@ import {
   saveRecipe,
   submitRecipe
 } from "@/api/recipe";
-import { listRecipeTemplates } from "@/api/recipeTemplate";
+import {
+  listRecipeTemplates,
+  createRecipeTemplate
+} from "@/api/recipeTemplate";
 import { constants, readFileSync } from "fs";
 import {
   medicineTypeCodeToString,
@@ -150,11 +207,27 @@ export default {
   data() {
     return {
       dialogAddMedicine: false,
+      dialogAddRecipeTemplate: false,
       newMedicine: {},
       currentRecipe: {},
       medicines: [],
       currentRecipeTemplate: {},
-      newRecipe: {}
+      newRecipe: {},
+      newTemplate: {},
+      scopes: [
+        {
+          value: "1",
+          label: "个人"
+        },
+        {
+          value: "2",
+          label: "部门"
+        },
+        {
+          value: "3",
+          label: "全院"
+        }
+      ]
     };
   },
   components: {
@@ -347,6 +420,28 @@ export default {
     },
     handleClear(recipe) {
       recipe.medicines = [];
+    },
+    handleAddTemplate(recipe) {
+      this.newTemplate = Object.assign({}, recipe);
+      this.dialogAddRecipeTemplate = true;
+    },
+    handleConfirmAddTemplate() {
+      this.newTemplate.roleId = this.$store.getters["user/currentRoleId"];
+      this.newTemplate.departmentId = this.$store.getters[
+        "user/currentDepartmentId"
+      ];
+      console.log("新的模版：");
+      console.log(this.newTemplate);
+      createRecipeTemplate(this.newTemplate).then(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+          failDialog("模版存储失败，请检查网络环境");
+        }
+      );
+      this.newTemplate = {};
     }
   },
   mounted: function() {
@@ -355,9 +450,11 @@ export default {
     listAllMedicines(1).then(
       response => {
         this.medicines = response.data.data;
+        successDialog("药品项目加载完毕");
       },
       error => {
         console.log(error);
+        failDialog("药品项目加载异常");
       }
     );
   }

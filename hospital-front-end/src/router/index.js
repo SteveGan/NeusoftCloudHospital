@@ -25,14 +25,15 @@ const DrugStation = r => require.ensure([], () => r(require('@/pages/DrugStation
 
 const TreatmentStation = r => require.ensure([], () => r(require('@/pages/TreatmentStation/TreatmentStation')), 'TreatmentStation')
 
+const Caller = r => require.ensure([], () => r(require('@/pages/Caller/Caller')), 'Caller')
+
 
 export default [{
     path: '/home',
     name: 'Home',
     component: Home,
     redirect: '/home/main',
-    children: [
-      {
+    children: [{
         path: 'main',
         name: 'Main',
         component: Main
@@ -144,5 +145,10 @@ export default [{
     path: '/login',
     name: 'Login',
     component: login
+  },
+  {
+    path: '/caller',
+    name: 'Caller',
+    component: Caller
   }
 ]
