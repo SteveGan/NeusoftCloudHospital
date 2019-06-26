@@ -7,7 +7,9 @@ package com.neuedu.hospitalbackend.websocket.vo;
 public class OutpatientQueueMessage {
 
     //病人的ID
-    private String patientId;
+    private Integer caseId;
+    //病人的姓名
+    private String name;
     //看诊医生的角色ID
     private String roleId;
     //信息类型: "add": 添加新的病人到队列中， "update": 加入新的正在看诊人员， "done": 初诊结束
@@ -16,18 +18,19 @@ public class OutpatientQueueMessage {
     public OutpatientQueueMessage() {
     }
 
-    public OutpatientQueueMessage(String patientId, String roleId, String code) {
-        this.patientId = patientId;
+    public OutpatientQueueMessage(Integer caseId, String roleId, String name, String code) {
+        this.caseId = caseId;
+        this.name = name;
         this.roleId = roleId;
         this.code = code;
     }
 
-    public String getPatientId() {
-        return patientId;
+    public Integer getCaseId() {
+        return caseId;
     }
 
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
+    public void setCaseId(Integer caseId) {
+        this.caseId = caseId;
     }
 
     public String getRoleId() {
@@ -44,5 +47,13 @@ public class OutpatientQueueMessage {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

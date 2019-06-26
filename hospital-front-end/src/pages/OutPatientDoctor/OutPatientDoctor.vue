@@ -167,7 +167,7 @@ import CasePayList from "@/components/outpatientdoctor/CasePayList";
 import { constants } from "fs";
 import { POINT_CONVERSION_COMPRESSED } from "constants";
 import { successDialog, failDialog } from "@/utils/notification";
-import { fail } from "assert";
+import { updateOutpatientQueue } from "@/api/notification/outpatientNotification";
 
 export default {
   name: "OutPatientDoctor",
@@ -210,19 +210,6 @@ export default {
     }
   },
   methods: {
-    // 挂号成功提示
-    success() {
-      this.$message({
-        message: "操作成功",
-        type: "success"
-      });
-    },
-
-    // 挂号失败提示
-    fail() {
-      this.$message.error("操作失败");
-    },
-
     doTTS(name) {
       var ttsDiv = document.getElementById("bdtts_div_id");
       var ttsAudio = document.getElementById("tts_autio_id");
@@ -248,13 +235,13 @@ export default {
       console.log(row);
 
       // 语音播报
-      this.doTTS(
-        "请" +
-          row.name +
-          "到" +
-          this.$store.getters["user/currentDepartmentName"] +
-          "就诊"
-      );
+      // this.doTTS(
+      //   "请" +
+      //     row.name +
+      //     "到" +
+      //     this.$store.getters["user/currentDepartmentName"] +
+      //     "就诊"
+      // );
 
       // 将当前的用户设置为被点击的用户
       this.selectedPatient = Object.assign({}, row);
@@ -306,6 +293,19 @@ export default {
           } else {
             //do nothing
           }
+
+          // 如果这是第一次诊断，那么发送消息告诉后端这是第一次请求(大屏幕发生响应变化)
+          if (caseStatus === 1) {
+            let updateInfo = {
+              caseId: this.selectedCase.caseId,
+              roleId: this.$store.getters["user/currentRoleId"],
+              code: "update"
+            };
+            console.log("----------更新大屏幕------------");
+            console.log(updateInfo);
+            updateOutpatientQueue(updateInfo);
+          }
+
           //请求当前被点击用户的病历所有的处方
           listCaseRecipes(this.selectedPatient.caseId).then(
             response => {
@@ -467,6 +467,15 @@ export default {
         response => {
           if (response.data.code === 200) {
             successDialog("开立成功");
+            // 告诉后端更新显示起内容
+            let updateInfo = {
+              caseId: this.selectedCase.caseId,
+              roleId: this.$store.getters["user/currentRoleId"],
+              code: "done"
+            };
+            console.log("----------更新大屏幕------------");
+            console.log(updateInfo);
+            updateOutpatientQueue(updateInfo);
           } else {
             failDialog("开立失败");
           }

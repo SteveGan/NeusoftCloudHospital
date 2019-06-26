@@ -15,7 +15,6 @@ public interface QueueNotifyService {
      * @param patientId 病人ID
      * @param code "add": 添加新的病人到队列中， "update": 加入新的正在看诊人员， "done": 初诊结束
      */
-    void notifyOutpatientQueue(String roleId, String patientId, String code);
-
+    void notifyOutpatientQueue(String roleId, Integer patientId, String patientName, String code);
 
 }
