@@ -19,6 +19,8 @@ public class Role {
 
     private String titleName;
 
+    private String introduction;
+
     private Date gmtCreate;
 
     private Date gmtModified;
@@ -95,6 +97,14 @@ public class Role {
 
     public void setTitleName(String titleName) {
         this.titleName = titleName == null ? null : titleName.trim();
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
     public Date getGmtCreate() {

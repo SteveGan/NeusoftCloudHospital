@@ -13,4 +13,10 @@ public interface InvoiceService {
      * @return 执行结果
      */
     CommonResult getNextInvoiceCode();
+
+    /**
+     * 更新发票号的状态
+     * @return 执行结果
+     */
+    CommonResult updateStatus(Byte status, String invoiceCode);
 }

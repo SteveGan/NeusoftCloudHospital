@@ -17,5 +17,7 @@ public interface RoleMapper {
 
     String getUserNameByRoleId(Integer roleId);
 
+    String getDepartmentNameByRoleId(Integer roleId);
+
     List<HashMap> listAllRolesByDepartmentId(Integer departmentId);
 }

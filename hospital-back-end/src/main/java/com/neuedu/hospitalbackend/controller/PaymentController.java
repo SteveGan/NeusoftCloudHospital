@@ -37,7 +37,7 @@ public class PaymentController {
         return CommonResult.success(jsonObject);
     }
 
-    @ApiOperation("选定发票号，查看缴费记录")
+    @ApiOperation("选定发票号，查看缴费记录/ 发票补打")
     @RequestMapping(value = "/invoice/{invoiceCode}", method = RequestMethod.GET)
     public CommonResult listInvoiceDetails(@PathVariable(value = "invoiceCode") String invoiceCode){
        return paymentService.listTransactionLogsByInvoiceCode(invoiceCode);
