@@ -2,10 +2,7 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.basicinfomanage
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dao.ArrangementMapper;
-import com.neuedu.hospitalbackend.model.dao.ArrangementRuleMapper;
-import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
-import com.neuedu.hospitalbackend.model.dao.RoleMapper;
+import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.Arrangement;
 import com.neuedu.hospitalbackend.model.po.ArrangementRule;
 import com.neuedu.hospitalbackend.model.vo.ArrangementConflictParam;
@@ -13,6 +10,7 @@ import com.neuedu.hospitalbackend.model.vo.ArrangementParam;
 import com.neuedu.hospitalbackend.model.vo.ArrangementRuleParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.ArrangementManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
+import com.neuedu.hospitalbackend.util.ConstantMap;
 import com.neuedu.hospitalbackend.util.ResultCode;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.stereotype.Service;
@@ -34,6 +32,8 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     ArrangementMapper arrangementMapper;
     @Resource
     RoleMapper roleMapper;
+    @Resource
+    UserMapper userMapper;
 
 
 
@@ -102,7 +102,10 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
      */
     @Override
     public CommonResult modifyArrangement(ArrangementParam arrangementParam){
+
+
         return null;
+
     }
 
 
@@ -274,7 +277,6 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
 //         JSON格式 v1.0
         HashMap<Integer, List<HashMap>> arrangementRules = new HashMap<>();// <规则id， 内容>
         for(HashMap arrangementRule : arrangementRuleList){
-            System.out.println(arrangementRule);
             Long idLong = (Long)arrangementRule.get("id");
             Integer id = new Integer(String.valueOf(idLong));
             List<HashMap> info;
@@ -284,6 +286,18 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
                 info = arrangementRules.get(id);
             arrangementRule.remove("id");
             arrangementRule.remove("departmentId");
+            Byte levelId = Byte.valueOf(String.valueOf(arrangementRule.get("registrationLevelId")));
+            arrangementRule.put("registrationLevelId", ConstantMap.convert("挂号级别", levelId));
+            Byte positionId = Byte.valueOf(String.valueOf(arrangementRule.get("titleId")));
+            arrangementRule.put("titleId", ConstantMap.convert("职称", positionId));
+            Boolean isValid = (Boolean) arrangementRule.get("isValid");
+            if(isValid.equals(true))
+                arrangementRule.put("isValid", "有效");
+            else if(isValid.equals(false))
+                arrangementRule.put("isValid", "无效");
+            else
+                return CommonResult.fail(ResultCode.E_800);
+
             info.add(arrangementRule);
             arrangementRules.put(id, info);
         }
@@ -293,7 +307,8 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("ruleId", entry.getKey());
             jsonObject.put("ruleName", entry.getValue().get(0).get("ruleName"));
-            jsonObject.put("adminId", entry.getValue().get(0).get("adminId"));
+            Integer adminId = (Integer)entry.getValue().get(0).get("adminId");
+            jsonObject.put("adminName", roleMapper.getUserNameByRoleId(adminId));
             jsonObject = formatJson(jsonObject, entry.getValue());
             jsonArray.add(jsonObject);
         }
