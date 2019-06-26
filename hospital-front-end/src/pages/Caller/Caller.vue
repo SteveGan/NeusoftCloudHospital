@@ -7,7 +7,7 @@
       </div>
       <!-- 部门名 -->
       <div>
-        <p class="department-name">{{departmentName}}</p>
+        <p class="department-name">{{curDepartment.name}}</p>
       </div>
       <!-- 时间 -->
       <div style="margin-left: auto;">
@@ -17,7 +17,7 @@
     <el-main class="main-container">
       <!-- 当前医生 -->
       <div class="doctor-info">
-        <p>坐诊医生: {{doctorName}}</p>
+        <p>坐诊医生: {{curDoctor.name}}</p>
       </div>
       <!-- 正在就诊 -->
       <div class="notification-region">
@@ -75,6 +75,17 @@
         <el-button type="primary" @click="handleSubscribe">链接</el-button>
       </el-card>
     </el-dialog>
+    <!-- 语音播报 -->
+    <div id="bdtts_div_id">
+      <audio id="tts_autio_id" autoplay="autoplay">
+        <source
+          id="tts_source_id"
+          src="http://tts.baidu.com/text2audio?lan=zh&amp;ie=UTF-8&amp;spd=1&amp;per=0&amp;vol=15&amp;text="
+          type="audio/mpeg"
+        >
+        <embed id="tts_embed_id" height="0" width="0" src>
+      </audio>
+    </div>
   </el-container>
 </template>
 
@@ -94,9 +105,10 @@ export default {
   data() {
     return {
       connectionDialogVisible: true,
-      departmentName: "某某部门",
-      doctorName: "甘教授",
-      curDepartment: {},
+      curDepartment: {
+        name: "",
+        id: ""
+      },
       curDoctor: {
         name: "",
         roleId: ""
@@ -199,6 +211,15 @@ export default {
                   this.nextPatient = this.allPatients[0];
                   console.log("准备就诊变为：");
                   console.log(this.allPatients[0]);
+
+                  this.doTTS(
+                    "请" +
+                      this.curPatient.name +
+                      "到" +
+                      this.curDoctor.name +
+                      "医生处就诊"
+                  );
+                  this.doTTS("请" + nextPatient.name + "准备");
                 }
               }
               // 如果有人初诊完毕，应当被从屏幕上移除
@@ -286,6 +307,26 @@ export default {
           console.log(error);
         }
       );
+    },
+    doTTS(text) {
+      var ttsDiv = document.getElementById("bdtts_div_id");
+      var ttsAudio = document.getElementById("tts_autio_id");
+      var ttsText = text;
+
+      // 文字转语音
+      ttsDiv.removeChild(ttsAudio);
+      var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
+      var sss =
+        '<source id="tts_source_id" src="http://tsn.baidu.com/text2audio?lan=zh&ie=UTF-8&per=3&spd=14&vol=15&text=' +
+        ttsText +
+        '" type="audio/mpeg">';
+      var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
+      var au2 = "</audio>";
+      ttsDiv.innerHTML = au1 + sss + eee + au2;
+
+      ttsAudio = document.getElementById("tts_autio_id");
+
+      ttsAudio.play();
     }
   }
 };
