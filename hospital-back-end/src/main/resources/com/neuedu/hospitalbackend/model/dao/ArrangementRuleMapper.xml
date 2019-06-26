@@ -3,6 +3,7 @@
 <mapper namespace="com.neuedu.hospitalbackend.model.dao.ArrangementRuleMapper" >
   <resultMap id="BaseResultMap" type="HashMap" >
     <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="is_valid" property="isValid" jdbcType="BIT" />
@@ -28,14 +29,14 @@
   </resultMap>
 
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.ArrangementRule" >
-    insert into arrangement_rule (id, role_id, is_valid, 
+    insert into arrangement_rule (id, rule_name, role_id, is_valid,
       department_id, title_id, registration_level_id, 
       max_appointment, admin_id, mon_am, 
       mon_pm, tue_am, tue_pm, wed_am, 
       wed_pm, thu_am, thu_pm, fri_am, 
       fri_pm, sat_am, sat_pm, sun_am, 
       sun_pm)
-    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{isValid,jdbcType=BIT}, 
+    values (#{id,jdbcType=INTEGER}, #{ruleName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{isValid,jdbcType=BIT},
       #{departmentId,jdbcType=INTEGER}, #{titleId,jdbcType=INTEGER}, #{registrationLevelId,jdbcType=TINYINT}, 
       #{maxAppointment,jdbcType=TINYINT}, #{adminId,jdbcType=INTEGER}, #{monAm,jdbcType=BIT}, 
       #{monPm,jdbcType=BIT}, #{tueAm,jdbcType=BIT}, #{tuePm,jdbcType=BIT}, #{wedAm,jdbcType=BIT}, 
@@ -48,6 +49,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="ruleName != null" >
+        rule_name,
       </if>
       <if test="roleId != null" >
         role_id,
@@ -116,6 +120,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
       </if>
       <if test="roleId != null" >
         #{roleId,jdbcType=INTEGER},
@@ -201,6 +208,12 @@
     from arrangement_rule a, role r, user u
     where a.department_id = #{departmentId}
           and r.user_id = u.id and a.role_id = r.id
+  </select>
+
+  <select id="listByRuleName" resultMap="BaseResultMap">
+    select *
+    from arrangement_rule
+    where rule_name = #{ruleName}
   </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.wxappservice;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.*;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @Author: Raven
+ * @author Raven
  * @Date: 2019/6/11 5:54 PM
  */
 @Service
@@ -30,6 +31,10 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     private TreatmentMapper treatmentMapper;
     @Resource
     private RecipeMapper recipeMapper;
+    @Resource
+    private RoleMapper roleMapper;
+    @Resource
+    private PatientCaseMapper patientCaseMapper;
 
     @Resource
     private PreliminaryCaseService preliminaryCaseService;
@@ -64,5 +69,27 @@ public class PatientInfoServiceImpl implements PatientInfoService {
         returnJson.put("处方信息", recipeMapper.getInfo(caseId));
 
         return CommonResult.success(returnJson);
+    }
+
+    @Override
+    public CommonResult getWaitingAmountById(Integer patientId){
+        JSONArray jsonArray = new JSONArray();
+
+        List<HashMap> registrations = patientCaseMapper.listRegistrationsByPatientId(patientId);
+        for(int i = 0; i <registrations.size(); i++){
+            JSONObject jsonObject = new JSONObject();
+            Integer registrationId = Integer.valueOf(registrations.get(i).get("registration_id").toString());
+            Integer roleId = Integer.valueOf(registrations.get(i).get("role_id").toString());
+            String appointmentDateStr = registrations.get(i).get("appointment_date").toString();
+
+            int beforeAmount = patientCaseMapper.getWaitingAmountById(registrationId, roleId, appointmentDateStr);
+            jsonObject.put("registrationId", registrationId);
+            jsonObject.put("appointmentDate", appointmentDateStr);
+            jsonObject.put("beforeAmount", beforeAmount);
+            jsonObject.put("doctorName", roleMapper.getUserNameByRoleId(roleId));
+            jsonObject.put("departmentName", roleMapper.getDepartmentNameByRoleId(roleId));
+            jsonArray.add(jsonObject);
+        }
+        return CommonResult.success(jsonArray);
     }
 }

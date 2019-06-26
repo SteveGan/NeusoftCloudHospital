@@ -15,13 +15,9 @@ public interface PatientCaseMapper {
 
     int insert(PatientCase patientCase);
     int insertSelective(PatientCase patientCase);
-    List<PatientCase> selectByCaseIdOrName(@Param("caseId") Integer caseId, @Param("patientName") String patientName);
-    List<PatientCase> selectById(@Param("caseId")Integer caseId, @Param("departmentId") Integer departmentId);
 
     List<HashMap> listWaitingPatients(Integer doctorRoleId);
     List<HashMap> listWaitedPatients(Integer doctorRoleId);
-    List<HashMap> listPatientsByCaseIdOrName(@Param("doctorRoleId") Integer doctorRoleId, @Param("caseId") Integer caseId,
-                                                    @Param("patientName") String patientName);
     HashMap getPatientCaseInfo(Integer caseId);
     int getPatientCaseStatus(Integer caseId);
     int updatePatientCase(@Param("caseId") Integer caseId, @Param("narrate") String narrate, @Param("curDisease") String curDisease,
@@ -30,6 +26,10 @@ public interface PatientCaseMapper {
                                @Param("assistDiagnose") String assistDiagnose, @Param("status") Integer status);
     int updatePatientCaseStatus(@Param("caseId") Integer caseId, @Param("status") Integer status);
     int deletePatientCaseById(Integer registrationId);
-
     Integer getPatientIdByCaseId(Integer caseId);
+
+    //小程序--列出指定患者之前的等待人数
+    int getWaitingAmountById(@Param("registrationId") Integer registrationId, @Param("roleId") Integer roleId, @Param("appointmentDateStr") String appointmentDateStr);
+    //小程序--根据患者id列出所有待诊的病历号和看诊日期
+    List<HashMap> listRegistrationsByPatientId(Integer patientId);
 }

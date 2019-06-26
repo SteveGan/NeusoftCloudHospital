@@ -160,14 +160,6 @@
         where id = #{id}
     </update>
 
-    <select id="selectStatusOfProject" resultType="Integer">
-        select status
-        from transaction_log
-        where collection_id = #{collectionId} and project_id = #{projectId}
-        and (t1.status = 1 or t1.status = 2 or t1.status = 3)
-        order by gmt_modified desc limit 1
-    </select>
-
     <select id="getLogByRegistrationIdAndType" resultMap="BaseResultMap">
         select * from transaction_log
         where registration_id = #{registrationId} and type = #{type} and status = 2
@@ -245,7 +237,7 @@
         where t.invoice_code = #{invoiceCode} and t.collection_id = #{collectionId} and t.project_id = #{projectId}
     </select>
 
-    <select id="getInvoiceCodeAndStatusByRegistrationId" resultMap="ItemResultMap">
+    <select id="listInvoiceCodeAndStatusByRegistrationId" resultMap="ItemResultMap">
         select distinct invoice_code, status
         from transaction_log
         where registration_id = #{registrationId} and status != 1
@@ -255,10 +247,10 @@
         select * from transaction_log t
         <where>
             <if test="beginDateStr != null">
-                t.gmt_create &gt;= #{beginDateStr}
+                date_format(t.gmt_create,'%Y-%m-%d') &gt;= #{beginDateStr}
             </if>
             <if test="endDateStr != null">
-                and t.gmt_create &lt;= #{endDateStr} <!--date_format(t.gmt_create,'%Y-%m-%d') &lt;= #{endDateStr}-->
+                and date_format(t.gmt_create,'%Y-%m-%d') &lt;= #{endDateStr}
             </if>
             and registration_id = #{registrationId}
             and (status = 1 or status = 2)
@@ -312,13 +304,14 @@
     </select>
     
     <select id="listInvoiceCodeByStatus" resultType="string">
-        select invoice_code from transaction_log t
+        select distinct invoice_code from transaction_log t
         where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
         and status = #{status}
     </select>
 
     <select id="listTotalMoneyByType" resultType="HashMap">
-        select type, sum(total_money) as total_money FROM transaction_log t
+        select type, sum(total_money) as total_money
+        from transaction_log t
         where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
         group by type
     </select>

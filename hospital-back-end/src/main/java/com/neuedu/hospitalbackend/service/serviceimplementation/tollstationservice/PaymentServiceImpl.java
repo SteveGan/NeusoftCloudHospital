@@ -9,6 +9,7 @@ import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.Transac
 import com.neuedu.hospitalbackend.service.serviceinterface.tollstationservice.PaymentService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -44,7 +45,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public CommonResult listTransactionLogsByRegistrationId(Integer registrationId) {
         //列出指定用户的所有发票号、缴费状态（已缴费、已退费、冲正、作废、冻结）
-        List<HashMap> invoiceCollection = transactionLogMapper.getInvoiceCodeAndStatusByRegistrationId(registrationId);
+        List<HashMap> invoiceCollection = transactionLogMapper.listInvoiceCodeAndStatusByRegistrationId(registrationId);
         //列出指定用户的待缴费、可退费状态缴费记录
         List<HashMap> logs = new ArrayList<>();
         //logs.add(transactionLogMapper.getRegistrationLog(registrationId));
@@ -72,12 +73,13 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    @Transactional
     public CommonResult updateTransactionLogsAsPaid(List<TransactionParam> transactionParams) {
 
         //未缴费中未缴费的项目分配发票号
         String newInvoiceCode;
         synchronized (this) {
-            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为暂用
             CommonResult result = invoiceService.getNextInvoiceCode();
             newInvoiceCode = (String) result.getData();
         }
@@ -96,8 +98,11 @@ public class PaymentServiceImpl implements PaymentService {
                 }
             }
         }
-        if (count > 0)
+        if (count > 0){
+            invoiceService.updateStatus((byte)3, newInvoiceCode);
             return CommonResult.success(count);
+        }
+
         return CommonResult.fail(E_700);
     }
 
@@ -209,6 +214,7 @@ public class PaymentServiceImpl implements PaymentService {
                 if (insertReverseResult.getCode() == 500)
                     return insertReverseResult;
             }
+            invoiceService.updateStatus((byte)3, reverseInvoiceCode);
 
             // 如果某个发票下的所有项目没有都被退费，则产生新的缴费记录
             // 对于医技项目来说，没有都被退费： transactionLogs.size() != returnedProjectList.size()
@@ -222,7 +228,9 @@ public class PaymentServiceImpl implements PaymentService {
             String newInvoiceCode = null;
             if(transactionLogs.size() != returnedProjectList.size() || !isRecipeAllReturn) {
                 synchronized (this) {
-                    //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+
+                    //通过查询invoice表得到新的缴费记录的发票号并将其状态改为暂
+                    // 用
                     CommonResult result = invoiceService.getNextInvoiceCode();
                     newInvoiceCode = (String) result.getData();
                 }
@@ -279,6 +287,7 @@ public class PaymentServiceImpl implements PaymentService {
                         }
                     }
                 }
+                invoiceService.updateStatus((byte)3, newInvoiceCode);
             }
 
             //向异常表中添加新的记录
@@ -313,8 +322,9 @@ public class PaymentServiceImpl implements PaymentService {
             CommonResult insertReverseResult = transactionService.insertTransactionLog(newTransactionLog);
             if (insertReverseResult.getCode() == 500)
                 return insertReverseResult;
-
         }
+        invoiceService.updateStatus((byte)3, newInvoiceCode);
+        
         //向异常表中添加新的记录
         CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(
                 invoiceCode, newInvoiceCode, null, newCashierId, "发票重打" );

@@ -21,28 +21,28 @@ public interface PaymentService {
     /**
      * 列出某发票下的缴费记录
      * @param invoiceCode 发票号
-     * @return
+     * @return 执行结果
      */
     CommonResult listTransactionLogsByInvoiceCode(String invoiceCode);
 
     /**
      * 累出某个项目下的小项
-     * @param collectionId
-     * @param projectId
-     * @return
+     * @param collectionId 清单号
+     * @param projectId 项目id
+     * @return 执行结果
      */
     CommonResult listTransactionLogsByCollectionAndProjectId(Integer collectionId, Integer projectId);
     /**
      * 执行收费操作
      * @param transactionLogList 需要缴费的项目集合
-     * @return
+     * @return 执行结果
      */
     CommonResult updateTransactionLogsAsPaid(List<TransactionParam> transactionLogList);
 
     /**
      * 执行退费操作
      * @param transactionLogParams 需要退费的项目集合
-     * @return
+     * @return 执行结果
      */
     CommonResult updateTransactionLogsAsReturned(List<TransactionParam> transactionLogParams);
 
@@ -50,7 +50,7 @@ public interface PaymentService {
      * 发票重打
      * @param invoiceCode 需要重打的发票号
      * @param newCashierId 收银员Id
-     * @return
+     * @return 执行结果
      */
     CommonResult reprintTransactionLog(String invoiceCode, Integer newCashierId);
 
@@ -59,7 +59,8 @@ public interface PaymentService {
      * @param registrationId 患者病历号
      * @param beginDateStr 开始时间
      * @param endDateStr 结束时间
-     * @return
+     * @return 执行结果
      */
     CommonResult listLogsByRegistrationIdAndDate(Integer registrationId, String beginDateStr, String endDateStr);
+
 }
