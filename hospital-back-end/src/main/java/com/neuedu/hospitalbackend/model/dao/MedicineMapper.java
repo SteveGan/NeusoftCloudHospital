@@ -32,4 +32,6 @@ public interface MedicineMapper {
     List<Medicine> listModernMedicine();
 
     String getCodeById(Integer id);
+
+    String getCostTypeById(Integer id);
 }

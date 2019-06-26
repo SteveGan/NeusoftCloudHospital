@@ -68,4 +68,10 @@
         where id = #{id}
     </select>
 
+    <select id="getCostTypeById" resultType="String">
+        select cost_type
+        from medicine
+        where id = #{id}
+    </select>
+
 </mapper>
