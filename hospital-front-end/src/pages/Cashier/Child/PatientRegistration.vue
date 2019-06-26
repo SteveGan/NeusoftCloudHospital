@@ -6,7 +6,7 @@
         <div class="raven-title">
           <i class="el-icon-s-order"></i>
           <span>挂号</span>
-        <el-button style="float:right" type="text" icon="el-icon-document-add" @click="confirmation">挂号</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-document-add" @click="confirmation" :loading="loading1">挂号</el-button>
         <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">打印</el-button>
         <!-- <el-button style="float:right" type="text" icon="el-icon-toilet-paper" @click="invoicePrinterVisible = true">补打</el-button>
         <el-button style="float:right" type="text" icon="el-icon-printer">重打</el-button> -->
@@ -104,7 +104,7 @@
       <div slot="header">
         <i class="el-icon-s-unfold raven-title"></i>
         <span class="raven-title">挂号信息列表</span>
-        <el-button style="float:right" type="text" icon="el-icon-refresh" @click="refreshRegistration">刷新</el-button>
+        <el-button style="float:right" type="text" icon="el-icon-refresh" @click="refreshRegistration" :loading="loading2">刷新</el-button>
       </div>
       
       <!-- 挂号信息表 -->
@@ -311,7 +311,7 @@ export default {
         doctorName: "",
         roleId: "",
         totalFee: "",
-        isBuyCaseBook: "",
+        isBuyCaseBook: false,
         cashierId: "",
         invoiceCode: ""
       },
@@ -485,8 +485,8 @@ export default {
         } else {
           this.fail("挂号");
         }
-        this.loading1 = false;
       });
+      this.loading1 = false;
     },
 
     // 检查是否可以向后台查询可选医生列表
@@ -516,7 +516,7 @@ export default {
     isTotalFeeAvailable() {
       const result =
         this.registrationForm.payType !== "" &&
-        this.registrationForm.isBuyCaseBook !== "" &&
+        // this.registrationForm.isBuyCaseBook !== "" &&
         this.registrationForm.roleId !== "";
       if (result) {
         register
@@ -551,6 +551,7 @@ export default {
 
     // 显示所有挂号信息列表
     registrations() {
+      this.loading2 = true;
       register
         .registrations()
         .then(response => {
@@ -581,6 +582,7 @@ export default {
         .catch(error => {
           // alert("get error")
         });
+      this.loading2 = false;
     }
   },
 

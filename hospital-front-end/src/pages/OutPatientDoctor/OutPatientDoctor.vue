@@ -248,13 +248,13 @@ export default {
       console.log(row);
 
       // 语音播报
-      this.doTTS(
-        "请" +
-          row.name +
-          "到" +
-          this.$store.getters["user/currentDepartmentName"] +
-          "就诊"
-      );
+      // this.doTTS(
+      //   "请" +
+      //     row.name +
+      //     "到" +
+      //     this.$store.getters["user/currentDepartmentName"] +
+      //     "就诊"
+      // );
 
       // 将当前的用户设置为被点击的用户
       this.selectedPatient = Object.assign({}, row);
@@ -306,6 +306,11 @@ export default {
           } else {
             //do nothing
           }
+
+          // 如果这是第一次诊断，那么发送消息告诉后端这是第一次请求(大屏幕发生响应变化)
+          if (caseStatus === 1) {
+          }
+
           //请求当前被点击用户的病历所有的处方
           listCaseRecipes(this.selectedPatient.caseId).then(
             response => {
