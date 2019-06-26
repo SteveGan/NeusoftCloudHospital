@@ -21,7 +21,7 @@ public interface ArrangementMapper {
                                    @Param("roleId") Integer roleId, @Param("registrationLevelId") Short registrationLevelId,
                                    @Param("amount") int amount, @Param("departmentId") Integer departmentId);
 
-    List<Arrangement> listByDepartmentIdAndDatePeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
+    List<HashMap> listByDepartmentIdAndDatePeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
                                             @Param("departmentId") Integer departmentId);
 
     List<Arrangement> listByUserIdAndDatePeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate);

@@ -184,6 +184,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         for(RecipeParam recipeParam: medicines){
             //创建对象
             Recipe recipe = new Recipe();
+            Integer medicineId = recipeParam.getMedicineId();
             recipe.setId(recipeId);
             recipe.setMedicineId(recipeParam.getMedicineId());
             recipe.setCaseId(caseId);
@@ -197,6 +198,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             recipe.setCreatorRoleId(creatorRoleId);
             recipe.setStatus(recipeParam.getStatus());
             recipe.setMedicineType(recipeParam.getMedicineType());
+            recipe.setDepartmentId(medicineMapper.getDepartmentIdByMedicineId(medicineId));
             //另行查找并赋值medicineUnitPrice
             HashMap hashMap = medicineMapper.getMedicineTypeAndUPrice(recipeParam.getMedicineId());
             recipe.setMedicineUnitPrice((BigDecimal) hashMap.get("unitPrice"));
@@ -226,10 +228,10 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         if(patientId == null)
             return CommonResult.fail(ResultCode.E_800);
         Integer collectionId = collectionParam.getRecipeId();
-        Integer projectId = recipeParam.getMedicineId();
+        Integer medicineId = recipeParam.getMedicineId();
         Short amount = recipeParam.getAmount();
         String medicineName = recipeParam.getMedicineName();
-        if(collectionId == null || projectId == null || amount == null || medicineName == null)
+        if(collectionId == null || medicineId == null || amount == null || medicineName == null)
             return CommonResult.fail(ResultCode.E_801);
         //计算总金额
         BigDecimal price = recipeParam.getMedicineUnitPrice();
@@ -241,12 +243,10 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         transactionLog.setRegistrationId(registrationId);
         transactionLog.setRoleId(creatorRoleId);
         transactionLog.setPatientId(patientId);
-        if(recipeParam.getMedicineType() == 1)
-            transactionLog.setType("中草药");
-        else
-            transactionLog.setType("成药");
+        String costType = medicineMapper.getCostTypeById(medicineId);
+        transactionLog.setType(costType);
         transactionLog.setCollectionId(collectionId);
-        transactionLog.setProjectId(projectId);
+        transactionLog.setProjectId(medicineId);
         transactionLog.setProjectName(medicineName);
         transactionLog.setAmount(amount);
         transactionLog.setTotalMoney(totalMoney);

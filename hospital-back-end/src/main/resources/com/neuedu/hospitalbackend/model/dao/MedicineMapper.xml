@@ -70,4 +70,16 @@
         where id = #{id}
     </select>
 
+    <select id="getCostTypeById" resultType="String">
+        select cost_type
+        from medicine
+        where id = #{id}
+    </select>
+
+    <select id="getDepartmentIdByMedicineId" resultType="Integer">
+        select department_id
+        from medicine
+        where id = #{id}
+    </select>
+
 </mapper>
