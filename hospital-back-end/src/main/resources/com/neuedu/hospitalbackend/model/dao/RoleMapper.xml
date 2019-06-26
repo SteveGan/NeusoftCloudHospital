@@ -31,6 +31,12 @@
         where id = #{roleId}
     </select>
 
+    <select id="getUserIdByRoleId" resultType="Integer">
+        select user_id
+        from role
+        where id = #{roleId}
+    </select>
+
     <select id="getUserNameByRoleId" resultType="String">
         select u.name
         from role r, user u

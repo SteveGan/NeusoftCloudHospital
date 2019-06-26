@@ -17,6 +17,9 @@ const state = {
 }
 
 const getters = {
+  currentUserId: state => {
+    return state.id
+  },
   currentRoleId: state => {
     return state.currentRole.id
   },

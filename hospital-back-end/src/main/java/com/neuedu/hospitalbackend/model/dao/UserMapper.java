@@ -19,4 +19,22 @@ public interface UserMapper {
     int delete(Integer id);
 
     List<User> listAllUsersAndRoles();
+
+
+    /**
+     * 设置用户的avatar
+     * @param id
+     * @param avatarUrl
+     */
+    void setAvatar(@Param("id") Integer id, @Param("avatar") String avatarUrl);
+
+
+    /**
+     * 设置用户的新密码
+     * @param id 用户的Id
+     * @param newPassword 用户的新密码
+     */
+    void setPassword(@Param("id") Integer id, @Param("newPassword") String newPassword);
+
+
 }

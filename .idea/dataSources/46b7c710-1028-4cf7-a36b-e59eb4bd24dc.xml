@@ -1220,13 +1220,18 @@
       <DataType>tinyint(1)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="298" parent="230" name="PRIMARY">
+    <column id="298" parent="230" name="rule_name">
+      <Position>23</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="299" parent="230" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 role_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="299" parent="231" name="id">
+    <column id="300" parent="231" name="id">
       <Position>1</Position>
       <Comment>病历模板id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -1234,58 +1239,58 @@ role_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="300" parent="231" name="role_id">
+    <column id="301" parent="231" name="role_id">
       <Position>2</Position>
       <Comment>创建人的角色id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="231" name="department_id">
+    <column id="302" parent="231" name="department_id">
       <Position>3</Position>
       <Comment>创建人所在科室id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="231" name="name">
+    <column id="303" parent="231" name="name">
       <Position>4</Position>
       <Comment>病历模板名称</Comment>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="231" name="scope">
+    <column id="304" parent="231" name="scope">
       <Position>5</Position>
       <Comment>模板适用范围：1.个人；2.科室；3.全院</Comment>
       <DataType>tinyint(4) unsigned|0s</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="231" name="narrate">
+    <column id="305" parent="231" name="narrate">
       <Position>6</Position>
       <Comment>主诉</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="231" name="cur_disease">
+    <column id="306" parent="231" name="cur_disease">
       <Position>7</Position>
       <Comment>现病史</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="306" parent="231" name="physical_condition">
+    <column id="307" parent="231" name="physical_condition">
       <Position>8</Position>
       <Comment>体格检查</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="307" parent="231" name="gmt_create">
+    <column id="308" parent="231" name="gmt_create">
       <Position>9</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="308" parent="231" name="gmt_modified">
+    <column id="309" parent="231" name="gmt_modified">
       <Position>10</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1293,64 +1298,64 @@ role_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="309" parent="231" name="cur_treat_condition">
+    <column id="310" parent="231" name="cur_treat_condition">
       <Position>11</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="310" parent="231" name="past_disease">
+    <column id="311" parent="231" name="past_disease">
       <Position>12</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="311" parent="231" name="allergy">
+    <column id="312" parent="231" name="allergy">
       <Position>13</Position>
       <Comment>过敏史</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="312" parent="231" name="assist_diagnose">
+    <column id="313" parent="231" name="assist_diagnose">
       <Position>14</Position>
       <Comment>辅助检查</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="313" parent="231" name="PRIMARY">
+    <key id="314" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="314" parent="232" name="id">
+    <column id="315" parent="232" name="id">
       <Position>1</Position>
       <DataType>smallint(5) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="315" parent="232" name="child_id">
+    <column id="316" parent="232" name="child_id">
       <Position>2</Position>
       <Comment>在下拉列表中的位置</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="316" parent="232" name="type">
+    <column id="317" parent="232" name="type">
       <Position>3</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="317" parent="232" name="name">
+    <column id="318" parent="232" name="name">
       <Position>4</Position>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="318" parent="232" name="gmt_create">
+    <column id="319" parent="232" name="gmt_create">
       <Position>5</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="319" parent="232" name="gmt_modified">
+    <column id="320" parent="232" name="gmt_modified">
       <Position>6</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1358,36 +1363,36 @@ role_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="320" parent="232" name="PRIMARY">
+    <key id="321" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="321" parent="233" name="id">
+    <column id="322" parent="233" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="322" parent="233" name="code">
+    <column id="323" parent="233" name="code">
       <Position>2</Position>
       <Comment>费用科目编码</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="323" parent="233" name="name">
+    <column id="324" parent="233" name="name">
       <Position>3</Position>
       <Comment>费用科目名称</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="324" parent="233" name="PRIMARY">
+    <key id="325" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="325" parent="234" name="id">
+    <column id="326" parent="234" name="id">
       <Position>1</Position>
       <Comment>日结表id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -1395,35 +1400,35 @@ role_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="326" parent="234" name="cashier_role_id">
+    <column id="327" parent="234" name="cashier_role_id">
       <Position>2</Position>
       <Comment>收费员id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="327" parent="234" name="total_money">
+    <column id="328" parent="234" name="total_money">
       <Position>3</Position>
       <Comment>总金额</Comment>
       <DataType>decimal(11,2 digit)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="328" parent="234" name="invoice_code_begin">
+    <column id="329" parent="234" name="invoice_code_begin">
       <Position>4</Position>
       <Comment>起始发票号</Comment>
       <DataType>char(12)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="329" parent="234" name="invoice_code_end">
+    <column id="330" parent="234" name="invoice_code_end">
       <Position>5</Position>
       <Comment>结束发票号</Comment>
       <DataType>char(12)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="330" parent="234" name="begin_date">
+    <column id="331" parent="234" name="begin_date">
       <Position>6</Position>
       <Comment>开始时间</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1432,7 +1437,7 @@ role_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="331" parent="234" name="end_date">
+    <column id="332" parent="234" name="end_date">
       <Position>7</Position>
       <Comment>结束时间</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1441,7 +1446,7 @@ role_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="332" parent="234" name="gmt_create">
+    <column id="333" parent="234" name="gmt_create">
       <Position>8</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1449,55 +1454,55 @@ role_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="333" parent="234" name="gmt_modified">
+    <column id="334" parent="234" name="gmt_modified">
       <Position>9</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="334" parent="234" name="PRIMARY">
+    <key id="335" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="335" parent="235" name="id">
+    <column id="336" parent="235" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="336" parent="235" name="code">
+    <column id="337" parent="235" name="code">
       <Position>2</Position>
       <Comment>科室编码</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="337" parent="235" name="name">
+    <column id="338" parent="235" name="name">
       <Position>3</Position>
       <Comment>科室名称</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="338" parent="235" name="classification">
+    <column id="339" parent="235" name="classification">
       <Position>4</Position>
       <Comment>科室分类</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="339" parent="235" name="type">
+    <column id="340" parent="235" name="type">
       <Position>5</Position>
       <Comment>科室类别</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="340" parent="235" name="PRIMARY">
+    <key id="341" parent="235" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="341" parent="236" name="id">
+    <column id="342" parent="236" name="id">
       <Position>1</Position>
       <Comment>确诊条目id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -1505,40 +1510,40 @@ role_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="342" parent="236" name="case_id">
+    <column id="343" parent="236" name="case_id">
       <Position>2</Position>
       <Comment>病历id/病历模板id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="343" parent="236" name="disease_id">
+    <column id="344" parent="236" name="disease_id">
       <Position>3</Position>
       <Comment>疾病的icd编码</Comment>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="344" parent="236" name="start_time">
+    <column id="345" parent="236" name="start_time">
       <Position>4</Position>
       <Comment>发病时间</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="345" parent="236" name="is_first_diagnosed">
+    <column id="346" parent="236" name="is_first_diagnosed">
       <Position>5</Position>
       <Comment>0: 确诊 1: 初诊</Comment>
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="346" parent="236" name="gmt_create">
+    <column id="347" parent="236" name="gmt_create">
       <Position>6</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="347" parent="236" name="gmt_modified">
+    <column id="348" parent="236" name="gmt_modified">
       <Position>7</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1546,12 +1551,12 @@ role_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="348" parent="236" name="PRIMARY">
+    <key id="349" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="349" parent="237" name="id">
+    <column id="350" parent="237" name="id">
       <Position>1</Position>
       <Comment>诊断模版id</Comment>
       <DataType>int(11)|0s</DataType>
@@ -1559,39 +1564,39 @@ role_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="350" parent="237" name="name">
+    <column id="351" parent="237" name="name">
       <Position>2</Position>
       <Comment>诊断模版名称</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="351" parent="237" name="disease_id">
+    <column id="352" parent="237" name="disease_id">
       <Position>3</Position>
       <Comment>疾病icd编码</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="352" parent="237" name="role_id">
+    <column id="353" parent="237" name="role_id">
       <Position>4</Position>
       <Comment>创建人id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="353" parent="237" name="scope">
+    <column id="354" parent="237" name="scope">
       <Position>5</Position>
       <Comment>默认个人  1:个人 2:科室 3:全院</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="354" parent="237" name="gmt_create">
+    <column id="355" parent="237" name="gmt_create">
       <Position>6</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="355" parent="237" name="gmt_modified">
+    <column id="356" parent="237" name="gmt_modified">
       <Position>7</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1599,138 +1604,138 @@ role_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="356" parent="237" name="disease_name">
+    <column id="357" parent="237" name="disease_name">
       <Position>8</Position>
       <Comment>疾病名称</Comment>
       <DataType>varchar(25)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="357" parent="237" name="type">
+    <column id="358" parent="237" name="type">
       <Position>9</Position>
       <Comment>类型：0.中医 1.西医</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="358" parent="237" name="PRIMARY">
+    <key id="359" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="359" parent="238" name="id">
+    <column id="360" parent="238" name="id">
       <Position>1</Position>
       <DataType>smallint(5) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="360" parent="238" name="icd_code">
+    <column id="361" parent="238" name="icd_code">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="361" parent="238" name="code">
+    <column id="362" parent="238" name="code">
       <Position>3</Position>
       <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="362" parent="238" name="name">
+    <column id="363" parent="238" name="name">
       <Position>4</Position>
       <DataType>varchar(90)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="363" parent="238" name="type">
+    <column id="364" parent="238" name="type">
       <Position>5</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="364" parent="238" name="PRIMARY">
+    <key id="365" parent="238" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="365" parent="239" name="id">
+    <column id="366" parent="239" name="id">
       <Position>1</Position>
       <Comment>检验申请id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="366" parent="239" name="project_id">
+    <column id="367" parent="239" name="project_id">
       <Position>2</Position>
       <Comment>检验项目id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="367" parent="239" name="case_id">
+    <column id="368" parent="239" name="case_id">
       <Position>3</Position>
       <Comment>病历id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="368" parent="239" name="department_id">
+    <column id="369" parent="239" name="department_id">
       <Position>4</Position>
       <Comment>部门id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="369" parent="239" name="status">
+    <column id="370" parent="239" name="status">
       <Position>5</Position>
       <Comment>1.暂存 2.开立 3.作废 4.已登记</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="370" parent="239" name="creator_role_id">
+    <column id="371" parent="239" name="creator_role_id">
       <Position>6</Position>
       <Comment>开具检验申请的id（一般情况下为门诊医生）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="371" parent="239" name="examiner_role_id">
+    <column id="372" parent="239" name="examiner_role_id">
       <Position>7</Position>
       <Comment>医技医生id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="372" parent="239" name="goal">
+    <column id="373" parent="239" name="goal">
       <Position>8</Position>
       <Comment>检验的目的</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="373" parent="239" name="requirement">
+    <column id="374" parent="239" name="requirement">
       <Position>9</Position>
       <Comment>检验的要求</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="374" parent="239" name="result_description">
+    <column id="375" parent="239" name="result_description">
       <Position>10</Position>
       <Comment>检验结果（文字）</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="375" parent="239" name="result_image">
+    <column id="376" parent="239" name="result_image">
       <Position>11</Position>
       <Comment>检验结果（图片）</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="376" parent="239" name="advice">
+    <column id="377" parent="239" name="advice">
       <Position>12</Position>
       <Comment>医技医生意见</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="377" parent="239" name="gmt_create">
+    <column id="378" parent="239" name="gmt_create">
       <Position>13</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="378" parent="239" name="gmt_modified">
+    <column id="379" parent="239" name="gmt_modified">
       <Position>14</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1738,53 +1743,53 @@ role_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="379" parent="239" name="PRIMARY">
+    <key id="380" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 project_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="380" parent="240" name="id">
+    <column id="381" parent="240" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="381" parent="240" name="collection_id">
+    <column id="382" parent="240" name="collection_id">
       <Position>2</Position>
       <Comment>集合id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="382" parent="240" name="project_id">
+    <column id="383" parent="240" name="project_id">
       <Position>3</Position>
       <Comment>检验项目id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="383" parent="240" name="project_name">
+    <column id="384" parent="240" name="project_name">
       <Position>4</Position>
       <Comment>检验项目名字</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="384" parent="240" name="item_id">
+    <column id="385" parent="240" name="item_id">
       <Position>5</Position>
       <Comment>检验项目小项id</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="385" parent="240" name="item_name">
+    <column id="386" parent="240" name="item_name">
       <Position>6</Position>
       <Comment>检验项目小项名字</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="386" parent="240" name="amount">
+    <column id="387" parent="240" name="amount">
       <Position>7</Position>
       <Comment>数量</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
@@ -1792,74 +1797,74 @@ project_id</ColNames>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="387" parent="240" name="PRIMARY">
+    <key id="388" parent="240" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="388" parent="241" name="id">
+    <column id="389" parent="241" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="389" parent="241" name="name">
+    <column id="390" parent="241" name="name">
       <Position>2</Position>
       <Comment>检验模版名称</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="390" parent="241" name="project_id">
+    <column id="391" parent="241" name="project_id">
       <Position>3</Position>
       <Comment>项目Id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="391" parent="241" name="item_id">
+    <column id="392" parent="241" name="item_id">
       <Position>4</Position>
       <Comment>小项ID</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="392" parent="241" name="role_id">
+    <column id="393" parent="241" name="role_id">
       <Position>5</Position>
       <Comment>创建人角色ID</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="393" parent="241" name="department_id">
+    <column id="394" parent="241" name="department_id">
       <Position>6</Position>
       <Comment>创建人所在科室ID</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="394" parent="241" name="scope">
+    <column id="395" parent="241" name="scope">
       <Position>7</Position>
       <Comment>1:个人 2:科室 3:全院</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="395" parent="241" name="goal">
+    <column id="396" parent="241" name="goal">
       <Position>8</Position>
       <Comment>模版目的</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="396" parent="241" name="requirement">
+    <column id="397" parent="241" name="requirement">
       <Position>9</Position>
       <Comment>模版要求</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="397" parent="241" name="gmt_create">
+    <column id="398" parent="241" name="gmt_create">
       <Position>10</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="398" parent="241" name="gmt_modified">
+    <column id="399" parent="241" name="gmt_modified">
       <Position>11</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1867,94 +1872,94 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="399" parent="241" name="PRIMARY">
+    <key id="400" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="400" parent="242" name="id">
+    <column id="401" parent="242" name="id">
       <Position>1</Position>
       <Comment>检查申请id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="401" parent="242" name="project_id">
+    <column id="402" parent="242" name="project_id">
       <Position>2</Position>
       <Comment>检查项目id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="402" parent="242" name="case_id">
+    <column id="403" parent="242" name="case_id">
       <Position>3</Position>
       <Comment>病历id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="403" parent="242" name="department_id">
+    <column id="404" parent="242" name="department_id">
       <Position>4</Position>
       <Comment>执行部门id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="404" parent="242" name="status">
+    <column id="405" parent="242" name="status">
       <Position>5</Position>
       <Comment>1.未开立 2.开立 3.作废 4.已登记</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="405" parent="242" name="goal">
+    <column id="406" parent="242" name="goal">
       <Position>6</Position>
       <Comment>检查的目的</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="406" parent="242" name="requirement">
+    <column id="407" parent="242" name="requirement">
       <Position>7</Position>
       <Comment>检查的要求</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="407" parent="242" name="result_image">
+    <column id="408" parent="242" name="result_image">
       <Position>8</Position>
       <Comment>检查结果（图片）</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="408" parent="242" name="result_description">
+    <column id="409" parent="242" name="result_description">
       <Position>9</Position>
       <Comment>检查结果（文字）</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="409" parent="242" name="creator_role_id">
+    <column id="410" parent="242" name="creator_role_id">
       <Position>10</Position>
       <Comment>开具检查申请医生的id（一般情况下为门诊医生）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="410" parent="242" name="inspector_role_id">
+    <column id="411" parent="242" name="inspector_role_id">
       <Position>11</Position>
       <Comment>医技医生id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="411" parent="242" name="advice">
+    <column id="412" parent="242" name="advice">
       <Position>12</Position>
       <Comment>医技医生意见</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="412" parent="242" name="gmt_create">
+    <column id="413" parent="242" name="gmt_create">
       <Position>13</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="413" parent="242" name="gmt_modified">
+    <column id="414" parent="242" name="gmt_modified">
       <Position>14</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1962,53 +1967,53 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="414" parent="242" name="PRIMARY">
+    <key id="415" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 project_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="415" parent="243" name="id">
+    <column id="416" parent="243" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="416" parent="243" name="collection_id">
+    <column id="417" parent="243" name="collection_id">
       <Position>2</Position>
       <Comment>集合id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="417" parent="243" name="project_id">
+    <column id="418" parent="243" name="project_id">
       <Position>3</Position>
       <Comment>检查项目id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="418" parent="243" name="project_name">
+    <column id="419" parent="243" name="project_name">
       <Position>4</Position>
       <Comment>检查项目名字</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="419" parent="243" name="item_id">
+    <column id="420" parent="243" name="item_id">
       <Position>5</Position>
       <Comment>检查项目小项id</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="420" parent="243" name="item_name">
+    <column id="421" parent="243" name="item_name">
       <Position>6</Position>
       <Comment>检查项目小项名字</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="421" parent="243" name="amount">
+    <column id="422" parent="243" name="amount">
       <Position>7</Position>
       <Comment>数量</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
@@ -2016,74 +2021,74 @@ project_id</ColNames>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="422" parent="243" name="PRIMARY">
+    <key id="423" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="423" parent="244" name="id">
+    <column id="424" parent="244" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="424" parent="244" name="name">
+    <column id="425" parent="244" name="name">
       <Position>2</Position>
       <Comment>检查模版名称</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="425" parent="244" name="project_id">
+    <column id="426" parent="244" name="project_id">
       <Position>3</Position>
       <Comment>检查项目id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="426" parent="244" name="item_id">
+    <column id="427" parent="244" name="item_id">
       <Position>4</Position>
       <Comment>具体检查项目的ID</Comment>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="427" parent="244" name="role_id">
+    <column id="428" parent="244" name="role_id">
       <Position>5</Position>
       <Comment>创建人角色ID</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="428" parent="244" name="department_id">
+    <column id="429" parent="244" name="department_id">
       <Position>6</Position>
       <Comment>创建人所在科室ID</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="429" parent="244" name="goal">
+    <column id="430" parent="244" name="goal">
       <Position>7</Position>
       <Comment>模版目的</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="430" parent="244" name="requirement">
+    <column id="431" parent="244" name="requirement">
       <Position>8</Position>
       <Comment>模版要求</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="431" parent="244" name="scope">
+    <column id="432" parent="244" name="scope">
       <Position>9</Position>
       <Comment>1:个人 2:科室 3:全院</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="432" parent="244" name="gmt_create">
+    <column id="433" parent="244" name="gmt_create">
       <Position>10</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="433" parent="244" name="gmt_modified">
+    <column id="434" parent="244" name="gmt_modified">
       <Position>11</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -2091,12 +2096,12 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="434" parent="244" name="PRIMARY">
+    <key id="435" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="435" parent="245" name="id">
+    <column id="436" parent="245" name="id">
       <Position>1</Position>
       <Comment>库存id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -2104,33 +2109,33 @@ project_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="436" parent="245" name="medicine_id">
+    <column id="437" parent="245" name="medicine_id">
       <Position>2</Position>
       <Comment>药品id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="437" parent="245" name="remaining_amount">
+    <column id="438" parent="245" name="remaining_amount">
       <Position>3</Position>
       <Comment>药品剩余库存</Comment>
       <DataType>smallint(5) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="438" parent="245" name="PRIMARY">
+    <key id="439" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="439" parent="246" name="id">
+    <column id="440" parent="246" name="id">
       <Position>1</Position>
       <Comment>发票号（定长12）</Comment>
       <DataType>char(12)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="440" parent="246" name="is_available">
+    <column id="441" parent="246" name="is_available">
       <Position>2</Position>
       <Comment>0.不可用 1.可用</Comment>
       <DataType>tinyint(1) unsigned|0s</DataType>
@@ -2138,144 +2143,144 @@ project_id</ColNames>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="441" parent="246" name="version">
+    <column id="442" parent="246" name="version">
       <Position>3</Position>
       <Comment>基于mysql乐观锁，解决并发访问</Comment>
       <DataType>int(3) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="442" parent="246" name="PRIMARY">
+    <key id="443" parent="246" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="443" parent="247" name="id">
+    <column id="444" parent="247" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="444" parent="247" name="user_id">
+    <column id="445" parent="247" name="user_id">
       <Position>2</Position>
       <Comment>用户id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="445" parent="247" name="time">
+    <column id="446" parent="247" name="time">
       <Position>3</Position>
       <Comment>登录时间</Comment>
       <DataType>timestamp|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="446" parent="247" name="ip">
+    <column id="447" parent="247" name="ip">
       <Position>4</Position>
       <Comment>IP地址</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="447" parent="247" name="os">
+    <column id="448" parent="247" name="os">
       <Position>5</Position>
       <Comment>操作系统</Comment>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="448" parent="247" name="browser">
+    <column id="449" parent="247" name="browser">
       <Position>6</Position>
       <Comment>浏览器版本</Comment>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="449" parent="247" name="type">
+    <column id="450" parent="247" name="type">
       <Position>7</Position>
       <Comment>应用类型（web，小程序）</Comment>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="450" parent="247" name="url">
+    <column id="451" parent="247" name="url">
       <Position>8</Position>
       <Comment>请求路由</Comment>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="451" parent="247" name="location">
+    <column id="452" parent="247" name="location">
       <Position>9</Position>
       <Comment>位置</Comment>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="452" parent="247" name="PRIMARY">
+    <key id="453" parent="247" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="453" parent="248" name="id">
+    <column id="454" parent="248" name="id">
       <Position>1</Position>
       <DataType>smallint(5) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="454" parent="248" name="code">
+    <column id="455" parent="248" name="code">
       <Position>2</Position>
       <Comment>药品编码</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="455" parent="248" name="name">
+    <column id="456" parent="248" name="name">
       <Position>3</Position>
       <Comment>药品名称</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="456" parent="248" name="specification">
+    <column id="457" parent="248" name="specification">
       <Position>4</Position>
       <Comment>规格</Comment>
       <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="457" parent="248" name="unit">
+    <column id="458" parent="248" name="unit">
       <Position>5</Position>
       <Comment>包装单位</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="458" parent="248" name="factory">
+    <column id="459" parent="248" name="factory">
       <Position>6</Position>
       <Comment>厂家</Comment>
       <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="459" parent="248" name="formulation">
+    <column id="460" parent="248" name="formulation">
       <Position>7</Position>
       <Comment>剂型</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="460" parent="248" name="type">
+    <column id="461" parent="248" name="type">
       <Position>8</Position>
       <Comment>药品类型</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="461" parent="248" name="unit_price">
+    <column id="462" parent="248" name="unit_price">
       <Position>9</Position>
       <Comment>单价</Comment>
       <DataType>decimal(11,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="462" parent="248" name="pinyin_code">
+    <column id="463" parent="248" name="pinyin_code">
       <Position>10</Position>
       <Comment>拼音码</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="463" parent="248" name="PRIMARY">
+    <key id="464" parent="248" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="464" parent="249" name="id">
+    <column id="465" parent="249" name="id">
       <Position>1</Position>
       <Comment>非药品id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -2283,50 +2288,50 @@ project_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="465" parent="249" name="code">
+    <column id="466" parent="249" name="code">
       <Position>2</Position>
       <Comment>项目编码</Comment>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="466" parent="249" name="name">
+    <column id="467" parent="249" name="name">
       <Position>3</Position>
       <Comment>项目名称</Comment>
       <DataType>varchar(80)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="467" parent="249" name="specification">
+    <column id="468" parent="249" name="specification">
       <Position>4</Position>
       <Comment>规格</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="468" parent="249" name="unit_price">
+    <column id="469" parent="249" name="unit_price">
       <Position>5</Position>
       <Comment>单价</Comment>
       <DataType>decimal(6,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="469" parent="249" name="cost_type">
+    <column id="470" parent="249" name="cost_type">
       <Position>6</Position>
       <Comment>费用分类</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="470" parent="249" name="executive_department">
+    <column id="471" parent="249" name="executive_department">
       <Position>7</Position>
       <Comment>执行科室</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="471" parent="249" name="gmt_create">
+    <column id="472" parent="249" name="gmt_create">
       <Position>8</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="472" parent="249" name="gmt_modified">
+    <column id="473" parent="249" name="gmt_modified">
       <Position>9</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -2334,12 +2339,12 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="473" parent="249" name="PRIMARY">
+    <key id="474" parent="249" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="474" parent="250" name="id">
+    <column id="475" parent="250" name="id">
       <Position>1</Position>
       <Comment>患者在本系统的id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -2347,45 +2352,45 @@ project_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="475" parent="250" name="id_card">
+    <column id="476" parent="250" name="id_card">
       <Position>2</Position>
       <Comment>患者身份证号</Comment>
       <DataType>char(18)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="476" parent="250" name="address">
+    <column id="477" parent="250" name="address">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8mb4_bin</Collation>
     </column>
-    <column id="477" parent="250" name="gender">
+    <column id="478" parent="250" name="gender">
       <Position>4</Position>
       <Comment>0：女 1：男</Comment>
       <DataType>tinyint(4) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="478" parent="250" name="name">
+    <column id="479" parent="250" name="name">
       <Position>5</Position>
       <Comment>患者姓名</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8mb4_bin</Collation>
     </column>
-    <column id="479" parent="250" name="birthday">
+    <column id="480" parent="250" name="birthday">
       <Position>6</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="480" parent="250" name="gmt_create">
+    <column id="481" parent="250" name="gmt_create">
       <Position>7</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="481" parent="250" name="gmt_modified">
+    <column id="482" parent="250" name="gmt_modified">
       <Position>8</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -2393,12 +2398,12 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="482" parent="250" name="PRIMARY">
+    <key id="483" parent="250" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="483" parent="251" name="registration_id">
+    <column id="484" parent="251" name="registration_id">
       <Position>1</Position>
       <Comment>病历的id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -2406,27 +2411,27 @@ project_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="484" parent="251" name="patient_id">
+    <column id="485" parent="251" name="patient_id">
       <Position>2</Position>
       <Comment>患者在本医院的id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="485" parent="251" name="patient_name">
+    <column id="486" parent="251" name="patient_name">
       <Position>3</Position>
       <Comment>患者姓名</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="486" parent="251" name="role_id">
+    <column id="487" parent="251" name="role_id">
       <Position>4</Position>
       <Comment>医生的id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="487" parent="251" name="status">
+    <column id="488" parent="251" name="status">
       <Position>5</Position>
       <Comment>1: 待诊 2: 暂存 3: 已诊（未确诊）4:确诊 5: 诊毕</Comment>
       <DataType>tinyint(4) unsigned|0s</DataType>
@@ -2434,50 +2439,50 @@ project_id</ColNames>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="488" parent="251" name="narrate">
+    <column id="489" parent="251" name="narrate">
       <Position>6</Position>
       <Comment>主诉</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="489" parent="251" name="cur_disease">
+    <column id="490" parent="251" name="cur_disease">
       <Position>7</Position>
       <Comment>现病史</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="490" parent="251" name="cur_treat_condition">
+    <column id="491" parent="251" name="cur_treat_condition">
       <Position>8</Position>
       <Comment>现病治疗情况</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="491" parent="251" name="past_disease">
+    <column id="492" parent="251" name="past_disease">
       <Position>9</Position>
       <Comment>既往史</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="492" parent="251" name="allergy">
+    <column id="493" parent="251" name="allergy">
       <Position>10</Position>
       <Comment>过敏史</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="493" parent="251" name="physical_condition">
+    <column id="494" parent="251" name="physical_condition">
       <Position>11</Position>
       <Comment>体格检查</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="494" parent="251" name="gmt_create">
+    <column id="495" parent="251" name="gmt_create">
       <Position>12</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="495" parent="251" name="gmt_modified">
+    <column id="496" parent="251" name="gmt_modified">
       <Position>13</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -2485,100 +2490,100 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="496" parent="251" name="assist_diagnose">
+    <column id="497" parent="251" name="assist_diagnose">
       <Position>14</Position>
       <Comment>辅助检查</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="497" parent="251" name="PRIMARY">
+    <key id="498" parent="251" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>registration_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="498" parent="252" name="id">
+    <column id="499" parent="252" name="id">
       <Position>1</Position>
       <Comment>处方ID</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="499" parent="252" name="medicine_id">
+    <column id="500" parent="252" name="medicine_id">
       <Position>2</Position>
       <Comment>药品编码</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="500" parent="252" name="case_id">
+    <column id="501" parent="252" name="case_id">
       <Position>3</Position>
       <Comment>病历ID</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="501" parent="252" name="department_id">
+    <column id="502" parent="252" name="department_id">
       <Position>4</Position>
       <Comment>执行科室id   默认：132药剂科</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>&apos;132&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="502" parent="252" name="amount">
+    <column id="503" parent="252" name="amount">
       <Position>5</Position>
       <Comment>数量</Comment>
       <DataType>smallint(3)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="503" parent="252" name="remain_amount">
+    <column id="504" parent="252" name="remain_amount">
       <Position>6</Position>
       <Comment>剩余可退数量</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="504" parent="252" name="medicine_type">
+    <column id="505" parent="252" name="medicine_type">
       <Position>7</Position>
       <Comment>1.中草药 2.西药 3.中成药...</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="505" parent="252" name="medicine_specification">
+    <column id="506" parent="252" name="medicine_specification">
       <Position>8</Position>
       <Comment>规格</Comment>
       <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="506" parent="252" name="medicine_unit">
+    <column id="507" parent="252" name="medicine_unit">
       <Position>9</Position>
       <Comment>单位</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="507" parent="252" name="medicine_formulation">
+    <column id="508" parent="252" name="medicine_formulation">
       <Position>10</Position>
       <Comment>剂型</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="508" parent="252" name="medicine_unit_price">
+    <column id="509" parent="252" name="medicine_unit_price">
       <Position>11</Position>
       <Comment>单价</Comment>
       <DataType>decimal(11,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="509" parent="252" name="dosage">
+    <column id="510" parent="252" name="dosage">
       <Position>12</Position>
       <Comment>单次用量</Comment>
       <DataType>decimal(4,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="510" parent="252" name="frequency">
+    <column id="511" parent="252" name="frequency">
       <Position>13</Position>
       <Comment>频次</Comment>
       <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="511" parent="252" name="status">
+    <column id="512" parent="252" name="status">
       <Position>14</Position>
       <Comment>处方状态： 1：暂存  2: 开立 3:作废 4: 已取药 5: 已退药</Comment>
       <DataType>tinyint(4) unsigned|0s</DataType>
@@ -2586,26 +2591,26 @@ project_id</ColNames>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="512" parent="252" name="creator_role_id">
+    <column id="513" parent="252" name="creator_role_id">
       <Position>15</Position>
       <Comment>开药者id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="513" parent="252" name="deliver_role_id">
+    <column id="514" parent="252" name="deliver_role_id">
       <Position>16</Position>
       <Comment>药房管理员Id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="514" parent="252" name="gmt_create">
+    <column id="515" parent="252" name="gmt_create">
       <Position>17</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="515" parent="252" name="gmt_modified">
+    <column id="516" parent="252" name="gmt_modified">
       <Position>18</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -2613,13 +2618,13 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="516" parent="252" name="PRIMARY">
+    <key id="517" parent="252" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 medicine_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="517" parent="253" name="id">
+    <column id="518" parent="253" name="id">
       <Position>1</Position>
       <Comment>处方模板id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -2627,25 +2632,25 @@ medicine_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="518" parent="253" name="name">
+    <column id="519" parent="253" name="name">
       <Position>2</Position>
       <Comment>处方模板名称</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="519" parent="253" name="role_id">
+    <column id="520" parent="253" name="role_id">
       <Position>3</Position>
       <Comment>创建人角色id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="520" parent="253" name="department_id">
+    <column id="521" parent="253" name="department_id">
       <Position>4</Position>
       <Comment>创建人所在科室id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="521" parent="253" name="scope">
+    <column id="522" parent="253" name="scope">
       <Position>5</Position>
       <Comment>模板适用范围：1.个人；2.科室；3.全院</Comment>
       <DataType>tinyint(4) unsigned|0s</DataType>
@@ -2653,52 +2658,52 @@ medicine_id</ColNames>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="522" parent="253" name="medicine_code">
+    <column id="523" parent="253" name="medicine_code">
       <Position>6</Position>
       <Comment>药品编码</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="523" parent="253" name="type">
+    <column id="524" parent="253" name="type">
       <Position>7</Position>
       <Comment>1.中草药 2.西药 （3.中成药...）</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="524" parent="253" name="dosage">
+    <column id="525" parent="253" name="dosage">
       <Position>8</Position>
       <Comment>用量</Comment>
       <DataType>decimal(4,2 digit)|0s</DataType>
       <DefaultExpression>&apos;1.00&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="525" parent="253" name="dosage_unit">
+    <column id="526" parent="253" name="dosage_unit">
       <Position>9</Position>
       <Comment>用量单位</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="526" parent="253" name="frequency">
+    <column id="527" parent="253" name="frequency">
       <Position>10</Position>
       <Comment>频次</Comment>
       <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="527" parent="253" name="amount">
+    <column id="528" parent="253" name="amount">
       <Position>11</Position>
       <Comment>数量</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="528" parent="253" name="gmt_create">
+    <column id="529" parent="253" name="gmt_create">
       <Position>12</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="529" parent="253" name="gmt_modified">
+    <column id="530" parent="253" name="gmt_modified">
       <Position>13</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -2706,12 +2711,12 @@ medicine_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="530" parent="253" name="PRIMARY">
+    <key id="531" parent="253" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="531" parent="254" name="id">
+    <column id="532" parent="254" name="id">
       <Position>1</Position>
       <Comment>病历号</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -2719,54 +2724,54 @@ medicine_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="532" parent="254" name="patient_id">
+    <column id="533" parent="254" name="patient_id">
       <Position>2</Position>
       <Comment>患者在本医院的id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="533" parent="254" name="appointment_date">
+    <column id="534" parent="254" name="appointment_date">
       <Position>3</Position>
       <Comment>看诊日期</Comment>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="534" parent="254" name="time_slot">
+    <column id="535" parent="254" name="time_slot">
       <Position>4</Position>
       <Comment>1.上午 2.下午 3.晚上...</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="535" parent="254" name="role_id">
+    <column id="536" parent="254" name="role_id">
       <Position>5</Position>
       <Comment>接诊医生id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="536" parent="254" name="registration_level_id">
+    <column id="537" parent="254" name="registration_level_id">
       <Position>6</Position>
       <Comment>挂号级别：普通号、专家号、急诊号</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="537" parent="254" name="department_id">
+    <column id="538" parent="254" name="department_id">
       <Position>7</Position>
       <Comment>挂号科室</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="538" parent="254" name="total_fee">
+    <column id="539" parent="254" name="total_fee">
       <Position>8</Position>
       <Comment>应收金额</Comment>
       <DataType>decimal(11,2 digit) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="539" parent="254" name="is_normal">
+    <column id="540" parent="254" name="is_normal">
       <Position>9</Position>
       <Comment>0已退号、1正常</Comment>
       <DataType>tinyint(1) unsigned|0s</DataType>
@@ -2774,21 +2779,21 @@ medicine_id</ColNames>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="540" parent="254" name="cashier_id">
+    <column id="541" parent="254" name="cashier_id">
       <Position>10</Position>
       <Comment>收费员</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="541" parent="254" name="pay_type">
+    <column id="542" parent="254" name="pay_type">
       <Position>11</Position>
       <Comment>结算类别：自费、医保、新农合</Comment>
       <DataType>tinyint(4) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="542" parent="254" name="is_buy_case_book">
+    <column id="543" parent="254" name="is_buy_case_book">
       <Position>12</Position>
       <Comment>是否购买病历本：0否，1是</Comment>
       <DataType>tinyint(1) unsigned|0s</DataType>
@@ -2796,14 +2801,14 @@ medicine_id</ColNames>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="543" parent="254" name="gmt_create">
+    <column id="544" parent="254" name="gmt_create">
       <Position>13</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="544" parent="254" name="gmt_modified">
+    <column id="545" parent="254" name="gmt_modified">
       <Position>14</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -2811,12 +2816,12 @@ medicine_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="545" parent="254" name="PRIMARY">
+    <key id="546" parent="254" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="546" parent="255" name="id">
+    <column id="547" parent="255" name="id">
       <Position>1</Position>
       <Comment>1,2,3</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
@@ -2824,37 +2829,37 @@ medicine_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="547" parent="255" name="code">
+    <column id="548" parent="255" name="code">
       <Position>2</Position>
       <Comment>级别编码</Comment>
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="548" parent="255" name="name">
+    <column id="549" parent="255" name="name">
       <Position>3</Position>
       <Comment>级别名称(普通号、专家号、急诊号)</Comment>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="549" parent="255" name="quota">
+    <column id="550" parent="255" name="quota">
       <Position>4</Position>
       <Comment>挂号限额</Comment>
       <DataType>smallint(6)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="550" parent="255" name="cost">
+    <column id="551" parent="255" name="cost">
       <Position>5</Position>
       <Comment>挂号费</Comment>
       <DataType>decimal(11,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="551" parent="255" name="PRIMARY">
+    <key id="552" parent="255" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="552" parent="256" name="id">
+    <column id="553" parent="256" name="id">
       <Position>1</Position>
       <Comment>角色id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -2862,59 +2867,59 @@ medicine_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="553" parent="256" name="user_id">
+    <column id="554" parent="256" name="user_id">
       <Position>2</Position>
       <Comment>用户id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="554" parent="256" name="position_id">
+    <column id="555" parent="256" name="position_id">
       <Position>3</Position>
       <Comment>职位id（权限）</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="555" parent="256" name="position_name">
+    <column id="556" parent="256" name="position_name">
       <Position>4</Position>
       <Comment>职位名称</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="556" parent="256" name="department_id">
+    <column id="557" parent="256" name="department_id">
       <Position>5</Position>
       <Comment>部门id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="557" parent="256" name="department_name">
+    <column id="558" parent="256" name="department_name">
       <Position>6</Position>
       <Comment>部门名称</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="558" parent="256" name="title_id">
+    <column id="559" parent="256" name="title_id">
       <Position>7</Position>
       <Comment>职称id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="559" parent="256" name="title_name">
+    <column id="560" parent="256" name="title_name">
       <Position>8</Position>
       <Comment>职称名称</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="560" parent="256" name="gmt_create">
+    <column id="561" parent="256" name="gmt_create">
       <Position>9</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="561" parent="256" name="gmt_modified">
+    <column id="562" parent="256" name="gmt_modified">
       <Position>10</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -2922,69 +2927,69 @@ medicine_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <index id="562" parent="256" name="role_id_uindex">
+    <index id="563" parent="256" name="role_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="563" parent="256" name="PRIMARY">
+    <key id="564" parent="256" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="564" parent="256" name="role_id_uindex">
+    <key id="565" parent="256" name="role_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>role_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="565" parent="257" name="id">
+    <column id="566" parent="257" name="id">
       <Position>1</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="566" parent="257" name="item_id">
+    <column id="567" parent="257" name="item_id">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="567" parent="257" name="item_name">
+    <column id="568" parent="257" name="item_name">
       <Position>3</Position>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="568" parent="257" name="project_id">
+    <column id="569" parent="257" name="project_id">
       <Position>4</Position>
       <DataType>smallint(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="569" parent="257" name="project_name">
+    <column id="570" parent="257" name="project_name">
       <Position>5</Position>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="570" parent="257" name="unit">
+    <column id="571" parent="257" name="unit">
       <Position>6</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="571" parent="257" name="price">
+    <column id="572" parent="257" name="price">
       <Position>7</Position>
       <DataType>decimal(11,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="572" parent="257" name="department_id">
+    <column id="573" parent="257" name="department_id">
       <Position>8</Position>
       <Comment>执行科室id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="573" parent="257" name="PRIMARY">
+    <key id="574" parent="257" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="574" parent="258" name="id">
+    <column id="575" parent="258" name="id">
       <Position>1</Position>
       <Comment>异常记录</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -2992,45 +2997,45 @@ medicine_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="575" parent="258" name="original_invoice_code">
+    <column id="576" parent="258" name="original_invoice_code">
       <Position>2</Position>
       <Comment>原发票号</Comment>
       <DataType>char(12)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="576" parent="258" name="new_invoice_code">
+    <column id="577" parent="258" name="new_invoice_code">
       <Position>3</Position>
       <Comment>新发票号</Comment>
       <DataType>char(12)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="577" parent="258" name="reverse_invoice_code">
+    <column id="578" parent="258" name="reverse_invoice_code">
       <Position>4</Position>
       <Comment>冲红发票号</Comment>
       <DataType>char(12)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="578" parent="258" name="role_id">
+    <column id="579" parent="258" name="role_id">
       <Position>5</Position>
       <Comment>收费员ID</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="579" parent="258" name="reason">
+    <column id="580" parent="258" name="reason">
       <Position>6</Position>
       <Comment>异常原因</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="580" parent="258" name="gmt_create">
+    <column id="581" parent="258" name="gmt_create">
       <Position>7</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="581" parent="258" name="gmt_modified">
+    <column id="582" parent="258" name="gmt_modified">
       <Position>8</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -3038,12 +3043,12 @@ medicine_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="582" parent="258" name="PRIMARY">
+    <key id="583" parent="258" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="583" parent="259" name="id">
+    <column id="584" parent="259" name="id">
       <Position>1</Position>
       <Comment>收费记录ID</Comment>
       <DataType>int(11) unsigned|0s</DataType>
@@ -3051,85 +3056,91 @@ medicine_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="584" parent="259" name="invoice_code">
+    <column id="585" parent="259" name="invoice_code">
       <Position>2</Position>
       <Comment>发票号（定长12）</Comment>
       <DataType>char(12)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="585" parent="259" name="registration_id">
+    <column id="586" parent="259" name="registration_id">
       <Position>3</Position>
       <Comment>病历号</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="586" parent="259" name="patient_id">
+    <column id="587" parent="259" name="patient_id">
       <Position>4</Position>
       <Comment>患者在本医院的id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="587" parent="259" name="role_id">
+    <column id="588" parent="259" name="role_id">
       <Position>5</Position>
       <Comment>收费员角色id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="588" parent="259" name="type">
+    <column id="589" parent="259" name="type">
       <Position>6</Position>
       <Comment>收费的类型：包含成药，草药，挂号费等</Comment>
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="589" parent="259" name="collection_id">
+    <column id="590" parent="259" name="collection_id">
       <Position>7</Position>
       <Comment>对应了收费项目的第一层级：处方，检验申请集合，检查申请集合，处置集合</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="590" parent="259" name="project_id">
+    <column id="591" parent="259" name="project_id">
       <Position>8</Position>
       <Comment>对应了收费项目的第二层级，是具体的项目：一款药，一个检查项目（X光片，CT检查），一个检验项目（验血，验尿），一个处置（挂点滴）；</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="591" parent="259" name="item_id">
+    <column id="592" parent="259" name="project_name">
       <Position>9</Position>
+      <Comment>第二层级名称</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="593" parent="259" name="item_id">
+      <Position>10</Position>
       <Comment>对应了收费项目的第三层级，对于检验检查项目来说：葡萄糖测定、针管</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="592" parent="259" name="item_name">
-      <Position>10</Position>
+    <column id="594" parent="259" name="item_name">
+      <Position>11</Position>
       <Comment>最小一级名称</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="593" parent="259" name="amount">
-      <Position>11</Position>
+    <column id="595" parent="259" name="amount">
+      <Position>12</Position>
       <Comment>收费项目单位数量</Comment>
       <DataType>smallint(3) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="594" parent="259" name="pay_type">
-      <Position>12</Position>
+    <column id="596" parent="259" name="pay_type">
+      <Position>13</Position>
       <Comment>结算类别：1.自费、2.医保、3.新农合</Comment>
       <DataType>tinyint(4) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="595" parent="259" name="total_money">
-      <Position>13</Position>
+    <column id="597" parent="259" name="total_money">
+      <Position>14</Position>
       <Comment>总金额</Comment>
       <DataType>decimal(11,2 digit)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="596" parent="259" name="status">
-      <Position>14</Position>
+    <column id="598" parent="259" name="status">
+      <Position>15</Position>
       <Comment>1.未缴 2.已缴 3.已退 4. 冲正 5.作废&#xd;
 </Comment>
       <DataType>tinyint(4) unsigned|0s</DataType>
@@ -3137,85 +3148,85 @@ medicine_id</ColNames>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="597" parent="259" name="is_frozen">
-      <Position>15</Position>
+    <column id="599" parent="259" name="is_frozen">
+      <Position>16</Position>
       <Comment>是否冻结</Comment>
       <DataType>tinyint(1) unsigned|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="598" parent="259" name="gmt_create">
-      <Position>16</Position>
+    <column id="600" parent="259" name="gmt_create">
+      <Position>17</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="599" parent="259" name="gmt_modified">
-      <Position>17</Position>
+    <column id="601" parent="259" name="gmt_modified">
+      <Position>18</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="600" parent="259" name="PRIMARY">
+    <key id="602" parent="259" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="601" parent="260" name="id">
+    <column id="603" parent="260" name="id">
       <Position>1</Position>
       <Comment>处置申请id</Comment>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="602" parent="260" name="project_id">
+    <column id="604" parent="260" name="project_id">
       <Position>2</Position>
       <Comment>处置项目id</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="603" parent="260" name="case_id">
+    <column id="605" parent="260" name="case_id">
       <Position>3</Position>
       <Comment>病历id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="604" parent="260" name="department_id">
+    <column id="606" parent="260" name="department_id">
       <Position>4</Position>
       <Comment>部门id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="605" parent="260" name="status">
+    <column id="607" parent="260" name="status">
       <Position>5</Position>
       <Comment>1.暂存 2.开立 3.作废 4.已登记</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="606" parent="260" name="creator_role_id">
+    <column id="608" parent="260" name="creator_role_id">
       <Position>6</Position>
       <Comment>开具处置申请的id（一般情况下为门诊医生）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="607" parent="260" name="treater_role_id">
+    <column id="609" parent="260" name="treater_role_id">
       <Position>7</Position>
       <Comment>医技医生id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="608" parent="260" name="gmt_create">
+    <column id="610" parent="260" name="gmt_create">
       <Position>8</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="609" parent="260" name="gmt_modified">
+    <column id="611" parent="260" name="gmt_modified">
       <Position>9</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -3223,57 +3234,57 @@ medicine_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="610" parent="260" name="PRIMARY">
+    <key id="612" parent="260" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 project_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="611" parent="261" name="id">
+    <column id="613" parent="261" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="612" parent="261" name="name">
+    <column id="614" parent="261" name="name">
       <Position>2</Position>
       <Comment>处置模板名称</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="613" parent="261" name="project_id">
+    <column id="615" parent="261" name="project_id">
       <Position>3</Position>
       <Comment>处置项目id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="614" parent="261" name="role_id">
+    <column id="616" parent="261" name="role_id">
       <Position>4</Position>
       <Comment>创建人角色id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="615" parent="261" name="department_id">
+    <column id="617" parent="261" name="department_id">
       <Position>5</Position>
       <Comment>创建人所在科室id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="616" parent="261" name="scope">
+    <column id="618" parent="261" name="scope">
       <Position>6</Position>
       <Comment>1.个人 2.科室 3.全院</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="617" parent="261" name="gmt_create">
+    <column id="619" parent="261" name="gmt_create">
       <Position>7</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="618" parent="261" name="gmt_modified">
+    <column id="620" parent="261" name="gmt_modified">
       <Position>8</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -3281,55 +3292,55 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="619" parent="261" name="goal">
+    <column id="621" parent="261" name="goal">
       <Position>9</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="620" parent="261" name="requirement">
+    <column id="622" parent="261" name="requirement">
       <Position>10</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="621" parent="261" name="PRIMARY">
+    <key id="623" parent="261" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="622" parent="262" name="id">
+    <column id="624" parent="262" name="id">
       <Position>1</Position>
       <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="623" parent="262" name="password">
+    <column id="625" parent="262" name="password">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="624" parent="262" name="name">
+    <column id="626" parent="262" name="name">
       <Position>3</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="625" parent="262" name="avatar">
+    <column id="627" parent="262" name="avatar">
       <Position>4</Position>
       <Comment>头像链接</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="626" parent="262" name="gmt_create">
+    <column id="628" parent="262" name="gmt_create">
       <Position>5</Position>
       <Comment>[三元]创建时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="627" parent="262" name="gmt_modified">
+    <column id="629" parent="262" name="gmt_modified">
       <Position>6</Position>
       <Comment>[三元]修改时间(GMT+8)</Comment>
       <DataType>timestamp|0s</DataType>
@@ -3337,7 +3348,7 @@ project_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <key id="628" parent="262" name="PRIMARY">
+    <key id="630" parent="262" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

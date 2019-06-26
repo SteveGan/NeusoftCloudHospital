@@ -11,7 +11,7 @@ export default {
   },
 
   // 得到当前挂号单的发票号
-  getNextInvoiceCode(){
+  getNextInvoiceCode() {
     return request({
       url: '/registration/invoiceId',
       method: 'get'
@@ -25,7 +25,7 @@ export default {
       method: 'get'
     })
   },
-  
+
   // 查看所有可选医生
   listAvailableDoctors(registrationForm) {
     return request({
@@ -34,7 +34,15 @@ export default {
       params: registrationForm
     })
   },
-  
+
+  // @author Steve 查看该部门下所有医生
+  listAllDoctorsByDepartmentId(departmentId) {
+    return request({
+      url: '/basicinfo/departmentroles/' + departmentId,
+      method: 'get'
+    })
+  },
+
   // 根据挂号级别，是否购买病历本，计算应收金额
   calculateTotalFee(registrationForm) {
     return request({
@@ -43,9 +51,9 @@ export default {
       params: registrationForm
     })
   },
-  
+
   // 挂号操作
-  confirmation(registrationForm){
+  confirmation(registrationForm) {
     return request({
       url: '/registration/confirmation',
       method: 'post',
@@ -54,13 +62,13 @@ export default {
   },
 
   // 显示所有挂号信息列表
-  registrations(){
+  registrations() {
     return request({
       url: '/registration/registrations',
       method: 'get'
     })
   },
-  
+
   // 退号
   withdrawal(transferData) {
     return request({

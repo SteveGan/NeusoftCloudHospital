@@ -10,13 +10,15 @@ public enum ResultCode implements IErrorCode {
     FAILED(500, "操作失败"),
 
     // 内层error data
-    // Raven
+    // Raven, Steve
     E_600(600, "用户不存在"),
     E_601(601, "密码错误"),
     E_602(602, "操作项不存在"),
     E_603(603, "用户未登录，请重新登录"),
     E_604(604, "登录信息过期，请重新登录"),
     E_605(605, "插入失败"),
+    E_606( 606, "原密码输入错误"),
+    E_607(607, "新密码与原密码相同"),
 
     // Polaris
     E_700(700, "更新失败"),
@@ -42,7 +44,10 @@ public enum ResultCode implements IErrorCode {
     E_804(804, "操作权限异常"),
     E_805(805, "缺少必填参数"),
     E_806(806, "该名称已存在"),
-    E_807(807, "该模板不存在");
+    E_807(807, "该模板不存在"),
+    E_808(808, "排班存在冲突");
+
+
 
     private long code;
     private String message;

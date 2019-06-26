@@ -24,4 +24,6 @@ public interface DepartmentMapper {
     String getClassificationById(Integer id);
 
     List<HashMap> listDoctorDepartments();
+
+    String getNameById(Integer id);
 }

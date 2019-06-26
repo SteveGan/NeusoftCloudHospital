@@ -41,11 +41,6 @@ service.interceptors.response.use(
      */
     const status = response.data.code
     if (status !== 200) {
-      Message({
-        message: res.message,
-        type: 'error',
-        duration: 3 * 1000
-      })
 
       // 401:未登录;
       if (status === 401 || status === 403) {
@@ -60,7 +55,7 @@ service.interceptors.response.use(
           })
         })
       }
-      return Promise.reject('error')
+      return Promise.reject(response)
     } else {
       return response
     }

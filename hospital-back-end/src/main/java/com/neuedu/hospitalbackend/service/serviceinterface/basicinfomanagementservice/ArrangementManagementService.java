@@ -19,7 +19,13 @@ public interface ArrangementManagementService {
     CommonResult insertArrangementRule(ArrangementRuleParam arrangementRuleParam);
 
     /**
-     * 生成排班规则
+     * 修改排班结果
+     * @param arrangementParam
+     */
+    CommonResult modifyArrangement(ArrangementParam arrangementParam);
+
+    /**
+     * 生成排班结果
      * @param arrangementParam
      */
     CommonResult insertArrangement(ArrangementParam arrangementParam);

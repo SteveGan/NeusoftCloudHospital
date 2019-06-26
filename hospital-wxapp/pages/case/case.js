@@ -28,6 +28,9 @@ Page({
 
   onShow: function () {
     var that = this;
+    wx.showLoading({
+      title: '全速加载中',
+    })
 
     // 请求查询用户历史病历信息
     wx.request({
@@ -43,6 +46,8 @@ Page({
         that.setData({
           caseList: res.data.data
         })
+      }, complete() {
+        wx.hideLoading();
       }
     })
   },

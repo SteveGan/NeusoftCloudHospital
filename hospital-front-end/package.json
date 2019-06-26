@@ -22,10 +22,16 @@
     "qiniu-js": "^2.5.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "socket-client": "^1.0.0",
+    "stompjs": "^2.3.3",
     "vue": "^2.5.2",
+    "vue-avatar-cropper": "^1.0.5",
     "vue-axios": "^2.1.4",
+    "vue-digital-clock": "^2.0.0",
+    "vue-image-crop-upload": "^2.5.0",
     "vue-print-nb": "^1.2.0",
     "vue-router": "^3.0.1",
+    "vue-socket.io": "^3.0.7",
     "vuex": "^3.1.1"
   },
   "devDependencies": {

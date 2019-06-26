@@ -13,12 +13,17 @@ public interface ArrangementMapper {
 
     int insertSelective(Arrangement record);
 
-    List<Arrangement> listAvailableDoctors(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") Byte timeSlot, @Param("registrationLevelId") Short registrationLevelId, @Param("departmentId") Integer departmentId);
+    List<Arrangement> listAvailableDoctors(@Param("appointmentDateStr") String appointmentDateStr,  @Param("timeSlot") Byte timeSlot,
+                                           @Param("registrationLevelId") Short registrationLevelId,
+                                           @Param("departmentId") Integer departmentId);
 
-    int updateRemainingAppointment(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") Byte timeSlot, @Param("roleId") Integer roleId,
-                                   @Param("registrationLevelId") Short registrationLevelId, @Param("amount") int amount, @Param("departmentId") Integer departmentId);
+    int updateRemainingAppointment(@Param("appointmentDateStr") String appointmentDateStr, @Param("timeSlot") Byte timeSlot,
+                                   @Param("roleId") Integer roleId, @Param("registrationLevelId") Short registrationLevelId,
+                                   @Param("amount") int amount, @Param("departmentId") Integer departmentId);
 
-    List<Arrangement> listByDepartmentIdAndDate(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
+    List<Arrangement> listByDepartmentIdAndDatePeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
                                             @Param("departmentId") Integer departmentId);
+
+    List<Arrangement> listByUserIdAndDatePeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 }
