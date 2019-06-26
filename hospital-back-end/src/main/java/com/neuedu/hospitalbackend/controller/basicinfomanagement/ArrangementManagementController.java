@@ -30,13 +30,19 @@ public class ArrangementManagementController {
         return arrangementManagementService.insertArrangement(arrangementParam);
     }
 
+    @ApiOperation("修改排班结果")
+    @RequestMapping(value = "/arrangement-modification", method = RequestMethod.PUT)
+    public CommonResult modifyArrangement(@RequestBody ArrangementParam arrangementParam) {
+        return arrangementManagementService.modifyArrangement(arrangementParam);
+    }
+
     @ApiOperation("查询排班规则")
     @RequestMapping(value = "/arrangementrules/{departmentId}", method = RequestMethod.GET)
     public CommonResult listArrangementRules(@PathVariable Integer departmentId) {
         return arrangementManagementService.listArrangementRules(departmentId);
     }
 
-    @ApiOperation("查询排班具体信息")
+    @ApiOperation("查询排班结果")
     @RequestMapping(value = "/arrangemens/{startDate}/{endDate}/{departmentId}", method = RequestMethod.GET)
     public CommonResult listArrangements(@PathVariable(value = "departmentId") Integer departmentId,
                                          @PathVariable(value = "startDate") Date startDate,

@@ -72,7 +72,7 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
             TransactionLog newTransactionLog = (TransactionLog) originalTransactionLog.clone();
             newTransactionLog.setId(null);
             newTransactionLog.setStatus((byte)4);
-            newTransactionLog.setRoleId(newCashierId);
+            newTransactionLog.setCashierId(newCashierId);
             newTransactionLog.setInvoiceCode(invoiceCode);
             newTransactionLog.setTotalMoney(newTransactionLog.getTotalMoney().negate());
             CommonResult insertResult = transactionService.insertTransactionLog(newTransactionLog);

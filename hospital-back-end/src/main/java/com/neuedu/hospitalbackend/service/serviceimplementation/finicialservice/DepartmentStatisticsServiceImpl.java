@@ -19,62 +19,67 @@ public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsServ
     private TransactionLogMapper transactionLogMapper;
 
     public CommonResult clinicianDepartmentStatistics(String beginDateStr, String endDateStr){
-        List<HashMap> statistics = new ArrayList();
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
-                "examination", "project_id", "creator_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
-                "inspection", "project_id", "creator_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
-                "treatment", "project_id", "creator_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
-                "recipe", "medicine_id", "creator_role_id", beginDateStr, endDateStr));
-        List<HashMap> result = convertMap(statistics);
-        List<HashMap> visits =transactionLogMapper.countPatientCasesByDepartmentName(beginDateStr, endDateStr);
-        for(HashMap r: result){
-            for(HashMap v: visits){
-                if(r.get("departmentName").equals(v.get("departmentName"))){
-                    r.put("visits", v.get("visits")); //看诊人次
-                    break;
-                }
-            }
+        List<HashMap> result = convertMap(transactionLogMapper.calculateClinicianDepartmentTotalMoney(beginDateStr, endDateStr, null));
+        List<HashMap> visits = transactionLogMapper.countClinicianDepartmentVisits(beginDateStr, endDateStr);
+        List<HashMap> invoices = transactionLogMapper.countClinicianDepartmentInvoices(beginDateStr, endDateStr, null);
 
-        }
-        return  CommonResult.success(result);
+        return  CommonResult.success(addInvoicesAndVisits(result, invoices, visits));
     }
 
     public CommonResult technicianDepartmentStatistics(String beginDateStr, String endDateStr){
-        List<HashMap> statistics = new ArrayList();
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
+
+        List<HashMap> statistics = new ArrayList<>();
+        statistics.addAll(transactionLogMapper.calculateClinicianDepartmentTotalMoney(beginDateStr, endDateStr, "挂号费"));
+        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentTotalMoney(
                 "examination", "project_id", "examiner_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
+        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentTotalMoney(
                 "inspection", "project_id", "inspector_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
+        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentTotalMoney(
                 "treatment", "project_id", "treater_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateMoneyByDepartmentAndType(
+        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentTotalMoney(
                 "recipe", "medicine_id", "deliver_role_id", beginDateStr, endDateStr));
 
         List<HashMap> result = convertMap(statistics);
 
-        return  CommonResult.success(result);
+        List<HashMap> visits = new ArrayList<>();
+        visits.addAll(transactionLogMapper.countClinicianDepartmentVisits(beginDateStr, endDateStr));
+        visits.addAll(transactionLogMapper.countExecutiveDepartmentVisits(
+                "examination", "project_id", "examiner_role_id", beginDateStr, endDateStr));
+        visits.addAll(transactionLogMapper.countExecutiveDepartmentVisits(
+                "inspection", "project_id", "inspector_role_id", beginDateStr, endDateStr));
+        visits.addAll(transactionLogMapper.countExecutiveDepartmentVisits(
+                "treatment", "project_id", "treater_role_id", beginDateStr, endDateStr));
+        visits.addAll(transactionLogMapper.countExecutiveDepartmentVisits(
+                "recipe", "medicine_id", "deliver_role_id", beginDateStr, endDateStr));
+
+        List<HashMap> invoices = new ArrayList<>();
+        invoices.addAll(transactionLogMapper.countClinicianDepartmentInvoices(beginDateStr, endDateStr, "挂号费"));
+        invoices.addAll(transactionLogMapper.countExecutiveDepartmentInvoices(
+                "examination", "project_id", "examiner_role_id", beginDateStr, endDateStr));
+        invoices.addAll(transactionLogMapper.countExecutiveDepartmentInvoices(
+                "inspection", "project_id", "inspector_role_id", beginDateStr, endDateStr));
+        invoices.addAll(transactionLogMapper.countExecutiveDepartmentInvoices(
+                "treatment", "project_id", "treater_role_id", beginDateStr, endDateStr));
+        invoices.addAll(transactionLogMapper.countExecutiveDepartmentInvoices(
+                "recipe", "medicine_id", "deliver_role_id", beginDateStr, endDateStr));
+
+        return  CommonResult.success(addInvoicesAndVisits(result, invoices, visits));
     }
 
-    public List<HashMap> convertMap(List<HashMap> statistics){
+    private List<HashMap> convertMap(List<HashMap> statistics){
         Map<String, HashMap> map = new HashMap<>();
         List<HashMap> result = new ArrayList<>();
         for(HashMap s: statistics){
-            String departmentName = (String) s.get("departmentName");
-            String type = (String) s.get("type");
-            BigDecimal totalMoney = (BigDecimal) s.get("totalMoney");
-            Long invoiceAmount = (Long) s.get("invoiceAmount"); //发票数量
+            String departmentName = s.get("department_name").toString();
+            String type = s.get("type").toString();
+            BigDecimal totalMoney = (BigDecimal) s.get("total_money");
             if (!map.containsKey(departmentName)) {
                 map.put(departmentName, new HashMap());
                 map.get(departmentName).put("departmentName", departmentName);
                 map.get(departmentName).put(type, totalMoney);
-                map.get(departmentName).put("invoiceAmount", invoiceAmount);
             } else{
                 map.get(departmentName).put("departmentName", departmentName);
                 map.get(departmentName).put(type, totalMoney);
-                map.get(departmentName).put("invoiceAmount", invoiceAmount);
             }
         }
         Iterator ite = map.entrySet().iterator();
@@ -83,6 +88,25 @@ public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsServ
             Map.Entry string = (Map.Entry)ite.next();
             result.add(i, (HashMap) string.getValue());
             i++;
+        }
+        return result;
+    }
+
+    private List<HashMap> addInvoicesAndVisits(List<HashMap> result, List<HashMap> invoices, List<HashMap> visits){
+        for(HashMap r: result){
+            String departmentName = r.get("departmentName").toString();
+            for(HashMap v: visits){
+                if(departmentName.equals(v.get("department_name").toString())){
+                    r.put("visits", v.get("visits")); //看诊人次
+                    break;
+                }
+            }
+            for(HashMap i: invoices){
+                if(departmentName.equals(i.get("department_name").toString())){
+                    r.put("invoiceAmount", i.get("invoice_amount")); //发票数量
+                    break;
+                }
+            }
         }
         return result;
     }

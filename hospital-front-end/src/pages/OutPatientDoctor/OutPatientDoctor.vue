@@ -210,6 +210,19 @@ export default {
     }
   },
   methods: {
+    // 挂号成功提示
+    success() {
+      this.$message({
+        message: "操作成功",
+        type: "success"
+      });
+    },
+
+    // 挂号失败提示
+    fail() {
+      this.$message.error("操作失败");
+    },
+
     doTTS(name) {
       var ttsDiv = document.getElementById("bdtts_div_id");
       var ttsAudio = document.getElementById("tts_autio_id");

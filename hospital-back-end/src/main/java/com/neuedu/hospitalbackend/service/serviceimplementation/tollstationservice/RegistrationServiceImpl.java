@@ -111,7 +111,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         TransactionLog transactionLog = new TransactionLog();
         transactionLog.setInvoiceCode(invoiceCode);
         transactionLog.setRegistrationId(registrationId);
-        transactionLog.setRoleId(cashierId);
+        transactionLog.setRoleId(doctorId);
+        transactionLog.setCashierId(cashierId);
         transactionLog.setType("挂号费");
         transactionLog.setAmount((short)(1));
         transactionLog.setPayType(payType);

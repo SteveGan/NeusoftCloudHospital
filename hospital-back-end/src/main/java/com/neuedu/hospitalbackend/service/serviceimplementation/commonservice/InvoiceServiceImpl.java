@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import static com.neuedu.hospitalbackend.util.ResultCode.E_713;
+
 /**
  * @author Polaris
  */
@@ -19,6 +21,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public synchronized CommonResult getNextInvoiceCode() {
         String nextInvoiceCode = invoiceMapper.getAvailableInvoiceCode();
+        if(nextInvoiceCode == null)
+            return CommonResult.fail(E_713);
         invoiceMapper.updateInvoiceStatusById((byte)2, nextInvoiceCode);
         System.out.println("[INFO]正在使用发票号: " + nextInvoiceCode);
         return CommonResult.success(nextInvoiceCode);
