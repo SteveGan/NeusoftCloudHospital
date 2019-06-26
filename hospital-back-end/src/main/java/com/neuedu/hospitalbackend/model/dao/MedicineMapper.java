@@ -34,4 +34,6 @@ public interface MedicineMapper {
     String getCodeById(Integer id);
 
     String getCostTypeById(Integer id);
+
+    Integer getDepartmentIdByMedicineId(Integer id);
 }

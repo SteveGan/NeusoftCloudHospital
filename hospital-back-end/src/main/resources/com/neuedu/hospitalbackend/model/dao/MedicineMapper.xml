@@ -75,4 +75,10 @@
         where id = #{id}
     </select>
 
+    <select id="getDepartmentIdByMedicineId" resultType="Integer">
+        select department_id
+        from medicine
+        where id = #{id}
+    </select>
+
 </mapper>
