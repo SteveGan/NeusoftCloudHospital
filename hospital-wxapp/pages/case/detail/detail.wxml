@@ -45,8 +45,8 @@
   </van-cell-group>
 </view>
 
-<card-title text="处置信息 " sub-text="Treatment "></card-title>
-<view wx:for="{{treatment}} " class='case-card bg-white margin shadow-md padding radius-lg'>
+<card-title text="处置信息" sub-text="Treatment"></card-title>
+<view wx:for="{{treatment}}" class='case-card bg-white margin shadow-md padding radius-lg'>
   <view class='text-lg'>
     <text class='icon-rank'> {{item.projectName}}</text>
   </view>

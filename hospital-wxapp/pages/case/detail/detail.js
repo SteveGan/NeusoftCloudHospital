@@ -20,6 +20,10 @@ Page({
 
   onShow: function () {
     var that = this;
+    wx.showLoading({
+      title: '全速加载中',
+    })
+
     // 请求查询用户历史病历信息
     wx.request({
       url: "http://www.stevegan.com:1923/patient/resultinfo/" + that.data.registrationId,
@@ -34,7 +38,9 @@ Page({
           recipe: res.data.data.处方信息,
           treatment: res.data.data.处置信息,
         })
-        console.log(that.data.inspection)
+        console.log(res.data)
+      }, complete() {
+        wx.hideLoading();
       }
     })
   },
