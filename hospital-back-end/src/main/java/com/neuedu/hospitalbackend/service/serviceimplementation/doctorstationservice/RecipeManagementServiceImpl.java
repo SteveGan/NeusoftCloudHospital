@@ -208,7 +208,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
 
             //若开立，创建缴费清单
             if (status == 2) {
-                CommonResult commonResult = insertTransactionLog(recipeCollectionParam, recipeParam);
+                CommonResult commonResult = insertTransactionLog(recipeCollectionParam, recipeParam, creatorRoleId);
                 if (commonResult.getCode() != 200)
                     return CommonResult.fail(ResultCode.E_802);//保存失败
             }
@@ -219,7 +219,8 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
     /**
      * 创建缴费清单
      */
-    public CommonResult insertTransactionLog(RecipeCollectionParam collectionParam, RecipeParam recipeParam){
+    public CommonResult insertTransactionLog(RecipeCollectionParam collectionParam, RecipeParam recipeParam,
+                                             Integer creatorRoleId){
         Integer registrationId = collectionParam.getCaseId();
         Integer patientId = patientCaseMapper.getPatientIdByCaseId(registrationId);
         if(patientId == null)
@@ -238,6 +239,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         TransactionLog transactionLog = new TransactionLog();
 //        transactionLog.setInvoiceCode(newInvoiceCode);
         transactionLog.setRegistrationId(registrationId);
+        transactionLog.setRoleId(creatorRoleId);
         transactionLog.setPatientId(patientId);
         if(recipeParam.getMedicineType() == 1)
             transactionLog.setType("中草药");
