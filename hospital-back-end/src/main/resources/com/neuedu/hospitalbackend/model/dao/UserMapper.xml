@@ -53,4 +53,13 @@
         delete from user where id = #{id}
     </delete>
 
+    <update id="setAvatar">
+        update user set avatar=#{avatar} where id=#{id}
+    </update>
+
+    <update id="setPassword">
+        update user set password=#{newPassword} where id=#{id}
+    </update>
+
+
 </mapper>
