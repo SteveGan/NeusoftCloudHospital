@@ -4,6 +4,7 @@ import java.util.List;
 
 public class CollectionParam {
 
+    private Integer roleId;//门诊医生
     private Integer collectionId;//申请id
     private Integer caseId;//病历号
     private Byte status;//状态
@@ -11,6 +12,14 @@ public class CollectionParam {
     private Integer collectionType;//1.检查 2.检验 3.处置
 
     private List<ProjectParam> projects;
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
     public Integer getCollectionId() {
         return collectionId;

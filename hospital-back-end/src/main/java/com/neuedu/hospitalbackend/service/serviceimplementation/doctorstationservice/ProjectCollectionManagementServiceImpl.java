@@ -222,6 +222,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     public CommonResult saveInspection(CollectionParam collectionParam, int operation){
         int count = 0;
+        Integer creatorRoleId = collectionParam.getRoleId();
 //        String newInvoiceCode = ""; //发票号
         Integer caseId = collectionParam.getCaseId();
         Integer collectionId = collectionParam.getCollectionId();
@@ -300,7 +301,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     }
                     //若开立，创建缴费清单
                     if (operation == 2) {
-                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam,
+                                creatorRoleId);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
                     }
@@ -332,7 +334,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                         return CommonResult.fail(ResultCode.E_802);
                     //若开立，创建缴费清单
                     if (operation == 2) {
-                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam,
+                                creatorRoleId);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
                     }
@@ -357,6 +360,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     public CommonResult saveExamination(CollectionParam collectionParam, int operation){
         int count = 0;
+        Integer creatorRoleId = collectionParam.getRoleId();
 //        String newInvoiceCode = ""; //发票号
         Integer caseId = collectionParam.getCaseId();
         Integer collectionId = collectionParam.getCollectionId();
@@ -436,7 +440,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     }
                     //若开立，创建缴费清单
                     if (operation == 2) {
-                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam,
+                                creatorRoleId);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
                     }
@@ -469,7 +474,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                         return CommonResult.fail(ResultCode.E_802);
                     //若开立，创建缴费清单
                     if (operation == 2) {
-                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam);
+                        CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, itemParam,
+                                creatorRoleId);
                         if (commonResult.getCode() != 200)
                             return CommonResult.fail(ResultCode.E_802);//保存失败
                     }
@@ -494,6 +500,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      */
     public CommonResult saveTreatment(CollectionParam collectionParam, int operation){
         int count = 0;
+        Integer creatorRoleId = collectionParam.getRoleId();
 //        String newInvoiceCode = ""; //发票号
         Integer caseId = collectionParam.getCaseId();
         Integer collectionId = collectionParam.getCollectionId();
@@ -546,7 +553,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                count = treatmentMapper.updateInfo(treatment);
                 //若开立，创建缴费清单
                 if (operation == 2) {
-                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null);
+                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null,
+                            creatorRoleId);
                     if (commonResult.getCode() != 200)
                         return CommonResult.fail(ResultCode.E_802);//保存失败
                 }
@@ -566,7 +574,8 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
                     return CommonResult.fail();
                 //若开立，创建缴费清单
                 if (operation == 2) {
-                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null);
+                    CommonResult commonResult = insertTransactionLog(collectionParam, projectParam, null,
+                            creatorRoleId);
                     if (commonResult.getCode() != 200)
                         return CommonResult.fail(ResultCode.E_802);//保存失败
                 }
@@ -621,7 +630,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
      * 创建缴费清单
      */
     public CommonResult insertTransactionLog(CollectionParam collectionParam, ProjectParam projectParam,
-                                             ItemParam itemParam){
+                                             ItemParam itemParam, Integer creatorRoleId){
         Integer registrationId = collectionParam.getCaseId();
         Integer patientId = patientCaseMapper.getPatientIdByCaseId(registrationId);
         if(patientId == null)
@@ -666,6 +675,7 @@ public class ProjectCollectionManagementServiceImpl implements ProjectCollection
         transactionLog.setType(type);
         transactionLog.setCollectionId(collectionId);
         transactionLog.setProjectId(projectId);
+        transactionLog.setRoleId(creatorRoleId);
         transactionLog.setProjectName(projectName);
         transactionLog.setItemId(itemId);
         transactionLog.setItemName(itemName);

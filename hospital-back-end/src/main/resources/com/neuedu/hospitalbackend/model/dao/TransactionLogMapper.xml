@@ -10,6 +10,7 @@
         <result column="registration_id" property="registrationId" jdbcType="INTEGER" />
         <result column="patient_id" property="patientId" jdbcType="INTEGER" />
         <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="cashier_id" property="cashierId" jdbcType="INTEGER" />
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
@@ -27,13 +28,13 @@
 
     <insert id="insert" parameterType="TransactionLog" useGeneratedKeys="true" keyProperty="id">
         insert into transaction_log (id, invoice_code, registration_id,
-          patient_id, role_id, type,
+          patient_id, role_id, cashier_id, type,
           collection_id, project_id, item_id,
           amount, pay_type, total_money,
           status, gmt_create, gmt_modified
           )
         values (#{id,jdbcType=INTEGER}, #{invoiceCode,jdbcType=CHAR}, #{registrationId,jdbcType=INTEGER},
-          #{patientId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},
+          #{patientId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{cashierId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},
           #{collectionId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{itemId,jdbcType=VARCHAR},
           #{amount,jdbcType=SMALLINT}, #{payType,jdbcType=TINYINT}, #{totalMoney,jdbcType=DECIMAL},
           #{status,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
@@ -57,6 +58,9 @@
             </if>
             <if test="roleId != null">
                 role_id,
+            </if>
+            <if test="cashierId != null">
+                cashier_id,
             </if>
             <if test="type != null">
                 type,
@@ -105,6 +109,9 @@
             <if test="roleId != null">
                 #{roleId,jdbcType=INTEGER},
             </if>
+            <if test="cashierId != null">
+                #{cashierId,jdbcType=INTEGER},
+            </if>
             <if test="type != null">
                 #{type,jdbcType=VARCHAR},
             </if>
@@ -145,6 +152,7 @@
             <if test="registrationId != null"> registration_id = #{registrationId}, </if>
             <if test="patientId != null"> patient_id = #{patientId}, </if>
             <if test="roleId != null"> role_id = #{roleId}, </if>
+            <if test="cashierId != null"> cashier_id = #{cashierId}, </if>
             <if test="type != null"> type = #{type}, </if>
             <if test="collectionId != null"> collection_id = #{collectionId}, </if>
             <if test="projectId != null"> project_id = #{projectId}, </if>
@@ -171,6 +179,7 @@
         <result column="registration_id" property="registrationId" jdbcType="INTEGER" />
         <result column="patient_id" property="patientId" jdbcType="INTEGER" />
         <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="cashier_id" property="cashierId" jdbcType="INTEGER" />
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="collection_id" property="collectionId" jdbcType="INTEGER" />
         <result column="project_id" property="projectId" jdbcType="INTEGER" />
@@ -270,7 +279,7 @@
             <if test="endDateStr != null">
                 and t.gmt_create &lt;= #{endDateStr}
             </if>
-            and t.role_id = #{cashierId} and t.is_frozen = 0
+            and t.cashier_id = #{cashierId} and t.is_frozen = 0
         </where>
         group by invoice_code
         order by invoice_code
@@ -283,7 +292,7 @@
 
     <select id="getFirstLogDateByCashierId" resultType="string">
         select min(gmt_create) from transaction_log
-        where role_id = #{cashierId}
+        where cashier_id = #{cashierId}
     </select>
 
     <select id="listLogsByInvoiceRangeAndCashierId" resultType="HashMap">
@@ -291,7 +300,7 @@
             SUM(total_money) as totalMoney, ANY_VALUE(type) as type, ANY_VALUE(pay_type) as payType,
             ANY_VALUE(registration_id) as registrationId, ANY_VALUE(p.name) as name
         from transaction_log t join patient p on t.patient_id = p.id
-        where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
+        where t.cashier_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
         and is_frozen = 1
         group by invoice_code
         order by invoice_code
@@ -299,36 +308,54 @@
 
     <select id="countInvoiceCodeInRangeByCashierId" resultType="int">
         select count(invoice_code) from transaction_log t
-        where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
+        where t.cashier_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
         and is_frozen = 1
     </select>
     
     <select id="listInvoiceCodeByStatus" resultType="string">
         select distinct invoice_code from transaction_log t
-        where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
+        where t.cashier_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
         and status = #{status}
     </select>
 
     <select id="listTotalMoneyByType" resultType="HashMap">
         select type, sum(total_money) as total_money
         from transaction_log t
-        where t.role_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
+        where t.cashier_id = #{cashierId} and invoice_code &lt;= #{invoiceCodeEnd} and invoice_code &gt;= #{invoiceCodeBegin}
         group by type
     </select>
 
     <select id="calculateMoneyByDepartmentAndType" resultType="HashMap">
-        select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type, count(distinct invoice_code) as invoiceAmount
+        <!--select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type, count(distinct invoice_code) as invoiceAmount
         from ${tableName} e, role r, transaction_log t
         where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
         and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr} and t.registration_id = e.case_id
-        group by r.department_name, type
+        group by r.department_name, type-->
+        select sum(total_money) as total_money, r.department_name, t.type
+        from transaction_log t, role r
+        where t.status = 2 and r.id = t.role_id
+        and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
+        GROUP BY r.department_name, t.type
     </select>
 
     <select id="countPatientCasesByDepartmentName" resultType="HashMap">
-        select r.department_name as departmentName, count(*) as visits
+        <!--select r.department_name as departmentName, count(distinct registration_id) as visits
+        from transaction_log t, role r
+        where t.status = 2 and r.id = t.role_id and t.type = "挂号费"
+        and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr}
+        group by r.department_name-->
+        select r.department_name, count(distinct registration_id) as visits
         from patient_case pc, role r
-        where r.id = pc.role_id
-        and pc.gmt_create &lt;= #{endDateStr} and pc.gmt_create &gt;= #{beginDateStr}
+        where pc.role_id = r.id and pc.status != 1
+        and pc.gmt_modified &lt;= #{endDateStr} and pc.gmt_modified &gt;= #{beginDateStr}
+        group by r.department_name
+    </select>
+
+    <select id="countInvoicesByDepartmentName" resultType="HashMap">
+        select r.department_name, count(distinct invoice_code) as invoice_amount
+        from transaction_log t, role r
+        where t.status = 2 and r.id = t.role_id
+        and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
         group by r.department_name
     </select>
 

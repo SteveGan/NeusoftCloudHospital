@@ -49,4 +49,10 @@
         where type = '临床科室'
     </select>
 
+    <select id="getNameById" resultType="String">
+        select name
+        from department
+        where id = #{id}
+    </select>
+
 </mapper>

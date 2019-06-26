@@ -92,7 +92,7 @@ public class PaymentServiceImpl implements PaymentService {
                 List<TransactionLog> detailedLogs = transactionLogMapper.listItemsByCollectionIdAndProjectId(collectionId, projectId);
                 for(TransactionLog t: detailedLogs){
                     t.setInvoiceCode(newInvoiceCode);
-                    t.setRoleId(transactionParam.getRoleId());
+                    t.setCashierId(transactionParam.getCashierId());
                     t.setStatus((byte)2);
                     count += transactionLogMapper.update(t);
                 }
@@ -206,7 +206,7 @@ public class PaymentServiceImpl implements PaymentService {
                 //向缴费表中添加新的缴费记录  --冲正
                 TransactionLog reverseTransactionLog = (TransactionLog) transactionLog.clone();
                 reverseTransactionLog.setId(null);
-                reverseTransactionLog.setRoleId(newCashierId);
+                reverseTransactionLog.setCashierId(newCashierId);
                 reverseTransactionLog.setInvoiceCode(reverseInvoiceCode);
                 reverseTransactionLog.setStatus((byte)4);
                 reverseTransactionLog.setTotalMoney(transactionLog.getTotalMoney().negate());
@@ -243,7 +243,7 @@ public class PaymentServiceImpl implements PaymentService {
                             !transactionLog.getType().equals("挂号费")){
                         TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
                         newTransactionLog.setId(null);
-                        newTransactionLog.setRoleId(newCashierId);
+                        newTransactionLog.setCashierId(newCashierId);
                         newTransactionLog.setInvoiceCode(newInvoiceCode);
                         newTransactionLog.setStatus((byte)2);
                         CommonResult insertNewResult = transactionService.insertTransactionLog(newTransactionLog);
@@ -275,7 +275,7 @@ public class PaymentServiceImpl implements PaymentService {
 
                                 TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
                                 newTransactionLog.setId(null);
-                                newTransactionLog.setRoleId(newCashierId);
+                                newTransactionLog.setCashierId(newCashierId);
                                 newTransactionLog.setInvoiceCode(newInvoiceCode);
                                 newTransactionLog.setAmount(remainAmount);
                                 newTransactionLog.setStatus((byte)2);
@@ -316,7 +316,7 @@ public class PaymentServiceImpl implements PaymentService {
             //插入新的缴费记录
             TransactionLog newTransactionLog = (TransactionLog) transactionLog.clone();
             newTransactionLog.setId(null);
-            newTransactionLog.setRoleId(newCashierId);
+            newTransactionLog.setCashierId(newCashierId);
             newTransactionLog.setInvoiceCode(newInvoiceCode);
             newTransactionLog.setStatus((byte) 2);
             CommonResult insertReverseResult = transactionService.insertTransactionLog(newTransactionLog);

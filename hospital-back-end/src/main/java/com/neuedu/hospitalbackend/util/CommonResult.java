@@ -52,6 +52,19 @@ public class CommonResult<T> {
 
     /**
      * 失败返回结果
+     * @param errorCode 错误码
+     * @param detail 获取的数据
+     */
+    public static <T> CommonResult<T> fail(IErrorCode errorCode, T detail) {
+        JSONObject data = new JSONObject();
+        data.put("code", errorCode.getCode());
+        data.put("message", errorCode.getMessage());
+        data.put("data", detail);
+        return new CommonResult<T>(ResultCode.FAILED.getCode(), ResultCode.FAILED.getMessage(), (T) data);
+    }
+
+    /**
+     * 失败返回结果
      */
     public static <T> CommonResult<T> fail() {
         return fail(ResultCode.FAILED);

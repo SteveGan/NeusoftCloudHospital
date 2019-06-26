@@ -108,11 +108,18 @@
         and department_id = #{departmentId}
   </update>
 
-  <select id="listByDepartmentIdAndDate" resultMap="BaseResultMap">
+  <select id="listByDepartmentIdAndDatePeriod" resultMap="BaseResultMap">
      select *
      from arrangement
-     where department_id = #{departmetnId} and
-        appointment_date >= #{startDate} and #{endtDate} >= appointment_date
+     where department_id = #{departmentId} and
+        appointment_date >= #{startDate} and #{endDate} >= appointment_date
+  </select>
+
+  <select id="listByUserIdAndDatePeriod" resultMap="BaseResultMap">
+    select *
+    from arrangement
+    where is_valid = 1 and time_slot != 0 and
+          appointment_date >= #{startDate} and #{endDate} >= appointment_date
   </select>
 
 </mapper>

@@ -4,18 +4,22 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.ArrangementMapper;
 import com.neuedu.hospitalbackend.model.dao.ArrangementRuleMapper;
+import com.neuedu.hospitalbackend.model.dao.DepartmentMapper;
 import com.neuedu.hospitalbackend.model.dao.RoleMapper;
 import com.neuedu.hospitalbackend.model.po.Arrangement;
 import com.neuedu.hospitalbackend.model.po.ArrangementRule;
+import com.neuedu.hospitalbackend.model.vo.ArrangementConflictParam;
 import com.neuedu.hospitalbackend.model.vo.ArrangementParam;
 import com.neuedu.hospitalbackend.model.vo.ArrangementRuleParam;
 import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementservice.ArrangementManagementService;
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ResultCode;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.Date;
+import java.sql.SQLOutput;
 import java.util.*;
 
 @Service
@@ -24,10 +28,15 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     @Resource
     ArrangementRuleMapper arrangementRuleMapper;
     @Resource
+    DepartmentMapper departmentMapper;
+    @Resource
     ArrangementMapper arrangementMapper;
     @Resource
     RoleMapper roleMapper;
 
+
+
+    private List<Arrangement> toInsertArrangements;
 
     /**
      * 设置排班规则
@@ -79,52 +88,86 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
            if(count <= 0)
                return CommonResult.fail(ResultCode.E_802);
         }
-
-
         return CommonResult.success(count);
     }
 
 
     /**
-     * 生成排班规则
+     * TODO 修改排班结果
      * @param arrangementParam
      */
+    @Override
+    public CommonResult modifyArrangement(ArrangementParam arrangementParam){
+        return null;
+    }
+
+
+    /**
+     * 生成排班结果
+     * @param arrangementParam
+     */
+    @Override
     public CommonResult insertArrangement(ArrangementParam arrangementParam){
+        Boolean toInsert = true;
+        toInsertArrangements = new ArrayList<>();//待插入数据库排班结果
         Date startDate = Date.valueOf(arrangementParam.getStartDate());
         Date endDate = Date.valueOf(arrangementParam.getEndDate());
         Integer departmentId = arrangementParam.getDepartmentId();
         Integer arrangementRuleId = arrangementParam.getId();//排班规则id
 
+        //时间段内现有所有排班有效信息
+        List<Arrangement> arrangements = arrangementMapper.listByUserIdAndDatePeriod(startDate, endDate);
+
         //对时间范围内每一天排班
         Date today = startDate;
+        List<ArrangementConflictParam> conflict = new ArrayList<>();
         while(today.compareTo(endDate) <= 0){
             //生成一天排班
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(today);
             int week = calendar.get(Calendar.DAY_OF_WEEK);
-            if(200 != saveArrangement(today, week, departmentId, arrangementRuleId).getCode())
-                return CommonResult.fail(ResultCode.E_800);
+            conflict = saveArrangement(today, week, departmentId, arrangementRuleId, arrangements, conflict, toInsert,
+                                    toInsertArrangements);
+            if(0 != conflict.size())
+                toInsert = false;
             // 下一天
             calendar.add(Calendar.DAY_OF_MONTH, 1);
             java.util.Date tomorrow = calendar.getTime();
             today = new Date(tomorrow.getTime());
         }
-        return CommonResult.success("OK");
+        // 确定为可插入，最后一起插入
+        if(toInsert.equals(true)){
+            for(Arrangement arrangement : toInsertArrangements)
+                arrangementMapper.insertSelective(arrangement);
+        }
+        if(0 != conflict.size())
+            return CommonResult.fail(ResultCode.E_808, conflict);
+        else
+            return CommonResult.success("OK");
     }
 
 
     /**
      * 生成一天排班
      */
-    public CommonResult saveArrangement(Date today, int week, Integer departmentId, Integer arrangementRuleId){
-        int count = 0;
+    public List<ArrangementConflictParam> saveArrangement(Date today, int week, Integer departmentId,
+                                                          Integer arrangementRuleId, List<Arrangement> arrangements,
+                                                          List<ArrangementConflictParam> conflict, Boolean toInsert,
+                                                          List<Arrangement> toInsertArrangements){
+        //当日现有排班有效信息 key: roleId    value: Arrangement
+        HashMap<Integer, Arrangement> arrangementsToday = new HashMap<>();
+        for(Arrangement arrangement : arrangements){
+            if(0 == arrangement.getAppointmentDate().compareTo(today)){
+                arrangementsToday.put(arrangement.getRoleId(), arrangement);
+            }
+        }
 
         //可用的排班规则信息
         List<HashMap> arrangementRules = arrangementRuleMapper.getValidById(arrangementRuleId);
 
         //生成一个人排班
         for(HashMap arrangementRule : arrangementRules) {
-            Byte timeSlot = 1;
+            Byte timeSlot = 0;
             String weekDate = "";
             switch (week) {
                 case 1:
@@ -154,18 +197,39 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             Boolean pm = (Boolean) arrangementRule.get(weekDate + "Pm");
 
             //1.上午 2.下午 3.全天 0.无
-            if(am == true || pm == false){
+            if(am == true && pm == false){
                 timeSlot = 1;
             }
-            else if(am == false || pm == true){
+            else if(am == false && pm == true){
                 timeSlot = 2;
             }
             else if (am == true && pm == true){
                 timeSlot = 3;
             }
+            //若与现有排班信息冲突，则生成失败，返回冲突提示
+            Integer roleId = (Integer)arrangementRule.get("roleId");
+            //当日该用户冲突排班信息
+            Integer userId = roleMapper.getUserIdByRoleId(roleId);
+            for (Map.Entry<Integer, Arrangement> entry : arrangementsToday.entrySet()) {
+                Integer arrangedRoleId = entry.getKey();
+                //用户user今日有其他排班
+                Integer theUserId = roleMapper.getUserIdByRoleId(arrangedRoleId);
+                if(userId.equals(theUserId)){
+                    //是否存在冲突
+                    Arrangement arrangement = entry.getValue();
+                    //时间安排存在冲突
+                    if((timeSlot != 0) && (timeSlot == arrangement.getTimeSlot() || timeSlot == 3 || arrangement.getTimeSlot() == 3)){
+                        ArrangementConflictParam arrangementConflictParam = new ArrangementConflictParam();
+                        arrangementConflictParam.setDate(today);
+                        String departmentName = departmentMapper.getNameById(departmentId);
+                        arrangementConflictParam.setDepartmentName(departmentName);
+                        arrangementConflictParam.setUserName(arrangement.getUserName());
+                        conflict.add(arrangementConflictParam);
+                    }
+                }
+            }
 
             //从排班规则表获取信息
-            Integer roleId = (Integer)arrangementRule.get("roleId");
             String roleName = roleMapper.getUserNameByRoleId(roleId);
             Integer registrationLevelIdInt = (Integer)arrangementRule.get("registrationLevelId");
             Integer maxAppointmentInt = (Integer)arrangementRule.get("maxAppointment");
@@ -184,12 +248,11 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
                 arrangement.setTimeSlot(timeSlot);//午别
                 arrangement.setMaxAppointment(maxAppointment);//看诊限额
                 arrangement.setAppointmentLeft(maxAppointment);//剩余看诊限额
-                count = arrangementMapper.insertSelective(arrangement);
-                if(count <= 0)
-                    return CommonResult.fail(ResultCode.E_800);
+//                arrangementMapper.insertSelective(arrangement);
+                toInsertArrangements.add(arrangement);//待插入排班结果
             }
         }
-        return CommonResult.success(count);
+        return conflict;
     }
 
 
@@ -197,39 +260,59 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
      * 查看某科室排班规则
      * @param departmentId 科室id
      */
+    @Override
     public CommonResult listArrangementRules(Integer departmentId){
         JSONObject returnJson = new JSONObject();
 
         List<HashMap> arrangementRuleList = arrangementRuleMapper.listArrangementRulesByDepartmentId(departmentId);
-
-        returnJson = formatJson(returnJson, arrangementRuleList);
-        // JSON格式 v1.0
-//        HashMap<Integer, List<HashMap>> arrangementRules = new HashMap<>();// <规则id， 内容>
-//        for(HashMap arrangementRule : arrangementRuleList){
-//            System.out.println(arrangementRule);
-//            Long idLong = (Long)arrangementRule.get("id");
-//            Integer id = new Integer(String.valueOf(idLong));
-//            List<HashMap> info;
-//            if(!arrangementRules.containsKey(id))
-//                info = new ArrayList<>();
-//            else
-//                info = arrangementRules.get(id);
-//            arrangementRule.remove("id");
-//            arrangementRule.remove("departmentId");
-//            info.add(arrangementRule);
-//            arrangementRules.put(id, info);
-//        }
-//        //JSON格式
-//        JSONArray jsonArray = new JSONArray();
-//        for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
-//            JSONObject jsonObject = new JSONObject();
-//            jsonObject.put("ruleId", entry.getKey());
-//            jsonObject = formatJson(jsonObject, entry.getValue());
-//            jsonArray.add(jsonObject);
-//        }
-//        returnJson.put("arrangementRules", jsonArray);
+        // JSON格式 v2.0
+//        returnJson = formatJson(returnJson, arrangementRuleList);
+//         JSON格式 v1.0
+        HashMap<Integer, List<HashMap>> arrangementRules = new HashMap<>();// <规则id， 内容>
+        for(HashMap arrangementRule : arrangementRuleList){
+            System.out.println(arrangementRule);
+            Long idLong = (Long)arrangementRule.get("id");
+            Integer id = new Integer(String.valueOf(idLong));
+            List<HashMap> info;
+            if(!arrangementRules.containsKey(id))
+                info = new ArrayList<>();
+            else
+                info = arrangementRules.get(id);
+            arrangementRule.remove("id");
+            arrangementRule.remove("departmentId");
+            info.add(arrangementRule);
+            arrangementRules.put(id, info);
+        }
+        //JSON格式
+        JSONArray jsonArray = new JSONArray();
+        for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ruleId", entry.getKey());
+            jsonObject.put("ruleName", entry.getValue().get(0).get("ruleName"));
+            jsonObject.put("adminId", entry.getValue().get(0).get("adminId"));
+            jsonObject = formatJson(jsonObject, entry.getValue());
+            jsonArray.add(jsonObject);
+        }
+        returnJson.put("arrangementRules", jsonArray);
         return CommonResult.success(returnJson);
     }
+
+
+    /**
+     * 查看某科室排班结果信息
+     * @param startDate
+     * @param endDate
+     * @param departmentId
+     */
+    @Override
+    public CommonResult listArrangements(Date startDate, Date endDate, Integer departmentId){
+        JSONObject returnJson = new JSONObject();
+        List<Arrangement> arrangements = arrangementMapper.listByDepartmentIdAndDatePeriod(startDate, endDate, departmentId);
+        returnJson.put("arrangements", arrangements);
+        return null;
+
+    }
+
 
     /**
      * List转成JSON格式
@@ -319,21 +402,6 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         return jsonObject;
     }
 
-
-    /**
-     * 查看某科室排班结果信息
-     * @param startDate
-     * @param endDate
-     * @param departmentId
-     */
-    @Override
-    public CommonResult listArrangements(Date startDate, Date endDate, Integer departmentId){
-       JSONObject returnJson = new JSONObject();
-        List<Arrangement> arrangements = arrangementMapper.listByDepartmentIdAndDate(startDate, endDate, departmentId);
-        returnJson.put("arrangements", arrangements);
-        return null;
-
-    }
 
 
 }

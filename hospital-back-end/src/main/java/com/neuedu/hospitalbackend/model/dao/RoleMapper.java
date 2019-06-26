@@ -15,6 +15,8 @@ public interface RoleMapper {
 
     Integer getTitleByRoleId(Integer roleId);
 
+    Integer getUserIdByRoleId(Integer roleId);
+
     String getUserNameByRoleId(Integer roleId);
 
     String getDepartmentNameByRoleId(Integer roleId);
