@@ -26,6 +26,8 @@ public class Medicine {
 
     private String pinyinCode;
 
+    private String costType;
+
     public Short getId() {
         return id;
     }
@@ -104,5 +106,13 @@ public class Medicine {
 
     public void setPinyinCode(String pinyinCode) {
         this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
+    }
+
+    public String getCostType() {
+        return costType;
+    }
+
+    public void setCostType(String costType) {
+        this.costType = costType;
     }
 }

@@ -67,8 +67,14 @@ public interface TransactionLogMapper {
     List<HashMap> listTotalMoneyByType(@Param("cashierId") Integer cashierId, @Param("invoiceCodeBegin") String invoiceCodeBegin, @Param("invoiceCodeEnd") String invoiceCodeEnd);
 
     //开单/执行科室工作量统计
-    List<HashMap> calculateMoneyByDepartmentAndType(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
-                                                        @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+   /* List<HashMap> calculateMoneyByDepartmentAndType(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
+                                                        @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);*/
 
+    List<HashMap> calculateMoneyByDepartmentAndType(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //统计某科室总看诊人数
     List<HashMap> countPatientCasesByDepartmentName(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //统计某科室总发票数量
+    List<HashMap> countInvoicesByDepartmentName(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 }
