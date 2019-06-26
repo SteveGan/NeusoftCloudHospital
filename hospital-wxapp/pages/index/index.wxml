@@ -11,7 +11,7 @@
     <navigator url="/pages/case/case" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
       <view class="matrix-btn user">
         <icon class="user" />
-        <view class="title">病历查询</view>
+        <view class="title">病历一览</view>
         <view class="info">电子病历 即用即查</view>
       </view>
     </navigator>
@@ -23,17 +23,17 @@
       </view>
     </button>
     <navigator url="/pages/about/about" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
+      <view class="matrix-btn yygh">
+        <icon class="gtpp" />
+        <view class="title">出诊查询</view>
+        <view class="info">熙康名医 为你而来</view>
+      </view>
+    </navigator>
+    <navigator url="/pages/about/about" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
       <view class="matrix-btn gtpp">
         <icon class="gtpp" />
         <view class="title">熙康品牌</view>
         <view class="info">爱与健康 连接你我</view>
-      </view>
-    </navigator>
-    <navigator url="/pages/about/about" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
-      <view class="matrix-btn yygh">
-        <icon class="gtpp" />
-        <view class="title">预约挂号</view>
-        <view class="info">无需排队 免费挂号</view>
       </view>
     </navigator>
   </view>
@@ -46,33 +46,46 @@
     </view>
   </view>
 </view>
-  <view class="bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.5s;">
-    <view class="main-card-item">
-      <view class='text-lg'>
-        <text class='icon-rank'> 排号情况</text>
-      </view>
-      <navigator url="/pages/card/card" class="margin-top radius">
-        <view class='text-center padding'>
-          <view class='margin'>
-            <view class='margin-bottom'>
-              <text class="text-xsl">6</text>
-              <br/>
-              <text class="text-lg">人</text>
-            </view>
+<view class="bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.5s;">
+  <view class="main-card-item">
+    <view class='text-lg'>
+      <text class='icon-rank'> 排号情况</text>
+    </view>
+    <view class="margin-top radius" wx:if="{{ifShow}}">
+      <view class='text-center padding' wx:for="{{waitingList}}" wx:key="key">
+        <view class='margin'>
+          <view class='margin-bottom'>
+            <text class="text-xsl">{{item.beforeAmount}}</text>
             <br/>
-            <text class='icon-group'> 还需等待患者人数</text>
+            <text class="text-lg">人</text>
           </view>
-          <view class='margin'>
+          <br/>
+          <text class='icon-group'> 还需等待患者人数</text>
+        </view>
+        <view class='margin'>
+          <view class="text-gray">
+            <text class='text-lg icon-friendfamous'> 挂号医生</text>
+            <text class="text-xl text-blue"> {{item.doctorName}}</text>
+          </view>
+          <view class="text-gray">
+            <text class='text-lg icon-tag'> 挂号科室</text>
+            <text class="text-xl text-blue"> {{item.departmentName}}</text>
             <view class="text-gray">
-              <text class='text-lg icon-friendfamous'> 挂号医生</text>
-              <text class="text-xl text-blue"> {{status}}</text>
-            </view>
-            <view class="text-gray">
-              <text class='text-lg icon-tag'> 挂号科室</text>
-              <text class="text-xl text-blue"> {{networkInfo.sum_bytes}}</text>
+              <text class='text-lg icon-countdown'> 挂号时间</text>
+              <text class="text-xl text-blue"> {{item.appointmentDate}}</text>
             </view>
           </view>
         </view>
-      </navigator>
+      </view>
+    </view>
+    <view class="margin-top radius" wx:else>
+      <view class='text-center padding'>
+         <view class='margin'>
+          <view class='margin-bottom'>
+            <van-loading />
+          </view>
+        </view>
+      </view>
     </view>
   </view>
+</view>

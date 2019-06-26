@@ -1,14 +1,12 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/schedule/schedule",
     "pages/me/me",
     "pages/case/detail/detail",
-    "pages/online/online",
     "pages/case/case",
     "pages/login/login",
-    "pages/about/about",
-    "pages/user/user",
-    "pages/doctlist/doctlist"
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "light",

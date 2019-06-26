@@ -4,12 +4,13 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
+    waitingList: [],
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
 
-    isLoggedIn: true
+    isLoggedIn: true,
+    ifShow: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -21,6 +22,7 @@ Page({
 
   },
   onShow: function () {
+    var that = this;
     // 判断登录状态决定显示内容
     if (app.isLoggedIn()) {
       this.setData({
@@ -30,7 +32,20 @@ Page({
       this.setData({
         isLoggedIn: false
       });
-    }
+    };
+    // 请求查询用户历史病历信息
+    wx.request({
+      url: "http://localhost:1923/patient/registration/" + wx.getStorageSync('userId'),
+      method: 'GET',
+      dataType: 'json',
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          waitingList: res.data.data,
+          ifShow: true
+        })
+      }
+    })
   },
   getUserInfo: function(e) {
     console.log(e)
