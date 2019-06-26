@@ -13,12 +13,16 @@ public interface DepartmentStatisticsService {
 
     /**
      * 6.3.1 临床科室工作量统计
+     * @param beginDateStr 统计起始时间
+     * @param endDateStr 统计终止时间
      * @return 执行结果
      */
     CommonResult clinicianDepartmentStatistics(String beginDateStr, String endDateStr);
 
     /**
      * 6.3.2 医技科室工作量统计
+     * @param beginDateStr 统计起始时间
+     * @param endDateStr 统计终止时间
      * @return 执行结果
      */
     CommonResult technicianDepartmentStatistics(String beginDateStr, String endDateStr);

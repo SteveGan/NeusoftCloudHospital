@@ -66,15 +66,32 @@ public interface TransactionLogMapper {
     //日结时计算每种费用类型的总金额
     List<HashMap> listTotalMoneyByType(@Param("cashierId") Integer cashierId, @Param("invoiceCodeBegin") String invoiceCodeBegin, @Param("invoiceCodeEnd") String invoiceCodeEnd);
 
-    //开单/执行科室工作量统计
-   /* List<HashMap> calculateMoneyByDepartmentAndType(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
-                                                        @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);*/
+    //开单科室工作量统计
+    List<HashMap> calculateClinicianDepartmentTotalMoney(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr, @Param("type") String type);
 
-    List<HashMap> calculateMoneyByDepartmentAndType(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    //统计某开单科室总看诊人数
+    List<HashMap> countClinicianDepartmentVisits(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
-    //统计某科室总看诊人数
-    List<HashMap> countPatientCasesByDepartmentName(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    //统计某开单科室总发票数量
+    List<HashMap> countClinicianDepartmentInvoices(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr, @Param("type") String type);
 
-    //统计某科室总发票数量
-    List<HashMap> countInvoicesByDepartmentName(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    //执行科室工作量统计
+    List<HashMap> calculateExecutiveDepartmentTotalMoney(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
+                                                         @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //统计某执行科室总发票数量
+    List<HashMap> countExecutiveDepartmentInvoices(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
+                                                            @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    //统计某执行科室总看诊人数
+    List<HashMap> countExecutiveDepartmentVisits(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
+                                                   @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //临床医生工作量统计
+    List<HashMap> calculateClinicianDoctorTotalMoney(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //统计某临床医生总发票数量
+    List<HashMap> countClinicianDoctorInvoices(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //统计某临床医生总看诊人数
+    List<HashMap> countClinicianDoctorVisits(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 }

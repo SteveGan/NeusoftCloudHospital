@@ -325,25 +325,33 @@
         group by type
     </select>
 
-    <select id="calculateMoneyByDepartmentAndType" resultType="HashMap">
-        <!--select r.department_name  as departmentName, SUM(total_money) as totalMoney, t.type, count(distinct invoice_code) as invoiceAmount
-        from ${tableName} e, role r, transaction_log t
-        where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
-        and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr} and t.registration_id = e.case_id
-        group by r.department_name, type-->
-        select sum(total_money) as total_money, r.department_name, t.type
+    <select id="calculateClinicianDepartmentTotalMoney" resultType="HashMap">
+        select r.department_name, sum(total_money) as total_money, t.type
         from transaction_log t, role r
-        where t.status = 2 and r.id = t.role_id
-        and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
-        GROUP BY r.department_name, t.type
+        <where>
+            <if test="type != null">
+                and t.type = #{type}
+            </if>
+            and t.status = 2 and r.id = t.role_id
+            and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
+            group by r.department_name, t.type
+        </where>
     </select>
 
-    <select id="countPatientCasesByDepartmentName" resultType="HashMap">
-        <!--select r.department_name as departmentName, count(distinct registration_id) as visits
+    <select id="countClinicianDepartmentInvoices" resultType="HashMap">
+        select r.department_name, count(distinct invoice_code) as invoice_amount
         from transaction_log t, role r
-        where t.status = 2 and r.id = t.role_id and t.type = "挂号费"
-        and t.gmt_create &lt;= #{endDateStr} and t.gmt_create &gt;= #{beginDateStr}
-        group by r.department_name-->
+        <where>
+            <if test="type != null">
+                and t.type = #{type}
+            </if>
+            and t.status = 2 and r.id = t.role_id
+            and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
+            group by r.department_name
+        </where>
+    </select>
+
+    <select id="countClinicianDepartmentVisits" resultType="HashMap">
         select r.department_name, count(distinct registration_id) as visits
         from patient_case pc, role r
         where pc.role_id = r.id and pc.status != 1
@@ -351,12 +359,55 @@
         group by r.department_name
     </select>
 
-    <select id="countInvoicesByDepartmentName" resultType="HashMap">
+    <select id="calculateExecutiveDepartmentTotalMoney" resultType="HashMap">
+        select r.department_name, SUM(total_money) as total_money, t.type
+        from ${tableName} e, role r, transaction_log t
+        where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
+        and t.status = 2 and t.registration_id = e.case_id
+        and e.gmt_modified &lt;= #{endDateStr} and e.gmt_modified &gt;= #{beginDateStr}
+        group by r.department_name, type
+    </select>
+
+    <select id="countExecutiveDepartmentInvoices" resultType="HashMap">
         select r.department_name, count(distinct invoice_code) as invoice_amount
-        from transaction_log t, role r
-        where t.status = 2 and r.id = t.role_id
-        and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
+        from ${tableName} e, role r, transaction_log t
+        where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
+        and t.status = 2 and t.registration_id = e.case_id
+        and e.gmt_modified &lt;= #{endDateStr} and e.gmt_modified &gt;= #{beginDateStr}
         group by r.department_name
+    </select>
+
+    <select id="countExecutiveDepartmentVisits" resultType="HashMap">
+        select r.department_name, count(distinct registration_id) as visits
+        from ${tableName} e, role r, transaction_log t
+        where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
+        and t.status = 2 and (e.status = 2 or e.status = 4 or e.status = 5) and t.registration_id = e.case_id
+        and e.gmt_modified &lt;= #{endDateStr} and e.gmt_modified &gt;= #{beginDateStr}
+        group by r.department_name
+    </select>
+
+    <select id="calculateClinicianDoctorTotalMoney" resultType="HashMap">
+        select u.name, sum(total_money) as total_money, t.type
+        from transaction_log t, role r, user u
+        where t.status = 2 and r.id = t.role_id and r.user_id = u.id
+        and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
+        group by u.name, t.type
+    </select>
+
+    <select id="countClinicianDoctorInvoices" resultType="HashMap">
+        select u.name, count(distinct invoice_code) as invoice_amount
+        from transaction_log t, role r, user u
+        where t.status = 2 and r.id = t.role_id and r.user_id = u.id
+        and t.gmt_modified &lt;= #{endDateStr} and t.gmt_modified &gt;= #{beginDateStr}
+        group by u.name
+    </select>
+
+    <select id="countClinicianDoctorVisits" resultType="HashMap">
+        select u.name, count(distinct registration_id) as visits
+        from patient_case pc, role r, user u
+        where pc.role_id = r.id and pc.status != 1 and r.user_id = u.id
+        and pc.gmt_modified &lt;= #{endDateStr} and pc.gmt_modified &gt;= #{beginDateStr}
+        group by u.name
     </select>
 
 </mapper>
