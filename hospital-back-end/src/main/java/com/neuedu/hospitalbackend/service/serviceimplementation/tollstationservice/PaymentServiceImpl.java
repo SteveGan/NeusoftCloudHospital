@@ -79,7 +79,7 @@ public class PaymentServiceImpl implements PaymentService {
         //未缴费中未缴费的项目分配发票号
         String newInvoiceCode;
         synchronized (this) {
-            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+            //通过查询invoice表得到新的缴费记录的发票号并将其状态改为暂用
             CommonResult result = invoiceService.getNextInvoiceCode();
             newInvoiceCode = (String) result.getData();
         }
@@ -228,7 +228,9 @@ public class PaymentServiceImpl implements PaymentService {
             String newInvoiceCode = null;
             if(transactionLogs.size() != returnedProjectList.size() || !isRecipeAllReturn) {
                 synchronized (this) {
-                    //通过查询invoice表得到新的缴费记录的发票号并将其状态改为已用
+
+                    //通过查询invoice表得到新的缴费记录的发票号并将其状态改为暂
+                    // 用
                     CommonResult result = invoiceService.getNextInvoiceCode();
                     newInvoiceCode = (String) result.getData();
                 }

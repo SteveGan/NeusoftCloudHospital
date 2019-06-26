@@ -204,11 +204,18 @@
   </update>
 
 
-  <select id="getWaitingAmountById" resultType="HashMap">
-    select count(distinct registration_id) as before_amount, (select role_id from patient_case where registration_id= #{registrationId}) as role_id
+  <select id="getWaitingAmountById" resultType="int">
+    select count(distinct registration_id) as before_amount
     from patient_case pc
-    where pc.role_id = (select role_id from registration where registration_id= #{registrationId}) and pc.`status` = 1
-    and pc.gmt_create &lt; (select gmt_create from registration where registration_id= #{registrationId})
+    where pc.role_id = #{roleId} and pc.status = 1
+    and pc.gmt_create &lt; (select gmt_create from patient_case where registration_id= #{registrationId}) and appointment_date = #{appointmentDateStr}
+  </select>
+
+  <select id="listRegistrationsByPatientId" resultType="HashMap">
+    select distinct pc.registration_id, pc.role_id, r.appointment_date
+    from patient_case pc, registration r
+    where pc.patient_id = #{patientId} and pc.status = 1
+    and r.patient_id = pc.patient_id
   </select>
 
 </mapper>

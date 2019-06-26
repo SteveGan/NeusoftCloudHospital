@@ -35,9 +35,9 @@ public class PatientInfoController {
 
     @ApiOperation("获取患者挂号详细信息，包括前方等待人数")
     @RequestMapping(value = "/registration/{id}", method = RequestMethod.GET)
-    public CommonResult getPatientRegistration(@PathVariable(value = "id") Integer registrationId)
+    public CommonResult getPatientRegistration(@PathVariable(value = "id") Integer patientId)
     {
-        return patientInfoServiceImpl.getWaitingAmountById(registrationId);
+        return patientInfoServiceImpl.getWaitingAmountById(patientId);
     }
 
     @ApiOperation("获取患者病历信息列表")

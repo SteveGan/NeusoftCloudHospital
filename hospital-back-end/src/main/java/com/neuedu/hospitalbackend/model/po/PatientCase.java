@@ -1,6 +1,6 @@
 package com.neuedu.hospitalbackend.model.po;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class PatientCase {
     private Integer registrationId;
@@ -22,6 +22,8 @@ public class PatientCase {
     private String allergy;
 
     private String physicalCondition;
+
+    private Date appointmentDate;
 
     private Date gmtCreate;
 
@@ -119,6 +121,14 @@ public class PatientCase {
 
     public void setPhysicalCondition(String physicalCondition) {
         this.physicalCondition = physicalCondition == null ? null : physicalCondition.trim();
+    }
+
+    public Date getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
     public Date getGmtCreate() {

@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.wxappservice;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.*;
@@ -71,16 +72,24 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     }
 
     @Override
-    public CommonResult getWaitingAmountById(Integer registrationId){
-        JSONObject jsonObject = new JSONObject();
+    public CommonResult getWaitingAmountById(Integer patientId){
+        JSONArray jsonArray = new JSONArray();
 
-        HashMap info = patientCaseMapper.getWaitingAmountById(registrationId);
-        Integer roleId = Integer.valueOf(info.get("role_id").toString());
+        List<HashMap> registrations = patientCaseMapper.listRegistrationsByPatientId(patientId);
+        for(int i = 0; i <registrations.size(); i++){
+            JSONObject jsonObject = new JSONObject();
+            Integer registrationId = Integer.valueOf(registrations.get(i).get("registration_id").toString());
+            Integer roleId = Integer.valueOf(registrations.get(i).get("role_id").toString());
+            String appointmentDateStr = registrations.get(i).get("appointment_date").toString();
 
-        jsonObject.put("beforeAmount", info.get("before_amount"));
-        jsonObject.put("doctorName", roleMapper.getUserNameByRoleId(roleId));
-        jsonObject.put("departmentName", roleMapper.getDepartmentNameByRoleId(roleId));
-
-        return CommonResult.success(jsonObject);
+            int beforeAmount = patientCaseMapper.getWaitingAmountById(registrationId, roleId, appointmentDateStr);
+            jsonObject.put("registrationId", registrationId);
+            jsonObject.put("appointmentDate", appointmentDateStr);
+            jsonObject.put("beforeAmount", beforeAmount);
+            jsonObject.put("doctorName", roleMapper.getUserNameByRoleId(roleId));
+            jsonObject.put("departmentName", roleMapper.getDepartmentNameByRoleId(roleId));
+            jsonArray.add(jsonObject);
+        }
+        return CommonResult.success(jsonArray);
     }
 }

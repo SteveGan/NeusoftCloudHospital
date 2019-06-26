@@ -9,7 +9,7 @@ public class TechProject {
 
     private String itemName;
 
-    private Short projectId;
+    private Integer projectId;
 
     private String projectName;
 
@@ -43,11 +43,11 @@ public class TechProject {
         this.itemName = itemName == null ? null : itemName.trim();
     }
 
-    public Short getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Short projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 

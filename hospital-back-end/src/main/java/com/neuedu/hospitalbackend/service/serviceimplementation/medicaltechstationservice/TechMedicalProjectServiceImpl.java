@@ -48,6 +48,7 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
         String patientName = patientParam.getPatientName();
         Integer departmentId = patientParam.getDepartmentId();
         String chargeDateStr = patientParam.getChargeDateStr();
+        //Integer projectType = patientParam.getProjectType();
 
         String projectType = departmentMapper.getClassificationById(departmentId);
         List<HashMap> waitingPatients;
@@ -93,7 +94,7 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
             case "医技科":
                 projects = examinationMapper.listAllProjectsByCaseId(caseId, chargeDateStr, departmentId);
                 break;
-            case "药剂科":
+            case "处置科":
                 projects = treatmentMapper.listAllProjectsByCaseId(caseId, chargeDateStr, departmentId);
                 break;
             default:
@@ -154,7 +155,7 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
                 case "医技科":
                     count = examinationMapper.checkInProject(collectionId, projectId, doctorRoleId);
                     break;
-                case "药剂科":
+                case "处置科":
                     count = treatmentMapper.checkInProject(collectionId, projectId, doctorRoleId);
                     break;
                 default:
@@ -199,7 +200,7 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
                 case "医技科":
                     count = examinationMapper.cancelProject(collectionId, projectId, doctorRoleId);
                     break;
-                case "药剂科":
+                case "处置科":
                     count = treatmentMapper.cancelProject(collectionId, projectId, doctorRoleId);
                     break;
                 default:
@@ -229,7 +230,7 @@ public class TechMedicalProjectServiceImpl implements TechMedicalProjectService 
             case "医技科":
                 List<Examination> examinations = examinationMapper.listCheckedInButNotRecordedProjects(departmentId, dateStr);
                 return CommonResult.success(examinations);
-            case "药剂科":
+            case "处置科":
                 List<Treatment> treatments = treatmentMapper.listCheckedInButNotRecordedProjects(departmentId, dateStr);
                 return CommonResult.success(treatments);
             default:
