@@ -16,83 +16,83 @@
       </el-form-item>
       <el-button type="text" icon="el-icon-document-add" @click="search">查询</el-button>
 
-      <el-button style="float:right" type="text" icon="el-icon-folder-checked" @click="save">保存</el-button>
+      <el-button style="float:right" type="text" icon="el-icon-folder-checked" @click="save" :loading="loading">保存</el-button>
       <el-form-item style="float:right" label="规则名称">
         <el-input placeholder="请输入规则名称" v-model="ruleName"></el-input>
       </el-form-item>
     </el-form>
 
-    <el-table :data="roles" border style="width: 100%" @selection-change="handleSelectionChange">
+    <el-table :data="roles" border style="width: 100%" @selection-change="handleSelectionChange" v-loading="loading">
       <el-table-column type="selection" width="55">
       </el-table-column>
-      <el-table-column prop="roleName" label="医生姓名" width="120">
+      <el-table-column prop="roleName" label="医生姓名" width="90">
       </el-table-column>
-      <el-table-column prop="monAm" label="星期一上午" width="60">
+      <el-table-column prop="monAm" label="星期一上午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.monAm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="monPm" label="星期一下午" width="60">
+      <el-table-column prop="monPm" label="星期一下午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.monPm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="tueAm" label="星期二上午" width="60">
+      <el-table-column prop="tueAm" label="星期二上午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.tueAm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="tuePm" label="星期二下午" width="60">
+      <el-table-column prop="tuePm" label="星期二下午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.tuePm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="wedAm" label="星期三上午" width="60">
+      <el-table-column prop="wedAm" label="星期三上午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.wedAm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="wedPm" label="星期三下午" width="60">
+      <el-table-column prop="wedPm" label="星期三下午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.wedPm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="thuAm" label="星期四上午" width="60">
+      <el-table-column prop="thuAm" label="星期四上午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.thuAm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="thuPm" label="星期四下午" width="60">
+      <el-table-column prop="thuPm" label="星期四下午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.thuPm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="friAm" label="星期五上午" width="60">
+      <el-table-column prop="friAm" label="星期五上午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.friAm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="friPm" label="星期五下午" width="60">
+      <el-table-column prop="friPm" label="星期五下午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.friPm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="satAm" label="星期六上午" width="60">
+      <el-table-column prop="satAm" label="星期六上午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.satAm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="satPm" label="星期六下午" width="60">
+      <el-table-column prop="satPm" label="星期六下午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.satPm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="sunAm" label="星期日上午" width="60">
+      <el-table-column prop="sunAm" label="星期日上午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.sunAm"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column prop="sunPm" label="星期日下午" width="60">
+      <el-table-column prop="sunPm" label="星期日下午" width="81">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.sunPm"></el-checkbox>
         </template>
@@ -118,22 +118,50 @@ export default {
         departments: [],
         departmentId: "",
         roles: [],
-        multipleSelection: []
+        multipleSelection: [],
+
+        loading: false,
       }
   },
 
 
   methods: {
+    // 成功提示
+    success(msg) {
+      this.$message({
+        message: msg + "成功",
+        type: "success"
+      });
+    },
+
+    // 失败提示
+    fail(msg, code, message) {
+      // this.$message.error("[" + msg + "失败]" + message + "(" + code + ")");
+    },
     save() {
+      this.loading = true;
       console.log(this.multipleSelection)
       var arrangementRuleParam = {};
       arrangementRuleParam.adminId = this.currentRoleId;
       arrangementRuleParam.departmentId = this.departmentId;
       arrangementRuleParam.arrangementRules = this.multipleSelection;
+      arrangementRuleParam.ruleName = this.ruleName;
 
       rule.insertArrangementRule(arrangementRuleParam).then(response => {
+        this.loading = false;
+        console.log("up")
+        console.log(this.loading)
+        console.log("down")
         console.log(response.data);
-      })
+
+        if (response.data.code === 200) {
+          this.success("保存");
+        } else {
+          this.fail("保存", response.data.code, response.data.message);
+        }
+      }).catch(function(reason) {
+        console.log('catch:', reason);
+      });
     },
 
     handleSelectionChange(val) {
