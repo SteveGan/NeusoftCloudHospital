@@ -265,33 +265,35 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         JSONObject returnJson = new JSONObject();
 
         List<HashMap> arrangementRuleList = arrangementRuleMapper.listArrangementRulesByDepartmentId(departmentId);
-
-        returnJson = formatJson(returnJson, arrangementRuleList);
-        // JSON格式 v1.0
-//        HashMap<Integer, List<HashMap>> arrangementRules = new HashMap<>();// <规则id， 内容>
-//        for(HashMap arrangementRule : arrangementRuleList){
-//            System.out.println(arrangementRule);
-//            Long idLong = (Long)arrangementRule.get("id");
-//            Integer id = new Integer(String.valueOf(idLong));
-//            List<HashMap> info;
-//            if(!arrangementRules.containsKey(id))
-//                info = new ArrayList<>();
-//            else
-//                info = arrangementRules.get(id);
-//            arrangementRule.remove("id");
-//            arrangementRule.remove("departmentId");
-//            info.add(arrangementRule);
-//            arrangementRules.put(id, info);
-//        }
-//        //JSON格式
-//        JSONArray jsonArray = new JSONArray();
-//        for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
-//            JSONObject jsonObject = new JSONObject();
-//            jsonObject.put("ruleId", entry.getKey());
-//            jsonObject = formatJson(jsonObject, entry.getValue());
-//            jsonArray.add(jsonObject);
-//        }
-//        returnJson.put("arrangementRules", jsonArray);
+        // JSON格式 v2.0
+//        returnJson = formatJson(returnJson, arrangementRuleList);
+//         JSON格式 v1.0
+        HashMap<Integer, List<HashMap>> arrangementRules = new HashMap<>();// <规则id， 内容>
+        for(HashMap arrangementRule : arrangementRuleList){
+            System.out.println(arrangementRule);
+            Long idLong = (Long)arrangementRule.get("id");
+            Integer id = new Integer(String.valueOf(idLong));
+            List<HashMap> info;
+            if(!arrangementRules.containsKey(id))
+                info = new ArrayList<>();
+            else
+                info = arrangementRules.get(id);
+            arrangementRule.remove("id");
+            arrangementRule.remove("departmentId");
+            info.add(arrangementRule);
+            arrangementRules.put(id, info);
+        }
+        //JSON格式
+        JSONArray jsonArray = new JSONArray();
+        for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ruleId", entry.getKey());
+            jsonObject.put("ruleName", entry.getValue().get(0).get("ruleName"));
+            jsonObject.put("adminId", entry.getValue().get(0).get("adminId"));
+            jsonObject = formatJson(jsonObject, entry.getValue());
+            jsonArray.add(jsonObject);
+        }
+        returnJson.put("arrangementRules", jsonArray);
         return CommonResult.success(returnJson);
     }
 
