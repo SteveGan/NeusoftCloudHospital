@@ -4,7 +4,7 @@
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
     <div slot="header" class="clearfix">
-      <i class="el-icon-s-home"></i>
+      <i class="el-icon-document-checked"></i>
       <span style="padding-left: 20px;">生成排班计划</span>
     </div>
 
@@ -18,7 +18,7 @@
 
       <el-button style="float:right" type="text" icon="el-icon-folder-checked" @click="generate">生成</el-button>
       <el-form-item style="float:right" label="结束时间">
-          <el-date-picker type="date" value-format="yyyy-MM-dd" v-model="endDate" :picker-options="pickerOptions" placeholder="选择结束时间" class="date-selection"></el-date-picker>
+          <el-date-picker type="date" value-format="yyyy-MM-dd" v-model="endDate" placeholder="选择结束时间" class="date-selection"></el-date-picker>
       </el-form-item>
       <el-form-item style="float:right" label="起始时间">
           <el-date-picker type="date" value-format="yyyy-MM-dd" v-model="startDate" placeholder="选择起始时间" class="date-selection"></el-date-picker>
@@ -26,15 +26,29 @@
     </el-form>
 
     <el-table :data="rules" border style="width: 100%" highlight-current-row @current-change="handleCurrentChange">
-      <el-table-column type="index" width="50">
+    <el-table-column type="expand">
+      <template slot-scope="props">
+        <el-table :data="props.row.arrangementRule" border style="width: 100%">
+          <el-table-column type="index" width="50">
+          </el-table-column>
+          <el-table-column prop="name" label="医生姓名">
+          </el-table-column>
+          <el-table-column prop="ruleTime" label="排班时间">
+          </el-table-column>
+          <el-table-column prop="maxAppointment" label="预约上限">
+          </el-table-column>
+          <el-table-column prop="registrationLevelId" label="挂号级别">
+          </el-table-column>
+          <el-table-column prop="titleId" label="职称">
+          </el-table-column>
+        </el-table>
+      </template>
+    </el-table-column>
+      <el-table-column prop="ruleId" label="规则ID">
       </el-table-column>
-      <el-table-column prop="id" label="规则名称">
+      <el-table-column prop="ruleName" label="规则名称">
       </el-table-column>
-      <el-table-column prop="departmentId" label="科室名称">
-      </el-table-column>
-      <el-table-column prop="name" label="医生姓名">
-      </el-table-column>
-      <el-table-column prop="ruleTime" label="时间">
+      <el-table-column prop="adminId" label="操作员">
       </el-table-column>
     </el-table>
   </el-card>
@@ -77,7 +91,7 @@ export default {
     search() {
       rule.listArrangementRules(this.departmentId).then(response => {
         console.log(response.data);
-        const rules = response.data.data.arrangementRule;
+        const rules = response.data.data.arrangementRules;
 
         this.success("搜索");
         this.rules = rules;

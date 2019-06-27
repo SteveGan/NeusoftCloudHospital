@@ -167,7 +167,7 @@ import CasePayList from "@/components/outpatientdoctor/CasePayList";
 import { constants } from "fs";
 import { POINT_CONVERSION_COMPRESSED } from "constants";
 import { successDialog, failDialog } from "@/utils/notification";
-import { fail } from "assert";
+import { updateOutpatientQueue } from "@/api/notification/outpatientNotification";
 
 export default {
   name: "OutPatientDoctor",
@@ -309,6 +309,14 @@ export default {
 
           // 如果这是第一次诊断，那么发送消息告诉后端这是第一次请求(大屏幕发生响应变化)
           if (caseStatus === 1) {
+            let updateInfo = {
+              caseId: this.selectedCase.caseId,
+              roleId: this.$store.getters["user/currentRoleId"],
+              code: "update"
+            };
+            console.log("----------更新大屏幕------------");
+            console.log(updateInfo);
+            updateOutpatientQueue(updateInfo);
           }
 
           //请求当前被点击用户的病历所有的处方
@@ -472,6 +480,15 @@ export default {
         response => {
           if (response.data.code === 200) {
             successDialog("开立成功");
+            // 告诉后端更新显示起内容
+            let updateInfo = {
+              caseId: this.selectedCase.caseId,
+              roleId: this.$store.getters["user/currentRoleId"],
+              code: "done"
+            };
+            console.log("----------更新大屏幕------------");
+            console.log(updateInfo);
+            updateOutpatientQueue(updateInfo);
           } else {
             failDialog("开立失败");
           }

@@ -219,7 +219,7 @@ export default {
     // 缴费
     charge() {
       for(var i=0; i<this.chargeSelection.length;i++){
-        this.chargeSelection[i].roleId = this.currentRoleId;
+        this.chargeSelection[i].cashierId = this.currentRoleId;
       }
       charge.charge(this.chargeSelection).then(response => {
         console.log(response.data.data);

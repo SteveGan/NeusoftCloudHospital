@@ -68,7 +68,7 @@
           upload-form-name="smfile"
         ></avatar-cropper>
         <span style="padding-left: 400px">
-          <el-button type="primary" plain>确认修改</el-button>
+          <el-button type="primary" plain @click="handleConfirmEditAvatar">确认修改</el-button>
         </span>
       </el-card>
       <el-card shadow="hover">

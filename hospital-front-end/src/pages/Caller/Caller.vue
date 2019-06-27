@@ -7,7 +7,7 @@
       </div>
       <!-- 部门名 -->
       <div>
-        <p class="department-name">{{departmentName}}</p>
+        <p class="department-name">{{curDepartment.name}}</p>
       </div>
       <!-- 时间 -->
       <div style="margin-left: auto;">
@@ -17,17 +17,17 @@
     <el-main class="main-container">
       <!-- 当前医生 -->
       <div class="doctor-info">
-        <p>坐诊医生: {{doctorName}}</p>
+        <p>坐诊医生: {{curDoctor.name}}</p>
       </div>
       <!-- 正在就诊 -->
       <div class="notification-region">
         <p>正在就诊</p>
-        <p>A1231 甘家麟</p>
+        <p>{{curPatient.caseId}} {{curPatient.name}}</p>
       </div>
       <!-- 准备就诊 -->
       <div class="notification-region">
         <p>准备就诊</p>
-        <p>B3123 许瑞文</p>
+        <p>{{nextPatient.caseId}} {{nextPatient.name}}</p>
       </div>
       <!-- 候诊列表 -->
       <div class="waiting-list">
@@ -75,13 +75,23 @@
         <el-button type="primary" @click="handleSubscribe">链接</el-button>
       </el-card>
     </el-dialog>
+    <!-- 语音播报 -->
+    <div id="bdtts_div_id">
+      <audio id="tts_autio_id" autoplay="autoplay">
+        <source
+          id="tts_source_id"
+          src="http://tts.baidu.com/text2audio?lan=zh&amp;ie=UTF-8&amp;spd=1&amp;per=0&amp;vol=15&amp;text="
+          type="audio/mpeg"
+        >
+        <embed id="tts_embed_id" height="0" width="0" src>
+      </audio>
+    </div>
   </el-container>
 </template>
 
 <script>
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { askRequest } from "@/api/test";
 import DigitalClock from "vue-digital-clock";
 import register from "@/api/register";
 import { deprecate } from "util";
@@ -95,14 +105,19 @@ export default {
   data() {
     return {
       connectionDialogVisible: true,
-      departmentName: "某某部门",
-      doctorName: "甘教授",
-      message: "",
-      curDepartment: {},
+      curDepartment: {
+        name: "",
+        id: ""
+      },
       curDoctor: {
         name: "",
         roleId: ""
       },
+      curPatient: {
+        name: "",
+        caseId: ""
+      },
+      nextPatient: {},
       departments: [],
       doctors: [],
       allPatients: [],
@@ -124,7 +139,7 @@ export default {
   },
   computed: {
     waitingPatients: function() {
-      return this.allPatients.slice(2, this.allPatients.length);
+      return this.allPatients.slice(1, this.allPatients.length);
     }
   },
   mounted: function() {
@@ -138,16 +153,15 @@ export default {
         console.log(error);
       }
     );
-    this.initWebSocket();
   },
   beforeDestroy: function() {
-    // 页面离开时断开连接,清除定时器
-    this.disconnect();
-    clearInterval(this.timer);
+    // // 页面离开时断开连接,清除定时器
+    // this.disconnect();
+    // clearInterval(this.timer);
   },
   methods: {
-    initWebSocket() {
-      this.connection();
+    initWebSocket(roleId) {
+      this.connection(roleId);
       let self = this;
       // 断开重连机制,尝试发送消息,捕获异常发生时重连
       this.timer = setInterval(() => {
@@ -155,11 +169,11 @@ export default {
           self.stompClient.send("test");
         } catch (err) {
           console.log("断线了: " + err);
-          self.connection();
+          self.connection(roleId);
         }
       }, 5000);
     },
-    connection() {
+    connection(roleId) {
       // 建立连接对象
       this.socket = new SockJS("http://localhost:1923/webSocketServer");
       // 获取STOMP子协议的客户端对象
@@ -170,24 +184,67 @@ export default {
         {},
         frame => {
           console.log("Connected: " + frame);
-          this.stompClient.subscribe("/topic/message/test", function(response) {
-            console.log("收到回复");
-            this.message = "你收到的消息是：" + response.data;
-          });
+          this.stompClient.subscribe(
+            "/topic/outpatient/queue/" + roleId,
+            response => {
+              var data = JSON.parse(response.body);
+
+              // 如果有人被医生叫入诊室
+              if (data.code === "update") {
+                // 如果过该病人已经被列为正在诊断的患者
+                if (data.caseId === this.curPatient.caseId) {
+                  // 只播放广播，不更新屏幕
+                } else {
+                  // 检查当前是否有正在诊断的病人（可能被中途打断）
+                  if (this.curPatient.caseId !== "") {
+                    // 将当前被诊断的病人放回等待队列的开头
+                    this.allPatients.unshift(
+                      Object.assign({}, this.curPatient)
+                    );
+                  }
+                  // 如果该病人正在等待状态
+                  var index = this.allPatients.findIndex(
+                    patient => patient.caseId === data.caseId
+                  );
+                  this.curPatient = Object.assign({}, this.allPatients[index]);
+                  this.allPatients.splice(index, 1);
+                  this.nextPatient = this.allPatients[0];
+                  console.log("准备就诊变为：");
+                  console.log(this.allPatients[0]);
+
+                  this.doTTS(
+                    "请" +
+                      this.curPatient.name +
+                      "到" +
+                      this.curDoctor.name +
+                      "医生处就诊"
+                  );
+                  this.doTTS("请" + nextPatient.name + "准备");
+                }
+              }
+              // 如果有人初诊完毕，应当被从屏幕上移除
+              else if (data.code === "done") {
+                // 如果被移除的是正在就诊的患者（按照设计应该只有这种情况）
+                if (this.curPatient.caseId === data.caseId) {
+                  this.curPatient = Object.assign({}, { caseId: "", name: "" });
+                } else {
+                  // 如果被移除的是还在等待的患者（可能发生，情况不明）
+                  var index = this.allPatients.findIndex(
+                    patient => patient.caseId === data.caseId
+                  );
+                  this.allPatients.splice(index, 1);
+                  this.nextPatient = this.allPatients[0];
+                }
+              }
+              // 如果添加新的候诊人员
+              else if (data.code === "add") {
+                this.allPatients.push(data);
+              }
+            }
+          );
         },
         error => {
           // 连接发生错误时的处理函数
-          console.log(error);
-          this.message = "链接失败";
-        }
-      );
-    },
-    handleRequestMessage() {
-      askRequest().then(
-        response => {
-          console.log(response);
-        },
-        error => {
           console.log(error);
         }
       );
@@ -242,13 +299,34 @@ export default {
         response => {
           const data = response.data.data;
           this.allPatients = data.waitingPatients;
-          console.log(this.allPatients);
+          this.nextPatient = this.allPatients[0];
           this.connectionDialogVisible = false;
+          this.initWebSocket(this.curDoctor.roleId);
         },
         error => {
           console.log(error);
         }
       );
+    },
+    doTTS(text) {
+      var ttsDiv = document.getElementById("bdtts_div_id");
+      var ttsAudio = document.getElementById("tts_autio_id");
+      var ttsText = text;
+
+      // 文字转语音
+      ttsDiv.removeChild(ttsAudio);
+      var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
+      var sss =
+        '<source id="tts_source_id" src="http://tsn.baidu.com/text2audio?lan=zh&ie=UTF-8&per=3&spd=14&vol=15&text=' +
+        ttsText +
+        '" type="audio/mpeg">';
+      var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
+      var au2 = "</audio>";
+      ttsDiv.innerHTML = au1 + sss + eee + au2;
+
+      ttsAudio = document.getElementById("tts_autio_id");
+
+      ttsAudio.play();
     }
   }
 };
