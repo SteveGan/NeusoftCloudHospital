@@ -312,6 +312,18 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         return CommonResult.success(returnJson);
     }
 
+    /**
+     * 诊闭
+     * @param caseId
+     */
+    @Override
+    public CommonResult finishDiagnose(Integer caseId){
+        int count = patientCaseMapper.updatePatientCaseStatus(caseId, 5);//诊闭状态
+        return CommonResult.success(count);
+    }
+
+
+
 
     /**
      * 出生日期转为年龄

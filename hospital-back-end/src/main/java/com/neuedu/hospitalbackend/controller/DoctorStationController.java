@@ -75,6 +75,12 @@ public class DoctorStationController {
         return preliminaryCaseService.listFinalDiagnose(caseId);
     }
 
+    @ApiOperation("诊闭")
+    @RequestMapping(value = "/accomplishment/{caseId}", method = RequestMethod.PUT)
+    public CommonResult finishDiagnose(@PathVariable(value = "caseId") Integer caseId){
+        return preliminaryCaseService.finishDiagnose(caseId);
+    }
+
 
 
     @ApiOperation("存为病历模板")
