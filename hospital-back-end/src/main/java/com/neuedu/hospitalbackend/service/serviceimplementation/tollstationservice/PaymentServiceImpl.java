@@ -76,7 +76,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional
     public CommonResult updateTransactionLogsAsPaid(List<TransactionParam> transactionParams) {
 
-        //未缴费中未缴费的项目分配发票号
+        //为未缴费的项目分配发票号
         String newInvoiceCode;
         synchronized (this) {
             //通过查询invoice表得到新的缴费记录的发票号并将其状态改为暂用
@@ -100,7 +100,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
         if (count > 0){
             invoiceService.updateStatus((byte)3, newInvoiceCode);
-            return CommonResult.success(count);
+            return CommonResult.success(newInvoiceCode);
         }
 
         return CommonResult.fail(E_700);
@@ -108,6 +108,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public CommonResult updateTransactionLogsAsReturned(List<TransactionParam> transactionLogParams) {
+
+        JSONObject jsonObject = new JSONObject();
+
         Integer newCashierId = null;
         //将前端传进来的所有待退费记录转换成<invoiceCode, List<TransactionParam>>的形式
         HashMap<String, List<TransactionParam>> collection = new HashMap<>();
@@ -295,8 +298,11 @@ public class PaymentServiceImpl implements PaymentService {
                     invoiceCode, newInvoiceCode, reverseInvoiceCode, newCashierId, "项目退费" );
             if (insertExceptionResult.getCode() == 500)
                 return insertExceptionResult;
+
+            jsonObject.put("newInvoiceCode", newInvoiceCode);
+            jsonObject.put("reverseInvoiceCode", reverseInvoiceCode);
         }
-        return CommonResult.success(transactionLogParams.size());
+        return CommonResult.success(jsonObject);
     }
     @Override
     public CommonResult reprintTransactionLog(String invoiceCode, Integer newCashierId){
