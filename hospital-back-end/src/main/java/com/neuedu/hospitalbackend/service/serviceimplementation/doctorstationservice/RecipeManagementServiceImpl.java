@@ -184,6 +184,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         for(RecipeParam recipeParam: medicines){
             //创建对象
             Recipe recipe = new Recipe();
+            Integer medicineId = recipeParam.getMedicineId();
             recipe.setId(recipeId);
             recipe.setMedicineId(recipeParam.getMedicineId());
             recipe.setCaseId(caseId);
@@ -197,6 +198,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             recipe.setCreatorRoleId(creatorRoleId);
             recipe.setStatus(recipeParam.getStatus());
             recipe.setMedicineType(recipeParam.getMedicineType());
+            recipe.setDepartmentId(medicineMapper.getDepartmentIdByMedicineId(medicineId));
             //另行查找并赋值medicineUnitPrice
             HashMap hashMap = medicineMapper.getMedicineTypeAndUPrice(recipeParam.getMedicineId());
             recipe.setMedicineUnitPrice((BigDecimal) hashMap.get("unitPrice"));

@@ -15,6 +15,7 @@
         <result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
         <result column="pinyin_code" property="pinyinCode" jdbcType="VARCHAR" />
         <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+        <result column="department_id" property="departmentId" jdbcType="INTEGER" />
     </resultMap>
 
     <select id="get" resultMap="BaseResultMap" parameterType="Short">
@@ -26,8 +27,8 @@
     </select>
 
     <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.Medicine" >
-    insert into medicine (code, name, specification, unit, factory, formulation, type, unit_price, pinyin_code, cost_type)
-    values (#{code}, #{name}, #{specification}, #{unit}, #{factory}, #{formulation}, #{type}, #{unitPrice}, #{pinyinCode}, #{costType})
+    insert into medicine (code, name, specification, unit, factory, formulation, type, unit_price, pinyin_code)
+    values (#{code}, #{name}, #{specification}, #{unit}, #{factory}, #{formulation}, #{type}, #{unitPrice}, #{pinyinCode})
   </insert>
 
     <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.Medicine">
@@ -71,6 +72,12 @@
 
     <select id="getCostTypeById" resultType="String">
         select cost_type
+        from medicine
+        where id = #{id}
+    </select>
+
+    <select id="getDepartmentIdByMedicineId" resultType="Integer">
+        select department_id
         from medicine
         where id = #{id}
     </select>

@@ -14,6 +14,19 @@
     <result column="appointment_left" jdbcType="TINYINT" property="appointmentLeft" />
   </resultMap>
 
+  <resultMap id="ArrangementInfo" type="HashMap">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="appointment_date" jdbcType="DATE" property="appointmentDate" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="registration_level_id" jdbcType="TINYINT" property="registrationLevelId" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="time_slot" jdbcType="VARCHAR" property="timeSlot" />
+    <result column="max_appointment" jdbcType="TINYINT" property="maxAppointment" />
+    <result column="appointment_left" jdbcType="TINYINT" property="appointmentLeft" />
+  </resultMap>
+
   <insert id="insert" parameterType="Arrangement">
     insert into arrangement (id, appointment_date, department_id, 
       role_id, user_name, registration_level_id, 
@@ -108,10 +121,10 @@
         and department_id = #{departmentId}
   </update>
 
-  <select id="listByDepartmentIdAndDatePeriod" resultMap="BaseResultMap">
+  <select id="listByDepartmentIdAndDatePeriod" resultMap="ArrangementInfo">
      select *
      from arrangement
-     where department_id = #{departmentId} and
+     where department_id = #{departmentId} and is_valid = 1 and
         appointment_date >= #{startDate} and #{endDate} >= appointment_date
   </select>
 

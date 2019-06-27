@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.Date;
 import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -310,10 +311,20 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     @Override
     public CommonResult listArrangements(Date startDate, Date endDate, Integer departmentId){
         JSONObject returnJson = new JSONObject();
-        List<Arrangement> arrangements = arrangementMapper.listByDepartmentIdAndDatePeriod(startDate, endDate, departmentId);
-        returnJson.put("arrangements", arrangements);
-        return null;
+        JSONArray arrangementsArray = new JSONArray();
+        List<HashMap> arrangements = arrangementMapper.listByDepartmentIdAndDatePeriod(startDate, endDate, departmentId);
 
+        for(HashMap arrangement : arrangements) {
+            Date appointmentDate = (Date)arrangement.get("appointmentDate");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String dateString = formatter.format(appointmentDate);
+            arrangement.put("appointmentDate", dateString);
+
+            arrangementsArray.add(arrangement);
+        }
+
+        returnJson.put("arrangements", arrangementsArray);
+        return CommonResult.success(returnJson);
     }
 
 
