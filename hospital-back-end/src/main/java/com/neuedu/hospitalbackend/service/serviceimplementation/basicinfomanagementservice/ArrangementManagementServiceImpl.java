@@ -161,6 +161,11 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         Integer departmentId = arrangementParam.getDepartmentId();
         Integer arrangementRuleId = arrangementParam.getId();//排班规则id
 
+        //参数检验
+        if(startDate.compareTo(endDate) < 0)
+            return CommonResult.fail(ResultCode.E_809);
+        if(arrangementRuleId == null)
+            return CommonResult.fail(ResultCode.E_801);//排班规则为空
         //已存在排班结果
         if(0!= arrangementMapper.listByDepartmentIdAndDatePeriod(startDate, endDate, departmentId).size()){
             return CommonResult.fail(ResultCode.E_810);
@@ -348,24 +353,63 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     @Override
     public CommonResult listArrangements(Date startDate, Date endDate, Integer departmentId){
         JSONObject returnJson = new JSONObject();
-        JSONArray arrangementsArray = new JSONArray();
-        List<HashMap> arrangements = arrangementMapper.listByDepartmentIdAndDatePeriod(startDate, endDate, departmentId);
+        JSONArray arrangementResultsArray = new JSONArray();
 
-        for(HashMap arrangement : arrangements) {
-            Date appointmentDate = (Date)arrangement.get("appointmentDate");
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            arrangement.put("appointmentDate", formatter.format(appointmentDate));
-            arrangement.put("timeSlot", ConstantMap.convert("看诊时间段",
-                    Byte.valueOf(String.valueOf(arrangement.get("timeSlot")))));
-            arrangement.put("registrationLevel", ConstantMap.convert("挂号级别",
-                    Byte.valueOf(String.valueOf(arrangement.get("registrationLevelId")))));
-            arrangement.put("isValid", getStatusStr((Boolean)arrangement.get("isValid")));
+        //时间范围内的每一天排班结果
+        Date today = startDate;
+        while(today.compareTo(endDate) <= 0){
+            JSONObject arrangementResultJson = new JSONObject();
+            //当日排班信息
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(today);
+            arrangementResultJson.put("appointmentDate", today);
+            JSONArray arrangementsArray = new JSONArray();
+            List<HashMap> arrangements = arrangementMapper.listByDepartmentIdAndDatePeriod(today, today, departmentId);
+            for(HashMap arrangement : arrangements){
+                arrangement.remove("appointmentDate");
+                arrangement.put("timeSlot", ConstantMap.convert("看诊时间段",
+                        Byte.valueOf(String.valueOf(arrangement.get("timeSlot")))));
+                arrangement.put("registrationLevel", ConstantMap.convert("挂号级别",
+                        Byte.valueOf(String.valueOf(arrangement.get("registrationLevelId")))));
+                arrangement.put("isValid", getStatusStr((Boolean)arrangement.get("isValid")));
+                arrangementsArray.add(arrangement);
+            }
+            arrangementResultJson.put("arrangements", arrangementsArray);
+            arrangementResultsArray.add(arrangementResultJson);
 
-            arrangementsArray.add(arrangement);
+            // 下一天
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            java.util.Date tomorrow = calendar.getTime();
+            today = new Date(tomorrow.getTime());
         }
 
-        returnJson.put("arrangements", arrangementsArray);
+        returnJson.put("arrangementResults", arrangementResultsArray);
         return CommonResult.success(returnJson);
+
+
+
+//        JSONArray arrangementResultsArray = new JSONArray();
+//
+//        JSONArray arrangementsArray = new JSONArray();
+//        List<HashMap> arrangements = arrangementMapper.listByDepartmentIdAndDatePeriod(startDate, endDate, departmentId);
+//
+//        for(HashMap arrangement : arrangements) {
+//            JSONObject arrangementResultJson = new JSONObject();
+//
+//            Date appointmentDate = (Date)arrangement.get("appointmentDate");
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//            arrangement.put("appointmentDate", formatter.format(appointmentDate));
+//            arrangement.put("timeSlot", ConstantMap.convert("看诊时间段",
+//                    Byte.valueOf(String.valueOf(arrangement.get("timeSlot")))));
+//            arrangement.put("registrationLevel", ConstantMap.convert("挂号级别",
+//                    Byte.valueOf(String.valueOf(arrangement.get("registrationLevelId")))));
+//            arrangement.put("isValid", getStatusStr((Boolean)arrangement.get("isValid")));
+//
+//            arrangementsArray.add(arrangement);
+//        }
+//
+//        returnJson.put("arrangementResults", arrangementResultsArray);
+//        return CommonResult.success(returnJson);
     }
 
     public String getStatusStr(Boolean isValid){
