@@ -17,4 +17,12 @@ public interface DoctorStatisticsService {
      * @return 执行结果
      */
     CommonResult doctorStatistics(String beginDateStr, String endDateStr);
+
+    /**
+     * 查询指定医生的工作量， 用于医生登录界面的展示
+     * @param date 当天日期
+     * @param userId 用户id
+     * @return 执行结果
+     */
+    CommonResult doctorStatisticsByUserIdAndDate(String date, Integer userId);
 }

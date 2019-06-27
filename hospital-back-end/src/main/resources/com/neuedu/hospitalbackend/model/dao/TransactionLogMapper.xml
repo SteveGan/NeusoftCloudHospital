@@ -325,7 +325,7 @@
         group by type
     </select>
 
-    <select id="calculateClinicianDepartmentTotalMoney" resultType="HashMap">
+    <select id="calculateClinicianDepartmentsTotalMoney" resultType="HashMap">
         select r.department_name, sum(total_money) as total_money, t.type
         from transaction_log t, role r
         <where>
@@ -338,7 +338,7 @@
         </where>
     </select>
 
-    <select id="countClinicianDepartmentInvoices" resultType="HashMap">
+    <select id="countClinicianDepartmentsInvoices" resultType="HashMap">
         select r.department_name, count(distinct invoice_code) as invoice_amount
         from transaction_log t, role r
         <where>
@@ -351,7 +351,7 @@
         </where>
     </select>
 
-    <select id="countClinicianDepartmentVisits" resultType="HashMap">
+    <select id="countClinicianDepartmentsVisits" resultType="HashMap">
         select r.department_name, count(distinct registration_id) as visits
         from patient_case pc, role r
         where pc.role_id = r.id and pc.status != 1
@@ -359,7 +359,7 @@
         group by r.department_name
     </select>
 
-    <select id="calculateExecutiveDepartmentTotalMoney" resultType="HashMap">
+    <select id="calculateExecutiveDepartmentsTotalMoney" resultType="HashMap">
         select r.department_name, SUM(total_money) as total_money, t.type
         from ${tableName} e, role r, transaction_log t
         where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
@@ -368,7 +368,7 @@
         group by r.department_name, type
     </select>
 
-    <select id="countExecutiveDepartmentInvoices" resultType="HashMap">
+    <select id="countExecutiveDepartmentsInvoices" resultType="HashMap">
         select r.department_name, count(distinct invoice_code) as invoice_amount
         from ${tableName} e, role r, transaction_log t
         where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
@@ -377,7 +377,7 @@
         group by r.department_name
     </select>
 
-    <select id="countExecutiveDepartmentVisits" resultType="HashMap">
+    <select id="countExecutiveDepartmentsVisits" resultType="HashMap">
         select r.department_name, count(distinct registration_id) as visits
         from ${tableName} e, role r, transaction_log t
         where e.id = t.collection_id and t.project_id = e.${projectIdName} and r.id = e.${roleIdName}
@@ -386,7 +386,7 @@
         group by r.department_name
     </select>
 
-    <select id="calculateClinicianDoctorTotalMoney" resultType="HashMap">
+    <select id="calculateClinicianDoctorsTotalMoney" resultType="HashMap">
         select u.name, sum(total_money) as total_money, t.type
         from transaction_log t, role r, user u
         where t.status = 2 and r.id = t.role_id and r.user_id = u.id
@@ -394,7 +394,7 @@
         group by u.name, t.type
     </select>
 
-    <select id="countClinicianDoctorInvoices" resultType="HashMap">
+    <select id="countClinicianDoctorsInvoices" resultType="HashMap">
         select u.name, count(distinct invoice_code) as invoice_amount
         from transaction_log t, role r, user u
         where t.status = 2 and r.id = t.role_id and r.user_id = u.id
@@ -402,12 +402,36 @@
         group by u.name
     </select>
 
-    <select id="countClinicianDoctorVisits" resultType="HashMap">
+    <select id="countClinicianDoctorsVisits" resultType="HashMap">
         select u.name, count(distinct registration_id) as visits
         from patient_case pc, role r, user u
         where pc.role_id = r.id and pc.status != 1 and r.user_id = u.id
         and pc.gmt_modified &lt;= #{endDateStr} and pc.gmt_modified &gt;= #{beginDateStr}
         group by u.name
+    </select>
+
+    <select id="calculateClinicianDoctorTotalMoney" resultType="HashMap">
+        select r.id, r.department_name, r.title_name, sum(total_money) as total_money, t.type
+        from transaction_log t, role r, user u
+        where t.status = 2 and r.id = t.role_id and r.user_id = u.id and u.id = #{userId} and r.position_name = "门诊医生"
+        and date_format(t.gmt_modified,'%Y-%m-%d') &lt;= #{endDateStr} and date_format(t.gmt_modified,'%Y-%m-%d') &gt;= #{beginDateStr}
+        group by r.id, t.type
+    </select>
+
+    <select id="countClinicianDoctorInvoices" resultType="HashMap">
+        select r.id, r.department_name, r.title_name, count(distinct invoice_code) as invoice_amount
+        from transaction_log t, role r, user u
+        where t.status = 2 and r.id = t.role_id and r.user_id = u.id and u.id = #{userId} and r.position_name = "门诊医生"
+        and date_format(t.gmt_modified,'%Y-%m-%d') &lt;= #{endDateStr} and date_format(t.gmt_modified,'%Y-%m-%d') &gt;= #{beginDateStr}
+        group by r.id
+    </select>
+
+    <select id="countClinicianDoctorVisits" resultType="HashMap">
+        select r.id, r.department_name, r.title_name, count(distinct registration_id) as visits
+        from patient_case pc, role r, user u
+        where pc.role_id = r.id and pc.status != 1 and r.user_id = u.id and u.id = #{userId} and r.position_name = "门诊医生"
+        and date_format(pc.gmt_modified,'%Y-%m-%d') &lt;= #{endDateStr} and date_format(pc.gmt_modified,'%Y-%m-%d') &gt;= #{beginDateStr}
+        group by r.id
     </select>
 
 </mapper>

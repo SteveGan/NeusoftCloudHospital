@@ -103,7 +103,7 @@
         #{caseId,jdbcType=INTEGER},
       </if>
       <if test="departmentId != null" >
-        #{departmentId,jdbcType=INTEGER}
+        #{departmentId,jdbcType=INTEGER},
       </if>
       <if test="amount != null" >
         #{amount,jdbcType=SMALLINT},

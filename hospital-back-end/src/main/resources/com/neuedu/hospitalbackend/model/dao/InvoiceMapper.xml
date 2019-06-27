@@ -7,9 +7,9 @@
     <result column="status" property="status" jdbcType="TINYINT" />
   </resultMap>
 
-  <insert id="insert" parameterType="Invoice">
-    insert into invoice (id, status)
-    values (#{id,jdbcType=CHAR}, #{status,jdbcType=TINYINT})
+  <insert id="insert">
+    insert into invoice (id)
+    values (#{id,jdbcType=CHAR})
   </insert>
 
   <insert id="insertSelective" parameterType="Invoice" >
