@@ -21,5 +21,11 @@ public class CheckDailyController {
     public CommonResult checkDailySummary(DailySummaryParam dailySummaryParam){
         return checkDailyService.checkDailySummary(dailySummaryParam);
     }
+
+    @ApiOperation("核对通过")
+    @RequestMapping(value = "/confirm", method = RequestMethod.PUT)
+    public CommonResult confirmResult(@RequestBody DailySummaryParam dailySummaryParam){
+        return checkDailyService.confirmResult(dailySummaryParam);
+    }
 }
 

@@ -9,6 +9,7 @@
     <result column="invoice_code_end" property="invoiceCodeEnd" jdbcType="CHAR" />
     <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
     <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="assessor_id" property="assessorId" jdbcType="INTEGER" />
     <result column="gmt_create" property="gmtCreate" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -107,4 +108,9 @@
     select * from daily_summary_log
     where cashier_role_id = #{cashierId} and begin_date = #{beginDateStr} and end_date = #{endDateStr}
   </select>
+
+  <update id="updateResult">
+    update daily_summary_log set is_correct = 1, assessor_id = #{assessorId}
+    where cashier_role_id = #{cashierId} and begin_date = #{beginDateStr} and end_date = #{endDateStr}
+  </update>
 </mapper>
