@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * web配置
- * @author Raven
+ * @author Raven,Steve
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
         //添加拦截器//放掉某些特定不需要校验token的路由
-        registry.addInterceptor(new JwtInterceptor()).excludePathPatterns("/oauth/login", "/oauth/register");
+        registry.addInterceptor(new JwtInterceptor()).excludePathPatterns("/oauth/login", "/oauth/register", "/notification/outpatient/queue");
 
     }
 
