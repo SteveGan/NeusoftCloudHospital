@@ -78,7 +78,8 @@ public class WithdrawRegistrationServiceImpl implements WithdrawRegistrationServ
             CommonResult insertResult = transactionService.insertTransactionLog(newTransactionLog);
             if (insertResult.getCode() == 500)
                 return insertResult;
-            invoiceService.updateStatus((byte)3, registrationParam.getInvoiceCode());
+            invoiceService.updateStatus((byte)3, invoiceCode);
+            jsonObject.put("冲正发票号", invoiceCode);
 
             //向异常表中添加新的记录
             CommonResult insertExceptionResult = transactionService.insertTransactionExceptionLog(

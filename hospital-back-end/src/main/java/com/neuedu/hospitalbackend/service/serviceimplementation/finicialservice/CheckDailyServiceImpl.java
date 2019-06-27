@@ -45,4 +45,17 @@ public class CheckDailyServiceImpl implements CheckDailyService {
         }
         return CommonResult.success(jsonObject);
     }
+
+    @Override
+    public CommonResult confirmResult(DailySummaryParam dailySummaryParam){
+        Integer cashierId = dailySummaryParam.getCashierId();
+        String beginDateStr = dailySummaryParam.getBeginDateStr();
+        String endDateStr = dailySummaryParam.getEndDateStr();
+        Integer assessorId = dailySummaryParam.getAssessorId();
+        int count = dailySummaryLogMapper.updateResult(cashierId, assessorId, beginDateStr, endDateStr);
+        if(count > 0)
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
+    }
 }
