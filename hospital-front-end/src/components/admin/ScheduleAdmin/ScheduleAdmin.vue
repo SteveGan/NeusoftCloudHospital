@@ -37,9 +37,9 @@
           </el-table-column>
           <el-table-column prop="maxAppointment" label="预约上限">
           </el-table-column>
-          <el-table-column prop="registrationLevelId" label="挂号级别">
+          <el-table-column prop="registrationLevel" label="挂号级别">
           </el-table-column>
-          <el-table-column prop="titleId" label="职称">
+          <el-table-column prop="title" label="职称">
           </el-table-column>
         </el-table>
       </template>
@@ -48,7 +48,7 @@
       </el-table-column>
       <el-table-column prop="ruleName" label="规则名称">
       </el-table-column>
-      <el-table-column prop="adminId" label="操作员">
+      <el-table-column prop="adminName" label="操作员">
       </el-table-column>
     </el-table>
   </el-card>
