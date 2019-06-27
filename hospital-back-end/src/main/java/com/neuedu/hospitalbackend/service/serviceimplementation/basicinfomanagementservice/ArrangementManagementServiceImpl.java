@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.Arrangement;
 import com.neuedu.hospitalbackend.model.po.ArrangementRule;
+import com.neuedu.hospitalbackend.model.po.Constant;
 import com.neuedu.hospitalbackend.model.vo.ArrangementConflictParam;
 import com.neuedu.hospitalbackend.model.vo.ArrangementParam;
 import com.neuedu.hospitalbackend.model.vo.ArrangementRuleParam;
@@ -102,6 +103,7 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
      */
     @Override
     public CommonResult modifyArrangement(ArrangementParam arrangementParam){
+
 
 
         return null;
@@ -287,16 +289,12 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             arrangementRule.remove("id");
             arrangementRule.remove("departmentId");
             Byte levelId = Byte.valueOf(String.valueOf(arrangementRule.get("registrationLevelId")));
-            arrangementRule.put("registrationLevelId", ConstantMap.convert("挂号级别", levelId));
+            arrangementRule.put("registrationLevel", ConstantMap.convert("挂号级别", levelId));
+            arrangementRule.remove("registrationLevelId");
             Byte positionId = Byte.valueOf(String.valueOf(arrangementRule.get("titleId")));
-            arrangementRule.put("titleId", ConstantMap.convert("职称", positionId));
-            Boolean isValid = (Boolean) arrangementRule.get("isValid");
-            if(isValid.equals(true))
-                arrangementRule.put("isValid", "有效");
-            else if(isValid.equals(false))
-                arrangementRule.put("isValid", "无效");
-            else
-                return CommonResult.fail(ResultCode.E_800);
+            arrangementRule.put("title", ConstantMap.convert("职称", positionId));
+            arrangementRule.remove("titleId");
+            arrangementRule.put("isValid", getStatusStr((Boolean)arrangementRule.get("isValid")));
 
             info.add(arrangementRule);
             arrangementRules.put(id, info);
@@ -332,14 +330,25 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         for(HashMap arrangement : arrangements) {
             Date appointmentDate = (Date)arrangement.get("appointmentDate");
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String dateString = formatter.format(appointmentDate);
-            arrangement.put("appointmentDate", dateString);
+            arrangement.put("appointmentDate", formatter.format(appointmentDate));
+            arrangement.put("timeSlot", ConstantMap.convert("看诊时间段",
+                    Byte.valueOf(String.valueOf(arrangement.get("timeSlot")))));
+            arrangement.put("registrationLevel", ConstantMap.convert("挂号级别",
+                    Byte.valueOf(String.valueOf(arrangement.get("registrationLevelId")))));
+            arrangement.put("isValid", getStatusStr((Boolean)arrangement.get("isValid")));
 
             arrangementsArray.add(arrangement);
         }
 
         returnJson.put("arrangements", arrangementsArray);
         return CommonResult.success(returnJson);
+    }
+
+    public String getStatusStr(Boolean isValid){
+        if(isValid.equals(true))
+            return "有效";
+        else
+            return "无效";
     }
 
 

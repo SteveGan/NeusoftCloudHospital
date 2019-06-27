@@ -43,6 +43,10 @@
             <i class="el-icon-document-checked"></i>
             <span slot="title">生成排班计划</span>
           </el-menu-item>
+          <el-menu-item index="arrangement">
+            <i class="el-icon-s-grid"></i>
+            <span slot="title">排班结果管理</span>
+          </el-menu-item>          
         </el-submenu>
       </el-menu>
     </el-aside>
