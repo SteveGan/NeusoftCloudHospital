@@ -205,6 +205,7 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             recipe.setMedicineUnitPrice((BigDecimal) hashMap.get("unitPrice"));
             recipeParam.setMedicineUnitPrice((BigDecimal) hashMap.get("unitPrice"));
             //插入数据库
+            //===============================================
             count = recipeMapper.insertSelective(recipe);
             if(count <= 0)
                 return CommonResult.fail(ResultCode.E_802);
