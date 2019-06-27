@@ -139,7 +139,7 @@
     select distinct r.role_id, r.name as r_name, r.scope, r.department_id, r.scope, r.medicine_code, m.name as m_name, r.type,
             r.dosage, r.dosage_unit, r.frequency, r.amount
     from recipe_template r, medicine m
-    where (role_id = #{roleId} or (scope = 2 and department_id = #{departmentId}) or scope = 3)
+    where (role_id = #{roleId} or (scope = 2 and r.department_id = #{departmentId}) or scope = 3)
           and r.medicine_code = m.code and r.type = #{type}
   </select>
 
