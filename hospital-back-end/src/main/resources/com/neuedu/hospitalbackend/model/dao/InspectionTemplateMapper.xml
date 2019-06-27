@@ -24,7 +24,8 @@
     <result column="item_id" property="itemId" jdbcType="INTEGER" />
     <result column="project_name" property="projectName" jdbcType="VARCHAR" />
     <result column="item_id" property="itemId" jdbcType="VARCHAR" />
-    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
   </resultMap>
 
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.InspectionTemplate" >
@@ -131,10 +132,10 @@
   </select>
 
   <select id="listProject" resultMap="TemplateInfo">
-    select distinct i.goal, i.requirement, t.project_name, i.project_id
-    from inspection_template i, tech_project t
+    select distinct i.goal, i.requirement, t.project_name, i.project_id, d.name,
+    from inspection_template i, tech_project t, department d
     where i.role_id = #{roleId} and i.name = #{name}
-          and i.project_id = t.project_id and i.item_id = t.item_id
+          and i.project_id = t.project_id and i.item_id = t.item_id and t.department_id = d.id
   </select>
 
   <select id="listItems" resultMap="TemplateInfo">

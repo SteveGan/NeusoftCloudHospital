@@ -180,7 +180,6 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
            collectionJson.put("departmentId", 0);
            collectionJson.put("type", type);
 
-
            JSONArray projectArray = new JSONArray();
            List<HashMap> projects = new ArrayList<>();
            if (type == 1)
@@ -198,6 +197,12 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
                projectJson.put("projectName", projectName);
                projectJson.put("requirement", project.get("requirement"));
                projectJson.put("goal", project.get("goal"));
+//               projectJson.put("departmentId", );
+//               projectJson.put("departmentName", );
+//               projectJson.put("resultDescription", );
+//               projectJson.put("resultImage", );
+//               projectJson.put("status", );
+//               projectJson.put("advice", );
 
                //检验检查项目 小项信息
                JSONArray itemArray = new JSONArray();
@@ -211,6 +216,7 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
                    JSONObject itemJson = new JSONObject();
                    itemJson.put("itemId", item.get("itemId"));
                    itemJson.put("itemName", item.get("itemName"));
+                   itemJson.put("amount", 1);
                    itemArray.add(itemJson);
                }
                projectJson.put("items", itemArray);
