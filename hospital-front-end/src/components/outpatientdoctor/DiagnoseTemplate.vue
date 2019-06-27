@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-tabs :stretch="true">
-      <el-tab-pane label="西医">
+    <el-tabs :stretch="true" value="first">
+      <el-tab-pane label="西医" name="first">
         <el-table :data="diagnoseTemplates.modernDiagnoseTemplates">
           <el-table-column label="常用诊断名" prop="name"></el-table-column>
           <el-table-column label="疾病名称" prop="diseaseName"></el-table-column>
@@ -13,7 +13,7 @@
           </el-table-column>
         </el-table>
       </el-tab-pane>
-      <el-tab-pane label="中医">
+      <el-tab-pane label="中医" name="second">
         <el-table :data="diagnoseTemplates.traditionalDiagnoseTemplates">
           <el-table-column label="常用诊断名" prop="name"></el-table-column>
           <el-table-column label="疾病名称" prop="diseaseName"></el-table-column>

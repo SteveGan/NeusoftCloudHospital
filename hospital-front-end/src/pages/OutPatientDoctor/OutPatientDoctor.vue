@@ -1,36 +1,21 @@
 <template lang="html">
-  <el-container style="height: 90vh;">
-    <el-aside width="300px">
+  <el-container class="bg-color">
+    <div width="300px" style="margin: 20px 0 0 20px;" >
       <!-- 侧栏区域 -->
-      <div class="side-bar">
-        <!-- 搜索区 -->
-        <div class="search-user">
-          <el-input placeholder="病人病历" class="input-with-select">
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-        </div>
+      <div class="side-bar bg-color">
         <!-- 待诊用户区 -->
         <el-card shadow="hover">
           <div slot="header">
+            <i class="el-icon-news"></i>
             <span>待就诊</span>
           </div>
           <!-- 待就诊病人名单 -->
-          <div class="">
+          <div>
             <!-- 表格 -->
-            <el-table
-              :data="waitingPatients"
-              style="width: 100%">
-              <el-table-column
-                prop="caseId"
-                label="病历号">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="患者姓名">
-              </el-table-column>
-              <el-table-column
-                fixed="right"
-                width='50px'>
+            <el-table :data="waitingPatients" style="width: 100%" max-height="500px">
+              <el-table-column prop="caseId" label="病历号"></el-table-column>
+              <el-table-column prop="name" label="患者姓名"></el-table-column>
+              <el-table-column width='50px'>
                 <template slot-scope="scope">
                   <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
                 </template>
@@ -40,54 +25,43 @@
         </el-card>
 
         <!-- 已诊用户区 -->
-        <el-card shadow="hover">
+        <el-card shadow="hover" style="margin-top: 20px;" max-height="200px">
           <div slot="header">
+            <i class="el-icon-finished"></i>
             <span>已就诊</span>
           </div>
           <!-- 待就诊病人名单 -->
-          <div class="">
+          <div>
             <!-- 表格 -->
-            <el-table
-              :data="diagnosedPatients"
-              style="width: 100%;">
-              <el-table-column
-                prop="caseId"
-                label="病历号">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="患者姓名">
-              </el-table-column>
-              <el-table-column
-                fixed="right"
-                width='50px'>
-              <template slot-scope="scope">
-  <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
-</template>
+            <el-table :data="diagnosedPatients" style="width: 100%;">
+              <el-table-column prop="caseId" label="病历号"></el-table-column>
+              <el-table-column prop="name" label="患者姓名"></el-table-column>
+              <el-table-column width='50px'>
+                <template slot-scope="scope">
+                  <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
+                </template>
               </el-table-column>
             </el-table>
           </div>
         </el-card>
       </div>
-    </el-aside>
+    </div>
+
     <el-main>
       <!-- 当前病人信息 -->
-      <el-card shadow="hover" :body-style="{ padding: '5px'}" class="info-card">
-        <div class="current-user">
-          <!-- 基本信息 -->
+      <el-card shadow="hover" :body-style="{ padding: '12px'}" class="info-card" v-if="show">
+        <div slot="header">
+          <i class="el-icon-user"></i>
+          <span>当前就诊</span>
+        </div>
+        <!-- 基本信息 -->
+        <div class="current-user" style="margin-left: 29px;">
           <div class="basic-info">
-            <!-- 就诊状态 -->
-            <span>就诊状态: {{this.status}} </span>
-            <!-- 病历号 -->
-            <span>病历号: {{this.selectedCase.caseId}} </span>
-            <!-- 姓名 -->
-            <span>姓名: {{selectedPatient.name}} </span>
-            <!-- 性别 -->
-            <span>性别: {{this.gender}} </span>
-            <!-- 年龄 -->
-            <span>年龄: {{this.selectedPatient.age}} </span>
-            <!-- 结算类别 -->
-            <!-- <span>结算类别: TODO </span> -->
+            <span>就诊状态:  <span class="blue-text">{{ this.status }}</span>&nbsp;&nbsp;&nbsp;</span>
+            <span>病历号:  <span class="blue-text">{{this.selectedCase.caseId}}</span>&nbsp;&nbsp;&nbsp;</span>
+            <span>姓名:  <span class="blue-text">{{selectedPatient.name}}</span>&nbsp;&nbsp;&nbsp;</span>
+            <span>性别:  <span class="blue-text">{{this.gender}}</span>&nbsp;&nbsp;&nbsp;</span>
+            <span>年龄:  <span class="blue-text">{{this.selectedPatient.age}}</span>&nbsp;&nbsp;&nbsp;</span>
           </div>
           <!-- 诊毕 -->
           <el-button type="primary" @click="handleFinish" :disabled="disableFinish">诊毕</el-button>
@@ -95,18 +69,12 @@
         </div>
       </el-card>
       <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" style="overflow:vible" tab-click="testTabClick">
+      <el-tabs type="border-card" style="overflow:vible; margin-top: 0px; border: 0;" tab-click="testTabClick">
         <!-- 门诊首页tab-->
         <el-tab-pane label="病历首页">
           <!-- 门诊病历首页内容 -->
-          <outpatient-prediagnose 
-            @saveCase="onSaveSelectedCase" 
-            @submitCase="onSubmitSelectedCase" 
-            @clearCase="onClearSelectedCase"
-            v-model="selectedCase"
-            :editable="ableEditPreDiagnose"
-            :disabled="disablePreDiagnose">
-          </outpatient-prediagnose>
+          <outpatient-prediagnose @saveCase="onSaveSelectedCase" @submitCase="onSubmitSelectedCase" @clearCase="onClearSelectedCase"
+            v-model="selectedCase" :editable="ableEditPreDiagnose" :disabled="disablePreDiagnose"></outpatient-prediagnose>
         </el-tab-pane>
         <el-tab-pane label="病历确诊" :disabled="disableFinalDiagnose">
           <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase" :editable="ableEditFinalDiagnose"></final-case>
@@ -165,7 +133,7 @@ export default {
     return {
       waitingPatients: [],
       diagnosedPatients: [],
-      selectedPatient: { name: "haha" },
+      selectedPatient: { name: "" },
       selectedCase: {},
       selectedCaseExaminations: {},
       selectedCaseInspections: {},
@@ -188,7 +156,10 @@ export default {
       disableTraRecipe: true,
       //病历首页是否可以被修改
       ableEditPreDiagnose: false,
-      ableEditFinalDiagnose: false
+      ableEditFinalDiagnose: false,
+
+      //患者信息是否显示
+      show: false
     };
   },
   computed: {
@@ -201,6 +172,7 @@ export default {
   },
   methods: {
     handlePatientSelect(row) {
+      this.show = true;
       console.log("被选中的病人");
       console.log(row);
 
@@ -560,13 +532,17 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.bg-color{
+  background-color: #f6f6f6;
+}
+.blue-text{
+  color: #409EFF;
+}
 .side-bar {
   height: 100%;
-  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #fafafa;
 }
 
 .current-user {
@@ -582,7 +558,7 @@ export default {
 }
 
 .info-card {
-  margin-bottom: 4px;
+  margin-bottom: 20px;
 }
 
 .outpatient-service-container {

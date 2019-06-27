@@ -1,31 +1,24 @@
 <template>
   <div>
-    <el-menu
-      class="el-menu-demo align-end"
-      mode="horizontal"
-      text-color="#ffffff"
-      @select="handleSelect"
-    >
+    <el-menu class="el-menu-demo align-end" mode="horizontal" color="#ffffff" @select="handleSelect">
       <el-menu-item class="justify-start" @click="handleClickLogo">
         <img src="@/assets/icons/project_logo_complete.png" class="project-logo">
       </el-menu-item>
+
       <el-menu-item>
         <el-dropdown>
           <span class="el-dropdown-link">
             {{this.$store.getters['user/currentRoleDescription']}}
-            <i
-              class="el-icon-arrow-down el-icon--right"
-            ></i>
+            <i class="el-icon-arrow-down el-icon--right el-dropdown-link"></i>
           </span>
           <el-dropdown-menu slot="dropdown" @command="handleSelectRole">
-            <el-dropdown-item
-              v-for="role in this.$store.getters['user/roles']"
-              v-bind:key="role.roleId"
-              command="role"
-            >{{role.departmentName}}:{{role.positionName}}</el-dropdown-item>
+            <el-dropdown-item v-for="role in this.$store.getters['user/roles']" v-bind:key="role.roleId" command="role" >
+              {{role.departmentName}}:{{role.positionName}}
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-menu-item>
+
       <el-submenu index="1">
         <template slot="title">
           <!--   用户头像     -->
