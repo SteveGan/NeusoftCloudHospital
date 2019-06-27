@@ -79,8 +79,6 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
 
         //病历信息
         HashMap patientCase = patientCaseMapper.getPatientCaseInfo(caseId);
-        System.out.println("-------->"+caseId);
-        System.out.println("-------->"+patientCase);
         if(patientCase == null)
             return CommonResult.fail(ResultCode.E_800);//参数异常
         returnJson.put("caseId", caseId);

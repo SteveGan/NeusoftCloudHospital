@@ -67,9 +67,9 @@ public class MedicineManagementImpl implements MedicineManagementService {
     @Override
     public CommonResult listMedicineByType(Integer type){
         List<Medicine> medicineList;
-        if(type == 0)
+        if(type == 0)//中药
             medicineList = medicineMapper.listTraditionalMedicine();
-        else if (type == 1)
+        else if (type == 1)//西药
             medicineList = medicineMapper.listModernMedicine();
         else
             return CommonResult.fail(ResultCode.E_801);
