@@ -1,8 +1,11 @@
 package com.neuedu.hospitalbackend.component;
 
+import com.neuedu.hospitalbackend.exception.UserLoginException;
+import com.neuedu.hospitalbackend.exception.UserLoginInvalidException;
 import com.neuedu.hospitalbackend.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,10 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.neuedu.hospitalbackend.util.JwtUtil.resetResponse;
 import static com.neuedu.hospitalbackend.util.ResultCode.E_603;
+import static com.neuedu.hospitalbackend.util.ResultCode.E_604;
 
 /**
  * JWT 拦截器
- * @author Raven
+ * @author Raven, Steve
  */
 public class JwtInterceptor extends HandlerInterceptorAdapter {
 
@@ -33,9 +37,18 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
         String token = authHeader.substring(7);
 
         //验证token
-        Claims claims = JwtUtil.checkToken(token, response);
+        try {
+            Claims claims = JwtUtil.checkToken(token);
+            request.setAttribute("username", claims.getSubject());
+            String id = claims.getSubject();
+        }catch (UserLoginInvalidException e) {
+            resetResponse(response, E_604);
+        } catch (UserLoginException e) {
+            resetResponse(response, E_603);
+        }
 
-        request.setAttribute("username", claims.getSubject());
+
+
         return true;
     }
 

@@ -534,6 +534,13 @@ export default {
     "case-pay-list": CasePayList
   },
   mounted: function() {
+    // 判断store中是否已存roleId, 如果没有，则将path 中的roleId赋给store
+    if (typeof this.$store.getters["user/currentRoleId"] === "undefined") {
+      this.$store.commit(
+        "user/setCurrentRoleWithRoleId",
+        Number(this.$route.params.roleId)
+      );
+    }
     //请求所有待诊病人和已诊病人
     listAllPatients(this.$store.getters["user/currentRoleId"]).then(
       response => {

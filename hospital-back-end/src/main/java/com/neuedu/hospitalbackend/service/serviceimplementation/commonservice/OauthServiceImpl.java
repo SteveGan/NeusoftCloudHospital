@@ -59,7 +59,7 @@ public class OauthServiceImpl implements OauthService {
             List<Role> roles = roleMapper.listRole(loginParam.getUserId());
             result.put("roles", roles);
 
-            String token = JwtUtil.getToken(user.getName());
+            String token = JwtUtil.getToken(user.getId().toString());
 
             result.put("web_token", "Bearer:" + token);
             System.out.println();

@@ -10,18 +10,18 @@
 </template>
 
 <script>
-  import StatusBar from '@/components/common/StatusBar'
+import StatusBar from "@/components/common/StatusBar";
 
-  export default {
-    name: 'Home',
-    components: {
-      'status-bar': StatusBar
-    }
+export default {
+  name: "Home",
+  components: {
+    "status-bar": StatusBar
   }
+};
 </script>
 
 <style lang="css" scoped>
-.container{
+.container {
   padding: 0px;
   margin: 0px;
   min-height: 100%;

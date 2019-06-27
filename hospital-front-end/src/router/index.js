@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
+import {
+  getUserInfo
+} from '@/api/user'
 
 Vue.use(VueRouter);
 
@@ -125,7 +128,7 @@ const routes = [{
         ]
       },
       {
-        path: 'outpatientdoctor',
+        path: 'outpatientdoctor/:roleId',
         name: 'OutPatientDoctor',
         component: OutPatientDoctor,
         meta: {
@@ -209,21 +212,29 @@ const routes = [{
   {
     path: '/login',
     name: 'Login',
-    component: login
+    component: login,
+    meta: {
+      requiresAuth: false
+    }
   },
   {
     path: '/caller',
     name: 'Caller',
-    component: Caller
+    component: Caller,
+    meta: {
+      requiresAuth: false
+    }
   }
 ]
 
 var router = new VueRouter({
-  routes
-})
+  routes: routes
+});
 
 // 每次跳转前检查登陆状态，如果未登陆，则路由至登陆页面
 router.beforeEach((to, from, next) => {
+  console.log("haha")
+  console.log(store.getters['user/currentUserId'])
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
@@ -236,13 +247,28 @@ router.beforeEach((to, from, next) => {
           redirect: to.fullPath
         }
       })
+    } else if (store.getters['user/currentUserId'] === "") {
+      // 如果login后必定加载的信息还没被加载，则发送请求加载
+      getUserInfo(store.getters['user/token']).then(
+        response => {
+          const data = response.data.data
+          console.log(data)
+          store.commit('user/setName', data.datauserName)
+          store.commit('user/setId', data.userId)
+          store.commit('user/setAvatar', data.avatar)
+          store.commit('user/setRoles', data.roles)
+          next()
+        },
+        error => {
+          console.log(error);
+        }
+      )
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
-
 })
 
 export default router

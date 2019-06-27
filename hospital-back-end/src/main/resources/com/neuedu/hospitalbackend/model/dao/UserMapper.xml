@@ -61,5 +61,8 @@
         update user set password=#{newPassword} where id=#{id}
     </update>
 
+    <select id="getUserInfo" parameterType="Integer" resultType="com.neuedu.hospitalbackend.model.po.User">
+        select * from user where id = #{id}
+    </select>
 
 </mapper>

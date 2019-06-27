@@ -18,20 +18,20 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_604;
 
 /**
  * JWT配置
- * 参考资料: https://blog.csdn.net/weixin_41835866/article/details/82119017
- * @author Raven
+ * 参考资料: https://blog.csdn.net/weixin_41835866/article/details/82119017, official doc
+ * @author Raven, Steve
  */
 public class JwtUtil {
 
     // 私钥
     final static String BASE64_ENCODED_SECRET_KEY = "9f2unr1#@FF#@@$fqwadjkd1iodn";
 
-    // 过期时间,测试使用十分钟
-    final static long TOKEN_EXP = 1000 * 60 * 10;
+    // 过期时间,测试使用一小时
+    final static long TOKEN_EXP = 1000 * 60 * 60;
 
 
-    public static String getToken(String userName) {
-        return Jwts.builder().setSubject(userName).claim("roles", "user").
+    public static String getToken(String userId) {
+        return Jwts.builder().setSubject(userId).claim("userId", userId).
                 setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXP))
                 .signWith(SignatureAlgorithm.HS256, BASE64_ENCODED_SECRET_KEY).compact();
     }
@@ -39,16 +39,13 @@ public class JwtUtil {
     /**
      * 检查token,只要不正确就会抛出异常
      **/
-    public static Claims checkToken(String token, HttpServletResponse response) throws UserLoginInvalidException, UserLoginException, IOException {
+    public static Claims checkToken(String token) throws UserLoginInvalidException, UserLoginException, IOException {
 
         try {
-            final Claims claims = Jwts.parser().setSigningKey(BASE64_ENCODED_SECRET_KEY).parseClaimsJws(token).getBody();
-            return claims;
-        } catch (ExpiredJwtException e1) {
-            resetResponse(response, E_604);
+            return Jwts.parser().setSigningKey(BASE64_ENCODED_SECRET_KEY).parseClaimsJws(token).getBody();
+        } catch (ExpiredJwtException e) {
             throw new UserLoginInvalidException("登录信息过期，请重新登录");
         } catch (Exception e) {
-            resetResponse(response, E_603);
             throw new UserLoginException("用户未登录，请重新登录");
         }
     }
