@@ -46,14 +46,15 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
         List<HashMap> recipeLogs = recipeMapper.listRecipeInfoByRegistrationId(caseId);
         //处方类型：0该患者无处方，1中草药处方，2其他处方（成药）
         if(recipeLogs.size() == 0) {
-            returnJson.put("type", 0);
+            returnJson.put("type", -1);
             returnJson.put("medicines", new JSONArray());
             return CommonResult.success(returnJson);
         }
-        if((Integer)recipeLogs.get(0).get("medicineType") == 1)
-            returnJson.put("type", 1);//中草药
+        System.out.println("++++++++++++++++ "+ recipeLogs.get(0).get("medicineType"));
+        if((Integer)recipeLogs.get(0).get("medicineType") == 0)
+            returnJson.put("type", 0);//中草药
         else
-            returnJson.put("type", 2);//成药
+            returnJson.put("type", 1);//成药
 
         //转换格式
         HashMap<Integer, List<HashMap>> recipes = new HashMap<>();
