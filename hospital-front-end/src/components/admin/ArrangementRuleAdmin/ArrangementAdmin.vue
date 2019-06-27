@@ -109,7 +109,7 @@ import register from "@/api/register";
 import { successDialog, failDialog } from "@/utils/notification";
 
 export default {
-  name: 'ArrangentAdmin',
+  name: 'ArrangementAdmin',
     data() {
       return {
         currentRoleId: "",
