@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 一个标签页：个人模版，科室模版（包括个人的模版），全院模版 -->
-    <el-tabs :stretch="true">
+    <el-tabs :stretch="true" value="first">
       <!-- 个人模版 -->
       <el-tab-pane label="个人" name="first">
         <!-- 表格区 -->
