@@ -19,4 +19,12 @@ public interface InvoiceService {
      * @return 执行结果
      */
     CommonResult updateStatus(Byte status, String invoiceCode);
+
+    /**
+     * 插入发票
+     * @param beginInvoiceCode 起始发票号
+     * @param endInvoiceCode 终止发票号
+     * @return 执行结果
+     */
+    CommonResult insertInvoices(String beginInvoiceCode, String endInvoiceCode);
 }

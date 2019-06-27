@@ -26,7 +26,11 @@ public interface DailySummaryLogMapper {
     //查询收银员第一次日结时间
     String getFirstSummaryDate(Integer cashierId);
 
+    //当每日挂号收费员报账时，通过该功能查询收费员应该报账金额，报账发票数量
     DailySummaryLog getSummaryLog(@Param("cashierId") Integer cashierId, @Param("beginDateStr") String beginDateStr,
                                   @Param("endDateStr") String endDateStr);
 
+    //核对通过
+    int updateResult(@Param("cashierId") Integer cashierId, @Param("assessorId") Integer assessorId,
+                     @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 }

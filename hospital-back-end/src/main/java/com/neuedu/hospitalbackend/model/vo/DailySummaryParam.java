@@ -15,6 +15,7 @@ public class DailySummaryParam {
     private String invoiceCodeEnd;
     private BigDecimal totalMoney; //统计时间段内的总金额
     private String createDateStr; //日结单创建时间
+    private Integer assessorId;
 
     public Integer getCashierId() {
         return cashierId;
@@ -78,5 +79,13 @@ public class DailySummaryParam {
 
     public void setCreateDateStr(String createDateStr) {
         this.createDateStr = createDateStr;
+    }
+
+    public Integer getAssessorId() {
+        return assessorId;
+    }
+
+    public void setAssessorId(Integer assessorId) {
+        this.assessorId = assessorId;
     }
 }

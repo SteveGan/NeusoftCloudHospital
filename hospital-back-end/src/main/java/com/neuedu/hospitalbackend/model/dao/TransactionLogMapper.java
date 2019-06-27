@@ -67,31 +67,43 @@ public interface TransactionLogMapper {
     List<HashMap> listTotalMoneyByType(@Param("cashierId") Integer cashierId, @Param("invoiceCodeBegin") String invoiceCodeBegin, @Param("invoiceCodeEnd") String invoiceCodeEnd);
 
     //开单科室工作量统计
-    List<HashMap> calculateClinicianDepartmentTotalMoney(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr, @Param("type") String type);
+    List<HashMap> calculateClinicianDepartmentsTotalMoney(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr, @Param("type") String type);
 
     //统计某开单科室总看诊人数
-    List<HashMap> countClinicianDepartmentVisits(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    List<HashMap> countClinicianDepartmentsVisits(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
     //统计某开单科室总发票数量
-    List<HashMap> countClinicianDepartmentInvoices(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr, @Param("type") String type);
+    List<HashMap> countClinicianDepartmentsInvoices(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr, @Param("type") String type);
 
     //执行科室工作量统计
-    List<HashMap> calculateExecutiveDepartmentTotalMoney(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
+    List<HashMap> calculateExecutiveDepartmentsTotalMoney(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
                                                          @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
     //统计某执行科室总发票数量
-    List<HashMap> countExecutiveDepartmentInvoices(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
+    List<HashMap> countExecutiveDepartmentsInvoices(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
                                                             @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
     //统计某执行科室总看诊人数
-    List<HashMap> countExecutiveDepartmentVisits(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
+    List<HashMap> countExecutiveDepartmentsVisits(@Param("tableName") String tableName, @Param("projectIdName") String projectIdName, @Param("roleIdName") String roleIdName,
                                                    @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
     //临床医生工作量统计
-    List<HashMap> calculateClinicianDoctorTotalMoney(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    List<HashMap> calculateClinicianDoctorsTotalMoney(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //统计临床医生总发票数量
+    List<HashMap> countClinicianDoctorsInvoices(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //统计临床医生总看诊人数
+    List<HashMap> countClinicianDoctorsVisits(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+    //统计临床医生工作量统计
+    List<HashMap> calculateClinicianDoctorTotalMoney(@Param("userId") Integer userId, @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
     //统计某临床医生总发票数量
-    List<HashMap> countClinicianDoctorInvoices(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    List<HashMap> countClinicianDoctorInvoices(@Param("userId") Integer userId, @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
 
     //统计某临床医生总看诊人数
-    List<HashMap> countClinicianDoctorVisits(@Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+    List<HashMap> countClinicianDoctorVisits(@Param("userId") Integer userId, @Param("beginDateStr") String beginDateStr, @Param("endDateStr") String endDateStr);
+
+
+
 }

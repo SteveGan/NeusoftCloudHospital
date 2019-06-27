@@ -16,4 +16,11 @@ public interface CheckDailyService {
      * @return 执行结果
      */
     CommonResult checkDailySummary(DailySummaryParam dailySummaryParam);
+
+    /**
+     * 核对通过
+     * @param dailySummaryParam 指定挂号收费员、查询日期
+     * @return 执行结果
+     */
+    CommonResult confirmResult(DailySummaryParam dailySummaryParam);
 }

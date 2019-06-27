@@ -16,6 +16,7 @@
         <!-- 病史病历 -->
         <el-card class="input-card" shadow="hover">
           <div slot="header">
+            <i class="el-icon-document-copy"></i>
             <span>病史病历</span>
           </div>
           <el-form :model="currentCase" label-position='left' :rules="historyRules">
@@ -40,6 +41,7 @@
         </el-card>
         <el-card class="input-card" shadow="hover">
           <div slot="header">
+            <i class="el-icon-headset"></i>
             <span>检查及结果</span>
           </div>
           <el-form label-position='left' :model="currentCase" :rules="examinationRules">
@@ -55,6 +57,7 @@
         </el-card>
       <el-card class="input-card" shadow="hover">
         <div slot="header">
+          <i class="el-icon-analysis"></i>
           <span>评估诊断</span>
         </div>
         <!-- 中医诊断 -->
@@ -149,7 +152,7 @@
     <!-- 右侧模版区域 -->
     <div class="service-side-container">
       <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" class="template-tabs">
+      <el-tabs type="card" class="template-tabs">
         <!-- 门诊首页tab-->
         <el-tab-pane label="病历模版">
           <case-template @give-template="useTemplate"></case-template>
@@ -157,8 +160,8 @@
         <el-tab-pane label="常用诊断">
           <diagnose-template @give-disease="useDisease"></diagnose-template>
         </el-tab-pane>
-        <el-tab-pane label="历史病历">
-        </el-tab-pane>
+        <!-- <el-tab-pane label="历史病历">
+        </el-tab-pane> -->
       </el-tabs>
     </div>
     <!-- 新增中医诊断dialog -->
@@ -512,6 +515,7 @@ export default {
 .service-side-container {
   grid-column: 2;
   margin-right: 2px;
+  margin-left: 15px;
 }
 
 .recipe-service-container {
@@ -548,7 +552,8 @@ export default {
 }
 
 .input-card {
-  margin-top: 5px;
+  margin-top: 20px;
+  margin-bottom: 0;
   margin-right: 10px;
 }
 

@@ -24,6 +24,8 @@ public class DailySummaryLog {
 
     private Date gmtModified;
 
+    private Integer assessorId;
+
     public DailySummaryLog(Integer cashierRoleId, BigDecimal totalMoney, String invoiceCodeBegin, String invoiceCodeEnd, Date beginDate, Date endDate) {
         this.cashierRoleId = cashierRoleId;
         this.totalMoney = totalMoney;
@@ -113,5 +115,11 @@ public class DailySummaryLog {
         this.gmtModified = gmtModified;
     }
 
+    public Integer getAssessorId() {
+        return assessorId;
+    }
 
+    public void setAssessorId(Integer assessorId) {
+        this.assessorId = assessorId;
+    }
 }

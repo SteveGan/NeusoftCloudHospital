@@ -107,7 +107,7 @@
         <span>工作量详情</span>
       </div> 
       <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
-    </el-card>  
+    </el-card>
 
   </div>
 </template>
@@ -133,7 +133,7 @@ export default {
   methods: {
     search() {
       this.loading = true;
-      statistics.clinicianDoctorStatistics(this.startDate, this.endDate).then(
+      statistics.clinicianDoctorsStatistics(this.startDate, this.endDate).then(
         response => {
           this.loading = false;
           const data = response.data.data;
@@ -162,7 +162,6 @@ export default {
       myChart.setOption({
       title : {
         text: val.userName + '工作量详情',
-        subtext: val.userName,
         x:'center'
       },
       tooltip : {
