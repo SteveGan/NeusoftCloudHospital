@@ -37,8 +37,8 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     UserMapper userMapper;
 
 
-
     private List<Arrangement> toInsertArrangements;
+
 
     /**
      * 设置排班规则
@@ -97,17 +97,54 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     }
 
 
+
     /**
-     * TODO 修改排班结果
-     * @param arrangementParam
+     * 查看某科室排班规则
+     * @param departmentId 科室id
      */
     @Override
-    public CommonResult modifyArrangement(ArrangementParam arrangementParam){
+    public CommonResult listArrangementRules(Integer departmentId){
+        JSONObject returnJson = new JSONObject();
 
+        List<HashMap> arrangementRuleList = arrangementRuleMapper.listArrangementRulesByDepartmentId(departmentId);
+        // JSON格式 v2.0
+//        returnJson = formatJson(returnJson, arrangementRuleList);
+//         JSON格式 v1.0
+        HashMap<Integer, List<HashMap>> arrangementRules = new HashMap<>();// <规则id， 内容>
+        for(HashMap arrangementRule : arrangementRuleList){
+            Long idLong = (Long)arrangementRule.get("id");
+            Integer id = new Integer(String.valueOf(idLong));
+            List<HashMap> info;
+            if(!arrangementRules.containsKey(id))
+                info = new ArrayList<>();
+            else
+                info = arrangementRules.get(id);
+            arrangementRule.remove("id");
+            arrangementRule.remove("departmentId");
+            Byte levelId = Byte.valueOf(String.valueOf(arrangementRule.get("registrationLevelId")));
+            arrangementRule.put("registrationLevel", ConstantMap.convert("挂号级别", levelId));
+            arrangementRule.remove("registrationLevelId");
+            Byte positionId = Byte.valueOf(String.valueOf(arrangementRule.get("titleId")));
+            arrangementRule.put("title", ConstantMap.convert("职称", positionId));
+            arrangementRule.remove("titleId");
+            arrangementRule.put("isValid", getStatusStr((Boolean)arrangementRule.get("isValid")));
 
-
-        return null;
-
+            info.add(arrangementRule);
+            arrangementRules.put(id, info);
+        }
+        //JSON格式
+        JSONArray jsonArray = new JSONArray();
+        for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ruleId", entry.getKey());
+            jsonObject.put("ruleName", entry.getValue().get(0).get("ruleName"));
+            Integer adminId = (Integer)entry.getValue().get(0).get("adminId");
+            jsonObject.put("adminName", roleMapper.getUserNameByRoleId(adminId));
+            jsonObject = formatJson(jsonObject, entry.getValue());
+            jsonArray.add(jsonObject);
+        }
+        returnJson.put("arrangementRules", jsonArray);
+        return CommonResult.success(returnJson);
     }
 
 
@@ -123,6 +160,11 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         Date endDate = Date.valueOf(arrangementParam.getEndDate());
         Integer departmentId = arrangementParam.getDepartmentId();
         Integer arrangementRuleId = arrangementParam.getId();//排班规则id
+
+        //已存在排班结果
+        if(0!= arrangementMapper.listByDepartmentIdAndDatePeriod(startDate, endDate, departmentId).size()){
+            return CommonResult.fail(ResultCode.E_810);
+        }
 
         //时间段内现有所有排班有效信息
         List<Arrangement> arrangements = arrangementMapper.listByUserIdAndDatePeriod(startDate, endDate);
@@ -265,53 +307,35 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     }
 
 
+
     /**
-     * 查看某科室排班规则
-     * @param departmentId 科室id
+     * 修改排班结果
+     * @param arrangementParam
      */
     @Override
-    public CommonResult listArrangementRules(Integer departmentId){
-        JSONObject returnJson = new JSONObject();
+    public CommonResult modifyArrangement(ArrangementParam arrangementParam){
+        int count = 0;
+        List<Arrangement> arrangements = arrangementParam.getArrangements();
+        Date startDate = Date.valueOf(arrangementParam.getStartDate());
+        Date endDate = Date.valueOf(arrangementParam.getEndDate());
+        Integer departmentId = arrangementParam.getDepartmentId();
 
-        List<HashMap> arrangementRuleList = arrangementRuleMapper.listArrangementRulesByDepartmentId(departmentId);
-        // JSON格式 v2.0
-//        returnJson = formatJson(returnJson, arrangementRuleList);
-//         JSON格式 v1.0
-        HashMap<Integer, List<HashMap>> arrangementRules = new HashMap<>();// <规则id， 内容>
-        for(HashMap arrangementRule : arrangementRuleList){
-            Long idLong = (Long)arrangementRule.get("id");
-            Integer id = new Integer(String.valueOf(idLong));
-            List<HashMap> info;
-            if(!arrangementRules.containsKey(id))
-                info = new ArrayList<>();
-            else
-                info = arrangementRules.get(id);
-            arrangementRule.remove("id");
-            arrangementRule.remove("departmentId");
-            Byte levelId = Byte.valueOf(String.valueOf(arrangementRule.get("registrationLevelId")));
-            arrangementRule.put("registrationLevel", ConstantMap.convert("挂号级别", levelId));
-            arrangementRule.remove("registrationLevelId");
-            Byte positionId = Byte.valueOf(String.valueOf(arrangementRule.get("titleId")));
-            arrangementRule.put("title", ConstantMap.convert("职称", positionId));
-            arrangementRule.remove("titleId");
-            arrangementRule.put("isValid", getStatusStr((Boolean)arrangementRule.get("isValid")));
+        //参数检验
+        if(startDate.compareTo(endDate) > 0)
+            return CommonResult.fail(ResultCode.E_809);
+        if(departmentId == null)
+            return CommonResult.fail(ResultCode.E_801);
 
-            info.add(arrangementRule);
-            arrangementRules.put(id, info);
+        //删除时间段内的排班结果
+        arrangementMapper.deleteByDepartmentIdAndDatePeriod(startDate, endDate, departmentId);
+        //新增修改后的排班结果
+        for(Arrangement arrangement : arrangements){
+            arrangement.setDepartmentId(departmentId);
+            count += arrangementMapper.insertSelective(arrangement);
         }
-        //JSON格式
-        JSONArray jsonArray = new JSONArray();
-        for(Map.Entry<Integer, List<HashMap>> entry: arrangementRules.entrySet()) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("ruleId", entry.getKey());
-            jsonObject.put("ruleName", entry.getValue().get(0).get("ruleName"));
-            Integer adminId = (Integer)entry.getValue().get(0).get("adminId");
-            jsonObject.put("adminName", roleMapper.getUserNameByRoleId(adminId));
-            jsonObject = formatJson(jsonObject, entry.getValue());
-            jsonArray.add(jsonObject);
-        }
-        returnJson.put("arrangementRules", jsonArray);
-        return CommonResult.success(returnJson);
+
+        return CommonResult.success(count);
+
     }
 
 
