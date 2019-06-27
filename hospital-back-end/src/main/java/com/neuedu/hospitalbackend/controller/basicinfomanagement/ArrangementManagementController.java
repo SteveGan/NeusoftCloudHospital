@@ -43,7 +43,7 @@ public class ArrangementManagementController {
     }
 
     @ApiOperation("查询排班结果")
-    @RequestMapping(value = "/arrangemens/{startDate}/{endDate}/{departmentId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/arrangements/{startDate}/{endDate}/{departmentId}", method = RequestMethod.GET)
     public CommonResult listArrangements(@PathVariable(value = "departmentId") Integer departmentId,
                                          @PathVariable(value = "startDate") Date startDate,
                                          @PathVariable(value = "endDate") Date endDate) {
