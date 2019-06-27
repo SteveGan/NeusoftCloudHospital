@@ -21,6 +21,7 @@ public interface UserMapper {
     List<User> listAllUsersAndRoles();
 
 
+
     /**
      * 设置用户的avatar
      * @param id
