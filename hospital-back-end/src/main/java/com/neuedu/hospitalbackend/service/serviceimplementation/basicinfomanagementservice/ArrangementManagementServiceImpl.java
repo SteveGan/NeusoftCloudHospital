@@ -325,7 +325,7 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         JSONObject returnJson = new JSONObject();
 //        JSONArray arrangementResultsArray = new JSONArray();
 
-        List<HashMap<String, List<HashMap>>> arrangementLogs = new ArrayList<>();
+//        List<HashMap<String, List<HashMap>>> arrangementLogs = new ArrayList<>();
 
         //时间范围内的每一天排班结果
         Date today = startDate;
@@ -334,13 +334,8 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             //当日排班信息
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(today);
-//            JSONObject arrangementResultJson = new JSONObject();
-//            arrangementResultJson.put("appointmentDate", today);
-//            JSONArray arrangementsArray = new JSONArray()
 
-            HashMap<String, List<HashMap>> arrangementLog = new HashMap<>();
             List<HashMap> arrangementLogInfo = new ArrayList<>();
-
             List<HashMap> arrangements = arrangementMapper.listByDepartmentIdAndDatePeriod(today, today, departmentId);
             for(HashMap arrangement : arrangements){
                 arrangement.remove("appointmentDate");
@@ -349,13 +344,9 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
                 arrangement.put("registrationLevel", ConstantMap.convert("挂号级别",
                         Byte.valueOf(String.valueOf(arrangement.get("registrationLevelId")))));
                 arrangement.put("isValid", getStatusStr((Boolean)arrangement.get("isValid")));
-//                arrangementsArray.add(arrangement);
                 arrangementLogInfo.add(arrangement);
             }
-            arrangementLog.put(formatter.format(today), arrangementLogInfo);
-            arrangementLogs.add(arrangementLog);
-//            arrangementResultJson.put("arrangements", arrangementsArray);
-//            arrangementResultsArray.add(arrangementResultJson);
+            returnJson.put(formatter.format(today), arrangementLogInfo);
 
             // 下一天
             calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -363,7 +354,6 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             today = new Date(tomorrow.getTime());
         }
 
-        returnJson.put("arrangementResults", arrangementLogs);
         return CommonResult.success(returnJson);
 
 
