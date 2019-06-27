@@ -46,6 +46,12 @@ public class PaymentServiceImpl implements PaymentService {
     public CommonResult listTransactionLogsByRegistrationId(Integer registrationId) {
         //列出指定用户的所有发票号、缴费状态（已缴费、已退费、冲正、作废、冻结）
         List<HashMap> invoiceCollection = transactionLogMapper.listInvoiceCodeAndStatusByRegistrationId(registrationId);
+        for(HashMap invoice: invoiceCollection){
+            String invoiceCode = invoice.get("invoiceCode").toString();
+            List<TransactionLog> logs = transactionLogMapper.listLogsByInvoiceCode(invoiceCode);
+            invoice.put("logs", logs);
+        }
+
         //列出指定用户的待缴费、可退费状态缴费记录
         List<HashMap> logs = new ArrayList<>();
         //logs.add(transactionLogMapper.getRegistrationLog(registrationId));
