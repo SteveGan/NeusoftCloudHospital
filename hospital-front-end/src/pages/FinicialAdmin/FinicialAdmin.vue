@@ -18,10 +18,10 @@
           <i class="el-icon-data-analysis"></i>
           <span slot="title">门诊科室工作量统计</span>
         </el-menu-item>
-        <!-- <el-menu-item index="/home/finicialadmin/userworkloadanalysis">
+        <el-menu-item index="/home/finicialadmin/userworkloadanalysis">
           <i class="el-icon-data-line"></i>
           <span slot="title">门诊医生工作量统计</span>
-        </el-menu-item> -->
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <!--  主页部分  -->

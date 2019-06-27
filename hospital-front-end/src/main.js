@@ -6,6 +6,7 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Print from 'vue-print-nb'
+import echarts from 'echarts'
 
 
 Vue.config.productionTip = false
@@ -16,6 +17,7 @@ Vue.use(ElementUI, {
   zIndex: 3000
 });
 Vue.use(Print);
+Vue.prototype.$echarts = echarts
 
 Vue.prototype.$axios = axios
 
