@@ -162,7 +162,7 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         Integer arrangementRuleId = arrangementParam.getId();//排班规则id
 
         //参数检验
-        if(startDate.compareTo(endDate) < 0)
+        if(startDate.compareTo(endDate) > 0)
             return CommonResult.fail(ResultCode.E_809);
         if(arrangementRuleId == null)
             return CommonResult.fail(ResultCode.E_801);//排班规则为空
