@@ -43,4 +43,14 @@ export default{
       data: arrangementParam
     })
   },
+
+  // 查看排班信息
+  listArrangements(startDate, endDate, departmentId) {
+    return request({
+      url: 'basicinfo/arrangements/' + departmentId,
+      method: 'GET',
+      params: {startDate, endDate}
+    })
+  },
+
 }

@@ -6,6 +6,7 @@
         <el-card shadow="hover" style="margin: 10px 0px 30px 25px;">
         <!-- 搜索区 -->
         <div slot="header">
+          <i class="el-icon-search"></i>
           <span>查询</span>
         </div>
         <div class="search-region">
@@ -26,6 +27,7 @@
         <!-- 待登记户区 -->
         <el-card shadow="hover" style="margin: 0px 0px 30px 25px;">
           <div slot="header">
+            <i class="el-icon-news"></i>
             <span>待登记病人</span>
           </div>
           <!-- 待登记病人名单 -->
@@ -51,6 +53,7 @@
         <!-- 已登记项目区 -->
         <el-card shadow="hover" style="margin: 0px 0px 30px 25px;">
           <div slot="header">
+            <i class="el-icon-finished"></i>
             <span>已登记项目</span>
           </div>
           <!-- 已登记病人名单 -->
@@ -104,52 +107,20 @@
         <span>全部项目</span>
       </div>
       <!-- 当前病人待做项目 -->
-      <el-table 
-        :data="itemList"
-        style="margin: 0 15px 30px 0;"
-        >
-        <el-table-column
-          type="index"
-          width="50">
-        </el-table-column>
-        <el-table-column
-          property="id"
-          label="项目id"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          property="project_id"
-          label="项目代码"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          property="project_name"
-          label="项目分类"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          property="project_name"
-          label="项目名称"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          property="i_status"
-          label="项目状态"
-          width="120">
-        </el-table-column>                
-        <el-table-column
-          property="t_status"
-          label="缴费状态">
-        </el-table-column>
-        <el-table-column
-          fixed="right"
-          label="操作"
-          width="100">
+      <el-table :data="itemList" style="margin: 0 15px 30px 0;">
+        <el-table-column type="index" width="50"></el-table-column>
+        <el-table-column property="id" abel="项目id" width="120"></el-table-column>
+        <el-table-column property="project_id" label="项目代码" width="120"></el-table-column>
+        <el-table-column property="project_name" label="项目分类" width="120"></el-table-column>
+        <el-table-column property="project_name" label="项目名称" width="120"></el-table-column>
+        <el-table-column property="i_status" label="项目状态" width="120"></el-table-column>                
+        <el-table-column property="t_status" label="缴费状态"></el-table-column>
+        <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small" v-if="scope.row.t_status==2&&scope.row.i_status==2">登记</el-button>
             <el-button @click="handleClick(scope.row)" type="text" disabled size="small" v-if="scope.row.t_status!==2||scope.row.i_status!==2">登记</el-button>
           </template>
-        </el-table-column>        
+        </el-table-column>Z
       </el-table>
       </el-card>
 

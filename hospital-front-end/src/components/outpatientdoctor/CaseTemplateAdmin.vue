@@ -2,6 +2,7 @@
   <div>
     <el-card shadow="hover">
       <div slot="header">
+        <i class="el-icon-files"></i>
         <span>个人模版管理</span>
       </div>
       <!-- 内容部分 -->

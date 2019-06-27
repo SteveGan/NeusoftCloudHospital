@@ -9,14 +9,14 @@
     </div>
 
     <el-form :inline="true">
-      <el-form-item label="科室选择">
+      <el-form-item label="科室选择" required>
         <el-select placeholder="请选择科室" v-model="departmentId">
           <el-option v-for="department in departments" v-bind:key="department.name"  :label="department.name" :value="department.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-button type="text" icon="el-icon-document-add" @click="search">查询</el-button>
+      <el-button type="text" icon="el-icon-document-add" :disabled="departmentId==''" @click="search">查询</el-button>
 
-      <el-button style="float:right" type="text" icon="el-icon-folder-checked" @click="generate">生成</el-button>
+      <el-button style="float:right" type="text" :disabled="departmentId==''||startDate==''||endDate==''||currentRow=={}" icon="el-icon-folder-checked" @click="generate">生成</el-button>
       <el-form-item style="float:right" label="结束时间">
           <el-date-picker type="date" value-format="yyyy-MM-dd" v-model="endDate" placeholder="选择结束时间" class="date-selection"></el-date-picker>
       </el-form-item>
@@ -37,9 +37,9 @@
           </el-table-column>
           <el-table-column prop="maxAppointment" label="预约上限">
           </el-table-column>
-          <el-table-column prop="registrationLevelId" label="挂号级别">
+          <el-table-column prop="registrationLevel" label="挂号级别">
           </el-table-column>
-          <el-table-column prop="titleId" label="职称">
+          <el-table-column prop="title" label="职称">
           </el-table-column>
         </el-table>
       </template>
@@ -48,7 +48,7 @@
       </el-table-column>
       <el-table-column prop="ruleName" label="规则名称">
       </el-table-column>
-      <el-table-column prop="adminId" label="操作员">
+      <el-table-column prop="adminName" label="操作员">
       </el-table-column>
     </el-table>
   </el-card>

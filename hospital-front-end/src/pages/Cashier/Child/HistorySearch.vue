@@ -2,6 +2,7 @@
     <div style="height: 100vh">
         <el-card style="margin: 0 30px 0 25px;" shadow="hover">
             <div slot="header">
+                <i class="el-icon-search"></i>
                 <span>查询条件</span>
             </div>
             <el-form :inline="true">
@@ -20,6 +21,7 @@
         <div class="main-container">
             <el-card style="width:400px; margin: 30px 30px 30px 25px;" shadow="hover">
                 <div slot="header">
+                    <i class="el-icon-paperclip"></i>
                     <span>日结信息列表</span>
                 </div>
                 <el-table :data="this.summaryList" style="width: 100%" highlight-current-row @current-change="handleCurrentChange">
@@ -30,10 +32,11 @@
                     <el-table-column label="日结日期" prop="gmtCreate">
                     </el-table-column>
                 </el-table>
-
             </el-card>
+
             <el-card style="margin: 30px 30px 30px 0; width:100%" shadow="hover">
                 <div slot="header">
+                    <i class="el-icon-attract"></i>
                     <span>日结明细</span>
                 </div>
                 <el-table :data="this.invoiceList" style="width: 100%">

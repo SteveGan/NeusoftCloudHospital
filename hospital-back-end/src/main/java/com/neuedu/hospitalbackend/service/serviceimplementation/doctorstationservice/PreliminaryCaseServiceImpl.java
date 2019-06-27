@@ -318,6 +318,8 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
      */
     @Override
     public CommonResult finishDiagnose(Integer caseId){
+
+
         int count = patientCaseMapper.updatePatientCaseStatus(caseId, 5);//诊闭状态
         return CommonResult.success(count);
     }

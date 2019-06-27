@@ -4,7 +4,8 @@
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
     <div slot="header" class="clearfix">
-      <span style="padding-left: 20px;">费用科目管理</span>
+      <i class="el-icon-monitor"></i>
+      <span style="">费用科目管理</span>
     </div>
     
     <!-- 表单部分 -->
