@@ -18,4 +18,13 @@ export default {
           params: {beginDateStr, endDateStr}
         })
     },
+
+    // 门诊医生工作量统计
+    clinicianDoctorStatistics(beginDateStr, endDateStr) {
+      return request({
+        url: '/doctor-statistics/clinician',
+        method: 'GET',
+        params: {beginDateStr, endDateStr}
+      })
+  },
 }

@@ -4,8 +4,8 @@
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
     <div slot="header" class="clearfix">
-      <i class="el-icon-edit"></i>
-      <span style="padding-left: 20px;">新增排班规则</span>
+      <i class="el-icon-s-grid"></i>
+      <span style="padding-left: 20px;">排班结果管理</span>
     </div>
 
     <el-form :inline="true">
@@ -109,91 +109,19 @@ import register from "@/api/register";
 import { successDialog, failDialog } from "@/utils/notification";
 
 export default {
-  name: 'ArrangentRuleAdmin',
+  name: 'ArrangentAdmin',
     data() {
       return {
         currentRoleId: "",
-        registrationLevelId: "",
-        ruleName: "",
-
-        departments: [],
-        departmentId: "",
-        roles: [],
-        multipleSelection: [],
-
-        loading: false,
       }
   },
 
 
   methods: {
-    // 成功提示
-    success(msg) {
-      this.$message({
-        message: msg + "成功",
-        type: "success"
-      });
-    },
 
-    save() {
-      this.loading = true;
-      console.log(this.multipleSelection)
-      var arrangementRuleParam = {};
-      arrangementRuleParam.adminId = this.currentRoleId;
-      arrangementRuleParam.departmentId = this.departmentId;
-      arrangementRuleParam.arrangementRules = this.multipleSelection;
-      arrangementRuleParam.ruleName = this.ruleName;
-
-      rule.insertArrangementRule(arrangementRuleParam).then(
-        response => {
-        this.loading = false;
-        this.success("保存");
-        },
-        error => {
-          this.loading = false;
-          failDialog("[保存失败]" + error.data.data.message + "(" + error.data.data.code + ")");
-        }
-      );
-    },
-
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-
-    search() {
-      rule.listAllRolesByDepartmentId(this.departmentId).then(response => {
-        console.log(response.data);
-        var roles = response.data.data.roles;
-
-        for(var i=0; i<roles.length; i++){
-          roles[i].monAm = 0;
-          roles[i].monPm = 0;
-          roles[i].tueAm = 0;
-          roles[i].tuePm = 0;
-          roles[i].wedAm = 0;
-          roles[i].wedPm = 0;
-          roles[i].thuAm = 0;
-          roles[i].thuPm = 0;
-          roles[i].friAm = 0;
-          roles[i].friPm = 0;
-          roles[i].satAm = 0;
-          roles[i].satPm = 0;
-          roles[i].sunAm = 0;
-          roles[i].sunPm = 0;
-        }
-
-        this.roles = roles;
-      })
-    }
   },
 
   mounted() {
-    register.listAllDepartments().then(response => {
-        console.log(response.data);
-        const data = response.data.data;
-        this.departments = data;
-    })
-    
     // 初始化操作员id
     const currentRoleId = this.$store.getters["user/currentRoleId"];
     this.currentRoleId = currentRoleId;

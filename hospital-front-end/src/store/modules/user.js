@@ -17,6 +17,9 @@ const state = {
 }
 
 const getters = {
+  token: state => {
+    return state.token
+  },
   currentUserId: state => {
     return state.id
   },
@@ -112,6 +115,18 @@ const mutations = {
   },
   setCurrentRole: (state, role) => {
     state.currentRole = Object.assign({}, role)
+  },
+  setCurrentRoleWithRoleId: (state, roleId) => {
+    console.log("store[roles]:")
+    console.log(state.roles)
+    console.log("roleId")
+    console.log(roleId)
+    var index = state.roles.findIndex(
+      role => role.id === roleId
+    )
+    console.log("index");
+    console.log(index);
+    state.currentRole = Object.assign({}, state.roles[index]);
   }
 }
 

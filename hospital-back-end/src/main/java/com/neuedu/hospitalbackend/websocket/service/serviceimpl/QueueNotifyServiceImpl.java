@@ -1,5 +1,6 @@
 package com.neuedu.hospitalbackend.websocket.service.serviceimpl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.websocket.service.serviceinterface.QueueNotifyService;
 import com.neuedu.hospitalbackend.websocket.vo.OutpatientQueueMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,12 @@ public class QueueNotifyServiceImpl implements QueueNotifyService {
     }
 
     @Override
-    public void notifyOutpatientQueue(String roleId, String patientId, String code){
+    public void notifyOutpatientQueue(String roleId, Integer patientId, String patientName, String code){
 
         System.out.println("发送websocket广播到 " + "/topic/outpatient/queue/" + roleId);
         this.simpMessageSendingOperations.convertAndSend(
                 "/topic/outpatient/queue/" + roleId,
-                new OutpatientQueueMessage(patientId, roleId, code)
+                new OutpatientQueueMessage(patientId, roleId, patientName, code)
         );
     }
 }

@@ -37,4 +37,11 @@ public interface UserMapper {
     void setPassword(@Param("id") Integer id, @Param("newPassword") String newPassword);
 
 
+    /**
+     * 根据用户id查询其个人信息及角色信息
+     * @param id
+     */
+    User getUserInfo(@Param("id") Integer id);
+
+
 }

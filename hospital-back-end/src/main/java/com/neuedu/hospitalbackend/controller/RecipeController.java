@@ -29,14 +29,14 @@ public class RecipeController {
         return recipeManagementService.insertNewRecipe();
     }
 
-    //TODO 批量处理
+
     @ApiOperation("暂存处方")
     @RequestMapping(value = "/preservation", method = RequestMethod.PUT)
     public CommonResult preserveRecipes(@RequestBody RecipeCollectionParam recipeCollectionParam){
         return recipeManagementService.preserveRecipes(recipeCollectionParam);
     }
 
-    //TODO 批量处理
+
     @ApiOperation("开立处方")
     @RequestMapping(value = "/submission", method = RequestMethod.PUT)
     public CommonResult submitRecipes(@RequestBody RecipeCollectionParam recipeCollectionParam){
@@ -44,7 +44,7 @@ public class RecipeController {
     }
 
 
-    // 这个次要
+
     @ApiOperation("（清屏）删除当前病历中未开立的处方")
     @RequestMapping(value = "/clear/{caseId}/{recipeType}", method = RequestMethod.DELETE)
     public CommonResult clearRecipes(@PathVariable(value="caseId") Integer caseId, @PathVariable(value="recipeType") Integer recipeType){

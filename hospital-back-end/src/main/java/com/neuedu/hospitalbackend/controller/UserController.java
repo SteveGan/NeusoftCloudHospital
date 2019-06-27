@@ -35,4 +35,11 @@ public class UserController
         return userService.setUserPassword(userPasswordParam.getId(), userPasswordParam.getOldPassword(), userPasswordParam.getNewPassword());
     }
 
+    @ApiOperation("查询用户的基本信息及角色信息")
+    @RequestMapping(value="/info/{token}", method= RequestMethod.GET)
+    public CommonResult getUserInfo(@PathVariable String token){
+        return userService.getUserInfo(token);
+    }
+
+
 }

@@ -135,4 +135,11 @@
           appointment_date >= #{startDate} and #{endDate} >= appointment_date
   </select>
 
+  <delete id="deleteByDepartmentIdAndDatePeriod">
+    delete from arrangement
+    where department_id = #{departmentId} and
+        appointment_date >= #{startDate} and #{endDate} >= appointment_date
+  </delete>
+
+
 </mapper>

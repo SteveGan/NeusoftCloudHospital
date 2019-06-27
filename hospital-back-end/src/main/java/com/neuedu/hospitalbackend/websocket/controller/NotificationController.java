@@ -1,9 +1,9 @@
 package com.neuedu.hospitalbackend.websocket.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.websocket.service.serviceinterface.QueueNotifyService;
 import com.neuedu.hospitalbackend.websocket.vo.OutpatientQueueMessage;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
  * @author Steve
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/notification")
+@CrossOrigin
 public class NotificationController {
 
     private final QueueNotifyService queueNotifyService;
@@ -25,9 +25,11 @@ public class NotificationController {
     }
 
 
-    @RequestMapping(value = "/recipes", method = RequestMethod.GET)
-    public void notifyOutpatientQueue(@RequestBody OutpatientQueueMessage outpatientQueueMessage){
-        queueNotifyService.notifyOutpatientQueue(outpatientQueueMessage.getRoleId(), outpatientQueueMessage.getPatientId(), outpatientQueueMessage.getCode());
+    @ApiOperation("请求更新门诊医生叫号排队页面")
+    @RequestMapping(value = "/outpatient/queue", method = RequestMethod.POST)
+    public String notifyOutpatientQueue(@RequestBody OutpatientQueueMessage outpatientQueueMessage){
+        queueNotifyService.notifyOutpatientQueue(outpatientQueueMessage.getRoleId(), outpatientQueueMessage.getCaseId(), outpatientQueueMessage.getName() ,outpatientQueueMessage.getCode());
+        return "hi";
     }
 
 }

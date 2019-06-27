@@ -15,7 +15,7 @@ export function successDialog(content) {
 export function failDialog(content) {
   Message({
     message: content,
-    type: 'error',
+    type: 'warning',
     duration: 3 * 1000
   })
 }
