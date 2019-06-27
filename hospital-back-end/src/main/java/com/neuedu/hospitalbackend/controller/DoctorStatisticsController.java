@@ -21,7 +21,7 @@ public class DoctorStatisticsController {
         return doctorStatisticsService.doctorStatistics(beginDateStr, endDateStr);
     }
 
-    @ApiOperation("所有临床医生工作量统计")
+    @ApiOperation("指定临床医生工作量统计")
     @RequestMapping(value = "/clinician/{userId}", method = RequestMethod.GET)
     public CommonResult clinicianDoctorStatistics(@PathVariable(value = "userId") Integer userId, String dateStr){
         return doctorStatisticsService.doctorStatisticsByUserIdAndDate(dateStr, userId);
