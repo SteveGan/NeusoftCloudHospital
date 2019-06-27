@@ -21,7 +21,6 @@ public interface UserMapper {
     List<User> listAllUsersAndRoles();
 
 
-
     /**
      * 设置用户的avatar
      * @param id
@@ -36,6 +35,13 @@ public interface UserMapper {
      * @param newPassword 用户的新密码
      */
     void setPassword(@Param("id") Integer id, @Param("newPassword") String newPassword);
+
+
+    /**
+     * 根据用户id查询其个人信息及角色信息
+     * @param id
+     */
+    User getUserInfo(@Param("id") Integer id);
 
 
 }

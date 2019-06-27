@@ -2,7 +2,7 @@
   <div>
     <!-- 导航栏(也就是一个标签页) -->
     <el-tabs type="border-card" class="template-tabs">
-      <!-- 门诊首页tab-->
+      <!-- 处方模版 -->
       <el-tab-pane label="处方模版">
         <div class="recipe-template">
           <!-- 左侧browser区 -->

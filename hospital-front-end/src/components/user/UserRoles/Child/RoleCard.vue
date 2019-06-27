@@ -44,7 +44,7 @@ export default {
       this.$store.commit("user/setCurrentRole", this.role);
       // 跳转到相应页面
       const positionId = this.role.positionId;
-      this.$router.push({ path: routeByPositionId(positionId) });
+      this.$router.push({ path: routeByPositionId(positionId, this.role.id) });
     }
   },
   computed: {

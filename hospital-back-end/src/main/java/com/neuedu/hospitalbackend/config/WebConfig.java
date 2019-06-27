@@ -19,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
 
         //添加拦截器//放掉某些特定不需要校验token的路由
         registry.addInterceptor(new JwtInterceptor()).excludePathPatterns("/oauth/login", "/oauth/register");
+
     }
 
 }
