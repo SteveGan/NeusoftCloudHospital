@@ -5,6 +5,7 @@
     <div class="left-side">
       <el-card shadow="hover" style="margin-top: 15px;">
         <div slot="header">
+          <i class="el-icon-search"></i>
           <span>查询</span>
         </div>
         <div class="search-region">
@@ -34,13 +35,9 @@
     <div class="right-side">
       <el-card shadow="hover" style="margin-top: 15px;">
         <div slot="header">
+          <i class="el-icon-sold-out"></i>
           <span>发药管理</span>
-          <el-button
-            style="padding: 0px 0px 0px 10px"
-            type="text"
-            icon="el-icon-upload2"
-            @click="deliverMedicine"
-          >发药</el-button>
+          <el-button style="padding: 0px 0px 0px 10px" type="text" icon="el-icon-upload2" @click="deliverMedicine">发药</el-button>
         </div>
         <!-- body部分 -->
         <div>
@@ -61,13 +58,9 @@
       </el-card>
       <el-card shadow="hover" style="margin-top: 30px">
         <div slot="header">
+          <i class="el-icon-sell"></i>
           <span>退药管理</span>
-          <el-button
-            style="padding: 0px 0px 0px 10px"
-            type="text"
-            icon="el-icon-download"
-            @click="returnMedicine"
-          >退药</el-button>
+          <el-button style="padding: 0px 0px 0px 10px" type="text" icon="el-icon-download" @click="returnMedicine">退药</el-button>
         </div>
         <!-- body部分 -->
         <div>
@@ -93,6 +86,7 @@
       </el-card>
       <el-card shadow="hover" style="margin-top: 30px">
         <div slot="header">
+          <i class="el-icon-shopping-bag-2"></i>
           <span>全部</span>
         </div>
         <!-- body部分 -->

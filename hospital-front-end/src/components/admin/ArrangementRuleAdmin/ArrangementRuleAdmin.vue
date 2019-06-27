@@ -9,14 +9,14 @@
     </div>
 
     <el-form :inline="true">
-      <el-form-item label="科室选择">
+      <el-form-item label="科室选择" required>
         <el-select placeholder="请选择科室" v-model="departmentId">
           <el-option v-for="department in departments" v-bind:key="department.name"  :label="department.name" :value="department.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-button type="text" icon="el-icon-document-add" @click="search">查询</el-button>
+      <el-button type="text" icon="el-icon-document-add" :disabled="departmentId==''" @click="search">查询</el-button>
 
-      <el-button style="float:right" type="text" icon="el-icon-folder-checked" @click="save" :loading="loading">保存</el-button>
+      <el-button style="float:right" type="text" :disabled="ruleName==''||multipleSelection==''" icon="el-icon-folder-checked" @click="save" :loading="loading">保存</el-button>
       <el-form-item style="float:right" label="规则名称">
         <el-input placeholder="请输入规则名称" v-model="ruleName"></el-input>
       </el-form-item>

@@ -57,7 +57,7 @@
         </el-card>
       <el-card class="input-card" shadow="hover">
         <div slot="header">
-          <i class="el-icon-analysis"></i>
+          <i class="el-icon-data-analysis"></i>
           <span>评估诊断</span>
         </div>
         <!-- 中医诊断 -->
