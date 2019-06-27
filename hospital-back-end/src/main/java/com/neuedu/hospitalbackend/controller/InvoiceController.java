@@ -24,4 +24,16 @@ public class InvoiceController {
     public CommonResult insertInvoices(String beginInvoiceCode, String endInvoiceCode){
         return invoiceService.insertInvoices(beginInvoiceCode, endInvoiceCode);
     }
+
+    @ApiOperation("发票统计信息")
+    @RequestMapping(value = "/invoiceInfo", method = RequestMethod.GET)
+    public CommonResult invoiceInfo(){
+        return invoiceService.getInvoiceInfo();
+    }
+
+    @ApiOperation("全部发票信息")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public CommonResult list(){
+        return invoiceService.list();
+    }
 }

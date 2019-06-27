@@ -32,6 +32,14 @@
     </trim>
   </insert>
 
+  <select id="getInvoiceInfo" resultType="HashMap">
+    select count(*) as count, status from invoice group by status
+  </select>
+
+  <select id="list" resultType="Invoice">
+    select * from invoice
+  </select>
+
   <select id="getAvailableInvoiceCode" resultType="string">
       select min(id) from invoice where status = 1
   </select>
