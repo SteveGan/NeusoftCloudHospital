@@ -212,7 +212,6 @@ export default {
       currentRecipe: {},
       medicines: [],
       currentRecipeTemplate: {},
-      newRecipe: {},
       newTemplate: {},
       scopes: [
         {
@@ -234,7 +233,8 @@ export default {
     "recipe-template": RecipeTemplate
   },
   props: {
-    value: Object
+    value: Object,
+    type: Number
   },
   computed: {
     caseRecipe: {
@@ -304,7 +304,7 @@ export default {
     handleSelectMedicine(medicine) {
       this.newMedicine.medicineUnit = medicine.unit;
       this.newMedicine.medicineId = medicine.id;
-      this.newMedicine.medicineType = medicineTypeToCode(medicine.type);
+      this.newMedicine.medicineType = type;
       this.newMedicine.medicineFormulation = medicine.formulation;
       this.newMedicine.medicineSpecification = medicine.specification;
     },
@@ -330,23 +330,24 @@ export default {
       // 向后端请求新的recipe编号
       getNewRecipeCode().then(
         response => {
-          this.newRecipe = {
+          var newRecipe = {
             medicines: [],
             recipeId: response.data.data.recipeId
           };
+          console.log("new Recipe: ");
+          console.log(newRecipe);
+          console.log(this.caseRecipe.recipes);
+          if (typeof this.caseRecipe.recipes == "undefined") {
+            console.log("undefined");
+            this.caseRecipe.recipes = [];
+          }
+          this.caseRecipe.recipes.push(newRecipe);
+          this.currentRecipe = newRecipe;
         },
         error => {
           console.log(error);
         }
       );
-      //如果newRecipe成功创建
-      if (Object.keys(this.newRecipe).length !== 0) {
-        this.currentRecipe = Object.assign({}, this.newRecipe);
-        this.caseRecipe.recipes.push(this.currentRecipe);
-      } else {
-        //处理错误
-      }
-      this.newRecipe = {};
     },
     handleSaveRecipe(recipe) {
       recipe.caseId = this.caseRecipe.caseId;
@@ -404,18 +405,13 @@ export default {
             medicines: givenTemplate.medicines,
             recipeId: response.data.data.recipeId
           };
+          this.currentRecipe = Object.assign({}, this.newRecipe);
+          this.caseRecipe.recipes.push(this.currentRecipe);
         },
         error => {
           console.log(error);
         }
       );
-      //如果newRecipe成功创建
-      if (Object.keys(this.newRecipe).length !== 0) {
-        this.currentRecipe = Object.assign({}, this.newRecipe);
-        this.caseRecipe.recipes.push(this.currentRecipe);
-      } else {
-        //处理错误
-      }
       this.newRecipe = {};
     },
     handleClear(recipe) {
@@ -446,8 +442,7 @@ export default {
   },
   mounted: function() {
     // 请求所有的西药（暂时这么写） 中:0, 西:1
-
-    listAllMedicines(1).then(
+    listAllMedicines(this.type).then(
       response => {
         this.medicines = response.data.data;
         successDialog("药品项目加载完毕");

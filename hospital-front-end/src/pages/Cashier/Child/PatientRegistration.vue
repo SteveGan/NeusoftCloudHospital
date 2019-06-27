@@ -22,26 +22,26 @@
           <el-input placeholder="病历号" :disabled="true" v-model="registrationForm.registrationId"></el-input>
         </el-form-item>
 
-        <el-form-item label="身份证号">
+        <el-form-item label="身份证号" required>
           <el-input placeholder="身份证号" v-model="registrationForm.idCard"></el-input>
         </el-form-item>
 
-        <el-form-item label="姓名">
+        <el-form-item label="姓名" required>
           <el-input placeholder="姓名" v-model="registrationForm.name"></el-input>
         </el-form-item>
 
-        <el-form-item label="性别">
+        <el-form-item label="性别" required>
           <el-select placeholder="性别" v-model="registrationForm.gender">
             <el-option label="男" value="1"></el-option>
             <el-option label="女" value="0"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="家庭地址">
+        <el-form-item label="家庭地址" required>
           <el-input placeholder="家庭地址" v-model="registrationForm.address"></el-input>
         </el-form-item>
 
-        <el-form-item label="出生日期">
+        <el-form-item label="出生日期" required>
           <el-date-picker type="date" placeholder="选择出生日期" default-value="2000-01-01" class="date-selection" v-model="registrationForm.birthdayStr" value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
         <el-form-item label="年龄">
@@ -54,28 +54,28 @@
         <!-- <el-form-item label="医疗证号">
           <el-input placeholder="医疗证号"></el-input>
         </el-form-item> -->
-        <el-form-item label="看诊日期">
+        <el-form-item label="看诊日期" required>
           <el-date-picker type="date" placeholder="选择看诊日期" v-model="registrationForm.appointmentDateStr" @change="isRegistrationAvailable" class="date-selection" value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
-        <el-form-item label="看诊时段">
+        <el-form-item label="看诊时段" required>
           <el-select placeholder="请选择看诊时段" @change="isRegistrationAvailable" v-model="registrationForm.timeSlot">
             <el-option label="上午" value="1"></el-option>
             <el-option label="下午" value="2"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="挂号科室">
+        <el-form-item label="挂号科室" required>
           <el-select placeholder="挂号科室" @change="isRegistrationAvailable" v-model="registrationForm.departmentId">
             <el-option v-for="department in departments" v-bind:key="department.name"  :label="department.name" :value="department.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="号别">
+        <el-form-item label="号别" required>
           <el-select placeholder="请选择号别" @change="isRegistrationAvailable" v-model="registrationForm.registrationLevelId">
             <el-option label="普通号" value="1"></el-option>
             <el-option label="专家号" value="2"></el-option>
             <el-option label="急诊号" value="3"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="看诊医生">
+        <el-form-item label="看诊医生" required>
           <el-select placeholder="看诊医生" v-model="registrationForm.roleId" :disabled="available"> 
             <el-option v-for="doctor in doctors" v-bind:key = "doctor.roleId" :label="doctor.userName" :value="doctor.roleId"></el-option> 
           </el-select>
@@ -84,7 +84,7 @@
         <div class="vice-title">
           <span class="raven-title-2">收费信息</span>
         </div>
-        <el-form-item label="结算类别">
+        <el-form-item label="结算类别" required>
           <el-select placeholder="请选择结算类别" v-model="registrationForm.payType" @change="isTotalFeeAvailable">
             <el-option label="自费" value="1"></el-option>
             <el-option label="医保卡" value="2"></el-option>
@@ -108,7 +108,7 @@
       </div>
       
       <!-- 挂号信息表 -->
-      <div class="">
+      <div>
         <el-table :data="registrationsInfo" style="width: 100%" stripe 
         :default-sort = "{prop: 'id', order: 'descending'}" v-loading="loading2">
           <el-table-column type="expand" fixed="left">
@@ -142,9 +142,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column
-            fixed="left" sortable
-            label="病历号" prop="id">
+          <el-table-column fixed="left" sortable label="病历号" prop="id">
           </el-table-column>
 
           <el-table-column
@@ -193,20 +191,12 @@
 
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
-  <el-button
-    type="text"
-    size="small"
-    v-if="scope.row.normal&&scope.row.patientCase.status==1"
-    @click="withdrawal(scope.row.id, scope.row.appointmentDate, scope.row.timeSlot, scope.row.roleId, scope.row.registrationLevelId, scope.row.departmentId, scope.row.patientCase.status)"
-  >退号</el-button>
-  <el-button type="text" disabled size="small" v-if="!scope.row.normal">已退号</el-button>
-  <el-button
-    type="text"
-    disabled
-    size="small"
-    v-if="scope.row.normal&&scope.row.patientCase.status!=1"
-  >已就诊</el-button>
-</template>
+              <el-button type="text" size="small" v-if="scope.row.normal&&scope.row.patientCase.status==1" 
+              @click="withdrawal(scope.row.id, scope.row.appointmentDate, scope.row.timeSlot, scope.row.roleId, 
+              scope.row.registrationLevelId, scope.row.departmentId, scope.row.patientCase.status)">退号</el-button>
+              <el-button type="text" disabled size="small" v-if="!scope.row.normal">已退号</el-button>
+              <el-button type="text" disabled size="small" v-if="scope.row.normal&&scope.row.patientCase.status!=1" >已就诊</el-button>
+            </template>
           </el-table-column>
         </el-table>
       </div>
@@ -249,15 +239,15 @@
 						<th width="50px;">看诊日期</th>
 						<th width="100px;">{{this.registrationForm.appointmentDateStr}}</th>
 						<th width="50px;">看诊时段</th>
-						<th width="50px;">{{this.registrationForm.timeSlot}}</th>
+						<th width="50px;">{{this.timeSlotName}}</th>
 						<th width="50px;">挂号科室</th>
-						<th width="50px;">{{this.registrationForm.departmentId}}</th>
+						<th width="50px;">{{this.departmentName}}</th>
 					</tr>
           <tr height="32px;">	
             <th width="50px;">号别</th>
-						<th width="50px;">{{this.registrationForm.registrationLevelId}}</th>
+						<th width="50px;">{{this.registrationLevelName}}</th>
 						<th width="50px;">看诊医生</th>
-						<th width="50px;">{{this.registrationForm.roleId}}</th>
+						<th width="50px;">{{this.doctorName}}</th>
 					</tr>
           <tr height="32px;">
             
@@ -265,9 +255,9 @@
 
           <tr height="32px;">
 						<th width="100px;">结算类别</th>
-						<th width="100px;">{{this.registrationForm.payType}}</th>
+						<th width="100px;">{{this.payTypeName}}</th>
 						<th width="50px;">病历本</th>
-						<th width="50px;">{{this.registrationForm.isBuyCaseBook}}</th>
+						<th width="50px;">{{this.isBuyCaseBookName}}</th>
 						<th width="100px;">应收金额</th>
 						<th width="100px;">{{this.registrationForm.totalFee}}</th>
 					</tr>
@@ -355,6 +345,11 @@ export default {
         3: "已诊",
         4: "确诊",
         5: "诊毕"
+      },
+      // 看诊时段
+      timeSlotCast: {
+        1: "上午",
+        2: "下午"
       }
     };
   },
@@ -369,12 +364,51 @@ export default {
         age = "";
       }
       return age;
+    },
+
+    timeSlotName() {
+      return this.timeSlotCast[this.registrationForm.timeSlot]
+    },
+
+    registrationLevelName() {
+      return this.registrationLevelCast[this.registrationForm.registrationLevelId]
+    },
+
+    payTypeName() {
+      return this.payTypeCast[this.registrationForm.payType]
+    },
+
+    doctorName() {
+      for(var i=0; i<this.doctors.length; i++){
+        if (this.doctors[i].roleId == this.registrationForm.roleId) {
+          return this.doctors[i].userName
+        }
+      }
+    },
+
+    isBuyCaseBookName() {
+      if (this.registrationForm.isBuyCaseBook) {
+        return "是";
+      } else {
+        return "否";
+      }
+    },
+
+    departmentName() {
+      for(var i=0; i<this.departments.length; i++){
+        if (this.departments[i].id == this.registrationForm.departmentId) {
+          return this.departments[i].name
+        }
+      }
     }
+
   },
 
   methods: {
     // 扫描
-    scan() {},
+    scan() {
+      
+    },
 
     // 成功提示
     success(msg) {
@@ -389,15 +423,7 @@ export default {
       this.$message.error(msg + "失败");
     },
     // 退号
-    withdrawal(
-      id,
-      appointmentDate,
-      timeSlot,
-      roleId,
-      registrationLevelId,
-      departmentId,
-      patientCaseStatus
-    ) {
+    withdrawal(id, appointmentDate, timeSlot, roleId, registrationLevelId, departmentId, patientCaseStatus) {
       this.loading2 = true;
       var transferData = {};
       transferData.registrationId = id;
@@ -470,23 +496,71 @@ export default {
       this.registrationForm.invoiceCode = data;
     },
 
-    // 挂号
-    confirmation(registrationForm) {
-      this.loading1 = true;
-      const currentRoleId = this.$store.getters["user/currentRoleId"];
-      this.registrationForm.cashierId = this.currentRoleId;
-      register.confirmation(this.registrationForm).then(response => {
-        console.log(response.data);
+    checkInput() {
+      if (this.registrationForm.idCard == "") {
+        this.open("患者身份证号")
+        return false;
+      } else if (this.registrationForm.name == "") {
+        this.open("患者姓名")
+        return false;
+      } else if (this.registrationForm.gender == "") {
+        this.open("患者性别")
+        return false;
+      } else if (this.registrationForm.address == "") {
+        this.open("患者家庭住址")
+        return false;
+      } else if (this.registrationForm.birthdayStr == "") {
+        this.open("患者出生日期")
+        return false;
+      } else if (this.registrationForm.appointmentDateStr == "") {
+        this.open("看诊日期")
+        return false;
+      } else if (this.registrationForm.timeSlot == "") {
+        this.open("看诊时段")
+        return false;
+      } else if (this.registrationForm.departmentId == "") {
+        this.open("挂号科室")
+        return false;
+      } else if (this.registrationForm.registrationLevelId == "") {
+        this.open("挂号级别")
+        return false;
+      } else if (this.registrationForm.roleId == "") {
+        this.open("看诊医生")
+        return false;
+      } else if (this.registrationForm.payType == "") {
+        this.open("结算类别")
+        return false;
+      } 
 
-        if (response.data.code === 200) {
-          this.success("挂号");
-          this.invoicePrinterVisible = true;
-          this.registrations();
-        } else {
-          this.fail("挂号");
-        }
+      return true;
+    },
+
+    open(message) {
+      this.$alert('请输入' + message, '输入信息不全', {
+        confirmButtonText: '确定'
       });
-      this.loading1 = false;
+    },
+
+    // 挂号
+    confirmation() {
+      if(this.checkInput()) {
+        this.loading1 = true;
+        const currentRoleId = this.$store.getters["user/currentRoleId"];
+        this.registrationForm.cashierId = this.currentRoleId;
+        register.confirmation(this.registrationForm).then(response => {
+          console.log(response.data);
+
+          if (response.data.code === 200) {
+            this.success("挂号");
+            this.invoicePrinterVisible = true;
+            this.registrations();
+          } else {
+            this.fail("挂号");
+          }
+        });
+
+        this.loading1 = false;
+      }
     },
 
     // 检查是否可以向后台查询可选医生列表

@@ -64,4 +64,10 @@ public interface PreliminaryCaseService {
      */
     CommonResult listFinalDiagnose(Integer caseId);
 
+    /**
+     * 诊闭
+     * @param caseId
+     */
+    CommonResult finishDiagnose(Integer caseId);
+
 }
