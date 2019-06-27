@@ -19,3 +19,11 @@ export function updateUserPassword(data) {
     data: data
   })
 }
+
+//获取用户基本信息及角色信息
+export function getUserInfo(token) {
+  return request({
+    url: '/user/info/' + token,
+    method: 'GET'
+  })
+}

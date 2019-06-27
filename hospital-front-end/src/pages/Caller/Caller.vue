@@ -219,7 +219,7 @@ export default {
                       this.curDoctor.name +
                       "医生处就诊"
                   );
-                  this.doTTS("请" + nextPatient.name + "准备");
+                  this.doTTS("请" + this.nextPatient.name + "准备");
                 }
               }
               // 如果有人初诊完毕，应当被从屏幕上移除

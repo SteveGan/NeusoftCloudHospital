@@ -2,13 +2,6 @@
   <div class="outpatient-service-container">
     <!-- 左侧操作区 -->
     <div class="service-main-container">
-      <!-- 工具栏
-      <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px;">
-        <el-button type="text" icon="el-icon-refresh-right" round>清屏</el-button>
-        <el-button type="text" icon="el-icon-folder-checked" round>暂存</el-button>
-        <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-      </el-card>-->
-
       <!-- 申请的操作栏以及表格, 做成一个卡片 -->
       <el-card
         v-for="(collection, index) in caseExaminations.collections"
@@ -99,21 +92,9 @@
         <el-button type="text" icon="el-icon-plus" @click="handleAddCollection">新增申请项目列表</el-button>
       </div>
     </div>
-    <!-- 右侧模版区域 -->
+    <!-- 底部模版区域 -->
     <div class="service-side-container">
-      <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" class="template-tabs">
-        <!-- 门诊首页tab-->
-        <el-tab-pane label="病历模版">
-          <p>TODO</p>
-        </el-tab-pane>
-        <el-tab-pane label="常用诊断">
-          <p>TODO</p>
-        </el-tab-pane>
-        <el-tab-pane label="历史病历">
-          <p>TODO</p>
-        </el-tab-pane>
-      </el-tabs>
+      <project-template></project-template>
     </div>
     <!-- 新增项目dialog -->
     <el-dialog
@@ -251,6 +232,7 @@ import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
 import { isContext } from "vm";
 import { successDialog, failDialog } from "@/utils/notification";
+import ProjectTemplate from "@/components/outpatientdoctor/ProjectTemplate";
 
 export default {
   name: "ProjectApplication",
@@ -435,6 +417,7 @@ export default {
       this.currentCollection = collection;
     },
     handleTempSave(collection) {
+      collection.roleId = this.$store.getters["user/currentRoleId"];
       collection.caseId = this.caseExaminations.caseId;
       collection.applicantRoleId = this.$store.getters["user/currentRoleId"];
       collection.collectionType = this.type;
@@ -505,14 +488,17 @@ export default {
         console.log(error);
       }
     );
+  },
+  components: {
+    "project-template": ProjectTemplate
   }
 };
 </script>
 
 <style lang="css" scoped>
 .outpatient-service-container {
-  display: grid;
-  grid-template-columns: 70% 30%;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-main-container {

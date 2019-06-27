@@ -26,4 +26,7 @@ public interface ArrangementMapper {
 
     List<Arrangement> listByUserIdAndDatePeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
+    int deleteByDepartmentIdAndDatePeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
+                                          @Param("departmentId") Integer departmentId);
+
 }

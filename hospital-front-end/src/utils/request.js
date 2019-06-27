@@ -19,10 +19,11 @@ const service = axios.create({
 // request interceptors
 service.interceptors.request.use(
   config => {
-    //如果有token
-    if (store.getters.token) {
+    if (store.getters["user/token"]) {
       // 让每个请求携带自定义token 请根据实际情况自行修改
       config.headers['Authorization'] = getToken()
+      console.log("set token to")
+      console.log(getToken())
     }
     console.log(config.data)
     return config

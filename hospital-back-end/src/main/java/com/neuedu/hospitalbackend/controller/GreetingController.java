@@ -3,8 +3,6 @@ package com.neuedu.hospitalbackend.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.testwebsocket.Greeting;
-import com.neuedu.hospitalbackend.testwebsocket.HelloMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;

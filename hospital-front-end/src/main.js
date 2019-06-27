@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import App from './App'
-import VueRouter from 'vue-router'
-import routes from './router/index'
+import router from './router/index'
 import store from './store'
 import axios from 'axios'
-
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Print from 'vue-print-nb'
@@ -13,7 +11,7 @@ import echarts from 'echarts'
 
 Vue.config.productionTip = false
 
-Vue.use(VueRouter)
+
 Vue.use(ElementUI, {
   size: 'small',
   zIndex: 3000
@@ -23,12 +21,6 @@ Vue.prototype.$echarts = echarts
 
 Vue.prototype.$axios = axios
 
-const router = new VueRouter({
-  routes
-  // strict: process.env.NODE_ENV !== 'production'
-})
-
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
