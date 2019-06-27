@@ -55,6 +55,12 @@
           <el-table style="width: 100%" :data="collection.projects">
             <el-table-column type="expand">
               <template slot-scope="props">
+                <div class="collection-detail">
+                  <p>项目名称：{{props.row.projectName}}</p>
+                  <p>执行部门：{{props.row.departmentName}}</p>
+                  <p>检查目的：{{props.row.goal}}</p>
+                  <p>检查要求：{{props.row.requirement}}</p>
+                </div>
                 <div class="table-container">
                   <el-table :data="props.row.items">
                     <el-table-column prop="itemId" label="小项ID"></el-table-column>
@@ -94,7 +100,7 @@
     </div>
     <!-- 底部模版区域 -->
     <div class="service-side-container">
-      <project-template></project-template>
+      <project-template :type="type" :typeName="typeName"></project-template>
     </div>
     <!-- 新增项目dialog -->
     <el-dialog
@@ -566,5 +572,10 @@ export default {
   border-radius: 3px;
   margin-top: 5px;
   width: 100%;
+}
+.collection-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 </style>
