@@ -50,7 +50,6 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             returnJson.put("medicines", new JSONArray());
             return CommonResult.success(returnJson);
         }
-        System.out.println("++++++++++++++++ "+ recipeLogs.get(0).get("medicineType"));
         if((Integer)recipeLogs.get(0).get("medicineType") == 0)
             returnJson.put("type", 0);//中草药
         else
