@@ -12,7 +12,7 @@
           <!-- 待就诊病人名单 -->
           <div>
             <!-- 表格 -->
-            <el-table :data="waitingPatients" style="width: 100%" max-height="500px">
+            <el-table :data="waitingPatients" style="width: 100%" height="200">
               <el-table-column prop="caseId" label="病历号"></el-table-column>
               <el-table-column prop="name" label="患者姓名"></el-table-column>
               <el-table-column width='50px'>
@@ -25,7 +25,7 @@
         </el-card>
 
         <!-- 已诊用户区 -->
-        <el-card shadow="hover" style="margin-top: 20px;" max-height="200px">
+        <el-card shadow="hover" style="margin-top: 20px;" height="200">
           <div slot="header">
             <i class="el-icon-finished"></i>
             <span>已就诊</span>
