@@ -197,12 +197,12 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
                projectJson.put("projectName", projectName);
                projectJson.put("requirement", project.get("requirement"));
                projectJson.put("goal", project.get("goal"));
-//               projectJson.put("departmentId", );
-//               projectJson.put("departmentName", );
-//               projectJson.put("resultDescription", );
-//               projectJson.put("resultImage", );
-//               projectJson.put("status", );
-//               projectJson.put("advice", );
+               projectJson.put("departmentId", project.get("departmentId"));
+               projectJson.put("departmentName", project.get("departmentName"));
+               projectJson.put("resultDescription", "");
+               projectJson.put("resultImage", "");
+               projectJson.put("status", 0);
+               projectJson.put("advice", "");
 
                //检验检查项目 小项信息
                JSONArray itemArray = new JSONArray();
