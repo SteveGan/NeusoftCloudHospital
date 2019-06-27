@@ -38,8 +38,8 @@
               <el-table-column prop="name" label="患者姓名"></el-table-column>
               <el-table-column width='50px'>
                 <template slot-scope="scope">
-                  <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
-                </template>
+  <el-button @click="handlePatientSelect(scope.row)" type="text" size="small">诊治</el-button>
+</template>
               </el-table-column>
             </el-table>
           </div>
@@ -50,14 +50,11 @@
     <el-main>
       <!-- 当前病人信息 -->
       <el-card shadow="hover" :body-style="{ padding: '12px'}" class="info-card" v-if="show">
-        <div slot="header">
-          <i class="el-icon-user"></i>
-          <span>当前就诊</span>
-        </div>
         <!-- 基本信息 -->
         <div class="current-user" style="margin-left: 29px;">
           <div class="basic-info">
-            <span>就诊状态:  <span class="blue-text">{{ this.status }}</span>&nbsp;&nbsp;&nbsp;</span>
+            <span class="status-title"><i class="el-icon-user"></i>当前就诊 &nbsp&nbsp</span>
+            <span>状态:  <span class="blue-text">{{ this.status }}</span>&nbsp;&nbsp;&nbsp;</span>
             <span>病历号:  <span class="blue-text">{{this.selectedCase.caseId}}</span>&nbsp;&nbsp;&nbsp;</span>
             <span>姓名:  <span class="blue-text">{{selectedPatient.name}}</span>&nbsp;&nbsp;&nbsp;</span>
             <span>性别:  <span class="blue-text">{{this.gender}}</span>&nbsp;&nbsp;&nbsp;</span>
@@ -69,38 +66,38 @@
         </div>
       </el-card>
       <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" style="overflow:vible; margin-top: 0px; border: 0;" tab-click="testTabClick">
-        <!-- 门诊首页tab-->
-        <el-tab-pane label="病历首页">
-          <!-- 门诊病历首页内容 -->
-          <outpatient-prediagnose @saveCase="onSaveSelectedCase" @submitCase="onSubmitSelectedCase" @clearCase="onClearSelectedCase"
-            v-model="selectedCase" :editable="ableEditPreDiagnose" :disabled="disablePreDiagnose"></outpatient-prediagnose>
-        </el-tab-pane>
-        <el-tab-pane label="病历确诊" :disabled="disableFinalDiagnose">
-          <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase" :editable="ableEditFinalDiagnose"></final-case>
-        </el-tab-pane>
-        <el-tab-pane label="检验申请" :disabled="disableExamination">
-          <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
-        </el-tab-pane>
-        <el-tab-pane label="检查申请" :disabled="disableInspection">
-          <project-application :type=2 typeName="检查" v-model="selectedCaseInspections"></project-application>
-        </el-tab-pane>
-        <el-tab-pane label="成药处方" :disabled="disableModRecipe">
-          <case-recipe v-model="modernRecipes"></case-recipe>
-        </el-tab-pane>
-        <el-tab-pane label="草药处方" :disabled="disableTraRecipe">
-          <case-recipe v-model="traditionalRecipes"></case-recipe>
-        </el-tab-pane>
-        <el-tab-pane label="处置单" :disabled="disableDisposition">
-          <case-disposition v-model="selectedCaseDispositions"></case-disposition>
-        </el-tab-pane>
-        <el-tab-pane label="患者账单">
-          <case-pay-list :payList="selectedPayList"></case-pay-list>
-        </el-tab-pane>
-        <el-tab-pane label="病历模版管理">
-          <case-template-admin></case-template-admin>
-        </el-tab-pane>
-      </el-tabs>
+        <el-tabs type="border-card" style="overflow:vible; margin-top: 0px; border: 0;" tab-click="testTabClick">
+          <!-- 门诊首页tab-->
+          <el-tab-pane label="病历首页">
+            <!-- 门诊病历首页内容 -->
+            <outpatient-prediagnose @saveCase="onSaveSelectedCase" @submitCase="onSubmitSelectedCase" @clearCase="onClearSelectedCase"
+              v-model="selectedCase" :editable="ableEditPreDiagnose" :disabled="disablePreDiagnose"></outpatient-prediagnose>
+          </el-tab-pane>
+          <el-tab-pane label="病历确诊" :disabled="disableFinalDiagnose">
+            <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase" :editable="ableEditFinalDiagnose"></final-case>
+          </el-tab-pane>
+          <el-tab-pane label="检验申请" :disabled="disableExamination">
+            <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
+          </el-tab-pane>
+          <el-tab-pane label="检查申请" :disabled="disableInspection">
+            <project-application :type=2 typeName="检查" v-model="selectedCaseInspections"></project-application>
+          </el-tab-pane>
+          <el-tab-pane label="成药处方" :disabled="disableModRecipe">
+            <case-recipe v-model="modernRecipes" :type="1"></case-recipe>
+          </el-tab-pane>
+          <el-tab-pane label="草药处方" :disabled="disableTraRecipe">
+            <case-recipe v-model="traditionalRecipes" type="0"></case-recipe>
+          </el-tab-pane>
+          <el-tab-pane label="处置单" :disabled="disableDisposition">
+            <case-disposition v-model="selectedCaseDispositions"></case-disposition>
+          </el-tab-pane>
+          <el-tab-pane label="患者账单">
+            <case-pay-list :payList="selectedPayList"></case-pay-list>
+          </el-tab-pane>
+          <el-tab-pane label="病历模版管理">
+            <case-template-admin></case-template-admin>
+          </el-tab-pane>
+        </el-tabs>
     </el-main>
   </el-container>
 </template>
@@ -256,7 +253,7 @@ export default {
                   this.disableTraRecipe = true;
                   this.disableModRecipe = true;
                 }
-              } else if (caseRecipe.type == 2) {
+              } else if (caseRecipe.type === 0) {
                 //如果是中医处方
                 this.traditionalRecipes = Object.assign({}, caseRecipe);
                 if (!this.disableRecipe) {
@@ -268,10 +265,18 @@ export default {
                 }
               } else {
                 //不存在处方
+                caseRecipe.recipes = [];
                 caseRecipe.type = 1;
-                this.modernRecipes = Object.assign({}, caseRecipe);
-                caseRecipe.type = 2;
-                this.traditionalRecipes = Object.assign({}, caseRecipe);
+                this.modernRecipes = Object.assign(
+                  {},
+                  JSON.parse(JSON.stringify(caseRecipe))
+                );
+                caseRecipe.recipes = [];
+                caseRecipe.type = 0;
+                this.traditionalRecipes = Object.assign(
+                  {},
+                  JSON.parse(JSON.stringify(caseRecipe))
+                );
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = false;
                   this.disableModRecipe = false;
@@ -532,11 +537,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.bg-color{
+.bg-color {
   background-color: #f6f6f6;
 }
-.blue-text{
-  color: #409EFF;
+.blue-text {
+  color: #409eff;
 }
 .side-bar {
   height: 100%;
@@ -636,5 +641,10 @@ export default {
 .add-recipe-button {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.status-title {
+  font-size: 15px;
+  font: bold;
 }
 </style>

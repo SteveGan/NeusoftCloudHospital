@@ -151,18 +151,24 @@
     </div>
     <!-- 右侧模版区域 -->
     <div class="service-side-container">
+      
       <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="card" class="template-tabs">
-        <!-- 门诊首页tab-->
-        <el-tab-pane label="病历模版">
-          <case-template @give-template="useTemplate"></case-template>
-        </el-tab-pane>
-        <el-tab-pane label="常用诊断">
-          <diagnose-template @give-disease="useDisease"></diagnose-template>
-        </el-tab-pane>
-        <!-- <el-tab-pane label="历史病历">
-        </el-tab-pane> -->
-      </el-tabs>
+      <el-card class="input-card" shadow="hover">
+        <div slot="header">
+          <p>病历模版</p>
+        </div>
+        <el-tabs type="card" class="template-tabs">
+          <!-- 门诊首页tab-->
+          <el-tab-pane label="病历模版">
+            <case-template @give-template="useTemplate"></case-template>
+          </el-tab-pane>
+          <el-tab-pane label="常用诊断">
+            <diagnose-template @give-disease="useDisease"></diagnose-template>
+          </el-tab-pane>
+          <!-- <el-tab-pane label="历史病历">
+          </el-tab-pane> -->
+        </el-tabs>
+      </el-card>
     </div>
     <!-- 新增中医诊断dialog -->
     <el-dialog title="新增中医诊断" :visible.sync="dialogAddTraDiagnose" :before-close="handleClose">
