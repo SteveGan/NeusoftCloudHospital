@@ -19,9 +19,9 @@ public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsServ
     private TransactionLogMapper transactionLogMapper;
 
     public CommonResult clinicianDepartmentStatistics(String beginDateStr, String endDateStr){
-        List<HashMap> result = convertMap(transactionLogMapper.calculateClinicianDepartmentTotalMoney(beginDateStr, endDateStr, null));
-        List<HashMap> visits = transactionLogMapper.countClinicianDepartmentVisits(beginDateStr, endDateStr);
-        List<HashMap> invoices = transactionLogMapper.countClinicianDepartmentInvoices(beginDateStr, endDateStr, null);
+        List<HashMap> result = convertMap(transactionLogMapper.calculateClinicianDepartmentsTotalMoney(beginDateStr, endDateStr, null));
+        List<HashMap> visits = transactionLogMapper.countClinicianDepartmentsVisits(beginDateStr, endDateStr);
+        List<HashMap> invoices = transactionLogMapper.countClinicianDepartmentsInvoices(beginDateStr, endDateStr, null);
 
         return  CommonResult.success(addInvoicesAndVisits(result, invoices, visits));
     }
@@ -29,38 +29,38 @@ public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsServ
     public CommonResult technicianDepartmentStatistics(String beginDateStr, String endDateStr){
 
         List<HashMap> statistics = new ArrayList<>();
-        statistics.addAll(transactionLogMapper.calculateClinicianDepartmentTotalMoney(beginDateStr, endDateStr, "挂号费"));
-        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentTotalMoney(
+        statistics.addAll(transactionLogMapper.calculateClinicianDepartmentsTotalMoney(beginDateStr, endDateStr, "挂号费"));
+        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentsTotalMoney(
                 "examination", "project_id", "examiner_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentTotalMoney(
+        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentsTotalMoney(
                 "inspection", "project_id", "inspector_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentTotalMoney(
+        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentsTotalMoney(
                 "treatment", "project_id", "treater_role_id", beginDateStr, endDateStr));
-        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentTotalMoney(
+        statistics.addAll(transactionLogMapper.calculateExecutiveDepartmentsTotalMoney(
                 "recipe", "medicine_id", "deliver_role_id", beginDateStr, endDateStr));
 
         List<HashMap> result = convertMap(statistics);
 
         List<HashMap> visits = new ArrayList<>();
-        visits.addAll(transactionLogMapper.countClinicianDepartmentVisits(beginDateStr, endDateStr));
-        visits.addAll(transactionLogMapper.countExecutiveDepartmentVisits(
+        visits.addAll(transactionLogMapper.countClinicianDepartmentsVisits(beginDateStr, endDateStr));
+        visits.addAll(transactionLogMapper.countExecutiveDepartmentsVisits(
                 "examination", "project_id", "examiner_role_id", beginDateStr, endDateStr));
-        visits.addAll(transactionLogMapper.countExecutiveDepartmentVisits(
+        visits.addAll(transactionLogMapper.countExecutiveDepartmentsVisits(
                 "inspection", "project_id", "inspector_role_id", beginDateStr, endDateStr));
-        visits.addAll(transactionLogMapper.countExecutiveDepartmentVisits(
+        visits.addAll(transactionLogMapper.countExecutiveDepartmentsVisits(
                 "treatment", "project_id", "treater_role_id", beginDateStr, endDateStr));
-        visits.addAll(transactionLogMapper.countExecutiveDepartmentVisits(
+        visits.addAll(transactionLogMapper.countExecutiveDepartmentsVisits(
                 "recipe", "medicine_id", "deliver_role_id", beginDateStr, endDateStr));
 
         List<HashMap> invoices = new ArrayList<>();
-        invoices.addAll(transactionLogMapper.countClinicianDepartmentInvoices(beginDateStr, endDateStr, "挂号费"));
-        invoices.addAll(transactionLogMapper.countExecutiveDepartmentInvoices(
+        invoices.addAll(transactionLogMapper.countClinicianDepartmentsInvoices(beginDateStr, endDateStr, "挂号费"));
+        invoices.addAll(transactionLogMapper.countExecutiveDepartmentsInvoices(
                 "examination", "project_id", "examiner_role_id", beginDateStr, endDateStr));
-        invoices.addAll(transactionLogMapper.countExecutiveDepartmentInvoices(
+        invoices.addAll(transactionLogMapper.countExecutiveDepartmentsInvoices(
                 "inspection", "project_id", "inspector_role_id", beginDateStr, endDateStr));
-        invoices.addAll(transactionLogMapper.countExecutiveDepartmentInvoices(
+        invoices.addAll(transactionLogMapper.countExecutiveDepartmentsInvoices(
                 "treatment", "project_id", "treater_role_id", beginDateStr, endDateStr));
-        invoices.addAll(transactionLogMapper.countExecutiveDepartmentInvoices(
+        invoices.addAll(transactionLogMapper.countExecutiveDepartmentsInvoices(
                 "recipe", "medicine_id", "deliver_role_id", beginDateStr, endDateStr));
 
         return  CommonResult.success(addInvoicesAndVisits(result, invoices, visits));

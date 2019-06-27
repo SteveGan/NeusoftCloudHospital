@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.math.BigDecimal;
+
 import static com.neuedu.hospitalbackend.util.ResultCode.E_713;
 
 /**
@@ -32,6 +34,21 @@ public class InvoiceServiceImpl implements InvoiceService {
     public CommonResult updateStatus(Byte status, String invoiceCode){
         int count = invoiceMapper.updateInvoiceStatusById(status, invoiceCode);
         if (count > 0)
+            return CommonResult.success(count);
+        else
+            return CommonResult.fail();
+    }
+
+    @Override
+    public CommonResult insertInvoices(String beginInvoiceCode, String endInvoiceCode){
+        BigDecimal begin = new BigDecimal(beginInvoiceCode);
+        BigDecimal end = new BigDecimal(endInvoiceCode);
+        int count = 0;
+        while(begin.compareTo(end) != 1){
+            count += invoiceMapper.insert(begin.toString());
+            begin = begin.add(BigDecimal.valueOf(1));
+        }
+        if(count > 0)
             return CommonResult.success(count);
         else
             return CommonResult.fail();
