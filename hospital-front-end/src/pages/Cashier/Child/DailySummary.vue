@@ -2,6 +2,7 @@
     <div style="margin: 0 30px 0 25px; height:100vh;">
         <el-card shadow="hover">
             <div slot="header">
+                <i class="el-icon-search"></i>
                 <span>查询条件</span>
             </div>
             <el-form :inline="true">
@@ -19,6 +20,7 @@
         </el-card>
         <el-card style="margin-top: 30px;" shadow="hover">
             <div slot="header">
+                <i class="el-icon-paperclip"></i>
                 <span>查询结果</span>
                 <el-button type="text" style="float: right;" icon="el-icon-document-add" @click="submit">结算报账</el-button>
                 <el-input style="width:150px; float: right; margin-right:30px;" v-model="sumMoney" disabled></el-input>

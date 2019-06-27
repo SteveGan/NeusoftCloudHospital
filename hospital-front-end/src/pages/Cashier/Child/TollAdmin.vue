@@ -67,6 +67,7 @@
     <div class="edit-board" >
       <el-card shadow="hover" style="margin: 0 30px 30px 0;">
         <div slot="header">
+          <i class="el-icon-news"></i>
           <span>待缴费清单</span>
         </div>
         <!-- 操作按钮 -->
@@ -100,6 +101,7 @@
 
       <el-card shadow="hover" style="margin: 30px 30px 30px 0;">
         <div slot="header">
+          <i class="el-icon-finished"></i>
           <span>已缴费清单</span>
         </div>
         <!-- 主体区域 -->

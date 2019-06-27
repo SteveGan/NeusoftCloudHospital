@@ -6,6 +6,7 @@
         <el-card shadow="hover" style="margin: 10px 0px 30px 25px;">
         <!-- 搜索区 -->
         <div slot="header">
+          <i class="el-icon-search"></i>
           <span>查询</span>
         </div>
         <div class="search-region">
@@ -26,6 +27,7 @@
         <!-- 待登记户区 -->
         <el-card shadow="hover" style="margin: 0px 0px 30px 25px;">
           <div slot="header">
+            <i class="el-icon-news"></i>
             <span>待登记病人</span>
           </div>
           <!-- 待登记病人名单 -->
@@ -51,6 +53,7 @@
         <!-- 已登记项目区 -->
         <el-card shadow="hover" style="margin: 0px 0px 30px 25px;">
           <div slot="header">
+            <i class="el-icon-finished"></i>
             <span>已登记项目</span>
           </div>
           <!-- 已登记病人名单 -->
