@@ -16,7 +16,8 @@ export default {
   name: "Home",
   components: {
     "status-bar": StatusBar
-  }
+  },
+
 };
 </script>
 
