@@ -20,9 +20,11 @@
     <result column="project_id" property="projectId" jdbcType="INTEGER" />
     <result column="item_id" property="itemId" jdbcType="INTEGER" />
     <result column="item_name" property="itemName" jdbcType="INTEGER" />
-    <result column="project_name" property="itemId" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
     <result column="goal" property="goal" jdbcType="VARCHAR" />
     <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
   </resultMap>
 
   <insert id="insert" parameterType="com.neuedu.hospitalbackend.model.po.TreatmentTemplate" >
@@ -121,7 +123,7 @@
   </select>
 
   <select id="listProject" resultMap="TemplateInfo">
-    select distinct tt.goal, tt.requirement, t.project_name, tt.project_id
+    select distinct tt.goal, tt.requirement, t.project_name, tt.project_id,
                       d.id as department_id, d.name as department_name
     from treatment_template tt, tech_project t, department d
     where tt.role_id = #{roleId} and tt.name = #{name} and d.id = t.department_id

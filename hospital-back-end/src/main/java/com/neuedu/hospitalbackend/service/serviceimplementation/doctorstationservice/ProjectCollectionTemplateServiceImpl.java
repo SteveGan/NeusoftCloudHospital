@@ -122,6 +122,8 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
             Integer departmentId = techProjectMapper.getDepartmentIdByProjectId(projectId);
             treatmentTemplate.setDepartmentId(departmentId);
             treatmentTemplate.setScope(collectionTemplateParam.getScope());
+            treatmentTemplate.setGoal(projectTemplateParam.getGoal());
+            treatmentTemplate.setRequirement(projectTemplateParam.getRequirement());
             count = treatmentTemplateMapper.insertSelective(treatmentTemplate);
         }
         if(count <= 0)
@@ -196,7 +198,6 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
                projects = treatmentTemplateMapper.listProject(creator, name);
            for(HashMap project:projects){
                //项目信息
-               System.out.println("#################################### "+project);
                JSONObject projectJson = new JSONObject();
                String projectName = (String)project.get("projectName");
                Integer projectId = (Integer)project.get("projectId");
