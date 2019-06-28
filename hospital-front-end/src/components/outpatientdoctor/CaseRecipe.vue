@@ -1,6 +1,5 @@
 <template>
   <div class="recipe-service-container">
-    <p>type{{type}}</p>
     <!-- 主操作区 -->
     <div>
       <!-- 一个处方 -->
@@ -78,7 +77,7 @@
     </div>
     <!-- 底部模版区域 -->
     <div>
-      <recipe-template v-bind:recipeType="type" @give-recipe-template="useRecipeTemplate"></recipe-template>
+      <recipe-template :recipeType="type" @give-recipe-template="useRecipeTemplate"></recipe-template>
     </div>
     <!-- 新增药品dialog -->
     <el-dialog
@@ -125,7 +124,7 @@
       </div>
     </el-dialog>
     <!-- 编辑药品dialog to do-->
-    <!-- 存为处方dialog -->
+    <!-- 存为处方模版dialog -->
     <el-dialog
       title="添加处方模版"
       :visible.sync="dialogAddRecipeTemplate"
@@ -302,7 +301,7 @@ export default {
     handleSelectMedicine(medicine) {
       this.newMedicine.medicineUnit = medicine.unit;
       this.newMedicine.medicineId = medicine.id;
-      this.newMedicine.medicineType = type;
+      this.newMedicine.medicineType = this.type;
       this.newMedicine.medicineFormulation = medicine.formulation;
       this.newMedicine.medicineSpecification = medicine.specification;
     },
@@ -439,6 +438,7 @@ export default {
         }
       );
       this.newTemplate = {};
+      this.dialogAddRecipeTemplate = false;
     }
   },
   mounted: function() {

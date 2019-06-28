@@ -1,14 +1,7 @@
 <template>
-  <div class="outpatient-service-container">
+  <div class="disposition-service-container">
     <!-- 左侧操作区 -->
     <div class="service-main-container">
-      <!-- 工具栏
-      <el-card :body-style="{padding:'0px'}" style="margin-bottom: 5px;">
-        <el-button type="text" icon="el-icon-refresh-right" round>清屏</el-button>
-        <el-button type="text" icon="el-icon-folder-checked" round>暂存</el-button>
-        <el-button type="text" icon="el-icon-printer" round>打印</el-button>
-      </el-card>-->
-
       <!-- 申请的操作栏以及表格, 做成一个卡片 -->
       <el-card
         v-for="(collection, index) in caseDispositions.collections"
@@ -80,23 +73,9 @@
         <el-button type="text" icon="el-icon-plus" @click="handleAddCollection">新增处置申请列表</el-button>
       </div>
     </div>
-    <!-- 右侧模版区域 -->
-    <div class="service-side-container">
-      <!-- 导航栏(也就是一个标签页) -->
-      <el-tabs type="border-card" class="template-tabs">
-        <!-- 门诊首页tab-->
-        <el-tab-pane label="病历模版">
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-          <p>haha</p>
-        </el-tab-pane>
-        <el-tab-pane label="常用诊断"></el-tab-pane>
-        <el-tab-pane label="历史病历"></el-tab-pane>
-      </el-tabs>
+    <!-- 底部模版区 -->
+    <div>
+      <disposition-template :type="3" @give-project-template="useProjectTemplate"></disposition-template>
     </div>
     <!-- 新增项目dialog -->
     <el-dialog
@@ -146,6 +125,7 @@ import {
 import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
 import { successDialog, failDialog } from "@/utils/notification";
+import DispositionTemplate from "@/components/outpatientdoctor/DispositionTemplate";
 
 export default {
   name: "CaseDisposition",
@@ -310,6 +290,10 @@ export default {
     handleClear(collection) {
       collection.projects = [];
       this.handleTempSave(collection);
+    },
+    useProjectTemplate(givenTemplate) {
+      console.log("使用处置模版");
+      console.log(givenTemplate);
     }
   },
   mounted: function() {
@@ -321,14 +305,17 @@ export default {
         console.log(error);
       }
     );
+  },
+  components: {
+    "disposition-template": DispositionTemplate
   }
 };
 </script>
 
 <style lang="css" scoped>
 .outpatient-service-container {
-  display: grid;
-  grid-template-columns: 70% 30%;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-main-container {

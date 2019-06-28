@@ -8,6 +8,7 @@
           <div slot="header">
             <i class="el-icon-news"></i>
             <span>待就诊</span>
+            <el-button  @click="handleRefresh" style="float: right; padding: 3px 0; font-size: 20px" type="text" :icon="refreshIcon"></el-button>
           </div>
           <!-- 待就诊病人名单 -->
           <div>
@@ -154,9 +155,10 @@ export default {
       //病历首页是否可以被修改
       ableEditPreDiagnose: false,
       ableEditFinalDiagnose: false,
-
       //患者信息是否显示
-      show: false
+      show: false,
+      // icon
+      refreshIcon: "el-icon-refresh-right"
     };
   },
   computed: {
@@ -496,6 +498,25 @@ export default {
     },
     testTabClick(data) {
       console.log(data);
+    },
+    handleRefresh() {
+      this.refreshIcon = "el-icon-loading";
+      //请求所有待诊病人和已诊病人
+      listAllPatients(this.$store.getters["user/currentRoleId"]).then(
+        response => {
+          const data = response.data.data;
+          this.waitingPatients = data.waitingPatients;
+          this.diagnosedPatients = data.diagnosedPatients;
+          console.log("等待的用户");
+          console.log(this.waitingPatients);
+          successDialog("挂号人员数据读取完毕");
+          this.refreshIcon = "el-icon-refresh-right";
+        },
+        error => {
+          failDialog("挂号人员数据读取异常");
+          this.refreshIcon = "el-icon-refresh-right";
+        }
+      );
     }
   },
   components: {

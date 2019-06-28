@@ -102,25 +102,21 @@ export default {
   props: {
     recipeType: Number
   },
-  watch: {
-    recipeType: function(newValue, oldValue) {
-      console.log("模版类型：");
-      console.log(this.recipeType);
-      listRecipeTemplates(
-        this.$store.getters["user/currentRoleId"],
-        this.recipeType
-      ).then(
-        response => {
-          console.log("当前读取到的处方模版");
-          console.log(response.data.data);
-          this.allTemplates = Object.assign({}, response.data.data);
-          console.log(this.allTemplates);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
+  mounted: function() {
+    listRecipeTemplates(
+      this.$store.getters["user/currentRoleId"],
+      this.recipeType
+    ).then(
+      response => {
+        console.log("【【【【【【【【当前读取到的处方模版】】】】】】】】");
+        console.log(response.data.data);
+        this.allTemplates = Object.assign({}, response.data.data);
+        console.log(this.allTemplates);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 };
 </script>
