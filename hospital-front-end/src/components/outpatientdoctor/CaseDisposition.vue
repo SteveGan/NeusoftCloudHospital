@@ -294,6 +294,24 @@ export default {
     useProjectTemplate(givenTemplate) {
       console.log("使用处置模版");
       console.log(givenTemplate);
+      givenTemplate.roleId = this.$store.getters["user/currentRoleId"];
+      givenTemplate.caseId = this.caseDispositions.caseId;
+      givenTemplate.collectionType = 3;
+      givenTemplate.applicantRoleId = this.$store.getters["user/currentRoleId"];
+      givenTemplate.projects.forEach(project => (project.status = 1));
+
+      console.log(givenTemplate);
+
+      getNewCollectionId(3).then(
+        response => {
+          const newCollectionId = response.data.data.collectionId;
+          givenTemplate.collectionId = newCollectionId;
+          this.caseDispositions.collections.push(givenTemplate);
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   },
   mounted: function() {

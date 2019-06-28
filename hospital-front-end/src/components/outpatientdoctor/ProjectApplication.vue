@@ -572,6 +572,7 @@ export default {
       givenTemplate.caseId = this.caseExaminations.caseId;
       givenTemplate.collectionType = givenTemplate.type;
       givenTemplate.applicantRoleId = this.$store.getters["user/currentRoleId"];
+      givenTemplate.projects.forEach(project => (project.status = 1));
 
       console.log(givenTemplate);
       // 想后端请求新的recipe编号;
@@ -593,7 +594,7 @@ export default {
     },
     handleConfirmAddTemplate() {
       this.newTemplate.roleId = this.$store.getters["user/currentRoleId"];
-      this.newTemplate.type = 3;
+      this.newTemplate.type = this.type;
       this.newTemplate.departmentId = this.$store.getters[
         "user/currentDepartmentId"
       ];
