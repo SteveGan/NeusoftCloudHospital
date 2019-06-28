@@ -164,6 +164,8 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
 
        Integer departmentId = roleMapper.getDepartmentIdByRoleId(roleId);
 
+       System.out.println("***********department " + departmentId);
+
        if (type == 1)
            collections = inspectionTemplateMapper.listTemplateNameAndCreator(roleId, departmentId);
        else if(type == 2)
@@ -181,7 +183,7 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
            collectionJson.put("scope", scope);
            collectionJson.put("roleId", creator);
            collectionJson.put("newName", "");
-           collectionJson.put("departmentId", 0);
+           collectionJson.put("departmentId", departmentId);
            collectionJson.put("type", type);
 
            JSONArray projectArray = new JSONArray();
@@ -194,6 +196,7 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
                projects = treatmentTemplateMapper.listProject(creator, name);
            for(HashMap project:projects){
                //项目信息
+               System.out.println("#################################### "+project);
                JSONObject projectJson = new JSONObject();
                String projectName = (String)project.get("projectName");
                Integer projectId = (Integer)project.get("projectId");

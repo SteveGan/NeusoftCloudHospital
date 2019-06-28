@@ -147,7 +147,7 @@
     where id = #{id}
   </update>
 
-  <delete id="deletById">
+  <delete id="deleteById">
     delete
     from arrangement
     where id = #{id}

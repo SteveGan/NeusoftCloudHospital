@@ -122,9 +122,10 @@
 
   <select id="listProject" resultMap="TemplateInfo">
     select distinct tt.goal, tt.requirement, t.project_name, tt.project_id
-    from treatment_template tt, tech_project t
-    where tt.role_id = #{roleId} and tt.name = #{name}
-          and tt.project_id = t.project_id and tt.item_id = t.item_id
+                      d.id as department_id, d.name as department_name
+    from treatment_template tt, tech_project t, department d
+    where tt.role_id = #{roleId} and tt.name = #{name} and d.id = t.department_id
+          and tt.project_id = t.project_id
   </select>
 
   <delete id="deleteTemplateByRoleIdAndName">
