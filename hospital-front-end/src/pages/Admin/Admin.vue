@@ -35,15 +35,15 @@
             <i class="el-icon-location"></i>
             <span>医生排班管理</span>
           </template>
-          <el-menu-item index="arrangementrule">
+          <el-menu-item index="/home/admin/arrangementrule">
             <i class="el-icon-edit"></i>
             <span slot="title">设置排班规则</span>
           </el-menu-item>
-          <el-menu-item index="schedule">
+          <el-menu-item index="/home/admin/schedule">
             <i class="el-icon-document-checked"></i>
             <span slot="title">生成排班计划</span>
           </el-menu-item>
-          <el-menu-item index="arrangement">
+          <el-menu-item index="/home/admin/arrangement">
             <i class="el-icon-s-grid"></i>
             <span slot="title">排班结果管理</span>
           </el-menu-item>          

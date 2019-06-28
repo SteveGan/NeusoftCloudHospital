@@ -392,11 +392,12 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
 
 
     /**
-     * 修改排班结果
+     * 修改排班结果v1.0
+     * 批量修改
      * @param arrangementParam
      */
     @Override
-    public CommonResult modifyArrangement(ArrangementParam arrangementParam){
+    public CommonResult modifyArrangements(ArrangementParam arrangementParam){
         int count = 0;
         List<Arrangement> arrangements = arrangementParam.getArrangements();
         Date startDate = Date.valueOf(arrangementParam.getStartDate());
@@ -420,6 +421,28 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         return CommonResult.success(count);
 
     }
+
+    /**
+     * 修改排班结果v2.0
+     * 修改午别
+     * @param arrangementId,timeSlot
+     */
+    @Override
+    public CommonResult modifyArrangement(Integer arrangementId, Byte timeSlot){
+        int count;
+        //参数检验
+        if(arrangementId == null || timeSlot == null || (timeSlot != 1 && timeSlot != 2 && timeSlot != 3 && timeSlot != 4))
+            return CommonResult.fail(ResultCode.E_801);
+
+        //修改午别
+        if(timeSlot == 4)
+            count = arrangementMapper.deleteById(arrangementId);
+        else
+            count = arrangementMapper.updateTimeSlot(arrangementId, timeSlot);
+
+        return CommonResult.success(count);
+    }
+
 
 
     /**

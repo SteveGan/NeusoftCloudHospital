@@ -59,7 +59,7 @@
               <el-button @click="print(scope.row)" type="text" size="small" :disabled="scope.row.status!=2&&scope.row.status!=4">补打</el-button>
               <el-button @click="reprint(scope.row)" type="text" :disabled="scope.row.status!=2" size="small">重打</el-button>
             </template>
-        </el-table-column>
+          </el-table-column>
         </el-table>      
       </el-card>
     </div>

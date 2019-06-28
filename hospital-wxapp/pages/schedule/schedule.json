@@ -1,3 +1,9 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-picker": "../../dist_vant/picker/index",
+    "van-popup": "../../dist_vant/popup/index",
+    "van-field": "../../dist_vant/field/index",
+    "van-datetime-picker": "../../dist_vant/datetime-picker/index",
+    "van-button": "../../dist_vant/button/index"
+  }
 }

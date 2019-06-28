@@ -2,12 +2,10 @@ package com.neuedu.hospitalbackend.service.serviceimplementation.doctorstationse
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.hospitalbackend.model.dao.ExaminationTemplateMapper;
-import com.neuedu.hospitalbackend.model.dao.InspectionTemplateMapper;
-import com.neuedu.hospitalbackend.model.dao.RoleMapper;
-import com.neuedu.hospitalbackend.model.dao.TreatmentTemplateMapper;
+import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.ExaminationTemplate;
 import com.neuedu.hospitalbackend.model.po.InspectionTemplate;
+import com.neuedu.hospitalbackend.model.po.TechProject;
 import com.neuedu.hospitalbackend.model.po.TreatmentTemplate;
 import com.neuedu.hospitalbackend.model.vo.CollectionTemplateParam;
 import com.neuedu.hospitalbackend.model.vo.ItemParam;
@@ -33,6 +31,8 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
     TreatmentTemplateMapper treatmentTemplateMapper;
     @Resource
     RoleMapper roleMapper;
+    @Resource
+    TechProjectMapper techProjectMapper;
 
 
     /**
@@ -87,13 +87,15 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
                                   ProjectTemplateParam projectTemplateParam, String item){
         int count = 0;
         Integer type = collectionTemplateParam.getType();
+        Integer projectId = projectTemplateParam.getProjectId();
         if(type == 1){ //检查项目小项
             InspectionTemplate inspectionTemplate = new InspectionTemplate();
             inspectionTemplate.setName(collectionTemplateParam.getNewName());
-            inspectionTemplate.setProjectId(projectTemplateParam.getProjectId());
+            inspectionTemplate.setProjectId(projectId);
             inspectionTemplate.setItemId(item);
             inspectionTemplate.setRoleId(collectionTemplateParam.getRoleId());
-            inspectionTemplate.setDepartmentId(collectionTemplateParam.getDepartmentId());
+            Integer departmentId = techProjectMapper.getDepartmentIdByProjectId(projectId);
+            inspectionTemplate.setDepartmentId(departmentId);
             inspectionTemplate.setScope(collectionTemplateParam.getScope());
             inspectionTemplate.setRequirement(projectTemplateParam.getRequirement());
             inspectionTemplate.setGoal(projectTemplateParam.getGoal());
@@ -102,10 +104,11 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
         else if(type == 2) { //检验项目小项
             ExaminationTemplate examinationTemplate = new ExaminationTemplate();
             examinationTemplate.setName(collectionTemplateParam.getNewName());
-            examinationTemplate.setProjectId(projectTemplateParam.getProjectId());
+            examinationTemplate.setProjectId(projectId);
             examinationTemplate.setItemId(item);
             examinationTemplate.setRoleId(collectionTemplateParam.getRoleId());
-            examinationTemplate.setDepartmentId(collectionTemplateParam.getDepartmentId());
+            Integer departmentId = techProjectMapper.getDepartmentIdByProjectId(projectId);
+            examinationTemplate.setDepartmentId(departmentId);
             examinationTemplate.setScope(collectionTemplateParam.getScope());
             examinationTemplate.setRequirement(projectTemplateParam.getRequirement());
             examinationTemplate.setGoal(projectTemplateParam.getGoal());
@@ -114,9 +117,10 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
         else if(type == 3){ //处置项目小项
             TreatmentTemplate treatmentTemplate = new TreatmentTemplate();
             treatmentTemplate.setName(collectionTemplateParam.getNewName());
-            treatmentTemplate.setProjectId(projectTemplateParam.getProjectId());
+            treatmentTemplate.setProjectId(projectId);
             treatmentTemplate.setRoleId(collectionTemplateParam.getRoleId());
-            treatmentTemplate.setDepartmentId(collectionTemplateParam.getDepartmentId());
+            Integer departmentId = techProjectMapper.getDepartmentIdByProjectId(projectId);
+            treatmentTemplate.setDepartmentId(departmentId);
             treatmentTemplate.setScope(collectionTemplateParam.getScope());
             count = treatmentTemplateMapper.insertSelective(treatmentTemplate);
         }
@@ -160,6 +164,8 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
 
        Integer departmentId = roleMapper.getDepartmentIdByRoleId(roleId);
 
+       System.out.println("***********department " + departmentId);
+
        if (type == 1)
            collections = inspectionTemplateMapper.listTemplateNameAndCreator(roleId, departmentId);
        else if(type == 2)
@@ -177,7 +183,7 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
            collectionJson.put("scope", scope);
            collectionJson.put("roleId", creator);
            collectionJson.put("newName", "");
-           collectionJson.put("departmentId", 0);
+           collectionJson.put("departmentId", departmentId);
            collectionJson.put("type", type);
 
            JSONArray projectArray = new JSONArray();
@@ -190,6 +196,7 @@ public class ProjectCollectionTemplateServiceImpl implements ProjectCollectionTe
                projects = treatmentTemplateMapper.listProject(creator, name);
            for(HashMap project:projects){
                //项目信息
+               System.out.println("#################################### "+project);
                JSONObject projectJson = new JSONObject();
                String projectName = (String)project.get("projectName");
                Integer projectId = (Integer)project.get("projectId");

@@ -29,4 +29,7 @@ public interface ArrangementMapper {
     int deleteByDepartmentIdAndDatePeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
                                           @Param("departmentId") Integer departmentId);
 
+    int updateTimeSlot(@Param("id") Integer id, @Param("timeSlot") Byte timeSlot);
+
+    int deleteById(@Param("id") Integer id);
 }

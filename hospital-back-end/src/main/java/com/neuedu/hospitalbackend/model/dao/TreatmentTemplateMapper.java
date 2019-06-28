@@ -18,6 +18,8 @@ public interface TreatmentTemplateMapper {
 
     List<HashMap> listProject(@Param("roleId") Integer roleId, @Param("name") String name);
 
+    List<HashMap> listTreatmentProject(@Param("roleId") Integer roleId, @Param("name") String name);
+
     int deleteTemplateByRoleIdAndName(@Param("roleId") Integer roleId, @Param("name") String name);
 
 }
