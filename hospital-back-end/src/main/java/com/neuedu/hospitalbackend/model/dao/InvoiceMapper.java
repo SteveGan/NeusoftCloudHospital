@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface InvoiceMapper {
     int insert(String id);
-    String getAvailableInvoiceCode();
+    String getAvailableInvoiceCode(@Param(value="dateStr") String dateStr);
     int updateInvoiceStatusById(@Param("status") Byte status, @Param("id") String id);
 }
