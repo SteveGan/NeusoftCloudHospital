@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7042b2d9-455b-437d-877a-7fff844f2f2a" name="Default" comment="完善细节：&#10;显示用户名下发票及其详情">
+    <list default="true" id="7042b2d9-455b-437d-877a-7fff844f2f2a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InvoiceMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InvoiceMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/hospital-back-end/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,8 +67,8 @@
       <file leaf-file-name="TransactionLogMapper.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="25" column="84" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="25" selection-end-column="84" />
+            <state relative-caret-position="475">
+              <caret line="25" column="84" selection-start-line="24" selection-start-column="8" selection-end-line="25" selection-end-column="84" />
             </state>
           </provider>
         </entry>
@@ -78,20 +76,17 @@
       <file leaf-file-name="PaymentServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="51" column="38" lean-forward="true" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="969">
+              <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InvoiceMapper.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="InvoiceMapper.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InvoiceMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="912">
-              <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
+            <state relative-caret-position="483">
+              <caret line="48" column="11" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -99,26 +94,26 @@
       <file leaf-file-name="InvoiceServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/InvoiceServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+            <state relative-caret-position="950">
+              <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Invoice.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Invoice.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Invoice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-              <folding>
-                <element signature="e#552#553#0" expanded="true" />
-                <element signature="e#600#601#0" expanded="true" />
-                <element signature="e#642#643#0" expanded="true" />
-                <element signature="e#678#679#0" expanded="true" />
-                <element signature="e#712#713#0" expanded="true" />
-                <element signature="e#764#765#0" expanded="true" />
-                <element signature="e#810#811#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="517">
+              <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PatientInfoController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/wxappcontroller/PatientInfoController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="446">
+              <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -135,8 +130,8 @@
       <file leaf-file-name="Registration.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Registration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+            <state relative-caret-position="133">
+              <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -147,7 +142,7 @@
       <file leaf-file-name="TransactionLogMapper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
+            <state relative-caret-position="532">
               <caret line="33" column="24" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -159,17 +154,8 @@
       <file leaf-file-name="PaymentController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/PaymentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
+            <state relative-caret-position="437">
               <caret line="32" column="87" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="87" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResultCode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/util/ResultCode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -328,7 +314,7 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
-    <option name="width" value="1574" />
+    <option name="width" value="1575" />
     <option name="height" value="950" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -339,8 +325,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -441,6 +425,19 @@
               <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
               <item name="basicinfomanagement" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NeusoftCloudHospital" type="462c0819:PsiDirectoryNode" />
+              <item name="hospital-back-end" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="neuedu" type="462c0819:PsiDirectoryNode" />
+              <item name="hospitalbackend" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="wxappcontroller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NeusoftCloudHospital" type="b2602c69:ProjectViewProjectNode" />
@@ -711,6 +708,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -884,14 +883,8 @@
       <workItem from="1561475594173" duration="2499000" />
       <workItem from="1561512154706" duration="29088000" />
       <workItem from="1561598313873" duration="21945000" />
-      <workItem from="1561640879873" duration="7859000" />
-    </task>
-    <task id="LOCAL-00061" summary="在后端做类别判断">
-      <created>1560137828196</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1560137828196</updated>
+      <workItem from="1561640879873" duration="7898000" />
+      <workItem from="1561685297091" duration="1044000" />
     </task>
     <task id="LOCAL-00062" summary="收费逻辑修改">
       <created>1560151222453</created>
@@ -1229,11 +1222,18 @@
       <option name="project" value="LOCAL" />
       <updated>1561651902442</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="invoice列表 增加日期字段">
+      <created>1561662400830</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1561662400830</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="539708000" />
+    <option name="totallyTimeSpent" value="540791000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -1251,16 +1251,15 @@
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39970717" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3391867" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49865952" weight="0.4568082" />
       <window_info anchor="right" id="Palette&#9;" order="10" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.32967034" />
       <window_info anchor="right" id="Capture Analysis" order="9" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49698794" weight="0.3396779" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49463806" visible="true" weight="0.25183016" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49463806" weight="0.25183016" />
       <window_info anchor="bottom" id="Spring" order="11" weight="0.32967034" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3806735" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.88906753" visible="true" weight="0.19571045" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.88906753" visible="true" weight="0.30026808" />
       <window_info anchor="right" id="Bean Validation" order="11" weight="0.3297587" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="7" />
@@ -1273,6 +1272,7 @@
       <window_info anchor="bottom" id="Database Console" order="15" weight="0.329429" />
       <window_info anchor="right" id="Maven" order="8" visible="true" weight="0.022590362" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49865952" weight="0.4568082" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.33674964" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1355,7 +1355,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="医技项目完善1.0.1" />
     <MESSAGE value="modification" />
     <MESSAGE value="收费员日结" />
     <MESSAGE value="收费员日结1.0.0" />
@@ -1380,7 +1379,8 @@
     <MESSAGE value="插入发票号" />
     <MESSAGE value="完善细节：&#10;1. 日结核对--&gt;核对通过&#10;2. 退号 冲红票据" />
     <MESSAGE value="完善细节：&#10;显示用户名下发票及其详情" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善细节：&#10;显示用户名下发票及其详情" />
+    <MESSAGE value="invoice列表 增加日期字段" />
+    <option name="LAST_COMMIT_MESSAGE" value="invoice列表 增加日期字段" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1392,13 +1392,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/vo/RegistrationParam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2033">
-          <caret line="187" column="1" selection-start-line="3" selection-end-line="187" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TransactionExceptionLogMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -1438,9 +1431,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1483,9 +1473,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
           <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1638,9 +1625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1695,31 +1679,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/PaymentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
+        <state relative-caret-position="437">
           <caret line="32" column="87" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="87" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/tollstationservice/PaymentServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="51" column="38" lean-forward="true" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="969">
+          <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="25" column="84" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="25" selection-end-column="84" />
+        <state relative-caret-position="475">
+          <caret line="25" column="84" selection-start-line="24" selection-start-column="8" selection-end-line="25" selection-end-column="84" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/dao/TransactionLogMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
+        <state relative-caret-position="532">
           <caret line="33" column="24" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1727,17 +1708,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InvoiceMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/service/serviceimplementation/commonservice/InvoiceServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+        <state relative-caret-position="950">
+          <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1750,8 +1724,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Registration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+        <state relative-caret-position="133">
+          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1760,17 +1734,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/model/po/Invoice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-          <folding>
-            <element signature="e#552#553#0" expanded="true" />
-            <element signature="e#600#601#0" expanded="true" />
-            <element signature="e#642#643#0" expanded="true" />
-            <element signature="e#678#679#0" expanded="true" />
-            <element signature="e#712#713#0" expanded="true" />
-            <element signature="e#764#765#0" expanded="true" />
-            <element signature="e#810#811#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="517">
+          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/java/com/neuedu/hospitalbackend/controller/wxappcontroller/PatientInfoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital-back-end/src/main/resources/com/neuedu/hospitalbackend/model/dao/InvoiceMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="48" column="11" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
         </state>
       </provider>
     </entry>
