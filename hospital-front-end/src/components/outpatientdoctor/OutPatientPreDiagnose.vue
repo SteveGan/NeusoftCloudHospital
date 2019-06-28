@@ -57,7 +57,7 @@
         </el-card>
       <el-card class="input-card" shadow="hover">
         <div slot="header">
-          <i class="el-icon-analysis"></i>
+          <i class="el-icon-data-analysis"></i>
           <span>评估诊断</span>
         </div>
         <!-- 中医诊断 -->
@@ -152,7 +152,7 @@
     <!-- 右侧模版区域 -->
     <div class="service-side-container">
       <!-- 导航栏(也就是一个标签页) -->
-        <el-tabs type="border-card" stretch="true" class="template-tabs">
+        <el-tabs type="border-card" :stretch="true" class="template-tabs">
           <!-- 门诊首页tab-->
           <el-tab-pane label="病历模版">
             <case-template @give-template="useTemplate"></case-template>

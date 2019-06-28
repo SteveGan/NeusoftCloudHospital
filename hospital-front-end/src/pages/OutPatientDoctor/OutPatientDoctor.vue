@@ -77,16 +77,16 @@
             <final-case v-model="selectedFinalCase" @save-final-case="onSaveFinalCase" @submit-final-case="onSubmitFinalCase" :editable="ableEditFinalDiagnose"></final-case>
           </el-tab-pane>
           <el-tab-pane label="检验申请" :disabled="disableExamination">
-            <project-application :type=1 typeName="检验" v-model="selectedCaseExaminations"></project-application>
+            <project-application :type="1" typeName="检验" v-model="selectedCaseExaminations"></project-application>
           </el-tab-pane>
           <el-tab-pane label="检查申请" :disabled="disableInspection">
-            <project-application :type=2 typeName="检查" v-model="selectedCaseInspections"></project-application>
+            <project-application :type="2" typeName="检查" v-model="selectedCaseInspections"></project-application>
           </el-tab-pane>
           <el-tab-pane label="成药处方" :disabled="disableModRecipe">
             <case-recipe v-model="modernRecipes" :type="1"></case-recipe>
           </el-tab-pane>
           <el-tab-pane label="草药处方" :disabled="disableTraRecipe">
-            <case-recipe v-model="traditionalRecipes" type="0"></case-recipe>
+            <case-recipe v-model="traditionalRecipes" :type="0"></case-recipe>
           </el-tab-pane>
           <el-tab-pane label="处置单" :disabled="disableDisposition">
             <case-disposition v-model="selectedCaseDispositions"></case-disposition>
@@ -267,15 +267,12 @@ export default {
                 //不存在处方
                 caseRecipe.recipes = [];
                 caseRecipe.type = 1;
-                this.modernRecipes = Object.assign(
-                  {},
-                  JSON.parse(JSON.stringify(caseRecipe))
-                );
+                this.modernRecipes = JSON.parse(JSON.stringify(caseRecipe));
+
                 caseRecipe.recipes = [];
                 caseRecipe.type = 0;
-                this.traditionalRecipes = Object.assign(
-                  {},
-                  JSON.parse(JSON.stringify(caseRecipe))
+                this.traditionalRecipes = JSON.parse(
+                  JSON.stringify(caseRecipe)
                 );
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = false;
@@ -288,13 +285,13 @@ export default {
             },
             error => {
               //暂时不处理
-              console.alert("查所有处方出bug了");
+              failDialog("请求处方出bug了");
             }
           );
         },
         error => {
           //暂时不处理
-          console.alert("得到病历内容出Bug了");
+          failDialog("得到病历内容出Bug了");
         }
       );
 
@@ -308,7 +305,7 @@ export default {
         },
         error => {
           //暂时不处理
-          console.alert("得到检查内容出Bug了");
+          failDialog("得到检查内容出Bug了");
         }
       );
       //请求当前被点击用户的所有检验项目清单
@@ -513,6 +510,7 @@ export default {
   mounted: function() {
     // 判断store中是否已存roleId, 如果没有，则将path 中的roleId赋给store
     if (typeof this.$store.getters["user/currentRoleId"] === "undefined") {
+      console.log("重新设置roleId");
       this.$store.commit(
         "user/setCurrentRoleWithRoleId",
         Number(this.$route.params.roleId)

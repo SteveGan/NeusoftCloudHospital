@@ -9,10 +9,13 @@
     </el-tab-pane>
     <el-tab-pane label="收费员日结" name="third">
       <daily-summary></daily-summary>
-    </el-tab-pane>    
+    </el-tab-pane>
     <el-tab-pane label="日结历史查询" name="fourth">
       <history-search></history-search>
-    </el-tab-pane>   
+    </el-tab-pane>
+    <el-tab-pane label="发票管理" name="fifth">
+      <invoice-management></invoice-management>
+    </el-tab-pane>
   </el-tabs>
 </div>
 </template>
@@ -22,6 +25,7 @@ import PatientRegistration from './Child/PatientRegistration'
 import TollAdmin from './Child/TollAdmin'
 import DailySummary from './Child/DailySummary'
 import HistorySearch from './Child/HistorySearch'
+import InvoiceManagement from './Child/InvoiceManagement'
 
 export default {
   name: 'Cashier',
@@ -29,7 +33,8 @@ export default {
     'patient-registration': PatientRegistration,
     'toll-admin': TollAdmin,
     'daily-summary': DailySummary,
-    'history-search': HistorySearch
+    'history-search': HistorySearch,
+    'invoice-management': InvoiceManagement
   }
 }
 </script>

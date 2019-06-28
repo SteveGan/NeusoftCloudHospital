@@ -162,7 +162,7 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
         Integer arrangementRuleId = arrangementParam.getId();//排班规则id
 
         //参数检验
-        if(startDate.compareTo(endDate) < 0)
+        if(startDate.compareTo(endDate) > 0)
             return CommonResult.fail(ResultCode.E_809);
         if(arrangementRuleId == null)
             return CommonResult.fail(ResultCode.E_801);//排班规则为空
@@ -313,36 +313,6 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
 
 
 
-    /**
-     * 修改排班结果
-     * @param arrangementParam
-     */
-    @Override
-    public CommonResult modifyArrangement(ArrangementParam arrangementParam){
-        int count = 0;
-        List<Arrangement> arrangements = arrangementParam.getArrangements();
-        Date startDate = Date.valueOf(arrangementParam.getStartDate());
-        Date endDate = Date.valueOf(arrangementParam.getEndDate());
-        Integer departmentId = arrangementParam.getDepartmentId();
-
-        //参数检验
-        if(startDate.compareTo(endDate) > 0)
-            return CommonResult.fail(ResultCode.E_809);
-        if(departmentId == null)
-            return CommonResult.fail(ResultCode.E_801);
-
-        //删除时间段内的排班结果
-        arrangementMapper.deleteByDepartmentIdAndDatePeriod(startDate, endDate, departmentId);
-        //新增修改后的排班结果
-        for(Arrangement arrangement : arrangements){
-            arrangement.setDepartmentId(departmentId);
-            count += arrangementMapper.insertSelective(arrangement);
-        }
-
-        return CommonResult.success(count);
-
-    }
-
 
     /**
      * 查看某科室排班结果信息
@@ -353,17 +323,19 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
     @Override
     public CommonResult listArrangements(Date startDate, Date endDate, Integer departmentId){
         JSONObject returnJson = new JSONObject();
-        JSONArray arrangementResultsArray = new JSONArray();
+//        JSONArray arrangementResultsArray = new JSONArray();
+
+//        List<HashMap<String, List<HashMap>>> arrangementLogs = new ArrayList<>();
 
         //时间范围内的每一天排班结果
         Date today = startDate;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         while(today.compareTo(endDate) <= 0){
-            JSONObject arrangementResultJson = new JSONObject();
             //当日排班信息
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(today);
-            arrangementResultJson.put("appointmentDate", today);
-            JSONArray arrangementsArray = new JSONArray();
+
+            List<HashMap> arrangementLogInfo = new ArrayList<>();
             List<HashMap> arrangements = arrangementMapper.listByDepartmentIdAndDatePeriod(today, today, departmentId);
             for(HashMap arrangement : arrangements){
                 arrangement.remove("appointmentDate");
@@ -372,10 +344,9 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
                 arrangement.put("registrationLevel", ConstantMap.convert("挂号级别",
                         Byte.valueOf(String.valueOf(arrangement.get("registrationLevelId")))));
                 arrangement.put("isValid", getStatusStr((Boolean)arrangement.get("isValid")));
-                arrangementsArray.add(arrangement);
+                arrangementLogInfo.add(arrangement);
             }
-            arrangementResultJson.put("arrangements", arrangementsArray);
-            arrangementResultsArray.add(arrangementResultJson);
+            returnJson.put(formatter.format(today), arrangementLogInfo);
 
             // 下一天
             calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -383,9 +354,7 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             today = new Date(tomorrow.getTime());
         }
 
-        returnJson.put("arrangementResults", arrangementResultsArray);
         return CommonResult.success(returnJson);
-
 
 
 //        JSONArray arrangementResultsArray = new JSONArray();
@@ -417,6 +386,39 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             return "有效";
         else
             return "无效";
+    }
+
+
+
+
+    /**
+     * 修改排班结果
+     * @param arrangementParam
+     */
+    @Override
+    public CommonResult modifyArrangement(ArrangementParam arrangementParam){
+        int count = 0;
+        List<Arrangement> arrangements = arrangementParam.getArrangements();
+        Date startDate = Date.valueOf(arrangementParam.getStartDate());
+        Date endDate = Date.valueOf(arrangementParam.getEndDate());
+        Integer departmentId = arrangementParam.getDepartmentId();
+
+        //参数检验
+        if(startDate.compareTo(endDate) > 0)
+            return CommonResult.fail(ResultCode.E_809);
+        if(departmentId == null)
+            return CommonResult.fail(ResultCode.E_801);
+
+        //删除时间段内的排班结果
+        arrangementMapper.deleteByDepartmentIdAndDatePeriod(startDate, endDate, departmentId);
+        //新增修改后的排班结果
+        for(Arrangement arrangement : arrangements){
+            arrangement.setDepartmentId(departmentId);
+            count += arrangementMapper.insertSelective(arrangement);
+        }
+
+        return CommonResult.success(count);
+
     }
 
 

@@ -2,7 +2,8 @@
   <div>
     <el-card style="margin: 5px 4px;s" shadow="hover">
       <div slot="header">
-          <span>检索条件</span>
+        <i class="el-icon-search"></i>
+        <span>检索条件</span>
       </div>
       <el-form :inline="true">
           <el-form-item label="起始时间">
@@ -17,6 +18,7 @@
 
     <el-card style="margin: 5px 4px;s" shadow="hover">
       <div slot="header">
+        <i class="el-icon-data-analysis"></i>
         <span>门诊医生工作量统计</span>
       </div> 
       <el-table :data="clinicianDoctor" style="width: 100%" v-loading="loading" highlight-current-row @current-change="handleCurrentChange">
@@ -104,6 +106,7 @@
 
     <el-card style="margin: 5px 4px;s" shadow="hover" v-if="showCharts">
       <div slot="header">
+        <i class="el-icon-paperclip"></i>
         <span>工作量详情</span>
       </div> 
       <div id="myChart" :style="{width: '300px', height: '300px'}"></div>

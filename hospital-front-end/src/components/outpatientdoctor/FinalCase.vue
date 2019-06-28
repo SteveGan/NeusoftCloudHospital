@@ -29,6 +29,7 @@
       <div>
         <el-card class="input-card" shadow="hover">
           <div slot="header">
+            <i class="el-icon-data-analysis"></i>
             <span>最终诊断</span>
           </div>
           <!-- 中医诊断 -->

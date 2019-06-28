@@ -2,10 +2,7 @@
   <el-container style="height: 700px;">
     <!--  侧边栏  -->
     <el-aside width="200px">
-      <el-menu
-        default-active="1"
-        class="el-menu-vertical-demo"
-        :router="activeRouter">
+      <el-menu default-active="2" class="el-menu-vertical-demo" :router="activeRouter">
         <el-menu-item index="/home/finicialadmin/priceadmin">
           <i class="el-icon-coin"></i>
           <span slot="title">费用科目管理</span>

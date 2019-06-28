@@ -3,6 +3,7 @@
     <el-card>
       <!-- 操作栏 -->
       <div slot="header" class="clearfix">
+        <i class="el-icon-notebook-2"></i>
         <span>申请单列表</span>
       </div>
       <!-- 项目列表 -->

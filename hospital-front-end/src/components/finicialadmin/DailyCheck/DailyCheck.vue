@@ -2,7 +2,8 @@
   <div>
     <el-card style="margin: 5px 4px;s" shadow="hover">
       <div slot="header">
-          <span>检索条件</span>
+        <i class="el-icon-search"></i>
+        <span>检索条件</span>
       </div>
       <el-form :inline="true">
           <el-form-item label="起始时间">

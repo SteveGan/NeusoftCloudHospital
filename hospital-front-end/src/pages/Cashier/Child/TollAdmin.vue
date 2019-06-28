@@ -67,32 +67,33 @@
     <div class="edit-board" >
       <el-card shadow="hover" style="margin: 0 30px 30px 0;">
         <div slot="header">
+          <i class="el-icon-news"></i>
           <span>待缴费清单</span>
         </div>
         <!-- 操作按钮 -->
         <div class="action-bar">
-          <el-button type="text" icon="el-icon-success" @click="charge">结算</el-button>
+          <el-button type="text" icon="el-icon-success" @click="pay">结算</el-button>
         </div>
         <!-- 缴费项目表 -->
         <div class="列表">
-          <el-table :data="chargeItems" @selection-change="handleChargeSelectionChange">
+          <el-table v-loading="loading2" :data="chargeItems" @selection-change="handleChargeSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
             <!-- <el-table-column label="发票号" prop="invoiceCode" width="110">
             </el-table-column> -->
-            <el-table-column label="项目类型" prop="collectionId" width="100px">
+            <el-table-column label="项目类型" prop="collectionId">
             </el-table-column>
-            <el-table-column label="项目名称" prop="itemName" width="100px">
+            <el-table-column label="项目名称" prop="itemName">
             </el-table-column>
-            <el-table-column label="数量" prop="amount" width="100px">
+            <el-table-column label="数量" prop="amount">
             </el-table-column>
-            <el-table-column label="金额" prop="totalMoney" width="100px">
+            <el-table-column label="金额" prop="totalMoney">
             </el-table-column>
             <!-- <el-table-column label="开立时间" prop="gmtCreate">
             </el-table-column> -->
-            <el-table-column label="开立状态" prop="itemStatus" width="100px">
+            <el-table-column label="开立状态" prop="itemStatus">
             </el-table-column>
-            <el-table-column label="执行科室" prop="departmentId" width="100px">
+            <el-table-column label="执行科室" prop="departmentId">
             </el-table-column>
           </el-table>
         </div>
@@ -100,6 +101,7 @@
 
       <el-card shadow="hover" style="margin: 30px 30px 30px 0;">
         <div slot="header">
+          <i class="el-icon-finished"></i>
           <span>已缴费清单</span>
         </div>
         <!-- 主体区域 -->
@@ -139,16 +141,41 @@
         </div>
       </el-card>
     </div>
+
+    <el-dialog title="缴费确认" :visible.sync="dialogTableVisible">
+      <el-form>
+        <el-form-item label="应付总额" :label-width="formLabelWidth">
+          <el-input v-model="shouldPay" autocomplete="off" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="实付总额" :label-width="formLabelWidth">
+          <el-input v-model="realPay" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="找零" :label-width="formLabelWidth">
+          <el-input v-model="balance" autocomplete="off" :disabled="true"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogTableVisible = false">取 消</el-button>
+        <el-button type="primary" @click="charge">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import charge from '@/api/charge'
+import { successDialog, failDialog } from "@/utils/notification";
 
 export default {
   name: 'TollAdmin',
   data() {
     return{
+      // 缴费对话框
+      dialogTableVisible: false,
+      formLabelWidth: '120px',
+      shouldPay: 0,
+      realPay: 0,
+
       input: "",
 
       patientInfo: {},
@@ -183,12 +210,17 @@ export default {
       },
 
       loading1: false,
+      loading2: false,
     }
   },
 
   computed: {
     usedTime(gmtCreate){
-      return gmtCreate.substr(0,9)
+      return gmtCreate.substr(0,9);
+    },
+
+    balance() {
+      return (this.realPay - this.shouldPay).toFixed(2);
     }
   },
 
@@ -209,32 +241,30 @@ export default {
       return this.chufangStatus[status];
     },
 
-    // 成功提示
-    success(msg) {
-      this.$message({
-        message: msg+'成功',
-        type: 'success'
-      });
-    },
-      
-    // 失败提示
-    fail(msg, message) {
-      this.$message.error(msg+'失败\n'+message);
-    },
-    
-    // 缴费
-    charge() {
+    // 付款
+    pay() {
+      this.shouldPay = 0;
+      this.dialogTableVisible = true;
       for(var i=0; i<this.chargeSelection.length;i++){
         this.chargeSelection[i].cashierId = this.currentRoleId;
+        this.shouldPay += this.chargeSelection[i].totalMoney;
       }
-      charge.charge(this.chargeSelection).then(response => {
+    },
+
+    // 缴费
+    charge() {
+      this.dialogTableVisible = false;
+      this.loading2 = true;
+      
+      charge.charge(this.chargeSelection).then(
+        response => {
         console.log(response.data.data);
-        if(response.data.code===200){
-          this.getpaymentInfo();
-          this.success("缴费");
-        } else {
-          this.fail("缴费", "");
-        }
+        this.getpaymentInfo();
+        this.loading2 = false;
+        successDialog("缴费成功");
+      }, error => {
+        this.loading2 = false;
+        failDialog("[缴费失败]" + error.data.data.message + "(" + error.data.data.code + ")");
       })
     },
 
@@ -243,16 +273,13 @@ export default {
       for(var i=0; i<this.withdrawSelection.length; i++){
         this.withdrawSelection[i].newCashierId = this.currentRoleId;
       }
-      charge.withdraw(this.withdrawSelection).then(response => {
-        console.log(response.data.data)
-        if(response.data.code===200){
+      charge.withdraw(this.withdrawSelection).then(
+        response => {
+          console.log(response.data.data)
           this.getpaymentInfo();
-          this.success("退费");
-        } else {
-          this.fail("退费", response.data.message);
-        }        
-      }).catch(error => {
-        
+          successDialog("退费成功");
+      }, error =>{
+        failDialog("[退费失败]" + error.data.data.message + "(" + error.data.data.code + ")");
       })
     },
 
@@ -272,53 +299,37 @@ export default {
       this.withdrawSelection.length = 0;
       this.loading1 = true;
       console.log(this.input)
-      charge.getpaymentInfo(this.input).then(response => {
+      charge.getpaymentInfo(this.input).then(
+        response => {
         console.log(response.data.data)
         const data = response.data.data;
         this.patientInfo = data.patientInfo;
 
         this.invoiceCollection = data.paymentInfo.invoiceCollection;
         this.transactionLogs = data.paymentInfo.transactionLogs;
-
-        if(response.data.code===200){
-          this.success("查询");
-        } else {
-          this.fail("查询", "");
-        }
+        successDialog("查询成功");
         this.loading1 = false;
-
-        // 选出待缴费项目用于缴费
-        // for(var i=0; i<this.invoiceCollection.length;i++){
-        //   var temp = this.invoiceCollection[i].invoice_code
-        //   if(this.invoiceCollection[i].status==1){
-            for(var j=0;j<this.transactionLogs.length;j++){
-              if(this.transactionLogs[j].status===1){
-                this.transactionLogs[j].itemStatus = this.chufangStatus[this.transactionLogs[j].projectStatus]
-                this.chargeItems.push(this.transactionLogs[j]);
-              }
+          for(var j=0;j<this.transactionLogs.length;j++){
+            if(this.transactionLogs[j].status===1){
+              this.transactionLogs[j].itemStatus = this.chufangStatus[this.transactionLogs[j].projectStatus]
+              this.chargeItems.push(this.transactionLogs[j]);
             }
-        //   }
-        // }
-        // 选出已缴费项目用于退费
-        // for(var i=0; i<this.invoiceCollection.length;i++){
-        //   var temp = this.invoiceCollection[i].invoice_code
-        //   if(this.invoiceCollection[i].status==2){
-            for(var j=0;j<this.transactionLogs.length;j++){
-              if(this.transactionLogs[j].status===2){
-                this.transactionLogs[j].itemStatus = this.chufangStatus[this.transactionLogs[j].projectStatus]
-                this.transactionLogs[j].returnAmount = this.transactionLogs[j].amount - this.transactionLogs[j].remainAmount;
-                if(this.transactionLogs[j].type=="检查费"||this.transactionLogs[j].type=="检验费"){
-                  this.transactionLogs[j].remainAmount = 1;
-                  this.transactionLogs[j].returnAmount = 1;
-                }
-                this.withdrawItems.push(this.transactionLogs[j])
+          }
+          for(var j=0;j<this.transactionLogs.length;j++){
+            if(this.transactionLogs[j].status===2){
+              this.transactionLogs[j].itemStatus = this.chufangStatus[this.transactionLogs[j].projectStatus]
+              this.transactionLogs[j].returnAmount = this.transactionLogs[j].amount - this.transactionLogs[j].remainAmount;
+              if(this.transactionLogs[j].type=="检查费"||this.transactionLogs[j].type=="检验费"){
+                this.transactionLogs[j].remainAmount = 1;
+                this.transactionLogs[j].returnAmount = 1;
               }
+              this.withdrawItems.push(this.transactionLogs[j])
             }
-        //   }
-        // }
+          }
         console.log("end")
-      }).catch(error => {
-        
+      }, error => {
+        failDialog("[查询失败]" + error.data.data.message + "(" + error.data.data.code + ")");
+        this.loading1 = false;
       })
     }
   }

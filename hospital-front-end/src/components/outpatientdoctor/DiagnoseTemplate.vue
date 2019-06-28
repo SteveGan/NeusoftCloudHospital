@@ -46,6 +46,8 @@ export default {
     }
   },
   mounted: function() {
+    console.log("当前的roleId");
+    console.log(this.$store.getters["user/currentRoleId"]);
     listDiagnoseTemplates(this.$store.getters["user/currentRoleId"]).then(
       response => {
         this.diagnoseTemplates = response.data.data;
