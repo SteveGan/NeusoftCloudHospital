@@ -1,2 +1,43 @@
-<!--pages/schedule/schedule.wxml-->
-<text>pages/schedule/schedule.wxml</text>
+<!--顶部标题栏-->
+<top-bar hasBack="{{true}}"></top-bar>
+
+<card-title text="搜索选择" sub-text="Search Selction"></card-title>
+<view class="matrix bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.4s; margin: 0 30rpx">
+  <van-cell-group>
+    <van-field bindtap="showPicker" value="{{ departmentName }}" bind:focus="showPicker" required clearable label="科室" readonly placeholder="请选择科室" />
+    <van-field bindtap="showDatePicker" value="{{ selectedDate }}" bind:focus="showDatePicker" required clearable label="日期" readonly placeholder="请选择日期" />
+  </van-cell-group>
+  <view class="search-button">
+    <van-button size="small" plain type="primary" bind:click="search">搜索</van-button>
+  </view>
+</view>
+
+<card-title text="出诊医生" sub-text="Doctor List"></card-title>
+<view class='case-list animation-slide-bottom' wx:for="{{doctors}}" wx:key="index" style='animation-delay: 0.4s'>
+  <view class='case-card bg-white margin shadow-md padding radius-lg'>
+      <view class="main-card-item">
+        <view class='text-lg'>
+          <text class='icon-time'> {{item.appointmentDate}}</text>
+        </view>
+        <view class="margin-top radius" >
+          <view class='text-center padding'>
+            <view class="text-xxl">{{item.userName}}</view>
+            <view class="text-center padding">
+              <text class='text-xl text-blue icon-time'> 出诊时间: {{item.timeSlot}}\n</text>
+              <text class='text-xl text-blue icon-rank'> 号别等级: {{item.registrationLevel}}\n</text>
+              <text class='text-xl text-blue icon-discover'> 最大号量: {{item.maxAppointment}}\n</text>
+              <text class='text-xl text-blue icon-cart'> 剩余号量: {{item.appointmentLefts}}\n</text>
+            </view>
+          </view>  
+        </view>
+      </view>  
+  </view>
+</view>
+
+<van-popup show="{{ show }}" position="bottom" overlay="{{ false }}">
+  <van-picker show-toolbar bind:cancel="onCancel" bind:confirm="onConfirm" columns="{{ showedDepartments }}" />
+</van-popup>
+
+<van-popup show="{{ show2 }}" position="bottom" overlay="{{ false }}">
+  <van-datetime-picker type="date" value="{{ currentDate }}" bind:input="onInput" bind:cancel="onCancel" bind:confirm="onConfirm2" formatter="{{ formatter }}" />
+</van-popup>
