@@ -429,10 +429,18 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
      */
     @Override
     public CommonResult modifyArrangement(Integer arrangementId, Byte timeSlot){
+        int count;
+        //参数检验
+        if(arrangementId == null || timeSlot == null || (timeSlot != 1 && timeSlot != 2 && timeSlot != 3 && timeSlot != 4))
+            return CommonResult.fail(ResultCode.E_801);
 
-        arrangementMapper.updateTimeSlot(arrangementId, timeSlot);
+        //修改午别
+        if(timeSlot == 4)
+            count = arrangementMapper.deleteById(arrangementId);
+        else
+            count = arrangementMapper.updateTimeSlot(arrangementId, timeSlot);
 
-        return null;
+        return CommonResult.success(count);
     }
 
 

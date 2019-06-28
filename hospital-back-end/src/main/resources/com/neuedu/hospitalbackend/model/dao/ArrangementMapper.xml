@@ -144,8 +144,13 @@
   <update id="updateTimeSlot">
     update arrangement
     set time_slot = #{timeSlot}
-    where id = #{arrangementId}
+    where id = #{id}
   </update>
 
+  <delete id="deletById">
+    delete
+    from arrangement
+    where id = #{id}
+  </delete>
 
 </mapper>
