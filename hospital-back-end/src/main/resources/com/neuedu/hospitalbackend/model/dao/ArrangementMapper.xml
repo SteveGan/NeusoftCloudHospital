@@ -141,5 +141,11 @@
         appointment_date >= #{startDate} and #{endDate} >= appointment_date
   </delete>
 
+  <update id="updateTimeSlot">
+    update arrangement
+    set time_slot = #{timeSlot}
+    where id = #{arrangementId}
+  </update>
+
 
 </mapper>
