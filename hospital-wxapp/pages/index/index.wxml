@@ -22,7 +22,7 @@
         <view class="info">足不出户 咨询专家</view>
       </view>
     </button>
-    <navigator url="/pages/about/about" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
+    <navigator url="/pages/schedule/schedule" open-type="navigate" class="nav-btn active" hover-class="nav-hover">
       <view class="matrix-btn yygh">
         <icon class="gtpp" />
         <view class="title">出诊查询</view>
@@ -46,7 +46,7 @@
     </view>
   </view>
 </view>
-<view class="bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.5s;">
+<view wx:if="{{isLoggedIn}}" class="bg-white margin shadow-md padding radius-lg animation-slide-bottom" style="animation-delay: 0.5s;">
   <view class="main-card-item">
     <view class='text-lg'>
       <text class='icon-rank'> 排号情况</text>

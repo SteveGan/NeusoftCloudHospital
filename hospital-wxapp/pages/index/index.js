@@ -35,7 +35,7 @@ Page({
     };
     // 请求查询用户历史病历信息
     wx.request({
-      url: "http://localhost:1923/patient/registration/" + wx.getStorageSync('userId'),
+      url: "http://www.stevegan.com:1923/patient/registration/" + wx.getStorageSync('userId'),
       method: 'GET',
       dataType: 'json',
       success: function (res) {
