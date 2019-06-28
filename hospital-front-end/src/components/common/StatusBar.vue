@@ -1,23 +1,23 @@
 <template>
   <div>
-    <el-menu class="el-menu-demo align-end" mode="horizontal" color="#ffffff" @select="handleSelect">
+    <el-menu
+      class="el-menu-demo align-end"
+      mode="horizontal"
+      color="#ffffff"
+      @select="handleSelect"
+    >
       <el-menu-item class="justify-start" @click="handleClickLogo">
         <img src="@/assets/icons/project_logo_complete.png" class="project-logo">
       </el-menu-item>
 
-      <el-menu-item>
-        <el-dropdown>
-          <span class="el-dropdown-link">
-            {{this.$store.getters['user/currentRoleDescription']}}
-            <i class="el-icon-arrow-down el-icon--right el-dropdown-link"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown" @command="handleSelectRole">
-            <el-dropdown-item v-for="role in this.$store.getters['user/roles']" v-bind:key="role.roleId" command="role" >
-              {{role.departmentName}}:{{role.positionName}}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </el-menu-item>
+      <el-submenu index="2">
+        <template slot="title">{{this.$store.getters['user/currentRoleDescription']}}</template>
+        <el-menu-item
+          v-for="role in this.$store.getters['user/roles']"
+          v-bind:key="role.roleId"
+          :index="JSON.stringify(role)"
+        >{{role.departmentName}}:{{role.positionName}}</el-menu-item>
+      </el-submenu>
 
       <el-submenu index="1">
         <template slot="title">
@@ -125,18 +125,20 @@ export default {
         })
         .catch(_ => {});
     },
-    handleSelectRole(role) {
-      console.log(role);
-      const positionId = role.positionId;
-      console.log("push to ");
-      this.$router.push({ path: routeByPositionId(positionId) });
-    },
     handleClickLogo() {
       this.$router.push({ path: "/home" });
     },
     handleSelect(key, keyPath) {
       if (key === "1-2") {
         this.dialogEditUserInfo = true;
+      } else {
+        // key都是positionId;
+        console.log("push to ");
+        var role = JSON.parse(key);
+        console.log(role);
+        this.$router.push({
+          path: routeByPositionId(role.positionId, role.id)
+        });
       }
     },
     handleUploaded(resp) {

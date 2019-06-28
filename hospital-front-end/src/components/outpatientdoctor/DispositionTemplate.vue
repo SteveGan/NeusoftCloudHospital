@@ -55,23 +55,6 @@
           <div class="project-detail">
             <el-card shadow="hover">
               <el-table style="width: 100%" :data="currentTemplate.projects">
-                <el-table-column type="expand">
-                  <template slot-scope="props">
-                    <div class="collection-detail">
-                      <p>项目名称：{{props.row.projectName}}</p>
-                      <p>执行部门：{{props.row.departmentName}}</p>
-                      <p>检查目的：{{props.row.goal}}</p>
-                      <p>检查要求：{{props.row.requirement}}</p>
-                    </div>
-                    <div class="table-container">
-                      <el-table :data="props.row.items">
-                        <el-table-column prop="itemId" label="小项ID"></el-table-column>
-                        <el-table-column prop="itemName" label="小项名称"></el-table-column>
-                        <el-table-column prop="amount" label="单位数量"></el-table-column>
-                      </el-table>
-                    </div>
-                  </template>
-                </el-table-column>
                 <el-table-column prop="projectName" label="项目名称"></el-table-column>
                 <el-table-column prop="departmentName" label="部门名称"></el-table-column>
               </el-table>
@@ -89,7 +72,7 @@ import { listProjectTemplate } from "@/api/projectTemplate";
 import { connect } from "net";
 
 export default {
-  name: "ProjectTemplate",
+  name: "dispositionTemplate",
   data() {
     return {
       personalTemplates: [],
@@ -120,7 +103,7 @@ export default {
     ).then(
       response => {
         console.log(
-          "[[[[[[[[[[[[[   请求project模版 ]]]]]]]]]]]]]]" + this.typeName
+          "[[[[[[[[[[[[[   请求处置模版 ]]]]]]]]]]]]]]" + this.typeName
         );
         this.personalTemplates = response.data.data.personalTemplates;
         this.hospitalTemplates = response.data.data.hospitalTemplates;
