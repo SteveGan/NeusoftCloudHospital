@@ -1,5 +1,6 @@
 <template>
   <div class="recipe-service-container">
+    <p>type{{type}}</p>
     <!-- 主操作区 -->
     <div>
       <!-- 一个处方 -->
@@ -77,10 +78,7 @@
     </div>
     <!-- 底部模版区域 -->
     <div>
-      <recipe-template
-        v-bind:recipeType="caseRecipe.type"
-        @give-recipe-template="useRecipeTemplate"
-      ></recipe-template>
+      <recipe-template v-bind:recipeType="type" @give-recipe-template="useRecipeTemplate"></recipe-template>
     </div>
     <!-- 新增药品dialog -->
     <el-dialog
@@ -336,12 +334,15 @@ export default {
           };
           console.log("new Recipe: ");
           console.log(newRecipe);
-          console.log(this.caseRecipe.recipes);
+          console.log(this.caseRecipe);
           if (typeof this.caseRecipe.recipes == "undefined") {
             console.log("undefined");
             this.caseRecipe.recipes = [];
           }
-          this.caseRecipe.recipes.push(newRecipe);
+          this.caseRecipe.recipes.push({
+            medicines: [],
+            recipeId: response.data.data.recipeId
+          });
           this.currentRecipe = newRecipe;
         },
         error => {

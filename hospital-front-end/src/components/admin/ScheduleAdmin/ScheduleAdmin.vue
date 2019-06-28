@@ -1,5 +1,5 @@
 <template lang="html">
-<div class="container"  style="height: 100vh;">
+<div class="container"  style="height: 100vh; margin: 20px 20px 0 20px;">
   <!-- 科室管理功能区，做成卡片的样子 -->
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
@@ -14,9 +14,9 @@
           <el-option v-for="department in departments" v-bind:key="department.name"  :label="department.name" :value="department.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-button type="text" icon="el-icon-document-add" :disabled="departmentId==''" @click="search">查询</el-button>
+      <el-button type="text" :loading="loading1" icon="el-icon-document-add" :disabled="departmentId==''" @click="search">查询</el-button>
 
-      <el-button style="float:right" type="text" :disabled="departmentId==''||startDate==''||endDate==''||currentRow=={}" icon="el-icon-folder-checked" @click="generate">生成</el-button>
+      <el-button style="float:right" :loading="loading2" type="text" :disabled="departmentId==''||startDate==''||endDate==''||currentRow=={}" icon="el-icon-folder-checked" @click="generate">生成</el-button>
       <el-form-item style="float:right" label="结束时间">
           <el-date-picker type="date" value-format="yyyy-MM-dd" v-model="endDate" placeholder="选择结束时间" class="date-selection"></el-date-picker>
       </el-form-item>
@@ -25,7 +25,7 @@
       </el-form-item>
     </el-form>
 
-    <el-table :data="rules" border style="width: 100%" highlight-current-row @current-change="handleCurrentChange">
+    <el-table v-loading="loading1" :data="rules" border style="width: 100%" highlight-current-row @current-change="handleCurrentChange">
     <el-table-column type="expand">
       <template slot-scope="props">
         <el-table :data="props.row.arrangementRule" border style="width: 100%">
@@ -71,30 +71,40 @@ export default {
 
       rules: [],
       id: 1,
-      currentRow: {}
+      currentRow: {},
+      loading1: false,
+      loading2: false
     }
   },
 
   methods: {
     generate(){
+      this.loading2 = true;
       var arrangementParam = {};
       arrangementParam.startDate = this.startDate;
       arrangementParam.endDate = this.endDate;
       arrangementParam.departmentId = this.departmentId;
       arrangementParam.id = this.currentRow.ruleId;
-      rule.insertArrangement(arrangementParam).then(response => {
+      rule.insertArrangement(arrangementParam).then(
+        response => {
+        this.loading2 = false;
         console.log(response.data);
          this.success("排班计划生成");
+      }, error => {
+        this.loading2 = false;
+        this.fail("排班计划生成");
       })
     },
 
     search() {
+      this.loading1 = true;
       rule.listArrangementRules(this.departmentId).then(response => {
         console.log(response.data);
         const rules = response.data.data.arrangementRules;
 
         this.success("搜索");
         this.rules = rules;
+        this.loading1 = false;
       })
     },
       // 成功提示

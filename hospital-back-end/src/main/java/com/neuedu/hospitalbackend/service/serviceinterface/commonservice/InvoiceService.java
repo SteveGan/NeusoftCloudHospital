@@ -27,4 +27,16 @@ public interface InvoiceService {
      * @return 执行结果
      */
     CommonResult insertInvoices(String beginInvoiceCode, String endInvoiceCode);
+
+    /**
+     * 返回发票分类及数量
+     * @return 执行结果
+     */
+    CommonResult getInvoiceInfo();
+
+    /**
+     * 返回所有发票信息
+     * @return 执行结果
+     */
+    CommonResult list();
 }

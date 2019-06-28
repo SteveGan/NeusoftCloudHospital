@@ -5,6 +5,8 @@
   <resultMap id="BaseResultMap" type="Invoice" >
     <result column="id" property="id" jdbcType="CHAR" />
     <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <insert id="insert">
@@ -32,8 +34,22 @@
     </trim>
   </insert>
 
+  <select id="getInvoiceInfo" resultType="HashMap">
+    select count(*) as count, status from invoice group by status
+  </select>
+
+  <select id="list" resultType="Invoice">
+    select * from invoice
+  </select>
+
   <select id="getAvailableInvoiceCode" resultType="string">
-      select min(id) from invoice where status = 1
+      select min(id) from invoice
+      <where>
+        <if test="dateStr != null">
+          and date_format(gmt_create,'%Y-%m-%d') = #{dateStr}
+        </if>
+        and status = 1
+      </where>
   </select>
 
   <update id="updateInvoiceStatusById" parameterType="Invoice">

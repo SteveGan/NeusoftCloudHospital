@@ -133,13 +133,13 @@ public class DoctorStatisticsServiceImpl implements DoctorStatisticsService {
         for(HashMap r: result){
             Integer roleId = Integer.valueOf(r.get("roleId").toString());
             for(HashMap v: visits){
-                if(roleId == Integer.valueOf(v.get("id").toString())){
+                if(Integer.valueOf(v.get("id").toString()).equals(roleId)){
                     r.put("visits", v.get("visits")); //看诊人次
                     break;
                 }
             }
             for(HashMap i: invoices){
-                if(roleId == Integer.valueOf(i.get("id").toString())){
+                if(Integer.valueOf(i.get("id").toString()).equals(roleId)){
                     r.put("invoiceAmount", i.get("invoice_amount")); //发票数量
                     break;
                 }
@@ -160,8 +160,7 @@ public class DoctorStatisticsServiceImpl implements DoctorStatisticsService {
             calendar.add(Calendar.DATE, - days);
 
         Date targetDay = calendar.getTime();
-        String targetDayStr = sdf.format(targetDay);
-        return targetDayStr;
+        return sdf.format(targetDay);
     }
 
 }

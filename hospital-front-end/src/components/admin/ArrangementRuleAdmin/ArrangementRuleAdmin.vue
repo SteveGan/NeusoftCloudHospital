@@ -1,5 +1,5 @@
 <template lang="html">
-<div class="container"  style="height: 100vh;">
+<div class="container"  style="height: 100vh; margin: 20px 20px 0 20px;">
   <!-- 科室管理功能区，做成卡片的样子 -->
   <el-card class="box-card" shadow="hover">
     <!-- 标题 -->
@@ -14,15 +14,15 @@
           <el-option v-for="department in departments" v-bind:key="department.name"  :label="department.name" :value="department.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-button type="text" icon="el-icon-document-add" :disabled="departmentId==''" @click="search">查询</el-button>
+      <el-button type="text" :loading="loading1" icon="el-icon-document-add" :disabled="departmentId==''" @click="search">查询</el-button>
 
-      <el-button style="float:right" type="text" :disabled="ruleName==''||multipleSelection==''" icon="el-icon-folder-checked" @click="save" :loading="loading">保存</el-button>
+      <el-button style="float:right" type="text" :disabled="ruleName==''||multipleSelection==''" icon="el-icon-folder-checked" @click="save" :loading="loading2">保存</el-button>
       <el-form-item style="float:right" label="规则名称">
         <el-input placeholder="请输入规则名称" v-model="ruleName"></el-input>
       </el-form-item>
     </el-form>
 
-    <el-table :data="roles" border style="width: 100%" @selection-change="handleSelectionChange" v-loading="loading">
+    <el-table v-loading="loading3" :data="roles" border style="width: 100%" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55">
       </el-table-column>
       <el-table-column prop="roleName" label="医生姓名" width="90">
@@ -121,22 +121,17 @@ export default {
         roles: [],
         multipleSelection: [],
 
-        loading: false,
+        loading1: false,
+        loading2: false,
+        loading3: false
       }
   },
 
 
   methods: {
-    // 成功提示
-    success(msg) {
-      this.$message({
-        message: msg + "成功",
-        type: "success"
-      });
-    },
-
     save() {
-      this.loading = true;
+      this.loading2 = true;
+      this.loading3 = true;
       console.log(this.multipleSelection)
       var arrangementRuleParam = {};
       arrangementRuleParam.adminId = this.currentRoleId;
@@ -146,11 +141,13 @@ export default {
 
       rule.insertArrangementRule(arrangementRuleParam).then(
         response => {
-        this.loading = false;
-        this.success("保存");
+          this.loading2 = false;
+          this.loading3 = false;
+          successDialog("保存成功");
         },
         error => {
-          this.loading = false;
+          this.loading2 = false;
+          this.loading3 = false;
           failDialog("[保存失败]" + error.data.data.message + "(" + error.data.data.code + ")");
         }
       );
@@ -161,28 +158,38 @@ export default {
     },
 
     search() {
-      rule.listAllRolesByDepartmentId(this.departmentId).then(response => {
-        console.log(response.data);
-        var roles = response.data.data.roles;
+      this.loading1 = true;
+      this.loading3 = true;
+      rule.listAllRolesByDepartmentId(this.departmentId).then(
+        response => {
+          this.loading1 = false;
+          this.loading3 = false;
+          successDialog("查询成功");
+          console.log(response.data);
+          var roles = response.data.data.roles;
 
-        for(var i=0; i<roles.length; i++){
-          roles[i].monAm = 0;
-          roles[i].monPm = 0;
-          roles[i].tueAm = 0;
-          roles[i].tuePm = 0;
-          roles[i].wedAm = 0;
-          roles[i].wedPm = 0;
-          roles[i].thuAm = 0;
-          roles[i].thuPm = 0;
-          roles[i].friAm = 0;
-          roles[i].friPm = 0;
-          roles[i].satAm = 0;
-          roles[i].satPm = 0;
-          roles[i].sunAm = 0;
-          roles[i].sunPm = 0;
-        }
+          for(var i=0; i<roles.length; i++){
+            roles[i].monAm = 0;
+            roles[i].monPm = 0;
+            roles[i].tueAm = 0;
+            roles[i].tuePm = 0;
+            roles[i].wedAm = 0;
+            roles[i].wedPm = 0;
+            roles[i].thuAm = 0;
+            roles[i].thuPm = 0;
+            roles[i].friAm = 0;
+            roles[i].friPm = 0;
+            roles[i].satAm = 0;
+            roles[i].satPm = 0;
+            roles[i].sunAm = 0;
+            roles[i].sunPm = 0;
+          }
+          this.roles = roles;
 
-        this.roles = roles;
+      }, error => {
+          this.loading1 = false;
+          this.loading3 = false;
+          failDialog("[查询失败]" + error.data.data.message + "(" + error.data.data.code + ")");
       })
     }
   },
