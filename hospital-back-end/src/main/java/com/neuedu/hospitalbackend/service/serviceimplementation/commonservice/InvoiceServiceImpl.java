@@ -6,7 +6,6 @@ import com.neuedu.hospitalbackend.model.dao.InvoiceMapper;
 import com.neuedu.hospitalbackend.model.po.Invoice;
 import com.neuedu.hospitalbackend.service.serviceinterface.commonservice.InvoiceService;
 import com.neuedu.hospitalbackend.util.CommonResult;
-import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,6 +13,8 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import static com.neuedu.hospitalbackend.util.ResultCode.E_713;
 
@@ -28,7 +29,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public synchronized CommonResult getNextInvoiceCode() {
-        String nextInvoiceCode = invoiceMapper.getAvailableInvoiceCode();
+        /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String currentDay = sdf.format(new Date());*/
+        String nextInvoiceCode = invoiceMapper.getAvailableInvoiceCode(null);
         if(nextInvoiceCode == null)
             return CommonResult.fail(E_713);
         invoiceMapper.updateInvoiceStatusById((byte)2, nextInvoiceCode);

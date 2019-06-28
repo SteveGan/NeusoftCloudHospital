@@ -22,11 +22,11 @@ public class TechProjectManagementServiceImpl implements TechProjectManagementSe
         JSONObject returnJson = new JSONObject();
         List<HashMap> info;
         if (type == 1)
-            info = techProjectMapper.listProjectBasicInfoByType("医学影像科");
+            info = techProjectMapper.listProjectBasicInfoByType("检查");
         else if (type == 2)
-            info = techProjectMapper.listProjectBasicInfoByType("医技科");
+            info = techProjectMapper.listProjectBasicInfoByType("检验");
         else if (type == 3)
-            info = techProjectMapper.listProjectBasicInfoByType("药剂科");
+            info = techProjectMapper.listProjectBasicInfoByType("处置");
         else
             return CommonResult.fail(ResultCode.E_801);
         returnJson.put("projects", info);

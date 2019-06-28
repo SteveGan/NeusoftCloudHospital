@@ -24,6 +24,8 @@
     <result column="project_name" property="itemId" jdbcType="VARCHAR" />
     <result column="item_id" property="itemId" jdbcType="VARCHAR" />
     <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
   </resultMap>
 
 
@@ -132,10 +134,11 @@
   </select>
 
   <select id="listProject" resultMap="TemplateInfo">
-    select distinct e.goal, e.requirement, t.project_name, e.project_id
-    from examination_template e, tech_project t
+    select distinct e.goal, e.requirement, t.project_name, e.project_id,
+                      d.id as department_id, d.name as department_name
+    from examination_template e, tech_project t, department d
     where e.role_id = #{roleId} and e.name = #{name}
-          and e.project_id = t.project_id and e.item_id = t.item_id
+          and e.project_id = t.project_id and e.item_id = t.item_id and t.department_id = d.id
   </select>
 
   <select id="listItems" resultMap="TemplateInfo">

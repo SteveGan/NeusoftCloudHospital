@@ -21,7 +21,7 @@ public interface TechProjectMapper {
     String getProjectNameByProjectId(Integer projectId);
 
 
-    List<HashMap> listProjectBasicInfoByType(String classification);
+    List<HashMap> listProjectBasicInfoByType(String type);
 
     List<HashMap> listItemBasicInfoByProject(Integer projectId);
 

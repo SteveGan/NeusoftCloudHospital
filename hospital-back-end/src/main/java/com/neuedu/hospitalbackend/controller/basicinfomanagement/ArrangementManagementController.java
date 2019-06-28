@@ -31,9 +31,10 @@ public class ArrangementManagementController {
     }
 
     @ApiOperation("修改排班结果")
-    @RequestMapping(value = "/arrangements/modification", method = RequestMethod.PUT)
-    public CommonResult modifyArrangement(@RequestBody ArrangementParam arrangementParam) {
-        return arrangementManagementService.modifyArrangement(arrangementParam);
+    @RequestMapping(value = "/arrangements/modification/{arrangementId}", method = RequestMethod.PUT)
+    public CommonResult modifyArrangement(@RequestParam Byte timeSlot,
+                                          @PathVariable(value = "arrangementId") Integer arrangementId) {
+        return arrangementManagementService.modifyArrangement(arrangementId, timeSlot);
     }
 
     @ApiOperation("查询排班规则")
