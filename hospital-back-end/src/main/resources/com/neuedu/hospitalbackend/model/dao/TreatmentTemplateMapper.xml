@@ -20,7 +20,7 @@
     <result column="project_id" property="projectId" jdbcType="INTEGER" />
     <result column="item_id" property="itemId" jdbcType="INTEGER" />
     <result column="item_name" property="itemName" jdbcType="INTEGER" />
-    <result column="project_name" property="itemId" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
     <result column="goal" property="goal" jdbcType="VARCHAR" />
     <result column="requirement" property="requirement" jdbcType="VARCHAR" />
     <result column="department_id" property="departmentId" jdbcType="INTEGER" />
