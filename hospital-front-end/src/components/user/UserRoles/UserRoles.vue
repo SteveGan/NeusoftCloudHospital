@@ -4,7 +4,7 @@
     <div class="role-area">
       <!--  标题："部门与职位"      -->
       <div>
-        <p class="title">部门与职位</p>
+        <p class="title"><i class="el-icon-s-home"></i> 我的部门</p>
       </div>
       <div class="card-container">
         <role-card v-for="roleObj in this.roles" :key="roleObj.id" :role="roleObj"></role-card>

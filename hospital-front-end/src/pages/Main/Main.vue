@@ -10,7 +10,7 @@
       <el-card shadow="hover" class="main-card">
         <div class="role-area">
           <div>
-            <p class="title">我的统计</p>
+            <p class="title"><i class="el-icon-s-marketing"></i> 我的统计</p>
           </div>
           <el-card style="margin: 5px 4px;s" shadow="hover">
             <div slot="header">
