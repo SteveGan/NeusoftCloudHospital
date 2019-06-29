@@ -1,5 +1,5 @@
 <template lang="html">
-    <div style="margin: 0 30px 0 25px; height:100vh;">
+    <div style="margin: 0 30px 0 25px; min-height:100vh;">
         <el-card shadow="hover">
             <div slot="header">
                 <i class="el-icon-search"></i>
@@ -27,25 +27,56 @@
                 <span style="float: right; margin-right:10px;">合计：￥</span>
             </div>
             
-            <el-table :data="this.invoiceList" style="width: 100%" v-loading="loading">
-                <el-table-column label="发票号" prop="invoiceCode">
-                </el-table-column>
-                <el-table-column label="病历号" prop="registrationId">
-                </el-table-column>
-                <el-table-column label="发票总额" prop="totalMoney">
-                </el-table-column>
-                <el-table-column label="患者姓名" prop="name">
-                </el-table-column>
-                <el-table-column label="结算类别" prop="jiesuanType">
-                </el-table-column>
+            <el-table :data="invoiceList" style="width: 100%" v-loading="loading">
+                <el-table-column type="index" width="50"></el-table-column>
+                <el-table-column label="发票号" prop="invoiceCode"></el-table-column>
+                <el-table-column label="病历号" prop="registrationId"></el-table-column>
+                <el-table-column label="发票总额" prop="totalMoney"></el-table-column>
+                <el-table-column label="患者姓名" prop="name"></el-table-column>
+                <el-table-column label="结算类别" prop="jiesuanType"></el-table-column>
             </el-table>
         </el-card>
+
+        <el-dialog title="日结对账单打印" :visible.sync="dailyPrinterVisible" width="80%">
+            <div id="printContent">
+                <div>
+                    <h3 style="text-align:center;">熙康云医院 · 日结对账单</h3>
+                    <h6 style="text-align:center;margin-top: -12px;">地址:沈阳市浑南区创新路195号&nbsp;&nbsp;&nbsp;门诊部:024-88886666</h6>
+                    <hr style="width: 630px;text-align:center;" />
+                    <h5 style="text-align:left;margin-left: 200px;">
+                        结算日期:{{this.currentdate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        起始时间:{{this.startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        结束时间:{{this.endDate}}
+                    </h5>
+
+                    <div style="margin: 0 0 30px 200px;">
+                        <el-table show-summary :summary-method="getSummaries" :data="lastList" border style="width: 80%">
+                        <el-table-column type="index" width="50"></el-table-column>
+                        <el-table-column label="发票号" prop="invoiceCode"></el-table-column>
+                        <el-table-column label="病历号" prop="registrationId"></el-table-column>
+                        <el-table-column label="发票总额" prop="totalMoney"></el-table-column>
+                        <el-table-column label="患者姓名" prop="name"></el-table-column>
+                        <el-table-column label="结算类别" prop="jiesuanType"></el-table-column>
+                        </el-table>
+                    </div>
+
+                    <el-form :inline="true" class="demo-form-inline" style="margin: 0 0 30px 200px;">
+                        <el-form-item label="操作员">
+                            <el-input v-model="currentRoleId" :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-form>
+                </div>
+                <button style="text-align:center;" class="btn no-print" v-print="'#printContent'">打印</button>
+            </div>
+        </el-dialog>
     </div>
 
 </template>
 
 <script>
 import dailySummary from '@/api/dailySummary'
+import { successDialog, failDialog } from "@/utils/notification";
+
 export default {
     name: 'DailySummary',
     data() {
@@ -75,9 +106,12 @@ export default {
 
             // 查询结果
             invoiceList: [],
+            // 上次结果
+            lastList: [],
             sumMoney: 0,
 
-            loading: false
+            loading: false,
+            dailyPrinterVisible: false
         }
     },
 
@@ -85,6 +119,7 @@ export default {
         // 结算报账
         submit() {
             this.loading = true;
+            this.lastList = this.invoiceList;
             var object = {};
             object.invoiceCollection = this.invoiceList;
             object.beginDateStr = this.startDate;
@@ -98,14 +133,14 @@ export default {
                 console.log(response.data.data)
                 const data = response.data.data
 
-                if(response.data.code===200){
-                    this.success("结算");
-                    this.invoiceList = [];
-                } else {
-                    this.fail("结算");
-                }
-            }).finally(response => {
+                this.invoiceList = [];
                 this.loading = false;
+                this.dailyPrinterVisible = true;
+                successDialog("结算成功");
+                
+            }, error => {
+                this.loading = false;
+                failDialog("[结算失败]" + error.data.data.message + "(" + error.data.data.code + ")");
             })
         },
 
@@ -130,13 +165,12 @@ export default {
                     
                     this.sumMoney = this.sumMoney.toFixed(2);
                 }
-                if(response.data.code===200){
-                    this.success("查询");
-                } else {
-                    this.fail("查询");
-                }
-            }).finally(response => {
                 this.loading = false;
+                successDialog("查询成功");
+
+            }, error => {
+                this.loading = false;
+                failDialog("[查询失败]" + error.data.data.message + "(" + error.data.data.code + ")");
             })
         },
 
@@ -162,19 +196,38 @@ export default {
             })
         },
 
-        // 成功提示
-        success(msg) {
-            this.$message({
-                message: msg+'成功',
-                type: 'success'
+        // 发票表格打印合计项
+        getSummaries(param) {
+            const { columns, data } = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+                if (index === 0) {
+                    sums[index] = '合计';
+                    return;
+                }
+                if (index === 1 || index === 2 || index === 4 || index === 5) {
+                    sums[index] = '';
+                    return;
+                }
+                const values = data.map(item => Number(item[column.property]));
+                if (!values.every(value => isNaN(value))) {
+                    sums[index] = values.reduce((prev, curr) => {
+                        const value = Number(curr);
+                        if (!isNaN(value)) {
+                        return prev + curr;
+                        } else {
+                        return prev;
+                        }
+                    }, 0);
+                    sums[index] += '';
+                } else {
+                    sums[index] = 'N/A';
+                }
             });
+
+            return sums;
         },
-      
-        // 失败提示
-        fail(msg) {
-            this.$message.error(msg+'失败');
-            },
-        },
+    },
 
     mounted() {
         // 设置结束时间默认为今天
