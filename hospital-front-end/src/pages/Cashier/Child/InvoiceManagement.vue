@@ -31,7 +31,7 @@
 
       <el-card shadow="hover" style="margin: 20px 0;">
         <div slot="header">
-          <i class="el-icon-edit"></i>
+          <i class="el-icon-tickets"></i>
           <span>发票一览</span>
         </div>
 

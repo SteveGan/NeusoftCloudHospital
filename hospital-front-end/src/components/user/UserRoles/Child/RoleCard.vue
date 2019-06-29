@@ -3,7 +3,7 @@
     <div slot="header" class="clearfix">
       <i :class="icon"></i>
       <span>{{realDepartmentName}}</span>
-      <el-button style="float: right; padding: 3px 0" type="text" @click="handleClick">进入角色</el-button>
+      <el-button style="float: right; padding: 3px 0" type="text" @click="handleClick">进入部门</el-button>
     </div>
     <div>
       <p class="role-info">
