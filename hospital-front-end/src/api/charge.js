@@ -24,5 +24,19 @@ export default {
       method: 'put',
       data: multipleSelection
     })
+  },
+
+  print(invoiceCode) {
+    return request({
+      url: 'payment/invoice/' + invoiceCode,
+      method: 'get'
+    })
+  },
+
+  reprint(invoiceCode) {
+    return request({
+      url: 'payment/reprint/' + invoiceCode,
+      method: 'get'
+    })
   }
 }

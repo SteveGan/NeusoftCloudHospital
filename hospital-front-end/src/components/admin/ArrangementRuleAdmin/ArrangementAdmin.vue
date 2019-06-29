@@ -34,7 +34,7 @@
       <template slot="dateCell" slot-scope="{date, data}">
         <p :class="arrangements[data.day].length>0 ? 'is-selected' : ''">
           {{ data.day.split('-').slice(1).join('-') }} {{ arrangements[data.day].length>0 ? '✔️' : ''}}
-          <el-button v-if="arrangements[data.day].length>0" type="text" icon="el-icon-document-add" @click="seemore(arrangements[data.day])">详情</el-button>
+          <el-button v-if="arrangements[data.day].length>0" type="text" icon="el-icon-document-add" @click="seemore(arrangements[data.day], data.day)">详情</el-button>
         </p>
       </template>
     </el-calendar>
@@ -46,7 +46,7 @@
       <i class="el-icon-paperclip"></i>
       <span style="padding-left: 20px;">详情浏览</span>
     </div>
-    <el-table :data="arrangement" style="width: 100%">
+    <el-table v-loading="loading2" :data="arrangement" style="width: 100%">
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="userName" label="医生姓名"></el-table-column>
       <el-table-column prop="appointmentLeft" label="剩余号量"></el-table-column>
@@ -61,20 +61,31 @@
     </el-table>
   </el-card>
   <el-dialog title="修改午别" :visible.sync="dialogFormVisible">
-  <el-form :model="form">
-    <el-form-item label="活动名称" :label-width="formLabelWidth">
-      <el-input v-model="form.name" autocomplete="off"></el-input>
+  <el-form>
+    <el-form-item label="医生姓名">
+      <el-input :disabled="true" v-model="selectedArrangement.userName" autocomplete="off"></el-input>
     </el-form-item>
-    <el-form-item label="活动区域" :label-width="formLabelWidth">
-      <el-select v-model="form.region" placeholder="请选择活动区域">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
+    <el-form-item label="剩余号量">
+      <el-input :disabled="true" v-model="selectedArrangement.appointmentLeft" autocomplete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="挂号上限">
+      <el-input :disabled="true" v-model="selectedArrangement.maxAppointment" autocomplete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="挂号级别">
+      <el-input :disabled="true" v-model="selectedArrangement.registrationLevel" autocomplete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="午别">
+      <el-select v-model="selectedArrangement.timeSlot" placeholder="请选择活动区域">
+        <el-option label="上午" value="1"></el-option>
+        <el-option label="下午" value="2"></el-option>
+        <el-option label="全天" value="3"></el-option>
+        <el-option label="不排班" value="4"></el-option>
       </el-select>
     </el-form-item>
   </el-form>
   <div slot="footer" class="dialog-footer">
     <el-button @click="dialogFormVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+    <el-button type="primary" @click="submit">确 定 修 改</el-button>
   </div>
 </el-dialog>
 </div>
@@ -101,8 +112,10 @@ export default {
         arrangements: {},
         arrangement: [],
         selectedArrangement: {},
+        currentSee: "",
 
         loading1: false,
+        loading2: false,
         dialogFormVisible: false,
 
         pickerOptions1: { 
@@ -136,13 +149,30 @@ export default {
   },
 
   methods: {
+    submit() {
+      this.loading2 = true;
+      this.dialogFormVisible= false;
+      rule.modifyArrangement(this.selectedArrangement.id, this.selectedArrangement.timeSlot).then(
+        response => {
+          console.log(response.data);
+          const data = response.data.data;
+          this.loading2 = false;
+          successDialog("修改成功");
+          this.search();
+          
+      }, error => {
+          this.loading2 = false;
+          failDialog("[修改失败]" + error.data.data.message + "(" + error.data.data.code + ")");
+      })
+    },  
     edit(val) {
       this.dialogFormVisible= true;
       this.selectedArrangement = val;
       console.log(val)
     },
 
-    seemore(arrangement) {
+    seemore(arrangement, day) {
+      this.currentSee = day;
       this.arrangement = arrangement;
     },
 
@@ -159,6 +189,7 @@ export default {
         const data = response.data.data;
         this.arrangements = data;
         this.loading1 = false;
+        this.seemore(this.arrangements[this.currentSee], this.currentSee);
       })
     }
 

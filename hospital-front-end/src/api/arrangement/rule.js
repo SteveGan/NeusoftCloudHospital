@@ -53,4 +53,13 @@ export default{
     })
   },
 
+  // 修改排班信息
+  modifyArrangement(arrangementId, timeSlot) {
+    return request({
+      url: 'basicinfo/arrangements/modification/' + arrangementId,
+      method: 'PUT',
+      params: {timeSlot}
+    })
+  }
+
 }
