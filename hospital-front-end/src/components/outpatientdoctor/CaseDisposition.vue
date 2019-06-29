@@ -14,6 +14,7 @@
             style="float:right; margin-left: 10px;"
             type="text"
             icon="el-icon-document-add"
+            @click="handleAddTemplate(collection)"
           >存为模版</el-button>
           <el-button
             style="float:right; margin-left: 10px;"
@@ -75,7 +76,11 @@
     </div>
     <!-- 底部模版区 -->
     <div>
-      <disposition-template :type="3" @give-project-template="useProjectTemplate"></disposition-template>
+      <disposition-template
+        :type="3"
+        @give-project-template="useProjectTemplate"
+        ref="dispositionTemplate"
+      ></disposition-template>
     </div>
     <!-- 新增项目dialog -->
     <el-dialog
@@ -112,6 +117,48 @@
         <el-button type="primary" @click="handleConfirmAdd">添加</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="添加组套"
+      :visible.sync="dialogAddTemplate"
+      :before-close="handleClose"
+      width="600px"
+    >
+      <el-card shadow="hover" style="margin-bottom: 10px">
+        <div slot="header" class="clearfix">
+          <span>处置模版内容</span>
+        </div>
+        <div>
+          <el-table style="width: 100%" :data="newTemplate.projects">
+            <el-table-column prop="projectName" label="项目名称"></el-table-column>
+            <el-table-column prop="departmentName" label="部门名称"></el-table-column>
+          </el-table>
+        </div>
+      </el-card>
+      <el-card shadow="hover">
+        <div slot="header">
+          <span>权限设置</span>
+        </div>
+        <el-form :model="newTemplate" label-position="left" label-width="80px">
+          <el-form-item label="组套名称">
+            <el-input v-model="newTemplate.newName"></el-input>
+          </el-form-item>
+          <el-form-item label="使用权限">
+            <el-select v-model="newTemplate.scope" placeholder="请选择模版权限">
+              <el-option
+                v-for="scope in scopes"
+                :key="scope.value"
+                :label="scope.label"
+                :value="scope.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </el-card>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleCancel">取消</el-button>
+        <el-button type="primary" @click="handleConfirmAddTemplate">添加</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -126,6 +173,7 @@ import { projectStatusCodeToString } from "@/utils/interpreter";
 import { PassThrough } from "stream";
 import { successDialog, failDialog } from "@/utils/notification";
 import DispositionTemplate from "@/components/outpatientdoctor/DispositionTemplate";
+import { saveProjectTemplate } from "@/api/projectTemplate";
 
 export default {
   name: "CaseDisposition",
@@ -135,7 +183,23 @@ export default {
       newProject: { items: [] },
       currentCollection: {},
       projects: [],
-      addProjectButtonDisabled: []
+      addProjectButtonDisabled: [],
+      newTemplate: {},
+      dialogAddTemplate: false,
+      scopes: [
+        {
+          value: "1",
+          label: "个人"
+        },
+        {
+          value: "2",
+          label: "部门"
+        },
+        {
+          value: "3",
+          label: "全院"
+        }
+      ]
     };
   },
   props: {
@@ -224,7 +288,7 @@ export default {
       );
     },
     handleCancel() {
-      this.newProject = {};
+      this.newProject = { items: [] };
       this.dialogAddProject = false;
     },
     handleConfirmAdd() {
@@ -312,6 +376,34 @@ export default {
           console.log(error);
         }
       );
+    },
+    handleConfirmAddTemplate() {
+      this.newTemplate.roleId = this.$store.getters["user/currentRoleId"];
+      this.newTemplate.type = 3;
+      this.newTemplate.departmentId = this.$store.getters[
+        "user/currentDepartmentId"
+      ];
+      console.log("新处置模版：");
+      console.log(this.newTemplate);
+      saveProjectTemplate(this.newTemplate).then(
+        response => {
+          successDialog("成功添加模版");
+          this.$refs.dispositionTemplate.listAllTemplates(
+            this.$store.getters["user/currentRoleId"],
+            3
+          );
+        },
+        error => {
+          failDialog("模版添加失败");
+          console.log(error);
+        }
+      );
+      this.dialogAddTemplate = false;
+    },
+    handleAddTemplate(collection) {
+      console.log("开始添加模版");
+      this.newTemplate = Object.assign({}, collection);
+      this.dialogAddTemplate = true;
     }
   },
   mounted: function() {

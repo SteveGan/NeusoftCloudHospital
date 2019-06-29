@@ -110,6 +110,21 @@ export default {
     handleUseTemplate(row) {
       this.currentTemplate = Object.assign({}, row);
       this.$emit("give-project-template", this.currentTemplate);
+    },
+    listAllTemplates(roleId, type) {
+      listProjectTemplate(roleId, type).then(
+        response => {
+          console.log(
+            "[[[[[[[[[[[[[   请求project模版 ]]]]]]]]]]]]]]" + this.typeName
+          );
+          this.personalTemplates = response.data.data.personalTemplates;
+          this.hospitalTemplates = response.data.data.hospitalTemplates;
+          this.departmentTemplates = response.data.data.departmentTemplates;
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   },
   mounted: function() {

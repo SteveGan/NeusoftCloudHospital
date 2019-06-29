@@ -6,6 +6,7 @@
       color="#ffffff"
       @select="handleSelect"
       text-color="white"
+      active-text-color="white"
       background-color="#0178bc"
     >
       <el-menu-item class="justify-start">

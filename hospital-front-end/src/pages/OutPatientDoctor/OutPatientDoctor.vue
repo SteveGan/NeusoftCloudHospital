@@ -246,6 +246,8 @@ export default {
               console.log("选中的处方信息：");
               console.log(caseRecipe);
               if (caseRecipe.type === 1) {
+                console.log("[[[[[[[[[[[[[存在西醫處方]]]]]]]]]]]]]");
+                console.log(caseRecipe);
                 //如果是西医处方
                 this.modernRecipes = Object.assign({}, caseRecipe);
                 if (!this.disableRecipe) {
@@ -257,6 +259,8 @@ export default {
                 }
               } else if (caseRecipe.type === 0) {
                 //如果是中医处方
+                console.log("[[[[[[[[[[[[[存在中醫處方]]]]]]]]]]]]]");
+                console.log(caseRecipe);
                 this.traditionalRecipes = Object.assign({}, caseRecipe);
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = false;
@@ -267,15 +271,18 @@ export default {
                 }
               } else {
                 //不存在处方
+                console.log("[[[[[[[[[[[[[不存在處方]]]]]]]]]]]]]");
+                console.log(caseRecipe);
                 caseRecipe.recipes = [];
                 caseRecipe.type = 1;
                 this.modernRecipes = JSON.parse(JSON.stringify(caseRecipe));
-
+                console.log(caseRecipe);
                 caseRecipe.recipes = [];
                 caseRecipe.type = 0;
                 this.traditionalRecipes = JSON.parse(
                   JSON.stringify(caseRecipe)
                 );
+                console.log(caseRecipe);
                 if (!this.disableRecipe) {
                   this.disableTraRecipe = false;
                   this.disableModRecipe = false;
