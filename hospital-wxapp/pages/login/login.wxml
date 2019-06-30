@@ -11,12 +11,15 @@
           </view>
           <view class="input-group radius-lg {{userid_focus ? 'active' : ''}}">
             <text class="icon-people input-label text-white"></text>
-            <input type="number" cursor-spacing="30" id="userid" placeholder="身份证号" bindinput="useridInput" bindfocus="inputFocus" bindblur="inputBlur" style='color: #ffffff' />
+            <input type="number" cursor-spacing="30" id="userid" placeholder="请输入身份证号" bindinput="useridInput" bindfocus="inputFocus" bindblur="inputBlur" style='color: #ffffff' />
           </view>
         </form>
 
         <view class="confirm-btn radius-lg text-xxl padding-sm margin" bindtap="bind">
           <text class='icon-check'> 确认并继续</text>
+        </view>
+        <view class="confirm-btn radius-lg text-xxl padding-sm margin" bindtap="scan">
+          <text class='icon-scan'> 扫一扫登录</text>
         </view>
       </view>
     </view>
