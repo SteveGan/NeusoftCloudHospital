@@ -6,14 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
-    <!--<packaging>war</packaging>-->
     <groupId>com.neuedu</groupId>
     <artifactId>hospital-back-end</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>hospital-back-end</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Neusoft Cloud Hospital</description>
     <packaging>war</packaging>
     <properties>
         <java.version>1.8</java.version>
@@ -35,7 +34,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- Springboot starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -48,7 +46,7 @@
             </exclusions>
         </dependency>
 
-        <!--   springboot web socket    -->
+        <!-- Springboot WebSocket -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
@@ -71,8 +69,6 @@
             <version>2.3.3</version>
         </dependency>
 
-
-
         <!-- Springboot log4j -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -92,15 +88,7 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <!-- Springboot热部署 -->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-devtools</artifactId>-->
-            <!--<optional>true</optional>-->
-        <!--</dependency>-->
-
-
-        <!-- mysql -->
+        <!-- MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -119,34 +107,35 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.54</version>
         </dependency>
+
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
             <version>2.2</version>
         </dependency>
 
-        <!--JWT(Json Web Token)登录支持-->
+        <!-- JWT(Json Web Token)身份校验 -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.0</version>
         </dependency>
 
-        <!-- Druid 数据库连接池-->
+        <!-- Druid 数据库连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.10</version>
         </dependency>
 
-        <!--MyBatis分页插件-->
+        <!-- MyBatis分页插件 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.10</version>
         </dependency>
 
-        <!--Swagger-UI API文档生产工具-->
+        <!-- Swagger-UI API文档生产工具 -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -206,6 +195,7 @@
             <version>4.5.3</version>
         </dependency>
 
+        <!-- slf4j日志 -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -217,24 +207,25 @@
             <version>1.7.5</version>
         </dependency>
 
-        <!--   redis     -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>2.1.3.RELEASE</version>
-        </dependency>
-
         <!-- FastDFS -->
         <dependency>
             <groupId>net.oschina.zcx7878</groupId>
             <artifactId>fastdfs-client-java</artifactId>
             <version>1.27.0.0</version>
         </dependency>
+
+        <!-- Junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Springboot maven插件 -->
+            <!-- Springboot Maven 插件 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -260,24 +251,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
-<!--            &lt;!&ndash; docker &ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>com.spotify</groupId>-->
-<!--                <artifactId>docker-maven-plugin</artifactId>-->
-<!--                <version>0.4.3</version>-->
-<!--                <configuration>-->
-<!--                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>-->
-<!--                    <dockerDirectory>src/main/docker</dockerDirectory>-->
-<!--                    <resources>-->
-<!--                        <resource>-->
-<!--                            <targetPath>/</targetPath>-->
-<!--                            <directory>${project.build.directory}</directory>-->
-<!--                            <include>${project.build.finalName}.jar</include>-->
-<!--                        </resource>-->
-<!--                    </resources>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
         </plugins>
     </build>
 
