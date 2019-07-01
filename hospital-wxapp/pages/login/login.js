@@ -8,6 +8,20 @@ Page({
     idCard: "",
     angle: 0
   },
+  scan() {
+    var that = this;
+    // 允许从相机扫码
+    wx.scanCode({
+      onlyFromCamera: true,
+      success(res) {
+        console.log(res.result);
+        that.setData({
+          idCard: res.result
+        })
+        that.bind();
+      }
+    })
+  },
   bind: function() {
     var that = this;
     if (!that.data.idCard ) {

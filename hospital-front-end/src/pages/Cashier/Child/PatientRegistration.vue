@@ -206,7 +206,10 @@
       <div id="printContent" class="wrap">
       <div class="con">
         <h3 style="text-align:center;">熙康云医院 · 挂号单</h3>
-        <h6 style="text-align:center;margin-top: -12px;">地址:沈阳市浑南区创新路195号&nbsp;&nbsp;&nbsp;门诊部:024-88886666</h6>
+        <div style="text-align:center;margin-top: -12px;">
+          <h6 >地址:沈阳市浑南区创新路195号&nbsp;&nbsp;&nbsp;门诊部:024-88886666</h6>
+          <qrcode-vue id="mycanvas" class="raven-qrcode" :value="qrValue" :size="size" level="H"></qrcode-vue>
+        </div>
         <hr style="width: 630px;text-align:center;" />
         <h5 style="text-align:left;margin-left: 40px;">
           挂号日期:
@@ -277,15 +280,21 @@
 <script>
 import InvoiceCode from "./InvoiceCode";
 import register from "@/api/register";
+import QrcodeVue from 'qrcode.vue';
 
 export default {
   name: "PatientRegistration",
   components: {
-    "invoice-code": InvoiceCode
+    "invoice-code": InvoiceCode,
+    "qrcode-vue" : QrcodeVue
   },
 
   data() {
     return {
+      // 二维码
+      qrValue: 'https://example.com',
+      size: 60,
+
       registrationForm: {
         registrationId: "0",
         name: "",
@@ -407,7 +416,16 @@ export default {
   methods: {
     // 扫描
     scan() {
-      
+      this.qrValue = this.registrationForm.idCard;
+      this.invoicePrinterVisible = true;
+
+          var canvas = document.getElementById("mycanvas");
+          var context = canvas.getContext("2d");
+          context.fillStyle = "green";
+          context.fillRect(50, 50, 100, 100);
+          // no argument defaults to image/png; image/jpeg, etc also work on some
+          // implementations -- image/png is the only one that must be supported per spec.
+          window.location = canvas.toDataURL("image/png");
     },
 
     // 成功提示
@@ -552,14 +570,16 @@ export default {
 
           if (response.data.code === 200) {
             this.success("挂号");
+            this.qrValue = this.registrationForm.idCard;
             this.invoicePrinterVisible = true;
             this.registrations();
+            this.loading1 = false;
           } else {
             this.fail("挂号");
+            this.loading1 = false;
           }
         });
 
-        this.loading1 = false;
       }
     },
 
@@ -690,6 +710,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.raven-qrcode{
+  position: absolute;
+  right: 220px;
+  top: 120px;
+}
+
 .raven-title{
   font-size: 25px;
 }

@@ -1,6 +1,5 @@
 package com.neuedu.hospitalbackend.service.serviceimplementation.tollstationservice;
 
-import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.*;
 import com.neuedu.hospitalbackend.model.vo.RegistrationParam;
