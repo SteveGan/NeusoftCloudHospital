@@ -54,6 +54,9 @@
         <el-menu-item index="1-2">
           <i class="el-icon-edit">编辑个人信息</i>
         </el-menu-item>
+        <el-menu-item index="1-3">
+          <i class>登出</i>
+        </el-menu-item>
       </el-submenu>
     </el-menu>
     <el-dialog
