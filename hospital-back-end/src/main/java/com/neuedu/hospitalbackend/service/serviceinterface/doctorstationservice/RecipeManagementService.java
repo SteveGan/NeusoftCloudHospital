@@ -38,27 +38,4 @@ public interface RecipeManagementService {
      */
     CommonResult submitRecipes(RecipeCollectionParam recipeCollectionParam);
 
-
-//    CommonResult listPatients(Integer doctorRoleId);
-
-//    /**
-//     * 查询所有药品信息
-//     * @return 所有药品
-//     */
-//    List<Medicine> listAllMedicine();
-//
-//
-//    /**
-//     * Add recipe into a case
-//     * @param obj recipe的信息
-//     */
-//    void insertRecipe(JSONObject obj);
-//
-//    /**
-//     * Update the recipe
-//     * @param obj recipe的信息
-//     */
-//    void updateRecipe(JSONObject obj);
-
-
 }

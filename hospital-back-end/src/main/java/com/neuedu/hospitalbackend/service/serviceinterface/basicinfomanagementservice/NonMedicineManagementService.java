@@ -17,15 +17,15 @@ public interface NonMedicineManagementService {
 
     /**
      * 1.6.2 新增非药品项目
-     * @param disease PO
+     * @param nonMedicine PO
      */
-    CommonResult insertNonMedicine(NonMedicine disease);
+    CommonResult insertNonMedicine(NonMedicine nonMedicine);
 
     /**
      * 1.6.3 修改非药品项目
-     * @param disease PO
+     * @param nonMedicine PO
      */
-    CommonResult updateNonMedicineById(NonMedicine disease);
+    CommonResult updateNonMedicineById(NonMedicine nonMedicine);
 
     /**
      * 1.6.4 删除非药品项目
