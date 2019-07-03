@@ -20,6 +20,8 @@
     "js-cookie": "^2.2.0",
     "moment": "^2.24.0",
     "qiniu-js": "^2.5.4",
+    "qrcode": "^1.3.3",
+    "qrcode.vue": "^1.6.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "socket-client": "^1.0.0",

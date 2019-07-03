@@ -3,7 +3,7 @@
     <el-header class="header-bar">
       <!-- 医院名称 -->
       <div>
-        <img src="@/assets/icons/project_logo_complete.png" class="project-logo">
+        <img src="@/assets/icons/project_logo_complete.png" class="project-logo" />
       </div>
       <!-- 部门名 -->
       <div>
@@ -82,8 +82,8 @@
           id="tts_source_id"
           src="http://tts.baidu.com/text2audio?lan=zh&amp;ie=UTF-8&amp;spd=1&amp;per=0&amp;vol=15&amp;text="
           type="audio/mpeg"
-        >
-        <embed id="tts_embed_id" height="0" width="0" src>
+        />
+        <embed id="tts_embed_id" height="0" width="0" src />
       </audio>
     </div>
   </el-container>
@@ -120,21 +120,7 @@ export default {
       nextPatient: {},
       departments: [],
       doctors: [],
-      allPatients: [],
-      waiting: [
-        {
-          caseId: "A31331",
-          name: "刘雨晴"
-        },
-        {
-          caseId: "A313312",
-          name: "刘嘉瑾"
-        },
-        {
-          caseId: "A31334",
-          name: "束万阳"
-        }
-      ]
+      allPatients: []
     };
   },
   computed: {
@@ -298,12 +284,17 @@ export default {
       listAllPatients(this.curDoctor.roleId).then(
         response => {
           const data = response.data.data;
+          console.log("查询到的患者");
+          console.log(data);
           this.allPatients = data.waitingPatients;
-          this.nextPatient = this.allPatients[0];
+          if (this.allPatients.length !== 0) {
+            this.nextPatient = this.allPatients[0];
+          }
           this.connectionDialogVisible = false;
           this.initWebSocket(this.curDoctor.roleId);
         },
         error => {
+          console.log("失败");
           console.log(error);
         }
       );

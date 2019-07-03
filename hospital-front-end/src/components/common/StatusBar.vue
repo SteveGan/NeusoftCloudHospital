@@ -1,29 +1,70 @@
 <template>
   <div>
-    <el-menu class="el-menu-demo align-end" mode="horizontal" color="#ffffff" @select="handleSelect"
-      text-color="white" background-color="#0178bc">
+    <el-menu
+      class="el-menu-demo align-end"
+      mode="horizontal"
+      color="#ffffff"
+      @select="handleSelect"
+      text-color="white"
+      active-text-color="white"
+      background-color="#0178bc"
+    >
       <el-menu-item class="justify-start">
-        <img src="@/assets/icons/project_logo_complete.png" class="project-logo" @click="handleClickLogo">
+        <img
+          src="@/assets/icons/project_logo_complete.png"
+          class="project-logo"
+          @click="handleClickLogo"
+        >
       </el-menu-item>
 
-      <el-submenu index="2" class="justify-start" text-color="#ffffff">
+      <el-submenu index="2" class="justify-start">
         <template slot="title">{{this.$store.getters['user/currentRoleDescription']}}</template>
-        <el-menu-item v-for="role in this.$store.getters['user/roles']" v-bind:key="role.roleId" :index="JSON.stringify(role)">{{role.departmentName}}: {{role.positionName}}</el-menu-item>
+        <el-menu-item
+          v-for="role in this.$store.getters['user/roles']"
+          v-bind:key="role.roleId"
+          :index="JSON.stringify(role)"
+        >{{role.departmentName}}:{{role.positionName}}</el-menu-item>
       </el-submenu>
-      
+      <el-menu-item>
+        <span>
+          <svg
+            t="1561703401166"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="7969"
+            width="17"
+            height="17"
+          >
+            <path
+              d="M946.5 505L560.1 118.8l-25.9-25.9c-12.3-12.2-32.1-12.2-44.4 0L77.5 505c-12.3 12.3-18.9 28.6-18.8 46 0.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8 12.1-12.1 18.7-28.2 18.7-45.3 0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204z m217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
+              p-id="7970"
+              fill="#ffffff"
+            ></path>
+          </svg>首页
+        </span>
+      </el-menu-item>
       <el-submenu index="1">
         <template slot="title">
-          <!-- 用户头像 -->
+          <!--   用户头像     -->
           <img :src="avatar" class="avatar">
           <span class="user-name">{{this.$store.state.user.name}}</span>
         </template>
         <el-menu-item index="1-2">
-          <i class="el-icon-edit white-icon"> 编辑个人信息</i>
+          <i class="el-icon-edit">编辑个人信息</i>
+        </el-menu-item>
+        <el-menu-item index="1-3">
+          <i class>登出</i>
         </el-menu-item>
       </el-submenu>
     </el-menu>
-
-    <el-dialog title="编辑个人信息" :visible.sync="dialogEditUserInfo" :before-close="handleClose" width="600px">
+    <el-dialog
+      title="编辑个人信息"
+      :visible.sync="dialogEditUserInfo"
+      :before-close="handleClose"
+      width="600px"
+    >
       <el-card shadow="hover" style="margin-bottom: 20px;">
         <div slot="header">
           <span>更改头像</span>
@@ -34,15 +75,24 @@
             <img :src="avatar" class="avatar-huge">
           </div>
           <div>
-            <el-button type="text" plain id="pick-avatar" style="margin-left: 20px; width:100px">修改头像</el-button>
+            <el-button
+              type="text"
+              plain
+              id="pick-avatar"
+              style="margin-left: 20px; width:100px"
+            >修改头像</el-button>
           </div>
         </div>
-        <avatar-cropper trigger="#pick-avatar" @uploaded="handleUploaded" upload-url="/api/upload" upload-form-name="smfile"></avatar-cropper>
+        <avatar-cropper
+          trigger="#pick-avatar"
+          @uploaded="handleUploaded"
+          upload-url="/api/upload"
+          upload-form-name="smfile"
+        ></avatar-cropper>
         <span style="padding-left: 400px">
           <el-button type="primary" plain @click="handleConfirmEditAvatar">确认修改</el-button>
         </span>
       </el-card>
-
       <el-card shadow="hover">
         <div slot="header">
           <span>修改密码</span>
@@ -199,9 +249,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.white-icon {
-  color: #ffffff;
-}
 .project-logo {
   widows: 100px;
   height: 40px;

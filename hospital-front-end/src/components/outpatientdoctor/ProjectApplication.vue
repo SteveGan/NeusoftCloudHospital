@@ -105,6 +105,7 @@
         :type="type"
         :typeName="typeName"
         @give-project-template="useProjectTemplate"
+        ref="projectTemplateComponent"
       ></project-template>
     </div>
     <!-- 新增项目dialog -->
@@ -257,7 +258,7 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="projectName" label="项目名称"></el-table-column>
+            <el-table-column prop="projectName" label="组套名称"></el-table-column>
             <el-table-column prop="departmentName" label="部门名称"></el-table-column>
           </el-table>
         </div>
@@ -572,6 +573,7 @@ export default {
       givenTemplate.caseId = this.caseExaminations.caseId;
       givenTemplate.collectionType = givenTemplate.type;
       givenTemplate.applicantRoleId = this.$store.getters["user/currentRoleId"];
+      givenTemplate.projects.forEach(project => (project.status = 1));
 
       console.log(givenTemplate);
       // 想后端请求新的recipe编号;
@@ -593,7 +595,7 @@ export default {
     },
     handleConfirmAddTemplate() {
       this.newTemplate.roleId = this.$store.getters["user/currentRoleId"];
-      this.newTemplate.type = 3;
+      this.newTemplate.type = this.type;
       this.newTemplate.departmentId = this.$store.getters[
         "user/currentDepartmentId"
       ];
@@ -601,10 +603,14 @@ export default {
       console.log(this.newTemplate);
       saveProjectTemplate(this.newTemplate).then(
         response => {
-          successDialog("成功添加模版");
+          successDialog("成功添加组套");
+          this.$refs.projectTemplateComponent.listAllTemplates(
+            this.$store.getters["user/currentRoleId"],
+            this.type
+          );
         },
         error => {
-          failDialog("模版添加失败");
+          failDialog("组套添加失败");
           console.log(error);
         }
       );

@@ -334,10 +334,12 @@ export default {
           console.log("new Recipe: ");
           console.log(newRecipe);
           console.log(this.caseRecipe);
+          console.log(this.caseRecipe.recipes);
           if (typeof this.caseRecipe.recipes == "undefined") {
             console.log("undefined");
             this.caseRecipe.recipes = [];
           }
+          console.log(this.caseRecipe);
           this.caseRecipe.recipes.push({
             medicines: [],
             recipeId: response.data.data.recipeId
