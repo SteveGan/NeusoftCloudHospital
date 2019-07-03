@@ -37,9 +37,6 @@ public class FileManager implements FileManagerConfig {
         }
     }
 
-    /**
-     * 文件上传
-     */
     public static String upload(FastDFSFile file, NameValuePair[] valuePairs) {
         String[] uploadResults = null;
         try {
@@ -52,8 +49,6 @@ public class FileManager implements FileManagerConfig {
 
         String fileAbsolutePath = PROTOCOL
                 + TRACKER_NGNIX_ADDR
-                //+ trackerServer.getInetSocketAddress().getHostName()
-                //+ SEPARATOR + TRACKER_NGNIX_PORT
                 + SEPARATOR + groupName
                 + SEPARATOR + remoteFileName;
         return fileAbsolutePath;

@@ -36,7 +36,6 @@ import static com.neuedu.hospitalbackend.util.ResultCode.E_601;
 @Service
 public class OauthServiceImpl implements OauthService {
 
-
     @Resource
     private UserMapper userMapper;
     @Resource
@@ -63,6 +62,7 @@ public class OauthServiceImpl implements OauthService {
 
             result.put("web_token", "Bearer:" + token);
             System.out.println();
+
             hospitalLogger.info("登录成功: " + loginParam.getUserId() + " with token: " + token);
             //异步记录登录操作
             loginLog.run(loginParam, request);
@@ -73,6 +73,5 @@ public class OauthServiceImpl implements OauthService {
             return CommonResult.fail(E_601);
         }
     }
-
 
 }

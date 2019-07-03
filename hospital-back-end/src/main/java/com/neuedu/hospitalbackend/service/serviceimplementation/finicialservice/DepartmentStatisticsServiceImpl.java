@@ -66,31 +66,31 @@ public class DepartmentStatisticsServiceImpl implements DepartmentStatisticsServ
         return  CommonResult.success(addInvoicesAndVisits(result, invoices, visits));
     }
 
-    private List<HashMap> convertMap(List<HashMap> statistics){
-        Map<String, HashMap> map = new HashMap<>();
-        List<HashMap> result = new ArrayList<>();
-        for(HashMap s: statistics){
-            String departmentName = s.get("department_name").toString();
-            String type = s.get("type").toString();
-            BigDecimal totalMoney = (BigDecimal) s.get("total_money");
-            if (!map.containsKey(departmentName)) {
-                map.put(departmentName, new HashMap());
-                map.get(departmentName).put("departmentName", departmentName);
-                map.get(departmentName).put(type, totalMoney);
-            } else{
-                map.get(departmentName).put("departmentName", departmentName);
-                map.get(departmentName).put(type, totalMoney);
-            }
+private List<HashMap> convertMap(List<HashMap> statistics){
+    Map<String, HashMap> map = new HashMap<>();
+    List<HashMap> result = new ArrayList<>();
+    for(HashMap s: statistics){
+        String departmentName = s.get("department_name").toString();
+        String type = s.get("type").toString();
+        BigDecimal totalMoney = (BigDecimal) s.get("total_money");
+        if (!map.containsKey(departmentName)) {
+            map.put(departmentName, new HashMap());
+            map.get(departmentName).put("departmentName", departmentName);
+            map.get(departmentName).put(type, totalMoney);
+        } else{
+            map.get(departmentName).put("departmentName", departmentName);
+            map.get(departmentName).put(type, totalMoney);
         }
-        Iterator ite = map.entrySet().iterator();
-        int i = 0;
-        while(ite.hasNext()){
-            Map.Entry string = (Map.Entry)ite.next();
-            result.add(i, (HashMap) string.getValue());
-            i++;
-        }
-        return result;
     }
+    Iterator ite = map.entrySet().iterator();
+    int i = 0;
+    while(ite.hasNext()){
+        Map.Entry string = (Map.Entry)ite.next();
+        result.add(i, (HashMap) string.getValue());
+        i++;
+    }
+    return result;
+}
 
     private List<HashMap> addInvoicesAndVisits(List<HashMap> result, List<HashMap> invoices, List<HashMap> visits){
         for(HashMap r: result){
