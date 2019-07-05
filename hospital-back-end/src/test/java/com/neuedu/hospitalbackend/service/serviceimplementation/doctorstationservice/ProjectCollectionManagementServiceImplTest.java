@@ -69,97 +69,41 @@ public void testSubmitPresentCollection() throws Exception {
 @Test
 public void testChooseByType() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: saveInspection(CollectionParam collectionParam, int operation) 
-* 
-*/ 
+}
 @Test
 public void testSaveInspection() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: saveExamination(CollectionParam collectionParam, int operation) 
-* 
-*/ 
+}
 @Test
 public void testSaveExamination() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: saveTreatment(CollectionParam collectionParam, int operation) 
-* 
-*/ 
+}
 @Test
 public void testSaveTreatment() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: insertInspectionProject(Integer collectionId, Integer projectId, ItemParam itemParam) 
-* 
-*/ 
+}
 @Test
 public void testInsertInspectionProject() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: insertExaminationProject(Integer collectionId, Integer projectId, ItemParam itemParam) 
-* 
-*/ 
+}
 @Test
 public void testInsertExaminationProject() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: insertTransactionLog(CollectionParam collectionParam, ProjectParam projectParam, ItemParam itemParam, Integer creatorRoleId) 
-* 
-*/ 
+}
 @Test
 public void testInsertTransactionLog() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: cancelSubmittedCollection(Integer collectionId, Integer type) 
-* 
-*/ 
+}
 @Test
 public void testCancelSubmittedCollection() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: deleteCollection(Integer collectionId, Integer type) 
-* 
-*/ 
+}
 @Test
 public void testDeleteCollection() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: getProjectResult(ProjectParam projectParam) 
-* 
-*/ 
+}
 @Test
 public void testGetProjectResult() throws Exception { 
 //TODO: Test goes here... 
-} 
-
-
+}
 } 

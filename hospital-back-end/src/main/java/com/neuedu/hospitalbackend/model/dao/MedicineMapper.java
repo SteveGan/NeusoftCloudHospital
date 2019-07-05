@@ -27,11 +27,15 @@ public interface MedicineMapper {
 
     HashMap getMedicineTypeAndUPrice(Integer id);
 
+    HashMap getMedicineTypeAndUPriceByCode(String code);
+
     List<Medicine> listTraditionalMedicine();
 
     List<Medicine> listModernMedicine();
 
     String getCodeById(Integer id);
+
+    Integer getIdByCode(String code);
 
     String getCostTypeById(Integer id);
 

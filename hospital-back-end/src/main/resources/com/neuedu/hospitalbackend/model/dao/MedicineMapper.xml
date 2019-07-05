@@ -50,6 +50,12 @@
         where id = #{id}
     </select>
 
+    <select id="getMedicineTypeAndUPriceByCode" resultType="HashMap">
+        select type, unit_price as unitPrice
+        from medicine
+        where code = #{code}
+    </select>
+
     <select id="listTraditionalMedicine" resultMap="BaseResultMap">
         select *
         from medicine
@@ -68,6 +74,12 @@
         select code
         from medicine
         where id = #{id}
+    </select>
+
+    <select id="getIdByCode" resultType="Integer">
+        select id
+        from medicine
+        where code = #{code}
     </select>
 
     <select id="getCostTypeById" resultType="String">

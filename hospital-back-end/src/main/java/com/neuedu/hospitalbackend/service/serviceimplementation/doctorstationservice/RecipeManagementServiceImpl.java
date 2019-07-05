@@ -186,9 +186,13 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             //创建对象
             Recipe recipe = new Recipe();
             Integer medicineId = recipeParam.getMedicineId();
-            recipe.setId(recipeId);
+            String code = recipeParam.getMedicineCode();
+            if (medicineId == null)
+                medicineId = medicineMapper.getIdByCode(code);
+
             recipe.setMedicineId(recipeParam.getMedicineId());
             recipe.setCaseId(caseId);
+            recipe.setId(recipeId);
             recipe.setAmount(recipeParam.getAmount());
             recipe.setRemainAmount(recipeParam.getAmount());
             recipe.setMedicineSpecification(recipeParam.getMedicineSpecification());
@@ -201,7 +205,8 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             recipe.setMedicineType(recipeParam.getMedicineType());
             recipe.setDepartmentId(medicineMapper.getDepartmentIdByMedicineId(medicineId));
             //另行查找并赋值medicineUnitPrice
-            HashMap hashMap = medicineMapper.getMedicineTypeAndUPrice(recipeParam.getMedicineId());
+            HashMap hashMap;
+            hashMap = medicineMapper.getMedicineTypeAndUPrice(medicineId);
             recipe.setMedicineUnitPrice((BigDecimal) hashMap.get("unitPrice"));
             recipeParam.setMedicineUnitPrice((BigDecimal) hashMap.get("unitPrice"));
             //插入数据库
