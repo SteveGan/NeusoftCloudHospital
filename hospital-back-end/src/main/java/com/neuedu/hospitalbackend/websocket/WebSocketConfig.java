@@ -20,7 +20,7 @@ public class WebSocketConfig  implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry config) {
 
         //name of the broker
-        //enable a simple memory-based message broker to carry the greeting
+        //enable a simple memory-based message broker to carry the greeting,
         // messages back to the client on destinations prefixed with "/topic".
         config.enableSimpleBroker("/topic","/queue");
 

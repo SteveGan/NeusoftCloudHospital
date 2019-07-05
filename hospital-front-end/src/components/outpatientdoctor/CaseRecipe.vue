@@ -439,6 +439,7 @@ export default {
       createRecipeTemplate(this.newTemplate).then(
         response => {
           console.log(response);
+          successDialog("保存模版成功");
         },
         error => {
           console.log(error);
