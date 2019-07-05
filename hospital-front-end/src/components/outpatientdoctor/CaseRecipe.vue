@@ -18,33 +18,33 @@
             type="text"
             icon="el-icon-s-check"
             @click="handleSubmitRecipe(recipe, index)"
-            :disabled="isEditable[index]"
+            :disabled="!isEditable[index]"
           >开立</el-button>
           <el-button
             style="float:right; margin-left: 10px;"
             type="text"
-            :disabled="!isEditable[index]"
+            :disabled="isEditable[index]"
           >作废</el-button>
           <el-button
             style="float:right; margin-left: 10px;"
             type="text"
             icon="el-icon-folder-checked"
             @click="handleSaveRecipe(recipe)"
-            :disabled="isEditable[index]"
+            :disabled="!isEditable[index]"
           >暂存</el-button>
           <el-button
             style="float:right; margin-left: 10px;"
             type="text"
             icon="el-icon-refresh-right"
             @click="handleClear(recipe)"
-            :disabled="isEditable[index]"
+            :disabled="!isEditable[index]"
           >清空</el-button>
           <el-button
             style="margin-left: 10px"
             type="text"
             icon="el-icon-circle-plus"
             @click="handleAddMedicineDialog(recipe)"
-            :disabled="isEditable[index]"
+            :disabled="!isEditable[index]"
           >新增药品</el-button>
         </div>
         <!-- 项目列表 -->
@@ -251,8 +251,10 @@ export default {
       for (i = 0; i < length; i++) {
         if (
           recipes[i].medicines.length !== 0 &&
-          recipes[i].medicines[0].status !== 1
+          recipes[i].medicines[0].status === 1
         ) {
+          isEditable.push(true);
+        } else if (recipes[i].medicines.length === 0) {
           isEditable.push(true);
         } else {
           isEditable.push(false);
@@ -400,6 +402,10 @@ export default {
     },
     useRecipeTemplate(givenTemplate) {
       console.log("使用了模版");
+      console.log("medicinied的status");
+      givenTemplate.medicines.forEach(function(medicine, index) {
+        medicine.status = 1;
+      });
       // 向后端请求新的recipe编号
       getNewRecipeCode().then(
         response => {
