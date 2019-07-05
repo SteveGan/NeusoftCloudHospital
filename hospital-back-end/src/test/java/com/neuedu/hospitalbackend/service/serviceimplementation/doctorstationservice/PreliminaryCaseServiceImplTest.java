@@ -38,7 +38,7 @@ public void testListPatients() throws Exception {
 */ 
 @Test
 public void testGetPatientCaseInfo() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
 } 
 
 /** 
@@ -58,64 +58,64 @@ public void testFinalDiagnose() throws Exception {
 */ 
 @Test
 public void testSavePresentPatientCase() throws Exception { 
-//TODO: Test goes here... 
-} 
+//TODO: Test goes here...
+}
 
-/** 
-* 
-* Method: submitPresentPatientCase(PatientCaseParam patientCaseParam) 
-* 
-*/ 
+/**
+*
+* Method: submitPresentPatientCase(PatientCaseParam patientCaseParam)
+*
+*/
 @Test
 public void testSubmitPresentPatientCase() throws Exception { 
 //TODO: Test goes here... 
-} 
+}
 
-/** 
-* 
-* Method: savePatientCase(PatientCaseParam patientCaseParam, int status, Boolean isFirstDiagnosed) 
-* 
-*/ 
+/**
+*
+* Method: savePatientCase(PatientCaseParam patientCaseParam, int status, Boolean isFirstDiagnosed)
+*
+*/
 @Test
 public void testSavePatientCase() throws Exception { 
 //TODO: Test goes here... 
-} 
+}
 
-/** 
-* 
-* Method: clearPatientCase(Integer caseId) 
-* 
-*/ 
+/**
+*
+* Method: clearPatientCase(Integer caseId)
+*
+*/
 @Test
 public void testClearPatientCase() throws Exception { 
 //TODO: Test goes here... 
-} 
+}
 
-/** 
-* 
-* Method: listFinalDiagnose(Integer caseId) 
-* 
-*/ 
+/**
+*
+* Method: listFinalDiagnose(Integer caseId)
+*
+*/
 @Test
 public void testListFinalDiagnose() throws Exception { 
 //TODO: Test goes here... 
-} 
+}
 
-/** 
-* 
-* Method: finishDiagnose(Integer caseId) 
-* 
-*/ 
+/**
+*
+* Method: finishDiagnose(Integer caseId)
+*
+*/
 @Test
 public void testFinishDiagnose() throws Exception { 
 //TODO: Test goes here... 
-} 
+}
 
-/** 
-* 
-* Method: getAgeByBirth(Date birthDay) 
-* 
-*/ 
+/**
+*
+* Method: getAgeByBirth(Date birthDay)
+*
+*/
 @Test
 public void testGetAgeByBirth() throws Exception { 
 //TODO: Test goes here... 

@@ -31,6 +31,74 @@
     values (#{code}, #{name}, #{specification}, #{unit}, #{factory}, #{formulation}, #{type}, #{unitPrice}, #{pinyinCode})
   </insert>
 
+    <insert id="insertSelective" parameterType="com.neuedu.hospitalbackend.model.po.Medicine" >
+        insert into medicine
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="code != null" >
+                code,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="specification != null" >
+                specification,
+            </if>
+            <if test="unit != null" >
+                unit,
+            </if>
+            <if test="factory != null" >
+                factory,
+            </if>
+            <if test="formulation != null" >
+                formulation,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="unitPrize != null" >
+                unit_prize,
+            </if>
+            <if test="pinyinCode != null" >
+                pinyin_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=SMALLINT},
+            </if>
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="specification != null" >
+                #{specification,jdbcType=VARCHAR},
+            </if>
+            <if test="unit != null" >
+                #{unit,jdbcType=VARCHAR},
+            </if>
+            <if test="factory != null" >
+                #{factory,jdbcType=VARCHAR},
+            </if>
+            <if test="formulation != null" >
+                #{formulation,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="unitPrize != null" >
+                #{unitPrize,jdbcType=DECIMAL},
+            </if>
+            <if test="pinyinCode != null" >
+                #{pinyinCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
     <update id="update" parameterType="com.neuedu.hospitalbackend.model.po.Medicine">
         update medicine set code = #{code}, name = #{name}, specification = #{specification}, unit = #{unit},
          factory = #{factory}, formulation = #{formulation}, type = #{type}, unit_price = #{unitPrice}, pinyin_code = #{pinyinCode} where id = #{id}
@@ -48,6 +116,12 @@
         select type, unit_price as unitPrice
         from medicine
         where id = #{id}
+    </select>
+
+    <select id="getMedicineTypeAndUPriceByCode" resultType="HashMap">
+        select type, unit_price as unitPrice
+        from medicine
+        where code = #{code}
     </select>
 
     <select id="listTraditionalMedicine" resultMap="BaseResultMap">
@@ -68,6 +142,12 @@
         select code
         from medicine
         where id = #{id}
+    </select>
+
+    <select id="getIdByCode" resultType="Integer">
+        select id
+        from medicine
+        where code = #{code}
     </select>
 
     <select id="getCostTypeById" resultType="String">
