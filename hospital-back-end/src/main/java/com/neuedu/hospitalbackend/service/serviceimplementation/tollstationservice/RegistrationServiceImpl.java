@@ -87,6 +87,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     public CommonResult makeRegistration(RegistrationParam registrationParam){
+
+
+
         String invoiceCode = registrationParam.getInvoiceCode();
         Integer registrationId = registrationParam.getRegistrationId();
         Integer cashierId = registrationParam.getCashierId();

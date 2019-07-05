@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.hospitalbackend.model.dao.*;
 import com.neuedu.hospitalbackend.model.po.Arrangement;
 import com.neuedu.hospitalbackend.model.po.ArrangementRule;
-import com.neuedu.hospitalbackend.model.po.Constant;
 import com.neuedu.hospitalbackend.model.vo.ArrangementConflictParam;
 import com.neuedu.hospitalbackend.model.vo.ArrangementParam;
 import com.neuedu.hospitalbackend.model.vo.ArrangementRuleParam;
@@ -13,12 +12,10 @@ import com.neuedu.hospitalbackend.service.serviceinterface.basicinfomanagementse
 import com.neuedu.hospitalbackend.util.CommonResult;
 import com.neuedu.hospitalbackend.util.ConstantMap;
 import com.neuedu.hospitalbackend.util.ResultCode;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.Date;
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -288,6 +285,7 @@ public class ArrangementManagementServiceImpl implements ArrangementManagementSe
             //从排班规则表获取信息
             String roleName = roleMapper.getUserNameByRoleId(roleId);
             Integer registrationLevelIdInt = (Integer)arrangementRule.get("registrationLevelId");
+            //todo
             Integer maxAppointmentInt = (Integer)arrangementRule.get("maxAppointment");
             Byte registrationLevelId = registrationLevelIdInt.byteValue();
             Byte maxAppointment = maxAppointmentInt.byteValue();

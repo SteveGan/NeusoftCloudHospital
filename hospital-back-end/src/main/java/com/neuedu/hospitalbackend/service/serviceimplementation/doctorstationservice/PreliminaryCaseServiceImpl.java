@@ -198,32 +198,27 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
         String assistDiagnose = patientCaseParam.getAssistDiagnose();
         Integer diagnoseType = patientCaseParam.getDiagnoseType();
         List<DiagnoseParam> diagnoses;
-
         //参数检查
-        if(caseId == null)
-            return CommonResult.fail(ResultCode.E_801);//病历号参数异常
+        if(caseId == null) {
+            return CommonResult.fail(ResultCode.E_801);
+        }
         //状态检查
         int curStatus = patientCaseMapper.getPatientCaseStatus(caseId);
-//        if (1 != curStatus && 2 != curStatus)//待诊或暂存状态
-//            return CommonResult.fail(ResultCode.E_804);//操作权限异常
-
-        //暂存或提交
-        //病历
+        //暂存或提交病历, 暂存状态status：2     已诊状态status：3
         int count = patientCaseMapper.updatePatientCase(caseId, narrate, curDisease, curTreatCondition, pastDisease,
-                allergy, physicalCondition, assistDiagnose, status);// 暂存状态status：2     已诊状态status：3
-        if(count <= 0)
+                allergy, physicalCondition, assistDiagnose, status);
+        if(count <= 0) {
             return CommonResult.fail(ResultCode.E_802);//保存失败
-
+        }
         //诊断
         List<String> existedDiseaseIcdCodes = diagnoseMapper.listDiseaseIcdCodesByCaseId(caseId); //所有数据库暂存诊断
         if(diagnoseType == 0) {
             diagnoses = patientCaseParam.getTraditionalDiagnose();
-        }
-        else if(diagnoseType == 1) {
+        } else if(diagnoseType == 1) {
             diagnoses = patientCaseParam.getModernDiagnose();
-        }
-        else
+        } else {
             return CommonResult.fail(ResultCode.E_801);
+        }
         for(DiagnoseParam diagnoseParam: diagnoses) {
             //若数据库已存该诊断，且再次要求暂存/提交，则更新该诊断
             if (existedDiseaseIcdCodes.contains(diagnoseParam.getIcdCode())) {
@@ -251,7 +246,6 @@ public class PreliminaryCaseServiceImpl implements PreliminaryCaseService {
                 count = diagnoseMapper.deleteByCaseIdAndDiseaseIcdCode(caseId, leftDiseaseIcdCode);
             }
         }
-
         return CommonResult.success(count);
     }
 
