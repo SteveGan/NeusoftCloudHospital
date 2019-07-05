@@ -33,6 +33,9 @@
           <div>
             <el-button type="primary"  @click="addNonmedicineProjectDialogVisible = true">新增非药品收费项目</el-button>
           </div>
+          <div>
+            <el-button type="primary"  @click="export2Excel">导出</el-button>
+          </div>
         </div>
         </div>
         <!-- 列表，展示所有非药品收费项目或搜索到的非药品收费项目，后面带有修改/删除按钮-->
@@ -128,6 +131,20 @@ export default {
   },
 
   methods: {
+    export2Excel() {
+　　　　require.ensure([], () => {
+　　　　　　　　const { export_json_to_excel } = require('../../../vendor/Export2Excel');
+　　　　　　　　const tHeader = ['非药品收费项目ID', '非药品收费项目编码', '非药品收费项目名称', '规格', '单价', '费用分类']; //对应表格输出的title
+　　　　　　　　const filterVal = ['id', 'code', 'name', 'specification', 'unitPrice', 'costType']; // 对应表格输出的数据
+　　　　　　　　const list = this.nonmedicine;
+　　　　　　　　const data = this.formatJson(filterVal, list);
+　　　　　　　　export_json_to_excel(tHeader, data, '非药品收费项目'); //对应下载文件的名字
+　　　　})
+　　},
+
+　　formatJson(filterVal, jsonData) {
+　　　return jsonData.map(v => filterVal.map(j => v[j]))
+　　 },    
       // 搜索
       search() {
         nonmedicineproject.getNonmedicineProjectById(this.input).then(response => {

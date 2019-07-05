@@ -6,7 +6,7 @@
     </div>
 
     <!-- 统计数据部分 -->
-    <div>
+    <!-- <div>
       <el-card shadow="hover" class="main-card">
         <div class="role-area">
           <div>
@@ -35,7 +35,7 @@
           
         </div>
       </el-card>
-    </div>
+    </div> -->
   </div>
 </template>
 

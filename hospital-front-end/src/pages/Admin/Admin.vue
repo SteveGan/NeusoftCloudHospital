@@ -6,10 +6,6 @@
         default-active="1"
         class="el-menu-vertical-demo"
         :router="activeRouter">
-        <el-menu-item index="/home/admin/user">
-          <i class="el-icon-s-custom"></i>
-          <span slot="title">用户管理</span>
-        </el-menu-item>
         <el-menu-item index="/home/admin/department">
           <i class="el-icon-s-home"></i>
           <span slot="title">科室管理</span>
@@ -18,10 +14,10 @@
           <i class="el-icon-s-operation"></i>
           <span slot="title">挂号级别管理</span>
         </el-menu-item>
-        <el-menu-item index="/home/admin/paytype">
+        <!-- <el-menu-item index="/home/admin/paytype">
           <i class="el-icon-s-check"></i>
           <span slot="title">结算类别管理</span>
-        </el-menu-item>
+        </el-menu-item> -->
         <el-menu-item index="/home/admin/disease">
           <i class="el-icon-s-order"></i>
           <span slot="title">诊断目录管理</span>
@@ -29,6 +25,10 @@
         <el-menu-item index="/home/admin/nonmedicineproject">
           <i class="el-icon-first-aid-kit"></i>
           <span slot="title">非药品收费项目管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/admin/user">
+          <i class="el-icon-s-custom"></i>
+          <span slot="title">用户管理</span>
         </el-menu-item>
         <el-submenu index="7">
           <template slot="title">

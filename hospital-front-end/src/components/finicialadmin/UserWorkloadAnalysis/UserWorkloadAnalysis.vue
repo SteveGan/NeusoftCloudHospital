@@ -110,6 +110,7 @@
         <span>工作量详情</span>
       </div> 
       <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
+      <div id="main" style="width: 600px; height:400px;"></div>
     </el-card>
 
   </div>
@@ -201,6 +202,26 @@ export default {
               }
           }
       ]
+      });
+
+      // 基于准备好的dom，初始化echarts实例
+      var myChart2 = echarts.init(document.getElementById('main'));
+      // 指定图表的配置项和数据
+      myChart2.setOption({
+            title: {
+                text: '费用统计'
+            },
+            xAxis: {
+                data: ["挂号费","检验费","检验材料费","超声检查费","超声材料费","放射检查费","放射材料费",
+                "西药费","中成药费","中草药费","处置费","处置材料费","检查费"]
+            },
+            yAxis: {},
+            series: [{
+              name: '费用占比',
+              type: 'bar',
+              data:[val.挂号费, val.检验费, val.检验材料费, val.超声检查费, val.超声材料费, val.放射检查费, val.放射材料费,
+              val.西药费, val.中成药费, val.中草药费, val.处置费, val.处置材料费, val.检查费],
+            }]
       });
     }
   },

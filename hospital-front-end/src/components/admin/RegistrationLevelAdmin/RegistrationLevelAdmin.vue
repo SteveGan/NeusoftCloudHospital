@@ -33,6 +33,9 @@
           <div>
             <el-button type="primary"  @click="addRegistrationLevelDialogVisible = true">新增挂号级别</el-button>
           </div>
+          <div>
+            <el-button type="primary"  @click="export2Excel">导出</el-button>
+          </div>
         </div>
         </div>
         <!-- 列表，展示所有挂号级别或搜索到的挂号级别，后面带有修改/删除按钮-->
@@ -127,6 +130,20 @@ export default {
   },
 
   methods: {
+      export2Excel() {
+　　　　require.ensure([], () => {
+　　　　　　　　const { export_json_to_excel } = require('../../../vendor/Export2Excel');
+　　　　　　　　const tHeader = ['挂号级别ID', '挂号级别编码', '挂号级别名称', '挂号费', '挂号限额']; //对应表格输出的title
+　　　　　　　　const filterVal = ['id', 'code', 'name', 'cost', 'quota']; // 对应表格输出的数据
+　　　　　　　　const list = this.registrationlevels;
+　　　　　　　　const data = this.formatJson(filterVal, list);
+　　　　　　　　export_json_to_excel(tHeader, data, '挂号级别'); //对应下载文件的名字
+　　　　})
+　　},
+
+　　formatJson(filterVal, jsonData) {
+　　　return jsonData.map(v => filterVal.map(j => v[j]))
+　　 },  
       // 搜索
       search() {
         registrationlevel.getRegistrationLevelById(this.input).then(response => {

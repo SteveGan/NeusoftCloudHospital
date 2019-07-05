@@ -33,6 +33,9 @@
           <div>
             <el-button type="primary"  @click="addPaytypeDialogVisible = true">新增结算类别</el-button>
           </div>
+          <div>
+            <el-button type="primary"  @click="export2Excel">导出</el-button>
+          </div>
         </div>
         </div>
         <!-- 列表，展示所有结算类别或搜索到的结算类别，后面带有修改/删除按钮-->
@@ -126,6 +129,20 @@ export default {
   },
 
   methods: {
+    export2Excel() {
+　　　　require.ensure([], () => {
+　　　　　　　　const { export_json_to_excel } = require('../../../vendor/Export2Excel');
+　　　　　　　　const tHeader = ['结算类别ID', '结算类别编码', '结算类别名称', '科室分类(小类)', '科室类别(大类)']; //对应表格输出的title
+　　　　　　　　const filterVal = ['id', 'code', 'name', 'classification', 'type']; // 对应表格输出的数据
+　　　　　　　　const list = this.paytypes;
+　　　　　　　　const data = this.formatJson(filterVal, list);
+　　　　　　　　export_json_to_excel(tHeader, data, '结算类别'); //对应下载文件的名字
+　　　　})
+　　},
+
+　　formatJson(filterVal, jsonData) {
+　　　return jsonData.map(v => filterVal.map(j => v[j]))
+　　 },    
       // 搜索
       search() {
         paytype.getPaytypeById(this.input).then(response => {

@@ -33,6 +33,9 @@
           <div>
             <el-button type="primary"  @click="addDiseaseDialogVisible = true">新增诊断目录</el-button>
           </div>
+          <div>
+            <el-button type="primary"  @click="export2Excel">导出</el-button>
+          </div>
         </div>
         </div>
         <!-- 列表，展示所有诊断目录或搜索到的诊断目录，后面带有修改/删除按钮-->
@@ -126,6 +129,20 @@ export default {
   },
 
   methods: {
+    export2Excel() {
+　　　　require.ensure([], () => {
+　　　　　　　　const { export_json_to_excel } = require('../../../vendor/Export2Excel');
+　　　　　　　　const tHeader = ['诊断目录ID', '诊断目录编码', '诊断目录名称', 'ICD编码', '分类']; //对应表格输出的title
+　　　　　　　　const filterVal = ['id', 'code', 'name', 'icdCode', 'type']; // 对应表格输出的数据
+　　　　　　　　const list = this.diseases;
+　　　　　　　　const data = this.formatJson(filterVal, list);
+　　　　　　　　export_json_to_excel(tHeader, data, '诊断目录'); //对应下载文件的名字
+　　　　})
+　　},
+
+　　formatJson(filterVal, jsonData) {
+　　　return jsonData.map(v => filterVal.map(j => v[j]))
+　　 },    
       // 搜索
       search() {
         disease.getDiseaseById(this.input).then(response => {
