@@ -1,11 +1,19 @@
 import request from '@/utils/request'
 
 export default {
-    // 1.4.1 根据id获取挂号级别信息
-    getRegistrationLevelById(id) {
+    // 
+    getPaytypeById(id) {
       return request({
-        url: '/basicinfo/registration-level/' + id,
+        url: '/basicinfo/paytype/' + id,
         method: 'GET'
       })
     },
+
+    // 
+    listAllPaytypes() {
+      return request({
+        url: '/basicinfo/paytypes',
+        method: 'GET'
+      })
+    }
 }

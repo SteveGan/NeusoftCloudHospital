@@ -34,6 +34,9 @@
           <div>
             <el-button type="primary"  @click="addDepartmentDialogVisible = true">新增科室</el-button>
           </div>
+          <div>
+            <el-button type="primary"  @click="export2Excel">导出</el-button>
+          </div>
         </div>
         </div>
         <!-- 列表，展示所有科室或搜索到的科室，后面带有修改/删除按钮-->
@@ -129,78 +132,93 @@ export default {
   },
 
   methods: {
-      // 搜索
-      search() {
-        department.getDepartmentById(this.input).then(response => {
-          console.log(response.data.data)
-          const data = response.data.data;
-          this.showedDepartments=[];
-          this.showedDepartments.push(data);
+    export2Excel() {
+　　　　require.ensure([], () => {
+　　　　　　　　const { export_json_to_excel } = require('../../../vendor/Export2Excel');
+　　　　　　　　const tHeader = ['科室ID', '科室编码', '科室名称', '科室分类(小类)', '科室类别(大类)']; //对应表格输出的title
+　　　　　　　　const filterVal = ['id', 'code', 'name', 'classification', 'type']; // 对应表格输出的数据
+　　　　　　　　const list = this.departments;
+　　　　　　　　const data = this.formatJson(filterVal, list);
+　　　　　　　　export_json_to_excel(tHeader, data, '科室'); //对应下载文件的名字
+　　　　})
+　　},
 
-        }).catch(error => {
-        
-        })
-      },
-      // 新增/修改 科室信息
-      handleEdit(index, row) {
-        this.currentDepartment = row
-        this.editDepartmentDialogVisible = true
-        console.log(this.currentDepartment)
-      },
+　　formatJson(filterVal, jsonData) {
+　　　return jsonData.map(v => filterVal.map(j => v[j]))
+　　 },
 
-      handleDelete(index, row) {
-        department.deleteDepartment(row.id).then(response => {
-          console.log(response.data)
-          const data = response.data.data;
+    // 搜索
+    search() {
+      department.getDepartmentById(this.input).then(response => {
+        console.log(response.data.data)
+        const data = response.data.data;
+        this.showedDepartments=[];
+        this.showedDepartments.push(data);
 
-          if(response.data.code===200){
-            this.success("科室删除");
-          } else {
-            this.fail("科室删除");
-          }
-          this.refresh();
-        }).catch(error => {
-        
-        })
-      },
-
-      // 成功提示
-      success(msg) {
-        this.$message({
-          message: msg+'成功',
-          type: 'success'
-        });
-      },
+      }).catch(error => {
       
-      // 失败提示
-      fail(msg) {
-        this.$message.error(msg+'失败');
-      },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-        this.currentSize=val;
-        this.setShowedDepartments();
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-        this.currentPage=val;
-        this.setShowedDepartments();
-      },
-      refresh() {
-        department.listAllDepartments().then(response => {
-          console.log(response.data)
-          const data = response.data.data
-          this.departments = data;
-          this.setShowedDepartments();
-        }).catch(error => {
-          
-        })
-      },
+      })
+    },
+    // 新增/修改 科室信息
+    handleEdit(index, row) {
+      this.currentDepartment = row
+      this.editDepartmentDialogVisible = true
+      console.log(this.currentDepartment)
+    },
 
-      setShowedDepartments() {
-        console.log(this.currentPage);
-        this.showedDepartments = this.departments.slice((this.currentPage-1)*this.currentSize, (this.currentPage-1)*this.currentSize+this.currentSize);
-      }
+    handleDelete(index, row) {
+      department.deleteDepartment(row.id).then(response => {
+        console.log(response.data)
+        const data = response.data.data;
+
+        if(response.data.code===200){
+          this.success("科室删除");
+        } else {
+          this.fail("科室删除");
+        }
+        this.refresh();
+      }).catch(error => {
+      
+      })
+    },
+
+    // 成功提示
+    success(msg) {
+      this.$message({
+        message: msg+'成功',
+        type: 'success'
+      });
+    },
+    
+    // 失败提示
+    fail(msg) {
+      this.$message.error(msg+'失败');
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.currentSize=val;
+      this.setShowedDepartments();
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage=val;
+      this.setShowedDepartments();
+    },
+    refresh() {
+      department.listAllDepartments().then(response => {
+        console.log(response.data)
+        const data = response.data.data
+        this.departments = data;
+        this.setShowedDepartments();
+      }).catch(error => {
+        
+      })
+    },
+
+    setShowedDepartments() {
+      console.log(this.currentPage);
+      this.showedDepartments = this.departments.slice((this.currentPage-1)*this.currentSize, (this.currentPage-1)*this.currentSize+this.currentSize);
+    }
   },
 
   mounted() {

@@ -11,7 +11,7 @@ import org.junit.After;
 * @since <pre>Jul 1, 2019</pre> 
 * @version 1.0 
 */ 
-public class RegistrationServiceImplTest { 
+public class RegistrationCheckerServiceImplTest {
 
 @Before
 public void before() throws Exception { 
