@@ -189,8 +189,8 @@ public class RecipeManagementServiceImpl implements RecipeManagementService {
             String code = recipeParam.getMedicineCode();
             if (medicineId == null)
                 medicineId = medicineMapper.getIdByCode(code);
-
-            recipe.setMedicineId(recipeParam.getMedicineId());
+            recipeParam.setMedicineId(medicineId);
+            recipe.setMedicineId(medicineId);
             recipe.setCaseId(caseId);
             recipe.setId(recipeId);
             recipe.setAmount(recipeParam.getAmount());
