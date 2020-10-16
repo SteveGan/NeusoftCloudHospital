@@ -9,10 +9,10 @@
 ## 项目介绍
 
 ### 项目组成
-- [熙康云医院官网](http://www.stevegan.com:1923/)
-- [云医院医生端H5](http://localhost:8080/#/login)
+- 熙康云医院官网
+- 云医院医生端H5
 - [云医院患者小程序](http://ww3.sinaimg.cn/large/006tNc79ly1g3y5wss61aj30nw0nwjww.jpg)
-- 云医院候诊大屏 Ing...
+- 云医院候诊大屏
 
 
 ### 技术选型
@@ -57,7 +57,3 @@ vue-print-nb | Chrome打印调用Vue组件
 - 对axios封装统一处理请求
 - 组件化
 - 语音播报患者
-
-##### 云医院患者小程序
-
-## 环境搭建
