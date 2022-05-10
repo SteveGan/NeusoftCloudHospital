@@ -1,3 +1,6 @@
+**/.DS_Store
+**/.idea
+
 HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
