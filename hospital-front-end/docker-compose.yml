@@ -1,0 +1,10 @@
+version: '3'
+services:
+  nginx-vue:
+    platform: linux/amd64
+    container_name: hospital-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
